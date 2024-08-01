@@ -87,19 +87,82 @@ void Motor_Task_Flow(ST_MOTOR_TASK* pMotor)
             { 
                 switch(pMotor->speed_mode)
                 {
-                case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
                     {
-#if(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_HALL)
                         pMotor->tc_ctrl.Speed = pMotor->hall_ctrl.ElecFreqHz_Filter;
                         Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
                         pMotor->foc_ctrl.IdRef = 0.0f;
                         pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.CurrentRamp.Output;
                         Motor_SpeedSwitchToHigh(pMotor);
-#elif(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_RPS)
-                        
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
+                    {
+                        pMotor->tc_ctrl.Speed = pMotor->hall_ctrl.ElecFreqHz_Filter;
+                        Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
+                        pMotor->foc_ctrl.IdRef = 0.0f;
+                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.CurrentRamp.Output;
+                        Motor_SpeedSwitchToHigh(pMotor);
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+                    {
+                        pMotor->tc_ctrl.Speed = pMotor->hall_ctrl.ElecFreqHz_Filter;
+                        Tc_Cal(&pMotor->tc_ctrl);
+#if(USER_MOTOR_MTPA_EN == 1U)
+                        MTPA_Control(&pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
 #else
-    #if(USER_MOTOR_START_MODE == USER_MOTOR_START_IF)
+                        pMotor->mtpa_ctrl.IdRef = 0.0f;
+                        pMotor->mtpa_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
+
+#endif
+#if(USER_MOTOR_FLUX_EN == 1U)
+                        WEAK_Control(&pMotor->weak_ctrl, &pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
+#else
+                        pMotor->weak_ctrl.IdRef = pMotor->mtpa_ctrl.IdRef;
+                        pMotor->weak_ctrl.IqRef = pMotor->mtpa_ctrl.IqRef;
+#endif
+                        pMotor->foc_ctrl.IdRef = pMotor->weak_ctrl.IdRef;
+                        pMotor->foc_ctrl.IqRef = pMotor->weak_ctrl.IqRef;
+                        Motor_SpeedSwitchToLow(pMotor);
+                    }break;
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
+                        
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_FLUX)
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+                    {
                         pMotor->tc_ctrl.Speed = pMotor->flux_ctrl.ElecFreqHz_Filter;
+                        Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
+                        pMotor->foc_ctrl.IdRef = 0.0f;
+                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.CurrentRamp.Output;
+                        Motor_SpeedSwitchToHigh(pMotor);
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
+                    {
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+                    {
+                        pMotor->tc_ctrl.Speed = pMotor->flux_ctrl.ElecFreqHz_Filter;
+                        Tc_Cal(&pMotor->tc_ctrl);
+#if(USER_MOTOR_MTPA_EN == 1U)
+                        MTPA_Control(&pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
+#els
+                        pMotor->mtpa_ctrl.IdRef = 0.0f;
+                        pMotor->mtpa_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
+
+#endif
+#if(USER_MOTOR_FLUX_EN == 1U)
+                        WEAK_Control(&pMotor->weak_ctrl, &pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
+#else
+                        pMotor->weak_ctrl.IdRef = pMotor->mtpa_ctrl.IdRef;
+                        pMotor->weak_ctrl.IqRef = pMotor->mtpa_ctrl.IqRef;
+#endif
+                        pMotor->foc_ctrl.IdRef = pMotor->weak_ctrl.IdRef;
+                        pMotor->foc_ctrl.IqRef = pMotor->weak_ctrl.IqRef;
+                    }break;
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_SMO)
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+                    {
+                        pMotor->tc_ctrl.Speed = pMotor->smo_ctrl.ElecFreqHz_Filter;
                         Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
                         Ramp_Cal(&pMotor->if_ctrl.AngleRadRamp);
                         pMotor->foc_ctrl.IdRef = 0.0f;
@@ -110,65 +173,32 @@ void Motor_Task_Flow(ST_MOTOR_TASK* pMotor)
                             PID_POS_Init(&pMotor->tc_ctrl.PidSpd, pMotor->foc_ctrl.IqRef);
                             pMotor->speed_mode = EM_MOTOR_SPEED_MODE_CLOSELOOP2;
                         }
-    #elif(USER_MOTOR_START_MODE == USER_MOTOR_START_FLUX)
-                        pMotor->tc_ctrl.Speed = pMotor->flux_ctrl.ElecFreqHz_Filter;
-                        Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.CurrentRamp.Output;
-                        Motor_SpeedSwitchToHigh(pMotor);
-    #endif
-#endif
-                        break;
-                    }
-                case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
                     {
-#if(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_HALL)
-                        pMotor->tc_ctrl.Speed = pMotor->hall_ctrl.ElecFreqHz_Filter;
-                        Ramp_Cal(&pMotor->tc_ctrl.CurrentRamp);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.CurrentRamp.Output;
-                        Motor_SpeedSwitchToHigh(pMotor);
-#elif(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_RPS)
-                        
-#else             
-    #if(USER_MOTOR_LOWSPEED_MODE == USER_MOTOR_LOWSPEED_FLUX)
-                        pMotor->tc_ctrl.Speed = pMotor->flux_ctrl.ElecFreqHz_Filter;
-                        Tc_Cal(&pMotor->tc_ctrl);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
-                        Motor_SpeedSwitchToHigh(pMotor);
-    #endif
-#endif
-                        break;
-                    }
-                case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+                    }break;
+                    case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
                     {
-#if(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_HALL)
-                        pMotor->tc_ctrl.Speed = pMotor->hall_ctrl.ElecFreqHz_Filter;
-                        Tc_Cal(&pMotor->tc_ctrl);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
-                        Motor_SpeedSwitchToLow(pMotor);
-#elif(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_RPS)
-                        
-#else             
-    #if(USER_MOTOR_HIGHSPEED_MODE == USER_MOTOR_HIGHSPEED_FLUX)
-                        pMotor->tc_ctrl.Speed = pMotor->flux_ctrl.ElecFreqHz_Filter;
-                        Tc_Cal(&pMotor->tc_ctrl);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
-                        Motor_SpeedSwitchToLow(pMotor);
-    #elif(USER_MOTOR_HIGHSPEED_MODE == USER_MOTOR_HIGHSPEED_SMO)
                         pMotor->tc_ctrl.Speed = pMotor->smo_ctrl.ElecFreqHz_Filter;
                         Tc_Cal(&pMotor->tc_ctrl);
-                        pMotor->foc_ctrl.IdRef = 0.0f;
-                        pMotor->foc_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
-                        Motor_SpeedSwitchToLow(pMotor);
-    #endif
+#if(USER_MOTOR_MTPA_EN == 1U)
+                        MTPA_Control(&pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
+#else
+                        pMotor->mtpa_ctrl.IdRef = 0.0f;
+                        pMotor->mtpa_ctrl.IqRef = pMotor->tc_ctrl.IqRef;
+
 #endif
-                        break;
-                    }
-                default:break;
+#if(USER_MOTOR_FLUX_EN == 1U)
+                        WEAK_Control(&pMotor->weak_ctrl, &pMotor->mtpa_ctrl, &pMotor->foc_ctrl, &pMotor->tc_ctrl);
+#else
+                        pMotor->weak_ctrl.IdRef = pMotor->mtpa_ctrl.IdRef;
+                        pMotor->weak_ctrl.IqRef = pMotor->mtpa_ctrl.IqRef;
+#endif
+                        pMotor->foc_ctrl.IdRef = pMotor->weak_ctrl.IdRef;
+                        pMotor->foc_ctrl.IqRef = pMotor->weak_ctrl.IqRef;
+                    }break;
+#endif
+                    default:break;
                 }
                 pMotor->state_flag.BIT.PWM_output_en = 1U; 
             }
@@ -201,61 +231,63 @@ void Motor_Task_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
-void Hallest_Angle_Cal(ST_MOTOR_TASK* pMotor)
-{
-    if((pMotor->speed_mode == EM_MOTOR_SPEED_MODE_CLOSELOOP1)
-       || (pMotor->speed_mode == EM_MOTOR_SPEED_MODE_CLOSELOOP2))
-    {
-        Hallest_Low_Speed(&pMotor->hall_ctrl);
-    }
-    else if(pMotor->speed_mode == EM_MOTOR_SPEED_MODE_CLOSELOOP3)
-    {
-        Hallest_High_Speed(&pMotor->hall_ctrl);
-    }
-    else{}
-        
-    Hallest_Angle_Inc(&pMotor->hall_ctrl, 0x11);
-}
-
 void Motor_Foc_Cal(ST_MOTOR_TASK* pMotor)
 {
-#if(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_HALL)
-    Hallest_Angle_Cal(pMotor);
-    pMotor->foc_ctrl.AngleRad = pMotor->hall_ctrl.AngleRad;
-#elif(USER_MOTOR_SENSE_MODE == USER_MOTOR_SENSE_RPS)
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+    Clark_Transform(&pMotor->foc_ctrl);
     
-#else
-    Est_Flux(&pMotor->foc_ctrl, &pMotor->flux_ctrl);
-    Est_SMO(&pMotor->foc_ctrl, &pMotor->smo_ctrl);
     switch(pMotor->speed_mode)
     {
-    case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
         {
-    #if(USER_MOTOR_START_MODE == USER_MOTOR_START_IF)
+            Hallest_Low_Speed(&pMotor->hall_ctrl);
+        }break;
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+        {
+            Hallest_High_Speed(&pMotor->hall_ctrl);
+        }break;
+        default:break;
+    }
+    Hallest_Angle_Inc(&pMotor->hall_ctrl, 0x11);
+    pMotor->foc_ctrl.AngleRad = pMotor->hall_ctrl.AngleRad;
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
+                        
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_FLUX)
+    switch(pMotor->speed_mode)
+    {
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
+        {
+            Hallest_Low_Speed(&pMotor->hall_ctrl);
+        }break;
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+        {
+            Hallest_High_Speed(&pMotor->hall_ctrl);
+        }break;
+        default:break;
+    }
+    Est_Flux(&pMotor->foc_ctrl, &pMotor->flux_ctrl);
+    pMotor->foc_ctrl.AngleRad = pMotor->flux_ctrl.AngleRad;
+    
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_SMO)
+    Est_SMO(&pMotor->foc_ctrl, &pMotor->smo_ctrl);
+    
+    switch(pMotor->speed_mode)
+    {
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP1:
+        {
             Est_IF(&pMotor->if_ctrl, pMotor->flux_ctrl.AngleRad);
             pMotor->foc_ctrl.AngleRad = pMotor->if_ctrl.AngleRad;
-    #elif(USER_MOTOR_START_MODE == USER_MOTOR_START_FLUX)
-            pMotor->foc_ctrl.AngleRad = pMotor->flux_ctrl.AngleRad;
-    #endif
-            break;
-        }
-    case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
+        }break;
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP2:
         {
-    #if(USER_MOTOR_LOWSPEED_MODE == USER_MOTOR_LOWSPEED_FLUX)
-            pMotor->foc_ctrl.AngleRad = pMotor->flux_ctrl.AngleRad;
-    #endif
-            break;
-        }
-    case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
+        }break;
+        case EM_MOTOR_SPEED_MODE_CLOSELOOP3:
         {
-    #if(USER_MOTOR_HIGHSPEED_MODE == USER_MOTOR_HIGHSPEED_FLUX)
-            pMotor->foc_ctrl.AngleRad = pMotor->flux_ctrl.AngleRad;
-    #elif(USER_MOTOR_HIGHSPEED_MODE == USER_MOTOR_HIGHSPEED_SMO)
             pMotor->foc_ctrl.AngleRad = pMotor->smo_ctrl.AngleRad;
-    #endif
-            break;
-        }
-    default:break;
+        }break;
+        default:break;
     }
 #endif
     

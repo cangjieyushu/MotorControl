@@ -75,26 +75,6 @@
 #define USER_DIR_FORWARD                                (1)
 #define USER_DIR_BACKWARD                               (-1)
 
-//电机过流故障相关参数
-#define USER_MOTOR1_OVERCURRENT_CRRENT          (24.0f)                 //A，过流故障电流
-#define USER_MOTOR1_OVERCURRENT_TIME            (50U/2)                 //ms，过流故障时间
-
-#define USER_LOWEST_ALLOWED_VOLTAGE_V           (8.0f)                  //V，欠压保护
-#define USER_HIGHEST_ALLOWED_VOLTAGE_V          (18.0f)                 //V，过压保护
-
-//电机堵转相关参数
-#define USER_MOTOR1_HALL_STALL_TIME             (5000U/4)                        //ms，触发堵转时间
-
-//电机开路故障相关参数
-#define USER_MOTOR1_OPENPHASE_PHASECURRENT      (4.0f)                           //A，小于相电流
-#define USER_MOTOR1_OPENPHASE_CURRENTREF        (14.0f)                          //A，大于给定电流
-
-#define USER_MOTOR1_OPENPHASE_SPEED             (180.0f)                         //RPM，小于转速
-#define USER_MOTOR1_OPENPHASE_Iq                (15.0f)                          //A，小于q轴电流
-#define USER_MOTOR1_OPENPHASE_VqREF             (0.55f)                          //V，大于q轴电压
-     
-#define USER_MOTOR1_OPENPHASE_TIME              (200U/32)                        //ms，开路故障时间
-
-extern ST_MOTOR_TASK  Motor_1;
+extern ST_MOTOR_TASK  Motor;
 
 #endif /* MotorPara_H */

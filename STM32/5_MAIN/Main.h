@@ -13,6 +13,7 @@
 #include "BSP_ISR.h"
 #include "BSP_PWM.h"
 
+#include "MotorPara.h"
 #include "MotorTask.h"
 #include "SysTask.h"
 

@@ -6,6 +6,8 @@
 #define SysTask_H
 
 #include <stdint.h>
+#include "MotorPara.h"
+#include "MotorTask.h"
 
 typedef enum{
     SYSTEM_STATE_POWERUP,
@@ -36,6 +38,8 @@ typedef struct{
     EM_SYSTEM_STATE_FLOW        state_flow;
     UN_SYSTEM_STATE_FLAG        state_flag;
     UN_SYSTEM_ERROR_FLAG        error_flag;
+    
+    uint32_t                    flow_cnt;
 }ST_SYSTEM_TASK;
 
 void System_Task_Flow(ST_SYSTEM_TASK*  pSystask);

@@ -18,10 +18,15 @@ void System_Task_Tick(ST_SYSTEM_TASK* pSystask)
         
         if((pSystask->systick_count & BIT0) == BIT0)  //1ms
         {
-            System_Task_Flow(&Systask);
+            Motor_Task_Flow(&Motor);
         }
         else  //1ms
         {
+            if(Motor.error_flag.ALL != 0U)
+            {
+                Systask.error_flag.BIT.motor_1_error = 1U;
+            }
+            System_Task_Flow(&Systask);
             if((pSystask->systick_count & BIT1) == BIT1)  //2ms
             {
                 

@@ -7,35 +7,20 @@
 
 #include <stdint.h>
 #include "Math.h"
-
-//电机使能控制1：电机运行；0：电机不运行
-#define USER_MOTOR_1_EN                                 (1U)
-#define USER_MOTOR_2_EN                                 (1U)
     
 //有感算法
-#define USER_MOTOR_SENSE_NO                             (0000U)
 #define USER_MOTOR_SENSE_HALL                           (1000U)                         //有感霍尔
 #define USER_MOTOR_SENSE_RPS                            (2000U)                         //有感RPS
 
-//无感启动算法
-#define USER_MOTOR_START_MASK                           (0F00U)
-#define USER_MOTOR_START_IF                             (0100U)                         //IF
-#define USER_MOTOR_START_FLUX                           (0200U)                         //非线性磁链
-
-//无感低速算法
-#define USER_MOTOR_LOWSPEED_MASK                        (00F0U)
-#define USER_MOTOR_LOWSPEED_FLUX                        (0010U)                         //非线性磁链
-
-//无感高速算法
-#define USER_MOTOR_HIGHSPEED_MASK                       (000FU)
-#define USER_MOTOR_HIGHSPEED_FLUX                       (0001U)                         //非线性磁链
-#define USER_MOTOR_HIGHSPEED_SMO                        (0002U)                         //SMO
+//无感算法
+#define USER_MOTOR_SENSELESS_FLUX                       (0001U)                         //非线性磁链
+#define USER_MOTOR_SENSELESS_SMO                        (0002U)                         //SMO
 
 //电机运行模式
-#define USER_MOTOR_SENSE_MODE                           (USER_MOTOR_SENSE_HALL)
-#define USER_MOTOR_START_MODE                           (USER_MOTOR_START_IF)
-#define USER_MOTOR_LOWSPEED_MODE                        (USER_MOTOR_LOWSPEED_FLUX)
-#define USER_MOTOR_HIGHSPEED_MODE                       (USER_MOTOR_HIGHSPEED_SMO)
+#define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_SMO)
+
+#define USER_MOTOR_MTPA_EN                              (1U)
+#define USER_MOTOR_FLUX_EN                              (1U)
 
 #define USER_HALL_SPEED_LPF_COEFF                       (200.0f)                        //0~1000，越小滤波越深
 #define USER_PLL_SPEED_LPF_COEFF                        (50.0f)                         //0~1000，越小滤波越深
@@ -47,41 +32,35 @@
 #define USER_HALLSECONDORDER                            (2U)
 #define USER_HALLORDER                                  (USER_HALLFIRSTORDER)
 
-/**
- *  @brief EST paramter of calculation type definition
- */
-/**
- *  @brief RAMP paramter type definition
- */
 typedef struct
 {
-    float Init; /*!< Input: target input */
-    float Target; /*!< Input: target input */
-    float Step;   /*!< Parameter: step of ramp */
-    float Output; /*!< Output: output value */
-}ST_RAMP_CAL;
+    float Init;
+    float Target;
+    float Step;
+    float Output;
+}ST_RAMP;
 
 /**
  *  @brief EST paramter of calculation type definition
  */
 typedef struct
 {
-    float Ref;	   /*!< Input: Reference input */
-    float Fdb;	   /*!< Input: Feedback input */
-    float Output;	   /*!< Output: PID output */
-    float Kp;		   /*!< Parameter: Proportional gain */
-    float Ki;		   /*!< Parameter: Integral gain */
-    float Kd;		   /*!< Parameter: Derivative gain */
-    float OutMax;	   /*!< Parameter: Maximum output */
-    float OutMin;	   /*!< Parameter: Minimum output */
-    float Ui;		   /*!< Internal Variable: Integral output */
-    float LastError;          /*!< Internal Variable: last error */
-}ST_PID_POS;
+    float Ref;
+    float Fdb;
+    float Output;
+    float Kp;
+    float Ki;
+    float Kd;
+    float OutMax;
+    float OutMin;
+    float Ui;
+    float LastError;
+}ST_PID;
 
 typedef struct
 {
     float AngleRad;
-    ST_RAMP_CAL AngleRadRamp;       /*!< Internal Variable: The ramp for speed reference value */
+    ST_RAMP AngleRadRamp;
     uint32_t AngleRad_cnt;
     uint8_t IF_Success_Flag;
 
@@ -96,12 +75,8 @@ typedef struct
     float AngleRad;
     float AngleSpeed;
 
-    float Ref_Yalpha;
-    float Ref_Ybeta;
     float Est_Xalpha;
     float Est_Xbeta;
-    float Cos_Angle;
-    float Sin_Angle;
     float Nn_alpha;
     float Nn_beta;
     float Nn_2;
@@ -111,7 +86,7 @@ typedef struct
     float Ref_Flux_2;
     float Ts;
     float Kt;
-    ST_PID_POS        Pll_Pid;      /*!< Internal Variable: The PLL PID in FSO */
+    ST_PID Pll_Pid;
 }ST_FLUX_CONTROL;
 
 typedef struct
@@ -135,64 +110,80 @@ typedef struct
     float Ts;
     float K1;
     float K2;
-    ST_PID_POS        Pll_Pid;      /*!< Internal Variable: The PLL PID in FSO */
+    ST_PID Pll_Pid;
 }ST_SMO_CONTROL;
 
-/**
- *  @brief TC control varible type definition
- */
 typedef struct
 {
-    float Speed;     /*!< Input: The speed feedback */
-    float SpeedRef;  /*!< Input: The speed reference value of speed loop control, not available in torque mode */
-    float SpeedMax;  /*!< Input: The speed reference value of speed loop control, not available in torque mode */
-    float SpeedMin;  /*!< Input: The speed reference value of speed loop control, not available in torque mode */
+    ST_PID PidV;
+    float Theta;
+    float IdRef;
+    float IqRef;
+        
+    float Flux;
+    float Flux_2;
+    float Eight_Lq_Ld_2;
+    float One_Over_Lq_Ld_Over_4;
+}ST_MTPA_CONTROL;
+
+typedef struct
+{
+    ST_PID PidV;
+    float Theta;
+    float IdRef;
+    float IqRef;
+}ST_WEAK_CONTROL;
+
+typedef struct
+{
+    float Speed;   
+    float SpeedRef;
     float IdRef;
     float IqRef;
 
-    ST_PID_POS PidSpd;         /*!< Internal Variable: The PID for speed loop */
-    ST_RAMP_CAL SpdRamp;       /*!< Internal Variable: The ramp for speed reference value */
-    ST_RAMP_CAL CurrentRamp; /*!< Internal Variable: The ramp for I/F control current */
+    ST_PID PidSpd;    
+    ST_RAMP CurrentRamp;  
+    ST_RAMP SpdRamp;    
 
-    float SpeedChange;  /*!< Input: The speed reference value of speed loop control, not available in torque mode */
-    uint32_t SpeedChangeTime_Num;  /*!< Input: The speed reference value of speed loop control, not available in torque mode */
+    float SpeedMax;
+    float SpeedMin;
+    float SpeedChange;
+    uint32_t SpeedChangeTime_Num;
 }ST_TC_CONTROL;
 
 typedef struct
 {
-    float ElecFreqHz;
-    
-    float RealVdc;
     float IdRef;
     float IqRef;
-    float Ia;      /*!< Input: The phase-A current */
-    float Ib;      /*!< Input: The phase-B current */
-    float Ic;      /*!< Input: The phase-C current */
-    float Ialpha;      /*!< Input: The phase-A current */
-    float Ibeta;      /*!< Input: The phase-B current */
-    float Id;      /*!< Input: The phase-A current */
-    float Iq;      /*!< Input: The phase-B current */
+    float Ia;    
+    float Ib;    
+    float Ic;    
+    float Ialpha;
+    float Ibeta; 
+    float Id;    
+    float Iq;    
     
-    ST_PID_POS PidId;
-    ST_PID_POS PidIq;
-    float AngleRad; /*!< Input: The motor electric angle */
+    ST_PID PidId;
+    ST_PID PidIq;
+    
+    float Vdc;
+    float VsMax;
+    
+    float Ualpha;      
+    float Ubeta;
+    float Ud;      
+    float Uq;      
+    float TaPu;    
+    float TbPu;     
+    float TcPu;     
+    
+    float AngleRad;
     float SinValue;
     float CosValue;
     
     float VsMaxScale;
-    float VsMax;
-    
-    float Ualpha;      /*!< Input: The phase-A current */
-    float Ubeta;      /*!< Input: The phase-B current */
-    float Ud;      /*!< Input: The phase-A current */
-    float Uq;      /*!< Input: The phase-B current */
-    float TaPu;     /*!< Output: reference phase-a duty ratio */
-    float TbPu;     /*!< Output: reference phase-b duty ratio */
-    float TcPu;     /*!< Output: reference phase-c duty ratio */
-    
-    float MaxScale; /*!< Output: Max scale in pwm */
-    float MinScale; /*!< Output: Min scale in pwm */
-    float ERROR_ANGLE; /*!< Output: Min scale in pwm */
+    float MaxScale; 
+    float MinScale; 
 }ST_FOC_CONTROL;
 
 typedef struct
@@ -234,13 +225,13 @@ typedef struct
 
 void Ipark_Transform(ST_FOC_CONTROL* pFoc);
 void Park_Transform(ST_FOC_CONTROL* pFoc);
-void Clarke_Transform(ST_FOC_CONTROL* pFoc);
+void Clark_Transform(ST_FOC_CONTROL* pFoc);
 void SVPWM_Cal(ST_FOC_CONTROL* pFoc);
-
-void Ramp_Init(ST_RAMP_CAL* pRamp, float Output);
-void Ramp_Cal(ST_RAMP_CAL* pRamp);
-void PID_POS_Init(ST_PID_POS* pPID, float init);
-void PID_POS_Cal(ST_PID_POS* pPID);
+    
+void Ramp_Init(ST_RAMP* pRamp, float Output);
+void Ramp_Cal(ST_RAMP* pRamp);
+void PID_POS_Init(ST_PID* pPID, float init);
+void PID_POS_Cal(ST_PID* pPID);
 
 void Est_IF_Init(ST_IF_CONTROL* pCTRL);
 void Est_IF(ST_IF_CONTROL* pCTRL, float Est_AngleRad);
@@ -251,8 +242,11 @@ void Est_Flux(ST_FOC_CONTROL* pFoc, ST_FLUX_CONTROL* pCTRL);
 void Est_SMO_Init(ST_SMO_CONTROL* pCTRL);
 void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL);
 
-void Foc_Cal(ST_FOC_CONTROL* pFoc);
+void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc);
+void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc);
+
 void Tc_Cal(ST_TC_CONTROL* pTc);
+void Foc_Cal(ST_FOC_CONTROL* pFoc);
 void Motor_Brake_Control(ST_BRAKE_CONTROL* pBrake, ST_FOC_CONTROL* pFoc);
 
 void Hallest_Init(ST_HALL_CONTROL* pHall);

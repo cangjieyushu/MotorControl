@@ -11,7 +11,7 @@
 //全占空比输出使能标志位1：最大占空比输出，保存上一笔采样值用于当前周期进行计算，0：保证采样时间限制最大占空比的值
 #define USER_ALL_DUTY_OUTPUT                    (1U)
 
-//为了保证8300自举电容充电，上桥最大占空比输出限制
+//为了保证自举电容充电，上桥最大占空比输出限制
 #define USER_PWM_MAXSCALE                       (1.0f)
 #if(USER_ALL_DUTY_OUTPUT == 1U)
 #define USER_PWM_MINSCALE                       (0.01f)

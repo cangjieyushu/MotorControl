@@ -5,75 +5,6 @@
  
 #include "MotorFoc.h"
 
-void Ramp_Init(ST_RAMP_CAL* pRamp, float Output)
-{
-    pRamp->Output = Output;
-}
-
-void Ramp_Cal(ST_RAMP_CAL* pRamp)
-{
-    /* step must be a positive value */
-    float Step = MATH_ABS(pRamp->Step);      
-    if(MATH_ABS(pRamp->Target - pRamp->Output) > Step) 
-    {
-        if(pRamp->Target > pRamp->Output) 
-        {
-            pRamp->Output += Step;
-        }
-        else 
-        {
-            pRamp->Output -= Step;
-        }
-    }
-    else 
-    {   
-        /* less than one step needed, just jump to the target */
-        pRamp->Output = pRamp->Target;
-    }
-}
-
-void PID_POS_Init(ST_PID_POS* pPID, float init)
-{
-    pPID->Ui = init;
-}
-
-void PID_POS_Cal(ST_PID_POS* pPID)
-{
-    float TmpOutput;
-    float Error = pPID->Ref - pPID->Fdb;
-    /* Compute the proportional output */
-    float Up = pPID->Kp*Error;
-    /* Compute the integral output */
-    pPID->Ui = pPID->Ui + pPID->Ki*Error;
-    if(pPID->Ui > pPID->OutMax) 
-    {
-        pPID->Ui = pPID->OutMax;
-    }
-    if(pPID->Ui < pPID->OutMin) 
-    {
-        pPID->Ui = pPID->OutMin;
-    }
-    
-    /* Compute the derivative output */
-    /* _iq Ud = _IQmpy(ObjPtr->Kd, (error - ObjPtr->lastError)); */
-    /* ObjPtr->lastError = error; */
-    TmpOutput = Up + pPID->Ui;
-    
-    /* Saturate the output */
-    if (TmpOutput > pPID->OutMax) 
-    {
-        pPID->Output = pPID->OutMax;
-    }
-    else if (TmpOutput < pPID->OutMin) 
-    {
-        pPID->Output = pPID->OutMin;
-    }
-    else 
-    {
-        pPID->Output = TmpOutput;
-    }
-}
-
 void Ipark_Transform(ST_FOC_CONTROL* pFoc)
 {
     pFoc->Ualpha = pFoc->Ud*pFoc->CosValue - pFoc->Uq*pFoc->SinValue;
@@ -86,13 +17,14 @@ void Park_Transform(ST_FOC_CONTROL* pFoc)
     pFoc->Iq = -pFoc->Ialpha*pFoc->SinValue + pFoc->Ibeta*pFoc->CosValue;
 }
 
-void Clarke_Transform(ST_FOC_CONTROL* pFoc)
+void Clark_Transform(ST_FOC_CONTROL* pFoc)
 {
     pFoc->Ialpha = ((pFoc->Ia*2.0f) - (pFoc->Ib+pFoc->Ic))* MATH_ONE_OVER_THREE;
     pFoc->Ibeta = (pFoc->Ib - pFoc->Ic)*MATH_ONE_OVER_SQRT_THREE;
 }
 
-static uint8_t Txyz_Table[3][8] = {{0U,1U,0U,0U,2U,2U,1U,0U},
+static const uint8_t Txyz_Table[3][8] = 
+{{0U,1U,0U,0U,2U,2U,1U,0U},
 {0U,0U,2U,1U,1U,0U,2U,0U},
 {0U,2U,1U,2U,0U,1U,0U,0U}};
 
@@ -104,9 +36,9 @@ void SVPWM_Cal(ST_FOC_CONTROL* pFoc)
     float Txyz[3]= {0.0f,0.0f,0.0f};
     
     Utmp1 = MATH_SQRT_THREE*pFoc->Ubeta;
-    Utmp2 = 0.5f*(3.0f*pFoc->Ualpha - Utmp1)/pFoc->RealVdc;
-    Utmp3 = 0.5f*(-3.0f*pFoc->Ualpha - Utmp1)/pFoc->RealVdc;
-    Utmp1 = Utmp1/pFoc->RealVdc;
+    Utmp2 = 0.5f*(3.0f*pFoc->Ualpha - Utmp1)/pFoc->Vdc;
+    Utmp3 = 0.5f*(-3.0f*pFoc->Ualpha - Utmp1)/pFoc->Vdc;
+    Utmp1 = Utmp1/pFoc->Vdc;
     if(Utmp1>0.0f){Sector+=1U;}else{}
     if(Utmp2>0.0f){Sector+=2U;}else{}
     if(Utmp3>0.0f){Sector+=4U;}else{}
@@ -133,38 +65,38 @@ void SVPWM_Cal(ST_FOC_CONTROL* pFoc)
     {
     case 3U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(2.0f*Ttmp1+Ttmp2)*pFoc->RealVdc;
-            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*Ttmp2*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(2.0f*Ttmp1+Ttmp2)*pFoc->Vdc;
+            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*Ttmp2*pFoc->Vdc;
             break;
         }
     case 1U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(Ttmp2-Ttmp1)*pFoc->RealVdc;
-            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*(Ttmp1+Ttmp2)*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(Ttmp2-Ttmp1)*pFoc->Vdc;
+            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*(Ttmp1+Ttmp2)*pFoc->Vdc;
             break;
         }
     case 5U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(-2.0f*Ttmp2-Ttmp1)*pFoc->RealVdc;
-            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*Ttmp1*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(-2.0f*Ttmp2-Ttmp1)*pFoc->Vdc;
+            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*Ttmp1*pFoc->Vdc;
             break;
         }
     case 4U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(-2.0f*Ttmp2-Ttmp1)*pFoc->RealVdc;
-            pFoc->Ubeta = -MATH_ONE_OVER_SQRT_THREE*Ttmp1*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(-2.0f*Ttmp2-Ttmp1)*pFoc->Vdc;
+            pFoc->Ubeta = -MATH_ONE_OVER_SQRT_THREE*Ttmp1*pFoc->Vdc;
             break;
         }
     case 6U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(Ttmp2-Ttmp1)*pFoc->RealVdc;
-            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*(-Ttmp1-Ttmp2)*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(Ttmp2-Ttmp1)*pFoc->Vdc;
+            pFoc->Ubeta = MATH_ONE_OVER_SQRT_THREE*(-Ttmp1-Ttmp2)*pFoc->Vdc;
             break;
         }
     case 2U:
         {
-            pFoc->Ualpha = MATH_ONE_OVER_THREE*(2.0f*Ttmp1+Ttmp2)*pFoc->RealVdc;
-            pFoc->Ubeta = -MATH_ONE_OVER_SQRT_THREE*Ttmp2*pFoc->RealVdc;
+            pFoc->Ualpha = MATH_ONE_OVER_THREE*(2.0f*Ttmp1+Ttmp2)*pFoc->Vdc;
+            pFoc->Ubeta = -MATH_ONE_OVER_SQRT_THREE*Ttmp2*pFoc->Vdc;
             break;
         }
     default:break;
@@ -173,6 +105,48 @@ void SVPWM_Cal(ST_FOC_CONTROL* pFoc)
     pFoc->TaPu = Txyz[Txyz_Table[0][Sector]];
     pFoc->TbPu = Txyz[Txyz_Table[1][Sector]];
     pFoc->TcPu = Txyz[Txyz_Table[2][Sector]];
+}
+
+void Ramp_Init(ST_RAMP* pRamp, float Output)
+{
+    pRamp->Output = Output;
+}
+
+void Ramp_Cal(ST_RAMP* pRamp)
+{
+    float Step = MATH_ABS(pRamp->Step);      
+    if(MATH_ABS(pRamp->Target - pRamp->Output) > Step) 
+    {
+        if(pRamp->Target > pRamp->Output) 
+        {
+            pRamp->Output += Step;
+        }
+        else 
+        {
+            pRamp->Output -= Step;
+        }
+    }
+    else 
+    {   
+        pRamp->Output = pRamp->Target;
+    }
+}
+
+void PID_POS_Init(ST_PID* pPID, float init)
+{
+    pPID->Ui = init;
+}
+
+void PID_POS_Cal(ST_PID* pPID)
+{
+    float Output_tmp;
+    float Error = pPID->Ref - pPID->Fdb;
+    
+    pPID->Ui = pPID->Ui + pPID->Ki*Error;
+    MATH_SAT(pPID->Ui, pPID->OutMax, pPID->OutMin);
+    
+    Output_tmp = pPID->Kp*Error + pPID->Ui;
+    pPID->Output = MATH_SAT(Output_tmp, pPID->OutMax, pPID->OutMin);
 }
 
 void Est_IF_Init(ST_IF_CONTROL* pCTRL)
@@ -186,15 +160,7 @@ void Est_IF_Init(ST_IF_CONTROL* pCTRL)
 void Est_IF(ST_IF_CONTROL* pCTRL, float Est_AngleRad)
 {
     pCTRL->AngleRad += pCTRL->AngleRadRamp.Output*MATH_2PI;
-    if(pCTRL->AngleRad > MATH_2PI)
-    {
-        pCTRL->AngleRad -= MATH_2PI;
-    }
-    else if(pCTRL->AngleRad < 0.0f)
-    {
-        pCTRL->AngleRad += MATH_2PI;
-    }
-    else{}
+    MATH_ANGLE_MOD(pCTRL->AngleRad);
     
     if(MATH_ABS(Est_AngleRad - pCTRL->AngleRad - MATH_PI_OVER_TWO) < pCTRL->AngleRad_Error)
     {
@@ -216,12 +182,8 @@ void Est_Flux_Init(ST_FLUX_CONTROL* pCTRL)
     pCTRL->AngleRad = 0.0f;
     pCTRL->AngleSpeed = 0.0f;
     
-    pCTRL->Ref_Yalpha = 0.0f;
-    pCTRL->Ref_Ybeta = 0.0f;
     pCTRL->Est_Xalpha = 0.0f;
     pCTRL->Est_Xbeta = 0.0f;
-    pCTRL->Cos_Angle = 0.0f;
-    pCTRL->Sin_Angle = 0.0f;
     pCTRL->Nn_alpha = 0.0f;
     pCTRL->Nn_beta = 0.0f;
     pCTRL->Nn_2 = 0.0f;
@@ -230,38 +192,30 @@ void Est_Flux_Init(ST_FLUX_CONTROL* pCTRL)
 
 void Est_Flux(ST_FOC_CONTROL* pFoc, ST_FLUX_CONTROL* pCTRL)
 {
-    Clarke_Transform(pFoc);
+    float Ref_Yalpha;
+    float Ref_Ybeta;
     
-    pCTRL->Ref_Yalpha = -pCTRL->Rs*pFoc->Ialpha + pFoc->Ualpha;
-    pCTRL->Ref_Ybeta = -pCTRL->Rs*pFoc->Ibeta + pFoc->Ubeta;
+    Clark_Transform(pFoc);
+    
+    Ref_Yalpha = -pCTRL->Rs*pFoc->Ialpha + pFoc->Ualpha;
+    Ref_Ybeta = -pCTRL->Rs*pFoc->Ibeta + pFoc->Ubeta;
     
     pCTRL->Nn_alpha = pCTRL->Est_Xalpha - pCTRL->Ls*pFoc->Ialpha;
     pCTRL->Nn_beta = pCTRL->Est_Xbeta - pCTRL->Ls*pFoc->Ibeta;
     pCTRL->Nn_2 = pCTRL->Nn_alpha*pCTRL->Nn_alpha + pCTRL->Nn_beta*pCTRL->Nn_beta;
     
-    pCTRL->Est_Xalpha += pCTRL->Ts*(pCTRL->Ref_Yalpha + pCTRL->Kt*pCTRL->Nn_alpha*(pCTRL->Ref_Flux_2 - pCTRL->Nn_2));
-    pCTRL->Est_Xbeta += pCTRL->Ts*(pCTRL->Ref_Ybeta + pCTRL->Kt*pCTRL->Nn_beta*(pCTRL->Ref_Flux_2 - pCTRL->Nn_2));
+    pCTRL->Est_Xalpha += pCTRL->Ts*(Ref_Yalpha + pCTRL->Kt*pCTRL->Nn_alpha*(pCTRL->Ref_Flux_2 - pCTRL->Nn_2));
+    pCTRL->Est_Xbeta += pCTRL->Ts*(Ref_Ybeta + pCTRL->Kt*pCTRL->Nn_beta*(pCTRL->Ref_Flux_2 - pCTRL->Nn_2));
     
-    pCTRL->Cos_Angle = (pCTRL->Est_Xalpha - pCTRL->Ls*pFoc->Ialpha);
-    pCTRL->Sin_Angle = (pCTRL->Est_Xbeta - pCTRL->Ls*pFoc->Ibeta);
-    
-    pCTRL->Pll_Pid.Ref = pCTRL->Sin_Angle*Math_CosF32(pCTRL->AngleRad);
-    pCTRL->Pll_Pid.Fdb = pCTRL->Cos_Angle*Math_SinF32(pCTRL->AngleRad);
+    pCTRL->Pll_Pid.Ref = (pCTRL->Est_Xbeta - pCTRL->Ls*pFoc->Ibeta)*Math_Cos(pCTRL->AngleRad);
+    pCTRL->Pll_Pid.Fdb = (pCTRL->Est_Xalpha - pCTRL->Ls*pFoc->Ialpha)*Math_Sin(pCTRL->AngleRad);
     PID_POS_Cal(&pCTRL->Pll_Pid);
     
     pCTRL->AngleSpeed = pCTRL->Pll_Pid.Output;
     pCTRL->ElecFreqHz = MATH_ONE_OVER_2PI*pCTRL->AngleSpeed;
     pCTRL->ElecFreqHz_Filter = 0.001f*(USER_PLL_SPEED_LPF_COEFF*pCTRL->ElecFreqHz + (1000.0f-USER_PLL_SPEED_LPF_COEFF)*pCTRL->ElecFreqHz_Filter);
     pCTRL->AngleRad += pCTRL->Ts*pCTRL->AngleSpeed;
-    if(pCTRL->AngleRad > MATH_2PI)
-    {
-        pCTRL->AngleRad -= MATH_2PI;
-    }
-    else if(pCTRL->AngleRad < 0.0f)
-    {
-        pCTRL->AngleRad += MATH_2PI;
-    }
-    else{}
+    MATH_ANGLE_MOD(pCTRL->AngleRad);
 }
 
 void Est_SMO_Init(ST_SMO_CONTROL* pCTRL)
@@ -284,7 +238,7 @@ void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL)
     float Ialpha_Error;
     float Ibeta_Error;
     
-    Clarke_Transform(pFoc);
+    Clark_Transform(pFoc);
     
     pCTRL->Est_Ialpha += pCTRL->Ts*( - pCTRL->Rs_Over_Ld*pCTRL->Est_Ialpha - pCTRL->AngleSpeed*pCTRL->Ld_Lq_Over_Ld*pCTRL->Est_Ibeta
                                     + pCTRL->One_Over_Ld*pFoc->Ualpha - pCTRL->One_Over_Ld*pCTRL->Est_Ealpha);
@@ -294,69 +248,69 @@ void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL)
     Ialpha_Error = pCTRL->Est_Ialpha - pFoc->Ialpha;
     Ibeta_Error = pCTRL->Est_Ibeta - pFoc->Ibeta;
     
-    if(Ialpha_Error > pCTRL->K1)
-    {
-        pCTRL->Est_Ealpha = pCTRL->K1;
-    }
-    else if(Ialpha_Error < -pCTRL->K1)
-    {
-        pCTRL->Est_Ealpha = -pCTRL->K1;
-    }
-    else
-    {
-        pCTRL->Est_Ealpha = Ialpha_Error;
-    }
-    
-    if(Ibeta_Error > pCTRL->K1)
-    {
-        pCTRL->Est_Ebeta = pCTRL->K1;
-    }
-    else if(Ibeta_Error < -pCTRL->K1)
-    {
-        pCTRL->Est_Ebeta = -pCTRL->K1;
-    }
-    else
-    {
-        pCTRL->Est_Ebeta = Ibeta_Error;
-    }
+    pCTRL->Est_Ealpha = MATH_SAT(Ialpha_Error, pCTRL->K1, -pCTRL->K1);
+    pCTRL->Est_Ebeta = MATH_SAT(Ibeta_Error, pCTRL->K1, -pCTRL->K1);
     
     pCTRL->Est_Ealpha += pCTRL->K2*Ialpha_Error;
     pCTRL->Est_Ebeta += pCTRL->K2*Ibeta_Error;
     
-    pCTRL->Pll_Pid.Ref = -pCTRL->Est_Ealpha*Math_CosF32(pCTRL->AngleRad);
-    pCTRL->Pll_Pid.Fdb = pCTRL->Est_Ebeta*Math_SinF32(pCTRL->AngleRad);
+    pCTRL->Pll_Pid.Ref = -pCTRL->Est_Ealpha*Math_Cos(pCTRL->AngleRad);
+    pCTRL->Pll_Pid.Fdb = pCTRL->Est_Ebeta*Math_Sin(pCTRL->AngleRad);
     PID_POS_Cal(&pCTRL->Pll_Pid);
     
     pCTRL->AngleSpeed = pCTRL->Pll_Pid.Output;
     pCTRL->ElecFreqHz = MATH_ONE_OVER_2PI*pCTRL->AngleSpeed;
     pCTRL->ElecFreqHz_Filter = 0.001f*(USER_PLL_SPEED_LPF_COEFF*pCTRL->ElecFreqHz + (1000.0f-USER_PLL_SPEED_LPF_COEFF)*pCTRL->ElecFreqHz_Filter);
     pCTRL->AngleRad += pCTRL->Ts*pCTRL->AngleSpeed;
-    if(pCTRL->AngleRad > MATH_2PI)
+    MATH_ANGLE_MOD(pCTRL->AngleRad);
+}
+
+void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc)
+{
+    float Itmp = pTc->IqRef*pTc->IqRef;
+    float Istmp = 0.0f;
+    pMTPA->IdRef = (pMTPA->Flux - Math_Sqrt(pMTPA->Flux_2 + pMTPA->Eight_Lq_Ld_2*Itmp)) * pMTPA->One_Over_Lq_Ld_Over_4;
+    Istmp = Math_Sqrt(Itmp - pMTPA->IdRef*pMTPA->IdRef);
+    if(pTc->IqRef > 0.0f)
     {
-        pCTRL->AngleRad -= MATH_2PI;
+        pMTPA->IqRef = Istmp;
     }
-    else if(pCTRL->AngleRad < 0.0f)
+    else
     {
-        pCTRL->AngleRad += MATH_2PI;
+        pMTPA->IqRef = -Istmp;
     }
-    else{}
+}
+
+void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc)
+{
+    float Idtmp = 0.0f;
+    float Iqtmp = 0.0f;
+    
+    pWEAK->PidV.Ref = pFoc->VsMax;
+    pWEAK->PidV.Fdb = Math_Sqrt(pFoc->Ud*pFoc->Ud + pFoc->Uq*pFoc->Uq);
+    PID_POS_Cal(&pWEAK->PidV);
+    pWEAK->Theta = pWEAK->PidV.Output + MATH_2PI;
+    
+    Idtmp = pTc->IqRef * Math_Sin(pWEAK->Theta);
+    Iqtmp = pTc->IqRef * Math_Cos(pWEAK->Theta);
+    
+    if(pWEAK->Theta >= MATH_2PI)
+    {
+        pWEAK->IdRef = pMTPA->IdRef;
+        pWEAK->IqRef = pMTPA->IqRef;
+    }
+    else
+    {
+        pWEAK->IdRef = Idtmp;
+        pWEAK->IqRef = Iqtmp;
+    }
 }
 
 void Tc_Cal(ST_TC_CONTROL* pTc)
 {
-    /* Ramp for the reference */
-    if(pTc->SpeedRef >= pTc->SpeedMax)
-    {
-        pTc->SpeedRef = pTc->SpeedMax;
-    }
-    else if(pTc->SpeedRef <= pTc->SpeedMin)
-    {
-        pTc->SpeedRef = pTc->SpeedMin;
-    }
-    else{}
-    pTc->SpdRamp.Target = pTc->SpeedRef;
+    pTc->SpdRamp.Target = MATH_SAT(pTc->SpeedRef, pTc->SpeedMax, pTc->SpeedMin);
     Ramp_Cal(&pTc->SpdRamp);
-    /* PID for speed */
+        
     pTc->PidSpd.Ref = pTc->SpdRamp.Output;
     pTc->PidSpd.Fdb = pTc->Speed;
     PID_POS_Cal(&pTc->PidSpd);
@@ -365,21 +319,18 @@ void Tc_Cal(ST_TC_CONTROL* pTc)
 
 void Foc_Cal(ST_FOC_CONTROL* pFoc)
 {
-    /* Clarke transform */   
-    Clarke_Transform(pFoc);
-    /* Park transform */
-    pFoc->SinValue = Math_SinF32(pFoc->AngleRad);
-    pFoc->CosValue = Math_CosF32(pFoc->AngleRad);
+    pFoc->SinValue = Math_Sin(pFoc->AngleRad);
+    pFoc->CosValue = Math_Cos(pFoc->AngleRad);
     Park_Transform(pFoc);
     
-    pFoc->VsMax = pFoc->RealVdc * pFoc->VsMaxScale;
-    /* Id PID */
+    pFoc->VsMax = pFoc->Vdc * pFoc->VsMaxScale;
+    
     pFoc->PidId.OutMax = pFoc->VsMax;
     pFoc->PidId.OutMin = -pFoc->VsMax;
     pFoc->PidId.Ref = pFoc->IdRef;
     pFoc->PidId.Fdb = pFoc->Id;
     PID_POS_Cal(&pFoc->PidId);
-    /* Iq PID */
+    
     pFoc->PidIq.OutMax = pFoc->VsMax;
     pFoc->PidIq.OutMin = -pFoc->VsMax;
     pFoc->PidIq.Ref = pFoc->IqRef;
@@ -388,9 +339,8 @@ void Foc_Cal(ST_FOC_CONTROL* pFoc)
     
     pFoc->Ud = pFoc->PidId.Output;
     pFoc->Uq = pFoc->PidIq.Output;
-    /* IPark transform */	
     Ipark_Transform(pFoc);
-    /* SVGEN */
+    
     SVPWM_Cal(pFoc);
 }
 
@@ -574,15 +524,7 @@ void Hallest_High_Speed(ST_HALL_CONTROL* pHall)
 
 void Hallest_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt)
 {
-    if(pHall->AngleRad > MATH_2PI)
-    {
-        pHall->AngleRad -= MATH_2PI;
-    }
-    else if(pHall->AngleRad < 0.0f)
-    {
-        pHall->AngleRad += MATH_2PI;
-    }
-    else{}
+    MATH_ANGLE_MOD(pHall->AngleRad);
     
     if(pHall->HallCurrentLevel != pHall->HallLastLevel)
     {
@@ -594,7 +536,7 @@ void Hallest_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt)
         pHall->HallCount_tmp[2] = pHall->HallCount_tmp[1];
         pHall->HallCount_tmp[1] = pHall->HallCount_tmp[0];
         pHall->HallCount_tmp[0] = pHall->HallCurrentCount - pHall->HallLastCount;
-        //stimÊ±ÖÓÎª10M
+        
         pHall->ElecFreqHz = pHall->TIM_FreqHz/((float)pHall->HallCount_tmp[0]+(float)pHall->HallCount_tmp[1]+(float)pHall->HallCount_tmp[2]
                                                +(float)pHall->HallCount_tmp[3]+(float)pHall->HallCount_tmp[4]+(float)pHall->HallCount_tmp[5]);
         pHall->ElecFreqHz_Filter = 0.001f*(USER_HALL_SPEED_LPF_COEFF*pHall->ElecFreqHz_Filter + (1000.0f-USER_HALL_SPEED_LPF_COEFF)*pHall->ElecFreqHz);

@@ -4,7 +4,7 @@
  **************************************************************************************************/
 #include "Math.h"
 
-static float ZxMath_SineTableFloat[SINE_TABLE_SIZE + 2U] =
+static float Math_SineTableFloat[SINE_TABLE_SIZE + 2U] =
 {
 	0.00000000f, 0.01227154f, 0.02454123f, 0.03680722f, 0.04906767f, 0.06132074f,
     0.07356456f, 0.08579731f, 0.09801714f, 0.11022221f, 0.12241068f, 0.13458071f,
@@ -94,7 +94,7 @@ static float ZxMath_SineTableFloat[SINE_TABLE_SIZE + 2U] =
 	-0.02454123f, -0.01227154f, -0.00000000f, 0.00000000f
 };
 
-float Math_SinF32(float A)
+float Math_Sin(float A)
 {
     float Input, OutVal;
     float Findex;
@@ -105,14 +105,14 @@ float Math_SinF32(float A)
     Input = A * MATH_ONE_OVER_2PI;
     Findex = Input * (float)SINE_TABLE_SIZE;
     Index = (int16_t)Findex;
-    a = ZxMath_SineTableFloat[Index];
-    b = ZxMath_SineTableFloat[Index + 1];
+    a = Math_SineTableFloat[Index];
+    b = Math_SineTableFloat[Index + 1];
     Fract = Findex - (float)Index;
     OutVal = a + Fract * (b - a);
     return OutVal;
 }
 
-float Math_CosF32(float A)
+float Math_Cos(float A)
 {
     float Input, OutVal;
     float Findex;
@@ -127,14 +127,14 @@ float Math_CosF32(float A)
     }
     Findex = Input * (float)SINE_TABLE_SIZE;
     Index = (int16_t)Findex;
-    M = ZxMath_SineTableFloat[Index];
-    N = ZxMath_SineTableFloat[Index + 1];
+    M = Math_SineTableFloat[Index];
+    N = Math_SineTableFloat[Index + 1];
     Fract = Findex - (float)Index;
     OutVal = M + Fract * (N - M);
     return OutVal;
 }
 
-float MagicSqrt(float x)
+float Math_Sqrt(float x)
 {
     float xhalf = 0.5f * x;
     int32_t i = *(int32_t*)&x;

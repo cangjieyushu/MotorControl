@@ -5,7 +5,7 @@
  
 #include "MotorPara.h"
 
-ST_MOTOR_TASK  Motor_1 = 
+ST_MOTOR_TASK  Motor = 
 {
     .tc_ctrl.PidSpd.Kp = USER_M1_SPD_KP_GAIN,
     .tc_ctrl.PidSpd.Ki = USER_M1_SPD_KI_GAIN,
@@ -26,7 +26,6 @@ ST_MOTOR_TASK  Motor_1 =
     .tc_ctrl.SpeedMin = -USER_MOTOR1_MAX_SPEED,
     .tc_ctrl.SpdRamp.Step = USER_M1_SPDRAMP_STEP,
     
-    .hall_ctrl.HallStallTime = USER_MOTOR1_HALL_STALL_TIME,
     .hall_ctrl.Ts = HAL_CURRENT_LOOP_TIME,
     .hall_ctrl.TIM_FreqHz = HAL_STIM1_FREQ,
     
@@ -42,16 +41,6 @@ ST_MOTOR_TASK  Motor_1 =
     .foc_ctrl.MinScale = USER_PWM_MINSCALE,
     .foc_ctrl.IdRef = 0.0f,
     .foc_ctrl.IqRef = 0.0f,
-    
-    .error_ctrl.OverCurrent_tl = USER_MOTOR1_OVERCURRENT_CRRENT,
-    .error_ctrl.OverCurrent_time = USER_MOTOR1_OVERCURRENT_TIME,
-    
-    .error_ctrl.OpenPhase_PhaseCurrent_tl = USER_MOTOR1_OPENPHASE_PHASECURRENT,
-    .error_ctrl.OpenPhase_CurrentRef_tl = USER_MOTOR1_OPENPHASE_CURRENTREF,
-    .error_ctrl.OpenPhase_Speed_tl = USER_MOTOR1_OPENPHASE_SPEED,
-    .error_ctrl.OpenPhase_Iq_tl = USER_MOTOR1_OPENPHASE_Iq,
-    .error_ctrl.OpenPhase_VqRef_tl = USER_MOTOR1_OPENPHASE_VqREF,
-    .error_ctrl.OpenPhase_time = USER_MOTOR1_OPENPHASE_TIME,
     
     .if_ctrl.AngleRadRamp.Init = USER_M1_ANGLERADRAMP_INIT,
     .if_ctrl.AngleRadRamp.Target = USER_M1_ANGLERADRAMP_TARGET,
