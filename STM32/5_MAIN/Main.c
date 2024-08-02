@@ -66,8 +66,28 @@ void System_Task_Tick(ST_SYSTEM_TASK* pSystask)
 
 int main(void)
 {
+    __disable_irq();
+    
+    BSP_CLK_Init();
+    BSP_GPIO_Init();
+    BSP_ADC_Init();
+    BSP_DMA_Init();
+    BSP_PWM_Init();
+    BSP_ADC_Init();
+    
+    __enable_irq();
     for(;;)
     {
         System_Task_Tick(&Systask);
     }
+}
+
+void ADC_IRQHandler(void)
+{
+    
+}
+
+void TIM1_BRK_TIM9_IRQHandler(void)
+{
+    
 }

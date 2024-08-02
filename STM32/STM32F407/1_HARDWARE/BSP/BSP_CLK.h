@@ -2,12 +2,12 @@
 /**
  * @copyright : 
  **************************************************************************************************/
-#ifndef clk_bsp_H
-#define clk_bsp_H
+#ifndef BSP_CLK_H
+#define BSP_CLK_H
 
 #include <stdint.h>
 #include "stm32f4xx.h"
 
-void Hal_SetupClock(void);
+void BSP_CLK_Init(void);
 
-#endif /* clk_bsp_H */
+#endif /* BSP_CLK_H */

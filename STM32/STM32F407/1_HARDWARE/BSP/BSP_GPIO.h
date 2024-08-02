@@ -6,5 +6,8 @@
 #define BSP_GPIO_H
 
 #include <stdint.h>
+#include "stm32f4xx.h"
+
+void BSP_GPIO_Init(void);
 
 #endif /* BSP_GPIO_H */

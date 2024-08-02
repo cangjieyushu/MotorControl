@@ -5,7 +5,7 @@
 
 #include "BSP_CLK.h"
 
-void Hal_SetupClock(void)
+void BSP_CLK_Init(void)
 {
     
 }

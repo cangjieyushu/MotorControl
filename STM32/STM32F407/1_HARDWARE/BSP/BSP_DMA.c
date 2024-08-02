@@ -5,8 +5,9 @@
 
 #include "BSP_DMA.h"
 
-uint32_t Hal_Adc0LoopData[2] = {0, 0};
-void Hal_SetupDma(void)
+uint32_t ADC_INT_RAW_DATA[4] = {0,0,0,0};
+
+void BSP_DMA_Init(void)
 {
     
 }

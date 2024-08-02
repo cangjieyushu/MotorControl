@@ -8,4 +8,6 @@
 #include <stdint.h>
 #include "stm32f4xx.h"
 
+void BSP_ADC_Init(void);
+	
 #endif /* BSP_ADC_H */

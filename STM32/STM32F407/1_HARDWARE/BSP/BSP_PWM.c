@@ -5,8 +5,7 @@
 
 #include "BSP_PWM.h"
 
-void Hal_SetupPwm1(void)
+void BSP_PWM_Init(void)
 {
     
 }
-

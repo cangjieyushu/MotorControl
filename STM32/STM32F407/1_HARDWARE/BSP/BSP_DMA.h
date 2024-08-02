@@ -6,5 +6,8 @@
 #define BSP_DMA_H
 
 #include <stdint.h>
+#include "stm32f4xx.h"
 
+void BSP_DMA_Init(void);
+	
 #endif /* BSP_DMA_H */

@@ -5,7 +5,7 @@
 
 #include "BSP_ISR.h"
  
-void Hal_SetupNvic(void)
+void BSP_ISR_Init(void)
 {
     
 }

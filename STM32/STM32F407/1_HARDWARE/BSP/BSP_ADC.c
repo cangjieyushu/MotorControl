@@ -5,7 +5,7 @@
 
 #include "BSP_ADC.h"
 
-void Hal_SetupAdc0(void)
+void BSP_ADC_Init(void)
 {
     
 }

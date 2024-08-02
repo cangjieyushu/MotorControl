@@ -6,7 +6,8 @@
 #define BSP_ISR_H
 
 #include <stdint.h>
+#include "stm32f4xx.h"
 
-void Hal_SetupNvic(void);
+void BSP_ISR_Init(void);
 
 #endif /* BSP_ISR_H */

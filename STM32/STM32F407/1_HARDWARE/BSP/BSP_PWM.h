@@ -6,5 +6,8 @@
 #define BSP_PWM_H
 
 #include <stdint.h>
+#include "stm32f4xx.h"
+
+void BSP_PWM_Init(void);
 
 #endif /* BSP_PWM_H */
