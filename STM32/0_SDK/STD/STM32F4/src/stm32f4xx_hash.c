@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_hash.c
   * @author  MCD Application Team
-  * @version V1.4.0
-  * @date    04-August-2014
+  * @version V1.8.1
+  * @date    27-January-2022
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the HASH / HMAC Processor (HASH) peripheral:           
   *           - Initialization and Configuration functions
@@ -23,7 +23,7 @@
    (#) Enable the HASH controller clock using 
        RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_HASH, ENABLE) function.
              
-   (#) Initialise the HASH using HASH_Init() function. 
+   (#) Initialize the HASH using HASH_Init() function. 
                  
    (#) Reset the HASH processor core, so that the HASH will be ready 
        to compute he message digest of a new message by using HASH_Reset() function.
@@ -78,7 +78,7 @@
             
            
  [..]To compute the HMAC, four different phases are required:                  
-   (#) Initialise the HASH using HASH_Init() function to do HMAC 
+   (#) Initialize the HASH using HASH_Init() function to do HMAC 
        operation. 
                   
    (#) The key (to be used for the inner hash function) is then given to the core. 
@@ -102,21 +102,14 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -723,4 +716,3 @@ void HASH_ClearITPendingBit(uint32_t HASH_IT)
   * @}
   */ 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

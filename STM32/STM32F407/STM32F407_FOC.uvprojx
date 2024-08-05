@@ -458,6 +458,16 @@
               <FileType>1</FileType>
               <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_wwdg.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_flash_ramfunc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash_ramfunc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,8 +1,8 @@
-;******************** (C) COPYRIGHT 2014 STMicroelectronics ********************
+;******************** (C) COPYRIGHT 2016 STMicroelectronics ********************
 ;* File Name          : startup_stm32f40_41xxx.s
 ;* Author             : MCD Application Team
-;* @version           : V1.4.0
-;* @date              : 04-August-2014
+;* @version           : V1.8.1
+;* @date              : 27-January-2022
 ;* Description        : STM32F40xxx/41xxx devices vector table for MDK-ARM toolchain. 
 ;*                      This module performs:
 ;*                      - Set the initial SP
@@ -16,21 +16,17 @@
 ;*                      After Reset the CortexM4 processor is in Thread mode,
 ;*                      priority is Privileged, and the Stack is set to Main.
 ;* <<< Use Configuration Wizard in Context Menu >>>   
-;*******************************************************************************
-; 
-; Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-; You may not use this file except in compliance with the License.
-; You may obtain a copy of the License at:
-; 
-;        http://www.st.com/software_license_agreement_liberty_v2
-; 
-; Unless required by applicable law or agreed to in writing, software 
-; distributed under the License is distributed on an "AS IS" BASIS, 
-; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-; See the License for the specific language governing permissions and
-; limitations under the License.
-; 
-;*******************************************************************************
+;******************************************************************************
+;* @attention
+;*
+;* Copyright (c) 2016 STMicroelectronics.
+;* All rights reserved.
+;*
+;* This software is licensed under terms that can be found in the LICENSE file
+;* in the root directory of this software component.
+;* If no LICENSE file comes with this software, it is provided AS-IS.
+;*
+;******************************************************************************
 
 ; Amount of memory (in bytes) allocated for Stack
 ; Tailor this value to your application needs
@@ -431,4 +427,3 @@ __user_initial_stackheap
 
                  END
 
-;************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE*****

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_cryp.c
   * @author  MCD Application Team
-  * @version V1.4.0
-  * @date    04-August-2014
+  * @version V1.8.1
+  * @date    27-January-2022
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the  Cryptographic processor (CRYP) peripheral:
   *           + Initialization and Configuration functions
@@ -20,7 +20,7 @@
    (#) Enable the CRYP controller clock using 
        RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_CRYP, ENABLE); function.
   
-   (#) Initialise the CRYP using CRYP_Init(), CRYP_KeyInit() and if needed 
+   (#) Initialize the CRYP using CRYP_Init(), CRYP_KeyInit() and if needed 
        CRYP_IVInit(). 
   
    (#) Flush the IN and OUT FIFOs by using CRYP_FIFOFlush() function.
@@ -143,21 +143,14 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -590,12 +583,12 @@ ErrorStatus CRYP_SaveContext(CRYP_Context* CRYP_ContextSave,
 
 /**
   * @brief  Restores the CRYP peripheral Context.
-  * @note   Since teh DMA transfer is stopped in CRYP_SaveContext() function,
+  * @note   Since the DMA transfer is stopped in CRYP_SaveContext() function,
   *         after restoring the context, you have to enable the DMA again (if the
   *         DMA was previously used).  
   * @param  CRYP_ContextRestore: pointer to a CRYP_Context structure that contains
   *         the repository for saved context.
-  * @note   The data that were saved during context saving must be rewrited into
+  * @note   The data that were saved during context saving must be rewritten into
   *         the IN FIFO.
   * @retval None
   */
@@ -931,4 +924,3 @@ FlagStatus CRYP_GetFlagStatus(uint8_t CRYP_FLAG)
   * @}
   */ 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

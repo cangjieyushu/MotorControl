@@ -73,7 +73,7 @@ int main(void)
     BSP_ADC_Init();
     BSP_DMA_Init();
     BSP_PWM_Init();
-    BSP_ADC_Init();
+    BSP_ISR_Init();
     
     __enable_irq();
     for(;;)

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_dma.c
   * @author  MCD Application Team
-  * @version V1.4.0
-  * @date    04-August-2014
+  * @version V1.8.1
+  * @date    27-January-2022
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Direct Memory Access controller (DMA):           
   *           + Initialization and Configuration
@@ -29,7 +29,7 @@
           data formats, Circular or Normal mode, Stream Priority level, Source and Destination 
           Incrementation mode, FIFO mode and its Threshold (if needed), Burst 
           mode for Source and/or Destination (if needed) using the DMA_Init() function.
-          To avoid filling unneccessary fields, you can call DMA_StructInit() function
+          To avoid filling unnecessary fields, you can call DMA_StructInit() function
           to initialize a given structure with default values (reset values), the modify
           only necessary fields 
           (ie. Source and Destination addresses, Transfer size and Data Formats).
@@ -103,22 +103,15 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************  
-  */ 
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_dma.h"
@@ -692,7 +685,7 @@ uint16_t DMA_GetCurrDataCounter(DMA_Stream_TypeDef* DMAy_Streamx)
   
     [..]
     Two functions can be called dynamically when the transfer is ongoing (or when the DMA Stream is 
-    stopped) to modify on of the target Memories addresses or to check wich Memory target is currently
+    stopped) to modify on of the target Memories addresses or to check which Memory target is currently
     used:
       (+) void DMA_MemoryTargetConfig(DMA_Stream_TypeDef* DMAy_Streamx, 
                 uint32_t MemoryBaseAddr, uint32_t DMA_MemoryTarget);
@@ -1298,4 +1291,3 @@ void DMA_ClearITPendingBit(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_IT)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
