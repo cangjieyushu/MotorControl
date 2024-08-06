@@ -34,6 +34,54 @@
 
 typedef struct
 {
+    float Ia;    
+    float Ib;    
+    float Ic;    
+    float Ialpha;
+    float Ibeta; 
+    float Id;    
+    float Iq;    
+    
+    float Ualpha;      
+    float Ubeta;
+    float Ud;      
+    float Uq;    
+    
+    float Vbat;
+    float VsMax;
+    
+    uint16_t Ia_data;    
+    uint16_t Ib_data;    
+    uint16_t Ic_data;   
+    uint16_t Ia_offset;    
+    uint16_t Ib_offset;    
+    uint16_t Ic_offset; 
+    uint16_t Vbat_data; 
+    
+}ST_FOC_PARAMETER;
+
+typedef struct
+{
+    float Ts; 
+    float Rs;
+    float Ls;
+    float Ld;
+    float Lq;
+    float Flux;
+    
+    float Flux_2;
+    
+    float One_Over_Ld;
+    float Rs_Over_Ld;
+    float Ld_Lq_Over_Ld;
+    
+    float Eight_Lq_Ld_2;
+    float One_Over_Lq_Ld_Over_4;
+    
+}ST_PMSM_PARAMETER;
+
+typedef struct
+{
     float Init;
     float Target;
     float Step;
@@ -149,7 +197,7 @@ typedef struct
     float SpeedMin;
     float SpeedChange;
     uint32_t SpeedChangeTime_Num;
-}ST_TC_CONTROL;
+}ST_SPEED_CONTROL;
 
 typedef struct
 {
@@ -173,9 +221,12 @@ typedef struct
     float Ubeta;
     float Ud;      
     float Uq;      
-    float TaPu;    
-    float TbPu;     
-    float TcPu;     
+    float Ta;    
+    float Tb;     
+    float Tc;        
+    uint16_t Ta_value;    
+    uint16_t Tb_value;     
+    uint16_t Tc_value;   
     
     float AngleRad;
     float SinValue;
@@ -187,7 +238,11 @@ typedef struct
 }ST_FOC_CONTROL;
 
 typedef struct
-{
+{ 
+    uint16_t            Ta_value;    
+    uint16_t            Tb_value;     
+    uint16_t            Tc_value;
+    
     uint8_t             Brake_En;         
     uint8_t             Brake_Run_Flag;   
     uint8_t             Brake_Finish_Flag;
@@ -242,11 +297,11 @@ void Est_Flux(ST_FOC_CONTROL* pFoc, ST_FLUX_CONTROL* pCTRL);
 void Est_SMO_Init(ST_SMO_CONTROL* pCTRL);
 void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL);
 
-void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc);
-void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc);
+void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed);
+void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed);
 
-void Tc_Cal(ST_TC_CONTROL* pTc);
-void Foc_Cal(ST_FOC_CONTROL* pFoc);
+void MotorFoc_Speed_Loop(ST_SPEED_CONTROL* pSpeed);
+void MotorFoc_Current_Loop(ST_FOC_CONTROL* pFoc);
 void Motor_Brake_Control(ST_BRAKE_CONTROL* pBrake, ST_FOC_CONTROL* pFoc);
 
 void Hallest_Init(ST_HALL_CONTROL* pHall);

@@ -2,13 +2,12 @@
 /**
  * @copyright : 
  **************************************************************************************************/
-#ifndef BSP_PWM_H
-#define BSP_PWM_H
+#ifndef BSP_DAC_H
+#define BSP_DAC_H
 
 #include <stdint.h>
 #include "stm32f4xx.h"
-#include "MotorHal_cfg.h"
 
-void BSP_PWM_Init(void);
-
-#endif /* BSP_PWM_H */
+void BSP_DAC_Init(void);
+	
+#endif /* BSP_DAC_H */

@@ -102,9 +102,9 @@ void SVPWM_Cal(ST_FOC_CONTROL* pFoc)
     default:break;
     }
     
-    pFoc->TaPu = Txyz[Txyz_Table[0][Sector]];
-    pFoc->TbPu = Txyz[Txyz_Table[1][Sector]];
-    pFoc->TcPu = Txyz[Txyz_Table[2][Sector]];
+    pFoc->Ta = Txyz[Txyz_Table[0][Sector]];
+    pFoc->Tb = Txyz[Txyz_Table[1][Sector]];
+    pFoc->Tc = Txyz[Txyz_Table[2][Sector]];
 }
 
 void Ramp_Init(ST_RAMP* pRamp, float Output)
@@ -265,13 +265,13 @@ void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL)
     MATH_ANGLE_MOD(pCTRL->AngleRad);
 }
 
-void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc)
+void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed)
 {
-    float Itmp = pTc->IqRef*pTc->IqRef;
+    float Itmp = pSpeed->IqRef*pSpeed->IqRef;
     float Istmp = 0.0f;
     pMTPA->IdRef = (pMTPA->Flux - Math_Sqrt(pMTPA->Flux_2 + pMTPA->Eight_Lq_Ld_2*Itmp)) * pMTPA->One_Over_Lq_Ld_Over_4;
     Istmp = Math_Sqrt(Itmp - pMTPA->IdRef*pMTPA->IdRef);
-    if(pTc->IqRef > 0.0f)
+    if(pSpeed->IqRef > 0.0f)
     {
         pMTPA->IqRef = Istmp;
     }
@@ -281,7 +281,7 @@ void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* p
     }
 }
 
-void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_TC_CONTROL* pTc)
+void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed)
 {
     float Idtmp = 0.0f;
     float Iqtmp = 0.0f;
@@ -291,8 +291,8 @@ void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL
     PID_POS_Cal(&pWEAK->PidV);
     pWEAK->Theta = pWEAK->PidV.Output + MATH_2PI;
     
-    Idtmp = pTc->IqRef * Math_Sin(pWEAK->Theta);
-    Iqtmp = pTc->IqRef * Math_Cos(pWEAK->Theta);
+    Idtmp = pSpeed->IqRef * Math_Sin(pWEAK->Theta);
+    Iqtmp = pSpeed->IqRef * Math_Cos(pWEAK->Theta);
     
     if(pWEAK->Theta >= MATH_2PI)
     {
@@ -306,18 +306,18 @@ void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL
     }
 }
 
-void Tc_Cal(ST_TC_CONTROL* pTc)
+void MotorFoc_Speed_Loop(ST_SPEED_CONTROL* pSpeed)
 {
-    pTc->SpdRamp.Target = MATH_SAT(pTc->SpeedRef, pTc->SpeedMax, pTc->SpeedMin);
-    Ramp_Cal(&pTc->SpdRamp);
+    pSpeed->SpdRamp.Target = MATH_SAT(pSpeed->SpeedRef, pSpeed->SpeedMax, pSpeed->SpeedMin);
+    Ramp_Cal(&pSpeed->SpdRamp);
         
-    pTc->PidSpd.Ref = pTc->SpdRamp.Output;
-    pTc->PidSpd.Fdb = pTc->Speed;
-    PID_POS_Cal(&pTc->PidSpd);
-    pTc->IqRef = pTc->PidSpd.Output;
+    pSpeed->PidSpd.Ref = pSpeed->SpdRamp.Output;
+    pSpeed->PidSpd.Fdb = pSpeed->Speed;
+    PID_POS_Cal(&pSpeed->PidSpd);
+    pSpeed->IqRef = pSpeed->PidSpd.Output;
 }
 
-void Foc_Cal(ST_FOC_CONTROL* pFoc)
+void MotorFoc_Current_Loop(ST_FOC_CONTROL* pFoc)
 {
     pFoc->SinValue = Math_Sin(pFoc->AngleRad);
     pFoc->CosValue = Math_Cos(pFoc->AngleRad);

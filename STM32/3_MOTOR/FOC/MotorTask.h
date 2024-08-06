@@ -12,9 +12,9 @@
 
 typedef enum
 {
-    EM_MOTOR_SPEED_MODE_CLOSELOOP1,
-    EM_MOTOR_SPEED_MODE_CLOSELOOP2,
-    EM_MOTOR_SPEED_MODE_CLOSELOOP3,
+    MOTOR_SPEED_MODE_START,
+    MOTOR_SPEED_MODE_LOWSPEED,
+    MOTOR_SPEED_MODE_HIGHSPEED,
 }EM_MOTOR_SPEED_MODE;
 
 typedef enum{
@@ -56,9 +56,11 @@ typedef struct{
     UN_MOTOR_STATE_FLAG         state_flag;
     UN_MOTOR_ERROR_FLAG         error_flag;
     
+    ST_FOC_PARAMETER            foc_para;
+    
     ST_MTPA_CONTROL             mtpa_ctrl;
     ST_WEAK_CONTROL             weak_ctrl;
-    ST_TC_CONTROL               tc_ctrl;
+    ST_SPEED_CONTROL            speed_ctrl;
     ST_FOC_CONTROL              foc_ctrl;
     ST_BRAKE_CONTROL            brake_ctrl;
     
@@ -70,8 +72,8 @@ typedef struct{
     uint32_t                    flow_cnt;
 }ST_MOTOR_TASK;
     
-void Motor_Task_Flow(ST_MOTOR_TASK* pMotor);
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor);
 void Hallest_Angle_Cal(ST_MOTOR_TASK* pMotor);
-void Motor_Foc_Cal(ST_MOTOR_TASK* pMotor);
+void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
 
 #endif /* MotorTask_H */

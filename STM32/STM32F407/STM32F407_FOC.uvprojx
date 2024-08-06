@@ -434,9 +434,24 @@
               <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_dma.c</FilePath>
             </File>
             <File>
+              <FileName>stm32f4xx_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_flash_ramfunc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash_ramfunc.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32f4xx_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_pwr.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_rcc.c</FileName>
@@ -457,16 +472,6 @@
               <FileName>stm32f4xx_wwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_wwdg.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_flash_ramfunc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\0_SDK\STD\STM32F4\src\stm32f4xx_flash_ramfunc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -492,6 +497,16 @@
               <FileName>BSP_CLK.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\1_HARDWARE\BSP\BSP_CLK.h</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_DAC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP_DAC.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_DAC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP_DAC.h</FilePath>
             </File>
             <File>
               <FileName>BSP_DMA.c</FileName>

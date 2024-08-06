@@ -28,6 +28,9 @@
 
 extern float Math_Sin(float A);
 extern float Math_Cos(float A);
-extern float Math_Sqrt(float x);
+extern float Math_Sqrt(float A);
+
+extern void Delay_us(uint32_t time);
+extern void Delay_ms(uint32_t time);
 
 #endif /* Math_H */

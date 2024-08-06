@@ -7,27 +7,27 @@
 
 ST_MOTOR_TASK  Motor = 
 {
-    .tc_ctrl.PidSpd.Kp = USER_M1_SPD_KP_GAIN,
-    .tc_ctrl.PidSpd.Ki = USER_M1_SPD_KI_GAIN,
-    .tc_ctrl.PidSpd.Kd = USER_M1_SPD_KD_GAIN,
-    .tc_ctrl.PidSpd.OutMax = USER_M1_SPD_PID_MAX,
-    .tc_ctrl.PidSpd.OutMin = USER_M1_SPD_PID_MIN,
-    .tc_ctrl.IdRef = 0.0f,
-    .tc_ctrl.IqRef = 0.0f,
+    .speed_ctrl.PidSpd.Kp = USER_M1_SPD_KP_GAIN,
+    .speed_ctrl.PidSpd.Ki = USER_M1_SPD_KI_GAIN,
+    .speed_ctrl.PidSpd.Kd = USER_M1_SPD_KD_GAIN,
+    .speed_ctrl.PidSpd.OutMax = USER_M1_SPD_PID_MAX,
+    .speed_ctrl.PidSpd.OutMin = USER_M1_SPD_PID_MIN,
+    .speed_ctrl.IdRef = 0.0f,
+    .speed_ctrl.IqRef = 0.0f,
     
-    .tc_ctrl.CurrentRamp.Init = USER_M1_CURRENTRAMP_INIT,
-    .tc_ctrl.CurrentRamp.Step = USER_M1_CURRENTRAMP_STEP,
-    .tc_ctrl.CurrentRamp.Target = USER_M1_CURRENTRAMP_TARGET,
-    .tc_ctrl.SpeedChange = USER_M1_CLOSELOOP1_SPEED,
-    .tc_ctrl.SpeedChangeTime_Num = USER_M1_CLOSELOOP1_SWITCH_TIME,
+    .speed_ctrl.CurrentRamp.Init = USER_M1_CURRENTRAMP_INIT,
+    .speed_ctrl.CurrentRamp.Step = USER_M1_CURRENTRAMP_STEP,
+    .speed_ctrl.CurrentRamp.Target = USER_M1_CURRENTRAMP_TARGET,
+    .speed_ctrl.SpeedChange = USER_M1_CLOSELOOP1_SPEED,
+    .speed_ctrl.SpeedChangeTime_Num = USER_M1_CLOSELOOP1_SWITCH_TIME,
     
-    .tc_ctrl.SpeedRef = USER_M1_CLOSELOOP3_SPEED,
-    .tc_ctrl.SpeedMax = USER_MOTOR1_MAX_SPEED,
-    .tc_ctrl.SpeedMin = -USER_MOTOR1_MAX_SPEED,
-    .tc_ctrl.SpdRamp.Step = USER_M1_SPDRAMP_STEP,
+    .speed_ctrl.SpeedRef = USER_M1_CLOSELOOP3_SPEED,
+    .speed_ctrl.SpeedMax = USER_MOTOR1_MAX_SPEED,
+    .speed_ctrl.SpeedMin = -USER_MOTOR1_MAX_SPEED,
+    .speed_ctrl.SpdRamp.Step = USER_M1_SPDRAMP_STEP,
     
     .hall_ctrl.Ts = HAL_CURRENT_LOOP_TIME,
-    .hall_ctrl.TIM_FreqHz = HAL_STIM1_FREQ,
+    .hall_ctrl.TIM_FreqHz = 0.0f,
     
     /* foc initial */
     .foc_ctrl.VsMaxScale = USER_MAX_VS_MAG_PU,

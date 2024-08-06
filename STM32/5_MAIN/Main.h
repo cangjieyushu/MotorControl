@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include "BSP_ADC.h"
 #include "BSP_CLK.h"
+#include "BSP_DAC.h"
 #include "BSP_DMA.h"
 #include "BSP_GPIO.h"
 #include "BSP_ISR.h"

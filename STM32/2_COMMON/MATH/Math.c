@@ -121,7 +121,7 @@ float Math_Cos(float A)
     float N;
     float Fract;
     Input = A * MATH_ONE_OVER_2PI + 0.25f;
-    while (Input > 1.0f)
+    while(Input > 1.0f)
     {
         Input -= 1.0f;        
     }
@@ -134,12 +134,33 @@ float Math_Cos(float A)
     return OutVal;
 }
 
-float Math_Sqrt(float x)
+float Math_Sqrt(float A)
 {
-    float xhalf = 0.5f * x;
-    int32_t i = *(int32_t*)&x;
-    i = 0x1FBD1DF5 + (i >> 1);
-    x = *(float*)&i;
-    x = 0.5f * x + xhalf / x;
-    return x;
+    if(A > 0.0f)
+    {
+        float xhalf = 0.5f * A;
+        int32_t i = *(int32_t*)&A;
+        i = 0x1FBD1DF5 + (i >> 1);
+        A = *(float*)&i;
+        A = 0.5f * A + xhalf / A;
+    }
+    else
+    {
+        A = 0.0f;
+    }
+    return A;
+}
+
+void Delay_us(uint32_t time)
+{
+	uint32_t delay_count1,delay_count2;
+	for(delay_count2=0;delay_count2<time;delay_count2++)
+	for(delay_count1=0;delay_count1<41;delay_count1++);
+}
+
+void Delay_ms(uint32_t time)
+{
+	uint32_t delay_count1,delay_count2;
+	for(delay_count2=0;delay_count2<time;delay_count2++)
+	for(delay_count1=0;delay_count1<41000;delay_count1++);
 }
