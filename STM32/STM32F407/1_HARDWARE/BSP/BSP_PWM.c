@@ -29,6 +29,9 @@ void BSP_PWM_Init(void)
     TIM_OC1Init(TIM1,&TIM_OCInitStructure);
     TIM_OC2Init(TIM1,&TIM_OCInitStructure);
     TIM_OC3Init(TIM1,&TIM_OCInitStructure);
+    
+    TIM_OCInitStructure.TIM_Pulse = HAL_ADC_SAMPLE_VALUE;
+    TIM_OC4Init(TIM1,&TIM_OCInitStructure);
 
     TIM1_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
     TIM1_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
@@ -42,6 +45,9 @@ void BSP_PWM_Init(void)
     TIM_ClearITPendingBit(TIM1, TIM_IT_Update);  //清中断标志位
     TIM_ITConfig(TIM1,TIM_IT_Update, ENABLE); //打开中断 
 
+    TIM_ClearITPendingBit(TIM1, TIM_IT_Break);  //清中断标志位
+    TIM_ITConfig(TIM1,TIM_IT_Break, ENABLE); //打开中断 
+    
     TIM_Cmd(TIM1,ENABLE);
     TIM_CtrlPWMOutputs(TIM1,ENABLE);	
 }

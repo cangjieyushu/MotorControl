@@ -14,6 +14,12 @@
 #define Start_Stop_GPIO_Port        GPIOE
 #define Start_Stop_Pin              GPIO_Pin_4
 
+#define LED0_GPIO_PORT              GPIOE
+#define LED0_Pin                    GPIO_Pin_0
+
+#define LED1_GPIO_PORT              GPIOE
+#define LED1_Pin                    GPIO_Pin_1
+
 void BSP_GPIO_Init(void);
 
 #endif /* BSP_GPIO_H */

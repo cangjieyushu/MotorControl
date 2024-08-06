@@ -7,7 +7,7 @@
 
 void SysTickConfig(void)
 {
-    if(SysTick_Config(SystemCoreClock/1000))
+    if(SysTick_Config((uint32_t)(HAL_SYSTEM_FREQ * HAL_SLOW_TIMER_MS)))
     {	
         while(1);
     }
@@ -16,7 +16,6 @@ void SysTickConfig(void)
 
 void BSP_CLK_Init(void)
 {
-    SystemInit();
     SysTickConfig();
     
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);

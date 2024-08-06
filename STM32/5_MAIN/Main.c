@@ -9,6 +9,7 @@ float Buffer[2048];
 float RTT_DATA[8];
 #endif
 
+uint16_t tmp = 0;
 void System_Task_Tick(ST_SYSTEM_TASK* pSystask)
 {
     if(pSystask->state_flag.BIT.systick_intflow == 1U)
@@ -121,4 +122,9 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 {
     TIM_ClearFlag(TIM1, TIM_FLAG_Break);
     MH_PWM_Duty_Disable();
+}
+
+void TIM1_UP_TIM10_IRQHandler(void)
+{
+    TIM_ClearFlag(TIM1, TIM_FLAG_Update);
 }

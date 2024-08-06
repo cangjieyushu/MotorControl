@@ -24,7 +24,7 @@ void BSP_ADC_Init(void)
 	ADC_InitStructure.ADC_Resolution        = ADC_Resolution_12b;               /*12位模式*/
 	ADC_InitStructure.ADC_ScanConvMode      = ENABLE;                           /*扫描模式*/
 	ADC_InitStructure.ADC_ContinuousConvMode    = ENABLE;                       /*连续转换*/
-	ADC_InitStructure.ADC_ExternalTrigConvEdge  = ADC_ExternalTrigConvEdge_None;/*禁止触发检测 使用软件触发*/
+	ADC_InitStructure.ADC_ExternalTrigConvEdge  = ADC_ExternalTrigConvEdge_Falling;/*禁止触发检测 使用软件触发*/
 	ADC_InitStructure.ADC_DataAlign         = ADC_DataAlign_Right;              /*右对齐*/
 	ADC_InitStructure.ADC_NbrOfConversion   = 1;                                /*只使用1通道 规则通为1*/
 	ADC_Init(ADC1,&ADC_InitStructure);
