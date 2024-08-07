@@ -19,6 +19,14 @@ void System_Task_Tick(ST_SYSTEM_TASK* pSystask)
         
         if((pSystask->systick_count & BIT0) == BIT0)  //1ms
         {
+            if(Systask.state_flow == SYSTEM_STATE_RUN)
+            {
+                Motor.state_flag.BIT.motor_run = 1U;
+            }
+            else
+            {
+                Motor.state_flag.BIT.motor_run = 0U;
+            }
             MotorTask_Speed_Flow(&Motor);
         }
         else  //1ms
@@ -96,7 +104,7 @@ void ADC_IRQHandler(void)
         if(Motor.state_flow == MOTOR_STATE_RUN)
         {
             MotorTask_Current_Flow(&Motor);
-            MH_PWM_Duty_Set(Motor.foc_ctrl.Ta_value, Motor.foc_ctrl.Tb_value, Motor.foc_ctrl.Tc_value);
+            MH_PWM_Duty_Set(Motor.current_ctrl.Ta, Motor.current_ctrl.Tb, Motor.current_ctrl.Tc);
         }
         else if(Motor.state_flow == MOTOR_STATE_BRAKE)
         {

@@ -56,16 +56,19 @@ typedef struct{
     UN_MOTOR_STATE_FLAG         state_flag;
     UN_MOTOR_ERROR_FLAG         error_flag;
     
+    ST_PMSM_PARAMETER           pmsm_para;
     ST_FOC_PARAMETER            foc_para;
+    
+    ST_SPEED_CONTROL            speed_ctrl;
+    ST_CURRENT_CONTROL          current_ctrl;
+    ST_BRAKE_CONTROL            brake_ctrl;
     
     ST_MTPA_CONTROL             mtpa_ctrl;
     ST_WEAK_CONTROL             weak_ctrl;
-    ST_SPEED_CONTROL            speed_ctrl;
-    ST_FOC_CONTROL              foc_ctrl;
-    ST_BRAKE_CONTROL            brake_ctrl;
     
     ST_IF_CONTROL               if_ctrl;
     ST_FLUX_CONTROL             flux_ctrl;
+    ST_SVC_CONTROL              svc_ctrl;
     ST_SMO_CONTROL              smo_ctrl;
     ST_HALL_CONTROL             hall_ctrl;
     

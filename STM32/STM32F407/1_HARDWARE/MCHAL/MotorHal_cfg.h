@@ -36,6 +36,7 @@
 
 //MCPWM…Ë÷√
 #define HAL_PWM_MAX_COUNTER_F                   (float)(HAL_PWM_CLK_FREQ / 2.0f / HAL_PWM_FREQ)
+#define HAL_PWM_MAX_COUNTER_2                   (float)(HAL_PWM_CLK_FREQ / HAL_PWM_FREQ)
 #define HAL_PWM_MAX_COUNTER                     (uint32_t)(HAL_PWM_CLK_FREQ / 2.0f / HAL_PWM_FREQ)
 
 //MCPWM…Ë÷√

@@ -13,11 +13,12 @@
 #define USER_MOTOR_SENSE_RPS                            (2000U)                         //有感RPS
 
 //无感算法
-#define USER_MOTOR_SENSELESS_FLUX                       (0001U)                         //非线性磁链
-#define USER_MOTOR_SENSELESS_SMO                        (0002U)                         //SMO
+#define USER_MOTOR_SENSELESS_FLUX                       (0001U)                         //FLUX
+#define USER_MOTOR_SENSELESS_SVC                        (0002U)                         //SVC
+#define USER_MOTOR_SENSELESS_SMO                        (0003U)                         //SMO
 
 //电机运行模式
-#define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_SMO)
+#define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_SVC)
 
 #define USER_MOTOR_MTPA_EN                              (1U)
 #define USER_MOTOR_FLUX_EN                              (1U)
@@ -50,6 +51,10 @@ typedef struct
     float Vbat;
     float VsMax;
     
+    float AngleRad;
+    float SinValue;
+    float CosValue;
+    
     uint16_t Ia_data;    
     uint16_t Ib_data;    
     uint16_t Ic_data;   
@@ -58,6 +63,7 @@ typedef struct
     uint16_t Ic_offset; 
     uint16_t Vbat_data; 
     
+    float VsMaxScale;
 }ST_FOC_PARAMETER;
 
 typedef struct
@@ -88,9 +94,6 @@ typedef struct
     float Output;
 }ST_RAMP;
 
-/**
- *  @brief EST paramter of calculation type definition
- */
 typedef struct
 {
     float Ref;
@@ -104,83 +107,6 @@ typedef struct
     float Ui;
     float LastError;
 }ST_PID;
-
-typedef struct
-{
-    float AngleRad;
-    ST_RAMP AngleRadRamp;
-    uint32_t AngleRad_cnt;
-    uint8_t IF_Success_Flag;
-
-    float AngleRad_Error;
-    uint32_t AngleRad_time;
-}ST_IF_CONTROL;
-
-typedef struct
-{
-    float ElecFreqHz;
-    float ElecFreqHz_Filter;
-    float AngleRad;
-    float AngleSpeed;
-
-    float Est_Xalpha;
-    float Est_Xbeta;
-    float Nn_alpha;
-    float Nn_beta;
-    float Nn_2;
-    
-    float Rs;
-    float Ls;
-    float Ref_Flux_2;
-    float Ts;
-    float Kt;
-    ST_PID Pll_Pid;
-}ST_FLUX_CONTROL;
-
-typedef struct
-{
-    float ElecFreqHz;
-    float ElecFreqHz_Filter;
-    float AngleRad;
-    float AngleSpeed;
-
-    float Est_Ialpha;
-    float Est_Ibeta;
-    float Est_Ealpha;
-    float Est_Ebeta;
-    
-    float Rs;
-    float Ld;
-    float Lq;
-    float One_Over_Ld;
-    float Rs_Over_Ld;
-    float Ld_Lq_Over_Ld;
-    float Ts;
-    float K1;
-    float K2;
-    ST_PID Pll_Pid;
-}ST_SMO_CONTROL;
-
-typedef struct
-{
-    ST_PID PidV;
-    float Theta;
-    float IdRef;
-    float IqRef;
-        
-    float Flux;
-    float Flux_2;
-    float Eight_Lq_Ld_2;
-    float One_Over_Lq_Ld_Over_4;
-}ST_MTPA_CONTROL;
-
-typedef struct
-{
-    ST_PID PidV;
-    float Theta;
-    float IdRef;
-    float IqRef;
-}ST_WEAK_CONTROL;
 
 typedef struct
 {
@@ -201,41 +127,22 @@ typedef struct
 
 typedef struct
 {
-    float IdRef;
-    float IqRef;
-    float Ia;    
-    float Ib;    
-    float Ic;    
-    float Ialpha;
-    float Ibeta; 
-    float Id;    
-    float Iq;    
+    float IdRef;   
+    float IqRef;    
     
     ST_PID PidId;
     ST_PID PidIq;
     
-    float Vdc;
-    float VsMax;
-    
-    float Ualpha;      
-    float Ubeta;
-    float Ud;      
-    float Uq;      
     float Ta;    
     float Tb;     
     float Tc;        
     uint16_t Ta_value;    
     uint16_t Tb_value;     
-    uint16_t Tc_value;   
+    uint16_t Tc_value;  
     
-    float AngleRad;
-    float SinValue;
-    float CosValue;
-    
-    float VsMaxScale;
     float MaxScale; 
     float MinScale; 
-}ST_FOC_CONTROL;
+}ST_CURRENT_CONTROL;
 
 typedef struct
 { 
@@ -260,6 +167,72 @@ typedef struct
 
 typedef struct
 {
+    float IdRef;
+    float IqRef;
+}ST_MTPA_CONTROL;
+
+typedef struct
+{
+    ST_PID PidV;
+    float Theta;
+    float IdRef;
+    float IqRef;
+}ST_WEAK_CONTROL;
+
+typedef struct
+{
+    float AngleRad;
+    ST_RAMP AngleRadRamp;
+    uint32_t AngleRad_cnt;
+    uint8_t IF_Success_Flag;
+
+    float AngleRad_Error;
+    uint32_t AngleRad_time;
+}ST_IF_CONTROL;
+
+typedef struct
+{
+    float AngleRad;
+    float AngleSpeed;
+    float AngleSpeed_Filter;
+
+    float Est_Xalpha;
+    float Est_Xbeta;
+    
+    float Ks;
+    float Kt;
+    ST_PID Pll_Pid;
+}ST_FLUX_CONTROL;
+
+typedef struct
+{
+    float AngleRad;
+    float AngleSpeed;
+    float AngleSpeed_Filter;
+    
+    float SpeedLimit;
+    float Lambda;
+    float Alpha;
+}ST_SVC_CONTROL;
+
+typedef struct
+{
+    float AngleRad;
+    float AngleSpeed;
+    float AngleSpeed_Filter;
+
+    float Est_Ialpha;
+    float Est_Ibeta;
+    float Est_Ealpha;
+    float Est_Ebeta;  
+    
+    float K1;
+    float K2;
+    ST_PID Pll_Pid;
+}ST_SMO_CONTROL;
+
+typedef struct
+{
     float HallDir;   
     uint8_t HallLastLevel;             
     uint8_t HallCurrentLevel;    
@@ -268,41 +241,45 @@ typedef struct
     uint32_t HallCurrentCount;         
     uint32_t HallStallCount;           
     uint32_t HallStallLastCount;       
-    uint32_t HallStall_cnt;            
-    float AngleRad;                 
-    float ElecFreqHz;                 
-    float ElecFreqHz_Filter;  
+    uint32_t HallStall_cnt;     
+    float AngleRad;
+    float AngleSpeed;
+    float AngleSpeed_Filter;
     
     float Ts;        
     float TIM_FreqHz;  
     uint32_t HallStallTime;        
 }ST_HALL_CONTROL;
 
-void Ipark_Transform(ST_FOC_CONTROL* pFoc);
-void Park_Transform(ST_FOC_CONTROL* pFoc);
-void Clark_Transform(ST_FOC_CONTROL* pFoc);
-void SVPWM_Cal(ST_FOC_CONTROL* pFoc);
+void Ipark_Transform(ST_FOC_PARAMETER* pFocPara);
+void Park_Transform(ST_FOC_PARAMETER* pFocPara);
+void Clark_Transform(ST_FOC_PARAMETER* pFocPara);
+void SVPWM_Cal(ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl);
     
 void Ramp_Init(ST_RAMP* pRamp, float Output);
-void Ramp_Cal(ST_RAMP* pRamp);
+void Ramp_Control(ST_RAMP* pRamp);
 void PID_POS_Init(ST_PID* pPID, float init);
-void PID_POS_Cal(ST_PID* pPID);
+void PID_POS_Control(ST_PID* pPID);
+
+void MotorFoc_Speed_Loop(ST_SPEED_CONTROL* pSpeed);
+void MotorFoc_Current_Loop(ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl);
+void Motor_Brake_Control(ST_BRAKE_CONTROL* pBrake, ST_FOC_PARAMETER* pFocPara);
+
+void MTPA_Control(ST_PMSM_PARAMETER* pPMSMPara, ST_SPEED_CONTROL* pSpeed, ST_MTPA_CONTROL* pMTPA);
+void WEAK_Init(ST_WEAK_CONTROL* pWEAK);
+void WEAK_Control(ST_FOC_PARAMETER* pFocPara, ST_SPEED_CONTROL* pSpeed, ST_MTPA_CONTROL* pMTPA, ST_WEAK_CONTROL* pWEAK);
 
 void Est_IF_Init(ST_IF_CONTROL* pCTRL);
 void Est_IF(ST_IF_CONTROL* pCTRL, float Est_AngleRad);
 
 void Est_Flux_Init(ST_FLUX_CONTROL* pCTRL);
-void Est_Flux(ST_FOC_CONTROL* pFoc, ST_FLUX_CONTROL* pCTRL);
+void Est_Flux(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl, ST_FLUX_CONTROL* pCTRL);
+
+void Est_SVC_Init(ST_SVC_CONTROL* pCTRL);
+void Est_SVC(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl, ST_SVC_CONTROL* pCTRL);
 
 void Est_SMO_Init(ST_SMO_CONTROL* pCTRL);
-void Est_SMO(ST_FOC_CONTROL* pFoc, ST_SMO_CONTROL* pCTRL);
-
-void MTPA_Control(ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed);
-void WEAK_Control(ST_WEAK_CONTROL* pWEAK, ST_MTPA_CONTROL* pMTPA, ST_FOC_CONTROL* pFoc, ST_SPEED_CONTROL* pSpeed);
-
-void MotorFoc_Speed_Loop(ST_SPEED_CONTROL* pSpeed);
-void MotorFoc_Current_Loop(ST_FOC_CONTROL* pFoc);
-void Motor_Brake_Control(ST_BRAKE_CONTROL* pBrake, ST_FOC_CONTROL* pFoc);
+void Est_SMO(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl, ST_SMO_CONTROL* pCTRL);
 
 void Hallest_Init(ST_HALL_CONTROL* pHall);
 void Hallest_Low_Speed(ST_HALL_CONTROL* pHall);

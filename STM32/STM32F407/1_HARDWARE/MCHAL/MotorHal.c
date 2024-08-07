@@ -13,11 +13,17 @@ void MH_ADC_Data_Read(uint16_t* udata, uint16_t* vdata, uint16_t* wdata, uint16_
     *oth = ADC1->JDR4;
 }
 
-void MH_PWM_Duty_Set(uint16_t uduty, uint16_t vduty, uint16_t wduty)
+void MH_PWM_Duty_Set(float uduty, float vduty, float wduty)
 {
-   TIM1->CCR1 = uduty;
-   TIM1->CCR2 = vduty;
-   TIM1->CCR3 = wduty;
+   uint16_t utmp = 0;
+   uint16_t vtmp = 0;
+   uint16_t wtmp = 0;
+   utmp = (uint16_t)(HAL_PWM_MAX_COUNTER_2*uduty);
+   vtmp = (uint16_t)(HAL_PWM_MAX_COUNTER_2*vduty);
+   wtmp = (uint16_t)(HAL_PWM_MAX_COUNTER_2*wduty);
+   TIM1->CCR1 = utmp;
+   TIM1->CCR2 = vtmp;
+   TIM1->CCR3 = wtmp;
 }
 
 void MH_PWM_Duty_Enable(void)  // Æô¶¯º¯Êý
