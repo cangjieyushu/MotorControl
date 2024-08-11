@@ -8,13 +8,11 @@
 void BSP_GPIO_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-
     GPIO_SetBits(SHUTDOWN1_GPIO_Port, SHUTDOWN1_Pin);
     
     GPIO_InitStruct.GPIO_Pin = Start_Stop_Pin;
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
     GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Low_Speed;
     GPIO_Init(Start_Stop_GPIO_Port, &GPIO_InitStruct);
 
     GPIO_InitStruct.GPIO_Pin = SHUTDOWN1_Pin;
@@ -36,6 +34,101 @@ void BSP_GPIO_Init(void)
     GPIO_ResetBits(LED0_GPIO_PORT, LED0_Pin);
     GPIO_ResetBits(LED1_GPIO_PORT, LED1_Pin);
     
+    GPIO_InitStruct.GPIO_Pin = KEY0_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_Init(KEY0_GPIO_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Pin = KEY1_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_Init(KEY1_GPIO_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Pin = KEY2_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_Init(KEY2_GPIO_PORT, &GPIO_InitStruct);
+    
+    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+    GPIO_InitStruct.GPIO_Pin   = ADC_U_CURRENT_Pin;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(ADC_U_CURRENT_GPIO_Port, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+    GPIO_InitStruct.GPIO_Pin   = ADC_V_CURRENT_Pin;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(ADC_V_CURRENT_GPIO_Port, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+    GPIO_InitStruct.GPIO_Pin   = ADC_W_CURRENT_Pin;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(ADC_W_CURRENT_GPIO_Port, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+    GPIO_InitStruct.GPIO_Pin   = ADC_VBAT_Pin;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(ADC_VBAT_GPIO_Port, &GPIO_InitStruct);
+
+    
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = UH_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(UH_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = VH_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(VH_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = WH_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(WH_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = UL_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(UL_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = VL_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(VL_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_Pin = WL_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(WL_PWM_GPIO_Port,&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+    GPIO_InitStruct.GPIO_Pin = BKIN_PWM_Pin;
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(BKIN_PWM_GPIO_Port,&GPIO_InitStruct);
+    
+    GPIO_PinAFConfig(UH_PWM_GPIO_Port, UH_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(VH_PWM_GPIO_Port, VH_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(WH_PWM_GPIO_Port, WH_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(UL_PWM_GPIO_Port, UL_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(VL_PWM_GPIO_Port, VL_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(WL_PWM_GPIO_Port, WL_PWM_Pin_Source, GPIO_AF_TIM1);
+    GPIO_PinAFConfig(BKIN_PWM_GPIO_Port, BKIN_PWM_Pin_Source, GPIO_AF_TIM1);
+
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_U_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_U_BEMF_GPIO_Port, &GPIO_InitStruct);
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_V_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_V_BEMF_GPIO_Port, &GPIO_InitStruct);
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_W_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_W_BEMF_GPIO_Port, &GPIO_InitStruct);
+    
 //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_15;
 //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;// 输入  
 //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;// 拉GPIO_PuPd_UP
@@ -51,10 +144,6 @@ void BSP_GPIO_Init(void)
 //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//下拉
 //GPIO_Init(GPIOD, &GPIO_InitStructure);//初始化
 
-//GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AIN;/*模拟输入*/
-//GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_6|GPIO_Pin_7;/*通道3*/
-//GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;/*不带上下拉*/
-//GPIO_Init(GPIOA,&GPIO_InitStructure);/*初始化*/
 
 //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
@@ -68,12 +157,34 @@ void BSP_GPIO_Init(void)
 //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
 //GPIO_Init(GPIOE,&GPIO_InitStructure);		
-
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource8,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource9,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource10,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource11,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource12,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource13,GPIO_AF_TIM1);
-//GPIO_PinAFConfig(GPIOE,GPIO_PinSource15,GPIO_AF_TIM1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

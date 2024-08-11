@@ -10,6 +10,8 @@ void BSP_PWM_Init(void)
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseInitStructure;
     TIM_OCInitTypeDef  TIM_OCInitStructure;	
     TIM_BDTRInitTypeDef TIM1_BDTRInitStructure;
+    
+    TIM_Cmd(TIM1,ENABLE);
 
     TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;                     // 1分频
     TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;     // 互补中心对称
@@ -32,22 +34,26 @@ void BSP_PWM_Init(void)
     
     TIM_OCInitStructure.TIM_Pulse = HAL_ADC_SAMPLE_VALUE;
     TIM_OC4Init(TIM1,&TIM_OCInitStructure);
-
+    TIM_SelectOutputTrigger(TIM1, TIM_TRGOSource_OC4Ref);
+    
     TIM1_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
     TIM1_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
-    TIM1_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_1; 
+    TIM1_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_OFF; 
     TIM1_BDTRInitStructure.TIM_DeadTime = HAL_PWM_DEADTIME_VALUE;
     TIM1_BDTRInitStructure.TIM_Break = TIM_Break_Enable;                    // 过流立即停车，封锁PWM  TIM_Break_Disable TIM_Break_Enable
-    TIM1_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_Low;
+    TIM1_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
     TIM1_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Disable;  
     TIM_BDTRConfig(TIM1, &TIM1_BDTRInitStructure);
     
     TIM_ClearITPendingBit(TIM1, TIM_IT_Update);  //清中断标志位
     TIM_ITConfig(TIM1,TIM_IT_Update, ENABLE); //打开中断 
+    
+    TIM_ClearITPendingBit(TIM1, TIM_IT_CC4);  //清中断标志位
+    TIM_ITConfig(TIM1,TIM_IT_CC4, ENABLE); //打开中断 
 
     TIM_ClearITPendingBit(TIM1, TIM_IT_Break);  //清中断标志位
-    TIM_ITConfig(TIM1,TIM_IT_Break, ENABLE); //打开中断 
-    
-    TIM_Cmd(TIM1,ENABLE);
+    TIM_ITConfig(TIM1,TIM_IT_Break, ENABLE); //打开中断
+
+    TIM_ARRPreloadConfig(TIM1, ENABLE);
     TIM_CtrlPWMOutputs(TIM1,ENABLE);	
 }

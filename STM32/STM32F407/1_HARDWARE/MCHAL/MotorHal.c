@@ -28,20 +28,13 @@ void MH_PWM_Duty_Set(float uduty, float vduty, float wduty)
 
 void MH_PWM_Duty_Enable(void)  // 启动函数
 {
-   /*PWM寄存器占空比清零*/
-   TIM1->CCR1 = 0;
-   TIM1->CCR2 = 0;
-   TIM1->CCR3 = 0;
-   //使能PWM输出通道OC1/OC1N/OC2/OC2N/OC3/OC3N
    TIM1->CCER|=0x5555;	
 }
  
 void MH_PWM_Duty_Disable(void)  // 停止函数
 {
-   /*PWM寄存器占空比清零*/
    TIM1->CCR1 = 0;
    TIM1->CCR2 = 0;
    TIM1->CCR3 = 0;
-   //不使能PWM输出通道OC1/OC1N/OC2/OC2N/OC3/OC3N
    TIM1->CCER&=0xAAAA;	
 }

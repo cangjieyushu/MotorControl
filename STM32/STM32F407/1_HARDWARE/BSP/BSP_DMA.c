@@ -11,7 +11,7 @@ void BSP_DMA_Init(void)
 {
 	DMA_InitTypeDef DMA_InitStructure;
 
-	while(DMA_GetCmdStatus(DMA1_Stream0) != DISABLE);                               /*等待DMA可以配置*/
+	while(DMA_GetCmdStatus(DMA2_Stream0) != DISABLE);                               /*等待DMA可以配置*/
 	 
 	DMA_InitStructure.DMA_Channel = DMA_Channel_0;                                  /*DMA通道0*/
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_Address;           /*外设地址*/
@@ -28,7 +28,7 @@ void BSP_DMA_Init(void)
 	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_HalfFull;               /*FIFO的值*/
 	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;                     /*单次传输*/
 	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;             /*单次传输*/
-	DMA_Init(DMA1_Stream0,&DMA_InitStructure);/**/
+	DMA_Init(DMA2_Stream0, &DMA_InitStructure);/**/
     
-    DMA_Cmd(DMA1_Stream0, ENABLE);
+    DMA_Cmd(DMA2_Stream0, ENABLE);
 }

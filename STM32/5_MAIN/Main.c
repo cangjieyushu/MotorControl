@@ -79,13 +79,17 @@ int main(void)
     
     BSP_CLK_Init();
     BSP_GPIO_Init();
+    BSP_DMA_Init();
     BSP_ADC_Init();
     BSP_DAC_Init();
-    BSP_DMA_Init();
     BSP_PWM_Init();
     BSP_ISR_Init();
     
     __enable_irq();
+    
+    Motor.foc_para.Ia_offset = 1540U;
+    Motor.foc_para.Ib_offset = 1540U;
+    Motor.foc_para.Ic_offset = 1540U;
     
     for(;;)
     {
@@ -105,6 +109,7 @@ void ADC_IRQHandler(void)
         {
             MotorTask_Current_Flow(&Motor);
             MH_PWM_Duty_Set(Motor.current_ctrl.Ta, Motor.current_ctrl.Tb, Motor.current_ctrl.Tc);
+            MH_PWM_Duty_Enable();
         }
         else if(Motor.state_flow == MOTOR_STATE_BRAKE)
         {
@@ -135,4 +140,12 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 void TIM1_UP_TIM10_IRQHandler(void)
 {
     TIM_ClearFlag(TIM1, TIM_FLAG_Update);
+}
+
+void TIM1_CC_IRQHandler(void)
+{
+    if(TIM_GetITStatus(TIM1, TIM_FLAG_CC4))
+    {
+        TIM_ClearFlag(TIM1, TIM_FLAG_CC4);
+    }
 }

@@ -238,23 +238,21 @@ void Est_Flux(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURRE
     float Ref_Ybeta;
     float Nn_alpha;
     float Nn_beta;
-    float Nn_2;
     
     Ref_Yalpha = -pCTRL->Ks*pFocPara->Ialpha + pFocPara->Ualpha;
     Ref_Ybeta = -pCTRL->Ks*pFocPara->Ibeta + pFocPara->Ubeta;
     
     Nn_alpha = pCTRL->Est_Xalpha - pPMSMPara->Ls*pFocPara->Ialpha;
     Nn_beta = pCTRL->Est_Xbeta - pPMSMPara->Ls*pFocPara->Ibeta;
-    Nn_2 = Nn_alpha*Nn_alpha + Nn_beta*Nn_beta;
+    pCTRL->Nn_2 = Nn_alpha*Nn_alpha + Nn_beta*Nn_beta;
     
-    pCTRL->Est_Xalpha += pPMSMPara->Ts*(Ref_Yalpha + pCTRL->Kt*Nn_alpha*(pPMSMPara->Flux_2 - Nn_2));
-    pCTRL->Est_Xbeta += pPMSMPara->Ts*(Ref_Ybeta + pCTRL->Kt*Nn_beta*(pPMSMPara->Flux_2 - Nn_2));
+    pCTRL->Est_Xalpha += pPMSMPara->Ts*(Ref_Yalpha + pCTRL->Kt*Nn_alpha*(pPMSMPara->Flux_2 -  pCTRL->Nn_2));
+    pCTRL->Est_Xbeta += pPMSMPara->Ts*(Ref_Ybeta + pCTRL->Kt*Nn_beta*(pPMSMPara->Flux_2 -  pCTRL->Nn_2));
     
     pCTRL->Pll_Pid.Ref = (pCTRL->Est_Xbeta - pPMSMPara->Ls*pFocPara->Ibeta)*Math_Cos(pCTRL->AngleRad);
     pCTRL->Pll_Pid.Fdb = (pCTRL->Est_Xalpha - pPMSMPara->Ls*pFocPara->Ialpha)*Math_Sin(pCTRL->AngleRad);
     PID_POS_Control(&pCTRL->Pll_Pid);
     
-    pCTRL->AngleSpeed = pCTRL->Pll_Pid.Output;
     pCTRL->AngleSpeed = pCTRL->Pll_Pid.Output;
     pCTRL->AngleSpeed_Filter = 0.001f*(USER_PLL_SPEED_LPF_COEFF*pCTRL->AngleSpeed + (1000.0f-USER_PLL_SPEED_LPF_COEFF)*pCTRL->AngleSpeed_Filter);
     pCTRL->AngleRad += pPMSMPara->Ts*pCTRL->AngleSpeed;

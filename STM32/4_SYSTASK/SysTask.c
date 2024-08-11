@@ -9,6 +9,19 @@ uint8_t START = 0U;
 
 void System_Task_Flow(ST_SYSTEM_TASK*  pSystask)
 {
+    if(GPIO_ReadInputDataBit(KEY0_GPIO_PORT, KEY0_Pin) == 0U)
+    {
+        START = 1U;
+    }
+    if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT, KEY1_Pin) == 0U)
+    {
+        START = 2U;
+    }
+    if(GPIO_ReadInputDataBit(KEY2_GPIO_PORT, KEY2_Pin) == 0U)
+    {
+        START = 3U;
+    }
+    
     if(Motor.error_flag.ALL != 0U)
     {
         pSystask->error_flag.BIT.motor_1_error = 1U;

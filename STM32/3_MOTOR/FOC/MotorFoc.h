@@ -18,7 +18,7 @@
 #define USER_MOTOR_SENSELESS_SMO                        (0003U)                         //SMO
 
 //电机运行模式
-#define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_SVC)
+#define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_FLUX)
 
 #define USER_MOTOR_MTPA_EN                              (1U)
 #define USER_MOTOR_FLUX_EN                              (1U)
@@ -198,6 +198,7 @@ typedef struct
 
     float Est_Xalpha;
     float Est_Xbeta;
+    float Nn_2;
     
     float Ks;
     float Kt;

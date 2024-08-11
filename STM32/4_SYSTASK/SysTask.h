@@ -8,6 +8,13 @@
 #include <stdint.h>
 #include "MotorPara.h"
 #include "MotorTask.h"
+#include "BSP_ADC.h"
+#include "BSP_CLK.h"
+#include "BSP_DAC.h"
+#include "BSP_DMA.h"
+#include "BSP_GPIO.h"
+#include "BSP_ISR.h"
+#include "BSP_PWM.h"
 
 typedef enum{
     SYSTEM_STATE_POWERUP,

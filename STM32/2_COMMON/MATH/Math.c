@@ -99,9 +99,11 @@ float Math_Sin(float A)
     float Input, OutVal;
     float Findex;
     int16_t Index;
-    float a;
-    float b;
-    float Fract;
+	float a;
+	float b;
+	float Fract;
+
+	/* Angle period converted to 1 */
     Input = A * MATH_ONE_OVER_2PI;
     Findex = Input * (float)SINE_TABLE_SIZE;
     Index = (int16_t)Findex;

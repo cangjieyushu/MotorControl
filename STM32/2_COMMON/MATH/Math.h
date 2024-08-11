@@ -23,7 +23,7 @@
 #define MATH_MIN(A, B)                  (((A)<(B)) ? (A) : (B))
 #define MATH_SAT(A, Pos, Neg)           (MATH_MAX(((MATH_MIN((A), (Pos)))), (Neg)))
 
-#define MATH_ANGLE_MOD(A)               (((A)>(MATH_2PI)) ? (A-MATH_2PI) : (((A)<(0.0f)) ? (A+MATH_2PI) : (A)))
+#define MATH_ANGLE_MOD(A)               while(A>MATH_2PI){A-=MATH_2PI;}while(A<0.0f){A+=MATH_2PI;}
 #define SINE_TABLE_SIZE (512U)
 
 extern float Math_Sin(float A);
