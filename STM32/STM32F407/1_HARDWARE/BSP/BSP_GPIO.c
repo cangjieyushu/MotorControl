@@ -8,6 +8,7 @@
 void BSP_GPIO_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
+
     GPIO_SetBits(SHUTDOWN1_GPIO_Port, SHUTDOWN1_Pin);
     
     GPIO_InitStruct.GPIO_Pin = Start_Stop_Pin;
@@ -63,8 +64,20 @@ void BSP_GPIO_Init(void)
     GPIO_InitStruct.GPIO_Pin   = ADC_VBAT_Pin;
     GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
     GPIO_Init(ADC_VBAT_GPIO_Port, &GPIO_InitStruct);
+                        
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_U_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_U_BEMF_GPIO_Port, &GPIO_InitStruct);
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_V_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_V_BEMF_GPIO_Port, &GPIO_InitStruct);
+//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
+//    GPIO_InitStruct.GPIO_Pin   = ADC_W_BEMF_Pin;
+//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+//    GPIO_Init(ADC_W_BEMF_GPIO_Port, &GPIO_InitStruct);
 
-    
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
     GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStruct.GPIO_Pin = UH_PWM_Pin;
@@ -115,48 +128,22 @@ void BSP_GPIO_Init(void)
     GPIO_PinAFConfig(VL_PWM_GPIO_Port, VL_PWM_Pin_Source, GPIO_AF_TIM1);
     GPIO_PinAFConfig(WL_PWM_GPIO_Port, WL_PWM_Pin_Source, GPIO_AF_TIM1);
     GPIO_PinAFConfig(BKIN_PWM_GPIO_Port, BKIN_PWM_Pin_Source, GPIO_AF_TIM1);
-
-//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
-//    GPIO_InitStruct.GPIO_Pin   = ADC_U_BEMF_Pin;
-//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-//    GPIO_Init(ADC_U_BEMF_GPIO_Port, &GPIO_InitStruct);
-//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
-//    GPIO_InitStruct.GPIO_Pin   = ADC_V_BEMF_Pin;
-//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-//    GPIO_Init(ADC_V_BEMF_GPIO_Port, &GPIO_InitStruct);
-//    GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_AIN;
-//    GPIO_InitStruct.GPIO_Pin   = ADC_W_BEMF_Pin;
-//    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-//    GPIO_Init(ADC_W_BEMF_GPIO_Port, &GPIO_InitStruct);
     
-//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_15;
-//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;// 输入  
-//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;// 拉GPIO_PuPd_UP
-//GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化
-
-//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5;;
-//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//模拟输入
-//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//下拉
-//GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
-
-//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_11;
-//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//输入
-//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//下拉
-//GPIO_Init(GPIOD, &GPIO_InitStructure);//初始化
-
-
-//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-//GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13;
-//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-//GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-//GPIO_Init(GPIOE,&GPIO_InitStructure);
-
-//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-//GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_15;
-//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-//GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-//GPIO_Init(GPIOE,&GPIO_InitStructure);		
+    GPIO_InitStruct.GPIO_Pin = U_HALL_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(U_HALL_GPIO_Port, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Pin = V_HALL_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(V_HALL_GPIO_Port, &GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_Pin = W_HALL_Pin;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+    GPIO_InitStruct.GPIO_Speed = GPIO_High_Speed;
+    GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+    GPIO_Init(W_HALL_GPIO_Port, &GPIO_InitStruct);
 }
 
 

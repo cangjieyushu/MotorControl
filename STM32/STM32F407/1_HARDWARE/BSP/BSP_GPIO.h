@@ -90,6 +90,26 @@
 #define BKIN_PWM_Pin                GPIO_Pin_12
 #define BKIN_PWM_Pin_Source         GPIO_PinSource12
 
+#define U_HALL_GPIO_Port            GPIOH
+#define U_HALL_Pin                  GPIO_Pin_10
+#define U_HALL_Port_Source          EXTI_PortSourceGPIOH
+#define U_HALL_Pin_Source           GPIO_PinSource10
+#define U_HALL_EXTI_Line            EXTI_Line10
+
+#define U_HALL_GPIO_Port            GPIOH
+#define U_HALL_Pin                  GPIO_Pin_10
+#define V_HALL_GPIO_Port            GPIOH
+#define V_HALL_Pin                  GPIO_Pin_11
+#define V_HALL_Port_Source          EXTI_PortSourceGPIOH
+#define V_HALL_Pin_Source           GPIO_PinSource11
+#define V_HALL_EXTI_Line            EXTI_Line11
+
+#define W_HALL_GPIO_Port            GPIOH
+#define W_HALL_Pin                  GPIO_Pin_12
+#define W_HALL_Port_Source          EXTI_PortSourceGPIOH
+#define W_HALL_Pin_Source           GPIO_PinSource12
+#define W_HALL_EXTI_Line            EXTI_Line12
+
 void BSP_GPIO_Init(void);
 
 #endif /* BSP_GPIO_H */

@@ -20,8 +20,8 @@
 //电机运行模式
 #define USER_MOTOR_MODE                                 (USER_MOTOR_SENSELESS_FLUX)
 
-#define USER_MOTOR_MTPA_EN                              (1U)
-#define USER_MOTOR_FLUX_EN                              (1U)
+#define USER_MOTOR_MTPA_EN                              (0U)
+#define USER_MOTOR_FLUX_EN                              (0U)
 
 #define USER_HALL_SPEED_LPF_COEFF                       (200.0f)                        //0~1000，越小滤波越深
 #define USER_PLL_SPEED_LPF_COEFF                        (50.0f)                         //0~1000，越小滤波越深
@@ -35,6 +35,7 @@
 
 typedef struct
 {
+    float TargetDir;    
     float Ia;    
     float Ib;    
     float Ic;    
@@ -234,22 +235,22 @@ typedef struct
 
 typedef struct
 {
-    float HallDir;   
-    uint8_t HallLastLevel;             
-    uint8_t HallCurrentLevel;    
-    uint32_t HallCount_tmp[6];       
-    uint32_t HallLastCount;            
-    uint32_t HallCurrentCount;         
-    uint32_t HallStallCount;           
-    uint32_t HallStallLastCount;       
-    uint32_t HallStall_cnt;     
+    float HallDir;
+    uint8_t HallLastLevel;
+    uint8_t HallCurrentLevel;
+    uint32_t HallCount_tmp[6];
+    uint32_t HallSwitchCount;
+    uint32_t HallLastSwitchCount;
+    uint32_t HallStallCount;
+    uint32_t HallStallLastCount;
+    uint32_t HallStall_cnt;
     float AngleRad;
+    float AngleRad_Hall;
     float AngleSpeed;
     float AngleSpeed_Filter;
     
-    float Ts;        
-    float TIM_FreqHz;  
-    uint32_t HallStallTime;        
+    float TIM_FreqHz;
+    uint32_t HallStallTime;
 }ST_HALL_CONTROL;
 
 void Ipark_Transform(ST_FOC_PARAMETER* pFocPara);
@@ -282,10 +283,11 @@ void Est_SVC(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURREN
 void Est_SMO_Init(ST_SMO_CONTROL* pCTRL);
 void Est_SMO(ST_PMSM_PARAMETER* pPMSMPara, ST_FOC_PARAMETER* pFocPara, ST_CURRENT_CONTROL* pCurrentCtrl, ST_SMO_CONTROL* pCTRL);
 
-void Hallest_Init(ST_HALL_CONTROL* pHall);
-void Hallest_Low_Speed(ST_HALL_CONTROL* pHall);
-void Hallest_High_Speed(ST_HALL_CONTROL* pHall);
-void Hallest_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt);
+void Est_Hall_Init(ST_HALL_CONTROL* pHall);
+void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall);
+void Est_Hall_High_Speed(ST_HALL_CONTROL* pHall);
+void Est_Hall_Speed_Cal(ST_HALL_CONTROL* pHall);
+void Est_Hall_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt);
 
 /** @}end of group PMSM */
 

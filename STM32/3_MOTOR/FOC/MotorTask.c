@@ -3,10 +3,12 @@
  * @copyright : 
  **************************************************************************************************/
 #include "MotorTask.h"
+#include "MotorPara.h"
 
 void Motor_SpeedSwitchToHigh(ST_MOTOR_TASK* pMotor)
 {
-    if(pMotor->speed_ctrl.Speed > pMotor->speed_ctrl.SpeedChange)
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) > pMotor->speed_ctrl.SpeedChange)
     {
         if(++pMotor->flow_cnt > pMotor->speed_ctrl.SpeedChangeTime_Num)
         {
@@ -20,11 +22,56 @@ void Motor_SpeedSwitchToHigh(ST_MOTOR_TASK* pMotor)
     {
         pMotor->flow_cnt = 0U;
     }
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
+                        
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_FLUX)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) > pMotor->speed_ctrl.SpeedChange)
+    {
+        if(++pMotor->flow_cnt > pMotor->speed_ctrl.SpeedChangeTime_Num)
+        {
+            pMotor->flow_cnt = 0U;
+            Ramp_Init(&pMotor->speed_ctrl.SpdRamp, (pMotor->speed_ctrl.Speed+5.0f));
+            PID_POS_Init(&pMotor->speed_ctrl.PidSpd, pMotor->current_ctrl.IqRef);
+            pMotor->speed_mode = MOTOR_SPEED_MODE_HIGHSPEED;
+        }
+    }
+    else
+    {
+        pMotor->flow_cnt = 0U;
+    }
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_SVC)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) > pMotor->speed_ctrl.SpeedChange)
+    {
+        if(++pMotor->flow_cnt > pMotor->speed_ctrl.SpeedChangeTime_Num)
+        {
+            pMotor->flow_cnt = 0U;
+            Ramp_Init(&pMotor->speed_ctrl.SpdRamp, (pMotor->speed_ctrl.Speed+5.0f));
+            PID_POS_Init(&pMotor->speed_ctrl.PidSpd, pMotor->current_ctrl.IqRef);
+            pMotor->speed_mode = MOTOR_SPEED_MODE_HIGHSPEED;
+        }
+    }
+    else
+    {
+        pMotor->flow_cnt = 0U;
+    }
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_SMO)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) > pMotor->speed_ctrl.SpeedChange)
+    {
+        if(pMotor->if_ctrl.IF_Success_Flag == 1U)
+        {
+            pMotor->if_ctrl.IF_Success_Flag = 0U;
+            Ramp_Init(&pMotor->speed_ctrl.SpdRamp, (pMotor->speed_ctrl.Speed+5.0f));
+            PID_POS_Init(&pMotor->speed_ctrl.PidSpd, pMotor->current_ctrl.IqRef);
+            pMotor->speed_mode = MOTOR_SPEED_MODE_HIGHSPEED;
+        }
+    }
+#endif
 }
 
 void Motor_SpeedSwitchToLow(ST_MOTOR_TASK* pMotor)
 {
-    if(pMotor->speed_ctrl.Speed < pMotor->speed_ctrl.SpeedChange)
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) < pMotor->speed_ctrl.SpeedChange)
     {
         if(++pMotor->flow_cnt > pMotor->speed_ctrl.SpeedChangeTime_Num)
         {
@@ -37,6 +84,23 @@ void Motor_SpeedSwitchToLow(ST_MOTOR_TASK* pMotor)
     {
         pMotor->flow_cnt = 0U;
     }
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
+    
+#elif(USER_MOTOR_MODE == USER_MOTOR_SENSELESS_SMO)
+    if(MATH_ABS(pMotor->speed_ctrl.Speed) < pMotor->speed_ctrl.SpeedChange)
+    {
+        if(++pMotor->flow_cnt > pMotor->speed_ctrl.SpeedChangeTime_Num)
+        {
+            pMotor->flow_cnt = 0U;
+            Ramp_Init(&pMotor->speed_ctrl.CurrentRamp, pMotor->speed_ctrl.CurrentRamp.Init);
+            pMotor->speed_mode = MOTOR_SPEED_MODE_LOWSPEED;
+        }
+    }
+    else
+    {
+        pMotor->flow_cnt = 0U;
+    }
+#endif
 }
 
 void MotorTask_MTPA_WEAK(ST_MOTOR_TASK* pMotor)
@@ -87,6 +151,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         {
             if(pMotor->state_flag.BIT.motor_run == 1U)
             {
+                MotorPara_TargetDir_Change(pMotor);
                 Ramp_Init(&pMotor->speed_ctrl.CurrentRamp, pMotor->speed_ctrl.CurrentRamp.Init);
                 PID_POS_Init(&pMotor->current_ctrl.PidId, 0.0f);
                 PID_POS_Init(&pMotor->current_ctrl.PidIq, 0.0f);
@@ -97,7 +162,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
                 Est_Flux_Init(&pMotor->flux_ctrl);
                 Est_SVC_Init(&pMotor->svc_ctrl);
                 Est_SMO_Init(&pMotor->smo_ctrl);
-                Hallest_Init(&pMotor->hall_ctrl);
+                Est_Hall_Init(&pMotor->hall_ctrl);
                 
                 pMotor->speed_mode = MOTOR_SPEED_MODE_START;
                 pMotor->state_flow = MOTOR_STATE_RUN;
@@ -109,6 +174,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         {
             if(pMotor->state_flag.BIT.motor_run == 1U)
             { 
+                MotorPara_TargetDir_Change(pMotor);
 #if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
                 pMotor->speed_ctrl.Speed = pMotor->hall_ctrl.AngleSpeed_Filter;
                 switch(pMotor->speed_mode)
@@ -187,19 +253,13 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
                         Ramp_Control(&pMotor->if_ctrl.AngleRadRamp);
                         pMotor->current_ctrl.IdRef = 0.0f;
                         pMotor->current_ctrl.IqRef = pMotor->speed_ctrl.CurrentRamp.Output;
-                        if(pMotor->if_ctrl.IF_Success_Flag == 1U)
-                        {
-                            Ramp_Init(&pMotor->speed_ctrl.SpdRamp, (pMotor->speed_ctrl.Speed+5.0f));
-                            PID_POS_Init(&pMotor->speed_ctrl.PidSpd, pMotor->current_ctrl.IqRef);
-                            pMotor->speed_mode = MOTOR_SPEED_MODE_LOWSPEED;
-                        }
+                        Motor_SpeedSwitchToHigh(pMotor);
                     }break;
                     case MOTOR_SPEED_MODE_LOWSPEED:
                     {
                     }break;
                     case MOTOR_SPEED_MODE_HIGHSPEED:
                     {
-                        MotorFoc_Speed_Loop(&pMotor->speed_ctrl);
                         MotorTask_MTPA_WEAK(pMotor);
                     }break;
                     default:break;
@@ -236,7 +296,6 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
-
 void MotorTask_ADC_Handle(ST_FOC_PARAMETER* pFocPara)
 {
     pFocPara->Ia = (float)((pFocPara->Ia_offset - pFocPara->Ia_data)*HAL_ADC_FULL_SCALE_CURRENT);
@@ -245,26 +304,50 @@ void MotorTask_ADC_Handle(ST_FOC_PARAMETER* pFocPara)
     pFocPara->Vbat = (float)(pFocPara->Vbat_data*HAL_ADC_SCALE_VOLTAGE);
 }
 
-void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_GPIO_Flow(ST_MOTOR_TASK* pMotor)
 {
-    MotorTask_ADC_Handle(&pMotor->foc_para);
-    
-    Clark_Transform(&pMotor->foc_para);
-#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+    pMotor->hall_ctrl.HallSwitchCount = MH_HALL_TIM_Count();
+    pMotor->hall_ctrl.HallCurrentLevel = MH_HALL_GPIO_State();
     switch(pMotor->speed_mode)
     {
         case MOTOR_SPEED_MODE_START:
         case MOTOR_SPEED_MODE_LOWSPEED:
         {
-            Hallest_Low_Speed(&pMotor->hall_ctrl);
+            Est_Hall_Low_Speed(&pMotor->hall_ctrl);
         }break;
         case MOTOR_SPEED_MODE_HIGHSPEED:
         {
-            Hallest_High_Speed(&pMotor->hall_ctrl);
+            Est_Hall_High_Speed(&pMotor->hall_ctrl);
         }break;
         default:break;
     }
-    Hallest_Angle_Inc(&pMotor->hall_ctrl, 0x11);
+    Est_Hall_Speed_Cal(&pMotor->hall_ctrl);
+    pMotor->hall_ctrl.HallLastLevel = pMotor->hall_ctrl.HallCurrentLevel;
+}
+
+void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
+{
+    MotorTask_ADC_Handle(&pMotor->foc_para);
+    
+    Clark_Transform(&pMotor->foc_para);
+    switch(pMotor->speed_mode)
+    {
+        case MOTOR_SPEED_MODE_START:
+        case MOTOR_SPEED_MODE_LOWSPEED:
+        {
+            pMotor->hall_ctrl.AngleRad = pMotor->hall_ctrl.AngleRad_Hall;
+        }break;
+        case MOTOR_SPEED_MODE_HIGHSPEED:
+        {
+            Est_Hall_Angle_Inc(&pMotor->hall_ctrl, MH_HALL_TIM_Count());
+        }break;
+        default:break;
+    }
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
+    if(pMotor->speed_mode == MOTOR_SPEED_MODE_HIGHSPEED)
+    {
+        Est_Hall_Angle_Inc(&pMotor->hall_ctrl, MH_HALL_TIM_Count());
+    }
     pMotor->foc_para.AngleRad = pMotor->hall_ctrl.AngleRad;
 #elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
                         

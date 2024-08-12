@@ -39,6 +39,12 @@ ST_MOTOR_TASK  Motor =
     .speed_ctrl.SpeedMin = -USER_MOTOR1_MAX_SPEED,
     .speed_ctrl.SpdRamp.Step = USER_M1_SPDRAMP_STEP,
     
+    .weak_ctrl.PidV.Kp = USER_M1_WEAK_KP_GAIN,
+    .weak_ctrl.PidV.Ki = USER_M1_WEAK_KI_GAIN,
+    .weak_ctrl.PidV.Kd = USER_M1_WEAK_KD_GAIN,
+    .weak_ctrl.PidV.OutMax = 0.0f,
+    .weak_ctrl.PidV.OutMin = -MATH_PI_OVER_TWO,
+    
     .current_ctrl.PidId.Kp = USER_M1_FOC_KP_GAIN,
     .current_ctrl.PidId.Ki = USER_M1_FOC_KI_GAIN,
     .current_ctrl.PidId.Kd = USER_M1_FOC_KD_GAIN,
@@ -55,8 +61,8 @@ ST_MOTOR_TASK  Motor =
     .if_ctrl.AngleRadRamp.Init = USER_M1_ANGLERADRAMP_INIT,
     .if_ctrl.AngleRadRamp.Target = USER_M1_ANGLERADRAMP_TARGET,
     .if_ctrl.AngleRadRamp.Step = USER_M1_ANGLERADRAMP_STEP,
-    .if_ctrl.AngleRad_Error = USER_M1_ANGLERAD_ERROR,                                                                  
-    .if_ctrl.AngleRad_time = USER_M1_ANGLERAD_TIME,                                                                   
+    .if_ctrl.AngleRad_Error = USER_M1_ANGLERAD_ERROR,
+    .if_ctrl.AngleRad_time = USER_M1_ANGLERAD_TIME,                                           
                                                                                                      
     .flux_ctrl.Ks = USER_M1_FLUX_R_Coeff * USER_MOTOR1_Rs,                    
     .flux_ctrl.Kt = USER_M1_FLUX_KT,
@@ -78,7 +84,23 @@ ST_MOTOR_TASK  Motor =
     .smo_ctrl.Pll_Pid.OutMax = USER_M1_SMO_PLL_MAX,
     .smo_ctrl.Pll_Pid.OutMin = USER_M1_SMO_PLL_MIN,
 
-    .hall_ctrl.Ts = HAL_CURRENT_LOOP_TIME,
-    .hall_ctrl.TIM_FreqHz = 0.0f,
+    .hall_ctrl.TIM_FreqHz = HAL_TIM_SWITCH_FREQ,
 };
 
+void MotorPara_TargetDir_Change(ST_MOTOR_TASK* pMotor)
+{
+    if(pMotor->speed_ctrl.SpeedRef > 0.0f)
+    {
+        pMotor->foc_para.TargetDir = 1.0f;
+    }
+    else
+    {
+        pMotor->foc_para.TargetDir = -1.0f;
+    }
+    
+    pMotor->speed_ctrl.CurrentRamp.Init = pMotor->foc_para.TargetDir*USER_M1_CURRENTRAMP_INIT;
+    pMotor->speed_ctrl.CurrentRamp.Target = pMotor->foc_para.TargetDir*USER_M1_CURRENTRAMP_TARGET;
+
+    pMotor->if_ctrl.AngleRadRamp.Init = pMotor->foc_para.TargetDir*USER_M1_ANGLERADRAMP_INIT;
+    pMotor->if_ctrl.AngleRadRamp.Target = pMotor->foc_para.TargetDir*USER_M1_ANGLERADRAMP_TARGET;
+};

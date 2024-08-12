@@ -24,13 +24,13 @@
 //频率设置
 #define HAL_SYSTEM_FREQ                         (168000.0f)             //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)       //kHz，系统时钟频率
-#define HAL_TIM_SWITCH_FREQ                     (10000.0f)              //kHz，用于换向时间计数的定时器频率
+#define HAL_TIM_SWITCH_FREQ                     (42000000.0f)           //Hz，用于换向时间计数的定时器频率
 
 #define HAL_PWM_FREQ                            (20.0f)                                     //kHz，PWM载率
-#define HAL_PWM_TIME                            (1.0f / HAL_PWM_FREQ / 1000.0f)             //s，PWM载率
+#define HAL_PWM_TIME                            (1.0f / HAL_PWM_FREQ / 1000.0f)             //us，PWM载率
 #define HAL_CURRENT_LOOP_RATE                   (1.0f)                                      //电流周期倍率
 #define HAL_CURRENT_LOOP_FREQ                   (HAL_PWM_FREQ / HAL_CURRENT_LOOP_RATE)      //kHz，电流环频率
-#define HAL_CURRENT_LOOP_TIME                   (1.0f / HAL_CURRENT_LOOP_FREQ / 1000.0f)    //s，电流环周期
+#define HAL_CURRENT_LOOP_TIME                   (1.0f / HAL_CURRENT_LOOP_FREQ / 1000.0f)    //us，电流环周期
 
 #define HAL_SLOW_TIMER_MS                       (0.5f)                  //ms，滴答定时器周期
 

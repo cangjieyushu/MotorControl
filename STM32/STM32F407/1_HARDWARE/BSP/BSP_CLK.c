@@ -35,5 +35,5 @@ void BSP_CLK_Init(void)
     
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 }

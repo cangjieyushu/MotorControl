@@ -16,4 +16,7 @@ void MH_PWM_Duty_Set(float uduty, float vduty, float wduty);
 void MH_PWM_Duty_Enable(void);
 void MH_PWM_Duty_Disable(void);
 
+uint32_t MH_HALL_TIM_Count(void);
+uint8_t MH_HALL_GPIO_State(void);
+
 #endif /* MotorHal_H */
