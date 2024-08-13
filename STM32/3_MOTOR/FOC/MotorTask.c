@@ -304,10 +304,18 @@ void MotorTask_ADC_Handle(ST_FOC_PARAMETER* pFocPara)
     pFocPara->Vbat = (float)(pFocPara->Vbat_data*HAL_ADC_SCALE_VOLTAGE);
 }
 
-void MotorTask_GPIO_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
-    pMotor->hall_ctrl.HallSwitchCount = MH_HALL_TIM_Count();
+    MotorTask_ADC_Handle(&pMotor->foc_para);
+    
+    Clark_Transform(&pMotor->foc_para);
+#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
     pMotor->hall_ctrl.HallCurrentLevel = MH_HALL_GPIO_State();
+    if(pMotor->hall_ctrl.HallCurrentLevel != pMotor->hall_ctrl.HallLastLevel)
+    {
+        Est_Hall_Speed_Cal(&pMotor->hall_ctrl);
+        pMotor->hall_ctrl.HallSwitchCount = MH_HALL_TIM_Count();
+    }
     switch(pMotor->speed_mode)
     {
         case MOTOR_SPEED_MODE_START:
@@ -318,36 +326,12 @@ void MotorTask_GPIO_Flow(ST_MOTOR_TASK* pMotor)
         case MOTOR_SPEED_MODE_HIGHSPEED:
         {
             Est_Hall_High_Speed(&pMotor->hall_ctrl);
-        }break;
-        default:break;
-    }
-    Est_Hall_Speed_Cal(&pMotor->hall_ctrl);
-    pMotor->hall_ctrl.HallLastLevel = pMotor->hall_ctrl.HallCurrentLevel;
-}
-
-void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
-{
-    MotorTask_ADC_Handle(&pMotor->foc_para);
-    
-    Clark_Transform(&pMotor->foc_para);
-    switch(pMotor->speed_mode)
-    {
-        case MOTOR_SPEED_MODE_START:
-        case MOTOR_SPEED_MODE_LOWSPEED:
-        {
-            pMotor->hall_ctrl.AngleRad = pMotor->hall_ctrl.AngleRad_Hall;
-        }break;
-        case MOTOR_SPEED_MODE_HIGHSPEED:
-        {
             Est_Hall_Angle_Inc(&pMotor->hall_ctrl, MH_HALL_TIM_Count());
         }break;
         default:break;
     }
-#if(USER_MOTOR_MODE == USER_MOTOR_SENSE_HALL)
-    if(pMotor->speed_mode == MOTOR_SPEED_MODE_HIGHSPEED)
-    {
-        Est_Hall_Angle_Inc(&pMotor->hall_ctrl, MH_HALL_TIM_Count());
-    }
+    pMotor->hall_ctrl.HallLastLevel = pMotor->hall_ctrl.HallCurrentLevel;
+    
     pMotor->foc_para.AngleRad = pMotor->hall_ctrl.AngleRad;
 #elif(USER_MOTOR_MODE == USER_MOTOR_SENSE_RPS)
                         

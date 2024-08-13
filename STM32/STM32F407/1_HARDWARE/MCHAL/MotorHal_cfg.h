@@ -42,7 +42,7 @@
 //MCPWM设置
 #define HAL_PWM_DEADTIME_TIME                   (0.5f)                  //ADC采样时间
 #define HAL_PWM_DEADTIME_DUTY                   (HAL_PWM_DEADTIME_TIME / (1000.0f / HAL_PWM_FREQ))
-#define HAL_PWM_DEADTIME_VALUE                  (uint16_t)(2.0f * HAL_PWM_DEADTIME_DUTY * HAL_PWM_MAX_COUNTER_F)
+#define HAL_PWM_DEADTIME_VALUE                  (uint16_t)(125)
 
 //ADC采样时刻设置
 #define HAL_ADC_SAMPLE_TIME                     (3.0f)                  //ADC采样时间

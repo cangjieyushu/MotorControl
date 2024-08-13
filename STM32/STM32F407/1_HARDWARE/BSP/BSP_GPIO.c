@@ -8,9 +8,8 @@
 void BSP_GPIO_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-
-    GPIO_SetBits(SHUTDOWN1_GPIO_Port, SHUTDOWN1_Pin);
     
+    GPIO_SetBits(SHUTDOWN1_GPIO_Port, SHUTDOWN1_Pin);
     GPIO_InitStruct.GPIO_Pin = Start_Stop_Pin;
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
     GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;

@@ -76,7 +76,6 @@ typedef struct{
 }ST_MOTOR_TASK;
     
 void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_GPIO_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
 
 #endif /* MotorTask_H */

@@ -45,19 +45,13 @@ void BSP_PWM_Init(void)
     TIM1_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Disable;  
     TIM_BDTRConfig(TIM1, &TIM1_BDTRInitStructure);
     
-    TIM_ClearITPendingBit(TIM1, TIM_IT_Update);  //清中断标志位
-    TIM_ITConfig(TIM1,TIM_IT_Update, ENABLE); //打开中断 
-    
-    TIM_ClearITPendingBit(TIM1, TIM_IT_CC4);  //清中断标志位
-    TIM_ITConfig(TIM1,TIM_IT_CC4, ENABLE); //打开中断 
-
     TIM_ClearITPendingBit(TIM1, TIM_IT_Break);  //清中断标志位
     TIM_ITConfig(TIM1,TIM_IT_Break, ENABLE); //打开中断
 
     TIM_ARRPreloadConfig(TIM1, ENABLE);
     TIM_CtrlPWMOutputs(TIM1,ENABLE);	
     
-    TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1; 
+    TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV4; 
     TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInitStructure.TIM_Prescaler = 0; 
     TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;

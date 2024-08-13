@@ -137,6 +137,14 @@ void TIM1_BRK_TIM9_IRQHandler(void)
     MH_PWM_Duty_Disable();
 }
 
+void TIM2_IRQHandler(void)
+{
+    if(TIM_GetFlagStatus(TIM2, TIM_FLAG_Update))
+    {
+        TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+    }
+}
+
 void TIM1_UP_TIM10_IRQHandler(void)
 {
     TIM_ClearFlag(TIM1, TIM_FLAG_Update);

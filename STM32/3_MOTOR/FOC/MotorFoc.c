@@ -454,11 +454,11 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 0.0f*MATH_PI_OVER_SIX  + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 4U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 2U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;
         }
@@ -467,11 +467,11 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 2.0f*MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 6U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 3U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;
         }
@@ -480,11 +480,11 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 4.0f*MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 2U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 1U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;}
         case 1U:
@@ -492,11 +492,11 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 6.0f*MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 3U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 5U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;
         }
@@ -505,11 +505,11 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 8.0f*MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 1U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 4U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;
         }
@@ -518,127 +518,109 @@ void Est_Hall_Low_Speed(ST_HALL_CONTROL* pHall)
             pHall->AngleRad_Hall = 10.0f*MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
             if(pHall->HallLastLevel == 5U)
             {
-                pHall->HallDir = 1.0f;
+                pHall->HallDir = -1.0f;
             }
             else if(pHall->HallLastLevel == 6U)
             {
-                pHall->HallDir = -1.0f;
+                pHall->HallDir = 1.0f;
             }
             break;
         }
         default:break;
     }
+    pHall->AngleRad = pHall->AngleRad_Hall;
 }
 
 void Est_Hall_High_Speed(ST_HALL_CONTROL* pHall)
 {
-    if(pHall->HallCurrentLevel != pHall->HallLastLevel)
+    switch(pHall->HallCurrentLevel)
     {
-        switch(pHall->HallCurrentLevel)
+        case 6U:
         {
-            case 6U:
+            if(pHall->HallLastLevel == 4U)
             {
-                if(pHall->HallLastLevel == 4U)
-                {
-                    pHall->AngleRad_Hall = 0.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 2U)
-                {
-                    pHall->AngleRad_Hall = 0.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
+                pHall->AngleRad_Hall = 0.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
             }
-            case 2U:
+            else if(pHall->HallLastLevel == 2U)
             {
-                if(pHall->HallLastLevel == 6U)
-                {
-                    pHall->AngleRad_Hall = 2.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 3U)
-                {
-                    pHall->AngleRad_Hall = 2.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
+                pHall->AngleRad_Hall = 0.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
             }
-            case 3U:
-            {
-                if(pHall->HallLastLevel == 2U)
-                {
-                    pHall->AngleRad_Hall = 4.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 1U)
-                {
-                    pHall->AngleRad_Hall = 4.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
-            }
-            case 1U:
-            {
-                if(pHall->HallLastLevel == 3U)
-                {
-                    pHall->AngleRad_Hall = 6.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 5U)
-                {
-                    pHall->AngleRad_Hall = 6.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
-            }
-            case 5U:
-            {
-                if(pHall->HallLastLevel == 1U)
-                {
-                    pHall->AngleRad_Hall = 8.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 4U)
-                {
-                    pHall->AngleRad_Hall = 8.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
-            }
-            case 4U:
-            {
-                if(pHall->HallLastLevel == 5U)
-                {
-                    pHall->AngleRad_Hall = 10.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = 1.0f;
-                }
-                else if(pHall->HallLastLevel == 6U)
-                {
-                    pHall->AngleRad_Hall = 10.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
-                    pHall->HallDir = -1.0f;
-                }
-                break;
-            }
-            default:break;
+            break;
         }
+        case 2U:
+        {
+            if(pHall->HallLastLevel == 6U)
+            {
+                pHall->AngleRad_Hall = 2.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
+            }
+            else if(pHall->HallLastLevel == 3U)
+            {
+                pHall->AngleRad_Hall = 2.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
+            }
+            break;
+        }
+        case 3U:
+        {
+            if(pHall->HallLastLevel == 2U)
+            {
+                pHall->AngleRad_Hall = 4.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
+            }
+            else if(pHall->HallLastLevel == 1U)
+            {
+                pHall->AngleRad_Hall = 4.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
+            }
+            break;
+        }
+        case 1U:
+        {
+            if(pHall->HallLastLevel == 3U)
+            {
+                pHall->AngleRad_Hall = 6.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
+            }
+            else if(pHall->HallLastLevel == 5U)
+            {
+                pHall->AngleRad_Hall = 6.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
+            }
+            break;
+        }
+        case 5U:
+        {
+            if(pHall->HallLastLevel == 1U)
+            {
+                pHall->AngleRad_Hall = 8.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
+            }
+            else if(pHall->HallLastLevel == 4U)
+            {
+                pHall->AngleRad_Hall = 8.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
+            }
+            break;
+        }
+        case 4U:
+        {
+            if(pHall->HallLastLevel == 5U)
+            {
+                pHall->AngleRad_Hall = 10.0f*MATH_PI_OVER_SIX - MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = -1.0f;
+            }
+            else if(pHall->HallLastLevel == 6U)
+            {
+                pHall->AngleRad_Hall = 10.0f*MATH_PI_OVER_SIX + MATH_PI_OVER_SIX + USER_HALLSYNCANGLE_RD;
+                pHall->HallDir = 1.0f;
+            }
+            break;
+        }
+        default:break;
     }
-}
-
-void Est_Hall_Speed_Cal(ST_HALL_CONTROL* pHall)
-{
-    pHall->HallStallCount++;
-    pHall->HallCount_tmp[5] = pHall->HallCount_tmp[4];
-    pHall->HallCount_tmp[4] = pHall->HallCount_tmp[3];
-    pHall->HallCount_tmp[3] = pHall->HallCount_tmp[2];
-    pHall->HallCount_tmp[2] = pHall->HallCount_tmp[1];
-    pHall->HallCount_tmp[1] = pHall->HallCount_tmp[0];
-    pHall->HallCount_tmp[0] = pHall->HallSwitchCount - pHall->HallLastSwitchCount;
-    
-    pHall->AngleSpeed = pHall->HallDir*MATH_2PI*pHall->TIM_FreqHz/((float)(pHall->HallCount_tmp[0]+pHall->HallCount_tmp[1]+pHall->HallCount_tmp[2]
-                                                                          +pHall->HallCount_tmp[3]+pHall->HallCount_tmp[4]+pHall->HallCount_tmp[5]));
-    pHall->AngleSpeed_Filter = 0.001f*(USER_HALL_SPEED_LPF_COEFF*pHall->AngleSpeed_Filter + (1000.0f-USER_HALL_SPEED_LPF_COEFF)*pHall->AngleSpeed);
-    pHall->HallLastSwitchCount = pHall->HallSwitchCount;
 }
 
 void Est_Hall_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt)
@@ -655,4 +637,20 @@ void Est_Hall_Angle_Inc(ST_HALL_CONTROL* pHall, uint32_t cnt)
     }
     pHall->AngleRad = pHall->AngleRad_Hall + tmp;
     MATH_ANGLE_MOD(pHall->AngleRad);
+}
+
+void Est_Hall_Speed_Cal(ST_HALL_CONTROL* pHall)
+{
+    pHall->HallStallCount++;
+    pHall->HallCount_tmp[5] = pHall->HallCount_tmp[4];
+    pHall->HallCount_tmp[4] = pHall->HallCount_tmp[3];
+    pHall->HallCount_tmp[3] = pHall->HallCount_tmp[2];
+    pHall->HallCount_tmp[2] = pHall->HallCount_tmp[1];
+    pHall->HallCount_tmp[1] = pHall->HallCount_tmp[0];
+    pHall->HallCount_tmp[0] = (uint32_t)(pHall->HallSwitchCount - pHall->HallLastSwitchCount);
+    
+    pHall->AngleSpeed = pHall->HallDir*MATH_2PI*pHall->TIM_FreqHz/((float)(pHall->HallCount_tmp[0]+pHall->HallCount_tmp[1]+pHall->HallCount_tmp[2]
+                                                                          +pHall->HallCount_tmp[3]+pHall->HallCount_tmp[4]+pHall->HallCount_tmp[5]));
+    pHall->AngleSpeed_Filter = 0.001f*(USER_HALL_SPEED_LPF_COEFF*pHall->AngleSpeed_Filter + (1000.0f-USER_HALL_SPEED_LPF_COEFF)*pHall->AngleSpeed);
+    pHall->HallLastSwitchCount = pHall->HallSwitchCount;
 }
