@@ -5,7 +5,7 @@
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
-float Buffer[2048];
+float Buffer[128];
 float RTT_DATA[8];
 #endif
 

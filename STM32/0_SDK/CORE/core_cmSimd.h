@@ -126,8 +126,8 @@
 #define __PKHTB(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0xFFFF0000UL) |  \
                                            ((((uint32_t)(ARG2)) >> (ARG3)) & 0x0000FFFFUL)  )
 
-#define __SMMLA(ARG1,ARG2,ARG3)          ( (int32_t)((((int64_t)(ARG1) * (ARG2)) + \
-                                                      ((int64_t)(ARG3) << 32)      ) >> 32))
+//#define __SMMLA(ARG1,ARG2,ARG3)          ( (int32_t)((((int64_t)(ARG1) * (ARG2)) + \
+//                                                      ((int64_t)(ARG3) << 32)      ) >> 32))
 
 
 #elif defined ( __GNUC__ ) /*------------------ GNU Compiler ---------------------*/
