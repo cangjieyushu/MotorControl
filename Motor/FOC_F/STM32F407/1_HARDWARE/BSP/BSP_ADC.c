@@ -30,10 +30,10 @@ void BSP_ADC_Init(void)
     ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_84Cycles);
     
     ADC_InjectedSequencerLengthConfig(ADC1, 4);
-    ADC_InjectedChannelConfig(ADC1, ADC_Channel_8, 1, ADC_SampleTime_28Cycles);
-    ADC_InjectedChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_28Cycles);
-    ADC_InjectedChannelConfig(ADC1, ADC_Channel_3, 3, ADC_SampleTime_28Cycles);
-    ADC_InjectedChannelConfig(ADC1, ADC_Channel_9, 4, ADC_SampleTime_28Cycles);
+    ADC_InjectedChannelConfig(ADC1, ADC_Channel_8, 1, ADC_SampleTime_15Cycles);
+    ADC_InjectedChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_15Cycles);
+    ADC_InjectedChannelConfig(ADC1, ADC_Channel_3, 3, ADC_SampleTime_15Cycles);
+    ADC_InjectedChannelConfig(ADC1, ADC_Channel_9, 4, ADC_SampleTime_15Cycles);
     
     ADC_InjectedDiscModeCmd(ADC1, DISABLE);
     ADC_ExternalTrigInjectedConvEdgeConfig(ADC1, ADC_ExternalTrigInjecConvEdge_Falling);

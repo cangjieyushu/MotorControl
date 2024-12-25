@@ -83,7 +83,7 @@
 //转速环PID    
 #define MOTOR_SPD_PID_Coeff                 (0.25f)                          //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
-#define MOTOR_SPD_KI_GAIN                   (MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs)
+#define MOTOR_SPD_KI_GAIN                   (MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs / MATH_2PI_F / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (0.0f)
 #define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)       //A,转速环输出q轴电流限幅
 #define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)      //A,转速环输出q轴电流限幅
