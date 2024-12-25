@@ -1,0 +1,44 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol VECTOR_BASE                        = 0x1ffe0000;
+
+define symbol RAM0_BASE                          = 0x1ffe0000;
+define symbol RAM0_SIZE                          = 0x00020000;   /* 128KB */
+define symbol RAM0_END                           = RAM0_BASE + RAM0_SIZE - 1;
+
+define symbol RAM1_BASE                          = 0x20000000;
+define symbol RAM1_SIZE                          = 0x00020000;   /* 128KB */
+define symbol RAM1_END                           = RAM1_BASE + RAM1_SIZE - 1;
+
+define symbol CSTACK_SIZE                        = 0x00000400;
+define symbol HEAP_SIZE                          = 0x00000400;   
+ 
+define exported symbol __RAM_START             = RAM0_BASE;
+define exported symbol __RAM_END               = RAM1_END;
+
+/* memory range */
+define memory mem with size = 4G;
+
+define region RAM0_region        = mem:[from RAM0_BASE size RAM0_SIZE];
+define region RAM1_region        = mem:[from RAM1_BASE size RAM1_SIZE];
+
+/* definition of RAM blocks */
+define block CSTACK    with size = CSTACK_SIZE, alignment = 8 { };
+define block HEAP      with size = HEAP_SIZE, alignment = 8  { };
+
+initialize by copy { readwrite };
+do not initialize  { section .noinit };
+
+place at address mem:VECTOR_BASE { readonly section .intvec };
+
+place in RAM0_region  { readonly};
+
+place at end of RAM1_region { block HEAP,
+                              block CSTACK };
+
+place in RAM1_region  { readwrite};
+
+
+                    

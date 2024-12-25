@@ -1,0 +1,544 @@
+/**************************************************************************************************/
+/** 
+ * @file      : Z20A8300A_Type.h
+ * @brief     : Z20A8300A Params Type Define Header File.
+ *                 - Platform: Z20A8300A
+ * @version   : V0.7.0
+ * @date      : September-2022
+ * @author    : Zhixin Semiconductor
+ * @note      : None
+ *
+ * @Copyright : Copyright (c) 2022-2023 Zhixin Semiconductor Ltd. All rights reserved.
+ **************************************************************************************************/
+#ifndef Z20A8300A_TYPE_H
+#define Z20A8300A_TYPE_H
+
+/** @addtogroup Z20A8300A_Driver
+ *  @{
+ */
+
+/** @addtogroup Z20A8300A_Type
+ *  @brief Z20A8300A Params Type define.
+ *  @{
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/** @defgroup Type_Public_MacroDefinition
+ *  @{
+ */
+
+/** @} end of Type_Public_MacroDefinition */
+
+/** @defgroup Type_Public_TypeDefinition
+ *  @{
+ */
+
+
+/**
+ *  @brief Z20A8300A dead time type definition
+ */
+typedef enum
+{
+    Z20A8300A_DT_0nS = 0U,
+    Z20A8300A_DT_50nS,
+    Z20A8300A_DT_100nS,
+    Z20A8300A_DT_150nS,
+    Z20A8300A_DT_200nS,
+    Z20A8300A_DT_250nS,
+    Z20A8300A_DT_300nS,
+    Z20A8300A_DT_350nS,
+    Z20A8300A_DT_400nS,
+    Z20A8300A_DT_450nS,
+    Z20A8300A_DT_500nS,
+    Z20A8300A_DT_550nS,
+    Z20A8300A_DT_600nS,
+    Z20A8300A_DT_650nS,
+    Z20A8300A_DT_700nS,
+    Z20A8300A_DT_750nS,
+    Z20A8300A_DT_800nS,
+    Z20A8300A_DT_850nS,
+    Z20A8300A_DT_900nS,
+    Z20A8300A_DT_950nS,
+    Z20A8300A_DT_1000nS,
+    Z20A8300A_DT_1050nS,
+    Z20A8300A_DT_1100nS,
+    Z20A8300A_DT_1150nS,
+    Z20A8300A_DT_1200nS,
+    Z20A8300A_DT_1250nS,
+    Z20A8300A_DT_1300nS,
+    Z20A8300A_DT_1350nS,
+    Z20A8300A_DT_1400nS,
+    Z20A8300A_DT_1450nS,
+    Z20A8300A_DT_1500nS,
+    Z20A8300A_DT_1550nS,
+    Z20A8300A_DT_1600nS,
+    Z20A8300A_DT_1650nS,
+    Z20A8300A_DT_1700nS,
+    Z20A8300A_DT_1750nS,
+    Z20A8300A_DT_1800nS,
+    Z20A8300A_DT_1850nS,
+    Z20A8300A_DT_1900nS,
+    Z20A8300A_DT_1950nS,
+    Z20A8300A_DT_2000nS,
+    Z20A8300A_DT_2050nS,
+    Z20A8300A_DT_2100nS,
+    Z20A8300A_DT_2150nS,
+    Z20A8300A_DT_2200nS,
+    Z20A8300A_DT_2250nS,
+    Z20A8300A_DT_2300nS,
+    Z20A8300A_DT_2350nS,
+    Z20A8300A_DT_2400nS,
+    Z20A8300A_DT_2450nS,
+    Z20A8300A_DT_2500nS,
+    Z20A8300A_DT_2550nS,
+    Z20A8300A_DT_2600nS,
+    Z20A8300A_DT_2650nS,
+    Z20A8300A_DT_2700nS,
+    Z20A8300A_DT_2750nS,
+    Z20A8300A_DT_2800nS,
+    Z20A8300A_DT_2850nS,
+    Z20A8300A_DT_2900nS,
+    Z20A8300A_DT_2950nS,
+    Z20A8300A_DT_3000nS,
+    Z20A8300A_DT_3050nS,
+    Z20A8300A_DT_3100nS,
+    Z20A8300A_DT_3150nS
+} Z20A8300A_Config0_DeadTimeType;
+
+/**  
+ *  @brief Z20A8300A over temperature threshold type definition
+ */
+typedef enum
+{
+    Z20A8300A_OTS_165_DEG = 0U,            /*!< 165 deg*/
+    Z20A8300A_OTS_155_DEG,                 /*!< 155 deg*/
+    Z20A8300A_OTS_145_DEG,                 /*!< 145 deg*/
+    Z20A8300A_OTS_135_DEG                  /*!< 135 deg*/
+} Z20A8300A_Config0_OverTempeThresholdType;
+
+/**  
+ *  @brief Z20A8300A VBB over voltage threshold type definition
+ */
+typedef enum
+{
+    Z20A8300A_VBOV_35V = 0U,           /*!< 35V*/
+    Z20A8300A_VBOV_18V                   /*!< 18V*/
+} Z20A8300A_Config0_VbbOverVoltageThresholdType;
+
+/**  
+ *  @brief Z20A8300A over current blanking time type definition
+ */
+typedef enum
+{
+    Z20A8300A_TCB_0ns = 0U,
+    Z20A8300A_TCB_200nS,
+    Z20A8300A_TCB_400nS,
+    Z20A8300A_TCB_600nS,
+    Z20A8300A_TCB_800nS,
+    Z20A8300A_TCB_1000nS,
+    Z20A8300A_TCB_1200nS,
+    Z20A8300A_TCB_1400nS,
+    Z20A8300A_TCB_1600nS,
+    Z20A8300A_TCB_1800nS,
+    Z20A8300A_TCB_2000nS,
+    Z20A8300A_TCB_2200nS,
+    Z20A8300A_TCB_2400nS,
+    Z20A8300A_TCB_2600nS,
+    Z20A8300A_TCB_2800nS,
+    Z20A8300A_TCB_3000nS,
+    Z20A8300A_TCB_3200nS,
+    Z20A8300A_TCB_3400nS,
+    Z20A8300A_TCB_3600nS,
+    Z20A8300A_TCB_3800nS,
+    Z20A8300A_TCB_4000nS,
+    Z20A8300A_TCB_4200nS,
+    Z20A8300A_TCB_4400nS,
+    Z20A8300A_TCB_4600nS,
+    Z20A8300A_TCB_4800nS,
+    Z20A8300A_TCB_5000nS,
+    Z20A8300A_TCB_5200nS,
+    Z20A8300A_TCB_5400nS,
+    Z20A8300A_TCB_5600nS,
+    Z20A8300A_TCB_5800nS,
+    Z20A8300A_TCB_6000nS,
+    Z20A8300A_TCB_6200nS
+} Z20A8300A_Config1_OverCurrentBlankingTimeType;
+
+/**  
+ *  @brief Z20A8300A over current threshold type definition
+ */
+typedef enum
+{
+    Z20A8300A_OCT_300mV=0U,
+    Z20A8300A_OCT_600mV,
+    Z20A8300A_OCT_900mV,
+    Z20A8300A_OCT_1200mV,
+    Z20A8300A_OCT_1500mV,
+    Z20A8300A_OCT_1800mV,
+    Z20A8300A_OCT_2100mV,
+    Z20A8300A_OCT_2400mV,
+    Z20A8300A_OCT_2700mV,
+    Z20A8300A_OCT_3000mV,
+    Z20A8300A_OCT_3300mV,
+    Z20A8300A_OCT_3600mV,
+    Z20A8300A_OCT_3900mV,
+    Z20A8300A_OCT_4200mV,
+    Z20A8300A_OCT_4500mV,
+    Z20A8300A_OCT_4800mV
+} Z20A8300A_Config1_OverCurrentThresholdType;
+
+/**  
+ *  @brief Z20A8300A Vgs and Vds blanking time type definition
+ */
+typedef enum
+{
+    Z20A8300A_TVB_0nS = 0U,
+    Z20A8300A_TVB_50nS,
+    Z20A8300A_TVB_100nS,
+    Z20A8300A_TVB_150nS,
+    Z20A8300A_TVB_200nS,
+    Z20A8300A_TVB_250nS,
+    Z20A8300A_TVB_300nS,
+    Z20A8300A_TVB_350nS,
+    Z20A8300A_TVB_400nS,
+    Z20A8300A_TVB_450nS,
+    Z20A8300A_TVB_500nS,
+    Z20A8300A_TVB_550nS,
+    Z20A8300A_TVB_600nS,
+    Z20A8300A_TVB_650nS,
+    Z20A8300A_TVB_700nS,
+    Z20A8300A_TVB_750nS,
+    Z20A8300A_TVB_800nS,
+    Z20A8300A_TVB_850nS,
+    Z20A8300A_TVB_900nS,
+    Z20A8300A_TVB_950nS,
+    Z20A8300A_TVB_1000nS,
+    Z20A8300A_TVB_1050nS,
+    Z20A8300A_TVB_1100nS,
+    Z20A8300A_TVB_1150nS,
+    Z20A8300A_TVB_1200nS,
+    Z20A8300A_TVB_1250nS,
+    Z20A8300A_TVB_1300nS,
+    Z20A8300A_TVB_1350nS,
+    Z20A8300A_TVB_1400nS,
+    Z20A8300A_TVB_1450nS,
+    Z20A8300A_TVB_1500nS,
+    Z20A8300A_TVB_1550nS,
+    Z20A8300A_TVB_1600nS,
+    Z20A8300A_TVB_1650nS,
+    Z20A8300A_TVB_1700nS,
+    Z20A8300A_TVB_1750nS,
+    Z20A8300A_TVB_1800nS,
+    Z20A8300A_TVB_1850nS,
+    Z20A8300A_TVB_1900nS,
+    Z20A8300A_TVB_1950nS,
+    Z20A8300A_TVB_2000nS,
+    Z20A8300A_TVB_2050nS,
+    Z20A8300A_TVB_2100nS,
+    Z20A8300A_TVB_2150nS,
+    Z20A8300A_TVB_2200nS,
+    Z20A8300A_TVB_2250nS,
+    Z20A8300A_TVB_2300nS,
+    Z20A8300A_TVB_2350nS,
+    Z20A8300A_TVB_2400nS,
+    Z20A8300A_TVB_2450nS,
+    Z20A8300A_TVB_2500nS,
+    Z20A8300A_TVB_2550nS,
+    Z20A8300A_TVB_2600nS,
+    Z20A8300A_TVB_2650nS,
+    Z20A8300A_TVB_2700nS,
+    Z20A8300A_TVB_2750nS,
+    Z20A8300A_TVB_2800nS,
+    Z20A8300A_TVB_2850nS,
+    Z20A8300A_TVB_2900nS,
+    Z20A8300A_TVB_2950nS,
+    Z20A8300A_TVB_3000nS,
+    Z20A8300A_TVB_3050nS,
+    Z20A8300A_TVB_3100nS,
+    Z20A8300A_TVB_3150nS
+} Z20A8300A_Config2_VgsVdsBlankingTimeType;
+
+/**  
+ *  @brief Z20A8300A charge pump frequency type definition
+ */
+typedef enum
+{
+    Z20A8300A_FCP_100KHz = 0U,
+    Z20A8300A_FCP_200KHz,
+    Z20A8300A_FCP_300KHz,
+    Z20A8300A_FCP_400KHz
+}Z20A8300A_Config2_ChargePumpFrequencyType;
+
+/**  
+ *  @brief Z20A8300A charge pump mode type definition
+ */
+typedef enum
+{
+    Z20A8300A_CPM_REGULATE_TO_GROUND = 0U,
+    Z20A8300A_CPM_REGULATE_TO_BATTERY
+} Z20A8300A_Config2_ChargePumpModeType;
+
+/**  
+ *  @brief Z20A8300A Vds high/low side threshold type definition
+ */
+typedef enum
+{
+    Z20A8300A_VDS_THRESHOLD_60mV = 0U,
+    Z20A8300A_VDS_THRESHOLD_120mV,
+    Z20A8300A_VDS_THRESHOLD_180mV,
+    Z20A8300A_VDS_THRESHOLD_240mV,
+    Z20A8300A_VDS_THRESHOLD_300mV,
+    Z20A8300A_VDS_THRESHOLD_360mV,
+    Z20A8300A_VDS_THRESHOLD_420mV,
+    Z20A8300A_VDS_THRESHOLD_480mV,
+    Z20A8300A_VDS_THRESHOLD_540mV,
+    Z20A8300A_VDS_THRESHOLD_600mV,
+    Z20A8300A_VDS_THRESHOLD_660mV,
+    Z20A8300A_VDS_THRESHOLD_720mV,
+    Z20A8300A_VDS_THRESHOLD_780mV,
+    Z20A8300A_VDS_THRESHOLD_840mV,
+    Z20A8300A_VDS_THRESHOLD_900mV,
+    Z20A8300A_VDS_THRESHOLD_960mV,
+    Z20A8300A_VDS_THRESHOLD_1020mV,
+    Z20A8300A_VDS_THRESHOLD_1080mV,
+    Z20A8300A_VDS_THRESHOLD_1140mV,
+    Z20A8300A_VDS_THRESHOLD_1200mV,
+    Z20A8300A_VDS_THRESHOLD_1260mV,
+    Z20A8300A_VDS_THRESHOLD_1320mV,
+    Z20A8300A_VDS_THRESHOLD_1380mV,
+    Z20A8300A_VDS_THRESHOLD_1440mV,
+    Z20A8300A_VDS_THRESHOLD_1500mV,
+    Z20A8300A_VDS_THRESHOLD_1560mV,
+    Z20A8300A_VDS_THRESHOLD_1620mV,
+    Z20A8300A_VDS_THRESHOLD_1680mV,
+    Z20A8300A_VDS_THRESHOLD_1740mV,
+    Z20A8300A_VDS_THRESHOLD_1800mV,
+    Z20A8300A_VDS_THRESHOLD_1860mV,
+    Z20A8300A_VDS_THRESHOLD_1920mV
+} Z20A8300A_Config_VdsThresholdType;
+
+/**  
+ *  @brief Z20A8300A source peak current type definition
+ */
+typedef enum
+{
+    Z20A8300A_SR_30mA=0U,
+    Z20A8300A_SR_60mA,
+    Z20A8300A_SR_90mA,
+    Z20A8300A_SR_120mA,
+    Z20A8300A_SR_150mA,
+    Z20A8300A_SR_180mA,
+    Z20A8300A_SR_210mA,
+    Z20A8300A_SR_DISABLE
+} Z20A8300A_Config3_SourcePeakCurrentType;
+
+/**  
+ *  @brief Z20A8300A current sensor amplifier offset type definition
+ */
+typedef enum
+{
+    Z20A8300A_SAO_0mV = 0U,
+    Z20A8300A_SAO_100mV,
+    Z20A8300A_SAO_200mV,
+    Z20A8300A_SAO_300mV,
+    Z20A8300A_SAO_400mV,
+    Z20A8300A_SAO_500mV,
+    Z20A8300A_SAO_600mV,
+    Z20A8300A_SAO_750mV,
+    Z20A8300A_SAO_1000mV,
+    Z20A8300A_SAO_1250mV,
+    Z20A8300A_SAO_1500mV,
+    Z20A8300A_SAO_1650mV,
+    Z20A8300A_SAO_1750mV,
+    Z20A8300A_SAO_2000mV,
+    Z20A8300A_SAO_2250mV,
+    Z20A8300A_SAO_2500mV
+} Z20A8300A_Config4_SensorAmplifierOffsetType;
+
+/**  
+ *  @brief Z20A8300A current sensor A/B/C gain type definition
+ *  @note  Actual value reference datasheet
+ */
+typedef enum
+{
+    Z20A8300A_SENSOR_GAIN_10 = 0U,
+    Z20A8300A_SENSOR_GAIN_15,
+    Z20A8300A_SENSOR_GAIN_20,
+    Z20A8300A_SENSOR_GAIN_25,
+    Z20A8300A_SENSOR_GAIN_30,
+    Z20A8300A_SENSOR_GAIN_35,
+    Z20A8300A_SENSOR_GAIN_40,
+    Z20A8300A_SENSOR_GAIN_50
+} Z20A8300A_Config5_SensorGainType;
+
+
+/**  
+ *  @brief Z20A8300A fault enable type definition
+ */
+typedef enum
+{
+    Z20A8300A_DISABLE = 0U,
+    Z20A8300A_ENABLE
+} Z20A8300A_ContorlStateType;
+
+/**  
+ *  @brief Z20A8300A diag mask type definition
+ */
+typedef enum
+{
+    Z20A8300A_UNMASK = 0U,
+    Z20A8300A_MASK
+} Z20A8300A_MaskType;
+
+/**  
+ *  @brief Z20A8300A Dps name type definition
+ */
+typedef enum
+{
+    Z20A8300A_DPS0_FCPU = 0U,
+    Z20A8300A_DPS0_FVDO = 1U,
+    Z20A8300A_DPS0_FSE = 3U,
+    Z20A8300A_DPS0_FOT = 8U,
+    Z20A8300A_DPS1_FVSU = 9U,
+    Z20A8300A_DPS1_FVSO = 10U,
+    Z20A8300A_DPS1_FVRU = 11U,
+    Z20A8300A_DPS1_FVRO = 12U,
+    Z20A8300A_DPS1_FVBU = 13U,
+    Z20A8300A_DPS1_FGSU = 14U,
+    Z20A8300A_DPS1_FDSO = 15U,
+    Z20A8300A_DPS1_FOC = 17U
+} Z20A8300A_FaultNameType;
+
+/**  
+ *  @brief Z20A8300A mask name type definition
+ */
+typedef enum
+{
+    Z20A8300A_MASK0_ALU=0U,
+    Z20A8300A_MASK0_AHU,
+    Z20A8300A_MASK0_BLU,
+    Z20A8300A_MASK0_BHU,
+    Z20A8300A_MASK0_CLU,
+    Z20A8300A_MASK0_CHU,
+    Z20A8300A_MASK0_BSUA,
+    Z20A8300A_MASK0_BSUB,
+    Z20A8300A_MASK0_BSUC,
+    Z20A8300A_MASK1_ALO,
+    Z20A8300A_MASK1_AHO,
+    Z20A8300A_MASK1_BLO,
+    Z20A8300A_MASK1_BHO,
+    Z20A8300A_MASK1_CLO,
+    Z20A8300A_MASK1_CHO,
+    Z20A8300A_MASK1_AOC,
+    Z20A8300A_MASK1_BOC,
+    Z20A8300A_MASK1_COC,
+    Z20A8300A_MASK2_OT=19U,
+    Z20A8300A_MASK2_VDO=21U,
+    Z20A8300A_MASK2_VRU,
+    Z20A8300A_MASK2_VRO,
+    Z20A8300A_MASK2_VCPU,
+    Z20A8300A_MASK2_VSU,
+    Z20A8300A_MASK2_VSO
+} Z20A8300A_MaskNameType;
+
+/**  
+ *  @brief Z20A8300A diag name enable type definition
+ */
+typedef enum
+{
+    Z20A8300A_DIAG0_ALU=0U,
+    Z20A8300A_DIAG0_AHU,
+    Z20A8300A_DIAG0_BLU,
+    Z20A8300A_DIAG0_BHU,
+    Z20A8300A_DIAG0_CLU,
+    Z20A8300A_DIAG0_CHU,
+    Z20A8300A_DIAG0_BSUA,
+    Z20A8300A_DIAG0_BSUB,
+    Z20A8300A_DIAG0_BSUC,
+    Z20A8300A_DIAG1_ALO,
+    Z20A8300A_DIAG1_AHO,
+    Z20A8300A_DIAG1_BLO,
+    Z20A8300A_DIAG1_BHO,
+    Z20A8300A_DIAG1_CLO,
+    Z20A8300A_DIAG1_CHO,
+    Z20A8300A_DIAG1_AOC,
+    Z20A8300A_DIAG1_BOC,
+    Z20A8300A_DIAG1_COC,
+    Z20A8300A_DIAG2_VDU=20U,
+    Z20A8300A_DIAG2_VDO,
+    Z20A8300A_DIAG2_VRU,
+    Z20A8300A_DIAG2_VRO,
+    Z20A8300A_DIAG2_VCPU,
+    Z20A8300A_DIAG2_VSU,
+    Z20A8300A_DIAG2_VSO
+} Z20A8300A_DiagNameType;
+
+/**  
+ *  @brief Z20A8300A diag mode type definition
+ */
+typedef enum
+{
+    MODE_FAULT_FLAG = 0U,      /*!< High Level,no fault;Low Level,at least one fault*/
+    MODE_SYSTEM_OUT = 1U,      /*!< 256000Hz*/
+    MODE_TEMPERATURE = 3U      /*!< 25deg,650mV*/
+} Z20A8300A_Ctrl_DiagModeType;
+
+/**  
+ *  @brief Z20A8300A gate type definition
+ */
+typedef enum
+{
+    Z20A8300A_GATE_AL = 0U,
+    Z20A8300A_GATE_AH,
+    Z20A8300A_GATE_BL,
+    Z20A8300A_GATE_BH,
+    Z20A8300A_GATE_CL,
+    Z20A8300A_GATE_CH
+} Z20A8300A_Ctrl_GateType;
+
+/**  
+ *  @brief Z20A8300A gate states type definition
+ */
+typedef enum
+{
+    Z20A8300A_GATE_LOW = 0U,
+    Z20A8300A_GATE_HIGH
+} Z20A8300A_Ctrl_GateStatesType;
+
+/**  
+ *  @brief Z20A8300A phase states type definition
+ */
+typedef enum
+{
+    Z20A8300A_PHASE_DISABLE = 0U,        /*!< GHx = 0,GLx = 0*/
+    Z20A8300A_PHASE_SINKING,             /*!< GHx = 0,GLx = 1*/
+    Z20A8300A_PHASE_SOURCING             /*!< GHx = 1,GLx = 0*/
+} Z20A8300A_Ctrl_PhaseStatesType;
+
+/** @} end of group Type_Public_TypeDefinition */
+
+/** @defgroup Type_Global_VariableDeclaration
+ *  @{
+ */
+
+/** @} end of group Type_Global_VariableDeclaration */
+
+/** @defgroup Type_Public_FunctionDeclaration
+ *  @{
+ */
+
+/** @} end of group Type_Public_FunctionDeclaration */
+
+#ifdef __cplusplus
+}
+#endif
+
+/** @} end of group Z20A8300A_Type */
+
+/** @} end of group Z20A8300A_Driver */
+
+#endif /* Z20A8300A_TYPE_H */

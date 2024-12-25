@@ -1,0 +1,50 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol __ICFEDIT_intvec_start__                        = 0x00000000;
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_ROM_start__       = 0x00000000;
+define symbol __ICFEDIT_region_ROM_end__         = 0x000FFFFF;   /* 1MB */
+
+define symbol DFLASH_BASE                        = 0x01000000;
+define symbol DFLASH_SIZE                        = 0x00020000;   /* 128KB */
+
+define symbol FLASH_IFR_BASE                     = 0x02000000;
+define symbol FLASH_IFR_SIZE                     = 0x00008000;   /* 32KB */
+
+define symbol __ICFEDIT_region_RAM_start__       = 0x20000000;
+define symbol __ICFEDIT_region_RAM_end__         = 0x2001FFFF;   /* 128KB */
+
+define symbol __ICFEDIT_size_cstack__            = 0x00001000;
+define symbol __ICFEDIT_size_heap__              = 0x00000200;   
+/**** End of ICF editor section. ###ICF###*/
+
+define exported symbol __RAM_START             = __ICFEDIT_region_RAM_start__;
+define exported symbol __RAM_END               = __ICFEDIT_region_RAM_end__;
+
+/* memory range */
+define memory mem with size = 4G;
+
+define region PFLASH_region      = mem:[from __ICFEDIT_region_ROM_start__ to __ICFEDIT_region_ROM_end__];
+define region DFLASH_region      = mem:[from DFLASH_BASE size DFLASH_SIZE];
+define region FLASH_IFR_region   = mem:[from FLASH_IFR_BASE size FLASH_IFR_SIZE];
+define region RAM1_region        = mem:[from __ICFEDIT_region_RAM_start__ to __ICFEDIT_region_RAM_end__];
+
+/* definition of RAM blocks */
+define block CSTACK    with size = __ICFEDIT_size_cstack__, alignment = 8 { };
+define block HEAP      with size = __ICFEDIT_size_heap__, alignment = 8  { };
+
+initialize by copy { readwrite };
+do not initialize  { section .noinit };
+
+place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
+
+place in PFLASH_region  { readonly};
+
+place in RAM1_region { section .textrw};
+
+place at end of RAM1_region { block HEAP,
+                              block CSTACK };
+
+place in RAM1_region  { readwrite};

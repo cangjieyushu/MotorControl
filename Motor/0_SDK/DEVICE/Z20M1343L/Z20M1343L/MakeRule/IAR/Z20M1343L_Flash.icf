@@ -1,0 +1,45 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+if (isdefinedsymbol(USE_BOOTROM)) {
+    define symbol __ICFEDIT_intvec_start__           = 0x00000800;   /* Use bootROM */
+} else {
+    define symbol __ICFEDIT_intvec_start__           = 0x00000000;   /* Unuse bootROM */
+}
+
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_ROM_start__       = 0x00001000;
+define symbol __ICFEDIT_region_ROM_end__         = 0x0000FFFF;   /* 64KB - 4KB */
+
+define symbol __ICFEDIT_region_RAM_start__       = 0x20000000; 
+define symbol __ICFEDIT_region_RAM_end__         = 0x200017FF;   /* 6KB */
+
+define symbol __ICFEDIT_size_cstack__            = 0x00000200;   /* 512B */
+define symbol __ICFEDIT_size_heap__              = 0x00000100;   /* 256B */
+
+/**** End of ICF editor section. ###ICF###*/
+
+define exported symbol __RAM_START             = __ICFEDIT_region_RAM_start__;
+define exported symbol __RAM_END               = __ICFEDIT_region_RAM_end__;
+
+/* memory range */
+define memory mem with size = 4G;
+
+define region PFLASH_region      = mem:[from __ICFEDIT_region_ROM_start__ to __ICFEDIT_region_ROM_end__];
+define region RAM_region        = mem:[from __ICFEDIT_region_RAM_start__ to __ICFEDIT_region_RAM_end__];
+
+/* definition of RAM blocks */
+define block CSTACK    with size = __ICFEDIT_size_cstack__, alignment = 8 { };
+define block HEAP      with size = __ICFEDIT_size_heap__, alignment = 8  { };
+
+initialize by copy { readwrite };
+do not initialize  { section .noinit };
+
+place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
+
+place in PFLASH_region  { readonly };
+
+place in RAM_region { section .textrw, readwrite };
+
+place at end of RAM_region { block HEAP, block CSTACK };

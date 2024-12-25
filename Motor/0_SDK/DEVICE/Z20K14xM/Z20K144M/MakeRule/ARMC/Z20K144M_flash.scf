@@ -1,0 +1,35 @@
+#! armclang --target=arm-arm-none-eabi -mcpu=cortex-m4 -xc -E
+; *************************************************************
+; *** Scatter-Loading Description File                      ***
+; *************************************************************
+
+#define pflash_start               0x00000000
+#define pflash_size                0x00080000    /* 512KB */
+
+#define dflash_start               0x01000000
+#define dflash_size                0x00020000    /* 128KB */
+
+#define flash_ifr_start            0x02000000
+#define flash_ifr_size             0x00008000    /* 32KB */
+
+
+#define ram0_start                 0x20000000
+#define ram0_size                  0x00010000    /* 64KB */
+#define ram0_end                   ram0_start + ram0_size
+
+LR_IROM1 pflash_start pflash_size  {    ; load region size_region
+  ER_IROM1 pflash_start pflash_size  {  ; load address = execution address
+   *.o (.intvec, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO)
+  }
+  
+  RAM_START ram0_start ram0_size  {  ; RW data
+   .ANY (.code_ram)
+   .ANY (+RW +ZI)
+  }  
+
+  ARM_LIB_STACK ram0_end EMPTY -0x400     {}; Stack region growing down
+  ARM_LIB_HEAP	ImageBase(ARM_LIB_STACK) EMPTY -0x200	 {} ; heap region
+}
+

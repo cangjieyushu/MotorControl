@@ -1,0 +1,20 @@
+#! armclang --target=arm-arm-none-eabi -mcpu=cortex-m4 -xc -E
+; *************************************************************
+; *** Scatter-Loading Description File                      ***
+; *************************************************************
+
+#define ram0_start                 0x20000000
+#define ram0_size                  0x00010000    /* 64KB */
+#define ram0_end                   ram0_start + ram0_size
+
+LR_IROM1 ram0_start ram0_size  {    ; load region size_region
+  RAM_START ram0_start ram0_size  {  ; load address = execution address
+   *.o (.intvec, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO +RW +ZI)
+  }
+  
+  ARM_LIB_STACK ram0_end EMPTY -0x400     {}; Stack region growing down
+  ARM_LIB_HEAP	ImageBase(ARM_LIB_STACK) EMPTY -0x200	 {} ; heap region
+}
+
