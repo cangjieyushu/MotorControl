@@ -357,7 +357,7 @@
                     <state>$PROJ_DIR$\1_HARDWARE\BSP</state>
                     <state>$PROJ_DIR$\1_HARDWARE\MCHAL</state>
                     <state>$PROJ_DIR$\5_MAIN</state>
-                    <state>C:\Users\sq\Desktop\Motor\0_SDK\STD\Z20A8300A\inc</state>
+                    <state>$PROJ_DIR$\..\..\0_SDK\STD\Z20A8300A\inc</state>
                     <state>$PROJ_DIR$\1_HARDWARE\Z20A8300A</state>
                 </option>
                 <option>

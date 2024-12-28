@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorSQ.c
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             无感方波源文件
+**************************************************************************************************/
  
 #include "MotorSQ.h"
 
@@ -25,6 +28,15 @@ EM_SECTOR_NUM Position_CW[6][2] = {sector_3, sector_5,
 EM_SECTOR_NUM Last_Sector[6] = {sector_6, sector_1, sector_2, sector_3, sector_4, sector_5};
 EM_SECTOR_NUM Next_Sector[6] = {sector_2, sector_3, sector_4, sector_5, sector_6, sector_1};
 
+/**********************************************************************************************
+Function: MotorSQ_Init
+Description: 方波算法初始化
+Input: 无
+Output: 无
+Input_Output: 方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_CTRL->SW_Math = SWITCH_CURRENT;
@@ -63,6 +75,15 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->Q32U_switch_cnt = 0;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Flying_Init
+Description: 顺风启动初始化
+Input: 无
+Output: 无
+Input_Output: 方波控制指针，顺风检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
 {
     pMS_CTRL->SW_Math = SWITCH_BEMF;
@@ -99,6 +120,15 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
     pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->PWM_CTRL._O_Q16U_arr_set);
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Offset_Check_Init
+Description: 偏置检测初始化
+Input: 无
+Output: 无
+Input_Output: 偏置检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
 {
     Q32U_ flag_tmp = ING;
@@ -119,6 +149,15 @@ Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Offset_Check
+Description: 偏置检测计算
+Input: 无
+Output: 无
+Input_Output: 偏置检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
 {
     Q32U_ flag_tmp = ING;
@@ -154,6 +193,15 @@ Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Flying_Check_Init
+Description: 顺风检测初始化
+Input: 无
+Output: 无
+Input_Output: 顺风检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING)
 {
     Q32U_ flag_tmp = ING;
@@ -177,6 +225,15 @@ Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Flying_Check
+Description: 顺风检测计算
+Input: 无
+Output: 无
+Input_Output: 顺风检测指针，频率计算指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
@@ -282,6 +339,15 @@ Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Boot_Check_Init
+Description: 自举控制初始化
+Input: 无
+Output: 无
+Input_Output: 自举控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT)
 {
     Q32U_ flag_tmp = ING;
@@ -303,6 +369,15 @@ Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Boot_Check
+Description: 自举控制计算
+Input: 无
+Output: 无
+Input_Output: 自举控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
 {
     Q32U_ flag_tmp = ING;
@@ -337,6 +412,15 @@ Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Pluse_Positon_Init
+Description: 脉冲定位初始化
+Input: 无
+Output: 无
+Input_Output: 脉冲定位指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
 {
     Q32U_ flag_tmp = ING;
@@ -364,6 +448,15 @@ Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Pluse_Positon
+Description: 脉冲定位计算
+Input: 无
+Output: 无
+Input_Output: 脉冲定位指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
@@ -418,6 +511,15 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Brake_Init
+Description: 刹车控制初始化
+Input: 无
+Output: 无
+Input_Output: 刹车控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
@@ -440,6 +542,15 @@ Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Brake
+Description: 刹车控制占空比计算
+Input: 无
+Output: 无
+Input_Output: 刹车控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
@@ -473,13 +584,31 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
     
     return flag_tmp;
 }
-    
+
+/**********************************************************************************************
+Function: MotorSQ_DIAG_Init
+Description: 续流检测初始化
+Input: 无
+Output: 无
+Input_Output: 续流检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_DIAG_Init(ST_MS_DIAG* pMS_DIAG)
 {
     pMS_DIAG->_V_Q32U_cnt = 0U;
     pMS_DIAG->_V_Q32U_time_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_DIAG_Zero_Cross
+Description: 续流检测计算
+Input: 无
+Output: 无
+Input_Output: 续流检测指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
 { 
     pMS_DIAG->_I_Q12I_BEMF_ZI_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
@@ -536,6 +665,15 @@ void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
     }
 }
 
+/**********************************************************************************************
+Function: MotorSQ_CURRENT_Init
+Description: 电流换向初始化
+Input: 无
+Output: 无
+Input_Output: 电流换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CURRENT_Init(ST_MS_CURRENT* pMS_CURRENT)
 {
     pMS_CURRENT->_V_Q32U_cnt = 0U;
@@ -543,6 +681,15 @@ void MotorSQ_CURRENT_Init(ST_MS_CURRENT* pMS_CURRENT)
     pMS_CURRENT->_V_Q32U_switch_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_CURRENT_Zero_Cross
+Description: 电流换向计算
+Input: 无
+Output: 无
+Input_Output: 电流换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_CURRENT->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
@@ -627,6 +774,15 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
     }
 }
 
+/**********************************************************************************************
+Function: MotorSQ_FLUX_Init
+Description: 磁链换向初始化
+Input: 无
+Output: 无
+Input_Output: 磁链换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_FLUX_Init(ST_MS_FLUX* pMS_FLUX)
 {
     pMS_FLUX->_V_Q32U_cnt = 0U;
@@ -634,6 +790,15 @@ void MotorSQ_FLUX_Init(ST_MS_FLUX* pMS_FLUX)
     pMS_FLUX->_V_Q32U_switch_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_FLUX_Zero_Cross
+Description: 磁链换向计算
+Input: 无
+Output: 无
+Input_Output: 磁链换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_FLUX->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
@@ -714,12 +879,30 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
     }
 }
 
+/**********************************************************************************************
+Function: MotorSQ_BEMF_Init
+Description: 反电动势换向初始化
+Input: 无
+Output: 无
+Input_Output: 反电动势换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_BEMF_Init(ST_MS_BEMF* pMS_BEMF)
 {
     pMS_BEMF->_V_Q32U_cnt = 0U;
     pMS_BEMF->_V_Q32U_time_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_BEMF_Zero_Cross
+Description: 反电动势换向计算
+Input: 无
+Output: 无
+Input_Output: 反电动势换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_BEMF->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
@@ -782,16 +965,43 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
     }
 }
 
+/**********************************************************************************************
+Function: MotorSQ_CMP_Init
+Description: 比较器换向初始化
+Input: 无
+Output: 无
+Input_Output: 比较器换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CMP_Init(ST_MS_CMP* pMS_CMP)
 {
     
 }
 
+/**********************************************************************************************
+Function: MotorSQ_CMP_Zero_Cross
+Description: 比较器换向计算
+Input: 无
+Output: 无
+Input_Output: 比较器换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CMP_Zero_Cross(ST_MS_CMP* pMS_CMP, ST_MS_CONTROL* pMS_CTRL)
 {
     
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Freq_Cal_Init
+Description: 频率计算初始化
+Input: 无
+Output: 无
+Input_Output: 频率计算指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Freq_Cal_Init(ST_FREQ_CAL* pFREQ_CAL)
 {
     pFREQ_CAL->_V_Q32U_60_degree_cnt_last = 0U;
@@ -808,6 +1018,15 @@ void MotorSQ_Freq_Cal_Init(ST_FREQ_CAL* pFREQ_CAL)
     pFREQ_CAL->_O_Q32U_60_degree_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Freq_Cal
+Description: 频率计算
+Input: 无
+Output: 无
+Input_Output: 频率计算指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
 {
     if(pFREQ_CAL->_I_Q32U_time_count > pFREQ_CAL->_V_Q32U_60_degree_cnt_last)
@@ -835,6 +1054,15 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->Q32U_switch_cnt++;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_PWM_Freq_Switch_Init
+Description: 载频控制初始化
+Input: 无
+Output: 无
+Input_Output: 载频控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_PWM_Freq_Switch_Init(ST_PWM_CONTROL* pPWM_CTRL)
 {
     pPWM_CTRL->Flag.all = 0U;
@@ -842,6 +1070,15 @@ void MotorSQ_PWM_Freq_Switch_Init(ST_PWM_CONTROL* pPWM_CTRL)
     pPWM_CTRL->_O_Q16U_arr_set = pPWM_CTRL->_P_Q14U_low_pwm_freq;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_PWM_Freq_Switch
+Description: 载频控制计算
+Input: 无
+Output: 无
+Input_Output: 载频控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
 {
     Q32U_   Q12I_duty_tmp = pPWM_CTRL->_P_Q12U_duty_max;
@@ -915,6 +1152,15 @@ void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
     pPWM_CTRL->_O_Q16U_duty_final_val = Q32I_RHT_12(pPWM_CTRL->_O_Q12I_duty_set*pPWM_CTRL->_O_Q16U_arr_set);
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Stall_Check_Init
+Description: 堵转检测初始化
+Input: 无
+Output: 无
+Input_Output: 堵转检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Stall_Check_Init(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     pSTALL_CTRL->Flag.all = 0U;
@@ -925,6 +1171,15 @@ void MotorSQ_Stall_Check_Init(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_
     pMS_CTRL->Q32U_switch_cnt = 0U;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Stall_Check
+Description: 堵转检测计算
+Input: 无
+Output: 无
+Input_Output: 堵转检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
@@ -979,6 +1234,15 @@ Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL
     return flag_tmp;
 }
 
+/**********************************************************************************************
+Function: MotorSQ_Ibus_Cal
+Description: 母线电流计算
+Input: 无
+Output: 无
+Input_Output: 方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Ibus_Cal(ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_CTRL->FL_Ibus.Q16I_Filter_in = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->Q14I_IPHASE_PU);

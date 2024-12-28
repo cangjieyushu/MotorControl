@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorEst.c
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             速度角度观测器源文件
+**************************************************************************************************/
 #include "MotorEst.h"
 
 /**********************************************************************/
@@ -101,6 +104,17 @@
 //    SVPWM_Cal(pFoc);
 //}
 
+/**********************************磁链观测器************************************/
+
+/**********************************************************************************************
+Function: Est_Flux_Init_F
+Description: 磁链观测器初始化
+Input: 无
+Output: 无
+Input_Output: 磁链观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
 {
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
@@ -111,6 +125,15 @@ Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->_V_F_Xbeta = 0.0f;
 }
 
+/**********************************************************************************************
+Function: Est_Flux_F
+Description: 磁链观测器计算
+Input: 无
+Output: 无
+Input_Output: 磁链观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
 {
     pCTRL->_V_F_Yalfa = -pCTRL->_P_F_Rs*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
@@ -145,8 +168,17 @@ Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Cos = Math_Cos_F(pCTRL->TG_Triangle.F_Angle);
 }
 
-/**********************************************************************/
+/**********************************滑模观测器************************************/
 
+/**********************************************************************************************
+Function: Est_SMO_Init_F
+Description: 滑模观测器初始化
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL)
 {
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
@@ -159,6 +191,15 @@ Ram_Func void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->_V_F_Ebeta = 0.0f;
 }
 
+/**********************************************************************************************
+Function: Est_SMO_F
+Description: 滑模观测器计算
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
 {
     pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ts*( - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa

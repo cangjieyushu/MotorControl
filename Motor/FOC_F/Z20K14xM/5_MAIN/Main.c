@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Main.c
+*     Library/Module Name :              Main
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             任务管理
+**************************************************************************************************/
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
@@ -9,9 +12,18 @@ char Buffer[128];
 float RTT_DATA[8];
 #endif
 
+/**********************************************************************************************
+Function: System_Task_Tick
+Description: 时间片任务调度
+Input: 无
+Output: 无
+Input_Output: ST_SYSTEM_TASK
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void System_Task_Tick(ST_SYSTEM_TASK* pST)
 {
-    if(pST->state_flag.BIT.systick_intflow == 1U)
+    if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
         //1ms
         pST->systick_count++;
@@ -24,7 +36,7 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         }
         else if((pST->systick_count & BIT1) == BIT1)  //4ms
         {
-            Hal_FeedWatchDog();
+            BSP_FeedWatchDog();
         }
         else if((pST->systick_count & BIT2) == BIT2)  //8ms
         {
@@ -54,10 +66,19 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         {
             
         }
-        pST->state_flag.BIT.systick_intflow = 0U;
+        pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
 
+/**********************************************************************************************
+Function: main
+Description: 主函数，执行初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 int main(void)
 {
     COMMON_DISABLE_INTERRUPTS();
@@ -88,6 +109,15 @@ int main(void)
     }
 }
 
+/**********************************************************************************************
+Function: IRQHandleDMAIsr
+Description: 电流环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void IRQHandleDMAIsr(void)
 {
     MH_Read_ADC_Data(&Adc_Data);
@@ -153,6 +183,15 @@ Ram_Func void IRQHandleDMAIsr(void)
     MH_DMA0_ClearChannel0Int();
 }
 
+/**********************************************************************************************
+Function: IRQHandleMCBKIsr
+Description: 刹车故障中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void IRQHandleMCBKIsr(void)
 {
     MH_PWM_Output_En(false);
@@ -175,6 +214,15 @@ void IRQHandleMCBKIsr(void)
     MCPWM_IntClear(HAL_MCPWM_ID, HAL_FAULTIN);
 }
 
+/**********************************************************************************************
+Function: IRQHandleSTIMIsr
+Description: 速度环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void IRQHandleSTIMIsr(void)
 {
     System_Tick_Isr(&Systask);

@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorTask.c
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电机子任务源文件
+**************************************************************************************************/
 #include "MotorTask.h"
 
 #if(SYS_RECTIFICAITON == 0)
@@ -32,7 +35,16 @@ pFUN_HPWMLPWM_OUT HPWMLPWM_SET[6][2] =
     MH_HPWM_LPWM_WpVn, MH_HPWM_LPWM_VpWn,//W+V-
 };
 
-void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
+/**********************************************************************************************
+Function: MotorTask_Freq_Flow
+Description: 电机控制速度环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
@@ -87,7 +99,16 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
-void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
+/**********************************************************************************************
+Function: MotorTask_Current_Flow
+Description: 电机控制电流环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Error_Flag.all != 0U)
     {
@@ -415,6 +436,15 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
+/**********************************************************************************************
+Function: MotorTask_Switch_Flow
+Description: 电机控制换向
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorTask_Switch_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
@@ -439,11 +469,29 @@ void MotorTask_Switch_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
+/**********************************************************************************************
+Function: MotorTask_PWM_Start_ADC_Flow
+Description: 电机控制首次触发ADC
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorTask_PWM_Start_ADC_Flow(ST_MOTOR_TASK* pMotor)
 {
     MH_ADC_Soft_Trigger();
 }
 
+/**********************************************************************************************
+Function: MotorTask_Shut_Flow
+Description: 电机控制故障关断
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorTask_Shut_Flow(ST_MOTOR_TASK* pMotor)
 {
     MH_HPWM_LPWM_Close();

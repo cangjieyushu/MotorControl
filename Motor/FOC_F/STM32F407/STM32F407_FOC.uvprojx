@@ -614,6 +614,16 @@
           <GroupName>3_MOTOR</GroupName>
           <Files>
             <File>
+              <FileName>MotorDent.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\3_MOTOR\MotorDent.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorDent.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\3_MOTOR\MotorDent.h</FilePath>
+            </File>
+            <File>
               <FileName>MotorEst.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\3_MOTOR\MotorEst.c</FilePath>
@@ -664,16 +674,6 @@
           <GroupName>4_SYSTASK</GroupName>
           <Files>
             <File>
-              <FileName>SysTask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4_SYSTASK\SysTask.c</FilePath>
-            </File>
-            <File>
-              <FileName>SysTask.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4_SYSTASK\SysTask.h</FilePath>
-            </File>
-            <File>
               <FileName>Button.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\4_SYSTASK\Button.c</FilePath>
@@ -712,6 +712,16 @@
               <FileName>Speed.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\4_SYSTASK\Speed.h</FilePath>
+            </File>
+            <File>
+              <FileName>SysTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\4_SYSTASK\SysTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\4_SYSTASK\SysTask.h</FilePath>
             </File>
             <File>
               <FileName>Temperature.c</FileName>

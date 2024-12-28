@@ -494,6 +494,11 @@
           <GroupName>1_HARDWARE_BSP</GroupName>
           <Files>
             <File>
+              <FileName>BSP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP.h</FilePath>
+            </File>
+            <File>
               <FileName>BSP_ADC.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\1_HARDWARE\BSP\BSP_ADC.c</FilePath>
@@ -592,11 +597,6 @@
               <FileName>BSP_WDG.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\1_HARDWARE\BSP\BSP_WDG.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\1_HARDWARE\BSP\BSP.h</FilePath>
             </File>
           </Files>
         </Group>

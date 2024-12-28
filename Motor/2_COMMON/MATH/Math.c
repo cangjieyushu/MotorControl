@@ -7,13 +7,31 @@
 **************************************************************************************************/
 #include "Math.h"
 
-/**************************************************************************/
+/************************************定点数学库**************************************/
 
+/**********************************************************************************************
+Function: Ramp_Init
+Description: 定点斜坡初始化
+Input: 定点斜坡输出初始值
+Output: 无
+Input_Output: 定点斜坡指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Ramp_Init(ST_RAMP* pRamp, Q16I_ init)
 {
     pRamp->Q32I_Output = init;
 }
 
+/**********************************************************************************************
+Function: Ramp_Cal
+Description: 定点斜坡计算
+Input: 无
+Output: 无
+Input_Output: 定点斜坡指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Ramp_Cal(ST_RAMP* pRamp)
 {    
     if(pRamp->Q32I_Target > pRamp->Q32I_Output) 
@@ -44,12 +62,30 @@ void Ramp_Cal(ST_RAMP* pRamp)
     }
 }
 
+/**********************************************************************************************
+Function: Filter_Init
+Description: 定点低通滤波初始化
+Input: 定点低通滤波初始值
+Output: 无
+Input_Output: 定点低通滤波指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Filter_Init(ST_FILTER* pFltr, Q16I_ init)
 {
     pFltr->Q32I_Filter_tmp = Q16I_LFT_08(init);
     pFltr->Q16I_Filter_out = init;
 }
 
+/**********************************************************************************************
+Function: Filter_Cal
+Description: 定点低通滤波计算
+Input: 无
+Output: 无
+Input_Output: 定点低通滤波指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Filter_Cal(ST_FILTER* pFltr)
 {
     pFltr->Q32I_Filter_tmp = Q32I_RHT_08(Q16I_LFT_08(pFltr->Q08I_Filter_Coeff*pFltr->Q16I_Filter_in)
@@ -57,6 +93,15 @@ void Filter_Cal(ST_FILTER* pFltr)
     pFltr->Q16I_Filter_out = Q32I_RHT_08(pFltr->Q32I_Filter_tmp);
 }
 
+/**********************************************************************************************
+Function: PID_Inc_Init
+Description: 定点增量式PID初始化
+Input: 定点积分器初始值
+Output: 无
+Input_Output: 定点增量式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void PID_Inc_Init(ST_PID_INC* pPID, Q16I_ init)
 {
     pPID->Q14I_Rf = 0;
@@ -68,6 +113,15 @@ void PID_Inc_Init(ST_PID_INC* pPID, Q16I_ init)
     pPID->Q28I_Output_tmp = Q16I_LFT_14(init);
 }
 
+/**********************************************************************************************
+Function: PID_Inc_Cal
+Description: 定点增量式PID计算
+Input: 无
+Output: 无
+Input_Output: 定点增量式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void PID_Inc_Cal(ST_PID_INC* pPID)
 {
     Q32I_ Q14I_Error = pPID->Q14I_Rf - pPID->Q14I_Fb;
@@ -84,6 +138,15 @@ void PID_Inc_Cal(ST_PID_INC* pPID)
     pPID->Q14I_LastError = Q14I_Error;
 }
 
+/**********************************************************************************************
+Function: PID_Pos_Init
+Description: 定点位置式PID初始化
+Input: 定点积分器初始值
+Output: 无
+Input_Output: 定点位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void PID_Pos_Init(ST_PID_POS* pPID, Q16I_ init)
 {
     pPID->Q14I_Rf = 0;
@@ -93,6 +156,15 @@ void PID_Pos_Init(ST_PID_POS* pPID, Q16I_ init)
     pPID->Q14I_Output = init;
 }
 
+/**********************************************************************************************
+Function: PID_Pos_Cal
+Description: 定点位置式PID计算
+Input: 无
+Output: 无
+Input_Output: 定点位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void PID_Pos_Cal(ST_PID_POS* pPID)
 {
     Q32I_ Q14I_Error = pPID->Q14I_Rf - pPID->Q14I_Fb;
@@ -216,6 +288,15 @@ static const Q16I_ Math_Sin_Table_I16[1024] = {
 #define U180_270        0x0800U
 #define U270_360        0x0C00U
  
+/**********************************************************************************************
+Function: Math_SinCos
+Description: 定点正余弦计算
+Input: 角度，0到4096
+Output: 正弦，余弦
+Input_Output: 定点角度指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Math_SinCos(ST_TRIG* pTIG)
 {
     Q16U_ Q16U_index_tmp;
@@ -248,6 +329,15 @@ void Math_SinCos(ST_TRIG* pTIG)
     }
 }
 
+/**********************************************************************************************
+Function: Math_Atan
+Description: 定点反正切计算
+Input: 正弦，余弦
+Output: 角度，0到4096
+Input_Output: 定点角度指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Math_Atan(ST_TRIG* pTIG)
 {
     Q08U_ Sector_N;
@@ -328,13 +418,31 @@ void Math_Atan(ST_TRIG* pTIG)
     }
 }
 
-/**************************************************************************/
+/************************************浮点数学库**************************************/
 
+/**********************************************************************************************
+Function: Ramp_Init_F
+Description: 浮点斜坡初始化
+Input: 浮点斜坡输出初始值
+Output: 无
+Input_Output: 浮点斜坡指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Ramp_Init_F(ST_RAMP_F* pRamp, float init)
 {
     pRamp->F_Output = init;
 }
 
+/**********************************************************************************************
+Function: Ramp_Cal_F
+Description: 浮点斜坡计算
+Input: 无
+Output: 无
+Input_Output: 浮点斜坡指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Ramp_Cal_F(ST_RAMP_F* pRamp)
 {    
     if(pRamp->F_Target > pRamp->F_Output) 
@@ -365,16 +473,43 @@ Ram_Func void Ramp_Cal_F(ST_RAMP_F* pRamp)
     }
 }
 
+/**********************************************************************************************
+Function: Filter_Init_F
+Description: 浮点低通滤波初始化
+Input: 浮点低通滤波初始值
+Output: 无
+Input_Output: 浮点低通滤波指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Filter_Init_F(ST_FILTER_F* pFltr, float init)
 {
     pFltr->F_Filter_out = init;
 }
 
+/**********************************************************************************************
+Function: Filter_Cal_F
+Description: 浮点低通滤波计算
+Input: 无
+Output: 无
+Input_Output: 浮点低通滤波指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void Filter_Cal_F(ST_FILTER_F* pFltr)
 {
     pFltr->F_Filter_out = pFltr->F_Filter_Coeff*pFltr->F_Filter_in + (1.0f - pFltr->F_Filter_Coeff)*pFltr->F_Filter_out;
 }
 
+/**********************************************************************************************
+Function: PID_Pos_Init_F
+Description: 浮点位置式PID初始化
+Input: 浮点积分器初始值
+Output: 无
+Input_Output: 浮点位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init)
 {
     pPID->F_Rf = 0;
@@ -383,6 +518,15 @@ Ram_Func void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init)
     pPID->F_Output = init;
 }
 
+/**********************************************************************************************
+Function: PID_Pos_Cal_F
+Description: 浮点位置式PID计算
+Input: 无
+Output: 无
+Input_Output: 浮点位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
 {
     float F_Error = pPID->F_Rf - pPID->F_Fb;
@@ -485,6 +629,15 @@ static float Math_Sin_Table_Float[SINE_TABLE_SIZE + 2U] =
 	-0.02454123f, -0.01227154f, -0.00000000f, 0.00000000f
 };
 
+/**********************************************************************************************
+Function: Math_Sin_F
+Description: 浮点正余弦计算
+Input: 角度，0到2PI
+Output: 正弦值
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func float Math_Sin_F(float A)
 {
     float Input, OutVal;
@@ -505,6 +658,15 @@ Ram_Func float Math_Sin_F(float A)
     return OutVal;
 }
 
+/**********************************************************************************************
+Function: Math_Cos_F
+Description: 浮点正余弦计算
+Input: 角度，0到2PI
+Output: 余弦值
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func float Math_Cos_F(float A)
 {
     float Input, OutVal;
@@ -527,6 +689,15 @@ Ram_Func float Math_Cos_F(float A)
     return OutVal;
 }
 
+/**********************************************************************************************
+Function: Math_Atan_F
+Description: 浮点反正切计算
+Input: 正弦，余弦
+Output: 角度，0到2PI
+Input_Output: 浮点角度指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func float Math_Atan_F(float Sin, float Cos)
 {
     Q08U_ Sector_N;
@@ -606,6 +777,15 @@ Ram_Func float Math_Atan_F(float Sin, float Cos)
     return Atan_tmp;
 }
 
+/**********************************************************************************************
+Function: Math_Sqrt_F
+Description: 浮点平方根计算
+Input: 正浮点数
+Output: 平方根
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func float Math_Sqrt_F(float A)
 {
     if(A > 0.0f)
@@ -623,8 +803,17 @@ Ram_Func float Math_Sqrt_F(float A)
     return A;
 }
 
-/***************************************************************************/
+/********************************延迟函数**********************************/
 
+/**********************************************************************************************
+Function: Delay_ns
+Description: ns延迟
+Input: 时间值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Delay_ns(Q32U_ time)
 {
 	Q32U_ delay_count1 = 0,delay_count2 = 0;
@@ -633,6 +822,15 @@ void Delay_ns(Q32U_ time)
     }
 }
 
+/**********************************************************************************************
+Function: Delay_us
+Description: us延迟
+Input: 时间值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Delay_us(Q32U_ time)
 {
 	Q32U_ delay_count1 = 0,delay_count2 = 0;
@@ -641,6 +839,15 @@ void Delay_us(Q32U_ time)
     }
 }
 
+/**********************************************************************************************
+Function: Delay_ms
+Description: ms延迟
+Input: 时间值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Delay_ms(Q32U_ time)
 {
 	Q32U_ delay_count1 = 0,delay_count2 = 0;

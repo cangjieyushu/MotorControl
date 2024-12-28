@@ -1,10 +1,21 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
- 
+/**************************************************************************************************
+*     File Name :                        BSP_GPIO.c
+*     Library/Module Name :              BSP
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             GPIO初始化及应用层接口源文件
+**************************************************************************************************/
 #include "BSP_GPIO.h"
 
+/**********************************************************************************************
+Function: BSP_GPIO_Init
+Description: GPIO初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void BSP_GPIO_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
@@ -135,16 +146,42 @@ void BSP_GPIO_Init(void)
     GPIO_Init(W_HALL_GPIO_Port, &GPIO_InitStruct);
 }
 
+/**********************************************************************************************
+Function: BSP_GPIO_Read_SW0_State
+Description: 按键0状态读取
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 按键0状态
+Author: CJYS
+***********************************************************************************************/
 Q32U_ BSP_GPIO_Read_SW0_State(void)
 {
     return (Q32U_)GPIO_ReadInputDataBit(KEY0_GPIO_PORT, KEY0_Pin);
 }
 
+/**********************************************************************************************
+Function: BSP_GPIO_Read_SW1_State
+Description: 按键1状态读取
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 按键1状态
+Author: CJYS
+***********************************************************************************************/
 Q32U_ BSP_GPIO_Read_SW1_State(void)
 {
     return (Q32U_)GPIO_ReadInputDataBit(KEY1_GPIO_PORT, KEY1_Pin);
 }
 
+/**********************************************************************************************
+Function: BSP_GPIO_Read_SW1_State
+Description: 按键2状态读取
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 按键2状态
+***********************************************************************************************/
 Q32U_ BSP_GPIO_Read_SW2_State(void)
 {
     return (Q32U_)GPIO_ReadInputDataBit(KEY2_GPIO_PORT, KEY2_Pin);

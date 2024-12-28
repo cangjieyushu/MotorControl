@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorFoc.h
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             FOC算法头文件
+**************************************************************************************************/
 #ifndef MotorFoc_H
 #define MotorFoc_H
 
@@ -131,27 +134,202 @@ typedef struct
     float       _P_F_VsScale;
 }ST_CURRENT_CONTROL_F;
 
+/**********************************************************************************************
+Function: MotorFoc_IF_Init_F
+Description: IF初始化
+Input: 无
+Output: 无
+Input_Output: IF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_IF_OPEN_F
+Description: IF开环控制函数
+Input: 无
+Output: 无
+Input_Output: IF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_IF_CLOSE_F
+Description: IF闭环控制函数
+Input: 无
+Output: 无
+Input_Output: IF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorFoc_IF_CLOSE_F(ST_IF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_IF_CURRENT_F
+Description: IF电流环中断控制函数
+Input: 无
+Output: 无
+Input_Output: IF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_VF_Init_F
+Description: VF初始化
+Input: 无
+Output: 无
+Input_Output: VF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_VF_OPEN_F
+Description: VF开环控制函数
+Input: 无
+Output: 无
+Input_Output: VF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_VF_CLOSE_F
+Description: VF闭环控制函数
+Input: 无
+Output: 无
+Input_Output: VF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorFoc_VF_CLOSE_F(ST_VF_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_VF_CURRENT_F
+Description: VF电流环中断控制函数
+Input: 无
+Output: 无
+Input_Output: VF控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_Clark_F
+Description: Clark坐标变换函数
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Clark_F(ST_SVPWM_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_Park_F
+Description: Park坐标变换函数
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Park_F(ST_SVPWM_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_Ipark_F
+Description: Ipark坐标变换函数
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Ipark_F(ST_SVPWM_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_SVPWM_ThreeShunt_F
+Description: 常规SVPWM
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_OneShunt_Cal_F
+Description: 单电阻采样电流查表
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_OneShunt_Cal_F(ST_SVPWM_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_SVPWM_OneShunt_F
+Description: 移相SVPWM
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_SRAD_Init_F
+Description: 移相SVPWM
+Input: 无
+Output: 无
+Input_Output: 速度环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_SRAD_Loop_F
+Description: 速度环控制
+Input: 无
+Output: 无
+Input_Output: 速度环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_Current_Init_F
+Description: 电流环控制
+Input: 无
+Output: 无
+Input_Output: 电流环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Current_Init_F(ST_CURRENT_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_Current_Loop_F
+Description: 电流环控制
+Input: 无
+Output: 无
+Input_Output: 电流环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL);
 
 #endif /* MotorState_H */

@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Current.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电流保护源文件
+**************************************************************************************************/
 #include "Current.h"
 
 ST_CURRENT_PROTECT Current_Protect_1 = {
@@ -19,6 +22,15 @@ ST_CURRENT_PROTECT Current_Protect_3 = {
     .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_3_TIME,
 };
 
+/**********************************************************************************************
+Function: Current_Protect_Level
+Description: 电流保护分级控制
+Input: 无
+Output: 无
+Input_Output: 电流保护指针，系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Current_Protect_Level(ST_CURRENT_PROTECT* pCP, ST_SYSTEM_TASK*  pST)
 {
     if(pST->Q16U_Current_Max >= pCP->Q16U_current_protect_tl)
@@ -38,6 +50,15 @@ void Current_Protect_Level(ST_CURRENT_PROTECT* pCP, ST_SYSTEM_TASK*  pST)
     }
 }
 
+/**********************************************************************************************
+Function: Current_Protect_Flow
+Description: 电流保护控制
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Current_Protect_Flow(ST_SYSTEM_TASK*  pST)
 {
     pST->Q16U_Current_Max = Motor_Read_Current_Max();

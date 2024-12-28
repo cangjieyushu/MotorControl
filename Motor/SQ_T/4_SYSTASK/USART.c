@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        USART.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             串口通讯源文件
+**************************************************************************************************/
 #include "USART.h"
 
 ST_USART_CONTROL USART_Ctrl_1 = {
@@ -14,6 +17,15 @@ ST_USART_CONTROL USART_Ctrl_2 = {
     .txdata_maxlength = TRANSMISSION_DATA_LENGTH,
 };
 
+/**********************************************************************************************
+Function: Cal_CRC8
+Description: CRC8校验
+Input: 数据
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q08U_ Cal_CRC8(const Q08U_ data)
 {
     Q08U_ i, crc;
@@ -36,6 +48,15 @@ Q08U_ Cal_CRC8(const Q08U_ data)
     return crc;
 }
 
+/**********************************************************************************************
+Function: USART_Get_Resceive_Data_1
+Description: 串口1接收数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Get_Resceive_Data_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -99,7 +120,16 @@ Q08U_ Cal_CRC8(const Q08U_ data)
 //            break;
 //    }
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Send_Transmission_Data_1
+Description: 串口1发送数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Send_Transmission_Data_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -161,7 +191,16 @@ Q08U_ Cal_CRC8(const Q08U_ data)
 //            break;
 //    }
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Get_Resceive_Data_2
+Description: 串口2接收数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Get_Resceive_Data_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
@@ -225,7 +264,16 @@ Q08U_ Cal_CRC8(const Q08U_ data)
 //            break;
 //    }
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Send_Transmission_Data_2
+Description: 串口2发送数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Send_Transmission_Data_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
@@ -287,13 +335,31 @@ Q08U_ Cal_CRC8(const Q08U_ data)
 //            break;
 //    }
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Resceive_Int_1
+Description: 串口1接收数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Resceive_Int_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
 //    pUC->rxdata[pUC->rxdata_length_tmp++] = USART1_RESCEIVE_DATA; 
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Transmission_Int_1
+Description: 串口1发送数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Transmission_Int_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -303,13 +369,31 @@ Q08U_ Cal_CRC8(const Q08U_ data)
 //        UART_Disable_Tx(UART1);
 //    }
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Resceive_Int_2
+Description: 串口2接收数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Resceive_Int_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
 //    pUC->rxdata[pUC->rxdata_length_tmp++] = USART2_RESCEIVE_DATA; 
 //}
-//
+
+/**********************************************************************************************
+Function: USART_Transmission_Int_2
+Description: 串口2发送数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Transmission_Int_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;

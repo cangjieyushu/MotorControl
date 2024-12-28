@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorSQ.h
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             无感方波头文件
+**************************************************************************************************/
 #ifndef MotorFoc_H
 #define MotorFoc_H
 
@@ -330,48 +333,323 @@ extern EM_SECTOR_NUM Position_CW[6][2];
 extern EM_SECTOR_NUM Last_Sector[6];
 extern EM_SECTOR_NUM Next_Sector[6];
 
+/**********************************************************************************************
+Function: MotorSQ_Init
+Description: 方波算法初始化
+Input: 无
+Output: 无
+Input_Output: 方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL);
+
+/**********************************************************************************************
+Function: MotorSQ_Flying_Init
+Description: 顺风启动初始化
+Input: 无
+Output: 无
+Input_Output: 方波控制指针，顺风检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING);
 
+/**********************************************************************************************
+Function: MotorSQ_Offset_Check_Init
+Description: 偏置检测初始化
+Input: 无
+Output: 无
+Input_Output: 偏置检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET);
+
+/**********************************************************************************************
+Function: MotorSQ_Offset_Check
+Description: 偏置检测计算
+Input: 无
+Output: 无
+Input_Output: 偏置检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET);
     
+/**********************************************************************************************
+Function: MotorSQ_Flying_Check_Init
+Description: 顺风检测初始化
+Input: 无
+Output: 无
+Input_Output: 顺风检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING);
+
+/**********************************************************************************************
+Function: MotorSQ_Flying_Check
+Description: 顺风检测计算
+Input: 无
+Output: 无
+Input_Output: 顺风检测指针，频率计算指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL);
     
+/**********************************************************************************************
+Function: MotorSQ_Boot_Check_Init
+Description: 自举控制初始化
+Input: 无
+Output: 无
+Input_Output: 自举控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT);
+
+/**********************************************************************************************
+Function: MotorSQ_Boot_Check
+Description: 自举控制计算
+Input: 无
+Output: 无
+Input_Output: 自举控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT);
 
+/**********************************************************************************************
+Function: MotorSQ_Pluse_Positon_Init
+Description: 脉冲定位初始化
+Input: 无
+Output: 无
+Input_Output: 脉冲定位指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* MS_POSITION);
+
+/**********************************************************************************************
+Function: MotorSQ_Pluse_Positon
+Description: 脉冲定位计算
+Input: 无
+Output: 无
+Input_Output: 脉冲定位指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* MS_POSITION, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_Brake_Init
+Description: 刹车控制初始化
+Input: 无
+Output: 无
+Input_Output: 刹车控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CONTROL, ST_MS_CONTROL* pMS_CTRL);
+
+/**********************************************************************************************
+Function: MotorSQ_Brake
+Description: 刹车控制占空比计算
+Input: 无
+Output: 无
+Input_Output: 刹车控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_DIAG_Init
+Description: 续流检测初始化
+Input: 无
+Output: 无
+Input_Output: 续流检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_DIAG_Init(ST_MS_DIAG* pMS_DIAG);
+
+/**********************************************************************************************
+Function: MotorSQ_DIAG_Zero_Cross
+Description: 续流检测计算
+Input: 无
+Output: 无
+Input_Output: 续流检测指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_CURRENT_Init
+Description: 电流换向初始化
+Input: 无
+Output: 无
+Input_Output: 电流换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CURRENT_Init(ST_MS_CURRENT* pMS_CURRENT);
+
+/**********************************************************************************************
+Function: MotorSQ_CURRENT_Zero_Cross
+Description: 电流换向计算
+Input: 无
+Output: 无
+Input_Output: 电流换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_FLUX_Init
+Description: 磁链换向初始化
+Input: 无
+Output: 无
+Input_Output: 磁链换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_FLUX_Init(ST_MS_FLUX* pMS_FLUX);
+
+/**********************************************************************************************
+Function: MotorSQ_FLUX_Zero_Cross
+Description: 磁链换向计算
+Input: 无
+Output: 无
+Input_Output: 磁链换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_BEMF_Init
+Description: 反电动势换向初始化
+Input: 无
+Output: 无
+Input_Output: 反电动势换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_BEMF_Init(ST_MS_BEMF* pMS_BEMF);
+
+/**********************************************************************************************
+Function: MotorSQ_BEMF_Zero_Cross
+Description: 反电动势换向计算
+Input: 无
+Output: 无
+Input_Output: 反电动势换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_CMP_Init
+Description: 比较器换向初始化
+Input: 无
+Output: 无
+Input_Output: 比较器换向指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CMP_Init(ST_MS_CMP* pMS_CMP);
+
+/**********************************************************************************************
+Function: MotorSQ_CMP_Zero_Cross
+Description: 比较器换向计算
+Input: 无
+Output: 无
+Input_Output: 比较器换向指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_CMP_Zero_Cross(ST_MS_CMP* pMS_CMP, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_Freq_Cal_Init
+Description: 频率计算初始化
+Input: 无
+Output: 无
+Input_Output: 频率计算指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Freq_Cal_Init(ST_FREQ_CAL* pFREQ_CAL);
+
+/**********************************************************************************************
+Function: MotorSQ_Freq_Cal
+Description: 频率计算
+Input: 无
+Output: 无
+Input_Output: 频率计算指针，方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_PWM_Freq_Switch_Init
+Description: 载频控制初始化
+Input: 无
+Output: 无
+Input_Output: 载频控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_PWM_Freq_Switch_Init(ST_PWM_CONTROL* pPWM_CTRL);
+
+/**********************************************************************************************
+Function: MotorSQ_PWM_Freq_Switch
+Description: 载频控制计算
+Input: 无
+Output: 无
+Input_Output: 载频控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_Stall_Check_Init
+Description: 堵转检测初始化
+Input: 无
+Output: 无
+Input_Output: 堵转检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Stall_Check_Init(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL);
+
+/**********************************************************************************************
+Function: MotorSQ_Stall_Check
+Description: 堵转检测计算
+Input: 无
+Output: 无
+Input_Output: 堵转检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL);
 
+/**********************************************************************************************
+Function: MotorSQ_Ibus_Cal
+Description: 母线电流计算
+Input: 无
+Output: 无
+Input_Output: 方波控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorSQ_Ibus_Cal(ST_MS_CONTROL* pMS_CTRL);
 
-#endif /* MotorFoc_H */
+#endif /* MotorSQ_H */

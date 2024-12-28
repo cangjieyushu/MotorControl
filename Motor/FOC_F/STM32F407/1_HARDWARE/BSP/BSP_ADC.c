@@ -1,10 +1,21 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
-
+/**************************************************************************************************
+*     File Name :                        BSP_ADC.c
+*     Library/Module Name :              BSP
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             ADC初始化及应用层接口源文件
+**************************************************************************************************/
 #include "BSP_ADC.h"
 
+/**********************************************************************************************
+Function: BSP_ADC_Init
+Description: 电机控制用ADC初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void BSP_ADC_Init(void)
 {
 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
@@ -55,7 +66,7 @@ void BSP_DMA_Init(void)
 	while(DMA_GetCmdStatus(DMA2_Stream0) != DISABLE);                               /*等待DMA可以配置*/
 	 
 	DMA_InitStructure.DMA_Channel = DMA_Channel_0;                                  /*DMA通道0*/
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_Address;           /*外设地址*/
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)0;                         /*外设地址*/
 	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)ADC_INT_RAW_DATA;             /*存取器地址*/
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;                         /*方向从外设到内存*/
 	DMA_InitStructure.DMA_BufferSize = 1;                                           /*数据传输的数量为1*/

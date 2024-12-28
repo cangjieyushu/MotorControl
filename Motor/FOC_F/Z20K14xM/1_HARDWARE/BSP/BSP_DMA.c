@@ -1,12 +1,25 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        BSP_DMA.c
+*     Library/Module Name :              BSP
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             DMA初始化及应用层接口源文件
+**************************************************************************************************/
 #include "BSP_DMA.h"
+#include "BSP_ADC.h"
 
 uint32_t Hal_AdcLoopData[8] = {0,0,0,0,0,0,0,0};
 uint32_t Hal_AdcMapData[8] = {0,0,0,0,0,0,0,0};
 
+/**********************************************************************************************
+Function: DMA_ADC_Init
+Description: 电机控制用DMA初始化
+Input: 电流环中断函数
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void BSP_DMA_Init(isr_cb_t *DMADoneCbf)
 {
 #if (HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
@@ -107,6 +120,15 @@ void BSP_DMA_Init(isr_cb_t *DMADoneCbf)
 
 uint32_t Hal_AdcLoopData_S[8] = {0};
 
+/**********************************************************************************************
+Function: BSP_DMA_Init_S
+Description: 应用层DMA初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void BSP_DMA_Init_S(void)
 {
     DMA_TransferConfig_t GtDMATransferConfig;

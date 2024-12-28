@@ -16,8 +16,8 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <ArmDriver>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
         <EnableCache>0</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
     </ArmDriver>
     <JLinkDriver>
         <jlinkResetStyle>12</jlinkResetStyle>
@@ -198,7 +198,7 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Bp0>_ 0 "EMUL_TRACE_FILTER" "BUTTON_MODE_BUTTON" 0 0 0 0 4294967295 1389097051 0 0</Bp0>
+        <Bp0>_ 0 "EMUL_TRACE_FILTER" "BUTTON_MODE_BUTTON" 0 0 0 0 4294967295 3600085083 0 0</Bp0>
         <Count>1</Count>
     </Breakpoints2>
     <Aliases>

@@ -1,41 +1,62 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        USART.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             串口通讯源文件
+**************************************************************************************************/
 #include "USART.h"
 
-//ST_USART_CONTROL USART_Ctrl_1 = {
-//    .rxdata_maxlength = RESCEIVE_DATA_LENGTH,
-//    .txdata_maxlength = TRANSMISSION_DATA_LENGTH,
-//};
+ST_USART_CONTROL USART_Ctrl_1 = {
+    .rxdata_maxlength = RESCEIVE_DATA_LENGTH,
+    .txdata_maxlength = TRANSMISSION_DATA_LENGTH,
+};
 
-//ST_USART_CONTROL USART_Ctrl_2 = {
-//    .rxdata_maxlength = RESCEIVE_DATA_LENGTH,
-//    .txdata_maxlength = TRANSMISSION_DATA_LENGTH,
-//};
+ST_USART_CONTROL USART_Ctrl_2 = {
+    .rxdata_maxlength = RESCEIVE_DATA_LENGTH,
+    .txdata_maxlength = TRANSMISSION_DATA_LENGTH,
+};
 
-//Q08U_ Cal_CRC8(const Q08U_ data)
-//{
-//    Q08U_ i, crc;
-//    crc = data;
-//    /* 数据往左移了8位，需要计算8次 */
-//    for (i = 8; i > 0; i--) {
-//        /* 判断最高位是否为1 */
-//        if(crc & 0x80)
-//        {
-//        /* 最高位为1，不需要异或，往左移一位，然后与0x2f异或 */
-//        /* 0x12f(多项式：x8 + x5 + x3 + x2 + x + 1,  100101111)，最高位不需要异或，直接去掉 */
-//            crc = (crc << 1) ^ 0x2f;
-//        } 
-//        else
-//        {
-//            /* 最高位为0时，不需要异或，整体数据往左移一位 */
-//            crc = (crc << 1);
-//        }
-//    }
-//    return crc;
-//}
+/**********************************************************************************************
+Function: Cal_CRC8
+Description: CRC8校验
+Input: 数据
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q08U_ Cal_CRC8(const Q08U_ data)
+{
+    Q08U_ i, crc;
+    crc = data;
+    /* 数据往左移了8位，需要计算8次 */
+    for (i = 8; i > 0; i--) {
+        /* 判断最高位是否为1 */
+        if(crc & 0x80)
+        {
+        /* 最高位为1，不需要异或，往左移一位，然后与0x2f异或 */
+        /* 0x12f(多项式：x8 + x5 + x3 + x2 + x + 1,  100101111)，最高位不需要异或，直接去掉 */
+            crc = (crc << 1) ^ 0x2f;
+        } 
+        else
+        {
+            /* 最高位为0时，不需要异或，整体数据往左移一位 */
+            crc = (crc << 1);
+        }
+    }
+    return crc;
+}
 
+/**********************************************************************************************
+Function: USART_Get_Resceive_Data_1
+Description: 串口1接收数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Get_Resceive_Data_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -100,6 +121,15 @@
 //    }
 //}
 
+/**********************************************************************************************
+Function: USART_Send_Transmission_Data_1
+Description: 串口1发送数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Send_Transmission_Data_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -162,6 +192,15 @@
 //    }
 //}
 
+/**********************************************************************************************
+Function: USART_Get_Resceive_Data_2
+Description: 串口2接收数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Get_Resceive_Data_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
@@ -226,6 +265,15 @@
 //    }
 //}
 
+/**********************************************************************************************
+Function: USART_Send_Transmission_Data_2
+Description: 串口2发送数据
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Send_Transmission_Data_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
@@ -288,12 +336,30 @@
 //    }
 //}
 
+/**********************************************************************************************
+Function: USART_Resceive_Int_1
+Description: 串口1接收数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Resceive_Int_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
 //    pUC->rxdata[pUC->rxdata_length_tmp++] = USART1_RESCEIVE_DATA; 
 //}
 
+/**********************************************************************************************
+Function: USART_Transmission_Int_1
+Description: 串口1发送数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Transmission_Int_1(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_1;
@@ -304,12 +370,30 @@
 //    }
 //}
 
+/**********************************************************************************************
+Function: USART_Resceive_Int_2
+Description: 串口2接收数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Resceive_Int_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;
 //    pUC->rxdata[pUC->rxdata_length_tmp++] = USART2_RESCEIVE_DATA; 
 //}
 
+/**********************************************************************************************
+Function: USART_Transmission_Int_2
+Description: 串口2发送数据中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 //void USART_Transmission_Int_2(void)
 //{
 //    ST_USART_CONTROL* pUC = &USART_Ctrl_2;

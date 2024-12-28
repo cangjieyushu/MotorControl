@@ -1,25 +1,63 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
-
+/**************************************************************************************************
+*     File Name :                        MotorHal.c
+*     Library/Module Name :              MotorHal
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电机控制HAL层源文件
+**************************************************************************************************/
 #include "MotorHal.h"
 
+/**********************************************************************************************
+Function: MH_ADC_Soft_Trigger
+Description: 软件触发ADC
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_ADC_Soft_Trigger(void)
 {
 //    SET_BIT(HAL_MOTOR_ADC->CR2, ADC_CR2_JSWSTART);
 }
 
+/**********************************************************************************************
+Function: MH_ADC_Trigger_Delay_Time
+Description: 延迟触发ADC,避开米勒平台
+Input: 延迟触发采样计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_ADC_Trigger_Delay_Time(Q32U_ count)
 {
 //    TIM_Set_OC_CompareCH4(HAL_MOTOR_PWM, time);
 }
 
+/**********************************************************************************************
+Function: MH_PWM_Freq_Set
+Description: 设置载频
+Input: PWM载频控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_PWM_Freq_Set(Q32U_ count)
 {
 //    TIM_Set_AutoReload(HAL_MOTOR_PWM, (count-1));
 }
 
+/**********************************************************************************************
+Function: MH_HPWM_LGPIO_Init
+Description: 非同步整流初始化
+Input: PWM载频控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_HPWM_LGPIO_Init(Q32U_ count)
 {
 //    GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -56,6 +94,15 @@ void MH_HPWM_LGPIO_Init(Q32U_ count)
 //    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, 0);  //deadtime
 }
 
+/**********************************************************************************************
+Function: MH_HPWM_LPWM_Init
+Description: 同步整流初始化
+Input: PWM载频控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_HPWM_LPWM_Init(Q32U_ count)
 {
 //    GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -89,6 +136,15 @@ void MH_HPWM_LPWM_Init(Q32U_ count)
 //    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, HAL_PWM_DEADTIME_VALUE);  //deadtime
 }
 
+/**********************************************************************************************
+Function: MH_HPWM_LGPIO_XXXX
+Description: 非同步整流控制，UpVn为导通U上和V下，其他以此类推，HOpen为开三相上关三相下，LOpen为关三相上开三相下,CLOSE为六管全关
+Input: PWM占空比控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_HPWM_LGPIO_UpVn(Q32U_ duty)
 {
 //    HAL_MOTOR_PWM->CCR1 = duty;
@@ -188,6 +244,15 @@ void MH_HPWM_LGPIO_Close(void)
 //    GPIO_Reset_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
 }
 
+/**********************************************************************************************
+Function: MH_HPWM_LPWM_XXXX
+Description: 同步整流控制，UpVn为导通U上和V下，其他以此类推，HOpen为开三相上关三相下，LOpen为关三相上开三相下,CLOSE为六管全关
+Input: PWM占空比控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_HPWM_LPWM_UpVn(Q32U_ duty)
 {
 //    HAL_MOTOR_PWM->CCR1 = duty;
@@ -269,18 +334,45 @@ void MH_HPWM_LPWM_Close(void)
 //    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
 
+/**********************************************************************************************
+Function: MH_PWM_Read_Count
+Description: 读取当前PWM计数器值
+Input: 无
+Output: 无
+Input_Output: 无
+Return: PWM计数器值
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MH_PWM_Read_Count(void)
 {
 //   return HAL_MOTOR_PWM->CNT;
    return 0;
 }
 
+/**********************************************************************************************
+Function: MH_HALL_TIM_Read_Count
+Description: 读取当前HALL换向计数器值
+Input: 无
+Output: 无
+Input_Output: 无
+Return: ALL换向计数器值
+Author: CJYS
+***********************************************************************************************/
 Q32U_ MH_HALL_TIM_Read_Count(void)
 {
 //   return HAL_MOTOR_HALL_TIM->CNT;
    return 0;
 }
 
+/**********************************************************************************************
+Function: MH_Switch_TIM_Delay
+Description: 设置延迟换向计数器值，进入中断
+Input: 换向计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_Switch_TIM_Delay(Q32U_ count)
 {
 //    HAL_MOTOR_SWITCH_TIM->CNT = 0U;
@@ -288,13 +380,18 @@ void MH_Switch_TIM_Delay(Q32U_ count)
 //    SET_BIT(HAL_MOTOR_SWITCH_TIM->CR1, TIM_CR1_CEN);
 }
 
+/**********************************************************************************************
+Function: MH_Switch_TIM_Stop
+Description: 停止延迟换向计数器值，屏蔽中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MH_Switch_TIM_Stop(void)
 {
 //    CLEAR_BIT(HAL_MOTOR_SWITCH_TIM->CR1, TIM_CR1_CEN);
 //    HAL_MOTOR_SWITCH_TIM->CNT = 0U;
 }
 
-uint8_t MH_HALL_GPIO_State(void)
-{
-    return 0;
-}

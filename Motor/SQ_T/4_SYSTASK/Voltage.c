@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Voltage.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电压保护源文件
+**************************************************************************************************/
 #include "Voltage.h"
 
 ST_VOLTAGE_PROTECT Voltage_Protect_Over = {
@@ -14,6 +17,15 @@ ST_VOLTAGE_PROTECT Voltage_Protect_Low = {
     .Q16U_voltage_protect_time = LOW_VOLTAGE_PROTECT_LEVEL_TIME,
 };
 
+/**********************************************************************************************
+Function: Voltage_Protect_Flow
+Description: 电压保护控制
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Voltage_Protect_Flow(ST_SYSTEM_TASK*  pST)
 {
     ST_VOLTAGE_PROTECT* pCVO = &Voltage_Protect_Over;

@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Main.c
+*     Library/Module Name :              Main
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             任务管理
+**************************************************************************************************/
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
@@ -9,6 +12,15 @@ char Buffer[128];
 Q32I_ RTT_DATA[8];
 #endif
 
+/**********************************************************************************************
+Function: System_Task_Tick
+Description: 时间片任务调度
+Input: 无
+Output: 无
+Input_Output: ST_SYSTEM_TASK
+Return: 
+Author: CJYS
+***********************************************************************************************/
 void System_Task_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
@@ -60,6 +72,15 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
     }
 }
 
+/**********************************************************************************************
+Function: main
+Description: 主函数，执行初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 int main(void)
 {
     __disable_irq();
@@ -87,6 +108,15 @@ int main(void)
     }
 }
 
+/**********************************************************************************************
+Function: ADC_IRQHandler
+Description: 电流环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void ADC_IRQHandler(void)
 {
     if(ADC_Get_SR(HAL_MOTOR_ADC, ADC_SR_JEOC))
@@ -102,6 +132,15 @@ void ADC_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: TIM3_IRQHandler
+Description: 换向中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void TIM3_IRQHandler(void)
 {
     if(TIM_Get_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_UIF))
@@ -111,6 +150,15 @@ void TIM3_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: IRQHandleMCBKIsr
+Description: 刹车故障中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
 {
     if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_BIF))
@@ -120,6 +168,15 @@ void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: TIM8_CC_IRQHandler
+Description: 首次硬件触发ADC中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void TIM8_CC_IRQHandler(void)
 {
     if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_CC4IF))
@@ -129,12 +186,30 @@ void TIM8_CC_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: TIM8_CC_IRQHandler
+Description: 速度环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_Speed_Flow(&Motor);
+    MotorTask_Freq_Flow(&Motor);
 }
 
+/**********************************************************************************************
+Function: UART1_IRQHandler
+Description: 串口1收发中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void UART1_IRQHandler(void)
 {
 //	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
@@ -149,6 +224,15 @@ void UART1_IRQHandler(void)
 //    }
 }
 
+/**********************************************************************************************
+Function: UART2_IRQHandler
+Description: 串口2收发中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void UART2_IRQHandler()
 {
 //	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
@@ -162,3 +246,4 @@ void UART2_IRQHandler()
 //        USART_Transmission_Int_2();
 //    }
 }
+

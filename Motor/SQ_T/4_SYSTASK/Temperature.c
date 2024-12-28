@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Temperature.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             温度保护源文件
+**************************************************************************************************/
 #include "Temperature.h"
 
 ST_TEMP_PROTECT Temperature_Protect_Over = {
@@ -14,6 +17,15 @@ ST_TEMP_PROTECT Temperature_Protect_Low = {
     .Q16U_temp_protect_time = LOW_TEMP_PROTECT_LEVEL_TIME,
 };
 
+/**********************************************************************************************
+Function: Temperature_Protect_Flow
+Description: 温度保护控制
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
 {
     ST_TEMP_PROTECT* pCVO = &Temperature_Protect_Over;
@@ -69,3 +81,4 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
         pCVL->Q16U_temp_protect_cnt = 0;
     }
 }
+

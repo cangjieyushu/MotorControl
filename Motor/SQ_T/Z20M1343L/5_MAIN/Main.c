@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Main.c
+*     Library/Module Name :              Main
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             任务管理
+**************************************************************************************************/
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
@@ -9,6 +12,15 @@ char Buffer[128];
 Q32I_ RTT_DATA[8];
 #endif
 
+/**********************************************************************************************
+Function: System_Task_Tick
+Description: 时间片任务调度
+Input: 无
+Output: 无
+Input_Output: ST_SYSTEM_TASK
+Return: 
+Author: CJYS
+***********************************************************************************************/
 void System_Task_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
@@ -60,6 +72,15 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
     }
 }
 
+/**********************************************************************************************
+Function: main
+Description: 主函数，执行初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 int main(void)
 {
     __disable_irq();
@@ -76,7 +97,7 @@ int main(void)
 //    BSP_WDG_Init();
     
 #if(JSCOPE_RTT_EN == 1U)
-    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,128,SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,sizeof(Buffer),SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 #endif
     
     __enable_irq();
@@ -87,6 +108,15 @@ int main(void)
     }
 }
 
+/**********************************************************************************************
+Function: Adc_LoopScomp_IrqHandler
+Description: 电流环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Adc_LoopScomp_IrqHandler(void)
 {
 //    if(ADC_Get_SR(HAL_MOTOR_ADC, ADC_SR_JEOC))
@@ -102,6 +132,15 @@ void Adc_LoopScomp_IrqHandler(void)
 //    }
 }
 
+/**********************************************************************************************
+Function: Stim_IrqHandler
+Description: 换向中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Stim_IrqHandler(void)
 {
 //    if(TIM_Get_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_UIF))
@@ -111,6 +150,15 @@ void Stim_IrqHandler(void)
 //    }
 }
 
+/**********************************************************************************************
+Function: Mcpwm_IrqHandler
+Description: 刹车故障中断，首次硬件触发ADC中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Mcpwm_IrqHandler(void)
 {
 //    if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_BIF))
@@ -125,36 +173,19 @@ void Mcpwm_IrqHandler(void)
 //    }
 }
 
+/**********************************************************************************************
+Function: Ctimer_IrqHandler
+Description: 速度环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Ctimer_IrqHandler(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_Speed_Flow(&Motor);
+    MotorTask_Freq_Flow(&Motor);
 }
 
-//void UART1_IRQHandler(void)
-//{
-//	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
-//	{		
-//		UART_Clear_Flag(UART1, UART_FLAG_RXNE);
-//        USART_Resceive_Int_1();
-//	}
-//	else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
-//	{
-//		UART_Clear_Flag(UART1, UART_IT_TCIE);
-//        USART_Transmission_Int_1();
-//    }
-//}
 
-//void UART2_IRQHandler()
-//{
-//	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
-//	{		
-//		UART_Clear_Flag(UART2, UART_FLAG_RXNE);
-//        USART_Resceive_Int_2();
-//	}
-//	else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
-//	{
-//		UART_Clear_Flag(UART2, UART_IT_TCIE);
-//        USART_Transmission_Int_2();
-//    }
-//}

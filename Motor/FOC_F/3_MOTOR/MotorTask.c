@@ -1,9 +1,21 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorTask.c
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电机子任务源文件
+**************************************************************************************************/
 #include "MotorTask.h"
 
+/**********************************************************************************************
+Function: MotorFoc_Init_F
+Description: 电机控制参数初始化
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
 {
     MotorFoc_IF_Init_F(&pMotor->IF_CTRL);
@@ -16,6 +28,15 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
     pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
 }
 
+/**********************************************************************************************
+Function: MotorTask_SRAD_Flow
+Description: 电机控制速度环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
@@ -67,6 +88,15 @@ void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
     }
 }
 
+/**********************************************************************************************
+Function: MotorTask_Current_Flow
+Description: 电机控制电流环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Error_Flag.all != 0U)
