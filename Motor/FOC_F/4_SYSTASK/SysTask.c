@@ -6,15 +6,7 @@
 *     Abstract Description :             系统状态源文件
 **************************************************************************************************/
 #include "SysTask.h"
-#include "Button.h"
-#include "Current.h"
-#include "Voltage.h"
-#include "Error.h"
-#include "USART.h"
-#include "Speed.h"
-#include "Temperature.h"
 
-ST_SYSTEM_TASK  Systask;
 Q32U_ START = 0U;
 
 void KEY_KEIL(void)
@@ -104,7 +96,7 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
     }
     
     Motor_Set_Dir(1.0f);
-//    Motor_Set_Target_SRAD((pST->F_FL_VR.F_Filter_out - 2048.0f)*MOTOR_MAX_SRAD/1800.0f);
+    Motor_Set_Target_SRAD((pST->F_FL_VR.F_Filter_out - 2048.0f)*MOTOR_MAX_SRAD/1800.0f);
     Motor_Set_Vbus(HAL_ADC_VOLTAGE_SCALE*pST->F_FL_VBUS.F_Filter_out);
     
     switch(pST->System_Flow)

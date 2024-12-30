@@ -8,20 +8,14 @@
 #ifndef Main_H
 #define Main_H
 
+#include "Math.h"
 #include "BSP.h"
+#include "SYS.h"
 
-#include "MotorPara.h"
 #include "MotorTask.h"
 #include "SysTask.h"
 
-//#include "Button.h"
-//#include "Current.h"
-//#include "Voltage.h"
-//#include "Error.h"
-//#include "USART.h"
-//#include "Speed.h"
-//#include "Temperature.h"
-
+#include "USART.h"
 
 #define BIT0    0x0001U
 #define BIT1    0x0002U
@@ -33,7 +27,7 @@
 #define BIT7    0x0080U
 
 //JSCOPE_RTT模式使能标志位
-#define JSCOPE_RTT_EN                   (1U)
+#define JSCOPE_RTT_EN                   (0U)
 #define JSCOPE_RTT_Sytle                "JScope_f4f4f4"
 #if(JSCOPE_RTT_EN == 1U)
 #include "SEGGER_RTT.h"

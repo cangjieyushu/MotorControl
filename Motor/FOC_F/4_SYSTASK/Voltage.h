@@ -8,9 +8,7 @@
 #ifndef Voltage_H
 #define Voltage_H
 
-#include "BSP.h"
 #include "SysTask.h"
-#include "PmsmPara.h"
 
 //电压保护
 //保护时间除号后面的时间是任务周期，只需要填除号之前的时间即可

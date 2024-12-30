@@ -8,10 +8,7 @@
 #ifndef Speed_H
 #define Speed_H
 
-#include "BSP.h"
 #include "SysTask.h"
-#include "PmsmPara.h"
-#include "MotorTask.h"
 
 //速度保护
 //保护时间除号后面的时间是任务周期，只需要填除号之前的时间即可

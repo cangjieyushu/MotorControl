@@ -109,27 +109,27 @@ void BSP_GPIO_Init(void)
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_Init(OPA_PHASE_N_GPIO_PORT,&GPIO_InitStruct);
     
-//    //PB1  -> UART1_TX
-//    //PB2  -> UART1_RX
-//    GPIO_InitStruct.Alternate = GPIO_AF4;
-//    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
-//    GPIO_InitStruct.Pull      = GPIO_PUPDR_Pullup;
-//    GPIO_InitStruct.Speed     = GPIO_OSPEEDR_High;
-//    GPIO_InitStruct.Pin       = GPIO_PIN_2;
-//    GPIO_Init(GPIOB, &GPIO_InitStruct);
-//    GPIO_InitStruct.Pull      = GPIO_PUPDR_Floating;
-//    GPIO_InitStruct.Pin       = GPIO_PIN_1;
-//    GPIO_Init(GPIOB, &GPIO_InitStruct);
-//    
-//    //PD5  -> UART2_TX
-//    //PD4  -> UART2_RX
-//    GPIO_InitStruct.Alternate = GPIO_AF5;
-//    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
-//    GPIO_InitStruct.Pull      = GPIO_PUPDR_Pullup;
-//    GPIO_InitStruct.Speed     = GPIO_OSPEEDR_High;
-//    GPIO_InitStruct.Pin       = GPIO_PIN_4;
-//    GPIO_Init(GPIOD, &GPIO_InitStruct);
-//    GPIO_InitStruct.Pull      = GPIO_PUPDR_Floating;
-//    GPIO_InitStruct.Pin       = GPIO_PIN_5;
-//    GPIO_Init(GPIOD, &GPIO_InitStruct);
+    //PB1  -> UART1_TX
+    //PB2  -> UART1_RX
+    GPIO_InitStruct.Alternate = GPIO_AF4;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull      = GPIO_PUPDR_Pullup;
+    GPIO_InitStruct.Speed     = GPIO_OSPEEDR_High;
+    GPIO_InitStruct.Pin       = GPIO_PIN_2;
+    GPIO_Init(GPIOB, &GPIO_InitStruct);
+    GPIO_InitStruct.Pull      = GPIO_PUPDR_Floating;
+    GPIO_InitStruct.Pin       = GPIO_PIN_1;
+    GPIO_Init(GPIOB, &GPIO_InitStruct);
+    
+    //PD5  -> UART2_TX
+    //PD4  -> UART2_RX
+    GPIO_InitStruct.Alternate = GPIO_AF5;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull      = GPIO_PUPDR_Pullup;
+    GPIO_InitStruct.Speed     = GPIO_OSPEEDR_High;
+    GPIO_InitStruct.Pin       = GPIO_PIN_4;
+    GPIO_Init(GPIOD, &GPIO_InitStruct);
+    GPIO_InitStruct.Pull      = GPIO_PUPDR_Floating;
+    GPIO_InitStruct.Pin       = GPIO_PIN_5;
+    GPIO_Init(GPIOD, &GPIO_InitStruct);
 }

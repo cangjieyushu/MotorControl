@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER,__CC_ARM</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\STM32F4\STM32F407\INC;..\..\0_SDK\DEVICE\STM32F4\STM32F407\STARTUP\KEIL;..\..\0_SDK\DEVICE\STM32F4;..\..\0_SDK\STD\STM32F4\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\STM32F4\STM32F407\INC;..\..\0_SDK\DEVICE\STM32F4\STM32F407\STARTUP\KEIL;..\..\0_SDK\DEVICE\STM32F4;..\..\0_SDK\STD\STM32F4\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -474,6 +474,11 @@
               <FilePath>..\..\0_SDK\STD\STM32F4\src\stm32f4xx_tim.c</FilePath>
             </File>
             <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_SDK\STD\STM32F4\src\stm32f4xx_usart.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32f4xx_wwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\0_SDK\STD\STM32F4\src\stm32f4xx_wwdg.c</FilePath>
@@ -483,6 +488,11 @@
         <Group>
           <GroupName>1_HARDWARE_BSP</GroupName>
           <Files>
+            <File>
+              <FileName>BSP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP.h</FilePath>
+            </File>
             <File>
               <FileName>BSP_ADC.c</FileName>
               <FileType>1</FileType>
@@ -544,9 +554,14 @@
               <FilePath>.\1_HARDWARE\BSP\BSP_TIM.h</FilePath>
             </File>
             <File>
-              <FileName>BSP.h</FileName>
+              <FileName>BSP_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP_USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_USART.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\1_HARDWARE\BSP\BSP.h</FilePath>
+              <FilePath>.\1_HARDWARE\BSP\BSP_USART.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -607,6 +622,16 @@
               <FileName>SEGGER_RTT_Conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\2_COMMON\RTT\SEGGER_RTT_Conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -732,16 +757,6 @@
               <FileName>Temperature.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\4_SYSTASK\Temperature.h</FilePath>
-            </File>
-            <File>
-              <FileName>USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4_SYSTASK\USART.c</FilePath>
-            </File>
-            <File>
-              <FileName>USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4_SYSTASK\USART.h</FilePath>
             </File>
             <File>
               <FileName>Voltage.c</FileName>

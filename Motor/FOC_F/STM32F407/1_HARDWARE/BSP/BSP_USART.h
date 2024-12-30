@@ -1,142 +1,142 @@
 /**************************************************************************************************
-*     File Name :                        USART.h
-*     Library/Module Name :              SysTask
+*     File Name :                        BSP_USART.h
+*     Library/Module Name :              BSP
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             串口通讯头文件
+*     Abstract Description :             USART初始化及应用层接口头文件
 **************************************************************************************************/
-#ifndef USART_H
-#define USART_H
+#ifndef BSP_USART_H
+#define BSP_USART_H
 
-#include "BSP.h"
-#include "SysTask.h"
+#include "MotorHal_cfg.h"
 
-#define RESCEIVE_DATA_LENGTH        (30U)
-#define TRANSMISSION_DATA_LENGTH    (30U)
+#define USART1_RESCEIVE_DATA        USART1->DR
+#define USART1_TRANSMISSION_DATA    USART1->DR
 
-typedef enum{
-    USART_STATE_IDLE,
-    USART_STATE_RUN,
-    USART_STATE_END,
-    USART_STATE_ERROR,
-}EM_USART_STATE_FLOW;
-
-typedef union{
-    ALL ALL;
-    struct{
-        BIT        resceive_enable         :1;
-        BIT        transmission_enable     :1;
-    }BIT;
-}UN_USART_STATE_FLAG;
-
-typedef struct{
-    EM_USART_STATE_FLOW USART_Resceive_Flow;
-    EM_USART_STATE_FLOW USART_Transmission_Flow;
-    UN_USART_STATE_FLAG USART_State;
-    
-    Q08U_ rxdata[RESCEIVE_DATA_LENGTH];
-    Q08U_ txdata[TRANSMISSION_DATA_LENGTH];
-
-    Q32U_ rxdata_length_tmp;
-    Q32U_ txdata_length_tmp;
-    
-    Q32U_ rxdata_length_last;
-    Q32U_ txdata_length_last;
-
-    Q32U_ rxdata_maxlength;
-    Q32U_ txdata_maxlength;
-    
-    Q32U_ rxdata_cnt;
-    Q32U_ txdata_cnt;
-    
-    Q32U_ error_cnt;
-}ST_USART_CONTROL;
+#define USART2_RESCEIVE_DATA        USART2->DR
+#define USART2_TRANSMISSION_DATA    USART2->DR
 
 /**********************************************************************************************
-Function: USART_Get_Resceive_Data_1
-Description: 串口1接收数据
+Function: USART1_Enable_Rx
+Description: USART1打开接收
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Get_Resceive_Data_1(void);
+static inline void USART1_Enable_Rx(void)
+{
+    SET_BIT(USART1->CR1, USART_CR1_RE);
+}
 
 /**********************************************************************************************
-Function: USART_Send_Transmission_Data_1
-Description: 串口1发送数据
+Function: USART1_Disable_Rx
+Description: USART1关闭接收
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Send_Transmission_Data_1(void);
-/**********************************************************************************************
-Function: USART_Resceive_Int_1
-Description: 串口1接收数据中断
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void USART_Resceive_Int_1(void);
+static inline void USART1_Disable_Rx(void)
+{
+    CLEAR_BIT(USART1->CR1, USART_CR1_RE);
+}
 
 /**********************************************************************************************
-Function: USART_Transmission_Int_1
-Description: 串口1发送数据中断
+Function: USART1_Enable_Tx
+Description: USART1打开发送
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Transmission_Int_1(void);
+static inline void USART1_Enable_Tx(void)
+{
+    SET_BIT(USART1->CR1, USART_CR1_TE);
+}
 
 /**********************************************************************************************
-Function: USART_Get_Resceive_Data_2
-Description: 串口2接收数据
+Function: USART1_Disable_Tx
+Description: USART1关闭发送
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Get_Resceive_Data_2(void);
+static inline void USART1_Disable_Tx(void)
+{
+    CLEAR_BIT(USART1->CR1, USART_CR1_TE);
+}
 
 /**********************************************************************************************
-Function: USART_Send_Transmission_Data_2
-Description: 串口2发送数据
+Function: USART2_Enable_Rx
+Description: USART2打开接收
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Send_Transmission_Data_2(void);
+static inline void USART2_Enable_Rx(void)
+{
+    SET_BIT(USART2->CR1, USART_CR1_RE);
+}
 
 /**********************************************************************************************
-Function: USART_Resceive_Int_2
-Description: 串口2接收数据中断
+Function: USART2_Disable_Rx
+Description: USART2关闭接收
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Resceive_Int_2(void);
+static inline void USART2_Disable_Rx(void)
+{
+    CLEAR_BIT(USART2->CR1, USART_CR1_RE);
+}
 
 /**********************************************************************************************
-Function: USART_Transmission_Int_2
-Description: 串口2发送数据中断
+Function: USART2_Enable_Tx
+Description: USART2打开发送
 Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Transmission_Int_2(void);
-    
-#endif /* USART_H */
+static inline void USART2_Enable_Tx(void)
+{
+    SET_BIT(USART2->CR1, USART_CR1_TE);
+}
+
+/**********************************************************************************************
+Function: USART2_Disable_Tx
+Description: USART2关闭发送
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void USART2_Disable_Tx(void)
+{
+    CLEAR_BIT(USART2->CR1, USART_CR1_TE);
+}
+
+/**********************************************************************************************
+Function: BSP_USART_Init
+Description: USART初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void BSP_USART_Init(void);
+
+#endif /* BSP_USART_H */

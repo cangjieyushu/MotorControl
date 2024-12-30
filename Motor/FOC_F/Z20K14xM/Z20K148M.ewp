@@ -350,6 +350,7 @@
                     <state>$PROJ_DIR$\..\..\0_SDK\DEVICE\Z20K14xM</state>
                     <state>$PROJ_DIR$\..\..\0_SDK\DEVICE\Z20K14xM\Z20K148M\Inc</state>
                     <state>$PROJ_DIR$\..\..\0_SDK\STD\Z20K14xM\inc</state>
+                    <state>$PROJ_DIR$\..\..\2_COMMON\CMU</state>
                     <state>$PROJ_DIR$\..\..\2_COMMON\MATH</state>
                     <state>$PROJ_DIR$\..\..\2_COMMON\RTT</state>
                     <state>$PROJ_DIR$\..\3_MOTOR</state>
@@ -2343,6 +2344,12 @@
                 <name>$PROJ_DIR$\1_HARDWARE\BSP\BSP_TMU.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\1_HARDWARE\BSP\BSP_USART.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\1_HARDWARE\BSP\BSP_USART.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\1_HARDWARE\BSP\BSP_WDG.c</name>
             </file>
             <file>
@@ -2379,6 +2386,15 @@
     </group>
     <group>
         <name>2_COMMON</name>
+        <group>
+            <name>CMU</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\2_COMMON\CMU\USART.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\2_COMMON\CMU\USART.h</name>
+            </file>
+        </group>
         <group>
             <name>MATH</name>
             <file>
@@ -2480,12 +2496,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\Temperature.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\USART.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\USART.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\Voltage.c</name>

@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\sq\Desktop\MotorControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.general.xcl" --backend -f "C:\Users\sq\Desktop\MotorControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\sq\Desktop\MControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.general.xcl" --backend -f "C:\Users\sq\Desktop\MControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\sq\Desktop\MotorControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\sq\Desktop\MotorControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\sq\Desktop\MControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\sq\Desktop\MControl\Motor\FOC_F\Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
 
 @echo off 
 :end

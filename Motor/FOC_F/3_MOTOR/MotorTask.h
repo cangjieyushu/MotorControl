@@ -8,11 +8,8 @@
 #ifndef MotorTask_H
 #define MotorTask_H
 
-#include "Math.h"
-#include "MotorHal.h"
-#include "MotorEst.h"
-#include "MotorFoc.h"
 #include "MotorPara.h"
+#include "MotorHal.h"
     
 /**********************************************************************************************
 Function: Motor_Start

@@ -24,6 +24,7 @@
 #include "sysctrl_drv.h"
 #include "tdg_drv.h"
 #include "tmu_drv.h"
+#include "uart_drv.h"
 #include "wdog_drv.h"
 
 #include "Math.h"

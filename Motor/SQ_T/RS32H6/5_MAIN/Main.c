@@ -18,7 +18,7 @@ Description: 时间片任务调度
 Input: 无
 Output: 无
 Input_Output: ST_SYSTEM_TASK
-Return: 
+Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void System_Task_Tick(ST_SYSTEM_TASK* pST)
@@ -30,15 +30,17 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         
         System_Task_Flow(&Systask);
         
+        Button_Control(&Button_Ctrl, pST);
+        
         if((pST->systick_count & BIT0) == BIT0)  //2ms
         {
-//            USART_Get_Resceive_Data_1();
-//            USART_Get_Resceive_Data_2();
+            USART_Get_Resceive_Data_1();
+            USART_Get_Resceive_Data_2();
         }
         else if((pST->systick_count & BIT1) == BIT1)  //4ms
         {
-//            USART_Send_Transmission_Data_1();
-//            USART_Send_Transmission_Data_2();
+            USART_Send_Transmission_Data_1();
+            USART_Send_Transmission_Data_2();
         }
         else if((pST->systick_count & BIT2) == BIT2)  //8ms
         {
@@ -93,7 +95,7 @@ int main(void)
     BSP_CMP_Init();
     BSP_TIM_Init();
     BSP_ISR_Init();
-//    BSP_USART_Init();
+    BSP_USART_Init();
     BSP_WDG_Init();
     
 #if(JSCOPE_RTT_EN == 1U)
@@ -212,16 +214,16 @@ Author: CJYS
 ***********************************************************************************************/
 void UART1_IRQHandler(void)
 {
-//	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
-//	{		
-//		UART_Clear_Flag(UART1, UART_FLAG_RXNE);
-//        USART_Resceive_Int_1();
-//	}
-//	else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
-//	{
-//		UART_Clear_Flag(UART1, UART_IT_TCIE);
-//        USART_Transmission_Int_1();
-//    }
+	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
+	{		
+		UART_Clear_Flag(UART1, UART_FLAG_RXNE);
+        USART_Resceive_Int_1();
+	}
+	else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
+	{
+		UART_Clear_Flag(UART1, UART_IT_TCIE);
+        USART_Transmission_Int_1();
+    }
 }
 
 /**********************************************************************************************
@@ -235,15 +237,15 @@ Author: CJYS
 ***********************************************************************************************/
 void UART2_IRQHandler()
 {
-//	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
-//	{		
-//		UART_Clear_Flag(UART2, UART_FLAG_RXNE);
-//        USART_Resceive_Int_2();
-//	}
-//	else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
-//	{
-//		UART_Clear_Flag(UART2, UART_IT_TCIE);
-//        USART_Transmission_Int_2();
-//    }
+	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
+	{		
+		UART_Clear_Flag(UART2, UART_FLAG_RXNE);
+        USART_Resceive_Int_2();
+	}
+	else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
+	{
+		UART_Clear_Flag(UART2, UART_IT_TCIE);
+        USART_Transmission_Int_2();
+    }
 }
 

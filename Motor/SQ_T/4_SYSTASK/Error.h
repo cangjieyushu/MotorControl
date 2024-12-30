@@ -8,7 +8,6 @@
 #ifndef Error_H
 #define Error_H
 
-#include "BSP.h"
 #include "SysTask.h"
 
 typedef enum{

@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -658,6 +658,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\2_COMMON\RTT\SEGGER_RTT_Conf.h</FilePath>
             </File>
+            <File>
+              <FileName>USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -704,6 +714,21 @@
           <GroupName>4_SYSTASK</GroupName>
           <Files>
             <File>
+              <FileName>SYS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\4_SYSTASK\SYS.h</FilePath>
+            </File>
+            <File>
+              <FileName>SysTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\4_SYSTASK\SysTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\4_SYSTASK\SysTask.h</FilePath>
+            </File>
+            <File>
               <FileName>Button.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\4_SYSTASK\Button.c</FilePath>
@@ -744,16 +769,6 @@
               <FilePath>..\4_SYSTASK\Speed.h</FilePath>
             </File>
             <File>
-              <FileName>SysTask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4_SYSTASK\SysTask.c</FilePath>
-            </File>
-            <File>
-              <FileName>SysTask.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4_SYSTASK\SysTask.h</FilePath>
-            </File>
-            <File>
               <FileName>Temperature.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\4_SYSTASK\Temperature.c</FilePath>
@@ -762,16 +777,6 @@
               <FileName>Temperature.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\4_SYSTASK\Temperature.h</FilePath>
-            </File>
-            <File>
-              <FileName>USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4_SYSTASK\USART.c</FilePath>
-            </File>
-            <File>
-              <FileName>USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4_SYSTASK\USART.h</FilePath>
             </File>
             <File>
               <FileName>Voltage.c</FileName>

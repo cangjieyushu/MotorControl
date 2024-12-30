@@ -6,13 +6,6 @@
 *     Abstract Description :             系统状态源文件
 **************************************************************************************************/
 #include "SysTask.h"
-#include "Button.h"
-#include "Current.h"
-#include "Voltage.h"
-#include "Error.h"
-#include "USART.h"
-#include "Speed.h"
-#include "Temperature.h"
 
 ST_SYSTEM_TASK  Systask = {
     .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
@@ -73,8 +66,6 @@ Author: CJYS
 void System_Task_Flow(ST_SYSTEM_TASK*  pST)
 {
     System_ADC_Read(pST);
-    
-    Button_Control(&Button_Ctrl, pST);
     
     
     Motor_Set_Dir((Q32U_)0);

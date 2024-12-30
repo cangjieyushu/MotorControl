@@ -8,21 +8,15 @@
 #ifndef Main_H
 #define Main_H
 
+#include "Math.h"
 #include "BSP.h"
+#include "SYS.h"
 
-#include "Z20A8300A_Init.h"
-#include "MotorPara.h"
 #include "MotorTask.h"
 #include "SysTask.h"
+#include "Z20A8300A_Init.h"
 
-//#include "Button.h"
-//#include "Current.h"
-//#include "Voltage.h"
-//#include "Error.h"
-//#include "USART.h"
-//#include "Speed.h"
-//#include "Temperature.h"
-
+#include "USART.h"
 
 #define BIT0    0x0001U
 #define BIT1    0x0002U

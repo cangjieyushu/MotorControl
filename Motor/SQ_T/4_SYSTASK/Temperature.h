@@ -8,7 +8,6 @@
 #ifndef Temperature_H
 #define Temperature_H
 
-#include "BSP.h"
 #include "SysTask.h"
 
 //ÎÂ¶È±£»¤

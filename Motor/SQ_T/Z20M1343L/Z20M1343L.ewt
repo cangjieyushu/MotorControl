@@ -3022,6 +3022,15 @@
     <group>
         <name>2_COMMON</name>
         <group>
+            <name>CMU</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\2_COMMON\CMU\USART.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\2_COMMON\CMU\USART.h</name>
+            </file>
+        </group>
+        <group>
             <name>MATH</name>
             <file>
                 <name>$PROJ_DIR$\..\..\2_COMMON\MATH\Math.c</name>
@@ -3110,12 +3119,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\Temperature.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\USART.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\USART.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\Voltage.c</name>

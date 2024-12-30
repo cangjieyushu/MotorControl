@@ -14,4 +14,5 @@
 #include "BSP_PWM.h"
 #include "BSP_TIM.h"
 #include "BSP_TMU.h"
+#include "BSP_USART.h"
 #include "BSP_WDG.h"
