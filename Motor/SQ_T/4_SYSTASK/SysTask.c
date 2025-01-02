@@ -27,10 +27,10 @@ Author: CJYS
 ***********************************************************************************************/
 void System_Task_Init(ST_SYSTEM_TASK*  pST)
 {
-    Filter_Init(&pST->FL_VBUS, (Q32I_)BSP_ADC_READ_DATA_VBUS);
-    Filter_Init(&pST->FL_TEMP, (Q32I_)BSP_ADC_READ_DATA_TEMP);
-    Filter_Init(&pST->FL_VR, (Q32I_)BSP_ADC_READ_DATA_VR);
-    Filter_Init(&pST->FL_VBG, (Q32I_)BSP_ADC_READ_DATA_VBG);
+    Filter_Init_T(&pST->FL_VBUS, (Q32I_)BSP_ADC_READ_DATA_VBUS);
+    Filter_Init_T(&pST->FL_TEMP, (Q32I_)BSP_ADC_READ_DATA_TEMP);
+    Filter_Init_T(&pST->FL_VR, (Q32I_)BSP_ADC_READ_DATA_VR);
+    Filter_Init_T(&pST->FL_VBG, (Q32I_)BSP_ADC_READ_DATA_VBG);
 }
 
 /**********************************************************************************************
@@ -48,10 +48,10 @@ void System_ADC_Read(ST_SYSTEM_TASK*  pST)
     pST->FL_TEMP.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_TEMP;
     pST->FL_VR.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VR;
     pST->FL_VBG.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VBG;
-    Filter_Cal(&pST->FL_VBUS);
-    Filter_Cal(&pST->FL_TEMP);
-    Filter_Cal(&pST->FL_VR);
-    Filter_Cal(&pST->FL_VBG);
+    Filter_Cal_T(&pST->FL_VBUS);
+    Filter_Cal_T(&pST->FL_TEMP);
+    Filter_Cal_T(&pST->FL_VR);
+    Filter_Cal_T(&pST->FL_VBG);
 }
 
 /**********************************************************************************************

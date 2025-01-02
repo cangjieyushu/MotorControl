@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userOverrides>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\2_COMMON\MATH\Matrix.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\2_COMMON\MATH\Matrix.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\3_MOTOR\MotorTask.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\3_MOTOR\PmsmPara.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\4_SYSTASK\Button.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\4_SYSTASK\Current.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\4_SYSTASK\Speed.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\4_SYSTASK\Temperature.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\4_SYSTASK\Voltage.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\Users\sq\Desktop\Motor\FOC_F\Z20K14xM\5_MAIN\Main.h</path>
+        <encoding>System</encoding>
+    </override>
+</userOverrides>

@@ -53,11 +53,11 @@ void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor)
         *(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max - pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min)
                                               + Q16I_LFT_14(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min));
         
-        Ramp_Cal(&pMotor->MS_CTRL.Ramp_Freq);
+        Ramp_Cal_T(&pMotor->MS_CTRL.Ramp_Freq);
         
         pMotor->MS_CTRL.PID_Freq.Q14I_Rf = pMotor->MS_CTRL.Ramp_Freq.Q32I_Output;
         pMotor->MS_CTRL.PID_Freq.Q14I_Fb = pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out;
-        PID_Inc_Cal(&pMotor->MS_CTRL.PID_Freq);
+        PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Freq);
         
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_freq = pMotor->MS_CTRL.PID_Freq.Q14I_Output;
 #else
@@ -69,7 +69,7 @@ void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor)
 #if(IBUS_CLOSE_EN == 1)
         pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = pMotor->MS_CTRL.Q14U_ibus_max_pu;;
         pMotor->MS_CTRL.PID_Ibus.Q14I_Fb = pMotor->MS_CTRL.FL_Ibus.Q16I_Filter_out;
-        PID_Inc_Cal(&pMotor->MS_CTRL.PID_Ibus);
+        PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Ibus);
         
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PID_Ibus.Q14I_Output;
 #elif(IBUS_CLOSE_EN == 2)
@@ -77,7 +77,7 @@ void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor)
         *pMotor->MS_CTRL.Q14U_vbus_max_pu);
         pMotor->MS_CTRL.PID_Ibus.Q14I_Fb = Q32I_RHT_14(pMotor->MS_CTRL.FL_Ibus.Q16I_Filter_out
         *Q14I_VOLTAGE_LSB_TO_PU(pMotor->MS_CTRL.Q12I_VBUS_VAL));
-        PID_Inc_Cal(&pMotor->MS_CTRL.PID_Ibus);
+        PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Ibus);
         
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PID_Ibus.Q14I_Output;
         
@@ -380,11 +380,11 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 else
                 {
                     pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_in = pMotor->MS_CTRL.Q14I_IPHASE_PU;
-                    Filter_Cal(&pMotor->MS_CTRL.FL_Iphase);
+                    Filter_Cal_T(&pMotor->MS_CTRL.FL_Iphase);
 #if(IPHASE_CLOSE_EN == 1)  
                     pMotor->MS_CTRL.PID_Iphase.Q14I_Rf = pMotor->MS_CTRL.Q14U_iphase_max_pu;
                     pMotor->MS_CTRL.PID_Iphase.Q14I_Fb = pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_out;
-                    PID_Inc_Cal(&pMotor->MS_CTRL.PID_Iphase);
+                    PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Iphase);
                     pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_iphase = pMotor->MS_CTRL.PID_Iphase.Q14I_Output;
 #else
                     pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_iphase = pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_max;
@@ -397,7 +397,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     
                     if(pMotor->Q14I_IPHASE_MAX_PU < pMotor->Q14I_IPHASE_MAX_PU)
                     {
-                        pMotor->Q14I_IPHASE_MAX_PU= pMotor->Q14I_IPHASE_MAX_PU;
+                        pMotor->Q14I_IPHASE_MAX_PU = pMotor->Q14I_IPHASE_MAX_PU;
                     }
                 }
             }
@@ -423,7 +423,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->MS_CTRL.Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
                 if(pMotor->MS_CTRL.Q12I_IPHASE_ADC < pMotor->MS_CTRL.Q12I_IPHASE_OFFSET)
                 {
-                    pMotor->MS_CTRL.Q14I_IPHASE_PU =  Q14I_CURRENT_LSB_TO_PU(pMotor->MS_CTRL.Q12I_IPHASE_OFFSET - pMotor->MS_CTRL.Q12I_IPHASE_ADC);
+                    pMotor->MS_CTRL.Q14I_IPHASE_PU = Q14I_CURRENT_LSB_TO_PU(pMotor->MS_CTRL.Q12I_IPHASE_OFFSET - pMotor->MS_CTRL.Q12I_IPHASE_ADC);
                 }
                 else
                 {

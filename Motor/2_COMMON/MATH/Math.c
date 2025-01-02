@@ -18,7 +18,7 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Init(ST_RAMP* pRamp, Q16I_ init)
+void Ramp_Init_T(ST_RAMP_T* pRamp, Q16I_ init)
 {
     pRamp->Q32I_Output = init;
 }
@@ -32,7 +32,7 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Cal(ST_RAMP* pRamp)
+void Ramp_Cal_T(ST_RAMP_T* pRamp)
 {    
     if(pRamp->Q32I_Target > pRamp->Q32I_Output) 
     { 
@@ -71,7 +71,7 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Init(ST_FILTER* pFltr, Q16I_ init)
+void Filter_Init_T(ST_FILTER_T* pFltr, Q16I_ init)
 {
     pFltr->Q32I_Filter_tmp = Q16I_LFT_08(init);
     pFltr->Q16I_Filter_out = init;
@@ -86,10 +86,10 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Cal(ST_FILTER* pFltr)
+void Filter_Cal_T(ST_FILTER_T* pFltr)
 {
     pFltr->Q32I_Filter_tmp = Q32I_RHT_08(Q16I_LFT_08(pFltr->Q08I_Filter_Coeff*pFltr->Q16I_Filter_in)
-    + (MATH_FILTER_MAX - pFltr->Q08I_Filter_Coeff)*pFltr->Q32I_Filter_tmp);
+    + (MATH_FILTER_MAX_T - pFltr->Q08I_Filter_Coeff)*pFltr->Q32I_Filter_tmp);
     pFltr->Q16I_Filter_out = Q32I_RHT_08(pFltr->Q32I_Filter_tmp);
 }
 
@@ -102,7 +102,7 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Init(ST_PID_INC* pPID, Q16I_ init)
+void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q16I_ init)
 {
     pPID->Q14I_Rf = 0;
     pPID->Q14I_Fb = 0;
@@ -122,16 +122,16 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Cal(ST_PID_INC* pPID)
+void PID_Inc_Cal_T(ST_PID_INC_T* pPID)
 {
     Q32I_ Q14I_Error = pPID->Q14I_Rf - pPID->Q14I_Fb;
     
     pPID->Q28I_Step = pPID->Q14I_Kp*(Q14I_Error - pPID->Q14I_LastError) + pPID->Q14I_Ki*Q14I_Error
     + pPID->Q14I_Kd*(Q14I_Error + pPID->Q14I_PrevError - 2*pPID->Q14I_LastError);
-    pPID->Q28I_Step = MATH_SAT_U(pPID->Q28I_Step, Q16I_LFT_14(pPID->Q14I_StepMax), Q16I_LFT_14(pPID->Q14I_StepMin));
+    pPID->Q28I_Step = MATH_SAT_T(pPID->Q28I_Step, Q16I_LFT_14(pPID->Q14I_StepMax), Q16I_LFT_14(pPID->Q14I_StepMin));
     
     pPID->Q28I_Output_tmp += pPID->Q28I_Step;
-    pPID->Q28I_Output_tmp = MATH_SAT_U(pPID->Q28I_Output_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
+    pPID->Q28I_Output_tmp = MATH_SAT_T(pPID->Q28I_Output_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
     
     pPID->Q14I_Output = Q32I_RHT_14(pPID->Q28I_Output_tmp);
     pPID->Q14I_PrevError = pPID->Q14I_LastError;
@@ -147,7 +147,7 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Init(ST_PID_POS* pPID, Q16I_ init)
+void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q16I_ init)
 {
     pPID->Q14I_Rf = 0;
     pPID->Q14I_Fb = 0;
@@ -165,16 +165,16 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Cal(ST_PID_POS* pPID)
+void PID_Pos_Cal_T(ST_PID_POS_T* pPID)
 {
     Q32I_ Q14I_Error = pPID->Q14I_Rf - pPID->Q14I_Fb;
     
     pPID->Q28I_Ui_tmp += pPID->Q14I_Ki*Q14I_Error;
-    pPID->Q28I_Ui_tmp = MATH_SAT_U(pPID->Q28I_Ui_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
+    pPID->Q28I_Ui_tmp = MATH_SAT_T(pPID->Q28I_Ui_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
     pPID->Q14I_Ui = Q32I_RHT_14(pPID->Q28I_Ui_tmp);
     
     pPID->Q14I_Output = Q32I_RHT_14(pPID->Q14I_Kp*Q14I_Error) + pPID->Q14I_Ui;
-    pPID->Q14I_Output = MATH_SAT_U(pPID->Q14I_Output, pPID->Q14I_OutMax, pPID->Q14I_OutMin);
+    pPID->Q14I_Output = MATH_SAT_T(pPID->Q14I_Output, pPID->Q14I_OutMax, pPID->Q14I_OutMin);
 }
 
 static const Q16I_ Math_Sin_Table_I16[1024] = {
@@ -297,7 +297,7 @@ Input_Output: 定点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Math_SinCos(ST_TRIG* pTIG)
+void Math_SinCos_T(ST_TRIG_T* pTIG)
 {
     Q16U_ Q16U_index_tmp;
     Q16U_index_tmp = 0x3FFU & pTIG->Q12U_Angle;
@@ -338,7 +338,7 @@ Input_Output: 定点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Math_Atan(ST_TRIG* pTIG)
+void Math_Atan_T(ST_TRIG_T* pTIG)
 {
     Q08U_ Sector_N;
 	Q08U_ Sector_a = 0U;
@@ -356,7 +356,7 @@ void Math_Atan(ST_TRIG* pTIG)
 
     if(Cos_tmp == 0 && Sin_tmp == 0)
     {
-		pTIG->Q16U_ReAngle = 0;
+		pTIG->Q12U_ReAngle = 0;
     }
     else
     {
@@ -388,31 +388,31 @@ void Math_Atan(ST_TRIG* pTIG)
         switch (Sector_N)
         {
             case 0U:
-                pTIG->Q16U_ReAngle = deg_temp;
+                pTIG->Q12U_ReAngle = deg_temp;
 			break;
             case 1U:
-                pTIG->Q16U_ReAngle = 1023 - (deg_temp);		
+                pTIG->Q12U_ReAngle = 1023 - (deg_temp);		
 			break;
             case 2U:
-                pTIG->Q16U_ReAngle = 2047 - (deg_temp);		
+                pTIG->Q12U_ReAngle = 2047 - (deg_temp);		
 			break;
             case 3U:
-                pTIG->Q16U_ReAngle = 1024 + (deg_temp);		
+                pTIG->Q12U_ReAngle = 1024 + (deg_temp);		
             break;
             case 4U:
-                pTIG->Q16U_ReAngle = 4095 - (deg_temp);		
+                pTIG->Q12U_ReAngle = 4095 - (deg_temp);		
             break;
             case 5U:
-                pTIG->Q16U_ReAngle = 3072 + (deg_temp);		
+                pTIG->Q12U_ReAngle = 3072 + (deg_temp);		
             break;
             case 6U:
-                pTIG->Q16U_ReAngle = 2048 + (deg_temp);		
+                pTIG->Q12U_ReAngle = 2048 + (deg_temp);		
             break;
             case 7U:
-                pTIG->Q16U_ReAngle = 3071 - (deg_temp);	
+                pTIG->Q12U_ReAngle = 3071 - (deg_temp);	
             break;
             default:
-                pTIG->Q16U_ReAngle = 0;
+                pTIG->Q12U_ReAngle = 0;
             break;
         }
     }
@@ -532,10 +532,10 @@ Ram_Func void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
     float F_Error = pPID->F_Rf - pPID->F_Fb;
     
     pPID->F_Ui += pPID->F_Ki*F_Error;
-    pPID->F_Ui = MATH_SAT_U(pPID->F_Ui, pPID->F_OutMax, pPID->F_OutMin);
+    pPID->F_Ui = MATH_SAT_T(pPID->F_Ui, pPID->F_OutMax, pPID->F_OutMin);
     
     pPID->F_Output = pPID->F_Kp*F_Error + pPID->F_Ui;
-    pPID->F_Output = MATH_SAT_U(pPID->F_Output, pPID->F_OutMax, pPID->F_OutMin);
+    pPID->F_Output = MATH_SAT_F(pPID->F_Output, pPID->F_OutMax, pPID->F_OutMin);
 }
 
 #define SINE_TABLE_SIZE                 (512U)
@@ -630,52 +630,31 @@ static float Math_Sin_Table_Float[SINE_TABLE_SIZE + 2U] =
 };
 
 /**********************************************************************************************
-Function: Math_Sin_F
+Function: Math_SinCos_F
 Description: 浮点正余弦计算
 Input: 角度，0到2PI
-Output: 正弦值
+Output: 正弦，余弦
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Sin_F(float A)
+Ram_Func void Math_SinCos_F(ST_TRIG_F* pTIG)
 {
-    float Input, OutVal;
+    float Input;
     float Findex;
     Q32I_ Index;
-	float a;
-	float b;
+	float M;
+	float N;
 	float Fract;
-
-	/* Angle period converted to 1 */
-    Input = A * MATH_ONE_OVER_2PI_F;
+    Input = pTIG->F_Angle * MATH_ONE_OVER_2PI_F;
     Findex = Input * (float)SINE_TABLE_SIZE;
     Index = (Q32I_)Findex;
-    a = Math_Sin_Table_Float[Index];
-    b = Math_Sin_Table_Float[Index + 1];
+    M = Math_Sin_Table_Float[Index];
+    N = Math_Sin_Table_Float[Index + 1];
     Fract = Findex - (float)Index;
-    OutVal = a + Fract * (b - a);
-    return OutVal;
-}
-
-/**********************************************************************************************
-Function: Math_Cos_F
-Description: 浮点正余弦计算
-Input: 角度，0到2PI
-Output: 余弦值
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Ram_Func float Math_Cos_F(float A)
-{
-    float Input, OutVal;
-    float Findex;
-    Q32I_ Index;   
-    float M;
-    float N;
-    float Fract;
-    Input = A * MATH_ONE_OVER_2PI_F + 0.25f;
+    pTIG->F_Sin = M + Fract * (N - M);
+    
+    Input = Input + 0.25f;
     while(Input > 1.0f)
     {
         Input -= 1.0f;        
@@ -685,8 +664,7 @@ Ram_Func float Math_Cos_F(float A)
     M = Math_Sin_Table_Float[Index];
     N = Math_Sin_Table_Float[Index + 1];
     Fract = Findex - (float)Index;
-    OutVal = M + Fract * (N - M);
-    return OutVal;
+    pTIG->F_Cos = M + Fract * (N - M);
 }
 
 /**********************************************************************************************
@@ -698,24 +676,24 @@ Input_Output: 浮点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Atan_F(float Sin, float Cos)
+Ram_Func void Math_Atan_F(ST_TRIG_F* pTIG)
 {
     Q08U_ Sector_N;
 	Q08U_ Sector_a = 0U;
 	Q08U_ Sector_b = 0U;
 	Q08U_ Sector_c = 0U;
     
-	float Cos_tmp,Sin_tmp,Tan_tmp,Atan_tmp;
+	float Cos_tmp,Sin_tmp,Tan_tmp;
     
 	float temp;
 	float deg_temp = 0.0f;
 
-	Cos_tmp = Cos;
-	Sin_tmp = Sin;
+	Cos_tmp = pTIG->F_Cos;
+	Sin_tmp = pTIG->F_Sin;
 
     if(Cos_tmp == 0.0f && Sin_tmp == 0.0f)
     {
-		Atan_tmp = 0.0f;
+		pTIG->F_ReAngle = 0.0f;
     }
     else
     {
@@ -745,36 +723,34 @@ Ram_Func float Math_Atan_F(float Sin, float Cos)
         switch (Sector_N)
         {
             case 0U:
-                Atan_tmp = deg_temp;
+                pTIG->F_ReAngle = deg_temp;
 			break;
             case 1U:
-                Atan_tmp = 1.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
+                pTIG->F_ReAngle = 1.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
 			break;
             case 2U:
-                Atan_tmp = 2.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
+                pTIG->F_ReAngle = 2.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
 			break;
             case 3U:
-                Atan_tmp = 1.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
+                pTIG->F_ReAngle = 1.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
             break;
             case 4U:
-                Atan_tmp = 4.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
+                pTIG->F_ReAngle = 4.0f*MATH_PI_OVER_TWO_F - (deg_temp);		
             break;
             case 5U:
-                Atan_tmp = 3.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
+                pTIG->F_ReAngle = 3.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
             break;
             case 6U:
-                Atan_tmp = 2.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
+                pTIG->F_ReAngle = 2.0f*MATH_PI_OVER_TWO_F + (deg_temp);		
             break;
             case 7U:
-                Atan_tmp = 3.0f*MATH_PI_OVER_TWO_F - (deg_temp);	
+                pTIG->F_ReAngle = 3.0f*MATH_PI_OVER_TWO_F - (deg_temp);	
             break;
             default:
-                Atan_tmp = 0.0f;
+                pTIG->F_ReAngle = 0.0f;
             break;
         }
     }
-    
-    return Atan_tmp;
 }
 
 /**********************************************************************************************

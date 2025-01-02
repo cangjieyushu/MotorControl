@@ -81,4 +81,3 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
         pCVL->Q16U_temp_protect_cnt = 0;
     }
 }
-

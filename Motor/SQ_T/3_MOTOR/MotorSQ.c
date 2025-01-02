@@ -43,17 +43,17 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->DIR_Set = pMS_CTRL->DIR_Target;
     
-    Ramp_Init(&pMS_CTRL->Ramp_Freq, pMS_CTRL->Ramp_Freq.Q32I_Init);
+    Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->Ramp_Freq.Q32I_Init);
     
-    Filter_Init(&pMS_CTRL->FL_Iphase, 0);
-    Filter_Init(&pMS_CTRL->FL_Freq, 0);
-    Filter_Init(&pMS_CTRL->FL_Ibus, 0);
-    Filter_Init(&pMS_CTRL->FL_Ibrake, 0);
+    Filter_Init_T(&pMS_CTRL->FL_Iphase, 0);
+    Filter_Init_T(&pMS_CTRL->FL_Freq, 0);
+    Filter_Init_T(&pMS_CTRL->FL_Ibus, 0);
+    Filter_Init_T(&pMS_CTRL->FL_Ibrake, 0);
     
-    PID_Inc_Init(&pMS_CTRL->PID_Iphase, 0);
-    PID_Inc_Init(&pMS_CTRL->PID_Freq, 0);
-    PID_Inc_Init(&pMS_CTRL->PID_Ibus, 0);
-    PID_Inc_Init(&pMS_CTRL->PID_Ibrake, 0);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, 0);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Freq, 0);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, 0);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, 0);
     
     MotorSQ_DIAG_Init(&pMS_CTRL->MS_DIAG);
     MotorSQ_CURRENT_Init(&pMS_CTRL->MS_CURRENT);
@@ -101,15 +101,15 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
         pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_CTRL->PWM_CTRL._P_Q12U_duty_max;
     }
     
-    Ramp_Init(&pMS_CTRL->Ramp_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
+    Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
     
-    PID_Inc_Init(&pMS_CTRL->PID_Iphase, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
-    PID_Inc_Init(&pMS_CTRL->PID_Freq, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
-    PID_Inc_Init(&pMS_CTRL->PID_Ibus, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Freq, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
     
-    Ramp_Init(&pMS_CTRL->PWM_CTRL.Ramp_Duty, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    Ramp_Init_T(&pMS_CTRL->PWM_CTRL.Ramp_Duty, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
     
-    Filter_Init(&pMS_CTRL->FL_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
+    Filter_Init_T(&pMS_CTRL->FL_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
     
     pMS_CTRL->PWM_CTRL._I_Q12I_duty_freq = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
     pMS_CTRL->PWM_CTRL._I_Q12I_duty_ibus = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
@@ -529,8 +529,8 @@ Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
         pBRAKE_CTRL->Flag.all = 0U;
 
         pBRAKE_CTRL->_V_Q32U_cnt = 0U;
-        Ramp_Init(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
-        PID_Inc_Init(&pMS_CTRL->PID_Ibrake, pMS_CTRL->PID_Ibrake.Q14I_OutMin);
+        Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
+        PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, pMS_CTRL->PID_Ibrake.Q14I_OutMin);
         
         pBRAKE_CTRL->Flag.bit.b0_init = 1U;
     }
@@ -562,7 +562,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
     }
     else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
     {
-        Ramp_Cal(&pBRAKE_CTRL->Ramp_Brake_Duty);
+        Ramp_Cal_T(&pBRAKE_CTRL->Ramp_Brake_Duty);
         pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Output;
     }
     else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time
@@ -1049,7 +1049,7 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[2] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3]
     + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5]));
     
-    Filter_Cal(&pMS_CTRL->FL_Freq);
+    Filter_Cal_T(&pMS_CTRL->FL_Freq);
     
     pMS_CTRL->Q32U_switch_cnt++;
 }
@@ -1097,7 +1097,7 @@ void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
     }
     
     pPWM_CTRL->Ramp_Duty.Q32I_Target = Q12I_duty_tmp;
-    Ramp_Cal(&pPWM_CTRL->Ramp_Duty);
+    Ramp_Cal_T(&pPWM_CTRL->Ramp_Duty);
     pPWM_CTRL->_O_Q12I_duty_set = pPWM_CTRL->Ramp_Duty.Q32I_Output;
                     
     if(pPWM_CTRL->Flag.bit.b0_init == ING)
@@ -1246,5 +1246,5 @@ Author: CJYS
 void MotorSQ_Ibus_Cal(ST_MS_CONTROL* pMS_CTRL)
 {
     pMS_CTRL->FL_Ibus.Q16I_Filter_in = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->Q14I_IPHASE_PU);
-    Filter_Cal(&pMS_CTRL->FL_Ibus);
+    Filter_Cal_T(&pMS_CTRL->FL_Ibus);
 }

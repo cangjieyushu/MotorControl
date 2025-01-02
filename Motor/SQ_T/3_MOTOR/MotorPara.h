@@ -88,13 +88,13 @@
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX*HAL_PWM_RUN1_FREQ/1000.0f))     //40us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(30.0f*HAL_PWM_DUTY_MAX*HAL_PWM_RUN2_FREQ/1000.0f))     //30us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //40us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(30.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //30us
 
 
 //最大占空比，最小占空比
-#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX)
-#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX)
+#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
 
 #define DUTY_CTRL_MAX                   (Q32I_)(HAL_PWM_DUTY_100_PERCENT)
 #define DUTY_CTRL_MIN                   (Q32I_)(HAL_PWM_DUTY_5_PERCENT)
@@ -103,11 +103,11 @@
 #define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.001f * MOTOR_MAX_FREQ))
 #define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.001f * MOTOR_MAX_FREQ))
 
-#define FREQ_PID_KP                     (Q32I_)(0.0001f * MATH_PID_MAX)
-#define FREQ_PID_KI                     (Q32I_)(0.0010f * MATH_PID_MAX)
-#define FREQ_PID_KD                     (Q32I_)(0.0001f * MATH_PID_MAX)
-#define FREQ_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX)
-#define FREQ_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX)
+#define FREQ_PID_KP                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
+#define FREQ_PID_KI                     (Q32I_)(0.0010f * MATH_PID_MAX_F)
+#define FREQ_PID_KD                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
+#define FREQ_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
+#define FREQ_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
 #define FREQ_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define FREQ_PID_OUTMIN                 (DUTY_CTRL_MIN)
     
@@ -115,40 +115,40 @@
 #define IBUS_GAIN                       (2)//母线电流放大倍数，未使用
 #define IBUS_PID_RF                     (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_BUS_A))
 
-#define IBUS_PID_KP                     (Q32I_)(0.010f * MATH_PID_MAX)
-#define IBUS_PID_KI                     (Q32I_)(0.010f * MATH_PID_MAX)
-#define IBUS_PID_KD                     (Q32I_)(0.000f * MATH_PID_MAX)
-#define IBUS_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX)
-#define IBUS_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX)
+#define IBUS_PID_KP                     (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IBUS_PID_KI                     (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IBUS_PID_KD                     (Q32I_)(0.000f * MATH_PID_MAX_F)
+#define IBUS_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
+#define IBUS_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
 #define IBUS_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define IBUS_PID_OUTMIN                 (DUTY_CTRL_MIN)
 
 //相电流PID
 #define IPHSAE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_PHASE_A))
 
-#define IPHASE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX)
-#define IPHASE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX)
-#define IPHASE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX)
-#define IPHASE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX)
-#define IPHASE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX)
+#define IPHASE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IPHASE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IPHASE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX_F)
+#define IPHASE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
+#define IPHASE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
 #define IPHASE_PID_OUTMAX               (DUTY_CTRL_MAX)
 #define IPHASE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车母线电流PID
-#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX)
-#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX)
+#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
 
-#define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX)
-#define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX)
+#define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
 
 #define IBRAKE_GAIN                     (5)//刹车电流放大倍数，未使用
 #define IBRAKE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_BRAKE_A))
 
-#define IBRAKE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX)
-#define IBRAKE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX)
-#define IBRAKE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX)
-#define IBRAKE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX)
-#define IBRAKE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX)
+#define IBRAKE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IBRAKE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
+#define IBRAKE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX_F)
+#define IBRAKE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
+#define IBRAKE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
 #define IBRAKE_PID_OUTMAX               (DUTY_CTRL_MAX)
 #define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 

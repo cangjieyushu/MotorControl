@@ -1,20 +1,26 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Main.c
+*     Library/Module Name :              Main
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             任务管理
+**************************************************************************************************/
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
-int32_t Buffer[128];
-int32_t RTT_DATA[8];
-//        Delay_us(1);
-//    GPIO_Toggle_Pin(LED0_GPIO_PORT, LED0_PIN);
-//    GPIO_Toggle_Pin(LED0_GPIO_PORT, LED0_PIN);
-
-//    GPIO_Toggle_Pin(LED1_GPIO_PORT, LED1_PIN);
-//    GPIO_Toggle_Pin(LED1_GPIO_PORT, LED1_PIN);
+char Buffer[128];
+Q32I_ RTT_DATA[8];
 #endif
 
+/**********************************************************************************************
+Function: System_Task_Tick
+Description: 时间片任务调度
+Input: 无
+Output: 无
+Input_Output: ST_SYSTEM_TASK
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void System_Task_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
@@ -23,42 +29,42 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         pST->systick_count++;
         
         System_Task_Flow(&Systask);
-        MotorTask_Speed_Flow(&Motor);
+        
+        Button_Control(&Button_Ctrl, pST);
         
         if((pST->systick_count & BIT0) == BIT0)  //2ms
-        {
-            
-        }
-        else  if((pST->systick_count & BIT1) == BIT1)  //4ms
         {
 //            USART_Get_Resceive_Data_1();
 //            USART_Get_Resceive_Data_2();
         }
-        else if((pST->systick_count & BIT2) == BIT2)  //8ms
+        else if((pST->systick_count & BIT1) == BIT1)  //4ms
         {
 //            USART_Send_Transmission_Data_1();
 //            USART_Send_Transmission_Data_2();
         }
-        else if((pST->systick_count & BIT3) == BIT3)  //16ms
+        else if((pST->systick_count & BIT2) == BIT2)  //8ms
         {
             
         }
-        else if((pST->systick_count & BIT4) == BIT4)  //32ms
+        else if((pST->systick_count & BIT3) == BIT3)  //16ms
         {
             Voltage_Protect_Flow(&Systask);
         }
-        else if((pST->systick_count & BIT5) == BIT5)  //64ms
+        else if((pST->systick_count & BIT4) == BIT4)  //32ms
         {
             Current_Protect_Flow(&Systask);
         }
-        else if((pST->systick_count & BIT6) == BIT6)  //128ms
+        else if((pST->systick_count & BIT5) == BIT5)  //64ms
         {
             Speed_Protect_Flow(&Systask);
+        }
+        else if((pST->systick_count & BIT6) == BIT6)  //128ms
+        {
+            Error_Priority_Check(&Systask);
         }
         else if((pST->systick_count & BIT7) == BIT7)  //256ms
         {
             Temperature_Protect_Flow(&Systask);
-            Error_Priority_Check(&Systask);
         }
         else  //256ms
         {
@@ -68,6 +74,15 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
     }
 }
 
+/**********************************************************************************************
+Function: main
+Description: 主函数，执行初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 int main(void)
 {
     __disable_irq();
@@ -84,7 +99,7 @@ int main(void)
     BSP_WDG_Init();
     
 #if(JSCOPE_RTT_EN == 1U)
-    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,128,SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,sizeof(Buffer),SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 #endif
     
     __enable_irq();
@@ -95,6 +110,15 @@ int main(void)
     }
 }
 
+/**********************************************************************************************
+Function: ADC_IRQHandler
+Description: 电流环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void ADC_IRQHandler(void)
 {
     if(ADC_Get_SR(HAL_MOTOR_ADC, ADC_SR_JEOC))
@@ -104,19 +128,26 @@ void ADC_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: IRQHandleMCBKIsr
+Description: 刹车故障中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
 {
     if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_BIF))
     {
         TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_BIF);
-        MotorTask_Shut_Down_Flow(&Motor);
+        MotorTask_Shut_Flow(&Motor);
     }
     else if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_UIF))
     {
-        GPIO_Toggle_Pin(LED1_GPIO_PORT, LED1_PIN);
         TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_UIF);
         MotorTask_Update_Flow(&Motor);
-        GPIO_Toggle_Pin(LED1_GPIO_PORT, LED1_PIN);
 #if(JSCOPE_RTT_EN == 1U)
 //        RTT_DATA[0] = Motor.FOC_Para.Q14I_Ia;
 //        RTT_DATA[1] = Motor.FOC_Para.Q14I_Ib;
@@ -135,11 +166,30 @@ void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: SysTick_Handler
+Description: 速度环中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
+    MotorTask_SRAD_Flow(&Motor);
 }
 
+/**********************************************************************************************
+Function: UART1_IRQHandler
+Description: 串口1收发中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void UART1_IRQHandler(void)
 {
 	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
@@ -154,6 +204,15 @@ void UART1_IRQHandler(void)
     }
 }
 
+/**********************************************************************************************
+Function: UART2_IRQHandler
+Description: 串口2收发中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void UART2_IRQHandler()
 {
 	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
@@ -167,3 +226,4 @@ void UART2_IRQHandler()
         USART_Transmission_Int_2();
     }
 }
+

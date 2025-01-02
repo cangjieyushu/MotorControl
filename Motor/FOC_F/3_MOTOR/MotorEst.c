@@ -163,9 +163,7 @@ Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
     MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
     
-    pCTRL->TG_Triangle.F_ReAngle = Math_Atan_F(pCTRL->_V_F_Nbeta, pCTRL->_V_F_Nalfa);
-    pCTRL->TG_Triangle.F_Sin = Math_Sin_F(pCTRL->TG_Triangle.F_Angle);
-    pCTRL->TG_Triangle.F_Cos = Math_Cos_F(pCTRL->TG_Triangle.F_Angle);
+    Math_SinCos_F(&pCTRL->TG_Triangle);
 }
 
 /**********************************»¬Ä£¹Û²âÆ÷************************************/
@@ -230,9 +228,7 @@ Ram_Func void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
     MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
     
-    pCTRL->TG_Triangle.F_ReAngle = Math_Atan_F(-pCTRL->_V_F_Ealfa, pCTRL->_V_F_Ebeta);
-    pCTRL->TG_Triangle.F_Sin = Math_Sin_F(pCTRL->TG_Triangle.F_Angle);
-    pCTRL->TG_Triangle.F_Cos = Math_Cos_F(pCTRL->TG_Triangle.F_Angle);
+    Math_SinCos_F(&pCTRL->TG_Triangle);
 }
 
 /**********************************************************************/

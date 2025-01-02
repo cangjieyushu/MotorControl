@@ -3009,9 +3009,6 @@
         <group>
             <name>MCHAL</name>
             <file>
-                <name>$PROJ_DIR$\1_HARDWARE\MCHAL\MotorHal.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\1_HARDWARE\MCHAL\MotorHal.h</name>
             </file>
             <file>

@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        SysTask.h
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             系统状态头文件
+**************************************************************************************************/
 #ifndef SysTask_H
 #define SysTask_H
 
@@ -43,15 +46,15 @@ typedef union{
 }UN_SYSTEM_ERROR_FLAG;
 
 typedef struct{
-    uint8_t                     systick_count;
+    Q08U_                       systick_count;
     EM_SYSTEM_STATE_FLOW        System_Flow;
     UN_SYSTEM_STATE_FLAG        System_State_Flag;
     UN_SYSTEM_ERROR_FLAG        System_Error_Flag;
     
-    ST_FILTER                   FL_VBUS;
-    ST_FILTER                   FL_TEMP;
-    ST_FILTER                   FL_VR;
-    ST_FILTER                   FL_VBG;
+    ST_FILTER_T                 FL_VBUS;
+    ST_FILTER_T                 FL_TEMP;
+    ST_FILTER_T                 FL_VR;
+    ST_FILTER_T                 FL_VBG;
     
     Q32U_                       Q16U_Duty_Target;
     Q32U_                       Q16U_Current_Max;
@@ -63,8 +66,26 @@ typedef struct{
     Q32U_                       flow_cnt;
 }ST_SYSTEM_TASK;
 
+/**********************************************************************************************
+Function: System_Task_Flow
+Description: 系统状态控制
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void System_Task_Flow(ST_SYSTEM_TASK*  pST);
-void System_Task_Init(ST_SYSTEM_TASK*  pST);
+
+/**********************************************************************************************
+Function: System_Tick_Isr
+Description: 系统负载率防溢出
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void System_Tick_Isr(ST_SYSTEM_TASK*  pST);
 
 extern ST_SYSTEM_TASK  Systask;

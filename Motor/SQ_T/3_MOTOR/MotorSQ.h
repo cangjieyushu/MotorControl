@@ -134,7 +134,7 @@ typedef struct
 typedef struct{
     UN_MS_FLAG  Flag;
     
-    ST_RAMP     Ramp_Brake_Duty;
+    ST_RAMP_T   Ramp_Brake_Duty;
     
     Q32U_   _O_Q12U_brake_duty;
     
@@ -260,7 +260,7 @@ typedef struct{
 typedef struct
 {
     UN_MS_FLAG  Flag;
-    ST_RAMP     Ramp_Duty;
+    ST_RAMP_T   Ramp_Duty;
     
     Q32U_   _I_Q14I_duty_vr;
     
@@ -303,21 +303,21 @@ typedef struct{
     ST_PWM_CONTROL      PWM_CTRL;
     ST_STALL_CONTROL    STALL_CTRL;
     
-    ST_RAMP             Ramp_Freq;
+    ST_RAMP_T           Ramp_Freq;
     Q32U_               Q14U_iphase_max_pu;
     Q32U_               Q14U_ibus_max_pu;
     Q32U_               Q14U_ibrake_max_pu;
     Q32U_               Q14U_vbus_max_pu;
     
-    ST_FILTER           FL_Iphase;
-    ST_FILTER           FL_Freq;
-    ST_FILTER           FL_Ibus;
-    ST_FILTER           FL_Ibrake;
+    ST_FILTER_T         FL_Iphase;
+    ST_FILTER_T         FL_Freq;
+    ST_FILTER_T         FL_Ibus;
+    ST_FILTER_T         FL_Ibrake;
     
-    ST_PID_INC          PID_Iphase;
-    ST_PID_INC          PID_Freq;
-    ST_PID_INC          PID_Ibus;
-    ST_PID_INC          PID_Ibrake;
+    ST_PID_INC_T        PID_Iphase;
+    ST_PID_INC_T        PID_Freq;
+    ST_PID_INC_T        PID_Ibus;
+    ST_PID_INC_T        PID_Ibrake;
     
     Q32I_               Q12I_BEMF_ADC_tmp[3];
     Q32I_               Q12I_VBUS_VAL;

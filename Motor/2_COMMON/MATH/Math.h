@@ -100,30 +100,30 @@ typedef struct
     Q32I_ Q12U_Angle;
     Q32I_ Q14I_Cos;
     Q32I_ Q14I_Sin;
-    Q32I_ Q16U_ReAngle;
-}ST_TRIG;
+    Q32I_ Q12U_ReAngle;
+}ST_TRIG_T;
 
-#define MATH_FILTER_MAX                     ((Q16U_)(Q08U_MAX))
-#define MATH_PID_MAX                        (Q14U_MAX)
+#define MATH_FILTER_MAX_T                   ((Q16U_)(Q08U_MAX))
+#define MATH_PID_MAX_F                      (Q14U_MAX)
 
-#define MATH_PI_U                           (2048)
-#define MATH_2PI_U                          (MATH_PI_U*2)
-#define MATH_PI_OVER_SIX_U                  (MATH_PI_U/6)
-#define MATH_PI_OVER_TWO_U                  (MATH_PI_U/2)
-#define MATH_2PI_TMP_U                      ((Q32U_)(Q28U_MAX))
+#define MATH_PI_T                           (2048)
+#define MATH_2PI_T                          (MATH_PI_T*2)
+#define MATH_PI_OVER_SIX_T                  (MATH_PI_T/6)
+#define MATH_PI_OVER_TWO_T                  (MATH_PI_T/2)
+#define MATH_2PI_TMP_T                      ((Q32U_)(Q28U_MAX))
 
-#define MATH_ANGLE_MOD_U(A)                 while(A>=MATH_2PI_U){A-=MATH_2PI_U;}while(A<0){A+=MATH_2PI_U;}
-#define MATH_ANGLE_TMP_U(A)                 while(A>=MATH_2PI_TMP_U){A-=MATH_2PI_TMP_U;}while(A<0){A+=MATH_2PI_TMP_U;}
+#define MATH_ANGLE_MOD_T(A)                 while(A>=MATH_2PI_T){A-=MATH_2PI_T;}while(A<0){A+=MATH_2PI_T;}
+#define MATH_ANGLE_TMP_T(A)                 while(A>=MATH_2PI_TMP_T){A-=MATH_2PI_TMP_T}while(A<0){A+=MATH_2PI_TMP_T;}
     
-#define MATH_SQRT_THREE_U(A)                (Q32I_RHT_12(7095*(A)))
-#define MATH_SQRT_THREE_OVER_TWO_U(A)       (Q32I_RHT_12(3547*(A)))
-#define MATH_ONE_OVER_SQRT_THREE_U(A)       (Q32I_RHT_12(2365*(A)))
-#define MATH_ONE_OVER_THREE_U(A)            (Q32I_RHT_12(1365*(A)))
+#define MATH_SQRT_THREE_T(A)                (Q32I_RHT_12(7095*(A)))
+#define MATH_SQRT_THREE_OVER_TWO_T(A)       (Q32I_RHT_12(3547*(A)))
+#define MATH_ONE_OVER_SQRT_THREE_T(A)       (Q32I_RHT_12(2365*(A)))
+#define MATH_ONE_OVER_THREE_T(A)            (Q32I_RHT_12(1365*(A)))
 
-#define MATH_ABS_U(A)                       (((A)<(0)) ? (-(A)) : (A))
-#define MATH_MAX_U(A, B)                    (((A)>(B)) ?   (A)  : (B))
-#define MATH_MIN_U(A, B)                    (((A)<(B)) ?   (A)  : (B))
-#define MATH_SAT_U(A, MAX, MIN)             (MATH_MAX_U(MATH_MIN_U((A), (MAX)), (MIN)))
+#define MATH_ABS_T(A)                       (((A)<(0)) ? (-(A)) : (A))
+#define MATH_MAX_T(A, B)                    (((A)>(B)) ?   (A)  : (B))
+#define MATH_MIN_T(A, B)                    (((A)<(B)) ?   (A)  : (B))
+#define MATH_SAT_T(A, MAX, MIN)             (MATH_MAX_T(MATH_MIN_T((A), (MAX)), (MIN)))
 
 /**********************************浮点数学库***********************************/
 
@@ -168,7 +168,7 @@ typedef struct
     Q32I_ Q32I_ADDStep;
     Q32I_ Q32I_SUBStep;
     Q32I_ Q32I_Output;
-}ST_RAMP;
+}ST_RAMP_T;
 
 typedef struct
 {
@@ -176,7 +176,7 @@ typedef struct
     Q32I_ Q16I_Filter_out;
     Q32I_ Q32I_Filter_tmp;
     Q32I_ Q08I_Filter_Coeff;
-}ST_FILTER;
+}ST_FILTER_T;
 
 typedef struct
 {
@@ -198,7 +198,7 @@ typedef struct
     
     Q32I_ Q14I_LastError;   
     Q32I_ Q14I_PrevError;
-}ST_PID_INC;
+}ST_PID_INC_T;
 
 typedef struct
 {
@@ -214,7 +214,7 @@ typedef struct
     Q32I_ Q14I_Output;
     Q32I_ Q14I_OutMax;
     Q32I_ Q14I_OutMin;
-}ST_PID_POS;
+}ST_PID_POS_T;
 
 /**********************************************************************************************
 Function: Ramp_Init
@@ -225,7 +225,7 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Init(ST_RAMP* pRamp, Q16I_ init);
+void Ramp_Init_T(ST_RAMP_T* pRamp, Q16I_ init);
 
 /**********************************************************************************************
 Function: Ramp_Cal
@@ -236,7 +236,7 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Cal(ST_RAMP* pRamp);
+void Ramp_Cal_T(ST_RAMP_T* pRamp);
 
 /**********************************************************************************************
 Function: Filter_Init
@@ -247,7 +247,7 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Init(ST_FILTER* pFltr, Q16I_ init);
+void Filter_Init_T(ST_FILTER_T* pFltr, Q16I_ init);
 
 /**********************************************************************************************
 Function: Filter_Cal
@@ -258,7 +258,7 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Cal(ST_FILTER* pFltr);
+void Filter_Cal_T(ST_FILTER_T* pFltr);
     
 /**********************************************************************************************
 Function: PID_Inc_Init
@@ -269,7 +269,7 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Init(ST_PID_INC* pPID, Q16I_ init);
+void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q16I_ init);
 
 /**********************************************************************************************
 Function: PID_Inc_Cal
@@ -280,7 +280,7 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Cal(ST_PID_INC* pPID);
+void PID_Inc_Cal_T(ST_PID_INC_T* pPID);
 
 /**********************************************************************************************
 Function: PID_Pos_Init
@@ -291,7 +291,7 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Init(ST_PID_POS* pPID, Q16I_ init);
+void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q16I_ init);
 
 /**********************************************************************************************
 Function: PID_Pos_Cal
@@ -302,7 +302,7 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Cal(ST_PID_POS* pPID);
+void PID_Pos_Cal_T(ST_PID_POS_T* pPID);
 
 /**********************************************************************************************
 Function: Math_SinCos
@@ -313,7 +313,7 @@ Input_Output: 定点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Math_SinCos(ST_TRIG* TIG);
+void Math_SinCos_T(ST_TRIG_T* TIG);
 
 /**********************************************************************************************
 Function: Math_Atan
@@ -324,7 +324,7 @@ Input_Output: 定点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Math_Atan(ST_TRIG* pTIG);
+void Math_Atan_T(ST_TRIG_T* pTIG);
 
 /**********************************/
 
@@ -426,26 +426,15 @@ Author: CJYS
 Ram_Func void PID_Pos_Cal_F(ST_PID_POS_F* pPID);
 
 /**********************************************************************************************
-Function: Math_Sin_F
+Function: Math_SinCos_F
 Description: 浮点正余弦计算
 Input: 角度，0到2PI
-Output: 正弦值
+Output: 正弦，余弦
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Sin_F(float A);
-
-/**********************************************************************************************
-Function: Math_Cos_F
-Description: 浮点正余弦计算
-Input: 角度，0到2PI
-Output: 余弦值
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Ram_Func float Math_Cos_F(float A);
+Ram_Func void Math_SinCos_F(ST_TRIG_F* pTIG);
 
 /**********************************************************************************************
 Function: Math_Atan_F
@@ -456,7 +445,7 @@ Input_Output: 浮点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Atan_F(float Sin, float Cos);
+Ram_Func void Math_Atan_F(ST_TRIG_F* pTIG);
 
 /**********************************************************************************************
 Function: Math_Sqrt_F

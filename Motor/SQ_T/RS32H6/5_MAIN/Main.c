@@ -189,7 +189,7 @@ void TIM8_CC_IRQHandler(void)
 }
 
 /**********************************************************************************************
-Function: TIM8_CC_IRQHandler
+Function: SysTick_Handler
 Description: 速度环中断
 Input: 无
 Output: 无

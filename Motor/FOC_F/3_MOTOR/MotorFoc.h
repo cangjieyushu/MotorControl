@@ -98,6 +98,7 @@ typedef struct
     ST_PID_POS_F    PID_SRAD;
     ST_PID_POS_F    PID_WEAK;
     ST_RAMP_F       Ramp_SRAD;
+    ST_TRIG_F       TG_Triangle;
     
     float       _I_F_DIR_Target;
     float       _I_F_SRAD_Target;

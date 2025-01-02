@@ -51,10 +51,10 @@ typedef struct{
     UN_SYSTEM_STATE_FLAG        System_State_Flag;
     UN_SYSTEM_ERROR_FLAG        System_Error_Flag;
     
-    ST_FILTER                   FL_VBUS;
-    ST_FILTER                   FL_TEMP;
-    ST_FILTER                   FL_VR;
-    ST_FILTER                   FL_VBG;
+    ST_FILTER_T                 FL_VBUS;
+    ST_FILTER_T                 FL_TEMP;
+    ST_FILTER_T                 FL_VR;
+    ST_FILTER_T                 FL_VBG;
     
     Q32U_                       Q16U_Duty_Target;
     Q32U_                       Q16U_Current_Max;

@@ -1,11 +1,15 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorHal_cfg.h
+*     Library/Module Name :              MotorHal
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电机控制硬件参数设置头文件
+**************************************************************************************************/
 #ifndef MotorHal_cfg_H
 #define MotorHal_cfg_H
 
-#include <stdint.h>
+//调用所有外设的头文件
+
 #include "rx32h6xx.h"
 #include "rx32h6xx_adc.h"
 #include "rx32h6xx_cmp.h"
@@ -49,19 +53,10 @@
 #define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz，PWM载频
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz，PWM载频
 
-#define HAL_PWM_COUNT_1K                        (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_1K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_2K                        (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_2K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_5K                        (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_5K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_6K                        (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_6K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_8K                        (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_8K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_10K                       (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_10K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_12K                       (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_12K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_16K                       (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_16K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_18K                       (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_18K))     //kHz，PWM载频
-#define HAL_PWM_COUNT_20K                       (Q16U_)((HAL_PWM_PRE_FREQ/HAL_PWM_FREQ_20K))     //kHz，PWM载频
 
-#define HAL_PWM_FREQ_SET                        (HAL_PWM_FREQ_10K)
-#define HAL_PWM_INIT_SET                        (HAL_PWM_COUNT_10K)
+#define HAL_PWM_RUN_FREQ                        (HAL_PWM_FREQ_10K)
+#define HAL_PWM_RUN_SET                         (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN1_FREQ)
+
 #define HAL_PWM_DUTY_MAX                        (Q12U_MAX)                              //最大占空比定点值
 #define HAL_PWM_DUTY_MAX_U                      (Q16U_)(Q12U_MAX)
 
@@ -106,8 +101,8 @@
 #define HAL_HALL_TIM_PRESCALER                  (144.0f-1.0f)    
 #define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))//Hz，HALL换相时钟频率，1M  
 
-#define HAL_SLOW_TIMER_FREQ                     (1.0f)                  //kHz，滴答定时器周期
-#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)     //kHz，滴答定时器周期
+#define HAL_SLOW_TIMER_FREQ                     (1.0f)                          //kHz，滴答定时器频率
+#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)              //kHz，滴答定时器计数值
 
 
 //ADC设置

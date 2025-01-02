@@ -36,7 +36,7 @@ ST_MOTOR_TASK  Motor =
     .BRAKE_CTRL._P_Q16U_no_time = NO_BRAKE_TIME,
     .BRAKE_CTRL._P_Q16U_slow_time = SLOW_BRAKE_TIME,
     .BRAKE_CTRL._P_Q16U_short_time = SHORT_BRAKE_TIME,
-    .BRAKE_CTRL._P_Q12U_duty_max = HAL_PWM_DUTY_MAX,
+    .BRAKE_CTRL._P_Q12U_duty_max = HAL_PWM_DUTY_MAX_T,
     
     .MS_CTRL.MS_DIAG._P_Q06U_rise_tl = DIAG_CROSS_RISE_TL,
     .MS_CTRL.MS_DIAG._P_Q06U_fall_tl = DIAG_CROSS_FALL_TL,

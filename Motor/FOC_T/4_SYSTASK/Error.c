@@ -1,7 +1,10 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        Error.c
+*     Library/Module Name :              SysTask
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             故障显示源文件
+**************************************************************************************************/
 #include "Error.h"
 
 ST_ERROR_CONTROL Error_Ctrl = {
@@ -39,6 +42,15 @@ ST_ERROR_CONTROL Error_Ctrl = {
     .error_led_table[31] = 0,
 };
 
+/**********************************************************************************************
+Function: Error_LED
+Description: 故障显示控制
+Input: 无
+Output: 无
+Input_Output: 故障控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Error_LED(ST_ERROR_CONTROL* pEC)
 {
     if(pEC->error_code != 0U)
@@ -89,6 +101,15 @@ void Error_LED(ST_ERROR_CONTROL* pEC)
     }
 }
 
+/**********************************************************************************************
+Function: Error_Priority_Check
+Description: 故障优先级控制
+Input: 无
+Output: 无
+Input_Output: 系统状态指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void Error_Priority_Check(ST_SYSTEM_TASK*  pST)
 {
     ST_ERROR_CONTROL* pEC = &Error_Ctrl;

@@ -478,8 +478,11 @@ void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL)
     pCTRL->PID_WEAK.F_Fb = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_I_F_Ud) + MATH_SQUARE_F(pCTRL->_I_F_Uq));
     PID_Pos_Cal_F(&pCTRL->PID_WEAK);
     
-    pCTRL->_O_F_IdRef = pCTRL->PID_SRAD.F_Output*Math_Sin_F(pCTRL->PID_WEAK.F_Output);
-    pCTRL->_O_F_IqRef = pCTRL->PID_SRAD.F_Output*Math_Cos_F(pCTRL->PID_WEAK.F_Output);
+    pCTRL->TG_Triangle.F_Angle = pCTRL->PID_WEAK.F_Output;
+    Math_SinCos_F(&pCTRL->TG_Triangle);
+    
+    pCTRL->_O_F_IdRef = pCTRL->PID_SRAD.F_Output*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->_O_F_IqRef = pCTRL->PID_SRAD.F_Output*pCTRL->TG_Triangle.F_Cos;
 }
 
 /*******************************µçÁ÷»·***************************************/

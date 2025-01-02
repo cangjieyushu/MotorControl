@@ -1,27 +1,84 @@
-/**************************************************************************************************/
-/**
- * @copyright : 
- **************************************************************************************************/
+/**************************************************************************************************
+*     File Name :                        MotorTask.h
+*     Library/Module Name :              Motor
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             电机子任务头文件
+**************************************************************************************************/
 #ifndef MotorTask_H
 #define MotorTask_H
 
-#include "MotorHal.h"
-#include "MotorFoc.h"
 #include "MotorPara.h"
-
-typedef void(*pFUN_HPWMLPWM_OUT)(Q32U_);
-
-__STATIC_INLINE void Motor_Start(void)
+#include "MotorHal.h"
+    
+/**********************************************************************************************
+Function: Motor_Start
+Description: 电机启动
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Start(void)
 {
     Motor.Motor_State_Flag.bit.motor_run_flag = 1U;
 }
 
-__STATIC_INLINE void Motor_Stop(void)
+/**********************************************************************************************
+Function: Motor_Stop
+Description: 电机停机
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Stop(void)
 {
     Motor.Motor_State_Flag.bit.motor_run_flag = 0U;
 }
 
-__STATIC_INLINE Q32U_ Motor_Get_Run_State(void)
+
+/**********************************************************************************************
+Function: Motor_Set_Dir
+Description: 设置电机运行方向
+Input: 1.0f（正转），-1.0f（反转）
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Set_Dir(Q32I_ Dir)
+{
+    Motor.SRAD_CTRL._I_Q14I_DIR_Target = Dir;
+    Motor.IF_CTRL._I_Q14I_DIR_Target = Dir;
+    Motor.VF_CTRL._I_Q14I_DIR_Target = Dir;
+}
+
+/**********************************************************************************************
+Function: Motor_Read_Dir
+Description: 获取电机运行方向
+Input: 无
+Output: 1.0f（正转），-1.0f（反转）
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline float Motor_Read_Dir(void)
+{
+    return Motor.SRAD_CTRL._O_Q14I_DIR_Set;
+}
+/**********************************************************************************************
+Function: Motor_Get_Run_State
+Description: 获取电机是否为运行状态
+Input: 无
+Output: 1,0
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline Q32U_ Motor_Read_Run_State(void)
 {
     if(Motor.Motor_Flow == MOTOR_STATE_RUN)
     {
@@ -32,42 +89,115 @@ __STATIC_INLINE Q32U_ Motor_Get_Run_State(void)
         return 0;
     }
 }
-__STATIC_INLINE void Motor_Set_Target_Freq(Q32I_ Duty)
+
+/**********************************************************************************************
+Function: Motor_Set_Target_SRAD
+Description: 设置电机转速
+Input: 电机转速（电角速度，弧度制）
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Set_Target_Speed(Q32I_ Speed)
 {
-    Motor.SRAD_Ctrl.Q14I_SRAD_Rf = Q32I_RHT_14(Duty*(Q14I_MAX_SRAD_PU - Q14I_MIN_SRAD_PU)) + Q14I_MIN_SRAD_PU;
+    Motor.SRAD_CTRL._I_Q14I_SRAD_Target = Speed;
 }
 
-__STATIC_INLINE void Motor_Set_Vbus(Q32I_ Vbus_Val)
+/**********************************************************************************************
+Function: Motor_Read_SRAD
+Description: 读取电机转速
+Input: 无
+Output: 电机转速（电角速度，弧度制）
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline Q32I_ Motor_Read_SRAD(void)
 {
-    Motor.FOC_Para.Q14I_Vbus = Q14I_VOLTAGE_LSB_TO_PU(Vbus_Val);
+    return Motor.SRAD_CTRL._I_Q14I_SRAD;
 }
 
-__STATIC_INLINE Q32U_ Motor_Read_Current_Max(void)
+/**********************************************************************************************
+Function: Motor_Set_Vbus
+Description: 设置FOC算法的母线电压值
+Input: 母线电压（V）
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Set_Vbus(Q32I_ Vbus_Val)
 {
-    Q32U_ iphase_max_tmp = Motor.FOC_Para.Q14I_IPHASE_MAX;
-    Motor.FOC_Para.Q14I_IPHASE_MAX = 0;
+    Motor.SVPWM_CTRL._I_Q14I_Vbus = Vbus_Val;
+    Motor.SVPWM_CTRL._I_Q14I_One_Over_Vbus = ((Q32I_)MOTOR_Q14_PU)*((Q32I_)MOTOR_Q14_PU)/Vbus_Val;
+    Motor.SRAD_CTRL._I_Q14I_Vbus = Vbus_Val;
+    Motor.CURRENT_CTRL._I_Q14I_Vbus = Vbus_Val;
+}
+
+/**********************************************************************************************
+Function: Motor_Read_Current_Max
+Description: 获取相电流最大值，周期为该函数被调用的周期
+Input: 无
+Output: 相电流最大值（A）
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline Q32I_ Motor_Read_Current_Max(void)
+{
+    Q32I_ iphase_max_tmp = Motor.Q14I_Iphase_Max;
+    Motor.Q14I_Iphase_Max = 0.0f;
     return iphase_max_tmp;
 }
-
-__STATIC_INLINE Q32I_ Motor_Read_Freq(void)
-{
-    return Motor.SRAD_Ctrl.Q14I_SRAD_Fb;
-}
-
-__STATIC_INLINE Q08U_ Motor_Read_Error(void)
+/**********************************************************************************************
+Function: Motor_Read_Error
+Description: 读取电机故障码
+Input: 无
+Output: 电机故障码
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline Q32U_ Motor_Read_Error(void)
 {
     return Motor.Motor_Error_Flag.all;
 }
 
-__STATIC_INLINE void Motor_Clear_Error(void)
+/**********************************************************************************************
+Function: Motor_Clear_Error
+Description: 清除电机故障
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void Motor_Clear_Error(void)
 {
     Motor.Motor_Error_Flag.all = 0U;
 }
 
-void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Switch_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Update_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Shut_Down_Flow(ST_MOTOR_TASK* pMotor);
+/**********************************************************************************************
+Function: MotorTask_SRAD_Flow
+Description: 电机控制速度环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor);
+
+/**********************************************************************************************
+Function: MotorTask_Current_Flow
+Description: 电机控制电流环
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
 
 #endif /* MotorTask_H */
