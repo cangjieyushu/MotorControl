@@ -70,31 +70,31 @@
 #define CURRENT_CROSS_DIAG_FILTER       (500U)  //电流换向续流滤波次数
 
 //换向算法切换
-#define CURRENT_TO_FLUX_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
-#define CURRENT_TO_FLUX_NUM             (10U)
+#define CURRENT_TO_FLUX_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.15f * MOTOR_MAX_FREQ))
+#define CURRENT_TO_FLUX_NUM             (20U)
 
-#define FLUX_TO_CURRENT_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.15f * MOTOR_MAX_FREQ))
-#define FLUX_TO_CURRENT_NUM             (5U)
+#define FLUX_TO_CURRENT_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.10f * MOTOR_MAX_FREQ))
+#define FLUX_TO_CURRENT_NUM             (20U)
 
-#define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.25f * MOTOR_MAX_FREQ))
+#define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
 #define FLUX_TO_BEMF_DUTY               (HAL_PWM_DUTY_20_PERCENT)
-#define FLUX_TO_BEMF_NUM                (5U)
+#define FLUX_TO_BEMF_NUM                (20U)
 
-#define BEMF_TO_FLUX_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
+#define BEMF_TO_FLUX_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.15f * MOTOR_MAX_FREQ))
 #define BEMF_TO_FLUX_DUTY               (HAL_PWM_DUTY_15_PERCENT)
-#define BEMF_TO_FLUX_NUM                (5U)
+#define BEMF_TO_FLUX_NUM                (20U)
 
 //载频切换
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //40us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(30.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //30us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(30.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(20.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //20us
 
 
 //最大占空比，最小占空比
-#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
-#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.01f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.01f * HAL_PWM_DUTY_MAX_F)
 
 #define DUTY_CTRL_MAX                   (Q32I_)(HAL_PWM_DUTY_100_PERCENT)
 #define DUTY_CTRL_MIN                   (Q32I_)(HAL_PWM_DUTY_5_PERCENT)
@@ -153,14 +153,14 @@
 #define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车时间
-#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
-#define SLOW_BRAKE_TIME                 (100U)              //ms，第2段馈电刹车，如果没有使能，则跳过第2阶段
+#define NO_BRAKE_TIME                   (1000U)             //ms，第1段自由滑行
+#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车，如果没有使能，则跳过第2阶段
 #define SHORT_BRAKE_TIME                (1000U)             //ms，第3段短接刹车
 
 //堵转保护参数
-#define MOTOR_STALL_SWITCH_COEFF        (31U)  //base64
+#define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64
 #define MOTOR_STALL_ERROR_TIME          (200U)  //ms，堵转时间
-#define MOTOR_STALL_CURRENT_ERROR_TIME  (50U)
+#define MOTOR_STALL_CURRENT_ERROR_TIME  (5U)
 
 
 typedef enum{

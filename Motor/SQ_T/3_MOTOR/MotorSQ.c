@@ -847,7 +847,7 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
     if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_SUCC)
     {
         if((pMS_CTRL->FL_Freq.Q16I_Filter_out > pMS_FLUX->_P_Q14U_to_bemf_freq)
-        || (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set > pMS_FLUX->_P_Q12U_to_bemf_duty))
+        && (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set > pMS_FLUX->_P_Q12U_to_bemf_duty))
         {
             pMS_FLUX->_V_Q32U_time_cnt++;
             if(pMS_FLUX->_V_Q32U_time_cnt > pMS_FLUX->_P_Q16U_to_bemf_num)
@@ -949,7 +949,7 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
     if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_SUCC)
     {
         if((pMS_CTRL->FL_Freq.Q16I_Filter_out < pMS_BEMF->_P_Q14U_to_flux_freq)
-        || (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set < pMS_BEMF->_P_Q12U_to_flux_duty))
+        && (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set < pMS_BEMF->_P_Q12U_to_flux_duty))
         {
             pMS_BEMF->_V_Q32U_time_cnt++;
             if(pMS_BEMF->_V_Q32U_time_cnt > pMS_BEMF->_P_Q16U_to_flux_num)

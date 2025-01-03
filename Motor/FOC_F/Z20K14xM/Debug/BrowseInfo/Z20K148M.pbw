@@ -213530,9 +213530,23 @@
     "ID": "c:@F@Math_Atan_F",
     "What": "Function",
     "defdec": "Dec",
-    "display": "float Math_Atan_F(ST_TRIG_F *)",
+    "display": "void Math_Atan_F(ST_TRIG_F *)",
     "location": {
-      "column": "16",
+      "column": "15",
+      "line": "448",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\2_COMMON\\MATH\\Math.h"
+    },
+    "name": "Math_Atan_F",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Math_Atan_F",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void Math_Atan_F(ST_TRIG_F *)",
+    "location": {
+      "column": "15",
       "line": "448",
       "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\2_COMMON\\MATH\\Math.h"
     },
@@ -241917,6 +241931,272 @@
     "scope": null
   },
   {
+    "ID": "c:PmsmPara.h@486@macro@PmsmPara_H",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "PmsmPara_H",
+    "location": {
+      "column": "9",
+      "line": "9",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "PmsmPara_H",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2096@macro@MOTOR_VOLTAGE_V",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_VOLTAGE_V",
+    "location": {
+      "column": "9",
+      "line": "36",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_VOLTAGE_V",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2175@macro@MOTOR_CURRENT_PHASE_A",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_CURRENT_PHASE_A",
+    "location": {
+      "column": "9",
+      "line": "37",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_CURRENT_PHASE_A",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2256@macro@MOTOR_CURRENT_BUS_A",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_CURRENT_BUS_A",
+    "location": {
+      "column": "9",
+      "line": "38",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_CURRENT_BUS_A",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2335@macro@MOTOR_CURRENT_BRAKE_A",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_CURRENT_BRAKE_A",
+    "location": {
+      "column": "9",
+      "line": "39",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_CURRENT_BRAKE_A",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2416@macro@MOTOR_HTs",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_HTs",
+    "location": {
+      "column": "9",
+      "line": "41",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_HTs",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2493@macro@MOTOR_LTs",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_LTs",
+    "location": {
+      "column": "9",
+      "line": "42",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_LTs",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2568@macro@MOTOR_POLE_PAIR",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_POLE_PAIR",
+    "location": {
+      "column": "9",
+      "line": "43",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_POLE_PAIR",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2658@macro@MOTOR_Rs",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_Rs",
+    "location": {
+      "column": "9",
+      "line": "44",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_Rs",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2748@macro@MOTOR_Ld",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_Ld",
+    "location": {
+      "column": "9",
+      "line": "45",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_Ld",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2838@macro@MOTOR_Lq",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_Lq",
+    "location": {
+      "column": "9",
+      "line": "46",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_Lq",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@2960@macro@MOTOR_Ls",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_Ls",
+    "location": {
+      "column": "9",
+      "line": "47",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_Ls",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@3049@macro@MOTOR_FLUX",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_FLUX",
+    "location": {
+      "column": "9",
+      "line": "48",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_FLUX",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@3133@macro@MOTOR_MAX_SPEED",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MAX_SPEED",
+    "location": {
+      "column": "9",
+      "line": "50",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MAX_SPEED",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@3216@macro@MOTOR_MIN_SPEED",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MIN_SPEED",
+    "location": {
+      "column": "9",
+      "line": "51",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MIN_SPEED",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@3301@macro@MOTOR_MAX_SRAD",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MAX_SRAD",
+    "location": {
+      "column": "9",
+      "line": "53",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MAX_SRAD",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@3421@macro@MOTOR_MIN_SRAD",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MIN_SRAD",
+    "location": {
+      "column": "9",
+      "line": "54",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MIN_SRAD",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@4813@macro@MOTOR_MAX_SRAD",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MAX_SRAD",
+    "location": {
+      "column": "9",
+      "line": "74",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MAX_SRAD",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:PmsmPara.h@4933@macro@MOTOR_MIN_SRAD",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "MOTOR_MIN_SRAD",
+    "location": {
+      "column": "9",
+      "line": "75",
+      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
+    },
+    "name": "MOTOR_MIN_SRAD",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
     "ID": "c:@Current_Protect_1",
     "What": "Variable",
     "defdec": "Def",
@@ -242737,244 +243017,6 @@
       "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\4_SYSTASK\\SysTask.h"
     },
     "name": "Systask",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@486@macro@PmsmPara_H",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "PmsmPara_H",
-    "location": {
-      "column": "9",
-      "line": "9",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "PmsmPara_H",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2096@macro@MOTOR_VOLTAGE_V",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_VOLTAGE_V",
-    "location": {
-      "column": "9",
-      "line": "36",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_VOLTAGE_V",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2175@macro@MOTOR_CURRENT_PHASE_A",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_CURRENT_PHASE_A",
-    "location": {
-      "column": "9",
-      "line": "37",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_CURRENT_PHASE_A",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2256@macro@MOTOR_CURRENT_BUS_A",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_CURRENT_BUS_A",
-    "location": {
-      "column": "9",
-      "line": "38",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_CURRENT_BUS_A",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2335@macro@MOTOR_CURRENT_BRAKE_A",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_CURRENT_BRAKE_A",
-    "location": {
-      "column": "9",
-      "line": "39",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_CURRENT_BRAKE_A",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2416@macro@MOTOR_HTs",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_HTs",
-    "location": {
-      "column": "9",
-      "line": "41",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_HTs",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2493@macro@MOTOR_LTs",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_LTs",
-    "location": {
-      "column": "9",
-      "line": "42",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_LTs",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2568@macro@MOTOR_POLE_PAIR",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_POLE_PAIR",
-    "location": {
-      "column": "9",
-      "line": "43",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_POLE_PAIR",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2658@macro@MOTOR_Rs",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_Rs",
-    "location": {
-      "column": "9",
-      "line": "44",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_Rs",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2748@macro@MOTOR_Ld",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_Ld",
-    "location": {
-      "column": "9",
-      "line": "45",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_Ld",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2838@macro@MOTOR_Lq",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_Lq",
-    "location": {
-      "column": "9",
-      "line": "46",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_Lq",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@2960@macro@MOTOR_Ls",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_Ls",
-    "location": {
-      "column": "9",
-      "line": "47",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_Ls",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@3049@macro@MOTOR_FLUX",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_FLUX",
-    "location": {
-      "column": "9",
-      "line": "48",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_FLUX",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@3133@macro@MOTOR_MAX_SPEED",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_MAX_SPEED",
-    "location": {
-      "column": "9",
-      "line": "50",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_MAX_SPEED",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@3216@macro@MOTOR_MIN_SPEED",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_MIN_SPEED",
-    "location": {
-      "column": "9",
-      "line": "51",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_MIN_SPEED",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@3301@macro@MOTOR_MAX_SRAD",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_MAX_SRAD",
-    "location": {
-      "column": "9",
-      "line": "53",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_MAX_SRAD",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:PmsmPara.h@3421@macro@MOTOR_MIN_SRAD",
-    "What": "MacroDef",
-    "defdec": "Def",
-    "display": "MOTOR_MIN_SRAD",
-    "location": {
-      "column": "9",
-      "line": "54",
-      "path": "C:\\Users\\sq\\Desktop\\MControl\\Motor\\FOC_F\\3_MOTOR\\PmsmPara.h"
-    },
-    "name": "MOTOR_MIN_SRAD",
     "origin": "user_include",
     "scope": null
   },

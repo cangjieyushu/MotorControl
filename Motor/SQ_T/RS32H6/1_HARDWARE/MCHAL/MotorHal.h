@@ -159,6 +159,7 @@ static inline void MH_HPWM_LGPIO_UpVn(Q32U_ duty)
     HAL_MOTOR_PWM->CCR2 = 0U;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
+    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|WH_PWM_CHANNEL);
     GPIO_Reset_OutputPin(UL_PWM_GPIO_PORT, UL_PWM_PIN);
     GPIO_Set_OutputPin(VL_PWM_GPIO_PORT, VL_PWM_PIN);
     GPIO_Reset_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
@@ -169,6 +170,7 @@ static inline void MH_HPWM_LGPIO_UpWn(Q32U_ duty)
     HAL_MOTOR_PWM->CCR2 = 0U;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
+    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|WH_PWM_CHANNEL);
     GPIO_Reset_OutputPin(UL_PWM_GPIO_PORT, UL_PWM_PIN);
     GPIO_Reset_OutputPin(VL_PWM_GPIO_PORT, VL_PWM_PIN);
     GPIO_Set_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
@@ -179,6 +181,7 @@ static inline void MH_HPWM_LGPIO_VpWn(Q32U_ duty)
     HAL_MOTOR_PWM->CCR2 = duty;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
+    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|WH_PWM_CHANNEL);
     GPIO_Reset_OutputPin(UL_PWM_GPIO_PORT, UL_PWM_PIN);
     GPIO_Reset_OutputPin(VL_PWM_GPIO_PORT, VL_PWM_PIN);
     GPIO_Set_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
@@ -189,6 +192,7 @@ static inline void MH_HPWM_LGPIO_VpUn(Q32U_ duty)
     HAL_MOTOR_PWM->CCR2 = duty;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
+    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|WH_PWM_CHANNEL);
     GPIO_Set_OutputPin(UL_PWM_GPIO_PORT, UL_PWM_PIN);
     GPIO_Reset_OutputPin(VL_PWM_GPIO_PORT, VL_PWM_PIN);
     GPIO_Reset_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
@@ -199,6 +203,7 @@ static inline void MH_HPWM_LGPIO_WpUn(Q32U_ duty)
     HAL_MOTOR_PWM->CCR2 = 0U;
     HAL_MOTOR_PWM->CCR3 = duty;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, WH_PWM_CHANNEL);
+    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL);
     GPIO_Set_OutputPin(UL_PWM_GPIO_PORT, UL_PWM_PIN);
     GPIO_Reset_OutputPin(VL_PWM_GPIO_PORT, VL_PWM_PIN);
     GPIO_Reset_OutputPin(WL_PWM_GPIO_PORT, WL_PWM_PIN);
