@@ -846,8 +846,7 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
     
     if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_SUCC)
     {
-        if((pMS_CTRL->FL_Freq.Q16I_Filter_out > pMS_FLUX->_P_Q14U_to_bemf_freq)
-        && (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set > pMS_FLUX->_P_Q12U_to_bemf_duty))
+        if(pMS_CTRL->FL_Freq.Q16I_Filter_out > pMS_FLUX->_P_Q14U_to_bemf_freq)
         {
             pMS_FLUX->_V_Q32U_time_cnt++;
             if(pMS_FLUX->_V_Q32U_time_cnt > pMS_FLUX->_P_Q16U_to_bemf_num)
@@ -948,8 +947,7 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
     
     if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_SUCC)
     {
-        if((pMS_CTRL->FL_Freq.Q16I_Filter_out < pMS_BEMF->_P_Q14U_to_flux_freq)
-        && (pMS_CTRL->PWM_CTRL._O_Q12I_duty_set < pMS_BEMF->_P_Q12U_to_flux_duty))
+        if(pMS_CTRL->FL_Freq.Q16I_Filter_out < pMS_BEMF->_P_Q14U_to_flux_freq)
         {
             pMS_BEMF->_V_Q32U_time_cnt++;
             if(pMS_BEMF->_V_Q32U_time_cnt > pMS_BEMF->_P_Q16U_to_flux_num)
@@ -1004,6 +1002,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_Freq_Cal_Init(ST_FREQ_CAL* pFREQ_CAL)
 {
+    pFREQ_CAL->Flag.bit.b0_init = 0U;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_last = 0U;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] = 0U;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1] = 0U;
@@ -1037,6 +1036,13 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     {
         pFREQ_CAL->_O_Q32U_60_degree_cnt = (pFREQ_CAL->_P_Q32U_hall_tim_max_cnt - pFREQ_CAL->_V_Q32U_60_degree_cnt_last) + pFREQ_CAL->_I_Q32U_time_count;
     }
+    
+    if(pFREQ_CAL->Flag.bit.b0_init == 0U)
+    {
+        pFREQ_CAL->_O_Q32U_60_degree_cnt = 0;
+        pFREQ_CAL->Flag.bit.b0_init = 1U;
+    }
+    
     pFREQ_CAL->_V_Q32U_60_degree_cnt_last = pFREQ_CAL->_I_Q32U_time_count;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5] = pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4];
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] = pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3];

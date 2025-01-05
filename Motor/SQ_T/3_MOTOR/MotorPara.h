@@ -11,7 +11,7 @@
 #include "MotorHal_cfg.h"
 #include "MotorSQ.h"
 
-#define SYS_RECTIFICAITON   0       //0：非同步整流，1：同步整流
+#define SYS_RECTIFICAITON   1       //0：非同步整流，1：同步整流
 
 #define BRAKE_EN            1       //刹车使能
 
@@ -40,7 +40,7 @@
 #define BOOT_CHECK_TIME                 (10000U)                    //电机静止检测总次数
 
 //脉冲定位 
-#define POSITION_DUTY                   (HAL_PWM_DUTY_5_PERCENT)   //1kHz，脉冲定位占空比
+#define POSITION_DUTY                   (HAL_PWM_DUTY_10_PERCENT)   //1kHz，脉冲定位占空比
 #define POSITION_TL_lsb                 (1000U)                      //脉冲定位是否成功判断
 
 //滤波器系数
@@ -75,12 +75,10 @@
 #define FLUX_TO_CURRENT_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.10f * MOTOR_MAX_FREQ))
 #define FLUX_TO_CURRENT_NUM             (20U)
 
-#define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
-#define FLUX_TO_BEMF_DUTY               (HAL_PWM_DUTY_20_PERCENT)
+#define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.25f * MOTOR_MAX_FREQ))
 #define FLUX_TO_BEMF_NUM                (20U)
 
-#define BEMF_TO_FLUX_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.15f * MOTOR_MAX_FREQ))
-#define BEMF_TO_FLUX_DUTY               (HAL_PWM_DUTY_15_PERCENT)
+#define BEMF_TO_FLUX_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
 #define BEMF_TO_FLUX_NUM                (20U)
 
 //载频切换
@@ -92,15 +90,15 @@
 
 
 //最大占空比，最小占空比
-#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.01f * HAL_PWM_DUTY_MAX_F)
-#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.01f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.02f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.02f * HAL_PWM_DUTY_MAX_F)
 
 #define DUTY_CTRL_MAX                   (Q32I_)(HAL_PWM_DUTY_100_PERCENT)
 #define DUTY_CTRL_MIN                   (Q32I_)(HAL_PWM_DUTY_5_PERCENT)
 
 //转速PID
-#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.001f * MOTOR_MAX_FREQ))
-#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.001f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.002f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.002f * MOTOR_MAX_FREQ))
 
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
 #define FREQ_PID_KI                     (Q32I_)(0.0010f * MATH_PID_MAX_F)

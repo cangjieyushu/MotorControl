@@ -19,7 +19,7 @@ typedef struct
     Q32I_       _I_Q14I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
-    Q32I_       _O_Q14I_Angle;
+    Q32I_       _O_Q12U_Angle;
 
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_AngleERRLimit;
@@ -34,7 +34,7 @@ typedef struct
     Q32I_       _I_Q14I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
-    Q32I_       _O_Q14I_Angle;
+    Q32I_       _O_Q12U_Angle;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_AngleERRLimit;
 }ST_VF_CONTROL_T;
@@ -255,6 +255,17 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_Ipark_T(ST_SVPWM_CONTROL_T* pCTRL);
+
+/**********************************************************************************************
+Function: MotorFoc_SVPWM_Init_T
+Description: SVPWM初始化
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Ram_Func void MotorFoc_SVPWM_Init_T(ST_SVPWM_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_SVPWM_ThreeShunt_T

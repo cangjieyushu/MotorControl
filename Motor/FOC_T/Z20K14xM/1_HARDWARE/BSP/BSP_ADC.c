@@ -109,7 +109,7 @@ void BSP_ADC_Init(void)
     /* 001*1/64Tclock */
     TDG_DelayOutputConfig_t Doconfig =         
     {
-        TDG_DO_0, (HAL_PWM_SET_COUNT_U*2U - (HAL_ADC_SAMPLE_VALUE-HAL_ADC_DELAY_VALUE)/2U), ENABLE
+        TDG_DO_0, (HAL_PWM_SET_COUNT_U*2U - (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U), ENABLE
     };
   
     const TDG_ChannelConfig_t Chconfig =

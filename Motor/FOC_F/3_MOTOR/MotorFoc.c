@@ -161,8 +161,8 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void MotorFoc_Park_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
-    pCTRL->_O_F_Id =   pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Sin;
-    pCTRL->_O_F_Iq = - pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Cos;
+    pCTRL->_O_F_Id =  pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->_O_F_Iq = -pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Cos;
 }
 
 /**********************************************************************************************
@@ -533,8 +533,8 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
-    pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus * pCTRL->_P_F_VsScale;
-    pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus * pCTRL->_P_F_VsScale;
+    pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;
+    pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;
     
     pCTRL->PID_Id.F_OutMax = pCTRL->_V_F_Vsd;
     pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;

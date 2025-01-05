@@ -148,6 +148,8 @@ typedef struct{
 
 typedef struct
 {
+    UN_MS_FLAG  Flag;
+    
     Q32U_   _I_Q32U_time_count;
     
     Q32U_   _V_Q32U_60_degree_cnt_last;
@@ -216,7 +218,6 @@ typedef struct
     Q32U_   _P_Q16U_to_current_num;
     
     Q32U_   _P_Q14U_to_bemf_freq;
-    Q32U_   _P_Q12U_to_bemf_duty;
     Q32U_   _P_Q16U_to_bemf_num;
 }ST_MS_FLUX;
 
@@ -235,7 +236,6 @@ typedef struct
     Q32U_   _P_Q06U_coeff;
     
     Q32U_   _P_Q14U_to_flux_freq;
-    Q32U_   _P_Q12U_to_flux_duty;
     Q32U_   _P_Q16U_to_flux_num;
 }ST_MS_BEMF;
 

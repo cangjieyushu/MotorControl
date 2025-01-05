@@ -51,7 +51,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 #if(SPEED_CLOSE_EN == 1)
         pMotor->MS_CTRL.Ramp_Freq.Q32I_Target = Q32I_RHT_14(pMotor->MS_CTRL.PWM_CTRL._I_Q14I_duty_vr
         *(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max - pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min)
-                                              + Q16I_LFT_14(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min));
+        + Q16I_LFT_14(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min));
         
         Ramp_Cal_T(&pMotor->MS_CTRL.Ramp_Freq);
         
@@ -60,10 +60,12 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Freq);
         
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_freq = pMotor->MS_CTRL.PID_Freq.Q14I_Output;
+        
 #else
+        
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_freq = Q32I_RHT_14(pMotor->MS_CTRL.PWM_CTRL._I_Q14I_duty_vr
         *(pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_max - pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_min)
-        + Q16I_LFT_15(pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_min));
+        + Q16I_LFT_14(pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_min));
 #endif          
         
 #if(IBUS_CLOSE_EN == 1)
@@ -72,7 +74,9 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Ibus);
         
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PID_Ibus.Q14I_Output;
+        
 #elif(IBUS_CLOSE_EN == 2)
+        
         pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = Q32I_RHT_14(pMotor->MS_CTRL.Q14U_ibus_max_pu
         *pMotor->MS_CTRL.Q14U_vbus_max_pu);
         pMotor->MS_CTRL.PID_Ibus.Q14I_Fb = Q32I_RHT_14(pMotor->MS_CTRL.FL_Ibus.Q16I_Filter_out
@@ -82,6 +86,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PID_Ibus.Q14I_Output;
         
 #else
+
         pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_max;
 #endif   
         
@@ -359,7 +364,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                                 pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
                                 MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
                                 MH_Switch_TIM_Delay(Q32I_RHT_06(pMotor->MS_CTRL.MS_BEMF._P_Q06U_coeff
-                                *(pMotor->MS_CTRL.FREQ_CAL._O_Q32U_60_degree_cnt)));
+                                *pMotor->MS_CTRL.FREQ_CAL._O_Q32U_60_degree_cnt));
                                 pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_ING;
                             }
                         }break;
@@ -373,7 +378,8 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 
                 MotorSQ_Ibus_Cal(&pMotor->MS_CTRL);
                 
-                if(MH_PWM_Count_Read() + HAL_ADC_SOLVE_VALUE < pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val)
+                if((MH_PWM_Count_Read() + HAL_ADC_SAMPLE_VALUE < pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val)
+                && (MH_PWM_Count_Read() + HAL_ADC_SOLVE_VALUE < pMotor->MS_CTRL.PWM_CTRL._O_Q16U_arr_set))
                 {
                     MH_ADC_Soft_Trigger();
                 }

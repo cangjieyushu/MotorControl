@@ -11,7 +11,7 @@
 #include "SysTask.h"
 
 //按键模式
-#define BUTTON_MODE                     BUTTON_MODE_BUTTON_VR
+#define BUTTON_MODE                     BUTTON_MODE_BUTTON
 #define BUTTON_MODE_BUTTON              0                   //按键启动、停止
 #define BUTTON_MODE_VR                  1                   //VR启动、停止、调速
 #define BUTTON_MODE_BUTTON_VR           2                   //按键启动、停止，VR调速

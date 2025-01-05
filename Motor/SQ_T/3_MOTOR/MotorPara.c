@@ -56,13 +56,11 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.MS_FLUX._P_Q14U_to_current_freq = FLUX_TO_CURRENT_FREQ,
     .MS_CTRL.MS_FLUX._P_Q16U_to_current_num = FLUX_TO_CURRENT_NUM,
     .MS_CTRL.MS_FLUX._P_Q14U_to_bemf_freq = FLUX_TO_BEMF_FREQ,
-    .MS_CTRL.MS_FLUX._P_Q12U_to_bemf_duty = FLUX_TO_BEMF_DUTY,
     .MS_CTRL.MS_FLUX._P_Q16U_to_bemf_num = FLUX_TO_BEMF_NUM,
     
     .MS_CTRL.MS_BEMF._P_Q08U_filter = BEMF_CROSS_FILTER,
     .MS_CTRL.MS_BEMF._P_Q06U_coeff = BEMF_CROSS_DELAY_COEFF,
     .MS_CTRL.MS_BEMF._P_Q14U_to_flux_freq = BEMF_TO_FLUX_FREQ,
-    .MS_CTRL.MS_BEMF._P_Q12U_to_flux_duty = BEMF_TO_FLUX_DUTY,
     .MS_CTRL.MS_BEMF._P_Q16U_to_flux_num = BEMF_TO_FLUX_NUM,
     
     .MS_CTRL.FREQ_CAL._P_Q32U_hall_tim_freq = HAL_HALL_TIM_PRE_FREQ,

@@ -32,18 +32,18 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     pButton->Button0_State = BSP_GPIO_Read_SW0_State();
     pButton->Button1_State = BSP_GPIO_Read_SW1_State();
     
-    if(pST->System_State_Flag.BIT.system_runflag == 1U)
+    if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
         if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
         {
-            pST->System_State_Flag.BIT.system_runflag = 0U;
+            pST->System_State_Flag.BIT.system_runflag = 1U;
         }
     }
-    else if(pST->System_State_Flag.BIT.system_runflag == 0U)
+    else if(pST->System_State_Flag.BIT.system_runflag == 1U)
     {
         if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
         {
-            pST->System_State_Flag.BIT.system_runflag = 1U;
+            pST->System_State_Flag.BIT.system_runflag = 0U;
         }
     }
     
@@ -85,18 +85,18 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     pButton->Button0_State = BSP_GPIO_Read_SW0_State();
     pButton->Button1_State = BSP_GPIO_Read_SW1_State();
     
-    if(pST->System_State_Flag.BIT.system_runflag == 1U)
+    if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
         if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
         {
-            pST->System_State_Flag.BIT.system_runflag = 0U;
+            pST->System_State_Flag.BIT.system_runflag = 1U;
         }
     }
-    else if(pST->System_State_Flag.BIT.system_runflag == 0U)
+    else if(pST->System_State_Flag.BIT.system_runflag == 1U)
     {
         if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
         {
-            pST->System_State_Flag.BIT.system_runflag = 1U;
+            pST->System_State_Flag.BIT.system_runflag = 0U;
         }
     }
     
