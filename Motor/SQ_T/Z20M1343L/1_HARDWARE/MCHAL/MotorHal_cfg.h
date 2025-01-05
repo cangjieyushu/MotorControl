@@ -45,8 +45,8 @@
 //频率设置
 #define HAL_SYSTEM_FREQ                         (48000.0f)                      //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)               //kHz，PWM时钟频率
-#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)               //kHz，用过零点计数定时器时钟频率
-#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)               //kHz，用于换向计数定时器时钟频率
+#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)          		//kHz，用过零点计数定时器时钟频率
+#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)          		//kHz，用于换向计数定时器时钟频率
 
 #define HAL_PWM_PRESCALER                       (3.0f-1.0f)
 #define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/(HAL_PWM_PRESCALER+1.0f))               //kHz，PWM计数器频率,48M
@@ -73,7 +73,7 @@
 #define HAL_PWM_RUN1_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN1_FREQ)
 #define HAL_PWM_RUN2_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN2_FREQ)
 
-#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                              //最大占空比定点值
+#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                             //最大占空比定点值
 #define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
 #define HAL_PWM_DUTY_1_PERCENT                  (Q16U_)(0.01f*HAL_PWM_DUTY_MAX_F)      //基础占空比
@@ -104,21 +104,21 @@
 
 
 //ADC采样时刻设置
-#define HAL_ADC_DELAY_TIME                      (5.0f)                  //us，ADC延迟采样时间
-#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_PWM_PRE_FREQ*HAL_ADC_DELAY_TIME/1000.0f)
+#define HAL_ADC_DELAY_TIME                      (5.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
-#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_PWM_PRE_FREQ*HAL_ADC_SAMPLE_TIME/1000.0f)
+#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
-#define HAL_ADC_SOLVE_TIME                      (15.0f)                 //us，换向判断时间
-#define HAL_ADC_SOLVE_VALUE                     (Q32U_)(HAL_PWM_PRE_FREQ*HAL_ADC_SOLVE_TIME/1000.0f)
+#define HAL_ADC_SOLVE_TIME                      (10.0f)                 //us，换向判断时间
+#define HAL_ADC_SOLVE_VALUE                     (Q32U_)(HAL_ADC_SOLVE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
 
 //TIM设置
-#define HAL_HALL_TIM_PRESCALER                  (144.0f - 1.0f)    
-#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))          //Hz，PWM时钟频率，1M  
+#define HAL_HALL_TIM_PRESCALER                  (144.0f - 1.0f)
+#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))          //Hz，HALL换相时钟频率，1M
 
 #define HAL_SWITCH_TIM_PRESCALER                (144.0f - 1.0f)    
-#define HAL_SWITCH_TIM_PRE_FREQ                 (Q32U_)(1000.0f*HAL_SWITCH_TIM_CLK_FREQ/(HAL_SWITCH_TIM_PRESCALER+1.0f))      //Hz，PWM时钟频率，1M
+#define HAL_SWITCH_TIM_PRE_FREQ                 (Q32U_)(1000.0f*HAL_SWITCH_TIM_CLK_FREQ/(HAL_SWITCH_TIM_PRESCALER+1.0f))      //Hz，HALL换相时钟频率，1M
 
 #define HAL_TIM_DELAY_TIME                      (10.0f)                         //us，TIM延迟最小时间
 #define HAL_TIM_DELAY_VALUE                     (Q32U_)(HAL_TIM_DELAY_TIME)

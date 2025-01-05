@@ -44,7 +44,7 @@ typedef struct
     ST_TRIG_T       TG_Triangle;
     
     Q32I_       _I_Q14I_Vbus;
-    Q32I_       _I_Q14I_One_Over_Vbus;
+    Q32I_       _I_Q10I_One_Over_Vbus;
     Q32I_       _I_Q14I_Ia;
     Q32I_       _I_Q14I_Ib;
     Q32I_       _I_Q14I_Ic;

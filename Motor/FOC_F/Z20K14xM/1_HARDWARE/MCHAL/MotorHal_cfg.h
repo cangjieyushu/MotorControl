@@ -32,7 +32,8 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+
 
 //频率设置
 #define HAL_SYSTEM_FREQ                         (160000.0f)                //kHz，系统时钟频率
@@ -41,7 +42,7 @@
 #define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)          //kHz，用于换向计数定时器时钟频率
 
 #define HAL_PWM_PRESCALER                       (2.0f)
-#define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/(HAL_PWM_PRESCALER))               //kHz，PWM计数器频率,48M
+#define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/HAL_PWM_PRESCALER)               //kHz，PWM计数器频率,80M
 
 
 //载频选择
@@ -56,13 +57,13 @@
 #define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz，PWM载频
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz，PWM载频
 
-#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_20K)
+#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_16K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
 #define HAL_PWM_SET_COUNT_U                     (Q32U_)(HAL_PWM_SET_COUNT_F)
 
 //PWM设置
-#define HAL_PWM_DEADTIME_TIME                   (1.0f*1.5f)                  //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (0.5f)                  		//us，死区时间
 #define HAL_PWM_DEADTIME_VALUE                  (Q32U_)(HAL_PWM_PRE_FREQ*HAL_PWM_DEADTIME_TIME/1000.0f)
 
 
@@ -74,11 +75,11 @@
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
 #define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
-#define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
+#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
 #define HAL_ADC_SAMPLE_TIME                     (4.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
-#define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
+#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 
 #define HAL_MAX_DUTY                            (1.0f - (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
 #define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)
@@ -96,6 +97,7 @@
 #define HAL_MIN_DUTY                            (2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
 
 #endif
+
 
 //TIM设置
 #define HAL_HALL_TIM_PRESCALER                  (16.0f)    
@@ -169,6 +171,10 @@
 #define HAL_PWM_WL_PIN              GPIO_6
 #define HAL_PWM_WL_PINMUX           PTD6_MCPWM1_CH5
 #define HAL_PWM_WL_CHN              MCPWM_CHANNEL_5
+
+#define HAL_PWM_UP_CHN              ((0x1UL << ((Q32U_)HAL_PWM_UH_CHN))|(0x1UL << ((Q32U_)HAL_PWM_VH_CHN))|(0x1UL << ((Q32U_)HAL_PWM_WH_CHN)))
+#define HAL_PWM_DN_CHN              ((0x1UL << ((Q32U_)HAL_PWM_UL_CHN))|(0x1UL << ((Q32U_)HAL_PWM_VL_CHN))|(0x1UL << ((Q32U_)HAL_PWM_WL_CHN)))
+#define HAL_PWM_ALL_CHN             ((HAL_PWM_UP_CHN)|(HAL_PWM_DN_CHN))
     
 #define HAL_PWM_U_PAIR_ID           MCPWM_PAIR_CHANNEL_0
 #define HAL_PWM_V_PAIR_ID           MCPWM_PAIR_CHANNEL_1

@@ -120,9 +120,19 @@ Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
     Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
     pCTRL->TG_Triangle.F_Angle = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 0.0f;
+    pCTRL->TG_Triangle.F_Sin = 0.0f;
+    pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     
+    pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
     pCTRL->_V_F_Xalfa = 0.0f;
     pCTRL->_V_F_Xbeta = 0.0f;
+    pCTRL->_V_F_Xalfa_F = 0.0f;
+    pCTRL->_V_F_Xbeta_F = 0.0f;
+    pCTRL->_V_F_Yalfa_HF = 0.0f;
+    pCTRL->_V_F_Ybeta_HF = 0.0f;
+    pCTRL->_V_F_Yalfa_L = 0.0f;
+    pCTRL->_V_F_Ybeta_L = 0.0f;
 }
 
 /**********************************************************************************************
@@ -136,16 +146,30 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
 {
-    pCTRL->_V_F_Yalfa = -pCTRL->_P_F_Rs*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
-    pCTRL->_V_F_Ybeta = -pCTRL->_P_F_Rs*pCTRL->_I_F_Ibeta + pCTRL->_I_F_Ubeta;
+    pCTRL->_V_F_Yalfa = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
+    pCTRL->_V_F_Ybeta = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ibeta + pCTRL->_I_F_Ubeta;
+    
+    pCTRL->_V_F_Yalfa_HF = 0.999f*(pCTRL->_V_F_Yalfa_HF + pCTRL->_V_F_Yalfa - pCTRL->_V_F_Yalfa_L);
+    pCTRL->_V_F_Ybeta_HF = 0.999f*(pCTRL->_V_F_Ybeta_HF + pCTRL->_V_F_Ybeta - pCTRL->_V_F_Ybeta_L);
+        
+    pCTRL->_V_F_Yalfa_L = pCTRL->_V_F_Yalfa;
+    pCTRL->_V_F_Ybeta_L = pCTRL->_V_F_Ybeta; 
+            
+    pCTRL->_V_F_Xalfa_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Yalfa_HF;
+    pCTRL->_V_F_Xbeta_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Ybeta_HF;
+    
+    pCTRL->_V_F_Nnalfa_F = pCTRL->_V_F_Xalfa_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
+    pCTRL->_V_F_Nnbeta_F = pCTRL->_V_F_Xbeta_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
+    pCTRL->_V_F_Nn2_F = MATH_SQUARE_F(pCTRL->_V_F_Nnalfa_F) + MATH_SQUARE_F(pCTRL->_V_F_Nnbeta_F);
+    pCTRL->_V_F_Nn2_L = 0.95f*pCTRL->_V_F_Nn2_L + 0.05f*pCTRL->_V_F_Nn2_F;
     
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
     pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta)
                     - MATH_SQUARE_F(pCTRL->_P_F_Ld*pCTRL->_I_F_IdRef);
     
-    pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
-    pCTRL->_V_F_Ebeta = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nbeta*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
+    pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_V_F_Nn2_L - pCTRL->_V_F_Nn2);
+    pCTRL->_V_F_Ebeta = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nbeta*(pCTRL->_V_F_Nn2_L - pCTRL->_V_F_Nn2);
     
     pCTRL->_V_F_Xalfa += pCTRL->_P_F_Ts*(pCTRL->_V_F_Yalfa + pCTRL->_V_F_Ealfa);
     pCTRL->_V_F_Xbeta += pCTRL->_P_F_Ts*(pCTRL->_V_F_Ybeta + pCTRL->_V_F_Ebeta);

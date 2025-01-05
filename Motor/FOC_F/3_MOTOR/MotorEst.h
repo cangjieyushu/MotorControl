@@ -52,6 +52,7 @@ typedef struct
     float       _I_F_Ibeta;
     float       _I_F_IdRef;
     
+    float       _V_F_R_set;
     float       _V_F_Yalfa;
     float       _V_F_Ybeta;
     float       _V_F_Nalfa;
@@ -64,10 +65,22 @@ typedef struct
     
     float       _P_F_Ts;
     float       _P_F_Gamma;
+    float       _P_F_Rs_Coeff;
     float       _P_F_Rs;
     float       _P_F_Ld;
     float       _P_F_Ls;
     float       _P_F_Flux2;
+    
+    float       _V_F_Yalfa_L;
+    float       _V_F_Ybeta_L;
+    float       _V_F_Yalfa_HF;
+    float       _V_F_Ybeta_HF;
+    float       _V_F_Xalfa_F;
+    float       _V_F_Xbeta_F;
+    float       _V_F_Nnalfa_F;
+    float       _V_F_Nnbeta_F;
+    float       _V_F_Nn2_F;
+    float       _V_F_Nn2_L;
 }ST_FLUX_CONTROL_F;
 
 typedef struct

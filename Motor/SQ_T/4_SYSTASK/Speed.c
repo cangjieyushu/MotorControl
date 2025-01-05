@@ -31,7 +31,7 @@ void Speed_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_SPEED_PROTECT* pCVO = &Speed_Protect_Over;
     ST_SPEED_PROTECT* pCVL = &Speed_Protect_Low;
     
-    pST->Q16U_Motor_Freq = Motor_Read_Freq();
+    pST->Q16U_Motor_Freq = Motor_Read_Speed();
     
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {

@@ -2423,12 +2423,6 @@
     <group>
         <name>3_MOTOR</name>
         <file>
-            <name>$PROJ_DIR$\..\3_MOTOR\MotorDent.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\3_MOTOR\MotorDent.h</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\3_MOTOR\MotorEst.c</name>
         </file>
         <file>

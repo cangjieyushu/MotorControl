@@ -36,7 +36,7 @@ pFUN_HPWMLPWM_OUT HPWMLPWM_SET[6][2] =
 };
 
 /**********************************************************************************************
-Function: MotorTask_Freq_Flow
+Function: MotorTask_Speed_Flow
 Description: 电机控制速度环
 Input: 无
 Output: 无
@@ -44,7 +44,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
@@ -176,7 +176,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                         pMotor->MS_FLYING._I_Q12I_BEMF_W_ADC = ADC_DATA_READ_V_BEMF;
                     }
 
-                    pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Read_Count();
+                    pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
                     switch(MotorSQ_Flying_Check(&pMotor->MS_FLYING, &pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL))
                     {
                         case ING:
@@ -242,7 +242,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 {
                     MH_HPWM_LPWM_Init(PWM_FREQ_START);
                     MH_HPWM_LPWM_HOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*PWM_FREQ_START));
-                    MH_ADC_Trigger_Delay_Time(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*PWM_FREQ_START));
+                    MH_ADC_TrigTime_Set(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*PWM_FREQ_START));
                 }
             }
             else
@@ -271,7 +271,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                         case SUCC:
                         {
                             pPWM_SET_INIT(PWM_FREQ_LOW);
-                            MH_ADC_Trigger_Delay_Time(HAL_ADC_DELAY_VALUE);
+                            MH_ADC_TrigTime_Set(HAL_ADC_DELAY_VALUE);
                             pMotor->Motor_Flow = MOTOR_STATE_RUN;
                         }break;
                         case FAIL:
@@ -286,7 +286,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 else
                 {
                     HPWMLPWM_SET[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
-                    MH_ADC_Trigger_Delay_Time(pMotor->MS_POSITION._V_Q12U_duty_set - (HAL_ADC_SAMPLE_VALUE));
+                    MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - (HAL_ADC_SAMPLE_VALUE));
                 }
             }
             else
@@ -334,7 +334,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                             MotorSQ_CURRENT_Zero_Cross(&pMotor->MS_CTRL.MS_CURRENT, &pMotor->MS_CTRL);
                             if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_SUCC)
                             {
-                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Read_Count();
+                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
                                 MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
                                 MH_Switch_TIM_Delay(HAL_TIM_DELAY_VALUE);
                                 pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_ING;
@@ -345,7 +345,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                             MotorSQ_FLUX_Zero_Cross(&pMotor->MS_CTRL.MS_FLUX, &pMotor->MS_CTRL);
                             if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_SUCC)
                             {
-                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Read_Count();
+                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
                                 MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
                                 MH_Switch_TIM_Delay(HAL_TIM_DELAY_VALUE);
                                 pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_ING;
@@ -356,7 +356,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                             MotorSQ_BEMF_Zero_Cross(&pMotor->MS_CTRL.MS_BEMF, &pMotor->MS_CTRL);
                             if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_SUCC)
                             {
-                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Read_Count();
+                                pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
                                 MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
                                 MH_Switch_TIM_Delay(Q32I_RHT_06(pMotor->MS_CTRL.MS_BEMF._P_Q06U_coeff
                                 *(pMotor->MS_CTRL.FREQ_CAL._O_Q32U_60_degree_cnt)));
@@ -373,7 +373,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 
                 MotorSQ_Ibus_Cal(&pMotor->MS_CTRL);
                 
-                if(MH_PWM_Read_Count() + HAL_ADC_SOLVE_VALUE < pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val)
+                if(MH_PWM_Count_Read() + HAL_ADC_SOLVE_VALUE < pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val)
                 {
                     MH_ADC_Soft_Trigger();
                 }

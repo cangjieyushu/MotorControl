@@ -20,6 +20,7 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
 {
     MotorFoc_IF_Init_T(&pMotor->IF_CTRL);
     MotorFoc_VF_Init_T(&pMotor->VF_CTRL);
+    MotorFoc_SVPWM_Init_T(&pMotor->SVPWM_CTRL);
     MotorFoc_SRAD_Init_T(&pMotor->SRAD_CTRL);
     MotorFoc_Current_Init_T(&pMotor->CURRENT_CTRL);
     Est_Flux_Init_T(&pMotor->FLUX_CTRL);
@@ -29,7 +30,7 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
 }
 
 /**********************************************************************************************
-Function: MotorTask_SRAD_Flow
+Function: MotorTask_Speed_Flow
 Description: 电机控制速度环
 Input: 无
 Output: 无
@@ -37,7 +38,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
@@ -53,12 +54,12 @@ void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
                 MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
                 pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0.0f;
                 pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._I_Q14I_DIR_Target*pMotor->IF_CTRL.Ramp_Iq.Q32I_Output;
-                if(pMotor->SRAD_CTRL._I_Q14I_SRAD >= 30.0f)
+                if(pMotor->SRAD_CTRL._I_Q14I_SRAD >= 30)
                 {
                     if(++pMotor->flow_cnt >= 200)
                     {
                         PID_Pos_Init_T(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->CURRENT_CTRL._I_Q14I_IqRef);
-                        Ramp_Init_T(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_Q14I_SRAD + 1.0f);
+                        Ramp_Init_T(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_Q14I_SRAD + 10);
                         pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP1;
                     }
                 }

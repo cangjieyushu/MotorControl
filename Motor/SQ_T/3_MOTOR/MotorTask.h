@@ -8,10 +8,8 @@
 #ifndef MotorTask_H
 #define MotorTask_H
 
-#include "Math.h"
-#include "MotorHal.h"
-#include "MotorSQ.h"
 #include "MotorPara.h"
+#include "MotorHal.h"
 
 typedef void(*pFUN_HPWMLGPIO_OUT)(Q32U_);
 typedef void(*pFUN_HPWMLPWM_OUT)(Q32U_);
@@ -110,7 +108,7 @@ static inline Q32U_ Motor_Read_Run_State(void)
 }
 
 /**********************************************************************************************
-Function: Motor_Set_Target_Freq
+Function: Motor_Set_Target_Speed
 Description: 设置目标占空比
 Input: 占空比（0~4095）
 Output: 无
@@ -118,13 +116,13 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Target_Freq(Q32U_ Duty)
+static inline void Motor_Set_Target_Speed(Q32U_ Speed)
 {
-    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Duty;
+    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Speed;
 }
 
 /**********************************************************************************************
-Function: Motor_Read_Freq
+Function: Motor_Read_Speed
 Description: 读取电机频率
 Input: 无
 Output: 电机频率
@@ -132,7 +130,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ Motor_Read_Freq(void)
+static inline Q32U_ Motor_Read_Speed(void)
 {
     return Motor.MS_CTRL.FL_Freq.Q16I_Filter_out;
 }
@@ -196,7 +194,7 @@ static inline void Motor_Clear_Error(void)
 }
 
 /**********************************************************************************************
-Function: MotorTask_Freq_Flow
+Function: MotorTask_Speed_Flow
 Description: 电机控制速度环
 Input: 无
 Output: 无
@@ -204,7 +202,8 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorTask_Freq_Flow(ST_MOTOR_TASK* pMotor);
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor);
+
 /**********************************************************************************************
 Function: MotorTask_Current_Flow
 Description: 电机控制电流环

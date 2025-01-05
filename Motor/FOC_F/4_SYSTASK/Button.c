@@ -26,7 +26,33 @@ Author: CJYS
 ***********************************************************************************************/
 void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
 {
-    float VRtmp = 0U;
+#if(BUTTON_MODE == BUTTON_MODE_BUTTON)
+    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
+    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
+    
+    if(pST->System_State_Flag.BIT.system_runflag == 1U)
+    {
+        if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
+        {
+            pST->System_State_Flag.BIT.system_runflag = 0U;
+        }
+    }
+    else if(pST->System_State_Flag.BIT.system_runflag == 0U)
+    {
+        if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
+        {
+            pST->System_State_Flag.BIT.system_runflag = 1U;
+        }
+    }
+    
+    pButton->Button0_State_Last = pButton->Button0_State;
+    pButton->Button1_State_Last = pButton->Button1_State;
+    
+    pST->F_Duty_Target = 1.0f;
+        
+#elif(BUTTON_MODE == BUTTON_MODE_VR)
+    
+    float VRtmp = 0.0f;
     
     VRtmp = pST->F_FL_VR.F_Filter_out;
     if(VRtmp > pButton->F_vr_start_tl)
@@ -48,5 +74,46 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     }
     
     pST->F_Duty_Target = (VRtmp - pButton->F_vr_min_limit)/(pButton->F_vr_max_limit - pButton->F_vr_min_limit);
+    
+#elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
+    
+    float VRtmp = 0.0f;
+    
+    VRtmp = pST->F_FL_VR.F_Filter_out;
+    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
+    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
+    
+    if(pST->System_State_Flag.BIT.system_runflag == 1U)
+    {
+        if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
+        {
+            pST->System_State_Flag.BIT.system_runflag = 0U;
+        }
+    }
+    else if(pST->System_State_Flag.BIT.system_runflag == 0U)
+    {
+        if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
+        {
+            pST->System_State_Flag.BIT.system_runflag = 1U;
+        }
+    }
+    
+    pButton->Button0_State_Last = pButton->Button0_State;
+    pButton->Button1_State_Last = pButton->Button1_State;
+    
+    if(VRtmp > pButton->F_vr_max_limit)
+    {
+        VRtmp = pButton->F_vr_max_limit;
+    }
+    else if(VRtmp < pButton->F_vr_min_limit)
+    {
+        VRtmp = pButton->F_vr_min_limit;
+    }
+    
+    pST->F_Duty_Target = (VRtmp - pButton->F_vr_min_limit)/(pButton->F_vr_max_limit - pButton->F_vr_min_limit);
+    
+#else
+    
+#endif
 }
 

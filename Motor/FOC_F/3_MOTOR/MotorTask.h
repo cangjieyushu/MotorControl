@@ -91,31 +91,31 @@ static inline Q32U_ Motor_Read_Run_State(void)
 }
 
 /**********************************************************************************************
-Function: Motor_Set_Target_SRAD
+Function: Motor_Set_Target_Speed
 Description: 设置电机转速
-Input: 电机转速（电角速度，弧度制）
+Input: 电机转速（rpm）
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Target_SRAD(float SRAD)
+static inline void Motor_Set_Target_Speed(float Speed)
 {
-    Motor.SRAD_CTRL._I_F_SRAD_Target = SRAD;
+    Motor.SRAD_CTRL._I_F_SRAD_Target = MOTOR_SPEED_TO_SRAD(Speed);
 }
 
 /**********************************************************************************************
-Function: Motor_Read_SRAD
+Function: Motor_Read_Speed
 Description: 读取电机转速
 Input: 无
-Output: 电机转速（电角速度，弧度制）
+Output: 电机转速（rpm）
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline float Motor_Read_SRAD(void)
+static inline float Motor_Read_Speed(void)
 {
-    return Motor.SRAD_CTRL._I_F_SRAD;
+    return MOTOR_SRAD_TO_SPEED(Motor.SRAD_CTRL._I_F_SRAD);
 }
 
 /**********************************************************************************************
@@ -137,7 +137,7 @@ static inline void Motor_Set_Vbus(float Vbus_Val)
 
 /**********************************************************************************************
 Function: Motor_Read_Current_Max
-Description: 获取相电流最大值，周期为该函数被调用的周期
+Description: 获取周期内相电流最大值，周期为该函数被调用的周期
 Input: 无
 Output: 相电流最大值（A）
 Input_Output: 无
@@ -178,12 +178,8 @@ static inline void Motor_Clear_Error(void)
     Motor.Motor_Error_Flag.all = 0U;
 }
 
-
-
-
-
 /**********************************************************************************************
-Function: MotorTask_SRAD_Flow
+Function: MotorTask_Speed_Flow
 Description: 电机控制速度环
 Input: 无
 Output: 无
@@ -191,7 +187,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor);
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor);
 
 /**********************************************************************************************
 Function: MotorTask_Current_Flow

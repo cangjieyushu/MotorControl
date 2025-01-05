@@ -10,6 +10,18 @@
 
 //调用所有外设的头文件
 #include "stm32f4xx.h"
+#include "stm32f4xx_adc.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_exti.h"
+#include "stm32f4xx_flash.h"
+#include "stm32f4xx_flash_ramfunc.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_pwr.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_syscfg.h"
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx_usart.h"
+#include "stm32f4xx_wwdg.h"
 #include "Math.h"
 #include "Matrix.h"
 
@@ -80,6 +92,7 @@
 #define HAL_MIN_DUTY                            (2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
 
 #endif
+
 
 //TIM设置
 #define HAL_HALL_TIM_PRESCALER                  (168.0f-1.0f)    

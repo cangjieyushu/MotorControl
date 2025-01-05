@@ -18,7 +18,7 @@
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
-#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/2.0f/1000.0f)
+#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 #define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 #define MOTOR_Rs                            (0.31f)                         //Ω，相电阻
 #define MOTOR_Ld                            (0.37f*0.001f)                  //H，d轴电感
@@ -32,13 +32,10 @@
 #define MOTOR_MAX_SRAD                      (MATH_2PI_F*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)        //Hz，最高角频率
 #define MOTOR_MIN_SRAD                      (MATH_2PI_F*MOTOR_POLE_PAIR*MOTOR_MIN_SPEED/60.0f)        //Hz，最低角频率
 
-//dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      (0.5774f)
-
 //标幺化
 #define V_BASE                              (0.5f*HAL_ADC_VOLTAGE_MAX)      //V，电压
 #define I_BASE                              (0.5f*HAL_ADC_CURRENT_MAX)      //A，电流
-#define F_BASE                              (1.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
+#define F_BASE                              (2.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
 
 #define W_BASE                              (F_BASE*MATH_2PI_F)     //Hz，角频率
 #define R_BASE                              (V_BASE/I_BASE)         //Ω，电阻

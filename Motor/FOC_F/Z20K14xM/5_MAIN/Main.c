@@ -28,8 +28,8 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         //1ms
         pST->systick_count++;
         
-        System_Task_Flow(&Systask);
-        TDG_SoftwareTrig(TDG1_ID);
+        Button_Control(&Button_Ctrl, &Systask);
+            
         if((pST->systick_count & BIT0) == BIT0)  //2ms
         {
             
@@ -67,6 +67,8 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
             
         }
         pST->System_State_Flag.BIT.systick_intflow = 0U;
+        System_Task_Flow(&Systask);
+        TDG_SoftwareTrig(TDG1_ID);
     }
 }
 
@@ -98,7 +100,7 @@ int main(void)
     BSP_WDG_Init();
     
 #if(JSCOPE_RTT_EN == 1U)
-    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,128U,SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,sizeof(Buffer),SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 #endif
     
     COMMON_ENABLE_INTERRUPTS();
@@ -120,13 +122,9 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void IRQHandleDMAIsr(void)
 {
-    MH_Read_ADC_Data(&Adc_Data);
-    
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
+    MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_F_Ia_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data, &Motor.SVPWM_CTRL._I_F_Ic_Data);
     
-    Motor.SVPWM_CTRL._I_F_Ia_Data = Adc_Data.Ia;
-    Motor.SVPWM_CTRL._I_F_Ib_Data = Adc_Data.Ib;
-    Motor.SVPWM_CTRL._I_F_Ic_Data = Adc_Data.Ic;
     Motor.SVPWM_CTRL._I_F_Ia = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
     Motor.SVPWM_CTRL._I_F_Ib = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
     Motor.SVPWM_CTRL._I_F_Ic = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ic_Offset - Motor.SVPWM_CTRL._I_F_Ic_Data);
@@ -137,20 +135,20 @@ Ram_Func void IRQHandleDMAIsr(void)
     {
         MotorFoc_SVPWM_ThreeShunt_F(&Motor.SVPWM_CTRL);
         MH_PWM_Duty_Set_Three(Motor.SVPWM_CTRL._O_F_Ta, Motor.SVPWM_CTRL._O_F_Tb, Motor.SVPWM_CTRL._O_F_Tc);
-        MH_PWM_Output_En(true);
+        MH_PWM_Output_Enable();
     }
     else
     {
-        MH_PWM_Output_En(false); 
+        MH_PWM_Output_Disable();
     }
     
 #else
     
-    Motor.SVPWM_CTRL._I_F_Ishunt_1_Data = Adc_Data.Ishunt_1;
-    Motor.SVPWM_CTRL._I_F_Ishunt_2_Data = Adc_Data.Ishunt_2;
-    Motor.SVPWM_CTRL._I_F_Ishunt[0] = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ishunt_1_Data - Motor.SVPWM_CTRL._I_F_Ishunt_1_Offset);
-    Motor.SVPWM_CTRL._I_F_Ishunt[1] = - HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ishunt_2_Data - Motor.SVPWM_CTRL._I_F_Ishunt_2_Offset);
-    Motor.SVPWM_CTRL._I_F_Ishunt[2] = - Motor.SVPWM_CTRL._I_F_Ishunt[0] - Motor.SVPWM_CTRL._I_F_Ishunt[1];
+    MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_F_Ishunt_1_Data, &Motor.SVPWM_CTRL._I_F_Ishunt_2_Data);
+    
+    Motor.SVPWM_CTRL._I_F_Ishunt[0] =  HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ishunt_1_Data - Motor.SVPWM_CTRL._I_F_Ishunt_1_Offset);
+    Motor.SVPWM_CTRL._I_F_Ishunt[1] = -HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ishunt_2_Data - Motor.SVPWM_CTRL._I_F_Ishunt_2_Offset);
+    Motor.SVPWM_CTRL._I_F_Ishunt[2] = -Motor.SVPWM_CTRL._I_F_Ishunt[0] - Motor.SVPWM_CTRL._I_F_Ishunt[1];
     MotorFoc_OneShunt_Cal_F(&Motor.SVPWM_CTRL);
     
     MotorTask_Current_Flow(&Motor);
@@ -163,13 +161,13 @@ Ram_Func void IRQHandleDMAIsr(void)
                             Motor.SVPWM_CTRL._O_F_TcUp, Motor.SVPWM_CTRL._O_F_TcDn);
         MH_ADC_TrigTime_Set(Motor.SVPWM_CTRL._O_F_ADCTrigTime1,
                             Motor.SVPWM_CTRL._O_F_ADCTrigTime2);
-        MH_PWM_Output_En(true);
+        MH_PWM_Output_Enable();
     }
     else
     {
         MH_ADC_TrigTime_Set(HAL_ADC_TRIGGER_TIME1,
                             HAL_ADC_TRIGGER_TIME2);
-        MH_PWM_Output_En(false); 
+        MH_PWM_Output_Disable(); 
     }
 #endif
     
@@ -180,7 +178,7 @@ Ram_Func void IRQHandleDMAIsr(void)
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     
-    MH_DMA0_ClearChannel0Int();
+    MH_Current_IntFlag_Clear();
 }
 
 /**********************************************************************************************
@@ -194,7 +192,7 @@ Author: CJYS
 ***********************************************************************************************/
 void IRQHandleMCBKIsr(void)
 {
-    MH_PWM_Output_En(false);
+    MH_PWM_Output_Disable();
     
     MCU_Z20A8300A_SpiInit1();
     MCU_Z20A8300A_GpioInit1();
@@ -226,7 +224,6 @@ Author: CJYS
 void IRQHandleSTIMIsr(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_SRAD_Flow(&Motor);
+    MotorTask_Speed_Flow(&Motor);
     STIM_ClearInt(HAL_STIM_ID); 
 }
-

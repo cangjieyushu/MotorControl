@@ -8,96 +8,73 @@
 #ifndef MotorPara_H
 #define MotorPara_H
 
-#include "Math.h"
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
 
+//电机alignloop相关参数 
+#define MOTOR_ALIGNLOOP_CURRENT             (5.0f)                          //A,电机alignloop电流
+#define MOTOR_ALIGNLOOP_TIME1               (500)                           //ms,电机alignloop第一阶段
+#define MOTOR_ALIGNLOOP_TIME2               (500)                           //ms,电机alignloop第二阶段
+#define MOTOR_ALIGNLOOP_TIME3               (500)                           //ms,电机alignloop第三阶段
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_SRAD                 (5.0f * MATH_2PI_F)             //Hz,电机OPENLOOP切换closeloop1转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机OPENLOOP切换closeloop1时间
+#define MOTOR_OPENLOOP_MIN_TIME             (50)                            //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机openloop切换closeloop1时间
 
-//电机closeloop1相关参数，闭环开始阶段，使用反正切角度  
-#define MOTOR_CLOSELOOP1_STEP               (0.1f * MATH_2PI_F)             //Hz/s,电机closeloop1增速步长
-#define MOTOR_CLOSELOOP1_SRAD               (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100)                           //ms,电机closeloop1切换closeloop2的时间
+//电机closeloop1相关参数，闭环开始阶段 
+#define MOTOR_CLOSELOOP1_TARGET_SRAD        (90.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
+#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_SWITCH_TIME        (20)                            //ms,电机closeloop1切换closeloop2的时间
 
-//电机closeloop2相关参数，闭环运行阶段，使用锁相环角度           
+//电机closeloop2相关参数，闭环运行阶段         
 #define MOTOR_CLOSELOOP2_SRAD_TARGET        (MOTOR_MAX_SRAD)                //Hz,电机closeloop2目标转速
-#define MOTOR_CLOSELOOP2_STEP               (0.025f * MATH_2PI_F)           //Hz/s,电机closeloop2增速步长 
-
-//电机closeloop3相关参数，闭环结束阶段，低于设定转速后停机 
-#define MOTOR_CLOSELOOP3_SRAD_TARGET        (30.0f * MATH_2PI_F)            //Hz,电机closeloop3目标转速
-#define MOTOR_CLOSELOOP3_STEP               (0.1f * MATH_2PI_F)             //Hz/s,电机closeloop3增速步长
-#define MOTOR_CLOSELOOP3_SRAD               (60.0f * MATH_2PI_F)            //Hz,电机closeloop3切换停止速度
-#define MOTOR_CLOSELOOP3_SWITCH_TIME        (20)                            //ms,电机closeloop3切换停止时间
-
-
-//位置传感器
-#define MOTOR_SENSE_MASK                (0F00U)
-#define MOTOR_SENSE_NO                  (0100U)                     //无感
-#define MOTOR_SENSE_HALL                (0200U)                     //HALL开关传感器
-
-//无感启动算法
-#define MOTOR_START_MASK                (00F0U)
-#define MOTOR_START_IF                  (0010U)                     //IF
-#define MOTOR_START_VF                  (0020U)                     //VF
-#define MOTOR_START_FLUX                (0030U)                     //非线性磁链
-#define MOTOR_START_HFI                 (0040U)                     //HFI
-
-//无感运行算法
-#define MOTOR_SPEED_MASK                (000FU)
-#define MOTOR_SPEED_FLUX                (0001U)                     //非线性磁链
-#define MOTOR_SPEED_SMO                 (0002U)                     //SMO
-
-//电机运行模式
-#define MOTOR_SENSE_MODE                (MOTOR_SENSE_NO)
-#define MOTOR_START_MODE                (MOTOR_START_IF)
-#define MOTOR_SPEED_MODE                (MOTOR_SPEED_FLUX)
+#define MOTOR_CLOSELOOP2_STEP               (0.05f * MATH_2PI_F)            //Hz/ms,电机closeloop2增速步长 
 
 
 //IF
-#define MOTOR_IF_IQRAMP_INIT                (0.0f)                          //A,Iq初始值
-#define MOTOR_IF_IQRAMP_TARGET              (4.0f)                          //A,Iq目标值
-#define MOTOR_IF_IQRAMP_STEP                (1.0f / 1000.0f)                //A/s,Iq每秒增加步长
+#define MOTOR_IF_IQRAMP_INIT                (Q14I_CURRENT_MOTOR_TO_PU(0.0f))                          //A,Iq初始值
+#define MOTOR_IF_IQRAMP_TARGET              (Q14I_CURRENT_MOTOR_TO_PU(4.0f))                          //A,Iq目标值
+#define MOTOR_IF_IQRAMP_STEP                (Q14I_CURRENT_MOTOR_TO_PU(1.0f / MOTOR_LTs))                //A/s,Iq每秒增加步长
 
-#define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,IF速度目标值
-#define MOTOR_IF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F / 1000.0f)   //Hz/s,IF速度每秒增加步长
+#define MOTOR_IF_ANGLERAMP_INIT             (Q14I_SRAD_MOTOR_TO_PU(0.0f * MATH_2PI_F))             //Hz,IF速度初始值
+#define MOTOR_IF_ANGLERAMP_TARGET           (Q14I_SRAD_MOTOR_TO_PU(8.0f * MATH_2PI_F))             //Hz,IF速度目标值
+#define MOTOR_IF_ANGLERAMP_STEP             (Q14I_SRAD_MOTOR_TO_PU(2.0f * MATH_2PI_F / MOTOR_LTs))   //Hz/s,IF速度每秒增加步长
 
-#define MOTOR_IF_ANGLE_ERROR                (3.0f)                          //rad,IF与观测器角度偏差允许切换值
-#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f / 1000.0f)                //Hz,电机IF观测器角度收敛步长
+#define MOTOR_IF_ANGLE_ERROR                (1024)                          //rad,IF与观测器角度偏差允许切换值
+#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (100)                //Hz,电机IF观测器角度收敛步长
 
 //VF
-#define MOTOR_VF_IQRAMP_INIT                (0.1f)                          //V,Vq初始值
-#define MOTOR_VF_IQRAMP_TARGET              (0.5f)                          //V,Vq目标值
-#define MOTOR_VF_IQRAMP_STEP                (0.2f / 1000.0f)                //V/s,Vq每秒增加步长
+#define MOTOR_VF_IQRAMP_INIT                (Q14I_VOLTAGE_MOTOR_TO_PU(0.1f))                          //V,Vq初始值
+#define MOTOR_VF_IQRAMP_TARGET              (Q14I_VOLTAGE_MOTOR_TO_PU(0.5f))                          //V,Vq目标值
+#define MOTOR_VF_IQRAMP_STEP                (Q14I_VOLTAGE_MOTOR_TO_PU(0.2f / MOTOR_LTs))                //V/s,Vq每秒增加步长
 
-#define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,VF速度目标值
-#define MOTOR_VF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F / 1000.0f)   //Hz/s,VF速度每秒增加步长
+#define MOTOR_VF_ANGLERAMP_INIT             (Q14I_SRAD_MOTOR_TO_PU(0.0f * MATH_2PI_F))             //Hz,VF速度初始值
+#define MOTOR_VF_ANGLERAMP_TARGET           (Q14I_SRAD_MOTOR_TO_PU(8.0f * MATH_2PI_F))             //Hz,VF速度目标值
+#define MOTOR_VF_ANGLERAMP_STEP             (Q14I_SRAD_MOTOR_TO_PU(2.0f * MATH_2PI_F / MOTOR_LTs))   //Hz/s,VF速度每秒增加步长
 
-#define MOTOR_VF_ANGLE_ERROR                (3.0f)                          //rad,VF与观测器角度偏差允许切换值
-#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1.0f / 1000.0f)                //Hz,电机VF观测器角度收敛步长
+#define MOTOR_VF_ANGLE_ERROR                (1024)                          //rad,VF与观测器角度偏差允许切换值
+#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (100)                //Hz,电机VF观测器角度收敛步长
 
 
 //转速环PID    
 #define MOTOR_SPD_PID_Coeff                 (0.25f)                          //转速环PID增益系数
-#define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
-#define MOTOR_SPD_KI_GAIN                   (MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs / MATH_2PI_F / MATH_2PI_F)
-#define MOTOR_SPD_KD_GAIN                   (0.0f)
-#define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)       //A,转速环输出q轴电流限幅
-#define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)      //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_KP_GAIN                   (Q32I_)(MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
+#define MOTOR_SPD_KI_GAIN                   (Q32I_)(MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs / MATH_2PI_F / MATH_2PI_F)
+#define MOTOR_SPD_KD_GAIN                   (Q32I_)(0.0f)
+#define MOTOR_SPD_PID_MAX                   ( Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_PHASE_A))       //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MIN                   (-Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_PHASE_A))      //A,转速环输出q轴电流限幅
 
 //电流PID 
 #define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
-#define MOTOR_FOC_KP_GAIN                   (MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
-#define MOTOR_FOC_KI_GAIN                   (MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
-#define MOTOR_FOC_KD_GAIN                   (0.0f)
+#define MOTOR_FOC_KP_GAIN                   (Q32I_)(MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
+#define MOTOR_FOC_KI_GAIN                   (Q32I_)(MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
+#define MOTOR_FOC_KD_GAIN                   (Q32I_)(0.0f)
 //dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      (0.5774f)
+#define MOTOR_VS_SCALE                      ((Q32I_)(0.5774f * MOTOR_Q14_PU))
 
 
 //观测器PLL系数
@@ -106,23 +83,23 @@
 #define USER_PLL_SPEED_LPF_COEFF            (15)                     //0~256，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
+#define MOTOR_FLUX_KT                       (Q32I_)(2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
 
-#define MOTOR_FLUX_PLL_KP                   (MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_FLUX)  //锁相环比例系数
-#define MOTOR_FLUX_PLL_KI                   (MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                   //锁相环积分系数
-#define MOTOR_FLUX_PLL_KD                   (0.0f)                    //锁相环微分系数
-#define MOTOR_FLUX_PLL_MAX                  (10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
-#define MOTOR_FLUX_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  //锁相环最小输出
+#define MOTOR_FLUX_PLL_KP                   (Q32I_)(MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_FLUX)  //锁相环比例系数
+#define MOTOR_FLUX_PLL_KI                   (Q32I_)(MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                   //锁相环积分系数
+#define MOTOR_FLUX_PLL_KD                   (Q32I_)(0.0f)                    //锁相环微分系数
+#define MOTOR_FLUX_PLL_MAX                  ( Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))   //锁相环最大输出
+#define MOTOR_FLUX_PLL_MIN                  (-Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))  //锁相环最小输出
 
 //SMO观测器            
-#define MOTOR_SMO_K1                        (8.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
-#define MOTOR_SMO_K2                        (0.02f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数2
+#define MOTOR_SMO_K1                        (Q32I_)(8.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
+#define MOTOR_SMO_K2                        (Q32I_)(0.02f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数2
 
-#define MOTOR_SMO_PLL_KP                    (MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)    //锁相环比例系数
-#define MOTOR_SMO_PLL_KI                    (MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)                     //锁相环积分系数
-#define MOTOR_SMO_PLL_KD                    (0.0f)                    //锁相环微分系数
-#define MOTOR_SMO_PLL_MAX                   (10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
-#define MOTOR_SMO_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  //锁相环最小输出
+#define MOTOR_SMO_PLL_KP                    (Q32I_)(MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)    //锁相环比例系数
+#define MOTOR_SMO_PLL_KI                    (Q32I_)(MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)                     //锁相环积分系数
+#define MOTOR_SMO_PLL_KD                    (Q32I_)(0.0f)                    //锁相环微分系数
+#define MOTOR_SMO_PLL_MAX                   ( Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))   //锁相环最大输出
+#define MOTOR_SMO_PLL_MIN                   (-Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))  //锁相环最小输出
 
 
 //母线电流PID 
@@ -133,21 +110,21 @@
 
 
 typedef enum{
-    MOTOR_STATE_PRE,
-    MOTOR_STATE_INIT,
-    MOTOR_STATE_IDLE,
-    MOTOR_STATE_BOOT,
-    MOTOR_STATE_POSITION,
-    MOTOR_STATE_RUN,
-    MOTOR_STATE_BRAKE,
+    MOTOR_STATE_PRE,            //参数复位阶段
+    MOTOR_STATE_INIT,           //硬件初始化阶段
+    MOTOR_STATE_IDLE,           //电机静止检测阶段
+    MOTOR_STATE_BOOT,           //自举电容充电阶段
+    MOTOR_STATE_POSITION,       //脉冲定位阶段阶段
+    MOTOR_STATE_RUN,            //电机运行阶段
+    MOTOR_STATE_BRAKE,          //电机刹车阶段
 }EM_MOTOR_STATE_FLOW;
 
 typedef enum
 {
-    MOTOR_ALIGNLOOP,   
-    MOTOR_OPENLOOP,  
-    MOTOR_CLOSELOOP1,
-    MOTOR_CLOSELOOP2,
+    MOTOR_ALIGNLOOP,            //预定位阶段
+    MOTOR_OPENLOOP,             //开环阶段
+    MOTOR_CLOSELOOP1,           //闭环启动阶段
+    MOTOR_CLOSELOOP2,           //闭环运行阶段
 }EM_MOTOR_LOOP_MODE;
 
 typedef union{
@@ -170,11 +147,35 @@ typedef union{
 }UN_MOTOR_ERROR_FLAG;
 
 typedef struct{
+    Q32U_                       _V_Q32U_Align_cnt;
+    float                       _P_F_Align_Current;
+    Q32U_                       _P_Q32U_Align_Time1;
+    Q32U_                       _P_Q32U_Align_Time2;
+    Q32U_                       _P_Q32U_Align_Time3;
+        
+    Q32U_                       _V_Q32U_Open_cnt;
+    Q32U_                       _P_Q32U_Open_Min_Time;
+    float                       _P_F_Open_Switch_SRAD;
+    Q32U_                       _P_Q32U_Open_Switch_Time;
+    
+    Q32U_                       _V_Q32U_Close1_cnt;
+    float                       _P_F_Close1_Target_SRAD;
+    float                       _P_F_Close1_SRAD_Step;
+    float                       _P_F_Close1_Switch_SRAD;
+    Q32U_                       _P_Q32U_Close1_Switch_Time;
+    
+    Q32U_                       _V_Q32U_Close2_cnt;
+    float                       _P_F_Close2_Target_SRAD;
+    float                       _P_F_Close2_SRAD_Step;
+}ST_LOOP_CONTROL_T;
+
+typedef struct{
     EM_MOTOR_STATE_FLOW         Motor_Flow;
     EM_MOTOR_LOOP_MODE          Motor_Loop_Mode;
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
     UN_MOTOR_ERROR_FLAG         Motor_Error_Flag;
     
+    ST_LOOP_CONTROL_T           LOOP_CTRL;
     ST_IF_CONTROL_T             IF_CTRL;
     ST_VF_CONTROL_T             VF_CTRL;
     ST_SVPWM_CONTROL_T          SVPWM_CTRL;

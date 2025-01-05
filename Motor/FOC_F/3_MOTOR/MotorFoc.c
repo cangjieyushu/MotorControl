@@ -182,6 +182,26 @@ Ram_Func void MotorFoc_Ipark_F(ST_SVPWM_CONTROL_F* pCTRL)
 
 /*********************************SVPWM*************************************/
 
+/**********************************************************************************************
+Function: MotorFoc_SVPWM_Init_F
+Description: SVPWM初始化
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Ram_Func void MotorFoc_SVPWM_Init_F(ST_SVPWM_CONTROL_F* pCTRL)
+{
+    pCTRL->TG_Triangle.F_Angle = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 0.0f;
+    pCTRL->TG_Triangle.F_Sin = 0.0f;
+    pCTRL->TG_Triangle.F_ReAngle = 0.0f;
+    
+    pCTRL->_O_F_Ualfa = 0.0f;
+    pCTRL->_O_F_Ubeta = 0.0f;
+}
+
 static Q08U_ Txyz_Table[3][8] = 
 {{0U,1U,0U,0U,2U,2U,1U,0U},
 {0U,0U,2U,1U,1U,0U,2U,0U},

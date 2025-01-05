@@ -257,6 +257,17 @@ Author: CJYS
 Ram_Func void MotorFoc_Ipark_F(ST_SVPWM_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
+Function: MotorFoc_SVPWM_Init_F
+Description: SVPWM初始化
+Input: 无
+Output: 无
+Input_Output: SVPWM控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Ram_Func void MotorFoc_SVPWM_Init_F(ST_SVPWM_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
 Function: MotorFoc_SVPWM_ThreeShunt_F
 Description: 常规SVPWM
 Input: 无

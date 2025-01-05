@@ -11,28 +11,21 @@
 #include "BSP.h"
 #include "MotorHal_cfg.h"
 
-typedef struct
-{
-    float   Ia;
-    float   Ib;
-    float   Ic;
-    
-    float   Ishunt_1;
-    float   Ishunt_2;
-    
-    float   Vdc;
-}ST_MH_ADC_DATA;
-
 /**********************************************************************************************
-Function: MH_Read_ADC_Data
-Description: 读取ADC采样数据
+Function: MH_ADC_Data_Read_Three
+Description: 三电阻读取ADC采样数据
 Input: 无
 Output: 无
 Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MH_Read_ADC_Data(ST_MH_ADC_DATA *pADC_DATA);
+static inline Ram_Func void MH_ADC_Data_Read_Three(float* pADC_Ia, float* pADC_Ib ,float* pADC_Ic)
+{
+    (*pADC_Ia) = (float)ADC1->JDR1;
+    (*pADC_Ib) = (float)ADC1->JDR2;
+    (*pADC_Ic) = (float)ADC1->JDR3;
+}
 
 /**********************************************************************************************
 Function: MH_PWM_Output_Enable
@@ -43,7 +36,11 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MH_PWM_Output_Enable(void);
+static inline Ram_Func void MH_PWM_Output_Enable(void) 
+{
+    TIM1->CCER |= 0x5555;
+    TIM1->BDTR |= TIM_BDTR_MOE;
+}
 
 /**********************************************************************************************
 Function: MH_PWM_Output_Disable
@@ -54,7 +51,14 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MH_PWM_Output_Disable(void);
+static inline Ram_Func void MH_PWM_Output_Disable(void)
+{
+    TIM1->CCR1 = 0;
+    TIM1->CCR2 = 0;
+    TIM1->CCR3 = 0;
+    TIM1->CCER &= 0xAAAA;
+    TIM1->BDTR &= (Q16U_)~TIM_BDTR_MOE;
+}
 
 /**********************************************************************************************
 Function: MH_PWM_Duty_Set_Three
@@ -65,10 +69,15 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MH_PWM_Duty_Set_Three(float Ta, float Tb, float Tc);
+static inline Ram_Func void MH_PWM_Duty_Set_Three(float Ta, float Tb, float Tc)
+{
+	TIM1->CCR1 = (Q32U_)(Ta*HAL_PWM_ALL_COUNT_F);
+    TIM1->CCR2 = (Q32U_)(Tb*HAL_PWM_ALL_COUNT_F);
+    TIM1->CCR3 = (Q32U_)(Tc*HAL_PWM_ALL_COUNT_F);
+}
 
 /**********************************************************************************************
-Function: MH_Read_Hall_Count
+Function: MH_Hall_State_Read
 Description: 读取用于HALL电平
 Input: 无
 Output: 无
@@ -76,10 +85,13 @@ Input_Output: 无
 Return: HALL电平
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MH_Read_Hall_State(void);
+static inline Q32U_ MH_Hall_State_Read(void)
+{
+    return ((GPIOH->IDR&(GPIO_Pin_12|GPIO_Pin_11|GPIO_Pin_10))>>10);
+}
 
 /**********************************************************************************************
-Function: MH_Read_Hall_Count
+Function: MH_Hall_TIM_Count_Read
 Description: 读取用于HALL换向计数器的当前值
 Input: 无
 Output: 无
@@ -87,9 +99,9 @@ Input_Output: 无
 Return: 计数器值
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MH_Read_Hall_Count(void);
-
-extern ST_MH_ADC_DATA   Adc_Data;
-extern Q32U_ Q32U_ADC_Data_Lsb[20];
+static inline Q32U_ MH_Hall_TIM_Count_Read(void)
+{
+   return TIM2->CNT;
+}
 
 #endif /* MotorHal_H */

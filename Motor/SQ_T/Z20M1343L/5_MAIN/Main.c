@@ -28,8 +28,6 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         //1ms
         pST->systick_count++;
         
-        System_Task_Flow(&Systask);
-        
         if((pST->systick_count & BIT0) == BIT0)  //2ms
         {
 //            USART_Get_Resceive_Data_1();
@@ -69,6 +67,7 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
 //            IWDG_Reload_Counter(IWDG);
         }
         pST->System_State_Flag.BIT.systick_intflow = 0U;
+        System_Task_Flow(&Systask);
     }
 }
 
@@ -185,7 +184,7 @@ Author: CJYS
 void Ctimer_IrqHandler(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_Freq_Flow(&Motor);
+    MotorTask_Speed_Flow(&Motor);
 }
 
 

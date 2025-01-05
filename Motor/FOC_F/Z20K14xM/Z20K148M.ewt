@@ -3051,9 +3051,6 @@
         <group>
             <name>MCHAL</name>
             <file>
-                <name>$PROJ_DIR$\1_HARDWARE\MCHAL\MotorHal.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\1_HARDWARE\MCHAL\MotorHal.h</name>
             </file>
             <file>
@@ -3176,6 +3173,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\Speed.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\4_SYSTASK\SYS.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\SysTask.c</name>

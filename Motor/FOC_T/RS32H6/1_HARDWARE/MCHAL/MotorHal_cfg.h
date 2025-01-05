@@ -30,6 +30,11 @@
 #include "core_cm0.h"
 #include "Math.h"
 
+//三电阻采样或者单电阻采样选择
+#define HAL_ONE_SHUNT               (0U)
+#define HAL_THREE_SHUNT             (1U)
+#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+
 
 //频率设置
 #define HAL_SYSTEM_FREQ                         (144000.0f)                      //kHz，系统时钟频率
@@ -53,33 +58,13 @@
 #define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz，PWM载频
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz，PWM载频
 
+#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_10K)
+#define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
+#define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
+#define HAL_PWM_SET_COUNT_T                     (Q32U_)(HAL_PWM_SET_COUNT_F)
 
-#define HAL_PWM_RUN_FREQ                        (HAL_PWM_FREQ_10K)
-#define HAL_PWM_RUN_SET                         (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN1_FREQ)
-
-#define HAL_PWM_DUTY_MAX                        (Q12U_MAX)                              //最大占空比定点值
-#define HAL_PWM_DUTY_MAX_U                      (Q16U_)(Q12U_MAX)
-
-#define HAL_PWM_DUTY_1_PERCENT                  (Q16U_)(0.01f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_2_PERCENT                  (Q16U_)(0.02f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_3_PERCENT                  (Q16U_)(0.03f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_4_PERCENT                  (Q16U_)(0.04f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_5_PERCENT                  (Q16U_)(0.05f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_8_PERCENT                  (Q16U_)(0.08f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_10_PERCENT                 (Q16U_)(0.10f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_12_PERCENT                 (Q16U_)(0.12f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_15_PERCENT                 (Q16U_)(0.15f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_16_PERCENT                 (Q16U_)(0.16f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_18_PERCENT                 (Q16U_)(0.18f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_20_PERCENT                 (Q16U_)(0.20f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_30_PERCENT                 (Q16U_)(0.30f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_40_PERCENT                 (Q16U_)(0.40f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_50_PERCENT                 (Q16U_)(0.50f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_60_PERCENT                 (Q16U_)(0.60f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_70_PERCENT                 (Q16U_)(0.70f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_80_PERCENT                 (Q16U_)(0.80f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_90_PERCENT                 (Q16U_)(0.90f*HAL_PWM_DUTY_MAX)      //基础占空比
-#define HAL_PWM_DUTY_100_PERCENT                (Q16U_)(1.00f*HAL_PWM_DUTY_MAX)      //基础占空比
+#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                           //最大占空比定点值
+#define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
 
 //PWM设置
@@ -88,21 +73,43 @@
 
 
 //ADC采样时刻设置
-#define HAL_ADC_DELAY_TIME                      (5.0f)                  //us，米勒平台时间
-#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_TIME*HAL_PWM_PRE_FREQ/1000.0f)
-#define HAL_ADC_DELAY_DUTY                      (Q32U_)(HAL_ADC_DELAY_VALUE*HAL_PWM_DUTY_MAX/HAL_PWM_INIT_SET)
+#define HAL_ADC_TRIGGER_TIME1                   (0.15f)
+#define HAL_ADC_TRIGGER_TIME2                   (0.35f)
+#define HAL_ADC_TRIGGER_TIME3                   (0.50f)
 
-#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
-#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
-#define HAL_ADC_SAMPLE_DUTY                     (Q32U_)(HAL_ADC_SAMPLE_VALUE*HAL_PWM_DUTY_MAX/HAL_PWM_INIT_SET)
+#if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
+#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_ADC_SAMPLE_TIME                     (4.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_MAX_DUTY                            (1.0f - (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
+#define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)
+
+#elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
+#define HAL_ADC_DELAY_TIME                      (2.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_ADC_SAMPLE_TIME                     (2.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_MAX_DUTY                            (1.0f - 2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
+#define HAL_MIN_DUTY                            (2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
+
+#endif
 
 
 //TIM设置
-#define HAL_HALL_TIM_PRESCALER                  (144.0f-1.0f)    
-#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))//Hz，HALL换相时钟频率，1M  
+#define HAL_HALL_TIM_PRESCALER                  (144.0f-1.0f)
+#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))//Hz，HALL换相时钟频率，1M
 
-#define HAL_SLOW_TIMER_FREQ                     (1.0f)                          //kHz，滴答定时器频率
-#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)              //kHz，滴答定时器计数值
+#define HAL_SLOW_TIMER_FREQ                     (1.0f)                  //kHz，滴答定时器周期
+#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)     //kHz，滴答定时器周期
 
 
 //ADC设置

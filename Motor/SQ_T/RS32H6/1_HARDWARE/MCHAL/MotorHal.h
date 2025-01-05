@@ -30,7 +30,7 @@ static inline void MH_ADC_Soft_Trigger(void)
 }
 
 /**********************************************************************************************
-Function: MH_ADC_Trigger_Delay_Time
+Function: MH_ADC_TrigTime_Set
 Description: 延迟触发ADC,避开米勒平台
 Input: 延迟触发采样计数器值
 Output: 无
@@ -38,7 +38,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_ADC_Trigger_Delay_Time(Q32U_ count)
+static inline void MH_ADC_TrigTime_Set(Q32U_ count)
 {
     TIM_Set_OC_CompareCH4(HAL_MOTOR_PWM, count);
 }
@@ -332,7 +332,7 @@ static inline void MH_HPWM_LPWM_Close(void)
 }
 
 /**********************************************************************************************
-Function: MH_PWM_Read_Count
+Function: MH_PWM_Count_Read
 Description: 读取当前PWM计数器值
 Input: 无
 Output: 无
@@ -340,13 +340,13 @@ Input_Output: 无
 Return: PWM计数器值
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ MH_PWM_Read_Count(void)
+static inline Q32U_ MH_PWM_Count_Read(void)
 {
    return HAL_MOTOR_PWM->CNT;
 }
 
 /**********************************************************************************************
-Function: MH_HALL_TIM_Read_Count
+Function: MH_HALL_TIM_Count_Read
 Description: 读取当前HALL换向计数器值
 Input: 无
 Output: 无
@@ -354,7 +354,7 @@ Input_Output: 无
 Return: ALL换向计数器值
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ MH_HALL_TIM_Read_Count(void)
+static inline Q32U_ MH_HALL_TIM_Count_Read(void)
 {
    return HAL_MOTOR_HALL_TIM->CNT;
 }

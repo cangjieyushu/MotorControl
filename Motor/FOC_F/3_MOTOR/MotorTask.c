@@ -20,6 +20,7 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
 {
     MotorFoc_IF_Init_F(&pMotor->IF_CTRL);
     MotorFoc_VF_Init_F(&pMotor->VF_CTRL);
+    MotorFoc_SVPWM_Init_F(&pMotor->SVPWM_CTRL);
     MotorFoc_SRAD_Init_F(&pMotor->SRAD_CTRL);
     MotorFoc_Current_Init_F(&pMotor->CURRENT_CTRL);
     Est_Flux_Init_F(&pMotor->FLUX_CTRL);
@@ -29,7 +30,7 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
 }
 
 /**********************************************************************************************
-Function: MotorTask_SRAD_Flow
+Function: MotorTask_Speed_Flow
 Description: 电机控制速度环
 Input: 无
 Output: 无
@@ -37,7 +38,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
@@ -50,6 +51,7 @@ void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
             }break;
         case MOTOR_OPENLOOP:
             {
+                pMotor->FLUX_CTRL._V_F_Nn2_L = pMotor->FLUX_CTRL._P_F_Flux2;
                 MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
                 pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
                 pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->IF_CTRL._I_F_DIR_Target*pMotor->IF_CTRL.Ramp_Iq.F_Output;
@@ -57,6 +59,7 @@ void MotorTask_SRAD_Flow(ST_MOTOR_TASK* pMotor)
                 {
                     if(++pMotor->flow_cnt >= 200)
                     {
+                        pMotor->FLUX_CTRL._V_F_R_set = pMotor->FLUX_CTRL._P_F_Rs;
                         PID_Pos_Init_F(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->CURRENT_CTRL._I_F_IqRef);
                         Ramp_Init_F(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_F_SRAD + 1.0f);
                         pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP1;
@@ -226,11 +229,10 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     }break;
                 case MOTOR_OPENLOOP:
                     {
-                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
-//                        MotorFoc_IF_CURRENT_F(&pMotor->IF_CTRL);
-//                        pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->IF_CTRL._O_F_Angle;
-//                        pMotor->SVPWM_CTRL.TG_Triangle.F_Sin = Math_Sin_F(pMotor->SVPWM_CTRL.TG_Triangle.F_Angle);
-//                        pMotor->SVPWM_CTRL.TG_Triangle.F_Cos = Math_Cos_F(pMotor->SVPWM_CTRL.TG_Triangle.F_Angle);
+//                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
+                        MotorFoc_IF_CURRENT_F(&pMotor->IF_CTRL);
+                        pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->IF_CTRL._O_F_Angle;
+                        Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
                     }break;
                 case MOTOR_CLOSELOOP1:
                     {

@@ -28,9 +28,6 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         //1ms
         pST->systick_count++;
         
-        System_Task_Flow(&Systask);
-        TDG_SoftwareTrig(TDG1_ID);
-        
         if((pST->systick_count & BIT0) == BIT0)  //2ms
         {
             
@@ -68,6 +65,8 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
             
         }
         pST->System_State_Flag.BIT.systick_intflow = 0U;
+        System_Task_Flow(&Systask);
+        TDG_SoftwareTrig(TDG1_ID);
     }
 }
 
@@ -122,11 +121,11 @@ Author: CJYS
 void IRQHandleDMAIsr(void)
 {
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
-    MH_Read_ADC_Data_Three(&Motor.SVPWM_CTRL._I_Q14I_Ia_Data, &Motor.SVPWM_CTRL._I_Q14I_Ib_Data, &Motor.SVPWM_CTRL._I_Q14I_Ic_Data);
+    MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_Q14I_Ia_Data, &Motor.SVPWM_CTRL._I_Q14I_Ib_Data, &Motor.SVPWM_CTRL._I_Q14I_Ic_Data);
     
-    Motor.SVPWM_CTRL._I_Q14I_Ia = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_Q14I_Ia_Offset - Motor.SVPWM_CTRL._I_Q14I_Ia_Data);
-    Motor.SVPWM_CTRL._I_Q14I_Ib = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_Q14I_Ib_Offset - Motor.SVPWM_CTRL._I_Q14I_Ib_Data);
-    Motor.SVPWM_CTRL._I_Q14I_Ic = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_Q14I_Ic_Offset - Motor.SVPWM_CTRL._I_Q14I_Ic_Data);
+    Motor.SVPWM_CTRL._I_Q14I_Ia = Q14I_CURRENT_LSB_TO_PU(Motor.SVPWM_CTRL._I_Q14I_Ia_Offset - Motor.SVPWM_CTRL._I_Q14I_Ia_Data);
+    Motor.SVPWM_CTRL._I_Q14I_Ib = Q14I_CURRENT_LSB_TO_PU(Motor.SVPWM_CTRL._I_Q14I_Ib_Offset - Motor.SVPWM_CTRL._I_Q14I_Ib_Data);
+    Motor.SVPWM_CTRL._I_Q14I_Ic = Q14I_CURRENT_LSB_TO_PU(Motor.SVPWM_CTRL._I_Q14I_Ic_Offset - Motor.SVPWM_CTRL._I_Q14I_Ic_Data);
     
     MotorTask_Current_Flow(&Motor);
     
@@ -143,11 +142,11 @@ void IRQHandleDMAIsr(void)
     
 #else
     
-    MH_Read_ADC_Data_One(&Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data, &Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data);
+    MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data, &Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data);
     
-    Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Offset);
-    Motor.SVPWM_CTRL._I_Q14I_Ishunt[1] = - HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Offset);
-    Motor.SVPWM_CTRL._I_Q14I_Ishunt[2] = - Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] - Motor.SVPWM_CTRL._I_Q14I_Ishunt[1];
+    Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] =  Q14I_CURRENT_LSB_TO_PU(Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Offset);
+    Motor.SVPWM_CTRL._I_Q14I_Ishunt[1] = -Q14I_CURRENT_LSB_TO_PU(Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Offset);
+    Motor.SVPWM_CTRL._I_Q14I_Ishunt[2] = -Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] - Motor.SVPWM_CTRL._I_Q14I_Ishunt[1];
     MotorFoc_OneShunt_Cal_T(&Motor.SVPWM_CTRL);
     
     MotorTask_Current_Flow(&Motor);
@@ -158,13 +157,13 @@ void IRQHandleDMAIsr(void)
         MH_PWM_Duty_Set_One(Motor.SVPWM_CTRL._O_Q14I_TaUp, Motor.SVPWM_CTRL._O_Q14I_TaDn,
                             Motor.SVPWM_CTRL._O_Q14I_TbUp, Motor.SVPWM_CTRL._O_Q14I_TbDn,
                             Motor.SVPWM_CTRL._O_Q14I_TcUp, Motor.SVPWM_CTRL._O_Q14I_TcDn);
-        MH_Set_ADC_TrigTime(Motor.SVPWM_CTRL._O_Q14I_ADCTrigTime1,
+        MH_ADC_TrigTime_Set(Motor.SVPWM_CTRL._O_Q14I_ADCTrigTime1,
                             Motor.SVPWM_CTRL._O_Q14I_ADCTrigTime2);
         MH_PWM_Output_Enable();
     }
     else
     {
-        MH_Set_ADC_TrigTime(HAL_ADC_TRIGGER_TIME1,
+        MH_ADC_TrigTime_Set(HAL_ADC_TRIGGER_TIME1,
                             HAL_ADC_TRIGGER_TIME2);
         MH_PWM_Output_Disable(); 
     }
@@ -177,7 +176,7 @@ void IRQHandleDMAIsr(void)
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     
-    MH_Clear_Current_IntFlag();
+    MH_Current_IntFlag_Clear();
 }
 
 /**********************************************************************************************
@@ -223,7 +222,6 @@ Author: CJYS
 void IRQHandleSTIMIsr(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_SRAD_Flow(&Motor);
+    MotorTask_Speed_Flow(&Motor);
     STIM_ClearInt(HAL_STIM_ID); 
 }
-

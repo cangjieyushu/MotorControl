@@ -28,7 +28,8 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
         //1ms
         pST->systick_count++;
         
-        System_Task_Flow(&Systask);
+        Button_Control(&Button_Ctrl, &Systask);
+        
         if((pST->systick_count & BIT0) == BIT0)  //2ms
         {
             
@@ -66,6 +67,7 @@ void System_Task_Tick(ST_SYSTEM_TASK* pST)
             
         }
         pST->System_State_Flag.BIT.systick_intflow = 0U;
+        System_Task_Flow(&Systask);
     }
 }
 
@@ -116,11 +118,8 @@ Ram_Func void ADC_IRQHandler(void)
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
     {
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
-        MH_Read_ADC_Data(&Adc_Data);
+        MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_F_Ia_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data);
         
-        Motor.SVPWM_CTRL._I_F_Ia_Data = Adc_Data.Ia;
-        Motor.SVPWM_CTRL._I_F_Ib_Data = Adc_Data.Ib;
-        Motor.SVPWM_CTRL._I_F_Ic_Data = Adc_Data.Ic;
         Motor.SVPWM_CTRL._I_F_Ia = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
         Motor.SVPWM_CTRL._I_F_Ib = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
         Motor.SVPWM_CTRL._I_F_Ic = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ic_Offset - Motor.SVPWM_CTRL._I_F_Ic_Data);
@@ -162,6 +161,15 @@ void TIM1_BRK_TIM9_IRQHandler(void)
     MH_PWM_Output_Disable();
 }
 
+/**********************************************************************************************
+Function: TIM2_IRQHandler
+Description: HALL电平翻转中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
 void TIM2_IRQHandler(void)
 {
     if(TIM_GetFlagStatus(TIM2, TIM_FLAG_Update))
@@ -182,5 +190,5 @@ Author: CJYS
 void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
-    MotorTask_SRAD_Flow(&Motor);
+    MotorTask_Speed_Flow(&Motor);
 }

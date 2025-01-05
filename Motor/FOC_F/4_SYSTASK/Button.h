@@ -10,9 +10,8 @@
 
 #include "SysTask.h"
 
-
 //按键模式
-#define BUTTON_MODE                     BUTTON_MODE_VR
+#define BUTTON_MODE                     BUTTON_MODE_BUTTON_VR
 #define BUTTON_MODE_BUTTON              0                   //按键启动、停止
 #define BUTTON_MODE_VR                  1                   //VR启动、停止、调速
 #define BUTTON_MODE_BUTTON_VR           2                   //按键启动、停止，VR调速
@@ -35,6 +34,13 @@ typedef struct{
     
     float F_vr_max_limit;
     float F_vr_min_limit;
+    
+    Q32U_ Button0_State;
+    Q32U_ Button0_State_Last;
+    Q32U_ Button1_State;
+    Q32U_ Button1_State_Last;
+    Q32U_ Button2_State;
+    Q32U_ Button2_State_Last;
 }ST_BUTTON_CONTROL;
 
 extern ST_BUTTON_CONTROL Button_Ctrl;

@@ -7,27 +7,6 @@
 **************************************************************************************************/
 #include "SysTask.h"
 
-Q32U_ START = 0U;
-
-void KEY_KEIL(void)
-{
-    Q32U_ tmp1 = BSP_GPIO_Read_SW0_State();
-    Q32U_ tmp2 = BSP_GPIO_Read_SW1_State();
-    static Q32U_ last_tmp1 = 0U;
-    static Q32U_ last_tmp2 = 0U;
-    
-    if((tmp1 == 1U) && (last_tmp1 == 0U))
-    {
-        START = 1U;
-    }
-    if((tmp2 == 1U) && (last_tmp2 == 0U))
-    {
-        START = 2U;
-    }
-    last_tmp1 = tmp1;
-    last_tmp2 = tmp2;
-}
-
 ST_SYSTEM_TASK  Systask = {
     .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
     
@@ -87,17 +66,16 @@ Author: CJYS
 void System_Task_Flow(ST_SYSTEM_TASK*  pST)
 {
     System_ADC_Read(pST);
-    
-    KEY_KEIL();
-    
+
+    Motor_Set_Dir(1.0f);
+    Motor_Set_Vbus(HAL_ADC_VOLTAGE_SCALE*pST->F_FL_VBUS.F_Filter_out);
+    Motor_Set_Target_Speed(pST->F_Duty_Target*MOTOR_MAX_SPEED);
+	
+	
     if(Motor_Read_Error() != 0U)
     {
         pST->System_Error_Flag.BIT.motor_error = 1U;
     }
-    
-    Motor_Set_Dir(1.0f);
-    Motor_Set_Target_SRAD((pST->F_FL_VR.F_Filter_out - 2048.0f)*MOTOR_MAX_SRAD/1800.0f);
-    Motor_Set_Vbus(HAL_ADC_VOLTAGE_SCALE*pST->F_FL_VBUS.F_Filter_out);
     
     switch(pST->System_Flow)
     {
@@ -114,15 +92,12 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
         {
             if(pST->System_Error_Flag.ALL != 0U)
             {
-                Motor_Stop();
                 pST->System_Flow = SYSTEM_STATE_ERROR;
             }
             else
             {
-                if(START == 1U)
+                if(pST->System_State_Flag.BIT.system_runflag == 1U)
                 {
-                    START = 0U;
-                    Motor_Start();
                     pST->System_Flow = SYSTEM_STATE_RUN;
                 }
             }
@@ -132,30 +107,35 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
         {
             if(pST->System_Error_Flag.ALL != 0U)
             {
-                Motor_Stop();
                 pST->System_Flow = SYSTEM_STATE_ERROR;
             }
             else
             {
-                if(START == 1U)
+                if(pST->System_State_Flag.BIT.system_runflag == 0U)
                 {
-                    START = 0U;
-                    Motor_Stop();
                     pST->System_Flow = SYSTEM_STATE_IDLE;
                 }
             }break;
         }
         case SYSTEM_STATE_ERROR:
         {
-            if(START == 2U)
+            if(pST->System_State_Flag.BIT.system_runflag == 0U)
             {
-                START = 0U;                
-				pST->System_Error_Flag.ALL = 0U;
+                pST->System_Error_Flag.ALL = 0U;
                 Motor_Clear_Error();
                 pST->System_Flow = SYSTEM_STATE_IDLE;
             }break;
         }
         default:break;
+    }
+    
+    if(pST->System_Flow == SYSTEM_STATE_RUN)
+    {
+        Motor_Start();
+    }
+    else
+    {
+        Motor_Stop();
     }
 }
 

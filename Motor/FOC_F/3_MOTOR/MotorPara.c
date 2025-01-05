@@ -5,11 +5,27 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             电机控制参数初始化源文件
 **************************************************************************************************/
- 
 #include "MotorPara.h"
 
 ST_MOTOR_TASK  Motor = 
 {
+    .LOOP_CTRL._P_F_Align_Current = MOTOR_ALIGNLOOP_CURRENT,
+    .LOOP_CTRL._P_Q32U_Align_Time1 = MOTOR_ALIGNLOOP_TIME1,
+    .LOOP_CTRL._P_Q32U_Align_Time2 = MOTOR_ALIGNLOOP_TIME2,
+    .LOOP_CTRL._P_Q32U_Align_Time3 = MOTOR_ALIGNLOOP_TIME3,
+    
+    .LOOP_CTRL._P_Q32U_Open_Min_Time = MOTOR_OPENLOOP_MIN_TIME,
+    .LOOP_CTRL._P_F_Open_Switch_SRAD = MOTOR_OPENLOOP_SWITCH_SRAD,
+    .LOOP_CTRL._P_Q32U_Open_Switch_Time = MOTOR_OPENLOOP_SWITCH_TIME,
+    
+    .LOOP_CTRL._P_F_Close1_Target_SRAD = MOTOR_CLOSELOOP1_TARGET_SRAD,
+    .LOOP_CTRL._P_F_Close1_SRAD_Step = MOTOR_CLOSELOOP1_STEP,
+    .LOOP_CTRL._P_F_Close1_Switch_SRAD = MOTOR_CLOSELOOP1_SWITCH_SRAD,
+    .LOOP_CTRL._P_Q32U_Close1_Switch_Time = MOTOR_CLOSELOOP1_SWITCH_TIME,
+    
+    .LOOP_CTRL._P_F_Close2_Target_SRAD = MOTOR_CLOSELOOP2_SRAD_TARGET,
+    .LOOP_CTRL._P_F_Close2_SRAD_Step = MOTOR_CLOSELOOP2_STEP,
+        
     .IF_CTRL.Ramp_Iq.F_Init = MOTOR_IF_IQRAMP_INIT,
     .IF_CTRL.Ramp_Iq.F_Target = MOTOR_IF_IQRAMP_TARGET,
     .IF_CTRL.Ramp_Iq.F_ADDStep = MOTOR_IF_IQRAMP_STEP,
@@ -72,6 +88,7 @@ ST_MOTOR_TASK  Motor =
     .FLUX_CTRL.FL_SRAD.F_Filter_Coeff = USER_PLL_SPEED_LPF_COEFF,
     .FLUX_CTRL._P_F_Ts = MOTOR_HTs,
     .FLUX_CTRL._P_F_Gamma = MOTOR_FLUX_KT,
+    .FLUX_CTRL._P_F_Rs_Coeff = MOTOR_FLUX_R_Coeff,
     .FLUX_CTRL._P_F_Rs = MOTOR_Rs,
     .FLUX_CTRL._P_F_Ld = MOTOR_Ld,
     .FLUX_CTRL._P_F_Ls = MOTOR_Ls,

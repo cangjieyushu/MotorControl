@@ -70,14 +70,13 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
     
     Motor_Set_Dir((Q32U_)0);
     Motor_Set_Vbus((Q32U_)pST->FL_VBUS.Q16I_Filter_out);
-    Motor_Set_Target_Freq((Q32U_)pST->Q16U_Duty_Target);
+    Motor_Set_Target_Speed((Q32U_)pST->Q16U_Duty_Target);
     
     
     if(Motor_Read_Error() != 0U)
     {
         pST->System_Error_Flag.BIT.motor_error = 1U;
     }
-    
     
     switch(pST->System_Flow)
     {
@@ -94,14 +93,12 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
         {
             if(pST->System_Error_Flag.ALL != 0U)
             {
-                Motor_Stop();
                 pST->System_Flow = SYSTEM_STATE_ERROR;
             }
             else
             {
                 if(pST->System_State_Flag.BIT.system_runflag == 1U)
                 {
-                    Motor_Start();
                     pST->System_Flow = SYSTEM_STATE_RUN;
                 }
             }
@@ -111,14 +108,12 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
         {
             if(pST->System_Error_Flag.ALL != 0U)
             {
-                Motor_Stop();
                 pST->System_Flow = SYSTEM_STATE_ERROR;
             }
             else
             {
                 if(pST->System_State_Flag.BIT.system_runflag == 0U)
                 {
-                    Motor_Stop();
                     pST->System_Flow = SYSTEM_STATE_IDLE;
                 }
             }break;
@@ -133,6 +128,15 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
             }break;
         }
         default:break;
+    }
+    
+    if(pST->System_Flow == SYSTEM_STATE_RUN)
+    {
+        Motor_Start();
+    }
+    else
+    {
+        Motor_Stop();
     }
 }
 
