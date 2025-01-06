@@ -7,24 +7,6 @@
 **************************************************************************************************/
 #include "MotorTask.h"
 
-#if(SYS_RECTIFICAITON == 0)
-#define pFUN_PWM_OUTPUT     HPWMLGPIO_SET
-#define pPWM_SET_INIT       MH_HPWM_LGPIO_Init
-#else
-#define pFUN_PWM_OUTPUT     HPWMLPWM_SET
-#define pPWM_SET_INIT       MH_HPWM_LPWM_Init
-#endif
-
-pFUN_HPWMLGPIO_OUT HPWMLGPIO_SET[6][2] =
-{
-    MH_HPWM_LGPIO_UpVn, MH_HPWM_LGPIO_UpWn,//U+V-
-    MH_HPWM_LGPIO_UpWn, MH_HPWM_LGPIO_UpVn,//U+W-
-    MH_HPWM_LGPIO_VpWn, MH_HPWM_LGPIO_WpVn,//V+W-
-    MH_HPWM_LGPIO_VpUn, MH_HPWM_LGPIO_WpUn,//V+U-
-    MH_HPWM_LGPIO_WpUn, MH_HPWM_LGPIO_VpUn,//W+U-
-    MH_HPWM_LGPIO_WpVn, MH_HPWM_LGPIO_VpWn,//W+V-
-};
-
 pFUN_HPWMLPWM_OUT HPWMLPWM_SET[6][2] =
 {
     MH_HPWM_LPWM_UpVn, MH_HPWM_LPWM_UpWn,//U+V-
@@ -191,8 +173,8 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                         case SUCC:
                         {
                             MotorSQ_Flying_Init(&pMotor->MS_CTRL, &pMotor->MS_FLYING);
-                            pPWM_SET_INIT(PWM_FREQ_HIGH);
-                            pFUN_PWM_OUTPUT[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
+                            MH_HPWM_LPWM_Init(PWM_FREQ_HIGH);
+                            HPWMLPWM_SET[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
                             MH_Switch_TIM_Delay(HAL_TIM_DELAY_VALUE);
                             pMotor->Motor_Flow = MOTOR_STATE_RUN;
                         }break;
@@ -275,7 +257,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                         }break;
                         case SUCC:
                         {
-                            pPWM_SET_INIT(PWM_FREQ_LOW);
+                            MH_HPWM_LPWM_Init(PWM_FREQ_LOW);
                             MH_ADC_TrigTime_Set(HAL_ADC_DELAY_VALUE);
                             pMotor->Motor_Flow = MOTOR_STATE_RUN;
                         }break;
@@ -399,7 +381,7 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     MotorSQ_PWM_Freq_Switch(&pMotor->MS_CTRL.PWM_CTRL);
                     
                     MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._O_Q16U_arr_set);
-                    pFUN_PWM_OUTPUT[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
+                    HPWMLPWM_SET[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
                     
                     if(pMotor->Q14I_IPHASE_MAX_PU < pMotor->Q14I_IPHASE_MAX_PU)
                     {
@@ -460,7 +442,7 @@ void MotorTask_Switch_Flow(ST_MOTOR_TASK* pMotor)
             MH_Switch_TIM_Stop();
             pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_SUCC;
             pMotor->MS_CTRL.Sector = Next_Sector[pMotor->MS_CTRL.Sector];
-            pFUN_PWM_OUTPUT[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
+            HPWMLPWM_SET[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
             MH_Switch_TIM_Delay(HAL_TIM_DELAY_VALUE);
         }
         else if(pMotor->MS_CTRL.SQ_Flow == SQUARE_SWITCH_SUCC)

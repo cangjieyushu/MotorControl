@@ -11,8 +11,6 @@
 #include "MotorHal_cfg.h"
 #include "MotorSQ.h"
 
-#define SYS_RECTIFICAITON   1       //0：非同步整流，1：同步整流
-
 #define BRAKE_EN            1       //刹车使能
 
 #define SPEED_CLOSE_EN      1       //0：开环，1：转速环
