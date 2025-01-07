@@ -108,7 +108,7 @@
     
 //母线电流PID
 #define IBUS_GAIN                       (2)//母线电流放大倍数，未使用
-#define IBUS_PID_RF                     (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_BUS_A))
+#define IBUS_PID_RF                     (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_BUS_A))
 
 #define IBUS_PID_KP                     (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IBUS_PID_KI                     (Q32I_)(0.010f * MATH_PID_MAX_F)
@@ -119,7 +119,7 @@
 #define IBUS_PID_OUTMIN                 (DUTY_CTRL_MIN)
 
 //相电流PID
-#define IPHSAE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_PHASE_A))
+#define IPHSAE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_PHASE_A))
 
 #define IPHASE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IPHASE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
@@ -137,7 +137,7 @@
 #define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
 
 #define IBRAKE_GAIN                     (5)//刹车电流放大倍数，未使用
-#define IBRAKE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(0.5f * MOTOR_CURRENT_BRAKE_A))
+#define IBRAKE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_BRAKE_A))
 
 #define IBRAKE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IBRAKE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
@@ -148,8 +148,8 @@
 #define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车时间
-#define NO_BRAKE_TIME                   (1000U)             //ms，第1段自由滑行
-#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车，如果没有使能，则跳过第2阶段
+#define NO_BRAKE_TIME                   (200U)              //ms，第1段自由滑行
+#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
 #define SHORT_BRAKE_TIME                (1000U)             //ms，第3段短接刹车
 
 //堵转保护参数

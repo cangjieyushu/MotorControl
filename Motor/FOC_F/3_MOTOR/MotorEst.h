@@ -42,6 +42,7 @@
 
 typedef struct
 {
+    Q08U_       Est_State_Flag;
     ST_PID_POS_F    PID_PLL;
     ST_FILTER_F     FL_SRAD;
     ST_TRIG_F       TG_Triangle;

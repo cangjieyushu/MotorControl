@@ -72,12 +72,19 @@ ST_MOTOR_TASK  Motor =
     
     .MS_CTRL.PWM_CTRL._P_Q12U_low_to_high_duty = PWM_FREQ_LOW_TO_HIGH_DUTY,
     .MS_CTRL.PWM_CTRL._P_Q12U_high_to_low_duty = PWM_FREQ_HIGH_TO_LOW_DUTY,
+    .MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq = PWM_FREQ_START,
     .MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq = PWM_FREQ_LOW,
     .MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq = PWM_FREQ_HIGH,
     .MS_CTRL.PWM_CTRL._P_Q12U_duty_max = DUTY_CTRL_MAX,
     .MS_CTRL.PWM_CTRL._P_Q12U_duty_min = DUTY_CTRL_MIN,
     .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max = Q14I_FREQ_MOTOR_TO_PU(MOTOR_MAX_FREQ),
     .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min = Q14I_FREQ_MOTOR_TO_PU(MOTOR_MIN_FREQ),
+    
+    .MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value = HAL_ADC_DELAY_VALUE,
+    .MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value = HAL_ADC_SAMPLE_VALUE,
+    .MS_CTRL.PWM_CTRL._P_Q14U_adc_solve_value = HAL_ADC_SOLVE_VALUE,
+    
+    .MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value = HAL_TIM_DELAY_MIN_VALUE,
     
     .MS_CTRL.STALL_CTRL._P_Q16U_current_error_time = MOTOR_STALL_CURRENT_ERROR_TIME,
     .MS_CTRL.STALL_CTRL._P_Q16U_error_time = MOTOR_STALL_ERROR_TIME,

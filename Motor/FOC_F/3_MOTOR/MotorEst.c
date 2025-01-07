@@ -117,6 +117,7 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
 {
+    pCTRL->Est_State_Flag = 0U;
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
     Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
     pCTRL->TG_Triangle.F_Angle = 0.0f;
@@ -124,7 +125,6 @@ Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Sin = 0.0f;
     pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     
-    pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
     pCTRL->_V_F_Xalfa = 0.0f;
     pCTRL->_V_F_Xbeta = 0.0f;
     pCTRL->_V_F_Xalfa_F = 0.0f;
@@ -146,6 +146,16 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
 {
+    if(pCTRL->Est_State_Flag == 0U)
+    {
+        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
+        pCTRL->_V_F_Nn2_L = pCTRL->_P_F_Flux2;
+    }
+    else
+    {
+        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs;
+    }
+    
     pCTRL->_V_F_Yalfa = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
     pCTRL->_V_F_Ybeta = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ibeta + pCTRL->_I_F_Ubeta;
     

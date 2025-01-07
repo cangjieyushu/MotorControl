@@ -1039,7 +1039,7 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     
     if(pFREQ_CAL->Flag.bit.b0_init == 0U)
     {
-        pFREQ_CAL->_O_Q32U_60_degree_cnt = 0;
+        pFREQ_CAL->_O_Q32U_60_degree_cnt = 0xFFFFFFFFU;
         pFREQ_CAL->Flag.bit.b0_init = 1U;
     }
     

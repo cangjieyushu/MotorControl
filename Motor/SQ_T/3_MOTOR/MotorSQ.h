@@ -274,6 +274,7 @@ typedef struct
     
     Q32U_   _P_Q12U_low_to_high_duty;
     Q32U_   _P_Q12U_high_to_low_duty;
+    Q32U_   _P_Q14U_start_pwm_freq;
     Q32U_   _P_Q14U_low_pwm_freq;
     Q32U_   _P_Q14U_high_pwm_freq;
     
@@ -281,6 +282,12 @@ typedef struct
     Q32U_   _P_Q12U_duty_min;
     Q32U_   _P_Q14U_motor_freq_max;
     Q32U_   _P_Q14U_motor_freq_min;
+    
+    Q32U_   _P_Q14U_adc_delay_value;
+    Q32U_   _P_Q14U_adc_sample_value;
+    Q32U_   _P_Q14U_adc_solve_value;
+    
+    Q32U_   _P_Q14U_tim_delay_min_value;
 }ST_PWM_CONTROL;
 
 typedef struct{

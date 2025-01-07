@@ -16,20 +16,20 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <ArmDriver>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
         <EnableCache>0</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
     </ArmDriver>
     <JLinkDriver>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
-        <CStepIntDis>_ 0</CStepIntDis>
         <jlinkResetStyle>12</jlinkResetStyle>
         <jlinkResetStrategy>0</jlinkResetStrategy>
         <TraceBufferSize>0x10000</TraceBufferSize>
         <TraceStallIfFIFOFull>0x0</TraceStallIfFIFOFull>
         <TracePortSize>0x4</TracePortSize>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+        <CStepIntDis>_ 0</CStepIntDis>
     </JLinkDriver>
     <DebugChecksum>
-        <Checksum>1692282268</Checksum>
+        <Checksum>136886856</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -48,11 +48,11 @@
     </CallStack>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>1163544915</CpuClock>
+        <CpuClock>949094912</CpuClock>
         <ClockAutoDetect>1</ClockAutoDetect>
         <ClockWanted>7500000</ClockWanted>
         <JtagSpeed>7500000</JtagSpeed>
-        <Prescaler>155</Prescaler>
+        <Prescaler>127</Prescaler>
         <TimeStampPrescIndex>0</TimeStampPrescIndex>
         <TimeStampPrescData>0</TimeStampPrescData>
         <PcSampCYCTAP>1</PcSampCYCTAP>
@@ -198,7 +198,7 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Bp0>_ 0 "EMUL_TRACE_FILTER" "BUTTON_MODE_BUTTON" 0 0 0 0 4294967295 3887984731 0 0</Bp0>
+        <Bp0>_ 0 "EMUL_TRACE_FILTER" "BUTTON_MODE_BUTTON" 0 0 0 0 4294967295 3696423003 0 0</Bp0>
         <Count>1</Count>
     </Breakpoints2>
     <Aliases>

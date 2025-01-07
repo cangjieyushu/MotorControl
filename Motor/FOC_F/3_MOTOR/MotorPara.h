@@ -22,14 +22,14 @@
 #define MOTOR_ALIGNLOOP_TIME3               (500)                           //ms,电机alignloop第三阶段
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (50)                            //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机openloop切换closeloop1时间
+#define MOTOR_OPENLOOP_MIN_TIME             (5000)                            //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)            //Hz,电机openloop切换closeloop1转速
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                           //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP1_TARGET_SRAD        (90.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_TARGET_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
 #define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
-#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
 #define MOTOR_CLOSELOOP1_SWITCH_TIME        (20)                            //ms,电机closeloop1切换closeloop2的时间
 
 //电机closeloop2相关参数，闭环运行阶段         
@@ -50,9 +50,9 @@
 #define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //Hz,电机IF观测器角度收敛步长
 
 //VF
-#define MOTOR_VF_IQRAMP_INIT                (0.1f)                          //V,Vq初始值
-#define MOTOR_VF_IQRAMP_TARGET              (0.5f)                          //V,Vq目标值
-#define MOTOR_VF_IQRAMP_STEP                (0.2f * MOTOR_LTs)              //V/s,Vq每秒增加步长
+#define MOTOR_VF_IQRAMP_INIT                (0.0f)                          //V,Vq初始值
+#define MOTOR_VF_IQRAMP_TARGET              (2.0f)                          //V,Vq目标值
+#define MOTOR_VF_IQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
 #define MOTOR_VF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,VF速度目标值
@@ -157,6 +157,7 @@ typedef struct{
     Q32U_                       _P_Q32U_Align_Time3;
         
     Q32U_                       _V_Q32U_Open_cnt;
+    Q32U_                       _V_Q32U_Open_min_cnt;
     Q32U_                       _P_Q32U_Open_Min_Time;
     float                       _P_F_Open_Switch_SRAD;
     Q32U_                       _P_Q32U_Open_Switch_Time;
@@ -188,7 +189,6 @@ typedef struct{
     ST_FLUX_CONTROL_F           FLUX_CTRL;
     ST_SMO_CONTROL_F            SMO_CTRL;
     
-    Q32U_                       flow_cnt;
     float                       F_Iphase_Max;
 }ST_MOTOR_TASK;
 

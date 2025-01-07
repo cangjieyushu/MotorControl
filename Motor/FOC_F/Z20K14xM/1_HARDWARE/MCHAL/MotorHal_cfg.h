@@ -32,7 +32,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
 
 
 //频率设置
@@ -77,7 +77,7 @@
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (4.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 
@@ -85,7 +85,7 @@
 #define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)
 
 #elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
-#define HAL_ADC_DELAY_TIME                      (2.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
@@ -119,7 +119,7 @@
 #define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
 
 //相电流采样
-#define HAL_ADC_CURRENT_GAIN                    (10.0f)                 //相电流采样放大倍数
+#define HAL_ADC_CURRENT_GAIN                    (20.0f)                 //相电流采样放大倍数
 #define HAL_ADC_CURRENT_RESISTOR                (0.005f)                //Ω，相电流采样电阻
 #define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))
 #define HAL_ADC_CURRENT_MAX                     (HAL_ADC_REF_VOLTAGE_V*HAL_ADC_CURRENT_COEFF)   //A，最大采样电流
