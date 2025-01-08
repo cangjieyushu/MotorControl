@@ -529,7 +529,7 @@ Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
         pBRAKE_CTRL->Flag.all = 0U;
 
         pBRAKE_CTRL->_V_Q32U_cnt = 0U;
-        Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
+        pBRAKE_CTRL->_O_Q12U_brake_duty = 0U;
         PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, pMS_CTRL->PID_Ibrake.Q14I_OutMin);
         
         pBRAKE_CTRL->Flag.bit.b0_init = 1U;
@@ -559,14 +559,27 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
     if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time)
     {
         pBRAKE_CTRL->_O_Q12U_brake_duty = 0U;
+        if((pBRAKE_CTRL->_V_Q32U_cnt + 1U) == pBRAKE_CTRL->_P_Q16U_no_time)
+        {
+            if(pBRAKE_CTRL->_P_Q16U_slow_time > 0U)
+            {
+                Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
+            }
+            else
+            {
+                if(pBRAKE_CTRL->_P_Q16U_short_time > 0U)
+                {
+                    pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->_P_Q12U_duty_max;
+                }
+            }
+        }
     }
     else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
     {
         Ramp_Cal_T(&pBRAKE_CTRL->Ramp_Brake_Duty);
         pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Output;
     }
-    else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time
-    + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
+    else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
     {
         pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->_P_Q12U_duty_max;
     }
@@ -1039,7 +1052,7 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     
     if(pFREQ_CAL->Flag.bit.b0_init == 0U)
     {
-        pFREQ_CAL->_O_Q32U_60_degree_cnt = 0xFFFFFFFFU;
+        pFREQ_CAL->_O_Q32U_60_degree_cnt = pFREQ_CAL->_P_Q32U_hall_tim_max_cnt;
         pFREQ_CAL->Flag.bit.b0_init = 1U;
     }
     

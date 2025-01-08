@@ -10,6 +10,10 @@
 
 ST_MOTOR_TASK  Motor = 
 {
+    .Motor_State_Flag.bit.motor_speed_flag = SPEED_CLOSE_EN,
+    .Motor_State_Flag.bit.motor_busA_flag = I_BUS_CLOSE_EN,
+    .Motor_State_Flag.bit.motor_busP_flag = P_BUS_CLOSE_EN,
+    
     .MS_OFFSET._P_Q16U_offset_max = CURRENT_OFFSET_MAX_lsb,
     .MS_OFFSET._P_Q16U_offset_min = CURRENT_OFFSET_MIN_lsb,
     .MS_OFFSET._P_Q16U_check_num = CURRENT_OFFSET_NUM,

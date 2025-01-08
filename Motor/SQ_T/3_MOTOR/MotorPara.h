@@ -11,11 +11,9 @@
 #include "MotorHal_cfg.h"
 #include "MotorSQ.h"
 
-#define BRAKE_EN            1       //刹车使能
-
-#define SPEED_CLOSE_EN      1       //0：开环，1：转速环
-#define IBUS_CLOSE_EN       1       //母线电流限流使能，0：未使能，1：母线电流环，2：功率环
-#define IPHASE_CLOSE_EN     1       //相电流限流使能
+#define SPEED_CLOSE_EN                  (1U)        //0：开环，1：转速环
+#define I_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：母线电流环
+#define P_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：功率环，如果同时使能了电流环和功率环，只有电流环起作用
 
 //电流采样偏置检测
 #define CURRENT_OFFSET_VOLTAGE_V        (0.5f)                                              //V，电流采样偏置电压
@@ -95,8 +93,8 @@
 #define DUTY_CTRL_MIN                   (Q32I_)(HAL_PWM_DUTY_5_PERCENT)
 
 //转速PID
-#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.002f * MOTOR_MAX_FREQ))
-#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.002f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
 
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
 #define FREQ_PID_KI                     (Q32I_)(0.0010f * MATH_PID_MAX_F)
@@ -150,7 +148,7 @@
 //刹车时间
 #define NO_BRAKE_TIME                   (200U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (1000U)             //ms，第3段短接刹车
+#define SHORT_BRAKE_TIME                (10000U)             //ms，第3段短接刹车
 
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64
@@ -172,6 +170,9 @@ typedef union{
     ALL all;
     struct{
         BIT motor_run_flag      :1;//电机运行标志位
+        BIT motor_speed_flag    :1;//速度环使能标志位
+        BIT motor_busA_flag     :1;//母线电流环使能标志位
+        BIT motor_busP_flag     :1;//母线功率环使能标志位
     }bit;
 }UN_MOTOR_STATE_FLAG;
 
@@ -179,9 +180,9 @@ typedef union{
     ALL all;
     struct{
         BIT motor_stall         :1;//电机堵转故障
-        BIT current_offset      :1;//偏置故障
-        BIT current_short       :1;//短路故障
         BIT mos_fault           :1;//mos故障（单个上电周期内，发生三次短路保护，锁死故障状态）
+        BIT current_short       :1;//短路故障
+        BIT current_offset      :1;//偏置故障
         BIT position_error      :1;//电机定位故障
     }bit;
 }UN_MOTOR_ERROR_FLAG;
@@ -199,8 +200,8 @@ typedef struct{
     
     ST_MS_CONTROL               MS_CTRL;
     
+    Q32U_                       Q32U_MOS_Error_cnt;
     Q32I_                       Q14I_IPHASE_MAX_PU;
-    Q32U_                       flow_cnt;
 }ST_MOTOR_TASK;
 
 extern ST_MOTOR_TASK  Motor;
