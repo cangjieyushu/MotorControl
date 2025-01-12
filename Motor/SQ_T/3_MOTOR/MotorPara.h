@@ -37,7 +37,7 @@
 
 //脉冲定位 
 #define POSITION_DUTY                   (HAL_PWM_DUTY_10_PERCENT)   //1kHz，脉冲定位占空比
-#define POSITION_TL_lsb                 (1000U)                      //脉冲定位是否成功判断
+#define POSITION_TL_lsb                 (1000U)                     //脉冲定位是否成功判断阈值
 
 //滤波器系数
 #define IPHASE_FILTER_COEFF             (25U) //0~256
@@ -59,7 +59,7 @@
 #define FLUX_CROSS_FILTER               (2U)//滤波次数
 #define BEMF_CROSS_FILTER               (2U)//滤波次数
 
-#define BEMF_CROSS_DELAY_COEFF          (16U)//base64，延迟换向比例32为理论的30度
+#define BEMF_CROSS_DELAY_COEFF          (16U)//base64，延迟换向比例，32为理论的30度
 
 #define CURRENT_CROSS_FAIL_FILTER       (1000U) //电流换向滤波次数
 #define CURRENT_CROSS_DIAG_FILTER       (500U)  //电流换向续流滤波次数
@@ -148,10 +148,10 @@
 //刹车时间
 #define NO_BRAKE_TIME                   (200U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (10000U)             //ms，第3段短接刹车
+#define SHORT_BRAKE_TIME                (10000U)            //ms，第3段短接刹车
 
 //堵转保护参数
-#define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64
+#define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
 #define MOTOR_STALL_ERROR_TIME          (200U)  //ms，堵转时间
 #define MOTOR_STALL_CURRENT_ERROR_TIME  (5U)
 

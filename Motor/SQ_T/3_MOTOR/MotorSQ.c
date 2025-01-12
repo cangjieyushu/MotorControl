@@ -730,7 +730,9 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
                 if(pMS_CURRENT->_V_Q32U_time_cnt > pMS_CURRENT->_P_Q16U_current_filter)
                 {
                     pMS_CURRENT->_V_Q32U_time_cnt = 0U;
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_FAIL;
+                    pMS_CTRL->STALL_CTRL._V_Q32U_current_cnt++;
+                    pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
+                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
                 }
                 pMS_CURRENT->_V_Q32U_cnt = 0U;
             }
@@ -754,7 +756,9 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
                 if(pMS_CURRENT->_V_Q32U_time_cnt > pMS_CURRENT->_P_Q16U_current_filter)
                 {
                     pMS_CURRENT->_V_Q32U_time_cnt = 0;
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_FAIL;
+                    pMS_CTRL->STALL_CTRL._V_Q32U_current_cnt++;
+                    pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
+                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
                 }
                 pMS_CURRENT->_V_Q32U_cnt = 0;
             }
@@ -777,13 +781,6 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
         {
             pMS_CURRENT->_V_Q32U_switch_cnt = 0U;
         }
-    }
-    
-    if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_FAIL)
-    {
-        pMS_CTRL->STALL_CTRL._V_Q32U_current_cnt++;
-        pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
-        pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     }
 }
 
@@ -1264,6 +1261,9 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_Ibus_Cal(ST_MS_CONTROL* pMS_CTRL)
 {
-    pMS_CTRL->FL_Ibus.Q16I_Filter_in = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->Q14I_IPHASE_PU);
-    Filter_Cal_T(&pMS_CTRL->FL_Ibus);
+    if(pMS_CTRL->SQ_Flow != SQUARE_DIAG_ING)
+    {
+        pMS_CTRL->FL_Ibus.Q16I_Filter_in = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->Q14I_IPHASE_PU);
+        Filter_Cal_T(&pMS_CTRL->FL_Ibus);
+    }
 }

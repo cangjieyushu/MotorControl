@@ -11,8 +11,8 @@
 #include "MotorPara.h"
 #include "MotorHal.h"
 
-typedef void(*pFUN_HPWMLGPIO_OUT)(Q32U_);
-typedef void(*pFUN_HPWMLPWM_OUT)(Q32U_);
+typedef void(*pMOTOR_FUN)(ST_MOTOR_TASK*);
+typedef void(*pFUN_HPWMLPWM_SET)(Q32U_);
 
 /**********************************************************************************************
 Function: Motor_Start

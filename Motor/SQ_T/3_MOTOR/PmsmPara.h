@@ -14,7 +14,7 @@
 //电机额定参数
 #define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
 #define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
-#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
+#define MOTOR_CURRENT_BUS_A                 (2.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_RUN2_FREQ)
