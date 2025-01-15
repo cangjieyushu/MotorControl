@@ -9,17 +9,17 @@
 
 ST_CURRENT_PROTECT Current_Protect_1 = {
     .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_1_TL,
-    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_1_TIME,
+    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_1_TIME/10U,
 };
 
 ST_CURRENT_PROTECT Current_Protect_2 = {
     .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_2_TL,
-    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_2_TIME,
+    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_2_TIME/10U,
 };
 
 ST_CURRENT_PROTECT Current_Protect_3 = {
     .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_3_TL,
-    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_3_TIME,
+    .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_3_TIME/10U,
 };
 
 /**********************************************************************************************
@@ -42,7 +42,7 @@ void Current_Protect_Level(ST_CURRENT_PROTECT* pCP, ST_SYSTEM_TASK*  pST)
     }
     else
     {
-        if(pCP->Q16U_current_protect_cnt > 0)
+        if(pCP->Q16U_current_protect_cnt > 0U)
         {
             pCP->Q16U_current_protect_cnt--;
         }
@@ -80,14 +80,14 @@ void Current_Protect_Flow(ST_SYSTEM_TASK*  pST)
     else
     {
 #if(CURRENT_PROTECT_LEVEL == 1)
-        Current_Protect_1.Q16U_current_protect_cnt = 0;
+        Current_Protect_1.Q16U_current_protect_cnt = 0U;
 #elif(CURRENT_PROTECT_LEVEL == 2)
-        Current_Protect_1.Q16U_current_protect_cnt = 0;
-        Current_Protect_2.Q16U_current_protect_cnt = 0;
+        Current_Protect_1.Q16U_current_protect_cnt = 0U;
+        Current_Protect_2.Q16U_current_protect_cnt = 0U;
 #elif(CURRENT_PROTECT_LEVEL == 3)
-        Current_Protect_1.Q16U_current_protect_cnt = 0;
-        Current_Protect_2.Q16U_current_protect_cnt = 0;
-        Current_Protect_3.Q16U_current_protect_cnt = 0;
+        Current_Protect_1.Q16U_current_protect_cnt = 0U;
+        Current_Protect_2.Q16U_current_protect_cnt = 0U;
+        Current_Protect_3.Q16U_current_protect_cnt = 0U;
 #endif
     }
 }

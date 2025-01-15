@@ -8,8 +8,9 @@
 #include "SysTask.h"
 
 ST_SYSTEM_TASK  Systask = {
-    .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
-    
+    .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME/10U,
+    ._P_F_Voltage_Scale = HAL_ADC_VOLTAGE_SCALE,
+        
     .F_FL_VBUS.F_Filter_Coeff = 0.05f,
     .F_FL_TEMP.F_Filter_Coeff = 0.05f,
     .F_FL_VR.F_Filter_Coeff = 0.05f,
@@ -25,12 +26,14 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Init(ST_SYSTEM_TASK*  pST)
+void System_Task_Init(ST_SYSTEM_TASK* pST)
 {
-    Filter_Init_F(&pST->F_FL_VBUS, (float)BSP_ADC_READ_DATA_VBUS);
-    Filter_Init_F(&pST->F_FL_TEMP, (float)BSP_ADC_READ_DATA_TEMP);
-    Filter_Init_F(&pST->F_FL_VR, (float)BSP_ADC_READ_DATA_VR);
-    Filter_Init_F(&pST->F_FL_VBG, (float)BSP_ADC_READ_DATA_VBG);
+    Q32U_ adc_tmp = 0U;
+    
+    adc_tmp = BSP_ADC_READ_DATA_VBUS;   Filter_Init_F(&pST->F_FL_VBUS, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_TEMP;   Filter_Init_F(&pST->F_FL_TEMP, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_VR;     Filter_Init_F(&pST->F_FL_VR, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_VBG;    Filter_Init_F(&pST->F_FL_VBG, (float)adc_tmp);
 }
 
 /**********************************************************************************************
@@ -42,12 +45,15 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_ADC_Read(ST_SYSTEM_TASK*  pST)
+void System_ADC_Read(ST_SYSTEM_TASK* pST)
 {
-    pST->F_FL_VBUS.F_Filter_in = (float)BSP_ADC_READ_DATA_VBUS;
-    pST->F_FL_TEMP.F_Filter_in = (float)BSP_ADC_READ_DATA_TEMP;
-    pST->F_FL_VR.F_Filter_in = (float)BSP_ADC_READ_DATA_VR;
-    pST->F_FL_VBG.F_Filter_in = (float)BSP_ADC_READ_DATA_VBG;
+    Q32U_ adc_tmp = 0U;
+    
+    adc_tmp = BSP_ADC_READ_DATA_VBUS;   pST->F_FL_VBUS.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_TEMP;   pST->F_FL_TEMP.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_VR;     pST->F_FL_VR.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_VBG;    pST->F_FL_VBG.F_Filter_in = (float)adc_tmp;
+    
     Filter_Cal_F(&pST->F_FL_VBUS);
     Filter_Cal_F(&pST->F_FL_TEMP);
     Filter_Cal_F(&pST->F_FL_VR);
@@ -63,15 +69,16 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Flow(ST_SYSTEM_TASK*  pST)
+void System_Task_Flow(ST_SYSTEM_TASK* pST)
 {
     System_ADC_Read(pST);
-
+    
+    
     Motor_Set_Dir(1.0f);
-    Motor_Set_Vbus(HAL_ADC_VOLTAGE_SCALE*pST->F_FL_VBUS.F_Filter_out);
+    Motor_Set_Vbus(pST->_P_F_Voltage_Scale*pST->F_FL_VBUS.F_Filter_out);
     Motor_Set_Target_Speed(pST->F_Duty_Target*MOTOR_MAX_SPEED);
-	
-	
+    
+    
     if(Motor_Read_Error() != 0U)
     {
         pST->System_Error_Flag.BIT.motor_error = 1U;
@@ -87,7 +94,8 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
                 System_Task_Init(pST);
                 pST->System_Flow = SYSTEM_STATE_IDLE;
             }
-        }break;
+            break;
+        }
         case SYSTEM_STATE_IDLE:
         {
             if(pST->System_Error_Flag.ALL != 0U)
@@ -113,13 +121,14 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
             {
                 if(pST->System_State_Flag.BIT.system_runflag == 0U)
                 {
-//                    Motor_Set_Target_Speed(pST->F_Duty_Target*2000.0f);
-//                    if(Motor_Read_Speed() < 2400.0f)
+                    Motor_Set_Target_Speed(pST->F_Duty_Target*1800.0f);
+                    if(Motor_Read_Speed() < 2000.0f)
                     {
                         pST->System_Flow = SYSTEM_STATE_IDLE;
                     }
                 }
-            }break;
+            }
+            break;
         }
         case SYSTEM_STATE_ERROR:
         {
@@ -128,7 +137,8 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
                 pST->System_Error_Flag.ALL = 0U;
                 Motor_Clear_Error();
                 pST->System_Flow = SYSTEM_STATE_IDLE;
-            }break;
+            }
+            break;
         }
         default:break;
     }
@@ -152,14 +162,18 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Tick_Isr(ST_SYSTEM_TASK*  pST)
+void System_Tick_Isr(ST_SYSTEM_TASK* pST)
 {
-    if(pST->System_State_Flag.BIT.systick_intflow == 0U)
+    if(++pST->systick_10ms_count >= 10U)
     {
-        pST->System_State_Flag.BIT.systick_intflow = 1U;
-    }
-    else
-    {
-        pST->System_Error_Flag.BIT.systick_overflow = 1U;
+        pST->systick_10ms_count = 0U;
+        if(pST->System_State_Flag.BIT.systick_intflow == 0U)
+        {
+            pST->System_State_Flag.BIT.systick_intflow = 1U;
+        }
+        else
+        {
+            pST->System_Error_Flag.BIT.systick_overflow = 1U;
+        }
     }
 }

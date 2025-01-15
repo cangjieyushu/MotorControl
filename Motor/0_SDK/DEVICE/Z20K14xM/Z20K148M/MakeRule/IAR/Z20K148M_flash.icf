@@ -48,6 +48,7 @@ place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
 place in PFLASH_region  { readonly};
 
 place in RAM0_region { section .textrw};
+place in RAM0_region { section .ram_motor};
 
 place at end of RAM1_region { block HEAP,
                               block CSTACK };

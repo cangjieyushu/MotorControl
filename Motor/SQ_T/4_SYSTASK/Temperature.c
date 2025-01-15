@@ -9,12 +9,12 @@
 
 ST_TEMP_PROTECT Temperature_Protect_Over = {
     .Q16I_temp_protect_tl = OVER_TEMP_PROTECT_LEVEL_TL,
-    .Q16U_temp_protect_time = OVER_TEMP_PROTECT_LEVEL_TIME,
+    .Q16U_temp_protect_time = OVER_TEMP_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_TEMP_PROTECT Temperature_Protect_Low = {
     .Q16I_temp_protect_tl = LOW_TEMP_PROTECT_LEVEL_TL,
-    .Q16U_temp_protect_time = LOW_TEMP_PROTECT_LEVEL_TIME,
+    .Q16U_temp_protect_time = LOW_TEMP_PROTECT_LEVEL_TIME/10U,
 };
 
 /**********************************************************************************************

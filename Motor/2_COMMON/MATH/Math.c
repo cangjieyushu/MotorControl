@@ -4,13 +4,14 @@
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
 *     Abstract Description :             数学运算库源文件
+                                         注意：定点数学库中应用到了有符号数移位，暂不做处理。
 **************************************************************************************************/
 #include "Math.h"
 
 /************************************定点数学库**************************************/
 
 /**********************************************************************************************
-Function: Ramp_Init
+Function: Ramp_Init_T
 Description: 定点斜坡初始化
 Input: 定点斜坡输出初始值
 Output: 无
@@ -18,13 +19,13 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Init_T(ST_RAMP_T* pRamp, Q16I_ init)
+void Ramp_Init_T(ST_RAMP_T* pRamp, Q32I_ init)
 {
     pRamp->Q32I_Output = init;
 }
 
 /**********************************************************************************************
-Function: Ramp_Cal
+Function: Ramp_Cal_T
 Description: 定点斜坡计算
 Input: 无
 Output: 无
@@ -63,7 +64,7 @@ void Ramp_Cal_T(ST_RAMP_T* pRamp)
 }
 
 /**********************************************************************************************
-Function: Filter_Init
+Function: Filter_Init_T
 Description: 定点低通滤波初始化
 Input: 定点低通滤波初始值
 Output: 无
@@ -71,14 +72,14 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Init_T(ST_FILTER_T* pFltr, Q16I_ init)
+void Filter_Init_T(ST_FILTER_T* pFltr, Q32I_ init)
 {
-    pFltr->Q32I_Filter_tmp = Q16I_LFT_08(init);
+    pFltr->Q24I_Filter_tmp = Q16I_LFT_08(init);
     pFltr->Q16I_Filter_out = init;
 }
 
 /**********************************************************************************************
-Function: Filter_Cal
+Function: Filter_Cal_T
 Description: 定点低通滤波计算
 Input: 无
 Output: 无
@@ -88,13 +89,13 @@ Author: CJYS
 ***********************************************************************************************/
 void Filter_Cal_T(ST_FILTER_T* pFltr)
 {
-    pFltr->Q32I_Filter_tmp = Q32I_RHT_08(Q16I_LFT_08(pFltr->Q08I_Filter_Coeff*pFltr->Q16I_Filter_in)
-    + (MATH_FILTER_MAX_T - pFltr->Q08I_Filter_Coeff)*pFltr->Q32I_Filter_tmp);
-    pFltr->Q16I_Filter_out = Q32I_RHT_08(pFltr->Q32I_Filter_tmp);
+    pFltr->Q24I_Filter_tmp = Q32I_RHT_08(Q16I_LFT_08(pFltr->Q08I_Filter_Coeff*pFltr->Q16I_Filter_in)
+    + (MATH_FILTER_MAX_T - pFltr->Q08I_Filter_Coeff)*pFltr->Q24I_Filter_tmp);
+    pFltr->Q16I_Filter_out = Q32I_RHT_08(pFltr->Q24I_Filter_tmp);
 }
 
 /**********************************************************************************************
-Function: PID_Inc_Init
+Function: PID_Inc_Init_T
 Description: 定点增量式PID初始化
 Input: 定点积分器初始值
 Output: 无
@@ -102,7 +103,7 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q16I_ init)
+void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q32I_ init)
 {
     pPID->Q14I_Rf = 0;
     pPID->Q14I_Fb = 0;
@@ -114,7 +115,7 @@ void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q16I_ init)
 }
 
 /**********************************************************************************************
-Function: PID_Inc_Cal
+Function: PID_Inc_Cal_T
 Description: 定点增量式PID计算
 Input: 无
 Output: 无
@@ -139,7 +140,7 @@ void PID_Inc_Cal_T(ST_PID_INC_T* pPID)
 }
 
 /**********************************************************************************************
-Function: PID_Pos_Init
+Function: PID_Pos_Init_T
 Description: 定点位置式PID初始化
 Input: 定点积分器初始值
 Output: 无
@@ -147,7 +148,7 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q16I_ init)
+void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q32I_ init)
 {
     pPID->Q14I_Rf = 0;
     pPID->Q14I_Fb = 0;
@@ -157,7 +158,7 @@ void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q16I_ init)
 }
 
 /**********************************************************************************************
-Function: PID_Pos_Cal
+Function: PID_Pos_Cal_T
 Description: 定点位置式PID计算
 Input: 无
 Output: 无
@@ -289,7 +290,7 @@ static const Q16I_ Math_Sin_Table_I16[1024] = {
 #define U270_360        0x0C00U
  
 /**********************************************************************************************
-Function: Math_SinCos
+Function: Math_SinCos_T
 Description: 定点正余弦计算
 Input: 角度，0到4096
 Output: 正弦，余弦
@@ -300,9 +301,9 @@ Author: CJYS
 void Math_SinCos_T(ST_TRIG_T* pTIG)
 {
     Q16U_ Q16U_index_tmp;
-    Q16U_index_tmp = 0x3FFU & pTIG->Q12U_Angle;
+    Q16U_index_tmp = 0x3FFU & (Q16U_)pTIG->Q12U_Angle;
  
-    switch(pTIG->Q12U_Angle & SIN_MASK)
+    switch((Q16U_)pTIG->Q12U_Angle & SIN_MASK)
     {
         case U0_90:
             pTIG->Q14I_Sin =  Math_Sin_Table_I16[Q16U_index_tmp];
@@ -330,7 +331,7 @@ void Math_SinCos_T(ST_TRIG_T* pTIG)
 }
 
 /**********************************************************************************************
-Function: Math_Atan
+Function: Math_Atan_T
 Description: 定点反正切计算
 Input: 正弦，余弦
 Output: 角度，0到4096
@@ -379,11 +380,11 @@ void Math_Atan_T(ST_TRIG_T* pTIG)
         }
         Sector_N = Sector_a + Sector_b + Sector_c;
 
-        Tan_tmp = ((Sin_tmp<<14)/Cos_tmp);
+        Tan_tmp = ((Sin_tmp<<14U)/Cos_tmp);
 	
-        temp1 = ((Tan_tmp*2789)>>14) + 10195; 
-        temp2 = ((16384 - Tan_tmp)*temp1)>>14; 
-        deg_temp = (Tan_tmp*(32768 + temp2))>>20;
+        temp1 = ((Tan_tmp*2789)>>14U) + 10195; 
+        temp2 = ((16384 - Tan_tmp)*temp1)>>14U; 
+        deg_temp = (Tan_tmp*(32768 + temp2))>>20U;
 	
         switch (Sector_N)
         {
@@ -512,8 +513,8 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init)
 {
-    pPID->F_Rf = 0;
-    pPID->F_Fb = 0;
+    pPID->F_Rf = 0.0f;
+    pPID->F_Fb = 0.0f;
     pPID->F_Ui = init;
     pPID->F_Output = init;
 }
@@ -655,7 +656,7 @@ Ram_Func void Math_SinCos_F(ST_TRIG_F* pTIG)
     pTIG->F_Sin = M + Fract * (N - M);
     
     Input = Input + 0.25f;
-    while(Input > 1.0f)
+    if(Input > 1.0f)
     {
         Input -= 1.0f;        
     }
@@ -768,7 +769,7 @@ Ram_Func float Math_Sqrt_F(float A)
     {
         float xhalf = 0.5f * A;
         Q32I_ i = *(Q32I_*)&A;
-        i = 0x1FBD1DF5 + (i >> 1);
+        i = 0x1FBD1DF5 + (i >> 1U);
         A = *(float*)&i;
         A = 0.5f * A + xhalf / A;
     }

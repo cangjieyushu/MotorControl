@@ -23,14 +23,19 @@ Author: CJYS
 static inline Ram_Func void MH_ADC_Data_Read_Three(float* pADC_Ia, float* pADC_Ib ,float* pADC_Ic)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
+    Q32U_ adc_tmp = 0U;
+    
     while(0U != ADCx->ADC_FCTRL.FCOUNT)
     {
         (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }
     
-    (*pADC_Ia) = (float)(Hal_AdcLoopData[0] & 0x00000FFF);
-    (*pADC_Ib) = (float)(Hal_AdcLoopData[1] & 0x00000FFF);
-    (*pADC_Ic) = (float)(Hal_AdcLoopData[2] & 0x00000FFF);
+    adc_tmp = Hal_AdcLoopData[0] & 0x00000FFFU;
+    (*pADC_Ia) = (float)adc_tmp;
+    adc_tmp = Hal_AdcLoopData[1] & 0x00000FFFU;
+    (*pADC_Ib) = (float)adc_tmp;
+    adc_tmp = Hal_AdcLoopData[2] & 0x00000FFFU;
+    (*pADC_Ic) = (float)adc_tmp;
 }
 
 /**********************************************************************************************
@@ -45,13 +50,17 @@ Author: CJYS
 static inline Ram_Func void MH_ADC_Data_Read_One(float* pADC_I1, float* pADC_I2)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
+    Q32U_ adc_tmp = 0U;
+    
     while(0U != ADCx->ADC_FCTRL.FCOUNT)
     {
         (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }
     
-    (*pADC_I1) = (float)(Hal_AdcMapData[1] & 0x00000FFFU);
-    (*pADC_I2) = (float)(Hal_AdcMapData[0] & 0x00000FFFU);
+    adc_tmp = Hal_AdcMapData[1] & 0x00000FFFU;
+    (*pADC_I1) = (float)adc_tmp;
+    adc_tmp = Hal_AdcMapData[0] & 0x00000FFFU;
+    (*pADC_I2) = (float)adc_tmp;
 }
 
 /**********************************************************************************************
@@ -97,14 +106,14 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_Three(float Ta, float Tb, float Tc)
+static inline Ram_Func void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
 {
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
     mcpwm_reg_w_t *MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
     
-    MCPWMx->MCPWM_CV[HAL_PWM_UH_CHN].CV = (Q32U_)(Ta*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_VH_CHN].CV = (Q32U_)(Tb*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_WH_CHN].CV = (Q32U_)(Tc*HAL_PWM_ALL_COUNT_F);
+    MCPWMx->MCPWM_CV[HAL_PWM_UH_CHN].CV = Ta;
+    MCPWMx->MCPWM_CV[HAL_PWM_VH_CHN].CV = Tb;
+    MCPWMx->MCPWM_CV[HAL_PWM_WH_CHN].CV = Tc;
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
 }
 
@@ -117,17 +126,17 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_One(float Ta1, float Ta2, float Tb1, float Tb2, float Tc1, float Tc2)
+static inline Ram_Func void MH_PWM_Duty_Set_One(Q32U_ Ta1, Q32U_ Ta2, Q32U_ Tb1, Q32U_ Tb2, Q32U_ Tc1, Q32U_ Tc2)
 {
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
     mcpwm_reg_w_t *MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
     
-    MCPWMx->MCPWM_CV[HAL_PWM_UH_CHN].CV = (Q32U_)(Ta1*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_UL_CHN].CV = (Q32U_)(Ta2*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_VH_CHN].CV = (Q32U_)(Tb1*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_VL_CHN].CV = (Q32U_)(Tb2*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_WH_CHN].CV = (Q32U_)(Tc1*HAL_PWM_ALL_COUNT_F);
-    MCPWMx->MCPWM_CV[HAL_PWM_WL_CHN].CV = (Q32U_)(Tc2*HAL_PWM_ALL_COUNT_F);
+    MCPWMx->MCPWM_CV[HAL_PWM_UH_CHN].CV = Ta1;
+    MCPWMx->MCPWM_CV[HAL_PWM_UL_CHN].CV = Ta2;
+    MCPWMx->MCPWM_CV[HAL_PWM_VH_CHN].CV = Tb1;
+    MCPWMx->MCPWM_CV[HAL_PWM_VL_CHN].CV = Tb2;
+    MCPWMx->MCPWM_CV[HAL_PWM_WH_CHN].CV = Tc1;
+    MCPWMx->MCPWM_CV[HAL_PWM_WL_CHN].CV = Tc2;
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
 }
 
@@ -140,11 +149,8 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_TrigTime_Set(float Ch1, float Ch2)
+static inline Ram_Func void MH_ADC_TrigTime_Set(Q32U_ Ch1, Q32U_ Ch2)
 {
-    Q32U_ Ch1Delay = (Q32U_)(Ch1*HAL_PWM_ALL_COUNT_F);
-    Q32U_ Ch2Delay = (Q32U_)(Ch2*HAL_PWM_ALL_COUNT_F);
-    
     tdg_reg_t * TDGx = (tdg_reg_t *)(TDG0_BASE_ADDR);
     tdg_reg_w_t * TDGw = (tdg_reg_w_t *)(TDG0_BASE_ADDR);
     
@@ -155,10 +161,10 @@ static inline Ram_Func void MH_ADC_TrigTime_Set(float Ch1, float Ch2)
     Q32U_ doEnable;
     doEnable = TDGw->TDG_CHCFG[TDG_CHANNEL_0].TDG_CHCTRL;
     TDGw->TDG_CHCFG[TDG_CHANNEL_0].TDG_CHCTRL = doEnable | (((Q32U_)ENABLE) << (8U+doId));
-    TDGw->TDG_CHCFG[TDG_CHANNEL_0].TDG_CHDOOFS[doId] = (Q32U_)Ch1Delay;  
+    TDGw->TDG_CHCFG[TDG_CHANNEL_0].TDG_CHDOOFS[doId] = Ch1;  
     doEnable = TDGw->TDG_CHCFG[TDG_CHANNEL_1].TDG_CHCTRL;
     TDGw->TDG_CHCFG[TDG_CHANNEL_1].TDG_CHCTRL = doEnable | (((Q32U_)ENABLE) << (8U+doId));
-    TDGw->TDG_CHCFG[TDG_CHANNEL_1].TDG_CHDOOFS[doId] = (Q32U_)Ch2Delay;
+    TDGw->TDG_CHCFG[TDG_CHANNEL_1].TDG_CHDOOFS[doId] = Ch2;
     
     TDGx->TDG_CTRL2.CH0E = (Q32U_)ENABLE;
     TDGx->TDG_CTRL2.CH1E = (Q32U_)ENABLE;
@@ -180,36 +186,40 @@ Author: CJYS
 static inline Ram_Func void MH_Current_IntFlag_Clear(void)
 {
     dma_reg_w_t* dmaRegWPtr = (dma_reg_w_t *) DMA_BASE_ADDR;
-    dmaRegWPtr->DMA_GCC = 0x00808080U | ((((Q32U_)DMA_CHANNEL0 << 16U) | ((Q32U_)DMA_CHANNEL0 << 24U)) & 0x0F000000U);
+    dmaRegWPtr->DMA_GCC = 0x00808080U | ((((Q32U_)0U << 16U) | ((Q32U_)0U << 24U)) & 0x0F000000U);
 }
 
 /**********************************************************************************************
-Function: MH_Hall_State_Read
-Description: 读取用于HALL电平
+Function: MH_PWMFault_IntFlag_Clear
+Description: MCPWM故障中断标志位清除
 Input: 无
 Output: 无
 Input_Output: 无
-Return: HALL电平
+Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ MH_Hall_State_Read(void)
+static inline Ram_Func void MH_PWMFault_IntFlag_Clear(void)
 {
-	return 0;
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
+    
+    MCPWMx->MCPWM_FLTSR.FAULTFA = 0U;
+    MCPWMx->MCPWM_FLTSR.FAULTFB = 0U;
 }
 
 /**********************************************************************************************
-Function: MH_Hall_TIM_Count_Read
-Description: 读取用于HALL换向计数器的当前值
+Function: MH_TDG_Soft_Trig
+Description: 软件触发TDG0
 Input: 无
 Output: 无
 Input_Output: 无
-Return: 计数器值
+Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ MH_Hall_TIM_Count_Read(void)
+static inline void MH_TDG_Soft_Trig(void)
 {
-    stim_reg_w_t* stimRegWPtr = (stim_reg_w_t*)STIM_BASE_ADDR;
-    return ((Q32U_)stimRegWPtr->STIM_CNTn[HAL_STIM_HALL]);
+    tdg_reg_t * TDGx = (tdg_reg_t *)(TDG1_BASE_ADDR);
+  
+    TDGx->TDG_CTRL1.SWTRG = 1U;
 }
 
 #endif /* MotorHal_H */

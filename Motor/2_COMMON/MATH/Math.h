@@ -8,23 +8,22 @@
 #ifndef Math_H
 #define Math_H
 
-#ifdef __ramfunc
-#define Ram_Func                    __ramfunc
-#else
-#define Ram_Func                    __attribute__ ((section (".ramfunc")))
-#endif
+
+#define Ram_Func                    __attribute__((section (".ram_motor")))
+
 
 /**********************************定点数学库**********************************/
 
-typedef unsigned char Q08U_;
+typedef unsigned    char            Q08U_;
 
-typedef unsigned int Q16U_;
-typedef unsigned int Q32U_;
-typedef signed   int Q16I_;
-typedef signed   int Q32I_;
+typedef unsigned    short int       Q16U_;
+typedef unsigned    int             Q32U_;
+
+typedef signed      short int       Q16I_;
+typedef signed      int             Q32I_;
                  
-typedef unsigned int ALL;
-typedef unsigned int BIT;
+typedef unsigned    int             ALL;
+typedef unsigned    int             BIT;
 
 #define Q02U_MAX                    (4.0f)
 #define Q04U_MAX                    (16.0f)
@@ -39,59 +38,59 @@ typedef unsigned int BIT;
 #define Q30U_MAX                    (1073741824.0f)
 #define Q32U_MAX                    (4294967295.0f)
 
-#define Q16I_LFT_01(A)              ((A)<<1)
-#define Q16I_LFT_02(A)              ((A)<<2)
-#define Q16I_LFT_03(A)              ((A)<<3)
-#define Q16I_LFT_04(A)              ((A)<<4)
-#define Q16I_LFT_05(A)              ((A)<<5)
-#define Q16I_LFT_06(A)              ((A)<<6)
-#define Q16I_LFT_07(A)              ((A)<<7)
-#define Q16I_LFT_08(A)              ((A)<<8)
+#define Q16I_LFT_01(A)              ((A)<<1U)
+#define Q16I_LFT_02(A)              ((A)<<2U)
+#define Q16I_LFT_03(A)              ((A)<<3U)
+#define Q16I_LFT_04(A)              ((A)<<4U)
+#define Q16I_LFT_05(A)              ((A)<<5U)
+#define Q16I_LFT_06(A)              ((A)<<6U)
+#define Q16I_LFT_07(A)              ((A)<<7U)
+#define Q16I_LFT_08(A)              ((A)<<8U)
 
-#define Q16I_LFT_09(A)              ((A)<<9)
-#define Q16I_LFT_10(A)              ((A)<<10)
-#define Q16I_LFT_11(A)              ((A)<<11)
-#define Q16I_LFT_12(A)              ((A)<<12)
-#define Q16I_LFT_13(A)              ((A)<<13)
-#define Q16I_LFT_14(A)              ((A)<<14)
-#define Q16I_LFT_15(A)              ((A)<<15)
-#define Q16I_LFT_16(A)              ((A)<<16)
+#define Q16I_LFT_09(A)              ((A)<<9U)
+#define Q16I_LFT_10(A)              ((A)<<10U)
+#define Q16I_LFT_11(A)              ((A)<<11U)
+#define Q16I_LFT_12(A)              ((A)<<12U)
+#define Q16I_LFT_13(A)              ((A)<<13U)
+#define Q16I_LFT_14(A)              ((A)<<14U)
+#define Q16I_LFT_15(A)              ((A)<<15U)
+#define Q16I_LFT_16(A)              ((A)<<16U)
 
-#define Q16I_LFT_17(A)              ((A)<<17)
-#define Q16I_LFT_18(A)              ((A)<<18)
-#define Q16I_LFT_19(A)              ((A)<<19)
-#define Q16I_LFT_20(A)              ((A)<<20)
-#define Q16I_LFT_21(A)              ((A)<<21)
-#define Q16I_LFT_22(A)              ((A)<<22)
-#define Q16I_LFT_23(A)              ((A)<<23)
-#define Q16I_LFT_24(A)              ((A)<<24)
+#define Q16I_LFT_17(A)              ((A)<<17U)
+#define Q16I_LFT_18(A)              ((A)<<18U)
+#define Q16I_LFT_19(A)              ((A)<<19U)
+#define Q16I_LFT_20(A)              ((A)<<20U)
+#define Q16I_LFT_21(A)              ((A)<<21U)
+#define Q16I_LFT_22(A)              ((A)<<22U)
+#define Q16I_LFT_23(A)              ((A)<<23U)
+#define Q16I_LFT_24(A)              ((A)<<24U)
 
-#define Q32I_RHT_01(A)              ((A)>>1)
-#define Q32I_RHT_02(A)              ((A)>>2)
-#define Q32I_RHT_03(A)              ((A)>>3)
-#define Q32I_RHT_04(A)              ((A)>>4)
-#define Q32I_RHT_05(A)              ((A)>>5)
-#define Q32I_RHT_06(A)              ((A)>>6)
-#define Q32I_RHT_07(A)              ((A)>>7)
-#define Q32I_RHT_08(A)              ((A)>>8)
+#define Q32I_RHT_01(A)              ((A)>>1U)
+#define Q32I_RHT_02(A)              ((A)>>2U)
+#define Q32I_RHT_03(A)              ((A)>>3U)
+#define Q32I_RHT_04(A)              ((A)>>4U)
+#define Q32I_RHT_05(A)              ((A)>>5U)
+#define Q32I_RHT_06(A)              ((A)>>6U)
+#define Q32I_RHT_07(A)              ((A)>>7U)
+#define Q32I_RHT_08(A)              ((A)>>8U)
 
-#define Q32I_RHT_09(A)              ((A)>>9)
-#define Q32I_RHT_10(A)              ((A)>>10)
-#define Q32I_RHT_11(A)              ((A)>>11)
-#define Q32I_RHT_12(A)              ((A)>>12)
-#define Q32I_RHT_13(A)              ((A)>>13)
-#define Q32I_RHT_14(A)              ((A)>>14)
-#define Q32I_RHT_15(A)              ((A)>>15)
-#define Q32I_RHT_16(A)              ((A)>>16)
+#define Q32I_RHT_09(A)              ((A)>>9U)
+#define Q32I_RHT_10(A)              ((A)>>10U)
+#define Q32I_RHT_11(A)              ((A)>>11U)
+#define Q32I_RHT_12(A)              ((A)>>12U)
+#define Q32I_RHT_13(A)              ((A)>>13U)
+#define Q32I_RHT_14(A)              ((A)>>14U)
+#define Q32I_RHT_15(A)              ((A)>>15U)
+#define Q32I_RHT_16(A)              ((A)>>16U)
                                   
-#define Q32I_RHT_17(A)              ((A)>>17)
-#define Q32I_RHT_18(A)              ((A)>>18)
-#define Q32I_RHT_19(A)              ((A)>>19)
-#define Q32I_RHT_20(A)              ((A)>>20)
-#define Q32I_RHT_21(A)              ((A)>>21)
-#define Q32I_RHT_22(A)              ((A)>>22)
-#define Q32I_RHT_23(A)              ((A)>>23)
-#define Q32I_RHT_24(A)              ((A)>>24)
+#define Q32I_RHT_17(A)              ((A)>>17U)
+#define Q32I_RHT_18(A)              ((A)>>18U)
+#define Q32I_RHT_19(A)              ((A)>>19U)
+#define Q32I_RHT_20(A)              ((A)>>20U)
+#define Q32I_RHT_21(A)              ((A)>>21U)
+#define Q32I_RHT_22(A)              ((A)>>22U)
+#define Q32I_RHT_23(A)              ((A)>>23U)
+#define Q32I_RHT_24(A)              ((A)>>24U)
 
 /********************************************************************/
 
@@ -103,7 +102,7 @@ typedef struct
     Q32I_ Q12U_ReAngle;
 }ST_TRIG_T;
 
-#define MATH_FILTER_MAX_T                   ((Q16U_)(Q08U_MAX))
+#define MATH_FILTER_MAX_T                   ((Q16I_)(Q08U_MAX))
 #define MATH_PID_MAX_F                      (Q14U_MAX)
 
 #define MATH_PI_T                           (2048)
@@ -174,7 +173,7 @@ typedef struct
 {
     Q32I_ Q16I_Filter_in;
     Q32I_ Q16I_Filter_out;
-    Q32I_ Q32I_Filter_tmp;
+    Q32I_ Q24I_Filter_tmp;
     Q32I_ Q08I_Filter_Coeff;
 }ST_FILTER_T;
 
@@ -217,7 +216,7 @@ typedef struct
 }ST_PID_POS_T;
 
 /**********************************************************************************************
-Function: Ramp_Init
+Function: Ramp_Init_T
 Description: 定点斜坡初始化
 Input: 定点斜坡输出初始值
 Output: 无
@@ -225,10 +224,10 @@ Input_Output: 定点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Ramp_Init_T(ST_RAMP_T* pRamp, Q16I_ init);
+void Ramp_Init_T(ST_RAMP_T* pRamp, Q32I_ init);
 
 /**********************************************************************************************
-Function: Ramp_Cal
+Function: Ramp_Cal_T
 Description: 定点斜坡计算
 Input: 无
 Output: 无
@@ -239,7 +238,7 @@ Author: CJYS
 void Ramp_Cal_T(ST_RAMP_T* pRamp);
 
 /**********************************************************************************************
-Function: Filter_Init
+Function: Filter_Init_T
 Description: 定点低通滤波初始化
 Input: 定点低通滤波初始值
 Output: 无
@@ -247,10 +246,10 @@ Input_Output: 定点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Filter_Init_T(ST_FILTER_T* pFltr, Q16I_ init);
+void Filter_Init_T(ST_FILTER_T* pFltr, Q32I_ init);
 
 /**********************************************************************************************
-Function: Filter_Cal
+Function: Filter_Cal_T
 Description: 定点低通滤波计算
 Input: 无
 Output: 无
@@ -261,7 +260,7 @@ Author: CJYS
 void Filter_Cal_T(ST_FILTER_T* pFltr);
     
 /**********************************************************************************************
-Function: PID_Inc_Init
+Function: PID_Inc_Init_T
 Description: 定点增量式PID初始化
 Input: 定点积分器初始值
 Output: 无
@@ -269,10 +268,10 @@ Input_Output: 定点增量式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q16I_ init);
+void PID_Inc_Init_T(ST_PID_INC_T* pPID, Q32I_ init);
 
 /**********************************************************************************************
-Function: PID_Inc_Cal
+Function: PID_Inc_Cal_T
 Description: 定点增量式PID计算
 Input: 无
 Output: 无
@@ -283,7 +282,7 @@ Author: CJYS
 void PID_Inc_Cal_T(ST_PID_INC_T* pPID);
 
 /**********************************************************************************************
-Function: PID_Pos_Init
+Function: PID_Pos_Init_T
 Description: 定点位置式PID初始化
 Input: 定点积分器初始值
 Output: 无
@@ -291,10 +290,10 @@ Input_Output: 定点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q16I_ init);
+void PID_Pos_Init_T(ST_PID_POS_T* pPID, Q32I_ init);
 
 /**********************************************************************************************
-Function: PID_Pos_Cal
+Function: PID_Pos_Cal_T
 Description: 定点位置式PID计算
 Input: 无
 Output: 无
@@ -305,7 +304,7 @@ Author: CJYS
 void PID_Pos_Cal_T(ST_PID_POS_T* pPID);
 
 /**********************************************************************************************
-Function: Math_SinCos
+Function: Math_SinCos_T
 Description: 定点正余弦计算
 Input: 角度，0到4096
 Output: 正弦，余弦
@@ -316,7 +315,7 @@ Author: CJYS
 void Math_SinCos_T(ST_TRIG_T* TIG);
 
 /**********************************************************************************************
-Function: Math_Atan
+Function: Math_Atan_T
 Description: 定点反正切计算
 Input: 正弦，余弦
 Output: 角度，0到4096
@@ -326,7 +325,7 @@ Author: CJYS
 ***********************************************************************************************/
 void Math_Atan_T(ST_TRIG_T* pTIG);
 
-/**********************************/
+/********************************************************************/
 
 typedef struct
 {

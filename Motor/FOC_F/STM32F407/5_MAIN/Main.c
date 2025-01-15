@@ -13,61 +13,22 @@ float RTT_DATA[8];
 #endif
 
 /**********************************************************************************************
-Function: System_Task_Tick
-Description: 时间片任务调度
+Function: System_10msTask_Tick
+Description: 10ms时间片任务调度
 Input: 无
 Output: 无
 Input_Output: ST_SYSTEM_TASK
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Tick(ST_SYSTEM_TASK* pST)
+void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        //1ms
-        pST->systick_count++;
-        
         Button_Control(&Button_Ctrl, &Systask);
-        
-        if((pST->systick_count & BIT0) == BIT0)  //2ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT1) == BIT1)  //4ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT2) == BIT2)  //8ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT3) == BIT3)  //16ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT4) == BIT4)  //32ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT5) == BIT5)  //64ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT6) == BIT6)  //128ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT7) == BIT7)  //256ms
-        {
-            
-        }
-        else  //256ms
-        {
-            
-        }
-        pST->System_State_Flag.BIT.systick_intflow = 0U;
+
         System_Task_Flow(&Systask);
+		pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
 
@@ -100,7 +61,7 @@ int main(void)
     
     for(;;)
     {
-        System_Task_Tick(&Systask);
+        System_10msTask_Tick(&Systask);
     }
 }
 
@@ -115,21 +76,27 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void ADC_IRQHandler(void)
 {
+    float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
     {
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
         MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_F_Ia_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data, &Motor.SVPWM_CTRL._I_F_Ic_Data);
         
-        Motor.SVPWM_CTRL._I_F_Ia = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
-        Motor.SVPWM_CTRL._I_F_Ib = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
-        Motor.SVPWM_CTRL._I_F_Ic = HAL_ADC_CURRENT_SCALE*(Motor.SVPWM_CTRL._I_F_Ic_Offset - Motor.SVPWM_CTRL._I_F_Ic_Data);
+        Motor.SVPWM_CTRL._I_F_Ia = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
+        Motor.SVPWM_CTRL._I_F_Ib = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
+        Motor.SVPWM_CTRL._I_F_Ic = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ic_Offset - Motor.SVPWM_CTRL._I_F_Ic_Data);
         
         MotorTask_Current_Flow(&Motor);
         
-        if(Motor.Motor_State_Flag.bit.pwm_output_flag == 1)
+        if(Motor.Motor_State_Flag.bit.pwm_output_flag == 1U)
         {
             MotorFoc_SVPWM_ThreeShunt_F(&Motor.SVPWM_CTRL);
-            MH_PWM_Duty_Set_Three(Motor.SVPWM_CTRL._O_F_Ta, Motor.SVPWM_CTRL._O_F_Tb, Motor.SVPWM_CTRL._O_F_Tc);
+
+        	pwm_tmp1 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Ta;
+        	pwm_tmp2 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Tb;
+        	pwm_tmp3 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Tc;
+			
+            MH_PWM_Duty_Set_Three((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3);
             MH_PWM_Output_Enable();
         }
         else

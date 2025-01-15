@@ -167,17 +167,20 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
                 case ING:
                 {
                     MH_ADC_Soft_Trigger();
-                }break;
+                    break;
+                }
                 case SUCC:
                 {
                     pMotor->MS_CTRL.Q12I_IPHASE_OFFSET = pMotor->MS_OFFSET._O_Q12I_IPHASE_OFFSET;
                     pMotor->Motor_Flow = MOTOR_STATE_IDLE;
-                }break;
+                    break;
+                }
                 case FAIL:
                 {
                     pMotor->Motor_Error_Flag.bit.current_offset = 1U;
                     pMotor->Motor_Flow = MOTOR_STATE_PRE;
-                }break;
+                    break;
+                }
                 default:break;
             }
         }
@@ -223,7 +226,8 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
                 case ING:
                 {
                     MH_ADC_Soft_Trigger();
-                }break;
+                    break;
+                }
                 case SUCC:
                 {
                     MotorSQ_Flying_Init(&pMotor->MS_CTRL, &pMotor->MS_FLYING);
@@ -231,11 +235,13 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
                     HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
                     MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
                     pMotor->Motor_Flow = MOTOR_STATE_RUN;
-                }break;
+                    break;
+                }
                 case FAIL:
                 {
                     pMotor->Motor_Flow = MOTOR_STATE_BOOT;
-                }break;
+                    break;
+                }
                 default:break;
             }
         }
@@ -275,17 +281,20 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
                 case ING:
                 {
                     MH_HPWM_LPWM_LOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
-                }break;
+                    break;
+                }
                 case SUCC:
                 {
                     MH_HPWM_LPWM_Close();
                     pMotor->Motor_Flow = MOTOR_STATE_POSITION;
-                }break;
+                    break;
+                }
                 case FAIL:
                 {
                     MH_HPWM_LPWM_Close();
                     pMotor->Motor_Flow = MOTOR_STATE_PRE;
-                }break;
+                    break;
+                }
                 default:break;
             }
         }
@@ -328,19 +337,22 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
                 case ING:
                 {
                     HPWMLPWM_Set[pMotor->MS_POSITION._V_Q32U_cnt][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
-                }break;
+                    break;
+                }
                 case SUCC:
                 {
                     MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
                     MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
                     pMotor->Motor_Flow = MOTOR_STATE_RUN;
-                }break;
+                    break;
+                }
                 case FAIL:
                 {
                     pMotor->Motor_Error_Flag.bit.position_error = 1U;
                     MH_HPWM_LPWM_Close();
                     pMotor->Motor_Flow = MOTOR_STATE_PRE;
-                }break;
+                    break;
+                }
                 default:break;
             }
         }

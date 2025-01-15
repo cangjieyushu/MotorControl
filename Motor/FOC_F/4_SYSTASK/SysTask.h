@@ -11,7 +11,7 @@
 #include "BSP.h"
 #include "MotorTask.h"
 
-#define SYSTEM_POWERUP_TIME               (1000U)           //上电时间
+#define SYSTEM_POWERUP_TIME               (1000U)           //ms，上电时间
 
 typedef enum{
     SYSTEM_STATE_POWERUP,
@@ -46,7 +46,8 @@ typedef union{
 }UN_SYSTEM_ERROR_FLAG;
 
 typedef struct{
-    Q08U_                       systick_count;
+    Q08U_                       systick_10ms_count;
+    
     EM_SYSTEM_STATE_FLOW        System_Flow;
     UN_SYSTEM_STATE_FLAG        System_State_Flag;
     UN_SYSTEM_ERROR_FLAG        System_Error_Flag;
@@ -61,7 +62,8 @@ typedef struct{
     float                       F_Voltage_Bus;
     float                       F_Motor_Speed;
     float                       F_Temp_0p01_C;
-    
+    float                       _P_F_Voltage_Scale;
+        
     Q32U_                       Q32U_System_PowerUp_Time;
     Q32U_                       flow_cnt;
 }ST_SYSTEM_TASK;

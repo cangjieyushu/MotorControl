@@ -10,9 +10,10 @@
 
 uint32_t Hal_AdcLoopData[8] = {0,0,0,0,0,0,0,0};
 uint32_t Hal_AdcMapData[8] = {0,0,0,0,0,0,0,0};
+uint32_t Hal_AdcLoopData_S[8] = {0,0,0,0,0,0,0,0};
 
 /**********************************************************************************************
-Function: DMA_ADC_Init
+Function: BSP_DMA_Init_Three_Shunt
 Description: 电机控制用DMA初始化
 Input: 电流环中断函数
 Output: 无
@@ -20,10 +21,8 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void BSP_DMA_Init(isr_cb_t *DMADoneCbf)
+void BSP_DMA_Init_Three_Shunt(isr_cb_t *DMADoneCbf)
 {
-#if (HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
-
     DMA_TransferConfig_t GtDMATransferConfig;
 
     /* Select DMA channel 0 transfer */
@@ -68,9 +67,19 @@ void BSP_DMA_Init(isr_cb_t *DMADoneCbf)
     DMA_ConfigTransfer(&GtDMATransferConfig);
     /* Enable dma channel request */
     DMA_ChannelRequestEnable(DMA_CHANNEL0);
-    
-#else
-    
+}
+
+/**********************************************************************************************
+Function: DMA_ADC_Init_One_Shunt
+Description: 电机控制用DMA初始化
+Input: 电流环中断函数
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void BSP_DMA_Init_One_Shunt(isr_cb_t *DMADoneCbf)
+{
     DMA_TransferConfig_t GtDMATransferConfig;
     
     /* Select DMA channel 0 transfer */
@@ -114,11 +123,7 @@ void BSP_DMA_Init(isr_cb_t *DMADoneCbf)
     DMA_ConfigTransfer(&GtDMATransferConfig);
     /* Enable dma channel request */
     DMA_ChannelRequestEnable(DMA_CHANNEL0);
-    
-#endif
 }
-
-uint32_t Hal_AdcLoopData_S[8] = {0};
 
 /**********************************************************************************************
 Function: BSP_DMA_Init_S

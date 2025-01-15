@@ -10,8 +10,8 @@
 
 #include "MotorHal_cfg.h"
 
-#define HAL_WDOG_WIN_WINDOWVALUE (36000U)
-#define HAL_WDOG_WIN_TIMEOUTVALUE (400000U)     //10ms溢出，4ms喂一次狗
+#define HAL_WDOG_WIN_WINDOWVALUE (360000U)
+#define HAL_WDOG_WIN_TIMEOUTVALUE (4000000U)     //100ms溢出，10ms喂一次狗
 
 /**********************************************************************************************
 Function: BSP_FeedWatchDog

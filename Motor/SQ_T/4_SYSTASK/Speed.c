@@ -9,12 +9,12 @@
 
 ST_SPEED_PROTECT Speed_Protect_Over = {
     .Q16I_speed_protect_tl = OVER_SPEED_PROTECT_LEVEL_TL,
-    .Q16U_speed_protect_time = OVER_SPEED_PROTECT_LEVEL_TIME,
+    .Q16U_speed_protect_time = OVER_SPEED_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_SPEED_PROTECT Speed_Protect_Low = {
     .Q16I_speed_protect_tl = LOW_SPEED_PROTECT_LEVEL_TL,
-    .Q16U_speed_protect_time = LOW_SPEED_PROTECT_LEVEL_TIME,
+    .Q16U_speed_protect_time = LOW_SPEED_PROTECT_LEVEL_TIME/10U,
 };
 
 /**********************************************************************************************

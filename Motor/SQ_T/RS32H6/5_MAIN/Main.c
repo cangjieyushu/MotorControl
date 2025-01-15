@@ -13,63 +13,35 @@ Q32I_ RTT_DATA[8];
 #endif
 
 /**********************************************************************************************
-Function: System_Task_Tick
-Description: 时间片任务调度
+Function: System_10msTask_Tick
+Description: 10ms时间片任务调度
 Input: 无
 Output: 无
 Input_Output: ST_SYSTEM_TASK
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Tick(ST_SYSTEM_TASK* pST)
+void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        //1ms
-        pST->systick_count++;
-        
         Button_Control(&Button_Ctrl, pST);
         
-        if((pST->systick_count & BIT0) == BIT0)  //2ms
-        {
-            USART_Get_Resceive_Data_1();
-            USART_Get_Resceive_Data_2();
-        }
-        else if((pST->systick_count & BIT1) == BIT1)  //4ms
-        {
-            USART_Send_Transmission_Data_1();
-            USART_Send_Transmission_Data_2();
-        }
-        else if((pST->systick_count & BIT2) == BIT2)  //8ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT3) == BIT3)  //16ms
-        {
-            Voltage_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT4) == BIT4)  //32ms
-        {
-            Current_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT5) == BIT5)  //64ms
-        {
-            Speed_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT6) == BIT6)  //128ms
-        {
-            Error_Priority_Check(&Systask);
-        }
-        else if((pST->systick_count & BIT7) == BIT7)  //256ms
-        {
-            Temperature_Protect_Flow(&Systask);
-        }
-        else  //256ms
-        {
-            IWDG_Reload_Counter(IWDG);
-        }
-        pST->System_State_Flag.BIT.systick_intflow = 0U;
+        USART_Get_Resceive_Data_1();
+        USART_Get_Resceive_Data_2();
+        USART_Send_Transmission_Data_1();
+        USART_Send_Transmission_Data_2();
+        
+        Voltage_Protect_Flow(&Systask);
+        Current_Protect_Flow(&Systask);
+        Speed_Protect_Flow(&Systask);
+        Temperature_Protect_Flow(&Systask);
+        
+        Error_Priority_Check(&Systask);
+        IWDG_Reload_Counter(IWDG);
+        
         System_Task_Flow(&Systask);
+        pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
 
@@ -105,7 +77,7 @@ int main(void)
     
     for(;;)
     {
-        System_Task_Tick(&Systask);
+        System_10msTask_Tick(&Systask);
     }
 }
 

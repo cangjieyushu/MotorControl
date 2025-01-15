@@ -644,7 +644,8 @@ void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_DIAG->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         case sector_2:case sector_4:case sector_6:
         {
             if(Q16I_LFT_06(pMS_DIAG->_I_Q12I_BEMF_ZI_VAL) < pMS_DIAG->_P_Q06U_rise_tl*pMS_DIAG->_I_Q12I_VBUS_VAL)
@@ -660,7 +661,8 @@ void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_DIAG->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         default:break;
     }
     
@@ -736,7 +738,8 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
                 }
                 pMS_CURRENT->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         case sector_2:case sector_4:case sector_6:
         {
             if(Q16I_LFT_06(pMS_CURRENT->_I_Q12I_BEMF_ZI_VAL) > pMS_CURRENT->_P_Q06U_rise_tl
@@ -762,7 +765,8 @@ void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_C
                 }
                 pMS_CURRENT->_V_Q32U_cnt = 0;
             }
-        }break;
+            break;
+        }
         default:break;
     }
     
@@ -833,7 +837,8 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_FLUX->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         case sector_2:case sector_4:case sector_6:
         {
             if(Q16I_LFT_06(pMS_FLUX->_I_Q12I_BEMF_ZI_VAL) > pMS_FLUX->_P_Q06U_rise_tl
@@ -850,7 +855,8 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_FLUX->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         default:break;
     }
     
@@ -935,7 +941,8 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_BEMF->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         case sector_2:case sector_4:case sector_6:
         {
             if(Q16I_LFT_01(pMS_BEMF->_I_Q12I_BEMF_ZI_VAL) > pMS_BEMF->_I_Q12I_BEMF_ON_VAL + pMS_BEMF->_I_Q12I_BEMF_OF_VAL)
@@ -951,7 +958,8 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
             {
                 pMS_BEMF->_V_Q32U_cnt = 0U;
             }
-        }break;
+            break;
+        }
         default:break;
     }
     

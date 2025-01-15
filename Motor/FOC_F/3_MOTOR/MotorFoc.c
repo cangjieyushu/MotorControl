@@ -232,13 +232,13 @@ Ram_Func void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     if(Utmp3>0.0f){pCTRL->_O_Q08U_Sector+=4U;}else{}
     switch(pCTRL->_O_Q08U_Sector)
     {
-    case 3U:{Ttmp1 =  Utmp2; Ttmp2 =  Utmp1;break;}
-    case 1U:{Ttmp1 = -Utmp2; Ttmp2 = -Utmp3;break;}
-    case 5U:{Ttmp1 =  Utmp1; Ttmp2 =  Utmp3;break;}
-    case 4U:{Ttmp1 = -Utmp1; Ttmp2 = -Utmp2;break;}
-    case 6U:{Ttmp1 =  Utmp3; Ttmp2 =  Utmp2;break;}
-    case 2U:{Ttmp1 = -Utmp3; Ttmp2 = -Utmp1;break;}
-    default:break;
+        case 3U:{Ttmp1 =  Utmp2; Ttmp2 =  Utmp1;break;}
+        case 1U:{Ttmp1 = -Utmp2; Ttmp2 = -Utmp3;break;}
+        case 5U:{Ttmp1 =  Utmp1; Ttmp2 =  Utmp3;break;}
+        case 4U:{Ttmp1 = -Utmp1; Ttmp2 = -Utmp2;break;}
+        case 6U:{Ttmp1 =  Utmp3; Ttmp2 =  Utmp2;break;}
+        case 2U:{Ttmp1 = -Utmp3; Ttmp2 = -Utmp1;break;}
+        default:break;
     }
     
     Ttmpsum = Ttmp1 + Ttmp2;
@@ -249,43 +249,43 @@ Ram_Func void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     
     switch(pCTRL->_O_Q08U_Sector)
     {
-    case 3U:
+        case 3U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(2.0f*Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*Ttmp2*pCTRL->_I_F_Vbus;
             break;
         }
-    case 1U:
+        case 1U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*(Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
             break;
         }
-    case 5U:
+        case 5U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(-2.0f*Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*Ttmp1*pCTRL->_I_F_Vbus;
             break;
         }
-    case 4U:
+        case 4U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(-2.0f*Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = -MATH_ONE_OVER_SQRT_THREE_F*Ttmp1*pCTRL->_I_F_Vbus;
             break;
         }
-    case 6U:
+        case 6U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*(-Ttmp1-Ttmp2)*pCTRL->_I_F_Vbus;
             break;
         }
-    case 2U:
+        case 2U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(2.0f*Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = -MATH_ONE_OVER_SQRT_THREE_F*Ttmp2*pCTRL->_I_F_Vbus;
             break;
         }
-    default:break;
+        default:break;
     }
     
     pCTRL->_O_F_Ta = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
@@ -342,13 +342,13 @@ Ram_Func void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     if(Utmp3>0.0f){pCTRL->_O_Q08U_Sector+=4U;}else{}
     switch(pCTRL->_O_Q08U_Sector)
     {
-    case 3U:{Ttmp1 =  Utmp2; Ttmp2 =  Utmp1;break;}
-    case 1U:{Ttmp1 = -Utmp2; Ttmp2 = -Utmp3;break;}
-    case 5U:{Ttmp1 =  Utmp1; Ttmp2 =  Utmp3;break;}
-    case 4U:{Ttmp1 = -Utmp1; Ttmp2 = -Utmp2;break;}
-    case 6U:{Ttmp1 =  Utmp3; Ttmp2 =  Utmp2;break;}
-    case 2U:{Ttmp1 = -Utmp3; Ttmp2 = -Utmp1;break;}
-    default:break;
+        case 3U:{Ttmp1 =  Utmp2; Ttmp2 =  Utmp1;break;}
+        case 1U:{Ttmp1 = -Utmp2; Ttmp2 = -Utmp3;break;}
+        case 5U:{Ttmp1 =  Utmp1; Ttmp2 =  Utmp3;break;}
+        case 4U:{Ttmp1 = -Utmp1; Ttmp2 = -Utmp2;break;}
+        case 6U:{Ttmp1 =  Utmp3; Ttmp2 =  Utmp2;break;}
+        case 2U:{Ttmp1 = -Utmp3; Ttmp2 = -Utmp1;break;}
+        default:break;
     }
     
     Ttmpsum = Ttmp1 + Ttmp2;
@@ -379,81 +379,87 @@ Ram_Func void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     
     pCTRL->_O_F_ADCTrigTime1 = Txyz[0] + Delta_Ttmp1 - pCTRL->_P_F_ADCSampleDuty;
     pCTRL->_O_F_ADCTrigTime2 = Txyz[1] + Delta_Ttmp2 - pCTRL->_P_F_ADCSampleDuty;
-   
+    
     switch(pCTRL->_O_Q08U_Sector)
     {
         case 3U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(2.0f*Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*Ttmp2*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-        }break;
+            break;
+        }
         case 1U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*(Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-        }break;
+            break;
+        }
         case 5U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(-2.0f*Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*Ttmp1*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-        }break;
+            break;
+        }
         case 4U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(-2.0f*Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = -MATH_ONE_OVER_SQRT_THREE_F*Ttmp1*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-        }break;
+            break;
+        }
         case 6U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(Ttmp2-Ttmp1)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = MATH_ONE_OVER_SQRT_THREE_F*(-Ttmp1-Ttmp2)*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-        }break;
+            break;
+        }
         case 2U:
         {
             pCTRL->_O_F_Ualfa = MATH_ONE_OVER_THREE_F*(2.0f*Ttmp1+Ttmp2)*pCTRL->_I_F_Vbus;
             pCTRL->_O_F_Ubeta = -MATH_ONE_OVER_SQRT_THREE_F*Ttmp2*pCTRL->_I_F_Vbus;
-    
+            
             pCTRL-> _O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL-> _O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL-> _O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL-> _O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
             pCTRL-> _O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-        }break;
+            break;
+        }
         default:break;
     }
 }
@@ -542,7 +548,7 @@ Ram_Func void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
     pCTRL->PID_Id.F_Fb = pCTRL->_I_F_Id;
     PID_Pos_Cal_F(&pCTRL->PID_Id);
     pCTRL->_O_F_Ud = pCTRL->PID_Id.F_Output;
-        
+    
     pCTRL->PID_Iq.F_OutMax = pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_OutMin = -pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_Rf = pCTRL->_I_F_IqRef;
