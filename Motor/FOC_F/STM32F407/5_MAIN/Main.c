@@ -27,7 +27,6 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
     {
         Button_Control(&Button_Ctrl, &Systask);
 
-        System_Task_Flow(&Systask);
 		pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
@@ -157,5 +156,6 @@ Author: CJYS
 void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
+    System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
 }

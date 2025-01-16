@@ -29,7 +29,6 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 		
 		BSP_FeedWatchDog();
 
-        System_Task_Flow(&Systask);
         TDG_SoftwareTrig(TDG1_ID);
 		pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
@@ -209,6 +208,7 @@ Author: CJYS
 void IRQHandleSTIMIsr(void)
 {
     System_Tick_Isr(&Systask);
+    System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
     STIM_ClearInt(HAL_STIM_ID); 
 }

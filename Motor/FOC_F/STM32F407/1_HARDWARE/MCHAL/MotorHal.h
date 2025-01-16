@@ -69,11 +69,11 @@ Input_Output: нч
 Return: нч
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_Three(float Ta, float Tb, float Tc)
+static inline Ram_Func void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
 {
-	TIM1->CCR1 = (Q32U_)(Ta*HAL_PWM_ALL_COUNT_F);
-    TIM1->CCR2 = (Q32U_)(Tb*HAL_PWM_ALL_COUNT_F);
-    TIM1->CCR3 = (Q32U_)(Tc*HAL_PWM_ALL_COUNT_F);
+	TIM1->CCR1 = Ta;
+    TIM1->CCR2 = Tb;
+    TIM1->CCR3 = Tc;
 }
 
 /**********************************************************************************************

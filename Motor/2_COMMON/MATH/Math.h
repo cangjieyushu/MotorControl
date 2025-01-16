@@ -8,9 +8,11 @@
 #ifndef Math_H
 #define Math_H
 
-
+#ifdef DEV_Z20K148M
+#define Ram_Func                    __ramfunc
+#else
 #define Ram_Func                    __attribute__((section (".ram_motor")))
-
+#endif
 
 /**********************************定点数学库**********************************/
 

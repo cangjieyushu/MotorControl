@@ -8,7 +8,7 @@
 #include "SysTask.h"
 
 ST_SYSTEM_TASK  Systask = {
-    .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME/10U,
+    .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
     ._P_F_Voltage_Scale = HAL_ADC_VOLTAGE_SCALE,
         
     .F_FL_VBUS.F_Filter_Coeff = 0.05f,
