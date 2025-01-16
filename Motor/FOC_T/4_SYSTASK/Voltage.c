@@ -9,12 +9,12 @@
 
 ST_VOLTAGE_PROTECT Voltage_Protect_Over = {
     .Q16I_voltage_protect_tl = OVER_VOLTAGE_PROTECT_LEVEL_TL,
-    .Q16U_voltage_protect_time = OVER_VOLTAGE_PROTECT_LEVEL_TIME,
+    .Q16U_voltage_protect_time = OVER_VOLTAGE_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_VOLTAGE_PROTECT Voltage_Protect_Low = {
     .Q16I_voltage_protect_tl = LOW_VOLTAGE_PROTECT_LEVEL_TL,
-    .Q16U_voltage_protect_time = LOW_VOLTAGE_PROTECT_LEVEL_TIME,
+    .Q16U_voltage_protect_time = LOW_VOLTAGE_PROTECT_LEVEL_TIME/10U,
 };
 
 /**********************************************************************************************

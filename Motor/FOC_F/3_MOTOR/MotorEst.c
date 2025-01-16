@@ -155,7 +155,7 @@ Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     {
         pCTRL->_V_F_R_set = pCTRL->_P_F_Rs;
     }
-    
+	
     pCTRL->_V_F_Yalfa = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
     pCTRL->_V_F_Ybeta = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ibeta + pCTRL->_I_F_Ubeta;
     

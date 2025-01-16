@@ -9,6 +9,7 @@
 
 ST_SYSTEM_TASK  Systask = {
     .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
+    ._P_F_Voltage_Scale = HAL_ADC_VOLTAGE_SCALE,
     
     .FL_VBUS.Q08I_Filter_Coeff = 25,
     .FL_TEMP.Q08I_Filter_Coeff = 25,
@@ -25,12 +26,14 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Init(ST_SYSTEM_TASK*  pST)
+void System_Task_Init(ST_SYSTEM_TASK* pST)
 {
-    Filter_Init_T(&pST->FL_VBUS, (Q32I_)BSP_ADC_READ_DATA_VBUS);
-    Filter_Init_T(&pST->FL_TEMP, (Q32I_)BSP_ADC_READ_DATA_TEMP);
-    Filter_Init_T(&pST->FL_VR, (Q32I_)BSP_ADC_READ_DATA_VR);
-    Filter_Init_T(&pST->FL_VBG, (Q32I_)BSP_ADC_READ_DATA_VBG);
+    Q32U_ adc_tmp = 0U;
+    
+    adc_tmp = BSP_ADC_READ_DATA_VBUS;   Filter_Init_T(&pST->FL_VBUS, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_TEMP;   Filter_Init_T(&pST->FL_TEMP, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_VR;     Filter_Init_T(&pST->FL_VR, (float)adc_tmp);
+    adc_tmp = BSP_ADC_READ_DATA_VBG;    Filter_Init_T(&pST->FL_VBG, (float)adc_tmp);
 }
 
 /**********************************************************************************************
@@ -42,12 +45,14 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_ADC_Read(ST_SYSTEM_TASK*  pST)
+void System_ADC_Read(ST_SYSTEM_TASK* pST)
 {
-    pST->FL_VBUS.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VBUS;
-    pST->FL_TEMP.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_TEMP;
-    pST->FL_VR.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VR;
-    pST->FL_VBG.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VBG;
+    Q32U_ adc_tmp = 0U;
+    
+    adc_tmp = BSP_ADC_READ_DATA_VBUS;   pST->FL_VBUS.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_TEMP;   pST->FL_TEMP.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_VR;     pST->FL_VR.F_Filter_in = (float)adc_tmp;
+    adc_tmp = BSP_ADC_READ_DATA_VBG;    pST->FL_VBG.F_Filter_in = (float)adc_tmp;
     Filter_Cal_T(&pST->FL_VBUS);
     Filter_Cal_T(&pST->FL_TEMP);
     Filter_Cal_T(&pST->FL_VR);
@@ -63,7 +68,7 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Flow(ST_SYSTEM_TASK*  pST)
+void System_Task_Flow(ST_SYSTEM_TASK* pST)
 {
     System_ADC_Read(pST);
     
@@ -88,7 +93,8 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
                 System_Task_Init(pST);
                 pST->System_Flow = SYSTEM_STATE_IDLE;
             }
-        }break;
+            break;
+        }
         case SYSTEM_STATE_IDLE:
         {
             if(pST->System_Error_Flag.ALL != 0U)
@@ -116,7 +122,8 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
                 {
                     pST->System_Flow = SYSTEM_STATE_IDLE;
                 }
-            }break;
+            }
+            break;
         }
         case SYSTEM_STATE_ERROR:
         {
@@ -125,7 +132,8 @@ void System_Task_Flow(ST_SYSTEM_TASK*  pST)
                 pST->System_Error_Flag.ALL = 0U;
                 Motor_Clear_Error();
                 pST->System_Flow = SYSTEM_STATE_IDLE;
-            }break;
+            }
+            break;
         }
         default:break;
     }
@@ -149,14 +157,18 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Tick_Isr(ST_SYSTEM_TASK*  pST)
+void System_Tick_Isr(ST_SYSTEM_TASK* pST)
 {
-    if(pST->System_State_Flag.BIT.systick_intflow == 0U)
+    if(++pST->systick_10ms_count >= 10U)
     {
-        pST->System_State_Flag.BIT.systick_intflow = 1U;
-    }
-    else
-    {
-        pST->System_Error_Flag.BIT.systick_overflow = 1U;
+        pST->systick_10ms_count = 0U;
+        if(pST->System_State_Flag.BIT.systick_intflow == 0U)
+        {
+            pST->System_State_Flag.BIT.systick_intflow = 1U;
+        }
+        else
+        {
+            pST->System_Error_Flag.BIT.systick_overflow = 1U;
+        }
     }
 }

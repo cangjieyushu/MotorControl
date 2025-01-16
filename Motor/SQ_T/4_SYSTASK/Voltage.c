@@ -8,12 +8,12 @@
 #include "Voltage.h"
 
 ST_VOLTAGE_PROTECT Voltage_Protect_Over = {
-    .Q16I_voltage_protect_tl = OVER_VOLTAGE_PROTECT_LEVEL_TL,
+    .Q16U_voltage_protect_tl = OVER_VOLTAGE_PROTECT_LEVEL_TL,
     .Q16U_voltage_protect_time = OVER_VOLTAGE_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_VOLTAGE_PROTECT Voltage_Protect_Low = {
-    .Q16I_voltage_protect_tl = LOW_VOLTAGE_PROTECT_LEVEL_TL,
+    .Q16U_voltage_protect_tl = LOW_VOLTAGE_PROTECT_LEVEL_TL,
     .Q16U_voltage_protect_time = LOW_VOLTAGE_PROTECT_LEVEL_TIME/10U,
 };
 
@@ -31,13 +31,13 @@ void Voltage_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_VOLTAGE_PROTECT* pCVO = &Voltage_Protect_Over;
     ST_VOLTAGE_PROTECT* pCVL = &Voltage_Protect_Low;
     
-    pST->Q16U_Voltage_Bus = Q14I_VOLTAGE_LSB_TO_PU(pST->FL_VBUS.Q16I_Filter_out);
+    pST->Q16U_Voltage_Bus_pu = Q14I_VOLTAGE_LSB_TO_PU(pST->FL_VBUS.Q16I_Filter_out);
     
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {
         if(pST->System_Error_Flag.BIT.over_voltage_error == 0U)
         {
-            if(pST->Q16U_Voltage_Bus >= pCVO->Q16I_voltage_protect_tl)
+            if(pST->Q16U_Voltage_Bus_pu >= pCVO->Q16U_voltage_protect_tl)
             {
                 if(++pCVO->Q16U_voltage_protect_cnt >= pCVO->Q16U_voltage_protect_time)
                 {
@@ -57,7 +57,7 @@ void Voltage_Protect_Flow(ST_SYSTEM_TASK*  pST)
         
         if(pST->System_Error_Flag.BIT.low_voltage_error == 0U)
         {
-            if(pST->Q16U_Voltage_Bus <= pCVL->Q16I_voltage_protect_tl)
+            if(pST->Q16U_Voltage_Bus_pu <= pCVL->Q16U_voltage_protect_tl)
             {
                 if(++pCVL->Q16U_voltage_protect_cnt >= pCVL->Q16U_voltage_protect_time)
                 {

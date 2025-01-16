@@ -146,8 +146,8 @@ Author: CJYS
 ***********************************************************************************************/
 static inline Q32I_ Motor_Read_Current_Max(void)
 {
-    Q32I_ iphase_max_tmp = Motor.Q14I_Iphase_Max;
-    Motor.Q14I_Iphase_Max = 0.0f;
+    Q32I_ iphase_max_tmp = Motor.Q14I_IPHASE_MAX_PU;
+    Motor.Q14I_IPHASE_MAX_PU = 0;
     return iphase_max_tmp;
 }
 /**********************************************************************************************
@@ -198,6 +198,6 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
+void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
 
 #endif /* MotorTask_H */

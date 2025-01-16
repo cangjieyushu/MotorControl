@@ -10,6 +10,7 @@
 
 #include "SysTask.h"
 
+
 //按键模式
 #define BUTTON_MODE                     BUTTON_MODE_BUTTON_VR
 #define BUTTON_MODE_BUTTON              0                   //按键启动、停止

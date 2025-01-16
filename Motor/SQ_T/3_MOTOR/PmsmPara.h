@@ -14,7 +14,7 @@
 //电机额定参数
 #define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
 #define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
-#define MOTOR_CURRENT_BUS_A                 (2.0f)              //A，母线电流
+#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_RUN2_FREQ)
@@ -26,7 +26,7 @@
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.017f)                        //Wb
 
-#define MOTOR_MAX_SPEED                     (25000.0f)           //rpm，最高转速
+#define MOTOR_MAX_SPEED                     (30000.0f)           //rpm，最高转速
 #define MOTOR_MIN_SPEED                     (1200.0f)            //rpm，最低转速
 
 #define MOTOR_MAX_FREQ                      (MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)        //Hz，最高频率
@@ -67,7 +67,7 @@
 
 #define Q14I_VOLTAGE_PU                     (Q32U_)(MOTOR_Q14_PU*MOTOR_VOLTAGE_V/V_BASE)        //额定电压标幺值
 #define Q14I_CURRENT_PHASE_A_PU             (Q32U_)(MOTOR_Q14_PU*MOTOR_CURRENT_PHASE_A/I_BASE)  //额定相电流标幺值
-#define Q14I_CURRENT_BUS_A_PU               (Q32U_)(MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)     //额定母线电流标幺值
+#define Q14I_CURRENT_BUS_A_PU               (Q32U_)(MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)    //额定母线电流标幺值
 #define Q14I_CURRENT_BRAKE_A_PU             (Q32U_)(MOTOR_Q14_PU*MOTOR_CURRENT_BRAKE_A/I_BASE)  //额定刹车电流标幺值
 #define Q14I_MAX_FREQ_PU                    (Q32U_)(MOTOR_Q14_PU*MOTOR_MAX_FREQ/F_BASE)         //额定频率标幺值
 #define Q14I_MIN_FREQ_PU                    (Q32U_)(MOTOR_Q14_PU*MOTOR_MIN_FREQ/F_BASE)         //额定频率标幺值

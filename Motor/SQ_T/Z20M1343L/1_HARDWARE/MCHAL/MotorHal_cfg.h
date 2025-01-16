@@ -109,22 +109,22 @@
 #define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
-#define HAL_ADC_SOLVE_TIME                      (10.0f)                 //us，换向判断时间
+#define HAL_ADC_SOLVE_TIME                      (5.0f)                 //us，换向判断时间
 #define HAL_ADC_SOLVE_VALUE                     (Q32U_)(HAL_ADC_SOLVE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
 
 //TIM设置
 #define HAL_HALL_TIM_PRESCALER                  (144.0f - 1.0f)
-#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))          //Hz，HALL换相时钟频率，1M
+#define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))            //Hz，HALL换相时钟频率，1M
 
 #define HAL_SWITCH_TIM_PRESCALER                (144.0f - 1.0f)    
-#define HAL_SWITCH_TIM_PRE_FREQ                 (Q32U_)(1000.0f*HAL_SWITCH_TIM_CLK_FREQ/(HAL_SWITCH_TIM_PRESCALER+1.0f))      //Hz，HALL换相时钟频率，1M
+#define HAL_SWITCH_TIM_PRE_FREQ                 (Q32U_)(1000.0f*HAL_SWITCH_TIM_CLK_FREQ/(HAL_SWITCH_TIM_PRESCALER+1.0f))        //Hz，HALL换相时钟频率，1M
 
-#define HAL_TIM_DELAY_TIME                      (10.0f)                         //us，TIM延迟最小时间
-#define HAL_TIM_DELAY_VALUE                     (Q32U_)(HAL_TIM_DELAY_TIME)
+#define HAL_TIM_DELAY_MIN_TIME                  (10.0f)                                                     //us，TIM延迟最小时间
+#define HAL_TIM_DELAY_MIN_VALUE                 (Q32U_)(HAL_TIM_DELAY_MIN_TIME)
 
-#define HAL_SLOW_TIMER_FREQ                     (1.0f)                          //kHz，滴答定时器频率
-#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)              //kHz，滴答定时器计数值
+#define HAL_SLOW_TIMER_FREQ                     (1.0f)                                                      //kHz，滴答定时器频率
+#define HAL_SLOW_TIMER_COUNT                    (Q32U_)(HAL_SYSTEM_FREQ/HAL_SLOW_TIMER_FREQ)                //kHz，滴答定时器计数值
 
 
 //ADC设置

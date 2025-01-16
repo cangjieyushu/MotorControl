@@ -1,0 +1,1893 @@
+###############################################################################
+#
+# IAR ELF Linker V9.30.1.335/W64 for ARM                  16/Jan/2025  20:13:27
+# Copyright 2007-2022 IAR Systems AB.
+#
+#    Output file  =
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Exe\Z20K148M.out
+#    Map file     =
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\List\Z20K148M.map
+#    Command line =
+#        -f
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Exe\Z20K148M.out.rsp
+#        (C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\adc_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\aes_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_ADC.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_CLK.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_DMA.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_GPIO.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_ISR.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_PWM.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_TIM.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_TMU.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_USART.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP\BSP_WDG.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Button.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\can_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\clock_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\cmp_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\cmu_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\common_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\crc_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Current.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\dma_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\eiru_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Error.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\ewdt_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\flash_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\gpio_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\i2c_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\i2s_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\int_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\5_MAIN\Main.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\MATH\Math.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\MATH\Matrix.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\mcpwm_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR\MotorEst.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR\MotorFoc.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR\MotorPara.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR\MotorTask.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\pmu_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\regfile_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\rtc_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\scm_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\RTT\SEGGER_RTT.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\seru_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\smpu_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Speed.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\spi_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\srmc_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\stim_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\sysctrl_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\SysTask.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\tdg_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Temperature.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\tim_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\tmu_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\trng_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\uart_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\CMU\USART.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK\Voltage.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD\wdog_drv.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A\Z20A8300A_Config.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A\Z20A8300A_Ctrl.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A\Z20A8300A_Diag.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\Z20A8300A\Z20A8300A_Hal.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\Z20A8300A\Z20A8300A_Init.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A\Z20A8300A_Spi.o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\DEVICE\Z20K148M_startup.o
+#        --no_out_extension -o
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Exe\Z20K148M.out
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\List\Z20K148M.map
+#        --config
+#        C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\..\..\0_SDK\DEVICE\Z20K14xM\Z20K148M\MakeRule\IAR\Z20K148M_flash.icf
+#        --semihosting --entry __iar_program_start --vfe --text_out locale
+#        --cpu=Cortex-M4 --fpu=VFPv4_sp)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__Heap_Handler  = Basic
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x0 { ro section .intvec };
+"P1":  place in [from 0x0 to 0x1f'ffff] { ro };
+"P2":  place in [from 0x1ffe'0000 to 0x1fff'ffff] { section .textrw };
+"P3":  place in [from 0x1ffe'0000 to 0x1fff'ffff] { section .ram_motor };
+define block HEAP with size = 512, alignment = 8 { };
+define block CSTACK with size = 4K, alignment = 8 { };
+"A1":  place at end of [from 0x2000'0000 to 0x2001'ffff] {
+          block HEAP, block CSTACK };
+"P4":  place in [from 0x2000'0000 to 0x2001'ffff] { rw };
+initialize by copy { rw };
+
+No sections matched the following patterns:
+
+  section .ram_motor  in "P2-P3"
+
+
+  Section            Kind         Address    Size  Object
+  -------            ----         -------    ----  ------
+"A0":                                       0x374
+  .intvec            ro code          0x0   0x374  Z20K148M_startup.o [1]
+                                  - 0x374   0x374
+
+"P1":                                      0x9a76
+  .text              ro code        0x374  0x162e  can_drv.o [2]
+  .text              ro code       0x19a2    0x7e  lz77_init_single.o [14]
+  .text              ro code       0x1a20  0x13ac  mcpwm_drv.o [2]
+  .text              ro code       0x2dcc   0x984  clock_drv.o [2]
+  .rodata            const         0x3750   0x800  Math.o [7]
+  .text              ro code       0x3f50   0x628  dma_drv.o [2]
+  .text              ro code       0x4578   0x416  MotorFoc.o [9]
+  .text              ro code       0x498e     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x4990   0x1b0  Math.o [7]
+  .text              ro code       0x4b40    0x14  memset.o [14]
+  .text              ro code       0x4b54    0x66  ABImemset.o [14]
+  .text              ro code       0x4bba     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x4bbc   0x3e4  BSP_PWM.o [4]
+  .text              ro code       0x4fa0   0x1f0  gpio_drv.o [2]
+  .text              ro code       0x5190   0x370  spi_drv.o [2]
+  .text              ro code       0x5500   0x358  i2c_drv.o [2]
+  .text              ro code       0x5858   0x350  adc_drv.o [2]
+  .text              ro code       0x5ba8   0x350  Z20A8300A_Config.o [3]
+  .text              ro code       0x5ef8   0x1c6  Z20A8300A_Spi.o [3]
+  .text              ro code       0x60be     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x60c0   0x34c  BSP_ADC.o [4]
+  .text              ro code       0x640c    0x86  ABImemcpy.o [14]
+  .text              ro code       0x6492     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x6494    0x74  sysctrl_drv.o [2]
+  .text              ro code       0x6508   0x330  tdg_drv.o [2]
+  .text              ro code       0x6838   0x304  MotorTask.o [9]
+  .text              ro code       0x6b3c   0x19c  MotorEst.o [9]
+  .text              ro code       0x6cd8   0x2f8  uart_drv.o [2]
+  .text              ro code       0x6fd0   0x2a4  Main.o [11]
+  Veneer             ro code       0x7274     0x8  - Linker created -
+  .text              ro code       0x727c   0x1f8  wdog_drv.o [2]
+  .text              ro code       0x7474   0x1de  SysTask.o [10]
+  .text              ro code       0x7652     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x7654   0x158  BSP_CLK.o [4]
+  .text              ro code       0x77ac    0x5e  BSP_GPIO.o [4]
+  .text              ro code       0x780a     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x780c   0x1a8  Z20A8300A_Init.o [5]
+  .text              ro code       0x79b4   0x124  BSP_DMA.o [4]
+  .text              ro code       0x7ad8    0x20  BSP_TMU.o [4]
+  .text              ro code       0x7af8    0x84  BSP_TIM.o [4]
+  .text              ro code       0x7b7c    0x2e  BSP_ISR.o [4]
+  .text              ro code       0x7baa     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x7bac    0x4c  BSP_WDG.o [4]
+  .text              ro code       0x7bf8   0x104  Z20A8300A_Hal.o [5]
+  .text              ro code       0x7cfc   0x28a  Z20A8300A_Diag.o [3]
+  .text              ro code       0x7f86     0x2  Z20K148M_startup.o [1]
+  .text              ro code       0x7f88   0x204  stim_drv.o [2]
+  .text              ro code       0x818c    0xa8  flash_drv.o [2]
+  .text              ro code       0x8234   0x134  Z20A8300A_Ctrl.o [3]
+  .text              ro code       0x8368    0x5c  tmu_drv.o [2]
+  .text              ro code       0x83c4    0x50  int_drv.o [2]
+  .text              ro code       0x8414   0x260  tim_drv.o [2]
+  .text              ro code       0x8674   0x150  scm_drv.o [2]
+  .text              ro code       0x87c4   0x128  rtc_drv.o [2]
+  .text              ro code       0x88ec   0x110  i2s_drv.o [2]
+  .text              ro code       0x89fc   0x110  pmu_drv.o [2]
+  .text              ro code       0x8b0c    0xe4  cmu_drv.o [2]
+  .rodata            const         0x8bf0    0xd4  clock_drv.o [2]
+  .rodata            const         0x8cc4    0xd4  sysctrl_drv.o [2]
+  .text              ro code       0x8d98    0xb0  trng_drv.o [2]
+  .text              ro code       0x8e48    0x88  Z20K148M_startup.o [1]
+  .text              ro code       0x8ed0    0x74  seru_drv.o [2]
+  .text              ro code       0x8f44    0x58  cmp_drv.o [2]
+  .rodata            const         0x8f9c    0x48  mcpwm_drv.o [2]
+  .text              ro code       0x8fe4    0x44  ewdt_drv.o [2]
+  .rodata            const         0x9028    0x40  can_drv.o [2]
+  .rodata            const         0x9068    0x40  dma_drv.o [2]
+  .rodata            const         0x90a8    0x3c  can_drv.o [2]
+  .rodata            const         0x90e4    0x3c  i2c_drv.o [2]
+  .text              ro code       0x9120    0x3c  aes_drv.o [2]
+  .text              ro code       0x915c    0x38  zero_init3.o [14]
+  .rodata            const         0x9194    0x30  tim_drv.o [2]
+  .text              ro code       0x91c4    0x28  data_init.o [14]
+  .text              ro code       0x91ec    0x22  fpinit_M.o [13]
+  .iar.init_table    const         0x9210    0x30  - Linker created -
+  .text              ro code       0x9240     0x2  Z20K148M_startup.o [1]
+  .rodata            const         0x9244    0x20  can_drv.o [2]
+  .rodata            const         0x9264    0x20  can_drv.o [2]
+  .rodata            const         0x9284    0x20  scm_drv.o [2]
+  .rodata            const         0x92a4    0x20  tdg_drv.o [2]
+  .text              ro code       0x92c4    0x1e  cmain.o [14]
+  .text              ro code       0x92e2     0x4  low_level_init.o [12]
+  .text              ro code       0x92e6     0x4  exit.o [12]
+  .text              ro code       0x92ec     0xa  cexit.o [14]
+  .text              ro code       0x92f8    0x14  exit.o [15]
+  .rodata            const         0x930c    0x1c  Z20A8300A_Init.o [5]
+  .text              ro code       0x9328    0x1c  cstartup_M.o [14]
+  .rodata            const         0x9344    0x18  adc_drv.o [2]
+  .rodata            const         0x935c    0x18  adc_drv.o [2]
+  .rodata            const         0x9374    0x18  spi_drv.o [2]
+  .rodata            const         0x938c    0x18  uart_drv.o [2]
+  .rodata            const         0x93a4    0x18  uart_drv.o [2]
+  .rodata            const         0x93bc    0x18  Z20A8300A_Hal.o [5]
+  .text              ro code       0x93d4    0x18  srmc_drv.o [2]
+  .rodata            const         0x93ec    0x14  gpio_drv.o [2]
+  .rodata            const         0x9400    0x14  gpio_drv.o [2]
+  .rodata            const         0x9414    0x14  gpio_drv.o [2]
+  .rodata            const         0x9428    0x14  i2s_drv.o [2]
+  .rodata            const         0x943c    0x14  i2s_drv.o [2]
+  .rodata            const         0x9450    0x14  rtc_drv.o [2]
+  .rodata            const         0x9464    0x14  trng_drv.o [2]
+  .rodata            const         0x9478    0x10  BSP_ADC.o [4]
+  .rodata            const         0x9488    0x10  BSP_ADC.o [4]
+  .rodata            const         0x9498    0x10  BSP_TIM.o [4]
+  .rodata            const         0x94a8    0x10  BSP_TIM.o [4]
+  .rodata            const         0x94b8    0x10  flash_drv.o [2]
+  .rodata            const         0x94c8    0x10  spi_drv.o [2]
+  .rodata            const         0x94d8    0x10  spi_drv.o [2]
+  .rodata            const         0x94e8    0x10  tim_drv.o [2]
+  .rodata            const         0x94f8    0x10  tim_drv.o [2]
+  .rodata            const         0x9508    0x10  Z20A8300A_Init.o [5]
+  .rodata            const         0x9518     0xc  BSP_ADC.o [4]
+  .rodata            const         0x9524     0xc  BSP_ADC.o [4]
+  .rodata            const         0x9530     0xc  BSP_ADC.o [4]
+  .rodata            const         0x953c     0xc  BSP_ADC.o [4]
+  .rodata            const         0x9548     0xc  BSP_CLK.o [4]
+  .rodata            const         0x9554     0xc  cmu_drv.o [2]
+  .rodata            const         0x9560     0xc  cmu_drv.o [2]
+  .rodata            const         0x956c     0xc  pmu_drv.o [2]
+  .rodata            const         0x9578     0xc  pmu_drv.o [2]
+  .rodata            const         0x9584     0xc  Z20A8300A_Init.o [5]
+  .rodata            const         0x9590     0x8  adc_drv.o [2]
+  .rodata            const         0x9598     0x8  adc_drv.o [2]
+  .rodata            const         0x95a0     0x8  BSP_ADC.o [4]
+  .rodata            const         0x95a8     0x8  BSP_ADC.o [4]
+  .rodata            const         0x95b0     0x8  BSP_ADC.o [4]
+  .rodata            const         0x95b8     0x8  BSP_ADC.o [4]
+  .rodata            const         0x95c0     0x8  i2c_drv.o [2]
+  .rodata            const         0x95c8     0x8  i2c_drv.o [2]
+  .rodata            const         0x95d0     0x8  i2s_drv.o [2]
+  .rodata            const         0x95d8     0x8  mcpwm_drv.o [2]
+  .rodata            const         0x95e0     0x8  mcpwm_drv.o [2]
+  .rodata            const         0x95e8     0x8  tdg_drv.o [2]
+  .rodata            const         0x95f0     0x8  tdg_drv.o [2]
+  .rodata            const         0x95f8     0x8  wdog_drv.o [2]
+  .rodata            const         0x9600     0x8  wdog_drv.o [2]
+  .text              ro code       0x9608     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9610     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9618     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9620     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9628     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9630     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9638     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9640     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9648     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9650     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9658     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9660     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9668     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9670     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9678     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9680     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9688     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9690     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9698     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96a0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96a8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96b0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96b8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96c0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96c8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96d0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96d8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96e0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96e8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96f0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x96f8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9700     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9708     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9710     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9718     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9720     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9728     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9730     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9738     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9740     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9748     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9750     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9758     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9760     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9768     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9770     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9778     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9780     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9788     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9790     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9798     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97a0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97a8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97b0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97b8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97c0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97c8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97d0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97d8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97e0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97e8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97f0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x97f8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9800     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9808     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9810     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9818     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9820     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9828     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9830     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9838     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9840     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9848     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9850     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9858     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9860     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9868     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9870     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9878     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9880     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9888     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9890     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9898     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98a0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98a8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98b0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98b8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98c0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98c8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98d0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98d8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98e0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98e8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98f0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x98f8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9900     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9908     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9910     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9918     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9920     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9928     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9930     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9938     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9940     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9948     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9950     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9958     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9960     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9968     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9970     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9978     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9980     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9988     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9990     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9998     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99a0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99a8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99b0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99b8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99c0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99c8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99d0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99d8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99e0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99e8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99f0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x99f8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a00     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a08     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a10     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a18     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a20     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a28     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a30     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a38     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a40     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a48     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a50     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a58     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a60     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a68     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a70     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a78     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a80     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a88     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a90     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9a98     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9aa0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9aa8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ab0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ab8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ac0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ac8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ad0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ad8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ae0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ae8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9af0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9af8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b00     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b08     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b10     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b18     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b20     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b28     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b30     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b38     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b40     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b48     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b50     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b58     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b60     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b68     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b70     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b78     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b80     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b88     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b90     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9b98     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ba0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9ba8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bb0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bb8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bc0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bc8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bd0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bd8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9be0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9be8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bf0     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9bf8     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c00     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c08     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c10     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c18     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c20     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c28     0x8  Z20K148M_startup.o [1]
+  .text              ro code       0x9c30     0x8  Z20K148M_startup.o [1]
+  .rodata            const         0x9c38     0x4  aes_drv.o [2]
+  .rodata            const         0x9c3c     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c40     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c44     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c48     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c4c     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c50     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c54     0x4  BSP_ADC.o [4]
+  .rodata            const         0x9c58     0x4  BSP_DMA.o [4]
+  .rodata            const         0x9c5c     0x4  BSP_PWM.o [4]
+  .rodata            const         0x9c60     0x4  clock_drv.o [2]
+  .rodata            const         0x9c64     0x4  clock_drv.o [2]
+  .rodata            const         0x9c68     0x4  clock_drv.o [2]
+  .rodata            const         0x9c6c     0x4  clock_drv.o [2]
+  .rodata            const         0x9c70     0x4  cmp_drv.o [2]
+  .rodata            const         0x9c74     0x4  dma_drv.o [2]
+  .rodata            const         0x9c78     0x4  dma_drv.o [2]
+  .rodata            const         0x9c7c     0x4  dma_drv.o [2]
+  .rodata            const         0x9c80     0x4  ewdt_drv.o [2]
+  .rodata            const         0x9c84     0x4  flash_drv.o [2]
+  .rodata            const         0x9c88     0x4  flash_drv.o [2]
+  .rodata            const         0x9c8c     0x4  int_drv.o [2]
+  .rodata            const         0x9c90     0x4  int_drv.o [2]
+  .rodata            const         0x9c94     0x4  pmu_drv.o [2]
+  .rodata            const         0x9c98     0x4  pmu_drv.o [2]
+  .rodata            const         0x9c9c     0x4  rtc_drv.o [2]
+  .rodata            const         0x9ca0     0x4  rtc_drv.o [2]
+  .rodata            const         0x9ca4     0x4  rtc_drv.o [2]
+  .rodata            const         0x9ca8     0x4  scm_drv.o [2]
+  .rodata            const         0x9cac     0x4  scm_drv.o [2]
+  .rodata            const         0x9cb0     0x4  seru_drv.o [2]
+  .rodata            const         0x9cb4     0x4  stim_drv.o [2]
+  .rodata            const         0x9cb8     0x4  tmu_drv.o [2]
+  .rodata            const         0x9cbc     0x4  tmu_drv.o [2]
+  .rodata            const         0x9cc0     0x4  trng_drv.o [2]
+  .rodata            const         0x9cc4     0x4  wdog_drv.o [2]
+  .rodata            const         0x9cc8     0x4  wdog_drv.o [2]
+  .rodata            const         0x9ccc     0x4  Z20A8300A_Init.o [5]
+  .text              ro code       0x9cd0     0x4  Z20K148M_startup.o [1]
+  .rodata            const         0x9cd4     0x0  zero_init3.o [14]
+  .rodata            const         0x9cd4     0x0  lz77_init_single.o [14]
+  Initializer bytes  const         0x9cd4    0xe9  <for P4-1>
+  Initializer bytes  const         0x9dbd    0x2d  <for P2-P3-1>
+                                 - 0x9dea  0x9a76
+
+"P2-P3":                                     0x2c
+  P2-P3-1                     0x1ffe'0000    0x2c  <Init block>
+    .textrw          inited   0x1ffe'0000    0x2c  wdog_drv.o [2]
+                            - 0x1ffe'002c    0x2c
+
+"P4", part 1 of 2:                          0x47c
+  P4-1                        0x2000'0000   0x47c  <Init block>
+    .data            inited   0x2000'0000     0x4  BSP_ADC.o [4]
+    .data            inited   0x2000'0004     0x4  BSP_ADC.o [4]
+    .data            inited   0x2000'0008    0x18  MotorFoc.o [9]
+    .data            inited   0x2000'0020   0x3f0  MotorPara.o [9]
+    .data            inited   0x2000'0410     0x4  pmu_drv.o [2]
+    .data            inited   0x2000'0414    0x68  SysTask.o [10]
+                            - 0x2000'047c   0x47c
+
+"P4", part 2 of 2:                          0x874
+  .bss               zero     0x2000'047c   0x260  can_drv.o [2]
+  .bss               zero     0x2000'06dc    0xf0  uart_drv.o [2]
+  .bss               zero     0x2000'07cc    0xb0  tim_drv.o [2]
+  .bss               zero     0x2000'087c    0x88  mcpwm_drv.o [2]
+  .bss               zero     0x2000'0904    0x80  dma_drv.o [2]
+  .bss               zero     0x2000'0984    0x80  i2s_drv.o [2]
+  .bss               zero     0x2000'0a04    0x70  i2c_drv.o [2]
+  .bss               zero     0x2000'0a74    0x50  spi_drv.o [2]
+  .bss               zero     0x2000'0ac4    0x44  seru_drv.o [2]
+  .bss               zero     0x2000'0b08    0x38  tdg_drv.o [2]
+  .bss               zero     0x2000'0b40    0x28  adc_drv.o [2]
+  .bss               zero     0x2000'0b68    0x20  BSP_DMA.o [4]
+  .bss               zero     0x2000'0b88    0x20  BSP_DMA.o [4]
+  .bss               zero     0x2000'0ba8    0x20  can_drv.o [2]
+  .bss               zero     0x2000'0bc8    0x20  can_drv.o [2]
+  .bss               zero     0x2000'0be8    0x20  i2s_drv.o [2]
+  .bss               zero     0x2000'0c08    0x1c  scm_drv.o [2]
+  .bss               zero     0x2000'0c24    0x18  cmu_drv.o [2]
+  .bss               zero     0x2000'0c3c    0x18  uart_drv.o [2]
+  .bss               zero     0x2000'0c54    0x14  Z20A8300A_Init.o [5]
+  .bss               zero     0x2000'0c68    0x10  rtc_drv.o [2]
+  .bss               zero     0x2000'0c78    0x10  stim_drv.o [2]
+  .bss               zero     0x2000'0c88    0x10  trng_drv.o [2]
+  .bss               zero     0x2000'0c98     0xc  flash_drv.o [2]
+  .bss               zero     0x2000'0ca4     0x8  adc_drv.o [2]
+  .bss               zero     0x2000'0cac     0x8  clock_drv.o [2]
+  .bss               zero     0x2000'0cb4     0x8  cmp_drv.o [2]
+  .bss               zero     0x2000'0cbc     0x8  pmu_drv.o [2]
+  .bss               zero     0x2000'0cc4     0x4  aes_drv.o [2]
+  .bss               zero     0x2000'0cc8     0x4  ewdt_drv.o [2]
+  .bss               zero     0x2000'0ccc     0x4  gpio_drv.o [2]
+  .bss               zero     0x2000'0cd0     0x4  MotorTask.o [9]
+  .bss               zero     0x2000'0cd4     0x4  rtc_drv.o [2]
+  .bss               zero     0x2000'0cd8     0x4  scm_drv.o [2]
+  .bss               zero     0x2000'0cdc     0x4  seru_drv.o [2]
+  .bss               zero     0x2000'0ce0     0x4  srmc_drv.o [2]
+  .bss               zero     0x2000'0ce4     0x4  wdog_drv.o [2]
+  .bss               zero     0x2000'0ce8     0x4  Z20A8300A_Init.o [5]
+  .bss               zero     0x2000'0cec     0x4  Z20A8300A_Init.o [5]
+                            - 0x2000'0cf0   0x874
+
+"A1":                                      0x1000
+  CSTACK                      0x2001'f000  0x1000  <Block>
+    CSTACK           uninit   0x2001'f000  0x1000  <Block tail>
+                            - 0x2002'0000  0x1000
+
+Unused ranges:
+
+         From           To       Size
+         ----           --       ----
+       0x9dea    0x1f'ffff  0x1f'6216
+  0x1ffe'002c  0x1fff'ffff   0x1'ffd4
+  0x2000'0cf0  0x2001'efff   0x1'e310
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x874:
+          0x2000'047c  0x874
+
+Copy/lz77 (__iar_lz77_init_single3)
+    1 source range, total size 0xe9 (20% of destination):
+               0x9cd4   0xe9
+    1 destination range, total size 0x47c:
+          0x2000'0000  0x47c
+
+Copy/lz77 (__iar_lz77_init_single3)
+    1 source range, total size 0x2d (102% of destination):
+               0x9dbd   0x2d
+    1 destination range, total size 0x2c:
+          0x1ffe'0000   0x2c
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module              ro code  rw code  ro data  rw data
+    ------              -------  -------  -------  -------
+command line/config:
+    ------------------------------------------------------
+    Total:
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\DEVICE: [1]
+    Z20K148M_startup.o    2'626
+    ------------------------------------------------------
+    Total:                2'626
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD: [2]
+    adc_drv.o               848                64       48
+    aes_drv.o                60                 4        4
+    can_drv.o             5'678               188      672
+    clock_drv.o           2'436               228        8
+    cmp_drv.o                88                 4        8
+    cmu_drv.o               228                24       24
+    dma_drv.o             1'576                76      128
+    ewdt_drv.o               68                 4        4
+    flash_drv.o             168                24       12
+    gpio_drv.o              496                60        4
+    i2c_drv.o               856                76      112
+    i2s_drv.o               272                48      160
+    int_drv.o                80                 8
+    mcpwm_drv.o           5'036                88      136
+    pmu_drv.o               272                32       12
+    rtc_drv.o               296                32       20
+    scm_drv.o               336                40       32
+    seru_drv.o              116                 4       72
+    spi_drv.o               880                56       80
+    srmc_drv.o               24                          4
+    stim_drv.o              516                 4       16
+    sysctrl_drv.o           116               212
+    tdg_drv.o               816                48       56
+    tim_drv.o               608                80      176
+    tmu_drv.o                92                 8
+    trng_drv.o              176                24       16
+    uart_drv.o              760                48      264
+    wdog_drv.o              504       44       69        4
+    ------------------------------------------------------
+    Total:               23'402       44    1'553    2'072
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A: [3]
+    Z20A8300A_Config.o      848
+    Z20A8300A_Ctrl.o        308
+    Z20A8300A_Diag.o        650
+    Z20A8300A_Spi.o         454
+    ------------------------------------------------------
+    Total:                2'260
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP: [4]
+    BSP_ADC.o               844               141        8
+    BSP_CLK.o               344                12
+    BSP_DMA.o               292                 4       64
+    BSP_GPIO.o               94
+    BSP_ISR.o                46
+    BSP_PWM.o               996                 4
+    BSP_TIM.o               132                32
+    BSP_TMU.o                32
+    BSP_WDG.o                76
+    ------------------------------------------------------
+    Total:                2'856               193       72
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\Z20A8300A: [5]
+    Z20A8300A_Hal.o         260                24
+    Z20A8300A_Init.o        424                60       28
+    ------------------------------------------------------
+    Total:                  684                84       28
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\CMU: [6]
+    ------------------------------------------------------
+    Total:
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\MATH: [7]
+    Math.o                  432             2'048
+    ------------------------------------------------------
+    Total:                  432             2'048
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\RTT: [8]
+    ------------------------------------------------------
+    Total:
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR: [9]
+    MotorEst.o              412
+    MotorFoc.o            1'046                 5       24
+    MotorPara.o                               205    1'008
+    MotorTask.o             772                          4
+    ------------------------------------------------------
+    Total:                2'230               210    1'036
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK: [10]
+    SysTask.o               478                22      104
+    ------------------------------------------------------
+    Total:                  478                22      104
+
+C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\5_MAIN: [11]
+    Main.o                  676
+    ------------------------------------------------------
+    Total:                  676
+
+dl7M_tln.a: [12]
+    exit.o                    4
+    low_level_init.o          4
+    ------------------------------------------------------
+    Total:                    8
+
+m7M_tls.a: [13]
+    fpinit_M.o               34
+    ------------------------------------------------------
+    Total:                   34
+
+rt7M_tl.a: [14]
+    ABImemcpy.o             134
+    ABImemset.o             102
+    cexit.o                  10
+    cmain.o                  30
+    cstartup_M.o             28
+    data_init.o              40
+    lz77_init_single.o      126
+    memset.o                 20
+    zero_init3.o             56
+    ------------------------------------------------------
+    Total:                  546
+
+shb_l.a: [15]
+    exit.o                   20
+    ------------------------------------------------------
+    Total:                   20
+
+    Gaps                      4                 4
+    Linker created            8                48    4'096
+----------------------------------------------------------
+    Grand Total:         36'264       44    4'162    7'408
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.iar.init_table$$Base        0x9210          --   Gb  - Linker created -
+.iar.init_table$$Limit       0x9240          --   Gb  - Linker created -
+?main                        0x92c5         Code  Gb  cmain.o [14]
+ADC0_DriverIRQHandler        0x5921    0xa  Code  Gb  adc_drv.o [2]
+ADC0_IRQHandler              0x9c11         Code  Wk  Z20K148M_startup.o [1]
+ADC1_DriverIRQHandler        0x592b    0xa  Code  Gb  adc_drv.o [2]
+ADC1_IRQHandler              0x9c19         Code  Wk  Z20K148M_startup.o [1]
+ADC_ChannelConfig            0x59fd   0x3c  Code  Gb  adc_drv.o [2]
+ADC_DmaRequestCmd            0x5af9   0x16  Code  Gb  adc_drv.o [2]
+ADC_Enable                   0x5abd   0x14  Code  Gb  adc_drv.o [2]
+ADC_FifoDepthRedefine        0x5ad1   0x14  Code  Gb  adc_drv.o [2]
+ADC_FifoWatermarkConfig
+                             0x5ae5   0x14  Code  Gb  adc_drv.o [2]
+ADC_Init                     0x5961   0x9c  Code  Gb  adc_drv.o [2]
+ADC_IntClear                 0x5b7b   0x14  Code  Gb  adc_drv.o [2]
+ADC_IntHandler               0x5859   0xc8  Code  Lc  adc_drv.o [2]
+ADC_IntMask                  0x5b0f   0x6c  Code  Gb  adc_drv.o [2]
+ADC_SoftwareReset            0x5935   0x2c  Code  Gb  adc_drv.o [2]
+ADC_TDGTriggerConfig         0x5a39   0x84  Code  Gb  adc_drv.o [2]
+AES_DriverIRQHandler         0x9121   0x32  Code  Gb  aes_drv.o [2]
+AES_IRQHandler               0x9b91         Code  Wk  Z20K148M_startup.o [1]
+BSP_ADC_Init                 0x60c1  0x18c  Code  Gb  BSP_ADC.o [4]
+BSP_ADC_Init::ADC0      0x2000'0000    0x4  Data  Lc  BSP_ADC.o [4]
+BSP_ADC_Init_S               0x624d  0x174  Code  Gb  BSP_ADC.o [4]
+BSP_ADC_Init_S::ADC1    0x2000'0004    0x4  Data  Lc  BSP_ADC.o [4]
+BSP_CLK_Init                 0x7655  0x158  Code  Gb  BSP_CLK.o [4]
+BSP_DMA_Init                 0x79b5   0x84  Code  Gb  BSP_DMA.o [4]
+BSP_DMA_Init_S               0x7a39   0x8a  Code  Gb  BSP_DMA.o [4]
+BSP_FeedWatchDog             0x6fd1   0x14  Code  Lc  Main.o [11]
+BSP_GPIO_Init                0x77ad   0x5e  Code  Gb  BSP_GPIO.o [4]
+BSP_HALL_Init                0x7b49   0x2c  Code  Gb  BSP_TIM.o [4]
+BSP_ISR_Init                 0x7b7d   0x2e  Code  Gb  BSP_ISR.o [4]
+BSP_PWM_Init                 0x4bbd  0x3e4  Code  Gb  BSP_PWM.o [4]
+BSP_TIM_Init                 0x7af9   0x50  Code  Gb  BSP_TIM.o [4]
+BSP_TMU_Init                 0x7ad9   0x20  Code  Gb  BSP_TMU.o [4]
+BSP_WDG_Init                 0x7bad   0x4c  Code  Gb  BSP_WDG.o [4]
+BusFault_Handler             0x6493         Code  Wk  Z20K148M_startup.o [1]
+CAN05_Mb0To15Handler          0x839  0x13c  Code  Lc  can_drv.o [2]
+CAN05_Mb16To31Handler         0x975   0x8c  Code  Lc  can_drv.o [2]
+CAN05_Mb32To47Handler         0xa05   0x98  Code  Lc  can_drv.o [2]
+CAN05_Mb48To63Handler         0xa9d   0x94  Code  Lc  can_drv.o [2]
+CAN0_BusOff_DriverIRQHandler
+                             0x13a5    0xe  Code  Gb  can_drv.o [2]
+CAN0_BusOff_IRQHandler       0x97a1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Ecc_DriverIRQHandler
+                             0x1415    0xe  Code  Gb  can_drv.o [2]
+CAN0_Ecc_IRQHandler          0x97d9         Code  Wk  Z20K148M_startup.o [1]
+CAN0_ErrFd_DriverIRQHandler
+                             0x13e5    0xe  Code  Gb  can_drv.o [2]
+CAN0_ErrFd_IRQHandler        0x97c1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Err_DriverIRQHandler
+                             0x13d5    0xe  Code  Gb  can_drv.o [2]
+CAN0_Err_IRQHandler          0x97b9         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Mb0To15_DriverIRQHandler
+                             0x1425    0xe  Code  Gb  can_drv.o [2]
+CAN0_Mb0To15_IRQHandler
+                             0x97e1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Mb16To31_DriverIRQHandler
+                             0x1435    0xe  Code  Gb  can_drv.o [2]
+CAN0_Mb16To31_IRQHandler
+                             0x97e9         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Mb32To47_DriverIRQHandler
+                             0x1445    0xe  Code  Gb  can_drv.o [2]
+CAN0_Mb32To47_IRQHandler
+                             0x97f1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_Mb48To63_DriverIRQHandler
+                             0x1455    0xe  Code  Gb  can_drv.o [2]
+CAN0_Mb48To63_IRQHandler
+                             0x97f9         Code  Wk  Z20K148M_startup.o [1]
+CAN0_PnWake_DriverIRQHandler
+                             0x13f5    0xe  Code  Gb  can_drv.o [2]
+CAN0_PnWake_IRQHandler       0x97c9         Code  Wk  Z20K148M_startup.o [1]
+CAN0_RxWarn_DriverIRQHandler
+                             0x13c5    0xe  Code  Gb  can_drv.o [2]
+CAN0_RxWarn_IRQHandler       0x97b1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_SelfWakeup_DriverIRQHandler
+                             0x1405    0xe  Code  Gb  can_drv.o [2]
+CAN0_SelfWakeup_IRQHandler
+                             0x97d1         Code  Wk  Z20K148M_startup.o [1]
+CAN0_TxWarn_DriverIRQHandler
+                             0x13b5    0xe  Code  Gb  can_drv.o [2]
+CAN0_TxWarn_IRQHandler       0x97a9         Code  Wk  Z20K148M_startup.o [1]
+CAN1_BusOff_DriverIRQHandler
+                             0x1465    0xe  Code  Gb  can_drv.o [2]
+CAN1_BusOff_IRQHandler       0x9801         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Ecc_DriverIRQHandler
+                             0x14d5    0xe  Code  Gb  can_drv.o [2]
+CAN1_Ecc_IRQHandler          0x9839         Code  Wk  Z20K148M_startup.o [1]
+CAN1_ErrFd_DriverIRQHandler
+                             0x14a5    0xe  Code  Gb  can_drv.o [2]
+CAN1_ErrFd_IRQHandler        0x9821         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Err_DriverIRQHandler
+                             0x1495    0xe  Code  Gb  can_drv.o [2]
+CAN1_Err_IRQHandler          0x9819         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Mb0To15_DriverIRQHandler
+                             0x14e5    0xe  Code  Gb  can_drv.o [2]
+CAN1_Mb0To15_IRQHandler
+                             0x9841         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Mb16To31_DriverIRQHandler
+                             0x14f5    0xe  Code  Gb  can_drv.o [2]
+CAN1_Mb16To31_IRQHandler
+                             0x9849         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Mb32To47_DriverIRQHandler
+                             0x1505    0xe  Code  Gb  can_drv.o [2]
+CAN1_Mb32To47_IRQHandler
+                             0x9851         Code  Wk  Z20K148M_startup.o [1]
+CAN1_Mb48To63_DriverIRQHandler
+                             0x1515    0xe  Code  Gb  can_drv.o [2]
+CAN1_Mb48To63_IRQHandler
+                             0x9859         Code  Wk  Z20K148M_startup.o [1]
+CAN1_PnWake_DriverIRQHandler
+                             0x14b5    0xe  Code  Gb  can_drv.o [2]
+CAN1_PnWake_IRQHandler       0x9829         Code  Wk  Z20K148M_startup.o [1]
+CAN1_RxWarn_DriverIRQHandler
+                             0x1485    0xe  Code  Gb  can_drv.o [2]
+CAN1_RxWarn_IRQHandler       0x9811         Code  Wk  Z20K148M_startup.o [1]
+CAN1_SelfWakeup_DriverIRQHandler
+                             0x14c5    0xe  Code  Gb  can_drv.o [2]
+CAN1_SelfWakeup_IRQHandler
+                             0x9831         Code  Wk  Z20K148M_startup.o [1]
+CAN1_TxWarn_DriverIRQHandler
+                             0x1475    0xe  Code  Gb  can_drv.o [2]
+CAN1_TxWarn_IRQHandler       0x9809         Code  Wk  Z20K148M_startup.o [1]
+CAN2_BusOff_DriverIRQHandler
+                             0x1525    0xe  Code  Gb  can_drv.o [2]
+CAN2_BusOff_IRQHandler       0x9861         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Ecc_DriverIRQHandler
+                             0x1595    0xe  Code  Gb  can_drv.o [2]
+CAN2_Ecc_IRQHandler          0x9899         Code  Wk  Z20K148M_startup.o [1]
+CAN2_ErrFd_DriverIRQHandler
+                             0x1565    0xe  Code  Gb  can_drv.o [2]
+CAN2_ErrFd_IRQHandler        0x9881         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Err_DriverIRQHandler
+                             0x1555    0xe  Code  Gb  can_drv.o [2]
+CAN2_Err_IRQHandler          0x9879         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Mb0To15_DriverIRQHandler
+                             0x15a5    0xe  Code  Gb  can_drv.o [2]
+CAN2_Mb0To15_IRQHandler
+                             0x98a1         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Mb16To31_DriverIRQHandler
+                             0x15b5    0xe  Code  Gb  can_drv.o [2]
+CAN2_Mb16To31_IRQHandler
+                             0x98a9         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Mb32To47_DriverIRQHandler
+                             0x15c5    0xe  Code  Gb  can_drv.o [2]
+CAN2_Mb32To47_IRQHandler
+                             0x98b1         Code  Wk  Z20K148M_startup.o [1]
+CAN2_Mb48To63_DriverIRQHandler
+                             0x15d5    0xe  Code  Gb  can_drv.o [2]
+CAN2_Mb48To63_IRQHandler
+                             0x98b9         Code  Wk  Z20K148M_startup.o [1]
+CAN2_PnWake_DriverIRQHandler
+                             0x1575    0xe  Code  Gb  can_drv.o [2]
+CAN2_PnWake_IRQHandler       0x9889         Code  Wk  Z20K148M_startup.o [1]
+CAN2_RxWarn_DriverIRQHandler
+                             0x1545    0xe  Code  Gb  can_drv.o [2]
+CAN2_RxWarn_IRQHandler       0x9871         Code  Wk  Z20K148M_startup.o [1]
+CAN2_SelfWakeup_DriverIRQHandler
+                             0x1585    0xe  Code  Gb  can_drv.o [2]
+CAN2_SelfWakeup_IRQHandler
+                             0x9891         Code  Wk  Z20K148M_startup.o [1]
+CAN2_TxWarn_DriverIRQHandler
+                             0x1535    0xe  Code  Gb  can_drv.o [2]
+CAN2_TxWarn_IRQHandler       0x9869         Code  Wk  Z20K148M_startup.o [1]
+CAN3_BusOff_DriverIRQHandler
+                             0x15e5    0xe  Code  Gb  can_drv.o [2]
+CAN3_BusOff_IRQHandler       0x98c1         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Ecc_DriverIRQHandler
+                             0x1655    0xe  Code  Gb  can_drv.o [2]
+CAN3_Ecc_IRQHandler          0x98f9         Code  Wk  Z20K148M_startup.o [1]
+CAN3_ErrFd_DriverIRQHandler
+                             0x1625    0xe  Code  Gb  can_drv.o [2]
+CAN3_ErrFd_IRQHandler        0x98e1         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Err_DriverIRQHandler
+                             0x1615    0xe  Code  Gb  can_drv.o [2]
+CAN3_Err_IRQHandler          0x98d9         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Mb0To15_DriverIRQHandler
+                             0x1665    0xe  Code  Gb  can_drv.o [2]
+CAN3_Mb0To15_IRQHandler
+                             0x9901         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Mb16To31_DriverIRQHandler
+                             0x1675    0xe  Code  Gb  can_drv.o [2]
+CAN3_Mb16To31_IRQHandler
+                             0x9909         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Mb32To47_DriverIRQHandler
+                             0x1685    0xe  Code  Gb  can_drv.o [2]
+CAN3_Mb32To47_IRQHandler
+                             0x9911         Code  Wk  Z20K148M_startup.o [1]
+CAN3_Mb48To63_DriverIRQHandler
+                             0x1695    0xe  Code  Gb  can_drv.o [2]
+CAN3_Mb48To63_IRQHandler
+                             0x9919         Code  Wk  Z20K148M_startup.o [1]
+CAN3_PnWake_DriverIRQHandler
+                             0x1635    0xe  Code  Gb  can_drv.o [2]
+CAN3_PnWake_IRQHandler       0x98e9         Code  Wk  Z20K148M_startup.o [1]
+CAN3_RxWarn_DriverIRQHandler
+                             0x1605    0xe  Code  Gb  can_drv.o [2]
+CAN3_RxWarn_IRQHandler       0x98d1         Code  Wk  Z20K148M_startup.o [1]
+CAN3_SelfWakeup_DriverIRQHandler
+                             0x1645    0xe  Code  Gb  can_drv.o [2]
+CAN3_SelfWakeup_IRQHandler
+                             0x98f1         Code  Wk  Z20K148M_startup.o [1]
+CAN3_TxWarn_DriverIRQHandler
+                             0x15f5    0xe  Code  Gb  can_drv.o [2]
+CAN3_TxWarn_IRQHandler       0x98c9         Code  Wk  Z20K148M_startup.o [1]
+CAN4_BusOff_DriverIRQHandler
+                             0x16a5    0xe  Code  Gb  can_drv.o [2]
+CAN4_BusOff_IRQHandler       0x9921         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Ecc_DriverIRQHandler
+                             0x1715    0xe  Code  Gb  can_drv.o [2]
+CAN4_Ecc_IRQHandler          0x9959         Code  Wk  Z20K148M_startup.o [1]
+CAN4_ErrFd_DriverIRQHandler
+                             0x16e5    0xe  Code  Gb  can_drv.o [2]
+CAN4_ErrFd_IRQHandler        0x9941         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Err_DriverIRQHandler
+                             0x16d5    0xe  Code  Gb  can_drv.o [2]
+CAN4_Err_IRQHandler          0x9939         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Mb0To15_DriverIRQHandler
+                             0x1725    0xe  Code  Gb  can_drv.o [2]
+CAN4_Mb0To15_IRQHandler
+                             0x9961         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Mb16To31_DriverIRQHandler
+                             0x1735    0xe  Code  Gb  can_drv.o [2]
+CAN4_Mb16To31_IRQHandler
+                             0x9969         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Mb32To47_DriverIRQHandler
+                             0x1745    0xe  Code  Gb  can_drv.o [2]
+CAN4_Mb32To47_IRQHandler
+                             0x9971         Code  Wk  Z20K148M_startup.o [1]
+CAN4_Mb48To63_DriverIRQHandler
+                             0x1755    0xe  Code  Gb  can_drv.o [2]
+CAN4_Mb48To63_IRQHandler
+                             0x9979         Code  Wk  Z20K148M_startup.o [1]
+CAN4_PnWake_DriverIRQHandler
+                             0x16f5    0xe  Code  Gb  can_drv.o [2]
+CAN4_PnWake_IRQHandler       0x9949         Code  Wk  Z20K148M_startup.o [1]
+CAN4_RxWarn_DriverIRQHandler
+                             0x16c5    0xe  Code  Gb  can_drv.o [2]
+CAN4_RxWarn_IRQHandler       0x9931         Code  Wk  Z20K148M_startup.o [1]
+CAN4_SelfWakeup_DriverIRQHandler
+                             0x1705    0xe  Code  Gb  can_drv.o [2]
+CAN4_SelfWakeup_IRQHandler
+                             0x9951         Code  Wk  Z20K148M_startup.o [1]
+CAN4_TxWarn_DriverIRQHandler
+                             0x16b5    0xe  Code  Gb  can_drv.o [2]
+CAN4_TxWarn_IRQHandler       0x9929         Code  Wk  Z20K148M_startup.o [1]
+CAN5_BusOff_DriverIRQHandler
+                             0x1765    0xe  Code  Gb  can_drv.o [2]
+CAN5_BusOff_IRQHandler       0x9981         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Ecc_DriverIRQHandler
+                             0x17d5    0xe  Code  Gb  can_drv.o [2]
+CAN5_Ecc_IRQHandler          0x99b9         Code  Wk  Z20K148M_startup.o [1]
+CAN5_ErrFd_DriverIRQHandler
+                             0x17a5    0xe  Code  Gb  can_drv.o [2]
+CAN5_ErrFd_IRQHandler        0x99a1         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Err_DriverIRQHandler
+                             0x1795    0xe  Code  Gb  can_drv.o [2]
+CAN5_Err_IRQHandler          0x9999         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Mb0To15_DriverIRQHandler
+                             0x17e5    0xe  Code  Gb  can_drv.o [2]
+CAN5_Mb0To15_IRQHandler
+                             0x99c1         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Mb16To31_DriverIRQHandler
+                             0x17f5    0xe  Code  Gb  can_drv.o [2]
+CAN5_Mb16To31_IRQHandler
+                             0x99c9         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Mb32To47_DriverIRQHandler
+                             0x1805    0xe  Code  Gb  can_drv.o [2]
+CAN5_Mb32To47_IRQHandler
+                             0x99d1         Code  Wk  Z20K148M_startup.o [1]
+CAN5_Mb48To63_DriverIRQHandler
+                             0x1815    0xe  Code  Gb  can_drv.o [2]
+CAN5_Mb48To63_IRQHandler
+                             0x99d9         Code  Wk  Z20K148M_startup.o [1]
+CAN5_PnWake_DriverIRQHandler
+                             0x17b5    0xe  Code  Gb  can_drv.o [2]
+CAN5_PnWake_IRQHandler       0x99a9         Code  Wk  Z20K148M_startup.o [1]
+CAN5_RxWarn_DriverIRQHandler
+                             0x1785    0xe  Code  Gb  can_drv.o [2]
+CAN5_RxWarn_IRQHandler       0x9991         Code  Wk  Z20K148M_startup.o [1]
+CAN5_SelfWakeup_DriverIRQHandler
+                             0x17c5    0xe  Code  Gb  can_drv.o [2]
+CAN5_SelfWakeup_IRQHandler
+                             0x99b1         Code  Wk  Z20K148M_startup.o [1]
+CAN5_TxWarn_DriverIRQHandler
+                             0x1775    0xe  Code  Gb  can_drv.o [2]
+CAN5_TxWarn_IRQHandler       0x9989         Code  Wk  Z20K148M_startup.o [1]
+CAN67_Mb0To31Handler          0xb35  0x13c  Code  Lc  can_drv.o [2]
+CAN67_Mb32To63Handler         0xc71   0x8e  Code  Lc  can_drv.o [2]
+CAN67_Mb64To95Handler         0xcff   0x94  Code  Lc  can_drv.o [2]
+CAN67_Mb96To127Handler        0xd93   0x8c  Code  Lc  can_drv.o [2]
+CAN6_BusOff_DriverIRQHandler
+                             0x1825    0xe  Code  Gb  can_drv.o [2]
+CAN6_BusOff_IRQHandler       0x99e1         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Ecc_DriverIRQHandler
+                             0x1895    0xe  Code  Gb  can_drv.o [2]
+CAN6_Ecc_IRQHandler          0x9a19         Code  Wk  Z20K148M_startup.o [1]
+CAN6_ErrFd_DriverIRQHandler
+                             0x1865    0xe  Code  Gb  can_drv.o [2]
+CAN6_ErrFd_IRQHandler        0x9a01         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Err_DriverIRQHandler
+                             0x1855    0xe  Code  Gb  can_drv.o [2]
+CAN6_Err_IRQHandler          0x99f9         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Mb0To31_DriverIRQHandler
+                             0x18a5    0xe  Code  Gb  can_drv.o [2]
+CAN6_Mb0To31_IRQHandler
+                             0x9a21         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Mb32To63_DriverIRQHandler
+                             0x18b5    0xe  Code  Gb  can_drv.o [2]
+CAN6_Mb32To63_IRQHandler
+                             0x9a29         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Mb64To95_DriverIRQHandler
+                             0x18c5    0xe  Code  Gb  can_drv.o [2]
+CAN6_Mb64To95_IRQHandler
+                             0x9a31         Code  Wk  Z20K148M_startup.o [1]
+CAN6_Mb96To127_DriverIRQHandler
+                             0x18d5    0xe  Code  Gb  can_drv.o [2]
+CAN6_Mb96To127_IRQHandler
+                             0x9a39         Code  Wk  Z20K148M_startup.o [1]
+CAN6_PnWake_DriverIRQHandler
+                             0x1875    0xe  Code  Gb  can_drv.o [2]
+CAN6_PnWake_IRQHandler       0x9a09         Code  Wk  Z20K148M_startup.o [1]
+CAN6_RxWarn_DriverIRQHandler
+                             0x1845    0xe  Code  Gb  can_drv.o [2]
+CAN6_RxWarn_IRQHandler       0x99f1         Code  Wk  Z20K148M_startup.o [1]
+CAN6_SelfWakeup_DriverIRQHandler
+                             0x1885    0xe  Code  Gb  can_drv.o [2]
+CAN6_SelfWakeup_IRQHandler
+                             0x9a11         Code  Wk  Z20K148M_startup.o [1]
+CAN6_TxWarn_DriverIRQHandler
+                             0x1835    0xe  Code  Gb  can_drv.o [2]
+CAN6_TxWarn_IRQHandler       0x99e9         Code  Wk  Z20K148M_startup.o [1]
+CAN7_BusOff_DriverIRQHandler
+                             0x18e5    0xe  Code  Gb  can_drv.o [2]
+CAN7_BusOff_IRQHandler       0x9a41         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Ecc_DriverIRQHandler
+                             0x1955    0xe  Code  Gb  can_drv.o [2]
+CAN7_Ecc_IRQHandler          0x9a79         Code  Wk  Z20K148M_startup.o [1]
+CAN7_ErrFd_DriverIRQHandler
+                             0x1925    0xe  Code  Gb  can_drv.o [2]
+CAN7_ErrFd_IRQHandler        0x9a61         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Err_DriverIRQHandler
+                             0x1915    0xe  Code  Gb  can_drv.o [2]
+CAN7_Err_IRQHandler          0x9a59         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Mb0To31_DriverIRQHandler
+                             0x1965    0xe  Code  Gb  can_drv.o [2]
+CAN7_Mb0To31_IRQHandler
+                             0x9a81         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Mb32To63_DriverIRQHandler
+                             0x1975    0xe  Code  Gb  can_drv.o [2]
+CAN7_Mb32To63_IRQHandler
+                             0x9a89         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Mb64To95_DriverIRQHandler
+                             0x1985    0xe  Code  Gb  can_drv.o [2]
+CAN7_Mb64To95_IRQHandler
+                             0x9a91         Code  Wk  Z20K148M_startup.o [1]
+CAN7_Mb96To127_DriverIRQHandler
+                             0x1995    0xe  Code  Gb  can_drv.o [2]
+CAN7_Mb96To127_IRQHandler
+                             0x9a99         Code  Wk  Z20K148M_startup.o [1]
+CAN7_PnWake_DriverIRQHandler
+                             0x1935    0xe  Code  Gb  can_drv.o [2]
+CAN7_PnWake_IRQHandler       0x9a69         Code  Wk  Z20K148M_startup.o [1]
+CAN7_RxWarn_DriverIRQHandler
+                             0x1905    0xe  Code  Gb  can_drv.o [2]
+CAN7_RxWarn_IRQHandler       0x9a51         Code  Wk  Z20K148M_startup.o [1]
+CAN7_SelfWakeup_DriverIRQHandler
+                             0x1945    0xe  Code  Gb  can_drv.o [2]
+CAN7_SelfWakeup_IRQHandler
+                             0x9a71         Code  Wk  Z20K148M_startup.o [1]
+CAN7_TxWarn_DriverIRQHandler
+                             0x18f5    0xe  Code  Gb  can_drv.o [2]
+CAN7_TxWarn_IRQHandler       0x9a49         Code  Wk  Z20K148M_startup.o [1]
+CAN_BusOffHandler             0x43d   0xae  Code  Lc  can_drv.o [2]
+CAN_EccHandler                0x749   0xea  Code  Lc  can_drv.o [2]
+CAN_EnterFreezeMode           0x375   0x80  Code  Lc  can_drv.o [2]
+CAN_ErrFdHandler              0x5ed   0x6c  Code  Lc  can_drv.o [2]
+CAN_ErrHandler                0x583   0x6a  Code  Lc  can_drv.o [2]
+CAN_ExitFreezeMode            0x3f5   0x48  Code  Lc  can_drv.o [2]
+CAN_IntMask                   0xe39  0x552  Code  Gb  can_drv.o [2]
+CAN_PnWakeHandler             0x659   0xa6  Code  Lc  can_drv.o [2]
+CAN_RxWarnHandler             0x537   0x4c  Code  Lc  can_drv.o [2]
+CAN_SelfWakeupHandler         0x6ff   0x4a  Code  Lc  can_drv.o [2]
+CAN_TxWarnHandler             0x4eb   0x4c  Code  Lc  can_drv.o [2]
+CLK_FIRC64MMonitorDisable
+                             0x31a3   0x34  Code  Gb  clock_drv.o [2]
+CLK_ModuleSrc                0x336f  0x2f2  Code  Gb  clock_drv.o [2]
+CLK_OSC40MEnable             0x2f2b   0x90  Code  Gb  clock_drv.o [2]
+CLK_OSC40MMonitorDisable
+                             0x316f   0x34  Code  Gb  clock_drv.o [2]
+CLK_PLLConfig                0x30fd   0x72  Code  Gb  clock_drv.o [2]
+CLK_PLLEnable                0x2e5d   0xce  Code  Gb  clock_drv.o [2]
+CLK_PLLRefClockSelect        0x30c7   0x36  Code  Gb  clock_drv.o [2]
+CLK_SetClkDivider            0x31d7  0x198  Code  Gb  clock_drv.o [2]
+CLK_SysClkSrc                0x2fbb  0x10c  Code  Gb  clock_drv.o [2]
+CLK_WaitClkReady             0x3671   0xc6  Code  Gb  clock_drv.o [2]
+CMP_DriverIRQHandler         0x8f45   0x4e  Code  Gb  cmp_drv.o [2]
+CMP_IRQHandler               0x9c21         Code  Wk  Z20K148M_startup.o [1]
+CMU0_DriverIRQHandler        0x8bb5    0xe  Code  Gb  cmu_drv.o [2]
+CMU0_IRQHandler              0x9ba1         Code  Wk  Z20K148M_startup.o [1]
+CMU1_DriverIRQHandler        0x8bc5    0xe  Code  Gb  cmu_drv.o [2]
+CMU1_IRQHandler              0x9ba9         Code  Wk  Z20K148M_startup.o [1]
+CMU2_DriverIRQHandler        0x8bd5    0xe  Code  Gb  cmu_drv.o [2]
+CMU2_IRQHandler              0x9bb1         Code  Wk  Z20K148M_startup.o [1]
+CMU_IntHandler               0x8b0d   0x78  Code  Lc  cmu_drv.o [2]
+CMU_IntMask                  0x8b85   0x2e  Code  Gb  cmu_drv.o [2]
+CMU_InterruptMaskTable       0x9560    0xc  Data  Lc  cmu_drv.o [2]
+CSTACK$$Base            0x2001'f000          --   Gb  - Linker created -
+CSTACK$$Limit           0x2002'0000          --   Gb  - Linker created -
+CtrlConfigStruct             0x9ccc    0x4  Data  Lc  Z20A8300A_Init.o [5]
+DMA_Ch0_DriverIRQHandler
+                             0x446d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch0_IRQHandler           0x9609         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch10_DriverIRQHandler
+                             0x450d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch10_IRQHandler          0x9659         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch11_DriverIRQHandler
+                             0x451d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch11_IRQHandler          0x9661         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch12_DriverIRQHandler
+                             0x452d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch12_IRQHandler          0x9669         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch13_DriverIRQHandler
+                             0x453d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch13_IRQHandler          0x9671         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch14_DriverIRQHandler
+                             0x454d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch14_IRQHandler          0x9679         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch15_DriverIRQHandler
+                             0x455d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch15_IRQHandler          0x9681         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch1_DriverIRQHandler
+                             0x447d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch1_IRQHandler           0x9611         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch2_DriverIRQHandler
+                             0x448d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch2_IRQHandler           0x9619         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch3_DriverIRQHandler
+                             0x449d    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch3_IRQHandler           0x9621         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch4_DriverIRQHandler
+                             0x44ad    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch4_IRQHandler           0x9629         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch5_DriverIRQHandler
+                             0x44bd    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch5_IRQHandler           0x9631         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch6_DriverIRQHandler
+                             0x44cd    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch6_IRQHandler           0x9639         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch7_DriverIRQHandler
+                             0x44dd    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch7_IRQHandler           0x9641         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch8_DriverIRQHandler
+                             0x44ed    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch8_IRQHandler           0x9649         Code  Wk  Z20K148M_startup.o [1]
+DMA_Ch9_DriverIRQHandler
+                             0x44fd    0xe  Code  Gb  dma_drv.o [2]
+DMA_Ch9_IRQHandler           0x9651         Code  Wk  Z20K148M_startup.o [1]
+DMA_ChannelRequestEnable
+                             0x4089   0x1a  Code  Gb  dma_drv.o [2]
+DMA_ConfigTransfer           0x415b  0x2fa  Code  Gb  dma_drv.o [2]
+DMA_DoneIntHandler           0x3fa7   0x68  Code  Lc  dma_drv.o [2]
+DMA_Err_DriverIRQHandler
+                             0x456d    0xc  Code  Gb  dma_drv.o [2]
+DMA_Err_IRQHandler           0x9689         Code  Wk  Z20K148M_startup.o [1]
+DMA_ErrorIntHandler          0x3f51   0x56  Code  Lc  dma_drv.o [2]
+DMA_Init                     0x405b   0x2e  Code  Gb  dma_drv.o [2]
+DMA_InstallCallBackFunc
+                             0x4143   0x18  Code  Gb  dma_drv.o [2]
+DMA_IntMask                  0x40a3   0xa0  Code  Gb  dma_drv.o [2]
+DMA_WriteRegister            0x400f   0x4c  Code  Lc  dma_drv.o [2]
+DebugMonitor_Handler         0x7bab         Code  Wk  Z20K148M_startup.o [1]
+DefaultISR                   0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+DpsConfigStruct              0x9584    0xc  Data  Lc  Z20A8300A_Init.o [5]
+EWDT_ClearIntStatus          0x9009    0xe  Code  Gb  ewdt_drv.o [2]
+EWDT_DriverIRQHandler        0x9021    0x8  Code  Gb  ewdt_drv.o [2]
+EWDT_IRQHandler              0x96b1         Code  Wk  Z20K148M_startup.o [1]
+EWDT_IntHandler              0x8fe5   0x24  Code  Lc  ewdt_drv.o [2]
+Est_Flux_Init_T              0x6b3d   0x24  Code  Gb  MotorEst.o [9]
+Est_Flux_T                   0x6b61  0x14c  Code  Gb  MotorEst.o [9]
+Est_SMO_Init_T               0x6cad   0x2c  Code  Gb  MotorEst.o [9]
+FLASH_CmdComplete_DriverIRQHandler
+                             0x81a1   0x22  Code  Gb  flash_drv.o [2]
+FLASH_CmdComplete_IRQHandler
+                             0x9691         Code  Wk  Z20K148M_startup.o [1]
+FLASH_Ecc_DriverIRQHandler
+                             0x81c5   0x5e  Code  Gb  flash_drv.o [2]
+FLASH_Ecc_IRQHandler         0x9699         Code  Wk  Z20K148M_startup.o [1]
+FLASH_SetWaitState           0x818d   0x12  Code  Gb  flash_drv.o [2]
+Filter_Cal_T                 0x49eb   0x20  Code  Gb  Math.o [7]
+Filter_Init_T                0x49e3    0x8  Code  Gb  Math.o [7]
+GPIO_SetPinDir               0x513d   0x20  Code  Gb  gpio_drv.o [2]
+GPIO_WritePinOutput          0x515d   0x22  Code  Gb  gpio_drv.o [2]
+Hal_AdcLoopData         0x2000'0b68   0x20  Data  Gb  BSP_DMA.o [4]
+Hal_AdcLoopData_S       0x2000'0b88   0x20  Data  Gb  BSP_DMA.o [4]
+HardFault_Handler            0x4bbb         Code  Wk  Z20K148M_startup.o [1]
+I2C0_DriverIRQHandler        0x5835    0xa  Code  Gb  i2c_drv.o [2]
+I2C0_IRQHandler              0x96c1         Code  Wk  Z20K148M_startup.o [1]
+I2C1_DriverIRQHandler        0x583f    0xa  Code  Gb  i2c_drv.o [2]
+I2C1_IRQHandler              0x96c9         Code  Wk  Z20K148M_startup.o [1]
+I2C_IntEnableTable           0x90e4   0x3c  Data  Lc  i2c_drv.o [2]
+I2C_IntHandler               0x5501  0x334  Code  Lc  i2c_drv.o [2]
+I2S0_DriverIRQHandler        0x89bf    0xa  Code  Gb  i2s_drv.o [2]
+I2S0_IRQHandler              0x9b41         Code  Wk  Z20K148M_startup.o [1]
+I2S1_DriverIRQHandler        0x89c9    0xa  Code  Gb  i2s_drv.o [2]
+I2S1_IRQHandler              0x9b49         Code  Wk  Z20K148M_startup.o [1]
+I2S_GetAllStatus             0x89d3   0x16  Code  Gb  i2s_drv.o [2]
+I2S_IntHandler               0x88ed   0xd2  Code  Gb  i2s_drv.o [2]
+I2S_IntMaskTable             0x943c   0x14  Data  Lc  i2s_drv.o [2]
+I2S_IntStatusTable           0x9428   0x14  Data  Lc  i2s_drv.o [2]
+INT_EnableIRQ                0x83c5   0x1e  Code  Gb  int_drv.o [2]
+INT_SetPriority              0x83e3   0x2a  Code  Gb  int_drv.o [2]
+IRQHandleDMAIsr              0x7159   0x88  Code  Gb  Main.o [11]
+IRQHandleMCBKIsr             0x71e1   0x44  Code  Gb  Main.o [11]
+IRQHandleSTIMIsr             0x7225   0x16  Code  Gb  Main.o [11]
+MCPWM0_Ch_DriverIRQHandler
+                             0x1d5f    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM0_Ch_IRQHandler         0x9bd1         Code  Wk  Z20K148M_startup.o [1]
+MCPWM0_Fault_DriverIRQHandler
+                             0x1d69    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM0_Fault_IRQHandler
+                             0x9bd9         Code  Wk  Z20K148M_startup.o [1]
+MCPWM0_Overflow_DriverIRQHandler
+                             0x1d73    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM0_Overflow_IRQHandler
+                             0x9be1         Code  Wk  Z20K148M_startup.o [1]
+MCPWM0_Rlfl_DriverIRQHandler
+                             0x1d7d    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM0_Rlfl_IRQHandler       0x9be9         Code  Wk  Z20K148M_startup.o [1]
+MCPWM1_Ch_DriverIRQHandler
+                             0x1d87    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM1_Ch_IRQHandler         0x9bf1         Code  Wk  Z20K148M_startup.o [1]
+MCPWM1_Fault_DriverIRQHandler
+                             0x1d91    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM1_Fault_IRQHandler
+                             0x9bf9         Code  Wk  Z20K148M_startup.o [1]
+MCPWM1_Overflow_DriverIRQHandler
+                             0x1d9b    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM1_Overflow_IRQHandler
+                             0x9c01         Code  Wk  Z20K148M_startup.o [1]
+MCPWM1_Rlfl_DriverIRQHandler
+                             0x1da5    0xa  Code  Gb  mcpwm_drv.o [2]
+MCPWM1_Rlfl_IRQHandler       0x9c09         Code  Wk  Z20K148M_startup.o [1]
+MCPWM_CPWMFullCycleReloadCmd
+                             0x285d   0x56  Code  Gb  mcpwm_drv.o [2]
+MCPWM_CPWMHalfCycleReloadCmd
+                             0x2807   0x56  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ChIntHandler           0x1a21   0xa4  Code  Lc  mcpwm_drv.o [2]
+MCPWM_ChannelMatchTriggerCmd
+                             0x2089   0x32  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ChannelOutputDisable
+                             0x1f6d   0x1a  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ChannelOutputEnable
+                             0x1f55   0x18  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ClockSourceConfig
+                             0x1df3   0x38  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ComplementaryPwmChannelConfig
+                             0x25e9  0x15e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_DMACmd                 0x1f87   0x1e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_FaultControlConfig
+                             0x2777   0x90  Code  Gb  mcpwm_drv.o [2]
+MCPWM_FaultFilterCmd         0x2395   0x6e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_FaultInputCmd          0x24dd   0x70  Code  Gb  mcpwm_drv.o [2]
+MCPWM_FaultIntHandler        0x1ac5   0x5c  Code  Lc  mcpwm_drv.o [2]
+MCPWM_InitTriggerCmd         0x20bb   0x18  Code  Gb  mcpwm_drv.o [2]
+MCPWM_InstallCallBackFunc
+                             0x2da9   0x16  Code  Gb  mcpwm_drv.o [2]
+MCPWM_IntClear               0x2bb1  0x1f8  Code  Gb  mcpwm_drv.o [2]
+MCPWM_IntMask                0x2935  0x27c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_IntMaskTable           0x8f9c   0x48  Data  Lc  mcpwm_drv.o [2]
+MCPWM_OutputComplementaryPwmConfig
+                             0x2747   0x30  Code  Gb  mcpwm_drv.o [2]
+MCPWM_OverflowIntHandler
+                             0x1b21  0x11e  Code  Lc  mcpwm_drv.o [2]
+MCPWM_PairAsymmetricCmd
+                             0x21e3   0x6e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_PairCombineCmd         0x20d3   0x50  Code  Gb  mcpwm_drv.o [2]
+MCPWM_PairDeadtimeCmd        0x22a5   0x6e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_PairFaultCtrlCmd       0x2313   0x6e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_PairSynchronizationCmd
+                             0x2251   0x54  Code  Gb  mcpwm_drv.o [2]
+MCPWM_ReloadParamConfig
+                             0x2901   0x34  Code  Gb  mcpwm_drv.o [2]
+MCPWM_RlflIntHandler         0x1c41  0x11e  Code  Lc  mcpwm_drv.o [2]
+MCPWM_SetChannelCVal         0x1fdd   0x1c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetChannelOffValue
+                             0x1ff9   0x4a  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetChannelPolarity
+                             0x2043   0x46  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetChannelPulsePol
+                             0x1fa5   0x38  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetChannelSafeStatusValForFaultA
+                             0x254d   0x4c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetChannelSafeStatusValForFaultB
+                             0x259d   0x4c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetCounterModVal       0x1f03   0x1c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetCountingMode        0x1eb9   0x4a  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetDeadtimeVal         0x1f1f   0x36  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetFaultClearMode
+                             0x2431   0x2e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetFaultFilterVal
+                             0x2381   0x14  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetFaultInputPolarity
+                             0x245f   0x6e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetFaultOutputState
+                             0x2403   0x2e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetPairPulseEdgeCtrl
+                             0x2123   0xc0  Code  Gb  mcpwm_drv.o [2]
+MCPWM_SetReloadFreq          0x28b3   0x4e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_StartCounter           0x1e2b   0x32  Code  Gb  mcpwm_drv.o [2]
+MCPWM_StartGlobalCounter
+                             0x1e5d   0x5c  Code  Gb  mcpwm_drv.o [2]
+MCPWM_WriteProtectionDisable
+                             0x1dc5   0x2e  Code  Gb  mcpwm_drv.o [2]
+MCPWM_WriteProtectionEnable
+                             0x1daf   0x16  Code  Gb  mcpwm_drv.o [2]
+MCU_SPI_ReceiveFromZ20A8300A1
+                             0x7ccd    0xc  Code  Gb  Z20A8300A_Hal.o [5]
+MCU_SPI_SendToZ20A8300A1
+                             0x7ca9   0x24  Code  Gb  Z20A8300A_Hal.o [5]
+MCU_SPI_WaitingForReceptionFromZ20A8300A1
+                             0x7cd9   0x24  Code  Gb  Z20A8300A_Hal.o [5]
+MCU_Z20A8300A_GpioInit1
+                             0x7c69   0x40  Code  Gb  Z20A8300A_Hal.o [5]
+MCU_Z20A8300A_SpiInit1       0x7bf9   0x6a  Code  Gb  Z20A8300A_Hal.o [5]
+MH_ADC_Data_Read_Three       0x6fe5   0x32  Code  Lc  Main.o [11]
+MH_Current_IntFlag_Clear
+                             0x70a9    0x8  Code  Lc  Main.o [11]
+MH_PWM_Duty_Set_Three        0x7031   0x78  Code  Lc  Main.o [11]
+MH_PWM_Output_Disable        0x7023    0xc  Code  Lc  Main.o [11]
+MH_PWM_Output_Enable         0x7017    0xc  Code  Lc  Main.o [11]
+MaskConfigStruct             0x930c   0x1c  Data  Lc  Z20A8300A_Init.o [5]
+Math_SinCos_T                0x4a9f   0x9e  Code  Gb  Math.o [7]
+Math_Sin_Table_I16           0x3750  0x800  Data  Lc  Math.o [7]
+MemManageFault_Handler       0x60bf         Code  Wk  Z20K148M_startup.o [1]
+Motor                   0x2000'0020  0x3f0  Data  Gb  MotorPara.o [9]
+MotorFoc_Clark_T             0x45d9   0x28  Code  Gb  MotorFoc.o [9]
+MotorFoc_Current_Init_T
+                             0x4923   0x18  Code  Gb  MotorFoc.o [9]
+MotorFoc_Current_Loop_T
+                             0x493b   0x54  Code  Gb  MotorFoc.o [9]
+MotorFoc_IF_Init_T           0x4579   0x26  Code  Gb  MotorFoc.o [9]
+MotorFoc_IF_OPEN_T           0x459f   0x14  Code  Gb  MotorFoc.o [9]
+MotorFoc_Init_T              0x6839   0x42  Code  Gb  MotorTask.o [9]
+MotorFoc_Ipark_T             0x4627   0x26  Code  Gb  MotorFoc.o [9]
+MotorFoc_Park_T              0x4601   0x26  Code  Gb  MotorFoc.o [9]
+MotorFoc_SRAD_Init_T         0x488d   0x22  Code  Gb  MotorFoc.o [9]
+MotorFoc_SRAD_Loop_T         0x48af   0x74  Code  Gb  MotorFoc.o [9]
+MotorFoc_SVPWM_Init_T        0x464d   0x1a  Code  Gb  MotorFoc.o [9]
+MotorFoc_SVPWM_ThreeShunt_T
+                             0x4667  0x220  Code  Gb  MotorFoc.o [9]
+MotorFoc_VF_Init_T           0x45b3   0x26  Code  Gb  MotorFoc.o [9]
+MotorTask_Current_Flow       0x6935  0x202  Code  Gb  MotorTask.o [9]
+MotorTask_Current_Flow{2}{3}{5}::cnt
+                        0x2000'0cd0    0x4  Data  Lc  MotorTask.o [9]
+MotorTask_Speed_Flow         0x687b   0xba  Code  Gb  MotorTask.o [9]
+Motor_Clear_Error            0x74c7    0x8  Code  Lc  SysTask.o [10]
+Motor_Read_Error             0x74c1    0x6  Code  Lc  SysTask.o [10]
+Motor_Set_Dir                0x748d   0x10  Code  Lc  SysTask.o [10]
+Motor_Set_Target_Speed       0x749d    0x8  Code  Lc  SysTask.o [10]
+Motor_Set_Vbus               0x74a5   0x1c  Code  Lc  SysTask.o [10]
+Motor_Start                  0x7475    0xc  Code  Lc  SysTask.o [10]
+Motor_Stop                   0x7481    0xc  Code  Lc  SysTask.o [10]
+NMI_Handler                  0x498f         Code  Wk  Z20K148M_startup.o [1]
+NVICRegPtr                   0x9c90    0x4  Data  Lc  int_drv.o [2]
+PID_Pos_Cal_T                0x4a1d   0x82  Code  Gb  Math.o [7]
+PID_Pos_Init_T               0x4a0b   0x12  Code  Gb  Math.o [7]
+PMU_DriverIRQHandler         0x89fd   0x7c  Code  Gb  pmu_drv.o [2]
+PMU_IRQHandler               0x96a1         Code  Wk  Z20K148M_startup.o [1]
+PMU_IntMask                  0x8a79   0x78  Code  Gb  pmu_drv.o [2]
+PMU_IntMaskTable             0x9578    0xc  Data  Lc  pmu_drv.o [2]
+PMU_IntStatusTable           0x956c    0xc  Data  Lc  pmu_drv.o [2]
+PORTA_DriverIRQHandler       0x5033    0xa  Code  Gb  gpio_drv.o [2]
+PORTA_IRQHandler             0x9b51         Code  Wk  Z20K148M_startup.o [1]
+PORTB_DriverIRQHandler       0x503d    0xa  Code  Gb  gpio_drv.o [2]
+PORTB_IRQHandler             0x9b59         Code  Wk  Z20K148M_startup.o [1]
+PORTC_DriverIRQHandler       0x5047    0xa  Code  Gb  gpio_drv.o [2]
+PORTC_IRQHandler             0x9b61         Code  Wk  Z20K148M_startup.o [1]
+PORTD_DriverIRQHandler       0x5051    0xa  Code  Gb  gpio_drv.o [2]
+PORTD_IRQHandler             0x9b69         Code  Wk  Z20K148M_startup.o [1]
+PORTE_DriverIRQHandler       0x505b    0xa  Code  Gb  gpio_drv.o [2]
+PORTE_IRQHandler             0x9b71         Code  Wk  Z20K148M_startup.o [1]
+PORT_IntHandler              0x4fa1   0x92  Code  Lc  gpio_drv.o [2]
+PORT_PinmuxConfig            0x5065   0x5e  Code  Gb  gpio_drv.o [2]
+PORT_PullConfig              0x50c3   0x7a  Code  Gb  gpio_drv.o [2]
+ParamsConfigStruct           0x9508   0x10  Data  Lc  Z20A8300A_Init.o [5]
+PendSV_Handler               0x7f87         Code  Wk  Z20K148M_startup.o [1]
+RTC_Alarm_DriverIRQHandler
+                             0x87c5    0x8  Code  Gb  rtc_drv.o [2]
+RTC_Alarm_IRQHandler         0x9b81         Code  Wk  Z20K148M_startup.o [1]
+RTC_IntHandler               0x87d5   0xfc  Code  Lc  rtc_drv.o [2]
+RTC_Second_DriverIRQHandler
+                             0x87cd    0x8  Code  Gb  rtc_drv.o [2]
+RTC_Second_IRQHandler        0x9b89         Code  Wk  Z20K148M_startup.o [1]
+Ramp_Cal_T                   0x4995   0x4e  Code  Gb  Math.o [7]
+Ramp_Init_T                  0x4991    0x4  Code  Gb  Math.o [7]
+Region$$Table$$Base          0x9210          --   Gb  - Linker created -
+Region$$Table$$Limit         0x9240          --   Gb  - Linker created -
+Reserved151_IRQHandler       0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved152_IRQHandler       0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved153_IRQHandler       0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved30_IRQHandler        0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved36_IRQHandler        0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved42_IRQHandler        0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reserved48_IRQHandler        0x9cd1         Code  Wk  Z20K148M_startup.o [1]
+Reset_Handler                0x8e49         Code  Wk  Z20K148M_startup.o [1]
+SCBRegPtr                    0x9c8c    0x4  Data  Lc  int_drv.o [2]
+SCC_DriverIRQHandler         0x2dcd   0x90  Code  Gb  clock_drv.o [2]
+SCC_IRQHandler               0x9bc9         Code  Wk  Z20K148M_startup.o [1]
+SCM_CacheErr_DriverIRQHandler
+                             0x87a7    0x8  Code  Gb  scm_drv.o [2]
+SCM_CacheErr_IRQHandler
+                             0x9c31         Code  Wk  Z20K148M_startup.o [1]
+SCM_FpuErr_DriverIRQHandler
+                             0x879f    0x8  Code  Gb  scm_drv.o [2]
+SCM_FpuErr_IRQHandler        0x9c29         Code  Wk  Z20K148M_startup.o [1]
+SCM_IntHandler               0x8675  0x12a  Code  Lc  scm_drv.o [2]
+SCM_IntStatusTable           0x9284   0x20  Data  Lc  scm_drv.o [2]
+SERU_ChErr_DriverIRQHandler
+                             0x8f2f    0x8  Code  Gb  seru_drv.o [2]
+SERU_ChErr_Handler           0x8eed   0x3a  Code  Lc  seru_drv.o [2]
+SERU_ChErr_IRQHandler        0x9bc1         Code  Wk  Z20K148M_startup.o [1]
+SERU_ParityErr_DriverIRQHandler
+                             0x8f27    0x8  Code  Gb  seru_drv.o [2]
+SERU_ParityErr_Handler       0x8ed1   0x1c  Code  Lc  seru_drv.o [2]
+SERU_ParityErr_IRQHandler
+                             0x9bb9         Code  Wk  Z20K148M_startup.o [1]
+SPI0_Rxf_DriverIRQHandler
+                             0x536f    0xa  Code  Gb  spi_drv.o [2]
+SPI0_Rxf_IRQHandler          0x96e1         Code  Wk  Z20K148M_startup.o [1]
+SPI0_Rxo_DriverIRQHandler
+                             0x5383    0xa  Code  Gb  spi_drv.o [2]
+SPI0_Rxo_IRQHandler          0x96e9         Code  Wk  Z20K148M_startup.o [1]
+SPI0_Rxu_DriverIRQHandler
+                             0x5379    0xa  Code  Gb  spi_drv.o [2]
+SPI0_Rxu_IRQHandler          0x96f1         Code  Wk  Z20K148M_startup.o [1]
+SPI0_Txe_DriverIRQHandler
+                             0x535b    0xa  Code  Gb  spi_drv.o [2]
+SPI0_Txe_IRQHandler          0x96d1         Code  Wk  Z20K148M_startup.o [1]
+SPI0_Txo_DriverIRQHandler
+                             0x5365    0xa  Code  Gb  spi_drv.o [2]
+SPI0_Txo_IRQHandler          0x96d9         Code  Wk  Z20K148M_startup.o [1]
+SPI1_Rxf_DriverIRQHandler
+                             0x53a1    0xa  Code  Gb  spi_drv.o [2]
+SPI1_Rxf_IRQHandler          0x9709         Code  Wk  Z20K148M_startup.o [1]
+SPI1_Rxo_DriverIRQHandler
+                             0x53b5    0xa  Code  Gb  spi_drv.o [2]
+SPI1_Rxo_IRQHandler          0x9711         Code  Wk  Z20K148M_startup.o [1]
+SPI1_Rxu_DriverIRQHandler
+                             0x53ab    0xa  Code  Gb  spi_drv.o [2]
+SPI1_Rxu_IRQHandler          0x9719         Code  Wk  Z20K148M_startup.o [1]
+SPI1_Txe_DriverIRQHandler
+                             0x538d    0xa  Code  Gb  spi_drv.o [2]
+SPI1_Txe_IRQHandler          0x96f9         Code  Wk  Z20K148M_startup.o [1]
+SPI1_Txo_DriverIRQHandler
+                             0x5397    0xa  Code  Gb  spi_drv.o [2]
+SPI1_Txo_IRQHandler          0x9701         Code  Wk  Z20K148M_startup.o [1]
+SPI2_Rxf_DriverIRQHandler
+                             0x53d3    0xa  Code  Gb  spi_drv.o [2]
+SPI2_Rxf_IRQHandler          0x9731         Code  Wk  Z20K148M_startup.o [1]
+SPI2_Rxo_DriverIRQHandler
+                             0x53e7    0xa  Code  Gb  spi_drv.o [2]
+SPI2_Rxo_IRQHandler          0x9739         Code  Wk  Z20K148M_startup.o [1]
+SPI2_Rxu_DriverIRQHandler
+                             0x53dd    0xa  Code  Gb  spi_drv.o [2]
+SPI2_Rxu_IRQHandler          0x9741         Code  Wk  Z20K148M_startup.o [1]
+SPI2_Txe_DriverIRQHandler
+                             0x53bf    0xa  Code  Gb  spi_drv.o [2]
+SPI2_Txe_IRQHandler          0x9721         Code  Wk  Z20K148M_startup.o [1]
+SPI2_Txo_DriverIRQHandler
+                             0x53c9    0xa  Code  Gb  spi_drv.o [2]
+SPI2_Txo_IRQHandler          0x9729         Code  Wk  Z20K148M_startup.o [1]
+SPI3_Rxf_DriverIRQHandler
+                             0x5405    0xa  Code  Gb  spi_drv.o [2]
+SPI3_Rxf_IRQHandler          0x9759         Code  Wk  Z20K148M_startup.o [1]
+SPI3_Rxo_DriverIRQHandler
+                             0x5419    0xa  Code  Gb  spi_drv.o [2]
+SPI3_Rxo_IRQHandler          0x9761         Code  Wk  Z20K148M_startup.o [1]
+SPI3_Rxu_DriverIRQHandler
+                             0x540f    0xa  Code  Gb  spi_drv.o [2]
+SPI3_Rxu_IRQHandler          0x9769         Code  Wk  Z20K148M_startup.o [1]
+SPI3_Txe_DriverIRQHandler
+                             0x53f1    0xa  Code  Gb  spi_drv.o [2]
+SPI3_Txe_IRQHandler          0x9749         Code  Wk  Z20K148M_startup.o [1]
+SPI3_Txo_DriverIRQHandler
+                             0x53fb    0xa  Code  Gb  spi_drv.o [2]
+SPI3_Txo_IRQHandler          0x9751         Code  Wk  Z20K148M_startup.o [1]
+SPI_Enable                   0x549b   0x14  Code  Gb  spi_drv.o [2]
+SPI_GetStatus                0x54db   0x16  Code  Gb  spi_drv.o [2]
+SPI_Init                     0x5423   0x78  Code  Gb  spi_drv.o [2]
+SPI_ReceiveData              0x54cf    0xc  Code  Gb  spi_drv.o [2]
+SPI_Rxf_Handler              0x5245   0x58  Code  Lc  spi_drv.o [2]
+SPI_Rxo_Handler              0x52fd   0x5e  Code  Lc  spi_drv.o [2]
+SPI_Rxu_Handler              0x529d   0x60  Code  Lc  spi_drv.o [2]
+SPI_SelectSlave              0x54af   0x14  Code  Gb  spi_drv.o [2]
+SPI_SendData                 0x54c3    0xc  Code  Gb  spi_drv.o [2]
+SPI_Txe_Handler              0x5191   0x54  Code  Lc  spi_drv.o [2]
+SPI_Txo_Handler              0x51e5   0x60  Code  Lc  spi_drv.o [2]
+SRMC_DriverIRQHandler        0x93d5   0x14  Code  Gb  srmc_drv.o [2]
+SRMC_IRQHandler              0x96b9         Code  Wk  Z20K148M_startup.o [1]
+STIM_ClearInt                0x816d   0x16  Code  Gb  stim_drv.o [2]
+STIM_Disable                 0x813f   0x16  Code  Gb  stim_drv.o [2]
+STIM_DriverIRQHandler        0x7fef    0x8  Code  Gb  stim_drv.o [2]
+STIM_Enable                  0x8129   0x16  Code  Gb  stim_drv.o [2]
+STIM_IRQHandler              0x9b79         Code  Wk  Z20K148M_startup.o [1]
+STIM_Init                    0x8007  0x122  Code  Gb  stim_drv.o [2]
+STIM_InstallCallBackFunc
+                             0x7ff7   0x10  Code  Gb  stim_drv.o [2]
+STIM_IntCmd                  0x8155   0x18  Code  Gb  stim_drv.o [2]
+STIM_IntHandler              0x7f89   0x66  Code  Lc  stim_drv.o [2]
+SVC_Handler                  0x780b         Code  Wk  Z20K148M_startup.o [1]
+SYSCTRL_EnableModule         0x64cb   0x38  Code  Gb  sysctrl_drv.o [2]
+SYSCTRL_ResetModule          0x6495   0x36  Code  Gb  sysctrl_drv.o [2]
+SysTick_Handler              0x9241         Code  Wk  Z20K148M_startup.o [1]
+Systask                 0x2000'0414   0x68  Data  Gb  SysTask.o [10]
+System_ADC_Read              0x7511   0x4a  Code  Gb  SysTask.o [10]
+System_Task_Flow             0x7569   0xcc  Code  Gb  SysTask.o [10]
+System_Task_Init             0x74cf   0x42  Code  Gb  SysTask.o [10]
+System_Task_Tick             0x70b1   0x56  Code  Gb  Main.o [11]
+System_Tick_Isr              0x7635   0x1e  Code  Gb  SysTask.o [10]
+TDG0_Err_DriverIRQHandler
+                             0x65df    0xa  Code  Gb  tdg_drv.o [2]
+TDG0_Err_IRQHandler          0x9b29         Code  Wk  Z20K148M_startup.o [1]
+TDG0_Tco_DriverIRQHandler
+                             0x65d5    0xa  Code  Gb  tdg_drv.o [2]
+TDG0_Tco_IRQHandler          0x9b21         Code  Wk  Z20K148M_startup.o [1]
+TDG1_Err_DriverIRQHandler
+                             0x65f3    0xa  Code  Gb  tdg_drv.o [2]
+TDG1_Err_IRQHandler          0x9b39         Code  Wk  Z20K148M_startup.o [1]
+TDG1_Tco_DriverIRQHandler
+                             0x65e9    0xa  Code  Gb  tdg_drv.o [2]
+TDG1_Tco_IRQHandler          0x9b31         Code  Wk  Z20K148M_startup.o [1]
+TDG_ChannelDelayOutputConfig
+                             0x67d1   0x58  Code  Gb  tdg_drv.o [2]
+TDG_ChannelEnable            0x66cf   0x78  Code  Gb  tdg_drv.o [2]
+TDG_DelayOuputConfig         0x6765   0x6c  Code  Gb  tdg_drv.o [2]
+TDG_Enable                   0x65fd   0x18  Code  Gb  tdg_drv.o [2]
+TDG_ErrIntHandler            0x6575   0x60  Code  Lc  tdg_drv.o [2]
+TDG_InitConfig               0x6615   0x62  Code  Gb  tdg_drv.o [2]
+TDG_IntMaskTable             0x92a4   0x20  Data  Lc  tdg_drv.o [2]
+TDG_LoadCmd                  0x6677   0x42  Code  Gb  tdg_drv.o [2]
+TDG_SetIntDelayVal           0x6747   0x1e  Code  Gb  tdg_drv.o [2]
+TDG_SoftwareTrig             0x66b9   0x16  Code  Gb  tdg_drv.o [2]
+TDG_TcoIntHandler            0x6509   0x6c  Code  Lc  tdg_drv.o [2]
+TIM0_Ch_DriverIRQHandler
+                             0x85c3    0xa  Code  Gb  tim_drv.o [2]
+TIM0_Ch_IRQHandler           0x9aa1         Code  Wk  Z20K148M_startup.o [1]
+TIM0_Fault_DriverIRQHandler
+                             0x85cd    0xa  Code  Gb  tim_drv.o [2]
+TIM0_Fault_IRQHandler        0x9aa9         Code  Wk  Z20K148M_startup.o [1]
+TIM0_Overflow_DriverIRQHandler
+                             0x85d7    0xa  Code  Gb  tim_drv.o [2]
+TIM0_Overflow_IRQHandler
+                             0x9ab1         Code  Wk  Z20K148M_startup.o [1]
+TIM0_Rlfl_DriverIRQHandler
+                             0x85e1    0xa  Code  Gb  tim_drv.o [2]
+TIM0_Rlfl_IRQHandler         0x9ab9         Code  Wk  Z20K148M_startup.o [1]
+TIM1_Ch_DriverIRQHandler
+                             0x85eb    0xa  Code  Gb  tim_drv.o [2]
+TIM1_Ch_IRQHandler           0x9ac1         Code  Wk  Z20K148M_startup.o [1]
+TIM1_Fault_DriverIRQHandler
+                             0x85f5    0xa  Code  Gb  tim_drv.o [2]
+TIM1_Fault_IRQHandler        0x9ac9         Code  Wk  Z20K148M_startup.o [1]
+TIM1_Overflow_DriverIRQHandler
+                             0x85ff    0xa  Code  Gb  tim_drv.o [2]
+TIM1_Overflow_IRQHandler
+                             0x9ad1         Code  Wk  Z20K148M_startup.o [1]
+TIM1_Rlfl_DriverIRQHandler
+                             0x8609    0xa  Code  Gb  tim_drv.o [2]
+TIM1_Rlfl_IRQHandler         0x9ad9         Code  Wk  Z20K148M_startup.o [1]
+TIM2_Ch_DriverIRQHandler
+                             0x8613    0xa  Code  Gb  tim_drv.o [2]
+TIM2_Ch_IRQHandler           0x9ae1         Code  Wk  Z20K148M_startup.o [1]
+TIM2_Fault_DriverIRQHandler
+                             0x861d    0xa  Code  Gb  tim_drv.o [2]
+TIM2_Fault_IRQHandler        0x9ae9         Code  Wk  Z20K148M_startup.o [1]
+TIM2_Overflow_DriverIRQHandler
+                             0x8627    0xa  Code  Gb  tim_drv.o [2]
+TIM2_Overflow_IRQHandler
+                             0x9af1         Code  Wk  Z20K148M_startup.o [1]
+TIM2_Rlfl_DriverIRQHandler
+                             0x8631    0xa  Code  Gb  tim_drv.o [2]
+TIM2_Rlfl_IRQHandler         0x9af9         Code  Wk  Z20K148M_startup.o [1]
+TIM3_Ch_DriverIRQHandler
+                             0x863b    0xa  Code  Gb  tim_drv.o [2]
+TIM3_Ch_IRQHandler           0x9b01         Code  Wk  Z20K148M_startup.o [1]
+TIM3_Fault_DriverIRQHandler
+                             0x8645    0xa  Code  Gb  tim_drv.o [2]
+TIM3_Fault_IRQHandler        0x9b09         Code  Wk  Z20K148M_startup.o [1]
+TIM3_Overflow_DriverIRQHandler
+                             0x864f    0xa  Code  Gb  tim_drv.o [2]
+TIM3_Overflow_IRQHandler
+                             0x9b11         Code  Wk  Z20K148M_startup.o [1]
+TIM3_Rlfl_DriverIRQHandler
+                             0x8659    0xa  Code  Gb  tim_drv.o [2]
+TIM3_Rlfl_IRQHandler         0x9b19         Code  Wk  Z20K148M_startup.o [1]
+TIM_ChIntHandler             0x8415   0xa6  Code  Lc  tim_drv.o [2]
+TIM_FaultIntHandler          0x84bd   0x56  Code  Lc  tim_drv.o [2]
+TIM_OverflowIntHandler       0x8515   0x56  Code  Lc  tim_drv.o [2]
+TIM_RlflIntHandler           0x856d   0x56  Code  Lc  tim_drv.o [2]
+TMU_ModuleCmd                0x8381   0x16  Code  Gb  tmu_drv.o [2]
+TMU_SetLockForModule         0x8397   0x14  Code  Gb  tmu_drv.o [2]
+TMU_SetSourceForModule       0x8369   0x18  Code  Gb  tmu_drv.o [2]
+TMU_SetUnlockForModule       0x83ab   0x10  Code  Gb  tmu_drv.o [2]
+TRNG_DriverIRQHandler        0x8d99   0xa2  Code  Gb  trng_drv.o [2]
+TRNG_IRQHandler              0x9b99         Code  Wk  Z20K148M_startup.o [1]
+Txyz_Table              0x2000'0008   0x18  Data  Lc  MotorFoc.o [9]
+UART0_DriverIRQHandler       0x6f95    0xa  Code  Gb  uart_drv.o [2]
+UART0_IRQHandler             0x9771         Code  Wk  Z20K148M_startup.o [1]
+UART1_DriverIRQHandler       0x6f9f    0xa  Code  Gb  uart_drv.o [2]
+UART1_IRQHandler             0x9779         Code  Wk  Z20K148M_startup.o [1]
+UART2_DriverIRQHandler       0x6fa9    0xa  Code  Gb  uart_drv.o [2]
+UART2_IRQHandler             0x9781         Code  Wk  Z20K148M_startup.o [1]
+UART3_DriverIRQHandler       0x6fb3    0xa  Code  Gb  uart_drv.o [2]
+UART3_IRQHandler             0x9789         Code  Wk  Z20K148M_startup.o [1]
+UART4_DriverIRQHandler       0x6fbd    0xa  Code  Gb  uart_drv.o [2]
+UART4_IRQHandler             0x9791         Code  Wk  Z20K148M_startup.o [1]
+UART5_DriverIRQHandler       0x6fc7    0xa  Code  Gb  uart_drv.o [2]
+UART5_IRQHandler             0x9799         Code  Wk  Z20K148M_startup.o [1]
+UART_IntHandler              0x6cd9  0x2aa  Code  Lc  uart_drv.o [2]
+UsageFault_Handler           0x7653         Code  Wk  Z20K148M_startup.o [1]
+WDOG_Disable                 0x73a1   0x2c  Code  Gb  wdog_drv.o [2]
+WDOG_DriverIRQHandler        0x7425   0x38  Code  Gb  wdog_drv.o [2]
+WDOG_Enable                  0x7375   0x2c  Code  Gb  wdog_drv.o [2]
+WDOG_GetCounter              0x73e1    0x8  Code  Gb  wdog_drv.o [2]
+WDOG_IRQHandler              0x96a9         Code  Wk  Z20K148M_startup.o [1]
+WDOG_Init                    0x72bd   0xb6  Code  Gb  wdog_drv.o [2]
+WDOG_IntMask                 0x73e9   0x3c  Code  Gb  wdog_drv.o [2]
+WDOG_REFRESH_COUNT      0x1ffe'0001   0x2c  Code  Lc  wdog_drv.o [2]
+WDOG_Refresh                 0x73cd    0x8  Code  Gb  wdog_drv.o [2]
+WDOG_UNLOCK_CONFIG           0x72ad   0x10  Code  Lc  wdog_drv.o [2]
+WDOG_WaitConfigCompleted
+                             0x727d   0x30  Code  Lc  wdog_drv.o [2]
+Z20A8300ADiag_1         0x2000'0cec    0x4  Data  Gb  Z20A8300A_Init.o [5]
+Z20A8300AIf1            0x2000'0c54   0x14  Data  Gb  Z20A8300A_Init.o [5]
+Z20A8300AStatus_1       0x2000'0ce8    0x4  Data  Gb  Z20A8300A_Init.o [5]
+Z20A8300A_Assert             0x5f1f   0x10  Code  Lc  Z20A8300A_Spi.o [3]
+Z20A8300A_Config_SetBootstrapManagementEnable
+                             0x5d85   0x38  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetChargePumpFrequency
+                             0x5ce5   0x38  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetChargePumpMode
+                             0x5d1d   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetDeadTime
+                             0x5ba9   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetOverCurrentBlankingTime
+                             0x5c49   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetOverCurrentThreshold
+                             0x5c7d   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetOverTempeThreshold
+                             0x5bdd   0x38  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetSensorAGain
+                             0x5e59   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetSensorAmplifierOffset
+                             0x5e25   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetSensorBGain
+                             0x5e8d   0x38  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetSensorCGain
+                             0x5ec5   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetSourcePeakCurrent
+                             0x5dbd   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetVbbOverVoltageThreshold
+                             0x5c15   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetVdsHighSideThreshold
+                             0x5df1   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetVdsLowSideThreshold
+                             0x5d51   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Config_SetVgsVdsBlankingTime
+                             0x5cb1   0x34  Code  Gb  Z20A8300A_Config.o [3]
+Z20A8300A_Ctrl_SetDiagMode
+                             0x833d   0x2c  Code  Gb  Z20A8300A_Ctrl.o [3]
+Z20A8300A_Ctrl_SetPhaseAStates
+                             0x8235   0x54  Code  Gb  Z20A8300A_Ctrl.o [3]
+Z20A8300A_Ctrl_SetPhaseBStates
+                             0x8289   0x5a  Code  Gb  Z20A8300A_Ctrl.o [3]
+Z20A8300A_Ctrl_SetPhaseCStates
+                             0x82e3   0x5a  Code  Gb  Z20A8300A_Ctrl.o [3]
+Z20A8300A_Diag_ReadClearDiag
+                             0x7eb1   0xd6  Code  Gb  Z20A8300A_Diag.o [3]
+Z20A8300A_Diag_SetAllDiagMaskStatus
+                             0x7d8f  0x122  Code  Gb  Z20A8300A_Diag.o [3]
+Z20A8300A_Diag_SetAllFaultEnableStatus
+                             0x7cfd   0x92  Code  Gb  Z20A8300A_Diag.o [3]
+Z20A8300A_Init1              0x780d  0x1a8  Code  Gb  Z20A8300A_Init.o [5]
+Z20A8300A_ParityCheck16
+                             0x5ef9   0x26  Code  Lc  Z20A8300A_Spi.o [3]
+Z20A8300A_ReadDataRegister
+                             0x5f2f   0xac  Code  Gb  Z20A8300A_Spi.o [3]
+Z20A8300A_WriteDataRegister
+                             0x5fdb   0xe4  Code  Gb  Z20A8300A_Spi.o [3]
+__RAM_END {Abs}         0x2001'ffff         Data  Gb  <internal module>
+__RAM_START {Abs}       0x1ffe'0000         Data  Gb  <internal module>
+__Vectors_End                 0x374         Data  Gb  Z20K148M_startup.o [1]
+__Vectors_Size {Abs}          0x374          --   Gb  Z20K148M_startup.o [1]
+__aeabi_memcpy4              0x640d         Code  Gb  ABImemcpy.o [14]
+__aeabi_memcpy8              0x640d         Code  Gb  ABImemcpy.o [14]
+__aeabi_memset               0x4b55         Code  Gb  ABImemset.o [14]
+__cmain                      0x92c5         Code  Gb  cmain.o [14]
+__exit                       0x92f9   0x14  Code  Gb  exit.o [15]
+__iar_Memset                 0x4b55         Code  Gb  ABImemset.o [14]
+__iar_Memset_word            0x4b5d         Code  Gb  ABImemset.o [14]
+__iar_data_init3             0x91c5   0x28  Code  Gb  data_init.o [14]
+__iar_init_vfp               0x91ed         Code  Gb  fpinit_M.o [13]
+__iar_lz77_init_single3
+                             0x19a3   0x7e  Code  Gb  lz77_init_single.o [14]
+__iar_program_start          0x9329         Code  Gb  cstartup_M.o [14]
+__iar_zero_init3             0x915d   0x38  Code  Gb  zero_init3.o [14]
+__low_level_init             0x92e3    0x4  Code  Gb  low_level_init.o [12]
+__vector_table                  0x0         Data  Gb  Z20K148M_startup.o [1]
+_call_main                   0x92d1         Code  Gb  cmain.o [14]
+_exit                        0x92ed         Code  Gb  cexit.o [14]
+adcIntMaskStatus        0x2000'0ca4    0x8  Data  Lc  adc_drv.o [2]
+adcIntMaskTable              0x9344   0x18  Data  Lc  adc_drv.o [2]
+adcIntStatusTable            0x935c   0x18  Data  Lc  adc_drv.o [2]
+adcIsrCbFunc            0x2000'0b40   0x28  Data  Lc  adc_drv.o [2]
+adcRegPtr                    0x9590    0x8  Data  Lc  adc_drv.o [2]
+adcRegWPtr                   0x9598    0x8  Data  Lc  adc_drv.o [2]
+aesIsrCb                0x2000'0cc4    0x4  Data  Lc  aes_drv.o [2]
+aesRegPtr                    0x9c38    0x4  Data  Lc  aes_drv.o [2]
+canEsr1Buf              0x2000'0ba8   0x20  Data  Lc  can_drv.o [2]
+canIntMaskStatus1       0x2000'0bc8   0x20  Data  Lc  can_drv.o [2]
+canInterruptFlagMaskTable
+                             0x9028   0x40  Data  Lc  can_drv.o [2]
+canInterruptMaskTable        0x90a8   0x3c  Data  Lc  can_drv.o [2]
+canIsrCbFunc            0x2000'047c  0x260  Data  Lc  can_drv.o [2]
+canRegPtr                    0x9244   0x20  Data  Lc  can_drv.o [2]
+canRegWPtr                   0x9264   0x20  Data  Lc  can_drv.o [2]
+cmpIsrCbFunc            0x2000'0cb4    0x8  Data  Lc  cmp_drv.o [2]
+cmpRegWPtr                   0x9c70    0x4  Data  Lc  cmp_drv.o [2]
+cmuIsrCbFunc            0x2000'0c24   0x18  Data  Lc  cmu_drv.o [2]
+cmuRegWPtr                   0x9554    0xc  Data  Lc  cmu_drv.o [2]
+dmaChannelMask               0x9068   0x40  Data  Lc  dma_drv.o [2]
+dmaIsrCb                0x2000'0904   0x80  Data  Lc  dma_drv.o [2]
+dmaMuxRegPtr                 0x9c74    0x4  Data  Lc  dma_drv.o [2]
+dmaRegPtr                    0x9c78    0x4  Data  Lc  dma_drv.o [2]
+dmaRegWPtr                   0x9c7c    0x4  Data  Lc  dma_drv.o [2]
+ewdtIsrCb               0x2000'0cc8    0x4  Data  Lc  ewdt_drv.o [2]
+ewdtRegWPtr                  0x9c80    0x4  Data  Lc  ewdt_drv.o [2]
+exit                         0x92e7    0x4  Code  Gb  exit.o [12]
+flashInterruptMaskTable
+                             0x94b8   0x10  Data  Lc  flash_drv.o [2]
+flashIsrCbFunc          0x2000'0c98    0xc  Data  Lc  flash_drv.o [2]
+flsRegPtr                    0x9c84    0x4  Data  Lc  flash_drv.o [2]
+flsRegWPtr                   0x9c88    0x4  Data  Lc  flash_drv.o [2]
+gpioRegWPtr                  0x9414   0x14  Data  Lc  gpio_drv.o [2]
+i2cIsrCb                0x2000'0a04   0x70  Data  Lc  i2c_drv.o [2]
+i2cRegPtr                    0x95c0    0x8  Data  Lc  i2c_drv.o [2]
+i2cRegWPtr                   0x95c8    0x8  Data  Lc  i2c_drv.o [2]
+i2sIntMaskStatus        0x2000'0be8   0x20  Data  Lc  i2s_drv.o [2]
+i2sIsrCbFunc            0x2000'0984   0x80  Data  Lc  i2s_drv.o [2]
+i2sRegWPtr                   0x95d0    0x8  Data  Lc  i2s_drv.o [2]
+main                         0x7109   0x4e  Code  Gb  Main.o [11]
+mcpwmIsrCbFunc          0x2000'087c   0x88  Data  Lc  mcpwm_drv.o [2]
+mcpwmRegPtr                  0x95d8    0x8  Data  Lc  mcpwm_drv.o [2]
+mcpwmRegWPtr                 0x95e0    0x8  Data  Lc  mcpwm_drv.o [2]
+memset                       0x4b41   0x14  Code  Gb  memset.o [14]
+parccRegPtr                  0x8bf0   0xd4  Data  Lc  clock_drv.o [2]
+parccRegPtrArray             0x8cc4   0xd4  Data  Lc  sysctrl_drv.o [2]
+pmuIntMaskStatus        0x2000'0410    0x4  Data  Lc  pmu_drv.o [2]
+pmuIsrCallback          0x2000'0cbc    0x8  Data  Lc  pmu_drv.o [2]
+pmuRegBfPtr                  0x9c6c    0x4  Data  Lc  clock_drv.o [2]
+pmuRegPtr                    0x9c94    0x4  Data  Lc  pmu_drv.o [2]
+pmuRegWPtr                   0x9c98    0x4  Data  Lc  pmu_drv.o [2]
+portIsrCbFun            0x2000'0ccc    0x4  Data  Lc  gpio_drv.o [2]
+portRegPtr                   0x93ec   0x14  Data  Lc  gpio_drv.o [2]
+portRegWPtr                  0x9400   0x14  Data  Lc  gpio_drv.o [2]
+rtcCsrRegMask                0x9ca4    0x4  Data  Lc  rtc_drv.o [2]
+rtcIntMaskStatus        0x2000'0cd4    0x4  Data  Lc  rtc_drv.o [2]
+rtcIntStatusTable            0x9450   0x14  Data  Lc  rtc_drv.o [2]
+rtcIsrCb                0x2000'0c68   0x10  Data  Lc  rtc_drv.o [2]
+rtcRegBfPtr                  0x9c60    0x4  Data  Lc  clock_drv.o [2]
+rtcRegPtr                    0x9ca0    0x4  Data  Lc  rtc_drv.o [2]
+rtcRegWPtr                   0x9c9c    0x4  Data  Lc  rtc_drv.o [2]
+sccIsrCbFunc            0x2000'0cac    0x8  Data  Lc  clock_drv.o [2]
+sccRegBfPtr                  0x9c64    0x4  Data  Lc  clock_drv.o [2]
+sccRegWPtr                   0x9c68    0x4  Data  Lc  clock_drv.o [2]
+scmIntMaskStatus        0x2000'0cd8    0x4  Data  Lc  scm_drv.o [2]
+scmIsrCbFunc            0x2000'0c08   0x1c  Data  Lc  scm_drv.o [2]
+scmRegPtr                    0x9ca8    0x4  Data  Lc  scm_drv.o [2]
+scmRegWPtr                   0x9cac    0x4  Data  Lc  scm_drv.o [2]
+seruChErrCbFunc         0x2000'0ac4   0x44  Data  Lc  seru_drv.o [2]
+seruPErrCbFunc          0x2000'0cdc    0x4  Data  Lc  seru_drv.o [2]
+seruRegWPtr                  0x9cb0    0x4  Data  Lc  seru_drv.o [2]
+spiIntMaskTable              0x9374   0x18  Data  Lc  spi_drv.o [2]
+spiIsrCb                0x2000'0a74   0x50  Data  Lc  spi_drv.o [2]
+spiRegPtr                    0x94c8   0x10  Data  Lc  spi_drv.o [2]
+spiRegWPtr                   0x94d8   0x10  Data  Lc  spi_drv.o [2]
+srmcIsrCbFunc           0x2000'0ce0    0x4  Data  Lc  srmc_drv.o [2]
+stimIsrCb               0x2000'0c78   0x10  Data  Lc  stim_drv.o [2]
+stimRegPtr                   0x9cb4    0x4  Data  Lc  stim_drv.o [2]
+tdgIsrCbFunc            0x2000'0b08   0x38  Data  Lc  tdg_drv.o [2]
+tdgRegPtr                    0x95e8    0x8  Data  Lc  tdg_drv.o [2]
+tdgRegWPtr                   0x95f0    0x8  Data  Lc  tdg_drv.o [2]
+timIntMaskTable              0x9194   0x30  Data  Lc  tim_drv.o [2]
+timIsrCbFunc            0x2000'07cc   0xb0  Data  Lc  tim_drv.o [2]
+timRegPtr                    0x94e8   0x10  Data  Lc  tim_drv.o [2]
+timRegWPtr                   0x94f8   0x10  Data  Lc  tim_drv.o [2]
+tmuRegPtr                    0x9cb8    0x4  Data  Lc  tmu_drv.o [2]
+tmuRegWPtr                   0x9cbc    0x4  Data  Lc  tmu_drv.o [2]
+trngIntMask                  0x9464   0x14  Data  Lc  trng_drv.o [2]
+trngIsrCb               0x2000'0c88   0x10  Data  Lc  trng_drv.o [2]
+trngRegWPtr                  0x9cc0    0x4  Data  Lc  trng_drv.o [2]
+uartIsrCb               0x2000'06dc   0xf0  Data  Lc  uart_drv.o [2]
+uartLineStatusBuf       0x2000'0c3c   0x18  Data  Lc  uart_drv.o [2]
+uartRegPtr                   0x938c   0x18  Data  Lc  uart_drv.o [2]
+uartRegWPtr                  0x93a4   0x18  Data  Lc  uart_drv.o [2]
+wdogIntFlagMask              0x9600    0x8  Data  Lc  wdog_drv.o [2]
+wdogIntMask                  0x95f8    0x8  Data  Lc  wdog_drv.o [2]
+wdogIsrCb               0x2000'0ce4    0x4  Data  Lc  wdog_drv.o [2]
+wdogRegPtr                   0x9cc4    0x4  Data  Lc  wdog_drv.o [2]
+wdogRegWPtr                  0x9cc8    0x4  Data  Lc  wdog_drv.o [2]
+
+
+[1] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\DEVICE
+[2] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\STD
+[3] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\0_SDK\Z20A8300A
+[4] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\BSP
+[5] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\1_HARDWARE\Z20A8300A
+[6] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\CMU
+[7] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\MATH
+[8] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\2_COMMON\RTT
+[9] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\3_MOTOR
+[10] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\4_SYSTASK
+[11] = C:\Users\sq\Desktop\MControl\Motor\FOC_T\Z20K14xM\Debug\Obj\5_MAIN
+[12] = dl7M_tln.a
+[13] = m7M_tls.a
+[14] = rt7M_tl.a
+[15] = shb_l.a
+
+  36'264 bytes of readonly  code memory
+      44 bytes of readwrite code memory
+   4'162 bytes of readonly  data memory
+   7'408 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

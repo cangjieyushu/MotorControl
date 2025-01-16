@@ -37,10 +37,10 @@
 
 
 //频率设置
-#define HAL_SYSTEM_FREQ                         (144000.0f)                      //kHz，系统时钟频率
+#define HAL_SYSTEM_FREQ                         (144000.0f)                     //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)               //kHz，PWM时钟频率
-#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)          //kHz，用过零点计数定时器时钟频率
-#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)          //kHz，用于换向计数定时器时钟频率
+#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)          		//kHz，用过零点计数定时器时钟频率
+#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)          		//kHz，用于换向计数定时器时钟频率
 
 #define HAL_PWM_PRESCALER                       (3.0f-1.0f)
 #define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/(HAL_PWM_PRESCALER+1.0f))               //kHz，PWM计数器频率,48M

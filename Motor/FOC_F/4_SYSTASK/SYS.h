@@ -10,6 +10,5 @@
 #include "Current.h"
 #include "Voltage.h"
 #include "Error.h"
-#include "USART.h"
 #include "Speed.h"
 #include "Temperature.h"

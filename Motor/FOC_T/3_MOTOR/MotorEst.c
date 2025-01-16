@@ -136,9 +136,33 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
 {
+    if(pCTRL->Est_State_Flag == 0U)
+    {
+        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
+        pCTRL->_V_F_Nn2_L = pCTRL->_P_F_Flux2;
+    }
+    else
+    {
+        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs;
+    }
+	
     pCTRL->_V_Q14I_Yalfa = -Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ialfa) + pCTRL->_I_Q14I_Ualfa;
     pCTRL->_V_Q14I_Ybeta = -Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ibeta) + pCTRL->_I_Q14I_Ubeta;
     
+    pCTRL->_V_F_Yalfa_HF = 0.999f*(pCTRL->_V_F_Yalfa_HF + pCTRL->_V_F_Yalfa - pCTRL->_V_F_Yalfa_L);
+    pCTRL->_V_F_Ybeta_HF = 0.999f*(pCTRL->_V_F_Ybeta_HF + pCTRL->_V_F_Ybeta - pCTRL->_V_F_Ybeta_L);
+        
+    pCTRL->_V_F_Yalfa_L = pCTRL->_V_F_Yalfa;
+    pCTRL->_V_F_Ybeta_L = pCTRL->_V_F_Ybeta; 
+            
+    pCTRL->_V_F_Xalfa_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Yalfa_HF;
+    pCTRL->_V_F_Xbeta_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Ybeta_HF;
+    
+    pCTRL->_V_F_Nnalfa_F = pCTRL->_V_F_Xalfa_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
+    pCTRL->_V_F_Nnbeta_F = pCTRL->_V_F_Xbeta_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
+    pCTRL->_V_F_Nn2_F = MATH_SQUARE_F(pCTRL->_V_F_Nnalfa_F) + MATH_SQUARE_F(pCTRL->_V_F_Nnbeta_F);
+    pCTRL->_V_F_Nn2_L = 0.95f*pCTRL->_V_F_Nn2_L + 0.05f*pCTRL->_V_F_Nn2_F;
+	
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
     pCTRL->_V_Q14I_Nn2 = Q32I_RHT_14(MATH_SQUARE_F(pCTRL->_V_Q14I_Nalfa))

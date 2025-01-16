@@ -33,12 +33,12 @@ typedef union{
     struct{
         BIT motor_error 					:1;
         BIT systick_overflow				:1;
-        BIT over_current_error 			:1;
+        BIT over_current_error 			    :1;
         BIT over_speed_error 		        :1;
         BIT low_speed_error 			    :1;
-        BIT over_voltage_error 			:1;
+        BIT over_voltage_error 			    :1;
         BIT low_voltage_error 			    :1;
-        BIT over_temperature_error 		:1;
+        BIT over_temperature_error 		    :1;
         BIT low_temperature_error 			:1;
         BIT USART_1_error 			        :1;
         BIT USART_2_error 			        :1;
@@ -62,8 +62,7 @@ typedef struct{
     float                       F_Voltage_Bus;
     float                       F_Motor_Speed;
     float                       F_Temp_0p01_C;
-    float                       _P_F_Voltage_Scale;
-        
+	
     Q32U_                       Q32U_System_PowerUp_Time;
     Q32U_                       flow_cnt;
 }ST_SYSTEM_TASK;

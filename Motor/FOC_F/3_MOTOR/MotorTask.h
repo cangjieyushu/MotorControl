@@ -115,7 +115,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline float Motor_Read_Speed(void)
 {
-    return MOTOR_SRAD_TO_SPEED(Motor.SRAD_CTRL._I_F_SRAD);
+    return Motor.SRAD_CTRL._I_F_SRAD;
 }
 
 /**********************************************************************************************
@@ -129,10 +129,12 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Vbus(float Vbus_Val)
 {
-    Motor.SVPWM_CTRL._I_F_Vbus = Vbus_Val;
-    Motor.SVPWM_CTRL._I_F_One_Over_Vbus = 1.0f/Vbus_Val;
-    Motor.SRAD_CTRL._I_F_Vbus = Vbus_Val;
-    Motor.CURRENT_CTRL._I_F_Vbus = Vbus_Val;
+    float Vbus_tmp = 0.0f;
+    Vbus_tmp = Motor.SVPWM_CTRL._P_F_Voltage_Scale*Vbus_Val;
+    Motor.SVPWM_CTRL._I_F_Vbus = Vbus_tmp;
+    Motor.SVPWM_CTRL._I_F_One_Over_Vbus = 1.0f/Vbus_tmp;
+    Motor.SRAD_CTRL._I_F_Vbus = Vbus_tmp;
+    Motor.CURRENT_CTRL._I_F_Vbus = Vbus_tmp;
 }
 
 /**********************************************************************************************

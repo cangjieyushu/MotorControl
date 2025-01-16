@@ -11,14 +11,14 @@
 #include "SysTask.h"
 
 //温度保护
-#define OVER_TEMP_PROTECT_LEVEL_TL       (10.0f)                            //lsb，过温保护阈值
+#define OVER_TEMP_PROTECT_LEVEL_TL       ((Q32U_)(1000.0f))                 //lsb，过温保护阈值
 #define OVER_TEMP_PROTECT_LEVEL_TIME     (1000U)                            //ms，过温保护时间
 
-#define LOW_TEMP_PROTECT_LEVEL_TL        (15.0f)                            //lsb，低温保护阈值
+#define LOW_TEMP_PROTECT_LEVEL_TL        ((Q32U_)(1500.0f))                 //lsb，低温保护阈值
 #define LOW_TEMP_PROTECT_LEVEL_TIME      (1000U)                            //ms，低温保护时间
 
 typedef struct{
-    float F_temp_protect_tl;
+    Q32U_ Q16U_temp_protect_tl;
     Q32U_ Q16U_temp_protect_time;
     
     Q32U_ Q16U_temp_protect_cnt;

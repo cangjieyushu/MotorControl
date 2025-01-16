@@ -77,7 +77,7 @@ void BSP_PWM_Init(void)
 	/* Enable outputs OC1, OC1N, OC2, OC2N, OC3 and OC3N */
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, ADC_PWM_CHANNEL_1|ADC_PWM_CHANNEL_2);
     
-    TIM_Disable_MOE(HAL_MOTOR_PWM);
+    TIM_Enable_MOE(HAL_MOTOR_PWM);
     TIM_Enable_CEN(HAL_MOTOR_PWM);
 
     TIM_Enable_IT(HAL_MOTOR_PWM, TIM_DIER_BIE);

@@ -74,7 +74,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     }
     
     pST->F_Duty_Target = (VRtmp - pButton->F_vr_min_limit)/(pButton->F_vr_max_limit - pButton->F_vr_min_limit);
-    
+	
 #elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
     
     float VRtmp = 0.0f;

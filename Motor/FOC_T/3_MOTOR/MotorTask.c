@@ -16,7 +16,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
+void MotorFoc_Init_T(ST_MOTOR_TASK* pMotor)
 {
     MotorFoc_IF_Init_T(&pMotor->IF_CTRL);
     MotorFoc_VF_Init_T(&pMotor->VF_CTRL);
@@ -45,42 +45,70 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SRAD_CTRL._I_Q14I_SRAD = pMotor->FLUX_CTRL.FL_SRAD.Q16I_Filter_out;
         switch(pMotor->Motor_Loop_Mode)
         {
-        case MOTOR_ALIGNLOOP:
+            case MOTOR_ALIGNLOOP:
             {
-                
-            }break;
-        case MOTOR_OPENLOOP:
-            {
-                MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
-                pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0.0f;
-                pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._I_Q14I_DIR_Target*pMotor->IF_CTRL.Ramp_Iq.Q32I_Output;
-                if(pMotor->SRAD_CTRL._I_Q14I_SRAD >= 30)
+                Ramp_Cal_F(&pMotor->LOOP_CTRL.Align_Ramp);
+                pMotor->LOOP_CTRL._V_Q32U_Align_cnt++;
+                if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time3 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
                 {
-                    if(++pMotor->flow_cnt >= 200)
+                    pMotor->LOOP_CTRL._V_Q32U_Align_cnt = 0U;
+                    pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP1;
+                }
+                else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
+                {
+                    pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
+                }
+                else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
+                {
+                    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->LOOP_CTRL.Align_Ramp.F_Output;
+                    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = MATH_2PI_F;
+                }
+                else
+                {
+                    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->LOOP_CTRL.Align_Ramp.F_Output;
+                    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = 1.5f*MATH_PI_F;
+                }
+                break;
+            }
+            case MOTOR_OPENLOOP:
+            {
+                break;
+            }
+            case MOTOR_CLOSELOOP1:
+            {
+                MotorFoc_SRAD_Loop_F(&pMotor->SRAD_CTRL);
+                pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->SRAD_CTRL._O_F_IdRef;
+                pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->SRAD_CTRL._O_F_IqRef;
+                
+                pMotor->SRAD_CTRL._I_F_SRAD_Target = pMotor->LOOP_CTRL._P_F_Close1_Target_SRAD;
+                pMotor->SRAD_CTRL.Ramp_SRAD.F_ADDStep =  pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
+                pMotor->SRAD_CTRL.Ramp_SRAD.F_SUBStep = -pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
+                
+                if(pMotor->SRAD_CTRL._I_F_SRAD >= pMotor->LOOP_CTRL._P_F_Close1_Switch_SRAD)
+                {
+                    if(++pMotor->LOOP_CTRL._V_Q32U_Close1_cnt >= pMotor->LOOP_CTRL._P_Q32U_Close1_Switch_Time)
                     {
-                        PID_Pos_Init_T(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->CURRENT_CTRL._I_Q14I_IqRef);
-                        Ramp_Init_T(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_Q14I_SRAD + 10);
-                        pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP1;
+                        pMotor->LOOP_CTRL._V_Q32U_Close1_cnt = 0;
+                        pMotor->FLUX_CTRL.Est_State_Flag = 1U;
+                        pMotor->SRAD_CTRL.Ramp_SRAD.F_ADDStep =  pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
+                        pMotor->SRAD_CTRL.Ramp_SRAD.F_SUBStep = -pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
+                        pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP2;
                     }
                 }
                 else
                 {
-                    pMotor->flow_cnt = 0;
+                    pMotor->LOOP_CTRL._V_Q32U_Close1_cnt = 0;
                 }
-            }break;
-        case MOTOR_CLOSELOOP1:
+                break;
+            }
+            case MOTOR_CLOSELOOP2:
             {
                 MotorFoc_SRAD_Loop_T(&pMotor->SRAD_CTRL);
                 pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
                 pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->SRAD_CTRL._O_Q14I_IqRef;
-            }break;
-        case MOTOR_CLOSELOOP2:
-            {
-                MotorFoc_SRAD_Loop_T(&pMotor->SRAD_CTRL);
-                pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
-                pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->SRAD_CTRL._O_Q14I_IqRef;
-            }break;
-        default:break;
+            	break;
+			}
+            default:break;
         }
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
@@ -98,7 +126,7 @@ Input_Output: 电机控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
+void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Error_Flag.all != 0U)
     {
@@ -107,21 +135,21 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
     
     switch(pMotor->Motor_Flow)
     {
-    case MOTOR_STATE_PRE:
+        case MOTOR_STATE_PRE:
         {
             pMotor->Motor_State_Flag.bit.pwm_output_flag = 0U;
-            MotorFoc_Init_F(pMotor);
+            MotorFoc_Init_T(pMotor);
             pMotor->Motor_Flow = MOTOR_STATE_INIT;
         }break;
-    case MOTOR_STATE_INIT:
+        case MOTOR_STATE_INIT:
         {
-            static uint32_t cnt = 0;
+            static uint32_t cnt = 0U;
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
-                if(++cnt > 20)
+                if(++cnt > 20U)
                 {
-                    cnt = 0;
+                    cnt = 0U;
                     pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset /= 20.0f;
                     pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset /= 20.0f;
                     pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset /= 20.0f;
@@ -139,16 +167,16 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset = 0.0f;
                 pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset = 0.0f;
                 pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset = 0.0f;
-                cnt = 0;
+                cnt = 0U;
             }
-                
+            
 #else
-                
+            
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
-                if(++cnt > 20)
+                if(++cnt > 20U)
                 {
-                    cnt = 0;
+                    cnt = 0U;
                     pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset /= 20.0f;
                     pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset /= 20.0f;
                     pMotor->Motor_Flow = MOTOR_STATE_IDLE;
@@ -163,11 +191,12 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset = 0.0f;
                 pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset = 0.0f;
-                cnt = 0;
+                cnt = 0U;
             }
 #endif
-        }break;
-    case MOTOR_STATE_IDLE:
+            break;
+        }
+        case MOTOR_STATE_IDLE:
         {
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
@@ -177,8 +206,9 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
             }
-        }break;
-    case MOTOR_STATE_BOOT:
+            break;
+        }
+        case MOTOR_STATE_BOOT:
         {
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
@@ -188,8 +218,9 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
             }
-        }break;
-    case MOTOR_STATE_POSITION:
+            break;
+        }
+        case MOTOR_STATE_POSITION:
         {
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
@@ -199,8 +230,9 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
             }
-        }break;
-    case MOTOR_STATE_RUN:
+            break;
+        }
+        case MOTOR_STATE_RUN:
         {
             if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
             {
@@ -213,25 +245,34 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->FLUX_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
                 Est_Flux_T(&pMotor->FLUX_CTRL);
                 
+//                pMotor->SMO_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
+//                pMotor->SMO_CTRL._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
+//                pMotor->SMO_CTRL._I_F_Ualfa = pMotor->SVPWM_CTRL._O_F_Ualfa;
+//                pMotor->SMO_CTRL._I_F_Ubeta = pMotor->SVPWM_CTRL._O_F_Ubeta;
+//                Est_SMO_F(&pMotor->SMO_CTRL);
+                
                 switch(pMotor->Motor_Loop_Mode)
                 {
-                case MOTOR_ALIGNLOOP:
+                    case MOTOR_ALIGNLOOP:
                     {
-                        
-                    }break;
-                case MOTOR_OPENLOOP:
+                        Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
+                        break;
+                    }
+                    case MOTOR_OPENLOOP:
                     {
-                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
-                    }break;
-                case MOTOR_CLOSELOOP1:
-                    {
-                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
-                    }break;
-                case MOTOR_CLOSELOOP2:
+                        break;
+                    }
+                    case MOTOR_CLOSELOOP1:
                     {
                         pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
-                    }break;
-                default:break;
+                        break;
+                    }
+                    case MOTOR_CLOSELOOP2:
+                    {
+                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
+                        break;
+                    }
+                    default:break;
                 }
                 
                 MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
@@ -250,11 +291,12 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->Motor_State_Flag.bit.pwm_output_flag = 0U;
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
             }
-        }break;
-    case MOTOR_STATE_BRAKE:
+            break;
+        }
+        case MOTOR_STATE_BRAKE:
         {
-            
-        }break;
-    default:break;
+            break;
+        }
+        default:break;
     }
 }

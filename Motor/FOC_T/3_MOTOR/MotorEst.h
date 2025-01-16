@@ -42,6 +42,7 @@
 
 typedef struct
 {
+    Q08U_       Est_State_Flag;
     ST_PID_POS_T    PID_PLL;
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
@@ -68,6 +69,17 @@ typedef struct
     Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Ls;
     Q32I_       _P_Q14I_Flux2;
+
+    float       _V_F_Yalfa_L;
+    float       _V_F_Ybeta_L;
+    float       _V_F_Yalfa_HF;
+    float       _V_F_Ybeta_HF;
+    float       _V_F_Xalfa_F;
+    float       _V_F_Xbeta_F;
+    float       _V_F_Nnalfa_F;
+    float       _V_F_Nnbeta_F;
+    float       _V_F_Nn2_F;
+    float       _V_F_Nn2_L;
 }ST_FLUX_CONTROL_T;
 
 typedef struct

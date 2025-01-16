@@ -13,63 +13,33 @@ Q32I_ RTT_DATA[8];
 #endif
 
 /**********************************************************************************************
-Function: System_Task_Tick
-Description: 时间片任务调度
+Function: System_10msTask_Tick
+Description: 10ms时间片任务调度
 Input: 无
 Output: 无
 Input_Output: ST_SYSTEM_TASK
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Task_Tick(ST_SYSTEM_TASK* pST)
+void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        //1ms
-        pST->systick_count++;
-        
-        System_Task_Flow(&Systask);
-        
         Button_Control(&Button_Ctrl, pST);
         
-        if((pST->systick_count & BIT0) == BIT0)  //2ms
-        {
-//            USART_Get_Resceive_Data_1();
-//            USART_Get_Resceive_Data_2();
-        }
-        else if((pST->systick_count & BIT1) == BIT1)  //4ms
-        {
-//            USART_Send_Transmission_Data_1();
-//            USART_Send_Transmission_Data_2();
-        }
-        else if((pST->systick_count & BIT2) == BIT2)  //8ms
-        {
-            
-        }
-        else if((pST->systick_count & BIT3) == BIT3)  //16ms
-        {
-            Voltage_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT4) == BIT4)  //32ms
-        {
-            Current_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT5) == BIT5)  //64ms
-        {
-            Speed_Protect_Flow(&Systask);
-        }
-        else if((pST->systick_count & BIT6) == BIT6)  //128ms
-        {
-            Error_Priority_Check(&Systask);
-        }
-        else if((pST->systick_count & BIT7) == BIT7)  //256ms
-        {
-            Temperature_Protect_Flow(&Systask);
-        }
-        else  //256ms
-        {
-            IWDG_Reload_Counter(IWDG);
-        }
+//        USART_Get_Resceive_Data_1();
+//        USART_Get_Resceive_Data_2();
+//        USART_Send_Transmission_Data_1();
+//        USART_Send_Transmission_Data_2();
+        
+        Voltage_Protect_Flow(&Systask);
+        Current_Protect_Flow(&Systask);
+        Speed_Protect_Flow(&Systask);
+        Temperature_Protect_Flow(&Systask);
+        
+        Error_Priority_Check(&Systask);
+        IWDG_Reload_Counter(IWDG);
+        
         pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
@@ -106,7 +76,7 @@ int main(void)
     
     for(;;)
     {
-        System_Task_Tick(&Systask);
+        System_10msTask_Tick(&Systask);
     }
 }
 
@@ -148,15 +118,8 @@ void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
     {
         TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_UIF);
         MotorTask_Update_Flow(&Motor);
+		
 #if(JSCOPE_RTT_EN == 1U)
-//        RTT_DATA[0] = Motor.FOC_Para.Q14I_Ia;
-//        RTT_DATA[1] = Motor.FOC_Para.Q14I_Ib;
-//        RTT_DATA[2] = Motor.FOC_Para.Q14I_Ic;
-        
-//        RTT_DATA[0] = Motor.SMO_Ctrl.Angle.Q12U_Angle;
-//        RTT_DATA[1] = Motor.FLUX_Ctrl.Angle.Q12U_Angle;
-//        RTT_DATA[2] = Motor.FOC_Para.Angle.Q12U_Angle;
-        
         RTT_DATA[0] = Motor.SMO_Ctrl.FL_SRAD.Q16I_Filter_out;
         RTT_DATA[1] = Motor.FLUX_Ctrl.FL_SRAD.Q16I_Filter_out;
         RTT_DATA[2] = Motor.IF_Ctrl.SRad_Ramp.Q32I_Output;
@@ -178,6 +141,7 @@ Author: CJYS
 void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
+    System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
 }
 

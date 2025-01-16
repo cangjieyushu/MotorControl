@@ -54,7 +54,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Dir(Q32U_ Dir)
 {
-    if(Dir == 0)
+    if(Dir == 0U)
     {
         Motor.MS_CTRL.DIR_Target = CW;
     }
@@ -123,9 +123,9 @@ static inline void Motor_Set_Target_Speed(Q32U_ Speed)
 
 /**********************************************************************************************
 Function: Motor_Read_Speed
-Description: 读取电机频率
+Description: 读取电机转速
 Input: 无
-Output: 电机频率
+Output: 电机转速（rpm）
 Input_Output: 无
 Return: 无
 Author: CJYS
@@ -151,9 +151,9 @@ static inline void Motor_Set_Vbus(Q32U_ Vbus_Val)
 
 /**********************************************************************************************
 Function: Motor_Read_Current_Max
-Description: 获取相电流最大值，周期为该函数被调用的周期
+Description: 获取周期内相电流最大值，周期为该函数被调用的周期
 Input: 无
-Output: 相电流最大值
+Output: 相电流最大值（A）
 Input_Output: 无
 Return: 无
 Author: CJYS

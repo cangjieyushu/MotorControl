@@ -8,12 +8,12 @@
 #include "Temperature.h"
 
 ST_TEMP_PROTECT Temperature_Protect_Over = {
-    .F_temp_protect_tl = OVER_TEMP_PROTECT_LEVEL_TL,
+    .Q16U_temp_protect_tl = OVER_TEMP_PROTECT_LEVEL_TL,
     .Q16U_temp_protect_time = OVER_TEMP_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_TEMP_PROTECT Temperature_Protect_Low = {
-    .F_temp_protect_tl = LOW_TEMP_PROTECT_LEVEL_TL,
+    .Q16U_temp_protect_tl = LOW_TEMP_PROTECT_LEVEL_TL,
     .Q16U_temp_protect_time = LOW_TEMP_PROTECT_LEVEL_TIME/10U,
 };
 
@@ -37,47 +37,47 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
     {
         if(pST->System_Error_Flag.BIT.over_temperature_error == 0U)
         {
-            if(pST->F_Temp_0p01_C >= pCVO->F_temp_protect_tl)
+            if((Q32U_)pST->F_Temp_0p01_C >= pCVO->Q16U_temp_protect_tl)
             {
                 if(++pCVO->Q16U_temp_protect_cnt >= pCVO->Q16U_temp_protect_time)
                 {
-                    pCVO->Q16U_temp_protect_cnt = 0;
+                    pCVO->Q16U_temp_protect_cnt = 0U;
 //                    pST->System_Error_Flag.BIT.over_temperature_error = 1U;
                 }
             }
             else
             {
-                pCVO->Q16U_temp_protect_cnt = 0;
+                pCVO->Q16U_temp_protect_cnt = 0U;
             }
         }
         else
         {
-            pCVO->Q16U_temp_protect_cnt = 0;
+            pCVO->Q16U_temp_protect_cnt = 0U;
         }
         
         if(pST->System_Error_Flag.BIT.low_temperature_error == 0U)
         {
-            if(pST->F_Temp_0p01_C <= pCVL->F_temp_protect_tl)
+            if((Q32U_)pST->F_Temp_0p01_C <= pCVL->Q16U_temp_protect_tl)
             {
                 if(++pCVL->Q16U_temp_protect_cnt >= pCVL->Q16U_temp_protect_time)
                 {
-                    pCVL->Q16U_temp_protect_cnt = 0;
+                    pCVL->Q16U_temp_protect_cnt = 0U;
 //                    pST->System_Error_Flag.BIT.low_temperature_error = 1U;
                 }
             }
             else
             {
-                pCVL->Q16U_temp_protect_cnt = 0;
+                pCVL->Q16U_temp_protect_cnt = 0U;
             }
         }
         else
         {
-            pCVL->Q16U_temp_protect_cnt = 0;
+            pCVL->Q16U_temp_protect_cnt = 0U;
         }
     }
     else
     {
-        pCVO->Q16U_temp_protect_cnt = 0;
-        pCVL->Q16U_temp_protect_cnt = 0;
+        pCVO->Q16U_temp_protect_cnt = 0U;
+        pCVL->Q16U_temp_protect_cnt = 0U;
     }
 }

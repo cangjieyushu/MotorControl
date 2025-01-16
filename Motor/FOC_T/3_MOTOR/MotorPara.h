@@ -8,27 +8,31 @@
 #ifndef MotorPara_H
 #define MotorPara_H
 
+#include "Math.h"
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
 
+
 //电机alignloop相关参数 
-#define MOTOR_ALIGNLOOP_CURRENT             (5.0f)                          //A,电机alignloop电流
-#define MOTOR_ALIGNLOOP_TIME1               (500)                           //ms,电机alignloop第一阶段
-#define MOTOR_ALIGNLOOP_TIME2               (500)                           //ms,电机alignloop第二阶段
+#define MOTOR_ALIGNLOOP_RAMP_INIT           (0.0f)                     		//A,Iq初始值
+#define MOTOR_ALIGNLOOP_RAMP_TARGET         (5.0f)                    	 	//A,Iq目标值
+#define MOTOR_ALIGNLOOP_RAMP_STEP           (5.0f * MOTOR_LTs)        		//A/s,Iq每秒增加步长
+#define MOTOR_ALIGNLOOP_TIME1               (500)                          	//ms,电机alignloop第一阶段
+#define MOTOR_ALIGNLOOP_TIME2               (500)                          	//ms,电机alignloop第二阶段
 #define MOTOR_ALIGNLOOP_TIME3               (500)                           //ms,电机alignloop第三阶段
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (50)                            //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_MIN_TIME             (5000)                          //ms,电机openloop最小时间
 #define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
 #define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP1_TARGET_SRAD        (90.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_TARGET_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
 #define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
-#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_SWITCH_TIME        (20)                            //ms,电机closeloop1切换closeloop2的时间
+#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100)                           //ms,电机closeloop1切换closeloop2的时间
 
 //电机closeloop2相关参数，闭环运行阶段         
 #define MOTOR_CLOSELOOP2_SRAD_TARGET        (MOTOR_MAX_SRAD)                //Hz,电机closeloop2目标转速
@@ -83,7 +87,8 @@
 #define USER_PLL_SPEED_LPF_COEFF            (15)                     //0~256，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (Q32I_)(2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
+#define MOTOR_FLUX_KT                       (2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
+#define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (Q32I_)(MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_FLUX)  //锁相环比例系数
 #define MOTOR_FLUX_PLL_KI                   (Q32I_)(MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                   //锁相环积分系数
@@ -147,13 +152,14 @@ typedef union{
 }UN_MOTOR_ERROR_FLAG;
 
 typedef struct{
+    ST_RAMP_T                   Align_Ramp;
     Q32U_                       _V_Q32U_Align_cnt;
-    float                       _P_F_Align_Current;
     Q32U_                       _P_Q32U_Align_Time1;
     Q32U_                       _P_Q32U_Align_Time2;
     Q32U_                       _P_Q32U_Align_Time3;
         
     Q32U_                       _V_Q32U_Open_cnt;
+    Q32U_                       _V_Q32U_Open_min_cnt;
     Q32U_                       _P_Q32U_Open_Min_Time;
     float                       _P_F_Open_Switch_SRAD;
     Q32U_                       _P_Q32U_Open_Switch_Time;
@@ -185,7 +191,6 @@ typedef struct{
     ST_FLUX_CONTROL_T           FLUX_CTRL;
     ST_SMO_CONTROL_T            SMO_CTRL;
     
-    Q32U_                       flow_cnt;
     Q32I_                       Q14I_Iphase_Max;
 }ST_MOTOR_TASK;
 

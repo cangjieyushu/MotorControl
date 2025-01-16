@@ -73,6 +73,8 @@ typedef struct
     Q32I_       _P_Q14I_MaxDuty;
     Q32I_       _P_Q14I_MinDuty;
     Q32I_       _P_Q14I_ADCSampleDuty;
+    Q32I_       _P_Q14I_Current_Scale;
+    Q32I_       _P_Q14I_PWM_All_Count;    
     
     
     Q32I_       _I_Q14I_Ishunt[3];
@@ -265,7 +267,7 @@ Input_Output: SVPWMøÿ÷∆÷∏’Î
 Return: Œﬁ
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_SVPWM_Init_T(ST_SVPWM_CONTROL_T* pCTRL);
+void MotorFoc_SVPWM_Init_T(ST_SVPWM_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_SVPWM_ThreeShunt_T

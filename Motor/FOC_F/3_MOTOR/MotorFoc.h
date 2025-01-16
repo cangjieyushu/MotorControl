@@ -74,6 +74,7 @@ typedef struct
     float       _P_F_MinDuty;
     float       _P_F_ADCSampleDuty;
     float       _P_F_Current_Scale;
+    float       _P_F_Voltage_Scale;
     float       _P_F_PWM_All_Count;
     
     
