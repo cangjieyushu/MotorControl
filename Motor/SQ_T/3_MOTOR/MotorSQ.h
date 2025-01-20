@@ -313,6 +313,7 @@ typedef struct{
     Q32U_               Q14U_ibus_max_pu;
     Q32U_               Q14U_ibrake_max_pu;
     Q32U_               Q14U_vbus_max_pu;
+    Q32U_               _P_Q32U_Current_Scale;
     
     ST_FILTER_T         FL_Iphase;
     ST_FILTER_T         FL_Freq;
@@ -326,6 +327,7 @@ typedef struct{
     
     Q32I_               Q12I_BEMF_ADC_tmp[3];
     Q32I_               Q12I_VBUS_VAL;
+    Q32I_               Q12I_VBUS_PU;
     Q32I_               Q12I_IPHASE_ADC;
     Q32I_               Q12I_IPHASE_OFFSET;
     Q32I_               Q14I_IPHASE_PU;

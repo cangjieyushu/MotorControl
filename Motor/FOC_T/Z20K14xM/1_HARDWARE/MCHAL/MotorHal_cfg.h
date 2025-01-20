@@ -9,7 +9,6 @@
 #define MotorHal_cfg_H
 
 //调用所有外设的头文件
-
 #include "device_regs.h"
 #include "platform_cfg.h"
 #include "adc_drv.h"
@@ -30,10 +29,27 @@
 
 #include "Math.h"
 
+#define BIT0    0x0001U
+#define BIT1    0x0002U
+#define BIT2    0x0004U
+#define BIT3    0x0008U
+#define BIT4    0x0010U
+#define BIT5    0x0020U
+#define BIT6    0x0040U
+#define BIT7    0x0080U
+#define BIT8    0x0100U
+#define BIT9    0x0200U
+#define BIT10   0x0400U
+#define BIT11   0x0800U
+#define BIT12   0x1000U
+#define BIT13   0x2000U
+#define BIT14   0x4000U
+#define BIT15   0x8000U
+
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
 
 
 //频率设置
@@ -58,12 +74,12 @@
 #define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz，PWM载频
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz，PWM载频
 
-#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_10K)
+#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_16K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
-#define HAL_PWM_SET_COUNT_U                     (Q32U_)(HAL_PWM_SET_COUNT_F)
+#define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
 
-#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                           //最大占空比定点值
+#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)
 #define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
 
@@ -82,7 +98,7 @@
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (4.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 
@@ -124,7 +140,7 @@
 #define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
 
 //相电流采样
-#define HAL_ADC_CURRENT_GAIN                    (10.0f)                 //相电流采样放大倍数
+#define HAL_ADC_CURRENT_GAIN                    (20.0f)                 //相电流采样放大倍数
 #define HAL_ADC_CURRENT_RESISTOR                (0.005f)                //Ω，相电流采样电阻
 #define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))
 #define HAL_ADC_CURRENT_MAX                     (HAL_ADC_REF_VOLTAGE_V*HAL_ADC_CURRENT_COEFF)   //A，最大采样电流
@@ -217,7 +233,7 @@
 #define HAL_ADC1_BAT_PIN            GPIO_16
 #define HAL_ADC1_BAT_PINMUX         PTB16_ADC1_CH15
 #define HAL_ADC1_BAT_CHN            ADC_P_CH15
-    
+
 #define HAL_HALLA_PORT              PORT_A
 #define HAL_HALLA_PIN               GPIO_10
 #define HAL_HALLA_PINMUX            PTA10_GPIO

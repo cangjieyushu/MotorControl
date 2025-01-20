@@ -62,6 +62,7 @@ typedef struct{
     float                       F_Voltage_Bus;
     float                       F_Motor_Speed;
     float                       F_Temp_0p01_C;
+    float                       _P_F_Voltage_Scale;
 	
     Q32U_                       Q32U_System_PowerUp_Time;
     Q32U_                       flow_cnt;

@@ -9,7 +9,7 @@
 
 ST_SYSTEM_TASK  Systask = {
     .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
-    ._P_F_Voltage_Scale = HAL_ADC_VOLTAGE_SCALE,
+    ._P_Q32I_Voltage_Scale = Q24I_VOLTAGE_SCALE_PU,
     
     .FL_VBUS.Q08I_Filter_Coeff = 25,
     .FL_TEMP.Q08I_Filter_Coeff = 25,
@@ -28,12 +28,10 @@ Author: CJYS
 ***********************************************************************************************/
 void System_Task_Init(ST_SYSTEM_TASK* pST)
 {
-    Q32U_ adc_tmp = 0U;
-    
-    adc_tmp = BSP_ADC_READ_DATA_VBUS;   Filter_Init_T(&pST->FL_VBUS, (float)adc_tmp);
-    adc_tmp = BSP_ADC_READ_DATA_TEMP;   Filter_Init_T(&pST->FL_TEMP, (float)adc_tmp);
-    adc_tmp = BSP_ADC_READ_DATA_VR;     Filter_Init_T(&pST->FL_VR, (float)adc_tmp);
-    adc_tmp = BSP_ADC_READ_DATA_VBG;    Filter_Init_T(&pST->FL_VBG, (float)adc_tmp);
+    Filter_Init_T(&pST->FL_VBUS, (Q32I_)BSP_ADC_READ_DATA_VBUS);
+    Filter_Init_T(&pST->FL_TEMP, (Q32I_)BSP_ADC_READ_DATA_TEMP);
+    Filter_Init_T(&pST->FL_VR, (Q32I_)BSP_ADC_READ_DATA_VR);
+    Filter_Init_T(&pST->FL_VBG, (Q32I_)BSP_ADC_READ_DATA_VBG);
 }
 
 /**********************************************************************************************
@@ -47,12 +45,10 @@ Author: CJYS
 ***********************************************************************************************/
 void System_ADC_Read(ST_SYSTEM_TASK* pST)
 {
-    Q32U_ adc_tmp = 0U;
-    
-    adc_tmp = BSP_ADC_READ_DATA_VBUS;   pST->FL_VBUS.F_Filter_in = (float)adc_tmp;
-    adc_tmp = BSP_ADC_READ_DATA_TEMP;   pST->FL_TEMP.F_Filter_in = (float)adc_tmp;
-    adc_tmp = BSP_ADC_READ_DATA_VR;     pST->FL_VR.F_Filter_in = (float)adc_tmp;
-    adc_tmp = BSP_ADC_READ_DATA_VBG;    pST->FL_VBG.F_Filter_in = (float)adc_tmp;
+    pST->FL_VBUS.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VBUS;
+    pST->FL_TEMP.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_TEMP;
+    pST->FL_VR.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VR;
+    pST->FL_VBG.Q16I_Filter_in = (Q32I_)BSP_ADC_READ_DATA_VBG;
     Filter_Cal_T(&pST->FL_VBUS);
     Filter_Cal_T(&pST->FL_TEMP);
     Filter_Cal_T(&pST->FL_VR);
@@ -74,7 +70,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     
     
     Motor_Set_Dir((Q32I_)1);
-    Motor_Set_Vbus(Q14I_VOLTAGE_LSB_TO_PU(pST->FL_VBUS.Q16I_Filter_out));
+    Motor_Set_Vbus((Q32I_)(Q32I_RHT_10(pST->_P_Q32I_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out)));
     Motor_Set_Target_Speed((Q32I_)3000);
     
     

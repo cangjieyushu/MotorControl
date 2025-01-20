@@ -8,7 +8,7 @@
 #include "BSP_ADC.h"
 
 /**********************************************************************************************
-Function: BSP_ADC_Init
+Function: BSP_ADC_Init_Three_Shunt
 Description: 电机控制用ADC初始化
 Input: 无
 Output: 无
@@ -16,11 +16,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void BSP_ADC_Init(void)
+void BSP_ADC_Init_Three_Shunt(void)
 {
     static adc_reg_t * ADC0 = (adc_reg_t *)(ADC0_BASE_ADDR);       /*PRQA S 0303*/  
-    
-#if (HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
     
     ADC_Config_t SubcaseAdcCfg=
     {
@@ -103,13 +101,13 @@ void BSP_ADC_Init(void)
     /* mod value, single, divide4, SW trig, clear to mod */
     TDG_InitConfig_t Config=
     {
-        HAL_PWM_SET_COUNT_U*2U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
+        HAL_PWM_SET_COUNT_T*2U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
     };
   
     /* 001*1/64Tclock */
     TDG_DelayOutputConfig_t Doconfig =         
     {
-        TDG_DO_0, (HAL_PWM_SET_COUNT_U*2U - (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U), ENABLE
+        TDG_DO_0, (HAL_PWM_SET_COUNT_T*2U - (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U), ENABLE
     };
   
     const TDG_ChannelConfig_t Chconfig =
@@ -117,7 +115,6 @@ void BSP_ADC_Init(void)
         TDG_CHANNEL_0, 0U, 1U, &Doconfig
     };
   
-
     /* Reset ADC */
     SYSCTRL_ResetModule(SYSCTRL_ADC0);
     /* Enable ADC clock */
@@ -158,7 +155,6 @@ void BSP_ADC_Init(void)
     /* Enable ADC dma request */
     ADC_DmaRequestCmd(HAL_ADC_ID, ENABLE);
     
-    
     /* Initialize TDG */
     TDG_InitConfig(HAL_TGD_ID, &Config);
     /* Set TDG delay output */
@@ -184,10 +180,22 @@ void BSP_ADC_Init(void)
     while (0U != ADC0->ADC_FCTRL.FCOUNT)
     {
         (void)ADC0->ADC_DATA_RD.ADC_DATA_RD;
-    }    
-    
-#else
+    }
+}
 
+/**********************************************************************************************
+Function: BSP_ADC_Init_One_Shunt
+Description: 电机控制用ADC初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void BSP_ADC_Init_One_Shunt(void)
+{
+    static adc_reg_t * ADC0 = (adc_reg_t *)(ADC0_BASE_ADDR);       /*PRQA S 0303*/  
+    
     ADC_Config_t SubcaseAdcCfg=
     {
         /* resolution */
@@ -269,7 +277,7 @@ void BSP_ADC_Init(void)
     /* mod value, single, divide4, SW trig, clear to mod */
     TDG_InitConfig_t Config=
     {
-        HAL_PWM_SET_COUNT_U*2U - 1U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
+        HAL_PWM_SET_COUNT_T*2U - 1U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
     };
   
     /* 001*1/64Tclock */
@@ -350,7 +358,7 @@ void BSP_ADC_Init(void)
 
 
     ADC0->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADC0->ADC_CFG.CHSELP = HAL_ADC_VBUS_CHN;             /* config channel */
+    ADC0->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
     ADC0->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
     ADC0->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
     while (0U == ADC0->ADC_STAT.TCOMP_INT)
@@ -366,8 +374,6 @@ void BSP_ADC_Init(void)
     {
         (void)ADC0->ADC_DATA_RD.ADC_DATA_RD;
     }      
-
-#endif
 }
 
 /**********************************************************************************************
@@ -502,7 +508,7 @@ void BSP_ADC_Init_S(void)
     TDG_LoadCmd(TDG1_ID);
 
     ADC1->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADC1->ADC_CFG.CHSELP = HAL_ADC_VBUS_CHN;             /* config channel */
+    ADC1->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
     ADC1->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
     ADC1->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
     while (0U == ADC1->ADC_STAT.TCOMP_INT)

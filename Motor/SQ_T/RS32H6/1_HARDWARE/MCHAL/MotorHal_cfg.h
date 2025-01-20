@@ -62,7 +62,7 @@
 #define HAL_PWM_RUN1_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN1_FREQ)
 #define HAL_PWM_RUN2_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN2_FREQ)
 
-#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                             //最大占空比定点值
+#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)
 #define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
 #define HAL_PWM_DUTY_1_PERCENT                  (Q16U_)(0.01f*HAL_PWM_DUTY_MAX_F)      //基础占空比
@@ -88,7 +88,7 @@
 
 
 //PWM设置
-#define HAL_PWM_DEADTIME_TIME                   (1.0f*1.5f)                  //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (2.0f)                  //us，死区时间
 #define HAL_PWM_DEADTIME_VALUE                  (Q32U_)(HAL_PWM_PRE_FREQ*HAL_PWM_DEADTIME_TIME/1000.0f)
 
 

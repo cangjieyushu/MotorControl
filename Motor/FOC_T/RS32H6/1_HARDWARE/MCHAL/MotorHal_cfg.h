@@ -9,7 +9,6 @@
 #define MotorHal_cfg_H
 
 //调用所有外设的头文件
-
 #include "rx32h6xx.h"
 #include "rx32h6xx_adc.h"
 #include "rx32h6xx_cmp.h"
@@ -33,7 +32,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
 
 
 //频率设置
@@ -61,14 +60,14 @@
 #define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_10K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
-#define HAL_PWM_SET_COUNT_T                     (Q32U_)(HAL_PWM_SET_COUNT_F)
+#define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
 
-#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)                           //最大占空比定点值
+#define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)
 #define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
 
 //PWM设置
-#define HAL_PWM_DEADTIME_TIME                   (1.0f*1.5f)                  //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (2.0f)                          //us，死区时间
 #define HAL_PWM_DEADTIME_VALUE                  (Q32U_)(HAL_PWM_PRE_FREQ*HAL_PWM_DEADTIME_TIME/1000.0f)
 
 
@@ -80,11 +79,11 @@
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
 #define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
-#define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
+#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (4.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
-#define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
+#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 
 #define HAL_MAX_DUTY                            (1.0f - (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
 #define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)

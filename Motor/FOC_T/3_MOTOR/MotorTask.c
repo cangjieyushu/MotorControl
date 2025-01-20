@@ -26,6 +26,11 @@ void MotorFoc_Init_T(ST_MOTOR_TASK* pMotor)
     Est_Flux_Init_T(&pMotor->FLUX_CTRL);
     Est_SMO_Init_T(&pMotor->SMO_CTRL);
     
+    Ramp_Init_T(&pMotor->LOOP_CTRL.Align_Ramp, pMotor->LOOP_CTRL.Align_Ramp.Q32I_Init);
+    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 3072;
+    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
+    pMotor->Motor_Loop_Mode = MOTOR_ALIGNLOOP;
+    
     pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
 }
 
@@ -47,7 +52,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         {
             case MOTOR_ALIGNLOOP:
             {
-                Ramp_Cal_F(&pMotor->LOOP_CTRL.Align_Ramp);
+                Ramp_Cal_T(&pMotor->LOOP_CTRL.Align_Ramp);
                 pMotor->LOOP_CTRL._V_Q32U_Align_cnt++;
                 if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time3 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
                 {
@@ -56,42 +61,43 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
                 }
                 else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
                 {
-                    pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
+                    pMotor->CURRENT_CTRL._I_Q14I_IqRef = 0;
                 }
                 else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt >= pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
                 {
-                    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->LOOP_CTRL.Align_Ramp.F_Output;
-                    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = MATH_2PI_F;
+                    pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
+                    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 0;
                 }
                 else
                 {
-                    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->LOOP_CTRL.Align_Ramp.F_Output;
-                    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = 1.5f*MATH_PI_F;
+                    pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
+                    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 3072;
                 }
                 break;
             }
             case MOTOR_OPENLOOP:
             {
+                MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
                 break;
             }
             case MOTOR_CLOSELOOP1:
             {
-                MotorFoc_SRAD_Loop_F(&pMotor->SRAD_CTRL);
-                pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->SRAD_CTRL._O_F_IdRef;
-                pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->SRAD_CTRL._O_F_IqRef;
+                MotorFoc_SRAD_Loop_T(&pMotor->SRAD_CTRL);
+                pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
+                pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->SRAD_CTRL._O_Q14I_IqRef;
                 
-                pMotor->SRAD_CTRL._I_F_SRAD_Target = pMotor->LOOP_CTRL._P_F_Close1_Target_SRAD;
-                pMotor->SRAD_CTRL.Ramp_SRAD.F_ADDStep =  pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
-                pMotor->SRAD_CTRL.Ramp_SRAD.F_SUBStep = -pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
+                pMotor->SRAD_CTRL._I_Q14I_SRAD_Target = pMotor->LOOP_CTRL._P_F_Close1_Target_SRAD;
+                pMotor->SRAD_CTRL.Ramp_SRAD.Q32I_ADDStep =  pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
+                pMotor->SRAD_CTRL.Ramp_SRAD.Q32I_SUBStep = -pMotor->LOOP_CTRL._P_F_Close1_SRAD_Step;
                 
-                if(pMotor->SRAD_CTRL._I_F_SRAD >= pMotor->LOOP_CTRL._P_F_Close1_Switch_SRAD)
+                if(pMotor->SRAD_CTRL._I_Q14I_SRAD >= pMotor->LOOP_CTRL._P_F_Close1_Switch_SRAD)
                 {
                     if(++pMotor->LOOP_CTRL._V_Q32U_Close1_cnt >= pMotor->LOOP_CTRL._P_Q32U_Close1_Switch_Time)
                     {
                         pMotor->LOOP_CTRL._V_Q32U_Close1_cnt = 0;
                         pMotor->FLUX_CTRL.Est_State_Flag = 1U;
-                        pMotor->SRAD_CTRL.Ramp_SRAD.F_ADDStep =  pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
-                        pMotor->SRAD_CTRL.Ramp_SRAD.F_SUBStep = -pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
+                        pMotor->SRAD_CTRL.Ramp_SRAD.Q32I_ADDStep =  pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
+                        pMotor->SRAD_CTRL.Ramp_SRAD.Q32I_SUBStep = -pMotor->LOOP_CTRL._P_F_Close2_SRAD_Step;
                         pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP2;
                     }
                 }
@@ -106,8 +112,8 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
                 MotorFoc_SRAD_Loop_T(&pMotor->SRAD_CTRL);
                 pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
                 pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->SRAD_CTRL._O_Q14I_IqRef;
-            	break;
-			}
+                break;
+            }
             default:break;
         }
     }
@@ -140,7 +146,8 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->Motor_State_Flag.bit.pwm_output_flag = 0U;
             MotorFoc_Init_T(pMotor);
             pMotor->Motor_Flow = MOTOR_STATE_INIT;
-        }break;
+            break;
+        }
         case MOTOR_STATE_INIT:
         {
             static uint32_t cnt = 0U;
@@ -150,9 +157,9 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 if(++cnt > 20U)
                 {
                     cnt = 0U;
-                    pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset /= 20.0f;
-                    pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset /= 20.0f;
-                    pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset /= 20.0f;
+                    pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset /= 20;
+                    pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset /= 20;
+                    pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset /= 20;
                     pMotor->Motor_Flow = MOTOR_STATE_IDLE;
                 }
                 else
@@ -164,9 +171,9 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             }
             else
             {
-                pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset = 0.0f;
-                pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset = 0.0f;
-                pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset = 0.0f;
+                pMotor->SVPWM_CTRL._I_Q14I_Ia_Offset = 0;
+                pMotor->SVPWM_CTRL._I_Q14I_Ib_Offset = 0;
+                pMotor->SVPWM_CTRL._I_Q14I_Ic_Offset = 0;
                 cnt = 0U;
             }
             
@@ -177,8 +184,8 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 if(++cnt > 20U)
                 {
                     cnt = 0U;
-                    pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset /= 20.0f;
-                    pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset /= 20.0f;
+                    pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset /= 20;
+                    pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset /= 20;
                     pMotor->Motor_Flow = MOTOR_STATE_IDLE;
                 }
                 else
@@ -189,8 +196,8 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             }
             else
             {
-                pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset = 0.0f;
-                pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset = 0.0f;
+                pMotor->SVPWM_CTRL._I_Q14I_Ishunt_1_Offset = 0;
+                pMotor->SVPWM_CTRL._I_Q14I_Ishunt_2_Offset = 0;
                 cnt = 0U;
             }
 #endif
@@ -238,12 +245,12 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 MotorFoc_Clark_T(&pMotor->SVPWM_CTRL);
                 
-                pMotor->FLUX_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
-                pMotor->FLUX_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
-                pMotor->FLUX_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
-                pMotor->FLUX_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
-                pMotor->FLUX_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
-                Est_Flux_T(&pMotor->FLUX_CTRL);
+//                pMotor->FLUX_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
+//                pMotor->FLUX_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
+//                pMotor->FLUX_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
+//                pMotor->FLUX_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
+//                pMotor->FLUX_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
+//                Est_Flux_T(&pMotor->FLUX_CTRL);
                 
 //                pMotor->SMO_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
 //                pMotor->SMO_CTRL._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
@@ -255,11 +262,14 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 {
                     case MOTOR_ALIGNLOOP:
                     {
-                        Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
+                        Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
                         break;
                     }
                     case MOTOR_OPENLOOP:
                     {
+                        MotorFoc_VF_CURRENT_T(&pMotor->VF_CTRL);
+                        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
+                        Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
                         break;
                     }
                     case MOTOR_CLOSELOOP1:
@@ -282,6 +292,8 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 
                 pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
                 pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
+                pMotor->SVPWM_CTRL._I_Q14I_Ud = 0;
+                pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->VF_CTRL.Ramp_Vq.Q32I_Output;
                 MotorFoc_Ipark_T(&pMotor->SVPWM_CTRL);
                 
                 pMotor->Motor_State_Flag.bit.pwm_output_flag = 1U;

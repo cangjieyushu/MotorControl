@@ -53,6 +53,7 @@ typedef struct
     Q32I_       _I_Q14I_Ibeta;
     Q32I_       _I_Q14I_IdRef;
     
+    Q32I_       _V_Q14I_R_set;
     Q32I_       _V_Q14I_Yalfa;
     Q32I_       _V_Q14I_Ybeta;
     Q32I_       _V_Q14I_Nalfa;
@@ -65,21 +66,11 @@ typedef struct
     
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Gamma;
+    Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Ls;
     Q32I_       _P_Q14I_Flux2;
-
-    float       _V_F_Yalfa_L;
-    float       _V_F_Ybeta_L;
-    float       _V_F_Yalfa_HF;
-    float       _V_F_Ybeta_HF;
-    float       _V_F_Xalfa_F;
-    float       _V_F_Xbeta_F;
-    float       _V_F_Nnalfa_F;
-    float       _V_F_Nnbeta_F;
-    float       _V_F_Nn2_F;
-    float       _V_F_Nn2_L;
 }ST_FLUX_CONTROL_T;
 
 typedef struct

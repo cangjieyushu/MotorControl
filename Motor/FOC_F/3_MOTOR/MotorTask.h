@@ -69,6 +69,7 @@ static inline float Motor_Read_Dir(void)
 {
     return Motor.SRAD_CTRL._O_F_DIR_Set;
 }
+
 /**********************************************************************************************
 Function: Motor_Get_Run_State
 Description: 获取电机是否为运行状态
@@ -129,12 +130,10 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Vbus(float Vbus_Val)
 {
-    float Vbus_tmp = 0.0f;
-    Vbus_tmp = Motor.SVPWM_CTRL._P_F_Voltage_Scale*Vbus_Val;
-    Motor.SVPWM_CTRL._I_F_Vbus = Vbus_tmp;
-    Motor.SVPWM_CTRL._I_F_One_Over_Vbus = 1.0f/Vbus_tmp;
-    Motor.SRAD_CTRL._I_F_Vbus = Vbus_tmp;
-    Motor.CURRENT_CTRL._I_F_Vbus = Vbus_tmp;
+    Motor.SVPWM_CTRL._I_F_Vbus = Vbus_Val;
+    Motor.SVPWM_CTRL._I_F_One_Over_Vbus = 1.0f/Vbus_Val;
+    Motor.SRAD_CTRL._I_F_Vbus = Vbus_Val;
+    Motor.CURRENT_CTRL._I_F_Vbus = Vbus_Val;
 }
 
 /**********************************************************************************************
@@ -152,6 +151,7 @@ static inline float Motor_Read_Current_Max(void)
     Motor.F_Iphase_Max = 0.0f;
     return iphase_max_tmp;
 }
+
 /**********************************************************************************************
 Function: Motor_Read_Error
 Description: 读取电机故障码

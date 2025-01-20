@@ -94,7 +94,37 @@ void ADC_IRQHandler(void)
     if(ADC_Get_SR(HAL_MOTOR_ADC, ADC_SR_JEOC))
     {
         ADC_Clear_SR(HAL_MOTOR_ADC, ADC_SR_JEOC);
+        Q32I_ pwm_tmp1,pwm_tmp2,pwm_tmp3,adc_tmp1,adc_tmp2 = 0;
+        
+        MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data, &Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data);
+        
+        Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] =  Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q32I_Current_Scale
+        *(Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Offset));
+        Motor.SVPWM_CTRL._I_Q14I_Ishunt[1] = -Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q32I_Current_Scale
+        *(Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Offset));
+        Motor.SVPWM_CTRL._I_Q14I_Ishunt[2] = -Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] - Motor.SVPWM_CTRL._I_Q14I_Ishunt[1];
+        MotorFoc_OneShunt_Cal_T(&Motor.SVPWM_CTRL);
+        
         MotorTask_Current_Flow(&Motor);
+        
+        if(Motor.Motor_State_Flag.bit.pwm_output_flag == 1U)
+        {
+            MotorFoc_SVPWM_OneShunt_T(&Motor.SVPWM_CTRL);
+            
+            pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaDn);
+            pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbDn);
+            pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcDn);
+            adc_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime1);
+            adc_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime2);
+            
+            MH_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3);
+            MH_ADC_TrigTime_Set((Q32U_)adc_tmp1,(Q32U_)adc_tmp2);
+            MH_PWM_Output_Enable();
+        }
+        else
+        {
+            MH_PWM_Output_Disable(); 
+        }
     }
 }
 
@@ -112,12 +142,17 @@ void TIM8_BRK_UP_TRG_COM_IRQHandler(void)
     if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_BIF))
     {
         TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_BIF);
-        MotorTask_Shut_Flow(&Motor);
+        MH_PWM_Output_Disable();
     }
     else if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_UIF))
     {
         TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_UIF);
-        MotorTask_Update_Flow(&Motor);
+        Q32I_ pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0;
+        
+        pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaUp);
+        pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbUp);
+        pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcUp);
+        MH_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3);
 		
 #if(JSCOPE_RTT_EN == 1U)
         RTT_DATA[0] = Motor.SMO_Ctrl.FL_SRAD.Q16I_Filter_out;

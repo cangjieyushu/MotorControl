@@ -33,7 +33,7 @@
 #define BOOT_CHECK_DUTY                 (HAL_PWM_DUTY_50_PERCENT)   //电机静止检测占空比
 #define BOOT_CHECK_TL_lsb               (50U)                       //电机静止检测反电动势阈值
 #define BOOT_CHECK_NUM                  (10U)                       //电机静止检测判断次数
-#define BOOT_CHECK_TIME                 (10000U)                    //电机静止检测总次数
+#define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
 
 //脉冲定位 
 #define POSITION_DUTY                   (HAL_PWM_DUTY_10_PERCENT)   //1kHz，脉冲定位占空比

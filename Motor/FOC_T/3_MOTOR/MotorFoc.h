@@ -66,15 +66,15 @@ typedef struct
     Q32I_       _O_Q14I_Ualfa;
     Q32I_       _O_Q14I_Ubeta;
      
-    Q32I_       _O_Q14I_Ta;
-    Q32I_       _O_Q14I_Tb;
-    Q32I_       _O_Q14I_Tc;
+    Q32I_       _O_Q12I_Ta;
+    Q32I_       _O_Q12I_Tb;
+    Q32I_       _O_Q12I_Tc;
     
-    Q32I_       _P_Q14I_MaxDuty;
-    Q32I_       _P_Q14I_MinDuty;
-    Q32I_       _P_Q14I_ADCSampleDuty;
-    Q32I_       _P_Q14I_Current_Scale;
-    Q32I_       _P_Q14I_PWM_All_Count;    
+    Q32I_       _P_Q12I_MaxDuty;
+    Q32I_       _P_Q12I_MinDuty;
+    Q32I_       _P_Q12I_ADCSampleDuty;
+    Q32I_       _P_Q32I_Current_Scale;
+    Q32I_       _P_Q12I_PWM_All_Count;    
     
     
     Q32I_       _I_Q14I_Ishunt[3];
@@ -84,15 +84,15 @@ typedef struct
     Q32I_       _I_Q14I_Ishunt_1_Offset;
     Q32I_       _I_Q14I_Ishunt_2_Offset;
     
-    Q32I_       _O_Q14I_TaUp;
-    Q32I_       _O_Q14I_TbUp;
-    Q32I_       _O_Q14I_TcUp;
-    Q32I_       _O_Q14I_TaDn;
-    Q32I_       _O_Q14I_TbDn;
-    Q32I_       _O_Q14I_TcDn;
+    Q32I_       _O_Q12I_TaUp;
+    Q32I_       _O_Q12I_TbUp;
+    Q32I_       _O_Q12I_TcUp;
+    Q32I_       _O_Q12I_TaDn;
+    Q32I_       _O_Q12I_TbDn;
+    Q32I_       _O_Q12I_TcDn;
     
-    Q32I_       _O_Q14I_ADCTrigTime1;
-    Q32I_       _O_Q14I_ADCTrigTime2;
+    Q32I_       _O_Q12I_ADCTrigTime1;
+    Q32I_       _O_Q12I_ADCTrigTime2;
 }ST_SVPWM_CONTROL_T;
 
 typedef struct

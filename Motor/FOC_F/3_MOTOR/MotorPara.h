@@ -19,20 +19,20 @@
 #define MOTOR_ALIGNLOOP_RAMP_INIT           (0.0f)                     		//A,Iq初始值
 #define MOTOR_ALIGNLOOP_RAMP_TARGET         (5.0f)                    	 	//A,Iq目标值
 #define MOTOR_ALIGNLOOP_RAMP_STEP           (5.0f * MOTOR_LTs)        		//A/s,Iq每秒增加步长
-#define MOTOR_ALIGNLOOP_TIME1               (500)                          	//ms,电机alignloop第一阶段
-#define MOTOR_ALIGNLOOP_TIME2               (500)                          	//ms,电机alignloop第二阶段
-#define MOTOR_ALIGNLOOP_TIME3               (500)                           //ms,电机alignloop第三阶段
+#define MOTOR_ALIGNLOOP_TIME1               (500U)                          //ms,电机alignloop第一阶段
+#define MOTOR_ALIGNLOOP_TIME2               (500U)                          //ms,电机alignloop第二阶段
+#define MOTOR_ALIGNLOOP_TIME3               (500U)                          //ms,电机alignloop第三阶段
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (5000)                          //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_MIN_TIME             (5000U)                         //ms,电机openloop最小时间
 #define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机openloop切换closeloop1时间
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
 #define MOTOR_CLOSELOOP1_TARGET_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
 #define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
 #define MOTOR_CLOSELOOP1_SWITCH_SRAD        (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100)                           //ms,电机closeloop1切换closeloop2的时间
+#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100U)                          //ms,电机closeloop1切换closeloop2的时间
 
 //电机closeloop2相关参数，闭环运行阶段         
 #define MOTOR_CLOSELOOP2_SRAD_TARGET        (MOTOR_MAX_SRAD)                //Hz,电机closeloop2目标转速
@@ -52,9 +52,9 @@
 #define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //Hz,电机IF观测器角度收敛步长
 
 //VF
-#define MOTOR_VF_IQRAMP_INIT                (0.0f)                          //V,Vq初始值
-#define MOTOR_VF_IQRAMP_TARGET              (2.0f)                          //V,Vq目标值
-#define MOTOR_VF_IQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
+#define MOTOR_VF_VQRAMP_INIT                (0.0f)                          //V,Vq初始值
+#define MOTOR_VF_VQRAMP_TARGET              (2.0f)                          //V,Vq目标值
+#define MOTOR_VF_VQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
 #define MOTOR_VF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,VF速度目标值

@@ -172,10 +172,11 @@ Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->_V_F_Nnbeta_F = pCTRL->_V_F_Xbeta_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
     pCTRL->_V_F_Nn2_F = MATH_SQUARE_F(pCTRL->_V_F_Nnalfa_F) + MATH_SQUARE_F(pCTRL->_V_F_Nnbeta_F);
     pCTRL->_V_F_Nn2_L = 0.95f*pCTRL->_V_F_Nn2_L + 0.05f*pCTRL->_V_F_Nn2_F;
-    
+	
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
-    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta)
+    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa)
+					+ MATH_SQUARE_F(pCTRL->_V_F_Nbeta)
                     - MATH_SQUARE_F(pCTRL->_P_F_Ld*pCTRL->_I_F_IdRef);
     
     pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_V_F_Nn2_L - pCTRL->_V_F_Nn2);
@@ -234,11 +235,13 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
 {
-    pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ts*( - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa
+    pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ts*(
+					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa
                        - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Abeta
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ualfa
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ealfa);
-    pCTRL->_V_F_Abeta += pCTRL->_P_F_Ts*( - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Abeta
+    pCTRL->_V_F_Abeta += pCTRL->_P_F_Ts*(
+					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Abeta
                        + pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Aalfa
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ubeta
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ebeta);

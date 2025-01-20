@@ -9,7 +9,8 @@
 
 ST_SYSTEM_TASK  Systask = {
     .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
-        
+    ._P_F_Voltage_Scale = HAL_ADC_VOLTAGE_SCALE,
+    
     .F_FL_VBUS.F_Filter_Coeff = 0.05f,
     .F_FL_TEMP.F_Filter_Coeff = 0.05f,
     .F_FL_VR.F_Filter_Coeff = 0.05f,
@@ -74,7 +75,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     
     
     Motor_Set_Dir(1.0f);
-    Motor_Set_Vbus(pST->F_FL_VBUS.F_Filter_out);
+    Motor_Set_Vbus(pST->_P_F_Voltage_Scale*pST->F_FL_VBUS.F_Filter_out);
     Motor_Set_Target_Speed(pST->F_Duty_Target*MOTOR_MAX_SPEED);
     
     

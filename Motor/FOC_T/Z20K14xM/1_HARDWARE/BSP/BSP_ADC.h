@@ -13,7 +13,7 @@
 #define ADC_DATA_NUM_S          (3)     //应用层ADC采样通道个数
 
 /**********************************************************************************************
-Function: BSP_ADC_Init
+Function: BSP_ADC_Init_Three_Shunt
 Description: 电机控制用ADC初始化
 Input: 无
 Output: 无
@@ -21,7 +21,18 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void BSP_ADC_Init(void);
+void BSP_ADC_Init_Three_Shunt(void);
+
+/**********************************************************************************************
+Function: BSP_ADC_Init_One_Shunt
+Description: 电机控制用ADC初始化
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void BSP_ADC_Init_One_Shunt(void);
 
 /**********************************************************************************************
 Function: BSP_ADC_Init_S

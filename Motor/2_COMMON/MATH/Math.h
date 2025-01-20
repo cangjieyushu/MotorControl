@@ -121,6 +121,7 @@ typedef struct
 #define MATH_ONE_OVER_SQRT_THREE_T(A)       (Q32I_RHT_12(2365*(A)))
 #define MATH_ONE_OVER_THREE_T(A)            (Q32I_RHT_12(1365*(A)))
 
+#define MATH_SQUARE_T(A)                    ((A)*(A))
 #define MATH_ABS_T(A)                       (((A)<(0)) ? (-(A)) : (A))
 #define MATH_MAX_T(A, B)                    (((A)>(B)) ?   (A)  : (B))
 #define MATH_MIN_T(A, B)                    (((A)<(B)) ?   (A)  : (B))

@@ -49,8 +49,8 @@ void BSP_PWM_Init(void)
     TIM_Set_OC_CompareCH4(HAL_MOTOR_PWM, HAL_ADC_DELAY_VALUE);
     
     /* Set Deadtime */
-    TIM_Set_ClockDivision(HAL_MOTOR_PWM, TIM_CLOCKDIVISION_DIV2);
-    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, HAL_PWM_DEADTIME_VALUE);  //deadtime
+    TIM_Set_ClockDivision(HAL_MOTOR_PWM, TIM_CLOCKDIVISION_DIV1);
+    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, (0x7FU & HAL_PWM_DEADTIME_VALUE));  //deadtime
     
     /*  BDTR   AF1*/
     /*comp1 out high break*/

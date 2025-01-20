@@ -25,7 +25,7 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        Button_Control(&Button_Ctrl, &Systask);
+        Button_Control(&Button_Ctrl, pST);
 
 		pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
@@ -75,9 +75,9 @@ Author: CJYS
 ***********************************************************************************************/
 Ram_Func void ADC_IRQHandler(void)
 {
-    float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
     {
+        float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
         MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_F_Ia_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data, &Motor.SVPWM_CTRL._I_F_Ic_Data);
         

@@ -47,18 +47,21 @@ void BSP_ADC_Init(void)
 	ADC_INJ_RankInitTypeDef  ADC_INJ_RankInitStruct = {0};
     
 	ADC_Inj_InitStruct.TriggerSource  	        = ADC_CR2_JEXTSEL_TIM8_TRGO2;//注入通道触发源
-	ADC_Inj_InitStruct.ScanMode    				= ADC_CR1_SCAN_ENABLE;
+	ADC_Inj_InitStruct.ScanMode    				= ADC_CR1_SCAN_DISABLE;
 	ADC_Inj_InitStruct.DataAlignment 			= ADC_CR2_ALIGN_RIGHT;
 	ADC_Inj_InitStruct.TrigAuto  				= ADC_CR1_JAUTO_INDEPENDENT;
 	ADC_Inj_InitStruct.AnalogWatchDog 			= ADC_CR1_AWD_DISABLE;
 	ADC_Inj_InitStruct.AWDChannelGroup			= ADC_AWD_DISABLE;
-	ADC_Inj_InitStruct.InjectDiscont			= ADC_CR1_JDISCEN_DISABLE;
+	ADC_Inj_InitStruct.InjectDiscont			= ADC_CR1_JDISCEN_ENABLE;
 	ADC_Inj_InitStruct.EOCOption				= ADC_EOC_OPT_DISABLE;
 	ADC_Inj_Init(HAL_MOTOR_ADC, &ADC_Inj_InitStruct);
 	
-	ADC_INJ_RankInitStruct.Length 				= ADC_JSQRL_SCAN_DISABLE;//注入通道个数
+	ADC_INJ_RankInitStruct.Length 				= ADC_JSQRL_SCAN_2RANKS;//注入通道个数
 	ADC_INJ_RankInitStruct.Rank[0].Channel  	= ADC_PHASE_Channel;
 	ADC_INJ_RankInitStruct.Rank[0].SamplingTime = ADC_SAMPLINGTIME_17p5CYCLES;
+	ADC_INJ_RankInit(HAL_MOTOR_ADC, &ADC_INJ_RankInitStruct);
+	ADC_INJ_RankInitStruct.Rank[1].Channel  	= ADC_PHASE_Channel;
+	ADC_INJ_RankInitStruct.Rank[1].SamplingTime = ADC_SAMPLINGTIME_17p5CYCLES;
 	ADC_INJ_RankInit(HAL_MOTOR_ADC, &ADC_INJ_RankInitStruct);
     
     /* Enable ADC */

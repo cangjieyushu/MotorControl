@@ -18,11 +18,12 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_PWM_Init(void)
 {
+    //如果在启动计数器前写入RCR，则UEV在上溢时发生。
     //SET CNT BASE
     TIM_Set_CounterMode(HAL_MOTOR_PWM, TIM_COUNTERMODE_CENTER_UP);
     TIM_Set_Prescaler(HAL_MOTOR_PWM, (uint32_t)HAL_PWM_PRESCALER);
-    TIM_Set_AutoReload(HAL_MOTOR_PWM, (HAL_PWM_INIT_SET-1));
-    TIM_Set_RepetitionCounter(HAL_MOTOR_PWM, 0U);
+    TIM_Set_AutoReload(HAL_MOTOR_PWM, (HAL_PWM_SET_COUNT_T-1));
+    TIM_Set_RepetitionCounter(HAL_MOTOR_PWM, 1U);
 
     //CH1 / CH1N
     TIM_Set_OC_Mode(HAL_MOTOR_PWM, UH_PWM_CHANNEL, TIM_OCMODE_PWM2);
@@ -42,8 +43,8 @@ void BSP_PWM_Init(void)
     //CH5 / CH6
     TIM_Set_OC_Mode(HAL_MOTOR_PWM, ADC_PWM_CHANNEL_1, TIM_OCMODE_PWM1);
     TIM_Set_OC_Mode(HAL_MOTOR_PWM, ADC_PWM_CHANNEL_2, TIM_OCMODE_PWM1);
-    TIM_Set_OC_CompareCH5(HAL_MOTOR_PWM, Q32I_RHT_12(HAL_PWM_DUTY_30_PERCENT*HAL_PWM_INIT_SET));
-    TIM_Set_OC_CompareCH6(HAL_MOTOR_PWM, Q32I_RHT_12(HAL_PWM_DUTY_60_PERCENT*HAL_PWM_INIT_SET));
+    TIM_Set_OC_CompareCH5(HAL_MOTOR_PWM, (Q32U_)(HAL_ADC_TRIGGER_TIME1*HAL_PWM_ALL_COUNT_F));
+    TIM_Set_OC_CompareCH6(HAL_MOTOR_PWM, (Q32U_)(HAL_ADC_TRIGGER_TIME2*HAL_PWM_ALL_COUNT_F));
     
     TIM_Enable_OC_Preload(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
     TIM_Enable_OC_Preload(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
@@ -54,8 +55,8 @@ void BSP_PWM_Init(void)
     TIM_Set_TriggerOutput2(HAL_MOTOR_PWM, TIM_TRGO2_OC5_RISING_OC6_RISING);
     
     /* Set Deadtime */
-    TIM_Set_ClockDivision(HAL_MOTOR_PWM, TIM_CLOCKDIVISION_DIV2);
-    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, HAL_PWM_DEADTIME_VALUE);  //deadtime
+    TIM_Set_ClockDivision(HAL_MOTOR_PWM, TIM_CLOCKDIVISION_DIV1);
+    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, (0x7FU & HAL_PWM_DEADTIME_VALUE));  //deadtime
     
     /*  BDTR   AF1*/
     /*comp1 out high break*/

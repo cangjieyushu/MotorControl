@@ -117,12 +117,13 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_Init_T(ST_FLUX_CONTROL_T* pCTRL)
 {
-    PID_Pos_Init_T(&pCTRL->PID_PLL, 0.0f);
-    Filter_Init_T(&pCTRL->FL_SRAD, 0.0f);
-    pCTRL->TG_Triangle.Q12U_Angle = 0.0f;
-    
-    pCTRL->_V_Q14I_Xalfa = 0.0f;
-    pCTRL->_V_Q14I_Xbeta = 0.0f;
+    pCTRL->Est_State_Flag = 0U;
+    PID_Pos_Init_T(&pCTRL->PID_PLL, 0);
+    Filter_Init_T(&pCTRL->FL_SRAD, 0);
+    pCTRL->TG_Triangle.Q12U_Angle = 0;
+    pCTRL->TG_Triangle.Q14I_Cos = 0;
+    pCTRL->TG_Triangle.Q14I_Sin = 0;
+    pCTRL->TG_Triangle.Q12U_ReAngle = 0;
 }
 
 /**********************************************************************************************
@@ -138,36 +139,21 @@ void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
 {
     if(pCTRL->Est_State_Flag == 0U)
     {
-        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
-        pCTRL->_V_F_Nn2_L = pCTRL->_P_F_Flux2;
+        pCTRL->_V_Q14I_R_set = pCTRL->_P_Q14I_Rs_Coeff*pCTRL->_P_Q14I_Rs;
     }
     else
     {
-        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs;
+        pCTRL->_V_Q14I_R_set = pCTRL->_P_Q14I_Rs;
     }
 	
-    pCTRL->_V_Q14I_Yalfa = -Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ialfa) + pCTRL->_I_Q14I_Ualfa;
-    pCTRL->_V_Q14I_Ybeta = -Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ibeta) + pCTRL->_I_Q14I_Ubeta;
-    
-    pCTRL->_V_F_Yalfa_HF = 0.999f*(pCTRL->_V_F_Yalfa_HF + pCTRL->_V_F_Yalfa - pCTRL->_V_F_Yalfa_L);
-    pCTRL->_V_F_Ybeta_HF = 0.999f*(pCTRL->_V_F_Ybeta_HF + pCTRL->_V_F_Ybeta - pCTRL->_V_F_Ybeta_L);
-        
-    pCTRL->_V_F_Yalfa_L = pCTRL->_V_F_Yalfa;
-    pCTRL->_V_F_Ybeta_L = pCTRL->_V_F_Ybeta; 
-            
-    pCTRL->_V_F_Xalfa_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Yalfa_HF;
-    pCTRL->_V_F_Xbeta_F += pCTRL->_P_F_Ts*pCTRL->_V_F_Ybeta_HF;
-    
-    pCTRL->_V_F_Nnalfa_F = pCTRL->_V_F_Xalfa_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
-    pCTRL->_V_F_Nnbeta_F = pCTRL->_V_F_Xbeta_F - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
-    pCTRL->_V_F_Nn2_F = MATH_SQUARE_F(pCTRL->_V_F_Nnalfa_F) + MATH_SQUARE_F(pCTRL->_V_F_Nnbeta_F);
-    pCTRL->_V_F_Nn2_L = 0.95f*pCTRL->_V_F_Nn2_L + 0.05f*pCTRL->_V_F_Nn2_F;
+    pCTRL->_V_Q14I_Yalfa = -Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ialfa) + pCTRL->_I_Q14I_Ualfa;
+    pCTRL->_V_Q14I_Ybeta = -Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ibeta) + pCTRL->_I_Q14I_Ubeta;
 	
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
-    pCTRL->_V_Q14I_Nn2 = Q32I_RHT_14(MATH_SQUARE_F(pCTRL->_V_Q14I_Nalfa))
-                       + Q32I_RHT_14(MATH_SQUARE_F(pCTRL->_V_Q14I_Nbeta))
-                       - Q32I_RHT_14(MATH_SQUARE_F(Q32I_RHT_14(pCTRL->_P_Q14I_Ld*pCTRL->_I_Q14I_IdRef)));
+    pCTRL->_V_Q14I_Nn2 = Q32I_RHT_14(MATH_SQUARE_T(pCTRL->_V_Q14I_Nalfa))
+                       + Q32I_RHT_14(MATH_SQUARE_T(pCTRL->_V_Q14I_Nbeta))
+                       - Q32I_RHT_14(MATH_SQUARE_T(Q32I_RHT_14(pCTRL->_P_Q14I_Ld*pCTRL->_I_Q14I_IdRef)));
     
     pCTRL->_V_Q14I_Ealfa = Q32I_RHT_14(pCTRL->_P_Q14I_Gamma*Q32I_RHT_14(pCTRL->_V_Q14I_Nalfa*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
     pCTRL->_V_Q14I_Ebeta = Q32I_RHT_14(pCTRL->_P_Q14I_Gamma*Q32I_RHT_14(pCTRL->_V_Q14I_Nbeta*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
@@ -185,7 +171,7 @@ void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
     pCTRL->FL_SRAD.Q16I_Filter_in = pCTRL->PID_PLL.Q14I_Output;
     Filter_Cal_T(&pCTRL->FL_SRAD);
     
-    pCTRL->TG_Triangle.Q12U_Angle += Q32I_RHT_14(pCTRL->_P_Q14I_Ts*pCTRL->FL_SRAD.Q16I_Filter_in);
+    pCTRL->TG_Triangle.Q12U_Angle += Q32I_RHT_16(pCTRL->_P_Q14I_Ts*pCTRL->FL_SRAD.Q16I_Filter_in);
     MATH_ANGLE_MOD_T(pCTRL->TG_Triangle.Q12U_Angle);
     
     Math_SinCos_T(&pCTRL->TG_Triangle);
@@ -252,7 +238,7 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->FL_SRAD.Q16I_Filter_in = pCTRL->PID_PLL.Q14I_Output;
     Filter_Cal_T(&pCTRL->FL_SRAD);
     
-    pCTRL->TG_Triangle.Q12U_Angle += Q32I_RHT_14(pCTRL->_P_Q14I_Ts*pCTRL->FL_SRAD.Q16I_Filter_in);
+    pCTRL->TG_Triangle.Q12U_Angle += Q32I_RHT_16(pCTRL->_P_Q14I_Ts*pCTRL->FL_SRAD.Q16I_Filter_in);
     MATH_ANGLE_MOD_T(pCTRL->TG_Triangle.Q12U_Angle);
     
     Math_SinCos_T(&pCTRL->TG_Triangle);

@@ -18,7 +18,7 @@
 #define OVER_VOLTAGE_PROTECT_LEVEL_TIME     (100U)                                      //ms，过压保护时间
 
 typedef struct{
-    Q32I_ Q16I_voltage_protect_tl;
+    Q32U_ Q16U_voltage_protect_tl;
     Q32U_ Q16U_voltage_protect_time;
     
     Q32U_ Q16U_voltage_protect_cnt;

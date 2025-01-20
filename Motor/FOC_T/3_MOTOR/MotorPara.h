@@ -16,64 +16,64 @@
 
 
 //电机alignloop相关参数 
-#define MOTOR_ALIGNLOOP_RAMP_INIT           (0.0f)                     		//A,Iq初始值
-#define MOTOR_ALIGNLOOP_RAMP_TARGET         (5.0f)                    	 	//A,Iq目标值
-#define MOTOR_ALIGNLOOP_RAMP_STEP           (5.0f * MOTOR_LTs)        		//A/s,Iq每秒增加步长
-#define MOTOR_ALIGNLOOP_TIME1               (500)                          	//ms,电机alignloop第一阶段
-#define MOTOR_ALIGNLOOP_TIME2               (500)                          	//ms,电机alignloop第二阶段
-#define MOTOR_ALIGNLOOP_TIME3               (500)                           //ms,电机alignloop第三阶段
+#define MOTOR_ALIGNLOOP_RAMP_INIT           ((Q32I_)(0.0000f*Q14I_CURRENT_PHASE_A_PU))  //Iq初始值
+#define MOTOR_ALIGNLOOP_RAMP_TARGET         ((Q32I_)(0.1000f*Q14I_CURRENT_PHASE_A_PU))  //Iq目标值
+#define MOTOR_ALIGNLOOP_RAMP_STEP           ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //Iq每秒增加步长
+#define MOTOR_ALIGNLOOP_TIME1               (500U)                                      //ms,电机alignloop第一阶段
+#define MOTOR_ALIGNLOOP_TIME2               (500U)                                      //ms,电机alignloop第二阶段
+#define MOTOR_ALIGNLOOP_TIME3               (500U)                                      //ms,电机alignloop第三阶段
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (5000)                          //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50)                            //ms,电机openloop切换closeloop1时间
+#define MOTOR_OPENLOOP_MIN_TIME             (5000U)                                     //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_SWITCH_SRAD          ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //电机openloop切换closeloop1转速
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                                       //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP1_TARGET_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
-#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100)                           //ms,电机closeloop1切换closeloop2的时间
+#define MOTOR_CLOSELOOP1_TARGET_SRAD        ((Q32I_)(0.5000f*Q14I_MAX_SRAD_PU))         //电机closeloop1目标转速
+#define MOTOR_CLOSELOOP1_STEP               ((Q32I_)(0.0010f*Q14I_MAX_SRAD_PU))         //电机closeloop1增速步长
+#define MOTOR_CLOSELOOP1_SWITCH_SRAD        ((Q32I_)(0.3000f*Q14I_MAX_SRAD_PU))         //电机closeloop1切换closeloop2转速
+#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100U)                                      //ms,电机closeloop1切换closeloop2的时间
 
 //电机closeloop2相关参数，闭环运行阶段         
-#define MOTOR_CLOSELOOP2_SRAD_TARGET        (MOTOR_MAX_SRAD)                //Hz,电机closeloop2目标转速
-#define MOTOR_CLOSELOOP2_STEP               (0.05f * MATH_2PI_F)            //Hz/ms,电机closeloop2增速步长 
+#define MOTOR_CLOSELOOP2_SRAD_TARGET        ((Q32I_)(0.5000f*Q14I_MAX_SRAD_PU))         //Hz,电机closeloop2目标转速
+#define MOTOR_CLOSELOOP2_STEP               ((Q32I_)(0.0010f*Q14I_MAX_SRAD_PU))         //Hz/ms,电机closeloop2增速步长 
 
 
 //IF
-#define MOTOR_IF_IQRAMP_INIT                (Q14I_CURRENT_MOTOR_TO_PU(0.0f))                          //A,Iq初始值
-#define MOTOR_IF_IQRAMP_TARGET              (Q14I_CURRENT_MOTOR_TO_PU(4.0f))                          //A,Iq目标值
-#define MOTOR_IF_IQRAMP_STEP                (Q14I_CURRENT_MOTOR_TO_PU(1.0f / MOTOR_LTs))                //A/s,Iq每秒增加步长
+#define MOTOR_IF_IQRAMP_INIT                ((Q32I_)(0.0000f*Q14I_CURRENT_PHASE_A_PU))  //Iq初始值
+#define MOTOR_IF_IQRAMP_TARGET              ((Q32I_)(0.1000f*Q14I_CURRENT_PHASE_A_PU))  //Iq目标值
+#define MOTOR_IF_IQRAMP_STEP                ((Q32I_)(0.0001f*Q14I_CURRENT_PHASE_A_PU))  //Iq每秒增加步长
 
-#define MOTOR_IF_ANGLERAMP_INIT             (Q14I_SRAD_MOTOR_TO_PU(0.0f * MATH_2PI_F))             //Hz,IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           (Q14I_SRAD_MOTOR_TO_PU(8.0f * MATH_2PI_F))             //Hz,IF速度目标值
-#define MOTOR_IF_ANGLERAMP_STEP             (Q14I_SRAD_MOTOR_TO_PU(2.0f * MATH_2PI_F / MOTOR_LTs))   //Hz/s,IF速度每秒增加步长
+#define MOTOR_IF_ANGLERAMP_INIT             ((Q32I_)(0.0000f*Q14I_MAX_SRAD_PU))         //IF速度初始值
+#define MOTOR_IF_ANGLERAMP_TARGET           ((Q32I_)(0.0500f*Q14I_MAX_SRAD_PU))         //IF速度目标值
+#define MOTOR_IF_ANGLERAMP_STEP             ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //IF速度每秒增加步长
 
-#define MOTOR_IF_ANGLE_ERROR                (1024)                          //rad,IF与观测器角度偏差允许切换值
-#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (100)                //Hz,电机IF观测器角度收敛步长
+#define MOTOR_IF_ANGLE_ERROR                (1024)                                      //rad,IF与观测器角度偏差允许切换值
+#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (100)                                       //rad,电机IF观测器角度收敛步长
 
 //VF
-#define MOTOR_VF_IQRAMP_INIT                (Q14I_VOLTAGE_MOTOR_TO_PU(0.1f))                          //V,Vq初始值
-#define MOTOR_VF_IQRAMP_TARGET              (Q14I_VOLTAGE_MOTOR_TO_PU(0.5f))                          //V,Vq目标值
-#define MOTOR_VF_IQRAMP_STEP                (Q14I_VOLTAGE_MOTOR_TO_PU(0.2f / MOTOR_LTs))                //V/s,Vq每秒增加步长
+#define MOTOR_VF_VQRAMP_INIT                ((Q32I_)(0.0000f*Q14I_VOLTAGE_PU))          //Vq初始值
+#define MOTOR_VF_VQRAMP_TARGET              ((Q32I_)(0.1000f*Q14I_VOLTAGE_PU))          //Vq目标值
+#define MOTOR_VF_VQRAMP_STEP                ((Q32I_)(0.0001f*Q14I_VOLTAGE_PU))          //Vq每秒增加步长
 
-#define MOTOR_VF_ANGLERAMP_INIT             (Q14I_SRAD_MOTOR_TO_PU(0.0f * MATH_2PI_F))             //Hz,VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           (Q14I_SRAD_MOTOR_TO_PU(8.0f * MATH_2PI_F))             //Hz,VF速度目标值
-#define MOTOR_VF_ANGLERAMP_STEP             (Q14I_SRAD_MOTOR_TO_PU(2.0f * MATH_2PI_F / MOTOR_LTs))   //Hz/s,VF速度每秒增加步长
+#define MOTOR_VF_ANGLERAMP_INIT             ((Q32I_)(0.0000f*Q14I_MAX_SRAD_PU))         //VF速度初始值
+#define MOTOR_VF_ANGLERAMP_TARGET           ((Q32I_)(0.0500f*Q14I_MAX_SRAD_PU))         //VF速度目标值
+#define MOTOR_VF_ANGLERAMP_STEP             ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //VF速度每秒增加步长
 
-#define MOTOR_VF_ANGLE_ERROR                (1024)                          //rad,VF与观测器角度偏差允许切换值
-#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (100)                //Hz,电机VF观测器角度收敛步长
+#define MOTOR_VF_ANGLE_ERROR                (1024)                                      //rad,VF与观测器角度偏差允许切换值
+#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (100)                                       //rad,电机VF观测器角度收敛步长
 
 
 //转速环PID    
-#define MOTOR_SPD_PID_Coeff                 (0.25f)                          //转速环PID增益系数
+#define MOTOR_SPD_PID_Coeff                 (0.25f)                                     //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (Q32I_)(MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
 #define MOTOR_SPD_KI_GAIN                   (Q32I_)(MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs / MATH_2PI_F / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (Q32I_)(0.0f)
-#define MOTOR_SPD_PID_MAX                   ( Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_PHASE_A))       //A,转速环输出q轴电流限幅
-#define MOTOR_SPD_PID_MIN                   (-Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_PHASE_A))      //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MAX                   ( (Q32I_)(1.0000f*Q14I_CURRENT_PHASE_A_PU)) //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MIN                   (-(Q32I_)(1.0000f*Q14I_CURRENT_PHASE_A_PU)) //A,转速环输出q轴电流限幅
 
 //电流PID 
-#define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
+#define MOTOR_FOC_P_Coeff                   (0.05f)                                     //电流环P增益系数
 #define MOTOR_FOC_KP_GAIN                   (Q32I_)(MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
 #define MOTOR_FOC_KI_GAIN                   (Q32I_)(MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
 #define MOTOR_FOC_KD_GAIN                   (Q32I_)(0.0f)
@@ -84,17 +84,17 @@
 //观测器PLL系数
 #define MOTOR_PLL_KI_Coeff                  (0.1f)
 #define MOTOR_PLL_KP_Coeff                  (MOTOR_PLL_KI_Coeff*MOTOR_PLL_KI_Coeff)
-#define USER_PLL_SPEED_LPF_COEFF            (15)                     //0~256，越小滤波越深
+#define USER_PLL_SPEED_LPF_COEFF            (15)                        //0~256，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
+#define MOTOR_FLUX_KT                       (Q32I_)(2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX)      //增益系数
 #define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (Q32I_)(MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_FLUX)  //锁相环比例系数
 #define MOTOR_FLUX_PLL_KI                   (Q32I_)(MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                   //锁相环积分系数
-#define MOTOR_FLUX_PLL_KD                   (Q32I_)(0.0f)                    //锁相环微分系数
-#define MOTOR_FLUX_PLL_MAX                  ( Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))   //锁相环最大输出
-#define MOTOR_FLUX_PLL_MIN                  (-Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))  //锁相环最小输出
+#define MOTOR_FLUX_PLL_KD                   (Q32I_)(0.0f)                                       //锁相环微分系数
+#define MOTOR_FLUX_PLL_MAX                  ( (Q32I_)(1.0000f*Q14I_MAX_SRAD_PU))                //锁相环最大输出
+#define MOTOR_FLUX_PLL_MIN                  (-(Q32I_)(1.0000f*Q14I_MAX_SRAD_PU))                //锁相环最小输出
 
 //SMO观测器            
 #define MOTOR_SMO_K1                        (Q32I_)(8.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
@@ -102,9 +102,9 @@
 
 #define MOTOR_SMO_PLL_KP                    (Q32I_)(MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)    //锁相环比例系数
 #define MOTOR_SMO_PLL_KI                    (Q32I_)(MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)                     //锁相环积分系数
-#define MOTOR_SMO_PLL_KD                    (Q32I_)(0.0f)                    //锁相环微分系数
-#define MOTOR_SMO_PLL_MAX                   ( Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))   //锁相环最大输出
-#define MOTOR_SMO_PLL_MIN                   (-Q14I_SRAD_MOTOR_TO_PU(2.0f * MOTOR_MAX_SRAD))  //锁相环最小输出
+#define MOTOR_SMO_PLL_KD                    (Q32I_)(0.0f)                                       //锁相环微分系数
+#define MOTOR_SMO_PLL_MAX                   ( (Q32I_)(1.0000f*Q14I_MAX_SRAD_PU))                //锁相环最大输出
+#define MOTOR_SMO_PLL_MIN                   (-(Q32I_)(1.0000f*Q14I_MAX_SRAD_PU))                //锁相环最小输出
 
 
 //母线电流PID 
@@ -161,18 +161,18 @@ typedef struct{
     Q32U_                       _V_Q32U_Open_cnt;
     Q32U_                       _V_Q32U_Open_min_cnt;
     Q32U_                       _P_Q32U_Open_Min_Time;
-    float                       _P_F_Open_Switch_SRAD;
+    Q32I_                       _P_F_Open_Switch_SRAD;
     Q32U_                       _P_Q32U_Open_Switch_Time;
     
     Q32U_                       _V_Q32U_Close1_cnt;
-    float                       _P_F_Close1_Target_SRAD;
-    float                       _P_F_Close1_SRAD_Step;
-    float                       _P_F_Close1_Switch_SRAD;
+    Q32I_                       _P_F_Close1_Target_SRAD;
+    Q32I_                       _P_F_Close1_SRAD_Step;
+    Q32I_                       _P_F_Close1_Switch_SRAD;
     Q32U_                       _P_Q32U_Close1_Switch_Time;
     
     Q32U_                       _V_Q32U_Close2_cnt;
-    float                       _P_F_Close2_Target_SRAD;
-    float                       _P_F_Close2_SRAD_Step;
+    Q32I_                       _P_F_Close2_Target_SRAD;
+    Q32I_                       _P_F_Close2_SRAD_Step;
 }ST_LOOP_CONTROL_T;
 
 typedef struct{
@@ -191,7 +191,7 @@ typedef struct{
     ST_FLUX_CONTROL_T           FLUX_CTRL;
     ST_SMO_CONTROL_T            SMO_CTRL;
     
-    Q32I_                       Q14I_Iphase_Max;
+    Q32I_                       Q14I_IPHASE_MAX_PU;
 }ST_MOTOR_TASK;
 
 

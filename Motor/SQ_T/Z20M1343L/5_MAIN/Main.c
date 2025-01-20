@@ -27,10 +27,10 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
     {
         Button_Control(&Button_Ctrl, pST);
         
-        USART_Get_Resceive_Data_1();
-        USART_Get_Resceive_Data_2();
-        USART_Send_Transmission_Data_1();
-        USART_Send_Transmission_Data_2();
+//        USART_Get_Resceive_Data_1();
+//        USART_Get_Resceive_Data_2();
+//        USART_Send_Transmission_Data_1();
+//        USART_Send_Transmission_Data_2();
         
         Voltage_Protect_Flow(&Systask);
         Current_Protect_Flow(&Systask);
@@ -38,7 +38,7 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
         Temperature_Protect_Flow(&Systask);
         
         Error_Priority_Check(&Systask);
-        IWDG_Reload_Counter(IWDG);
+//        IWDG_Reload_Counter(IWDG);
         
         pST->System_State_Flag.BIT.systick_intflow = 0U;
     }

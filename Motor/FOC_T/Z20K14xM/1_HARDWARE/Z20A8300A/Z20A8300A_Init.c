@@ -73,9 +73,9 @@ static const Z20A8300A_ParamsConfigType ParamsConfigStruct =
     Z20A8300A_SR_DISABLE,                   /*!< Source Peak Current */
     Z20A8300A_VDS_THRESHOLD_1920mV,         /*!< Vds High Side Threshold */
     Z20A8300A_SAO_2500mV,                   /*!< Sensor Amplifier Offset */
-    Z20A8300A_SENSOR_GAIN_10,               /*!< SensorA Gain */
-    Z20A8300A_SENSOR_GAIN_10,               /*!< SensorB Gain */
-    Z20A8300A_SENSOR_GAIN_10                /*!< SensorC Gain */
+    Z20A8300A_SENSOR_GAIN_20,               /*!< SensorA Gain */
+    Z20A8300A_SENSOR_GAIN_20,               /*!< SensorB Gain */
+    Z20A8300A_SENSOR_GAIN_20                /*!< SensorC Gain */
 };
 
 static const Z20A8300A_DpsConfigType DpsConfigStruct =

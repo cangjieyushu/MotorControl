@@ -11,10 +11,10 @@
 #include "SysTask.h"
 
 //速度保护
-#define OVER_SPEED_PROTECT_LEVEL_TL         (Q14I_FREQ_MOTOR_TO_PU(MOTOR_POLE_PAIR*25000.0f/60.0f))     //rpm，超速保护阈值
+#define OVER_SPEED_PROTECT_LEVEL_TL         (Q14I_FREQ_MOTOR_TO_PU(25000.0f*MOTOR_POLE_PAIR/60.0f))     //rpm，超速保护阈值
 #define OVER_SPEED_PROTECT_LEVEL_TIME       (1000U)                                                     //ms，超速保护时间
 
-#define LOW_SPEED_PROTECT_LEVEL_TL          (Q14I_FREQ_MOTOR_TO_PU(MOTOR_POLE_PAIR*250.0f/60.0f))	    //rpm，低速保护阈值
+#define LOW_SPEED_PROTECT_LEVEL_TL          (Q14I_FREQ_MOTOR_TO_PU(250.0f*MOTOR_POLE_PAIR/60.0f))	    //rpm，低速保护阈值
 #define LOW_SPEED_PROTECT_LEVEL_TIME        (1000U)                                                     //ms，低速保护时间
 
 typedef struct{

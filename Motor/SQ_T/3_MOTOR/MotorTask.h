@@ -64,7 +64,6 @@ static inline void Motor_Set_Dir(Q32U_ Dir)
     }
 }
 
-
 /**********************************************************************************************
 Function: Motor_Read_Dir
 Description: 获取电机运行方向
@@ -144,9 +143,10 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Vbus(Q32U_ Vbus_Val)
+static inline void Motor_Set_Vbus(Q32U_ Vbus_Val, Q32U_ Vbus_Pu)
 {
     Motor.MS_CTRL.Q12I_VBUS_VAL = Vbus_Val;
+    Motor.MS_CTRL.Q12I_VBUS_PU = Vbus_Pu;
 }
 
 /**********************************************************************************************

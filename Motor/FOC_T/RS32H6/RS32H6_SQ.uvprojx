@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -599,11 +599,6 @@
           <GroupName>1_HARDWARE_MCHAL</GroupName>
           <Files>
             <File>
-              <FileName>MotorHal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\1_HARDWARE\MCHAL\MotorHal.c</FilePath>
-            </File>
-            <File>
               <FileName>MotorHal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\1_HARDWARE\MCHAL\MotorHal.h</FilePath>
@@ -653,11 +648,31 @@
               <FileType>5</FileType>
               <FilePath>..\..\2_COMMON\RTT\SEGGER_RTT_Conf.h</FilePath>
             </File>
+            <File>
+              <FileName>USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_COMMON\CMU\USART.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>3_MOTOR</GroupName>
           <Files>
+            <File>
+              <FileName>MotorEst.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\3_MOTOR\MotorEst.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorEst.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\3_MOTOR\MotorEst.h</FilePath>
+            </File>
             <File>
               <FileName>MotorFoc.c</FileName>
               <FileType>1</FileType>
@@ -689,9 +704,9 @@
               <FilePath>..\3_MOTOR\MotorTask.h</FilePath>
             </File>
             <File>
-              <FileName>User_Pmsm.h</FileName>
+              <FileName>PmsmPara.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\3_MOTOR\User_Pmsm.h</FilePath>
+              <FilePath>..\3_MOTOR\PmsmPara.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -747,16 +762,6 @@
               <FileName>Error.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\4_SYSTASK\Error.h</FilePath>
-            </File>
-            <File>
-              <FileName>USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\4_SYSTASK\USART.c</FilePath>
-            </File>
-            <File>
-              <FileName>USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\4_SYSTASK\USART.h</FilePath>
             </File>
             <File>
               <FileName>Speed.c</FileName>

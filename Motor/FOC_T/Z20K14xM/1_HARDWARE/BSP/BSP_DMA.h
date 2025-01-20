@@ -11,8 +11,8 @@
 #include "MotorHal_cfg.h"
 
 //ADC数据地址位
-#define HAL_ADC_DATA_ADDRESS    (ADC0_BASE_ADDR + 0x20U)
-#define HAL_ADC_DATA_ADDRESS_S  (ADC1_BASE_ADDR + 0x20U)
+#define HAL_ADC_DATA_ADDRESS                (ADC0_BASE_ADDR + 0x20U)
+#define HAL_ADC_DATA_ADDRESS_S              (ADC1_BASE_ADDR + 0x20U)
 
 //ADC数据接口宏定义
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
@@ -26,7 +26,7 @@
 #define BSP_ADC_READ_DATA_VBG               (Hal_AdcLoopData_S[2] & 0x00000FFFU)
 
 /**********************************************************************************************
-Function: DMA_ADC_Init
+Function: BSP_DMA_Init_Three_Shunt
 Description: 电机控制用DMA初始化
 Input: 电流环中断函数
 Output: 无
@@ -34,7 +34,18 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void BSP_DMA_Init(isr_cb_t *DMADoneCbf);
+void BSP_DMA_Init_Three_Shunt(isr_cb_t *DMADoneCbf);
+
+/**********************************************************************************************
+Function: BSP_DMA_Init_One_Shunt
+Description: 电机控制用DMA初始化
+Input: 电流环中断函数
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void BSP_DMA_Init_One_Shunt(isr_cb_t *DMADoneCbf);
 
 /**********************************************************************************************
 Function: BSP_DMA_Init_S

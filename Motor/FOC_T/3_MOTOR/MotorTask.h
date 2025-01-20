@@ -69,6 +69,7 @@ static inline float Motor_Read_Dir(void)
 {
     return Motor.SRAD_CTRL._O_Q14I_DIR_Set;
 }
+
 /**********************************************************************************************
 Function: Motor_Get_Run_State
 Description: 获取电机是否为运行状态
@@ -130,7 +131,7 @@ Author: CJYS
 static inline void Motor_Set_Vbus(Q32I_ Vbus_Val)
 {
     Motor.SVPWM_CTRL._I_Q14I_Vbus = Vbus_Val;
-    Motor.SVPWM_CTRL._I_Q10I_One_Over_Vbus = ((Q32I_)Q10U_MAX)*((Q32I_)MOTOR_Q14_PU)/Vbus_Val;
+    Motor.SVPWM_CTRL._I_Q10I_One_Over_Vbus = ((Q32I_)MOTOR_Q24_PU)/Vbus_Val;
     Motor.SRAD_CTRL._I_Q14I_Vbus = Vbus_Val;
     Motor.CURRENT_CTRL._I_Q14I_Vbus = Vbus_Val;
 }
@@ -150,6 +151,7 @@ static inline Q32I_ Motor_Read_Current_Max(void)
     Motor.Q14I_IPHASE_MAX_PU = 0;
     return iphase_max_tmp;
 }
+
 /**********************************************************************************************
 Function: Motor_Read_Error
 Description: 读取电机故障码

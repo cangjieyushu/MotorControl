@@ -50,7 +50,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     pButton->Button0_State_Last = pButton->Button0_State;
     pButton->Button1_State_Last = pButton->Button1_State;
     
-    pST->Q16U_Duty_Target = pButton->Q16U_vr_duty_max;
+    pST->Q16U_Duty_Target_pu = pButton->Q16U_vr_duty_max;
         
 #elif(BUTTON_MODE == BUTTON_MODE_VR)
     
@@ -75,7 +75,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
         VRtmp = pButton->Q16U_vr_min_limit;
     }
     
-    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
+    pST->Q16U_Duty_Target_pu = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
 	
 #elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
     
@@ -112,7 +112,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
         VRtmp = pButton->Q16U_vr_min_limit;
     }
     
-    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
+    pST->Q16U_Duty_Target_pu = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
     
 #else
     

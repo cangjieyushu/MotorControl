@@ -363,18 +363,18 @@ Ram_Func void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     
     if((Ttmp1 < pCTRL->_P_F_MinDuty)&&(Ttmp2 < pCTRL->_P_F_MinDuty))
     {
-        Delta_Ttmp1 = 0.5f*(pCTRL->_P_F_MinDuty - Ttmp1);
-        Delta_Ttmp3 = - 0.5f*(pCTRL->_P_F_MinDuty - Ttmp2);
+        Delta_Ttmp1 =  0.5f*(pCTRL->_P_F_MinDuty - Ttmp1);
+        Delta_Ttmp3 = -0.5f*(pCTRL->_P_F_MinDuty - Ttmp2);
     }
     else if((Ttmp1 < pCTRL->_P_F_MinDuty)&&(Ttmp2 >= pCTRL->_P_F_MinDuty))
     {
-        Delta_Ttmp1 = 0.25f*(pCTRL->_P_F_MinDuty - Ttmp1);
-        Delta_Ttmp2 = - 0.25f*pCTRL->_P_F_MinDuty;
+        Delta_Ttmp1 =  0.25f*(pCTRL->_P_F_MinDuty - Ttmp1);
+        Delta_Ttmp2 = -0.25f*pCTRL->_P_F_MinDuty;
     }
     else if((Ttmp1 >= pCTRL->_P_F_MinDuty)&&(Ttmp2 < pCTRL->_P_F_MinDuty))
     {
-        Delta_Ttmp2 = 0.25f*pCTRL->_P_F_MinDuty;
-        Delta_Ttmp3 = - 0.25f*(pCTRL->_P_F_MinDuty - Ttmp2);
+        Delta_Ttmp2 =  0.25f*pCTRL->_P_F_MinDuty;
+        Delta_Ttmp3 = -0.25f*(pCTRL->_P_F_MinDuty - Ttmp2);
     }
     
     pCTRL->_O_F_ADCTrigTime1 = Txyz[0] + Delta_Ttmp1 - pCTRL->_P_F_ADCSampleDuty;

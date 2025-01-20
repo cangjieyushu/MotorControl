@@ -102,7 +102,8 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.Q14U_ibus_max_pu = IBUS_PID_RF,
     .MS_CTRL.Q14U_ibrake_max_pu = IBRAKE_PID_RF,
     .MS_CTRL.Q14U_vbus_max_pu = Q14I_VOLTAGE_MOTOR_TO_PU(MOTOR_VOLTAGE_V),
-
+    .MS_CTRL._P_Q32U_Current_Scale = Q24U_CURRENT_SCALE_PU,
+    
     .MS_CTRL.FL_Iphase.Q08I_Filter_Coeff = IPHASE_FILTER_COEFF,
     .MS_CTRL.FL_Freq.Q08I_Filter_Coeff = FREQ_FILTER_COEFF,
     .MS_CTRL.FL_Ibus.Q08I_Filter_Coeff = IBUS_FILTER_COEFF,
