@@ -14,7 +14,7 @@
 //电机额定参数
 #define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
 #define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
-#define MOTOR_CURRENT_BUS_A                 (2.0f)              //A，母线电流
+#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_RUN2_FREQ)
@@ -26,7 +26,7 @@
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.017f)                        //Wb
 
-#define MOTOR_MAX_SPEED                     (30000.0f)           //rpm，最高转速
+#define MOTOR_MAX_SPEED                     (36000.0f)           //rpm，最高转速
 #define MOTOR_MIN_SPEED                     (1200.0f)            //rpm，最低转速
 
 #define MOTOR_MAX_FREQ                      (MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)        //Hz，最高频率
@@ -49,6 +49,7 @@
 
 #define Q24U_VOLTAGE_SCALE_PU               (Q32U_)(MOTOR_Q24_PU*HAL_ADC_VOLTAGE_SCALE/V_BASE)          //电压
 #define Q24U_CURRENT_SCALE_PU               (Q32U_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
+#define Q24U_FREQ_SCALE_PU                  (Q32U_)(MOTOR_Q24_PU/F_BASE)                                //频率
      
 #define Q14I_HTs_PU                         (Q32U_)(MOTOR_Q14_PU*MOTOR_HTs/T_BASE)
 #define Q14I_LTs_PU                         (Q32U_)(MOTOR_Q14_PU*MOTOR_LTs/T_BASE)

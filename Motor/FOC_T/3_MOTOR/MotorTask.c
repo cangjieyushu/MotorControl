@@ -77,7 +77,9 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             }
             case MOTOR_OPENLOOP:
             {
-                MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
+                MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
+                pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
+                pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL.Ramp_Iq.Q32I_Output;
                 break;
             }
             case MOTOR_CLOSELOOP1:
@@ -245,18 +247,18 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
             {
                 MotorFoc_Clark_T(&pMotor->SVPWM_CTRL);
                 
-//                pMotor->FLUX_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
-//                pMotor->FLUX_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
-//                pMotor->FLUX_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
-//                pMotor->FLUX_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
-//                pMotor->FLUX_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
-//                Est_Flux_T(&pMotor->FLUX_CTRL);
+                pMotor->FLUX_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
+                pMotor->FLUX_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
+                pMotor->FLUX_CTRL._I_Q14I_IdRef = pMotor->SRAD_CTRL._O_Q14I_IdRef;
+                pMotor->FLUX_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
+                pMotor->FLUX_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
+                Est_Flux_T(&pMotor->FLUX_CTRL);
                 
-//                pMotor->SMO_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
-//                pMotor->SMO_CTRL._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
-//                pMotor->SMO_CTRL._I_F_Ualfa = pMotor->SVPWM_CTRL._O_F_Ualfa;
-//                pMotor->SMO_CTRL._I_F_Ubeta = pMotor->SVPWM_CTRL._O_F_Ubeta;
-//                Est_SMO_F(&pMotor->SMO_CTRL);
+                pMotor->SMO_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
+                pMotor->SMO_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
+                pMotor->SMO_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
+                pMotor->SMO_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
+                Est_SMO_T(&pMotor->SMO_CTRL);
                 
                 switch(pMotor->Motor_Loop_Mode)
                 {
@@ -267,8 +269,8 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     }
                     case MOTOR_OPENLOOP:
                     {
-                        MotorFoc_VF_CURRENT_T(&pMotor->VF_CTRL);
-                        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
+                        MotorFoc_IF_CURRENT_T(&pMotor->IF_CTRL);
+                        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->IF_CTRL._O_Q12U_Angle;
                         Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
                         break;
                     }
@@ -292,8 +294,6 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                 
                 pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
                 pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
-                pMotor->SVPWM_CTRL._I_Q14I_Ud = 0;
-                pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->VF_CTRL.Ramp_Vq.Q32I_Output;
                 MotorFoc_Ipark_T(&pMotor->SVPWM_CTRL);
                 
                 pMotor->Motor_State_Flag.bit.pwm_output_flag = 1U;

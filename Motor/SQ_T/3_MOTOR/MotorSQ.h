@@ -9,7 +9,6 @@
 #define MotorFoc_H
 
 #include "Math.h"
-#include "PmsmPara.h"
 
 typedef enum
 {
@@ -314,6 +313,7 @@ typedef struct{
     Q32U_               Q14U_ibrake_max_pu;
     Q32U_               Q14U_vbus_max_pu;
     Q32U_               _P_Q32U_Current_Scale;
+    Q32U_               _P_Q32U_Freq_Scale;
     
     ST_FILTER_T         FL_Iphase;
     ST_FILTER_T         FL_Freq;
@@ -335,8 +335,6 @@ typedef struct{
     Q32U_               Q32U_switch_cnt;
 }ST_MS_CONTROL;
 
-extern EM_CHANNEL_NUM ADC_VAL_Table[6][3];
-extern EM_SECTOR_NUM Position_CW[6][2];
 extern EM_SECTOR_NUM Last_Sector[6];
 extern EM_SECTOR_NUM Next_Sector[6];
 

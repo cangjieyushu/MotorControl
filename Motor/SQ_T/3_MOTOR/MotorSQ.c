@@ -18,12 +18,12 @@ EM_CHANNEL_NUM ADC_VAL_Table[6][3] =
     W_CHANNEL_NUM, U_CHANNEL_NUM, V_CHANNEL_NUM,
 };
 
-EM_SECTOR_NUM Position_CW[6][2] = {sector_3, sector_5,
-                                   sector_4, sector_6,
-                                   sector_5, sector_1,
-                                   sector_6, sector_2,
-                                   sector_1, sector_3,
-                                   sector_2, sector_4};
+EM_SECTOR_NUM Position_Sector[6][2] = {sector_3, sector_5,
+                                       sector_4, sector_6,
+                                       sector_5, sector_1,
+                                       sector_6, sector_2,
+                                       sector_1, sector_3,
+                                       sector_2, sector_4};
 
 EM_SECTOR_NUM Last_Sector[6] = {sector_6, sector_1, sector_2, sector_3, sector_4, sector_5};
 EM_SECTOR_NUM Next_Sector[6] = {sector_2, sector_3, sector_4, sector_5, sector_6, sector_1};
@@ -90,9 +90,10 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
     pMS_CTRL->SQ_Flow = SQUARE_SWITCH_SUCC;
     pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCC;
     
-    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q14I_FREQ_MOTOR_TO_PU(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0]
-    + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[1] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[2] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[3]
-    + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[4] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[5]));
+    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[1]
+    + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[2] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[3]
+    + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[4] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[5])));
     
     pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_FLYING->_P_Q12U_vbus_max_val*(pMS_CTRL->PWM_CTRL._P_Q12U_duty_max
     *pMS_CTRL->FL_Freq.Q16I_Filter_in/pMS_CTRL->PWM_CTRL._P_Q14U_motor_freq_max)/pMS_CTRL->Q12I_VBUS_VAL;
@@ -429,20 +430,13 @@ Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
     {
         pMS_POSITION->Flag.all = 0U;
 
-        pMS_POSITION->_V_Q32U_cnt = 7U;
+        pMS_POSITION->_V_Q32U_cnt = 0U;
         
         pMS_POSITION->Flag.bit.b0_init = 1U;
     }
     else
     {
-        if(pMS_POSITION->_V_Q32U_cnt == 7U)
-        {
-            pMS_POSITION->_V_Q32U_cnt = 0U;
-        }
-        else
-        {
-            flag_tmp = SUCC;
-        }
+        flag_tmp = SUCC;
     }
     
     return flag_tmp;
@@ -461,7 +455,17 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
 {
     Q32U_ flag_tmp = ING;
     
-    pMS_POSITION->_V_Q32U_cnt++;
+    switch(pMS_POSITION->_V_Q32U_cnt)
+    {
+        case 0U:{pMS_POSITION->_V_Q32U_cnt = 3U;break;}
+        case 3U:{pMS_POSITION->_V_Q32U_cnt = 1U;break;}
+        case 1U:{pMS_POSITION->_V_Q32U_cnt = 4U;break;}
+        case 4U:{pMS_POSITION->_V_Q32U_cnt = 2U;break;}
+        case 2U:{pMS_POSITION->_V_Q32U_cnt = 5U;break;}
+        case 5U:{pMS_POSITION->_V_Q32U_cnt = 6U;break;}
+        default:break;
+    }
+        
     if(pMS_POSITION->_V_Q32U_cnt == 6U)
     {
         Q16U_ max_tmp = pMS_POSITION->_I_Q12I_Position_Current_VAL[sector_1];
@@ -475,15 +479,7 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
             }
         }
         
-        pMS_CTRL->Sector = Position_CW[max_index][pMS_CTRL->DIR_Set];
-        if(pMS_POSITION->_I_Q12I_Position_Current_VAL[Next_Sector[pMS_CTRL->Sector]] > pMS_POSITION->_I_Q12I_Position_Current_VAL[Last_Sector[pMS_CTRL->Sector]])
-        {
-            pMS_CTRL->Sector = Next_Sector[pMS_CTRL->Sector];
-        }
-        else
-        {
-            pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
-        }
+        pMS_CTRL->Sector = Position_Sector[max_index][pMS_CTRL->DIR_Set];
         
         pMS_POSITION->Flag.bit.b2_fail = 0U;
         pMS_POSITION->Flag.bit.b1_succ = 1U;
@@ -496,14 +492,13 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
             }
         }
         
+        pMS_POSITION->Flag.bit.b0_init = 0U;
         if(pMS_POSITION->Flag.bit.b1_succ == 1U)
         {
-            pMS_POSITION->Flag.bit.b0_init = 0U;
             flag_tmp = SUCC;
         }
         else if(pMS_POSITION->Flag.bit.b2_fail == 1U)
         {
-            pMS_POSITION->Flag.bit.b0_init = 0U;
             flag_tmp = FAIL;
         }
     }
@@ -555,11 +550,10 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     Q32U_ flag_tmp = ING;
     
-    pBRAKE_CTRL->_V_Q32U_cnt++;
-    if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time)
+    if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time)
     {
         pBRAKE_CTRL->_O_Q12U_brake_duty = 0U;
-        if((pBRAKE_CTRL->_V_Q32U_cnt + 1U) == pBRAKE_CTRL->_P_Q16U_no_time)
+        if(pBRAKE_CTRL->_V_Q32U_cnt == pBRAKE_CTRL->_P_Q16U_no_time)
         {
             if(pBRAKE_CTRL->_P_Q16U_slow_time > 0U)
             {
@@ -574,12 +568,12 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
             }
         }
     }
-    else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
+    else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
     {
         Ramp_Cal_T(&pBRAKE_CTRL->Ramp_Brake_Duty);
         pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Output;
     }
-    else if(pBRAKE_CTRL->_V_Q32U_cnt < pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
+    else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
     {
         pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->_P_Q12U_duty_max;
     }
@@ -594,6 +588,8 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
         pBRAKE_CTRL->Flag.bit.b0_init = 0U;
         flag_tmp = SUCC;
     }
+    
+    pBRAKE_CTRL->_V_Q32U_cnt++;
     
     return flag_tmp;
 }
@@ -1069,9 +1065,10 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1] = pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0];
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] = pFREQ_CAL->_O_Q32U_60_degree_cnt;
     
-    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q14I_FREQ_MOTOR_TO_PU(pFREQ_CAL->_P_Q32U_hall_tim_freq/(pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0]
-    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[2] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3]
-    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5]));
+    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pFREQ_CAL->_P_Q32U_hall_tim_freq/(
+    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1]
+    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[2] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3]
+    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5])));
     
     Filter_Cal_T(&pMS_CTRL->FL_Freq);
     

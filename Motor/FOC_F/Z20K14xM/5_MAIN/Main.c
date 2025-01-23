@@ -122,7 +122,7 @@ Ram_Func void IRQHandleDMAIsr(void)
     
     float pwm_tmp1,pwm_tmp2,pwm_tmp3,pwm_tmp4,pwm_tmp5,pwm_tmp6,adc_tmp1,adc_tmp2 = 0.0f;
     
-    MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_F_Ishunt_1_Data, &Motor.SVPWM_CTRL._I_F_Ishunt_2_Data);
+    MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_F_Ishunt_2_Data, &Motor.SVPWM_CTRL._I_F_Ishunt_1_Data);
     
     Motor.SVPWM_CTRL._I_F_Ishunt[0] =  Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ishunt_1_Data - Motor.SVPWM_CTRL._I_F_Ishunt_1_Offset);
     Motor.SVPWM_CTRL._I_F_Ishunt[1] = -Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ishunt_2_Data - Motor.SVPWM_CTRL._I_F_Ishunt_2_Offset);

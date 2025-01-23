@@ -144,6 +144,6 @@ Input_Output: 滑模观测器指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Est_SMO_F_T(ST_SMO_CONTROL_T* pCTRL);
+void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL);
 
 #endif /* MotorEst_H */

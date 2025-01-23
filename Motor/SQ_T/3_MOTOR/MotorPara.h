@@ -10,6 +10,7 @@
 
 #include "MotorHal_cfg.h"
 #include "MotorSQ.h"
+#include "PmsmPara.h"
 
 #define SPEED_CLOSE_EN                  (1U)        //0：开环，1：转速环
 #define I_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：母线电流环

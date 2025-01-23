@@ -25,7 +25,7 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-		Button_Control(&Button_Ctrl, &Systask);
+		Button_Control(&Button_Ctrl, pST);
 		
 		BSP_FeedWatchDog();
 
@@ -160,9 +160,9 @@ void IRQHandleDMAIsr(void)
 #endif
     
 #if(JSCOPE_RTT_EN == 1U)
-    RTT_DATA[0] = Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime1;
-    RTT_DATA[1] = Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime2;
-    RTT_DATA[2] = Motor.SVPWM_CTRL.TG_Triangle.Q14I_Sin;
+    RTT_DATA[0] = Motor.SVPWM_CTRL._I_Q14I_Ia;
+    RTT_DATA[1] = Motor.SVPWM_CTRL._I_Q14I_Ib;
+    RTT_DATA[2] = Motor.SVPWM_CTRL._I_Q14I_Ic;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     

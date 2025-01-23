@@ -57,9 +57,9 @@ static inline Ram_Func void MH_ADC_Data_Read_One(float* pADC_I1, float* pADC_I2)
         (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }
     
-    adc_tmp = Hal_AdcMapData[1] & 0x00000FFFU;
-    (*pADC_I1) = (float)adc_tmp;
     adc_tmp = Hal_AdcMapData[0] & 0x00000FFFU;
+    (*pADC_I1) = (float)adc_tmp;
+    adc_tmp = Hal_AdcMapData[1] & 0x00000FFFU;
     (*pADC_I2) = (float)adc_tmp;
 }
 

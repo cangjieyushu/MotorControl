@@ -173,6 +173,21 @@
 
 #define ADC_PHASE_Channel           ADC_CHANNEL_OPA2
 
+//ADC_SYSTYM
+#define ADC_TEMP_GPIO_PORT          GPIOC
+#define ADC_TEMP_PIN                GPIO_PIN_1
+#define ADC_TEMP_Channel            ADC_CHANNEL_3
+
+#define ADC_VR_GPIO_PORT            GPIOB
+#define ADC_VR_PIN                  GPIO_PIN_5
+#define ADC_VR_Channel              ADC_CHANNEL_7
+
+#define ADC_VBUS_GPIO_PORT          GPIOD
+#define ADC_VBUS_PIN                GPIO_PIN_5
+#define ADC_VBUS_Channel            ADC_CHANNEL_14
+
+#define ADC_VBG_Channel             ADC_CHANNEL_VBGINT
+
 
 //OPA
 #define OPA_PHASE_P_GPIO_PORT       GPIOA

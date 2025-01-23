@@ -140,10 +140,13 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
 {
-    MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
-    MH_HPWM_LPWM_Close();
-    MotorSQ_Init(&pMotor->MS_CTRL);
-    pMotor->Motor_Flow = MOTOR_STATE_INIT;
+    if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
+    {
+        MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
+        MH_HPWM_LPWM_Close();
+        MotorSQ_Init(&pMotor->MS_CTRL);
+        pMotor->Motor_Flow = MOTOR_STATE_INIT;
+    }
 }
 
 /**********************************************************************************************
@@ -359,7 +362,7 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         else
         {
             HPWMLPWM_Set[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
-            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
         }
     }
     else
