@@ -108,6 +108,7 @@ ST_MOTOR_TASK  Motor =
     .SMO_CTRL._P_F_Ts = MOTOR_HTs,
     .SMO_CTRL._P_F_K1 = MOTOR_SMO_K1,
     .SMO_CTRL._P_F_K2 = MOTOR_SMO_K2,
+    .SMO_CTRL._P_F_Limit = MOTOR_VOLTAGE_V,
     .SMO_CTRL._P_F_Rs = MOTOR_Rs,
     .SMO_CTRL._P_F_Ld = MOTOR_Ld,
     .SMO_CTRL._P_F_Lq = MOTOR_Lq,

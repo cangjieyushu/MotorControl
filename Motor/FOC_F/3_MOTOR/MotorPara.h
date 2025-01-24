@@ -67,7 +67,7 @@
 //转速环PID    
 #define MOTOR_SPD_PID_Coeff                 (0.25f)                          //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
-#define MOTOR_SPD_KI_GAIN                   (MOTOR_CURRENT_PHASE_A * MOTOR_CLOSELOOP2_STEP * MOTOR_LTs / MATH_2PI_F / MATH_2PI_F)
+#define MOTOR_SPD_KI_GAIN                   (0.1f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (0.0f)
 #define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)       //A,转速环输出q轴电流限幅
 #define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)      //A,转速环输出q轴电流限幅
@@ -82,26 +82,25 @@
 
 
 //观测器PLL系数
-#define MOTOR_PLL_KI_Coeff                  (0.1f)
-#define MOTOR_PLL_KP_Coeff                  (MOTOR_PLL_KI_Coeff*MOTOR_PLL_KI_Coeff)
+#define MOTOR_PLL_Coeff                     (0.2f)
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
 
 //非线性磁链观测器  
 #define MOTOR_FLUX_KT                       (2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
 #define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
 
-#define MOTOR_FLUX_PLL_KP                   (MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_FLUX)  //锁相环比例系数
-#define MOTOR_FLUX_PLL_KI                   (MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                   //锁相环积分系数
+#define MOTOR_FLUX_PLL_KP                   (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                              //锁相环比例系数
+#define MOTOR_FLUX_PLL_KI                   (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / MOTOR_FLUX)   //锁相环积分系数
 #define MOTOR_FLUX_PLL_KD                   (0.0f)                    	//锁相环微分系数
 #define MOTOR_FLUX_PLL_MAX                  ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
 #define MOTOR_FLUX_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
-//SMO观测器            
-#define MOTOR_SMO_K1                        (8.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
+//SMO观测器
+#define MOTOR_SMO_K1                        (2.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
 #define MOTOR_SMO_K2                        (0.02f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数2
 
-#define MOTOR_SMO_PLL_KP                    (MOTOR_PLL_KP_Coeff * MOTOR_MAX_SRAD * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)    //锁相环比例系数
-#define MOTOR_SMO_PLL_KI                    (MOTOR_PLL_KI_Coeff * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)                     //锁相环积分系数
+#define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * MOTOR_VOLTAGE_V))                              //锁相环比例系数
+#define MOTOR_SMO_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * MOTOR_VOLTAGE_V))   //锁相环积分系数
 #define MOTOR_SMO_PLL_KD                    (0.0f)                    	//锁相环微分系数
 #define MOTOR_SMO_PLL_MAX                   ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出

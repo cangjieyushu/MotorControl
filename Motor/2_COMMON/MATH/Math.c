@@ -11,6 +11,122 @@
 /************************************定点数学库**************************************/
 
 /**********************************************************************************************
+Function: SPLIT_Q56I_Data
+Description: 将两个28位整数合并为一个56位数
+Input: 高28位，低28位
+Output: 无
+Input_Output: 无
+Return: 合并后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Data(Q32I_ high, Q32I_ low)
+{
+    ST_56_SPLIT result;
+    result.Q28I_High = high;
+    result.Q28I_Low = low;
+    return result;
+}
+
+/**********************************************************************************************
+Function: SPLIT_Q56I_Add
+Description: 将两个56位数相加
+Input: 两个56位数
+Output: 无
+Input_Output: 无
+Return: 相加后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Add(ST_56_SPLIT a, ST_56_SPLIT b)
+{
+    ST_56_SPLIT result;
+    Q32I_ temp_low = a.Q28I_Low + b.Q28I_Low;
+    
+    result.Q28I_Low = temp_low & 0x0FFFFFFF;
+    result.Q28I_High = a.Q28I_High + b.Q28I_High + Q32I_RHT_28(temp_low);
+    return result;
+}
+
+/**********************************************************************************************
+Function: SPLIT_Q56I_Multi
+Description: 将两个28位数相乘
+Input: 两个28位数
+Output: 无
+Input_Output: 无
+Return: 相乘后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Multi(Q32I_ a, Q32I_ b)
+{
+    ST_56_SPLIT result;
+    Q32I_ a_low = 0;
+    Q32I_ a_high = 0;
+    Q32I_ b_low = 0;
+    Q32I_ b_high = 0;
+                             
+    Q32I_ low_low = 0;
+    Q32I_ low_high = 0;
+    Q32I_ high_low = 0;
+    Q32I_ high_high = 0;
+    
+    Q32I_ low_high__low = 0;
+    Q32I_ low_high__high = 0;
+    Q32I_ high_low__low = 0;
+    Q32I_ high_low__high = 0;
+    
+    if(a >= 0)
+    {
+        a_low = a & 0x00003FFF;
+        a_high = Q32I_RHT_14(a);
+    }
+    else
+    {
+        a_low = -((-a) & 0x00003FFF);
+        a_high = Q32I_RHT_14(a) + 1;
+    }
+    if(b >= 0)
+    {
+        b_low = b & 0x00003FFF;
+        b_high = Q32I_RHT_14(b);
+    }
+    else
+    {
+        b_low = -((-b) & 0x00003FFF);
+        b_high = Q32I_RHT_14(b) + 1;
+    }
+                     
+    low_low = a_low * b_low;
+    low_high = a_low * b_high;
+    high_low = a_high * b_low;
+    high_high = a_high * b_high;
+    
+    if(low_high >= 0)
+    {
+        low_high__low = low_high & 0x00003FFF;
+        low_high__high = Q32I_RHT_14(low_high);
+    }
+    else
+    {
+        low_high__low = -((-low_high) & 0x00003FFF);
+        low_high__high = Q32I_RHT_14(low_high) + 1;
+    }
+    if(high_low >= 0)
+    {
+        high_low__low = high_low & 0x00003FFF;
+        high_low__high = Q32I_RHT_14(high_low);
+    }
+    else
+    {
+        high_low__low = -((-high_low) & 0x00003FFF);
+        high_low__high = Q32I_RHT_14(high_low) + 1;
+    }
+    
+    Q32I_ carry = low_low + Q16I_LFT_14(low_high__low) + Q16I_LFT_14(high_low__low);
+    result.Q28I_Low = carry & 0x0FFFFFFF;
+    result.Q28I_High = high_high + low_high__high + high_low__high + Q32I_RHT_28(carry);
+    return result;
+}
+
+/**********************************************************************************************
 Function: Ramp_Init_T
 Description: 定点斜坡初始化
 Input: 定点斜坡输出初始值

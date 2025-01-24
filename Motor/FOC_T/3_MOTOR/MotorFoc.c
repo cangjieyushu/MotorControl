@@ -66,8 +66,9 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_T(ST_IF_CONTROL_T* pCTRL)
 {
-    pCTRL->_O_Q12U_Angle += Q32I_RHT_16(pCTRL->_I_Q14I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_SRAD.Q32I_Output);
-    MATH_ANGLE_MOD_T(pCTRL->_O_Q12U_Angle);
+    pCTRL->_O_Q28U_Angle_tmp += pCTRL->_I_Q00I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_SRAD.Q32I_Output;
+    MATH_ANGLE_TMP_T(pCTRL->_O_Q28U_Angle_tmp);
+    pCTRL->_O_Q12U_Angle = Q32I_RHT_16(pCTRL->_O_Q28U_Angle_tmp);
 }
 
 /**********************************VF¿ØÖÆ************************************/
@@ -129,8 +130,9 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_VF_CURRENT_T(ST_VF_CONTROL_T* pCTRL)
 {
-    pCTRL->_O_Q12U_Angle += Q32I_RHT_16(pCTRL->_I_Q14I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_SRAD.Q32I_Output);
-    MATH_ANGLE_MOD_T(pCTRL->_O_Q12U_Angle);
+    pCTRL->_O_Q28U_Angle_tmp += pCTRL->_I_Q00I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_SRAD.Q32I_Output;
+    MATH_ANGLE_TMP_T(pCTRL->_O_Q28U_Angle_tmp);
+    pCTRL->_O_Q12U_Angle = Q32I_RHT_16(pCTRL->_O_Q28U_Angle_tmp);
 }
 
 /*********************************×ø±ê±ä»»*************************************/

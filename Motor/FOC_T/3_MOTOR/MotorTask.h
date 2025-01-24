@@ -51,9 +51,9 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Dir(Q32I_ Dir)
 {
-    Motor.SRAD_CTRL._I_Q14I_DIR_Target = Dir;
-    Motor.IF_CTRL._I_Q14I_DIR_Target = Dir;
-    Motor.VF_CTRL._I_Q14I_DIR_Target = Dir;
+    Motor.SRAD_CTRL._I_Q00I_DIR_Target = Dir;
+    Motor.IF_CTRL._I_Q00I_DIR_Target = Dir;
+    Motor.VF_CTRL._I_Q00I_DIR_Target = Dir;
 }
 
 /**********************************************************************************************

@@ -99,12 +99,15 @@ typedef struct
     float       _V_F_Abeta;
     float       _V_F_ERRalfa;
     float       _V_F_ERRbeta;
+    float       _V_F_Ealfa_tmp;
+    float       _V_F_Ebeta_tmp;
     float       _V_F_Ealfa;
     float       _V_F_Ebeta;
     
     float       _P_F_Ts;
     float       _P_F_K1;
     float       _P_F_K2;
+    float       _P_F_Limit;
     float       _P_F_Rs;
     float       _P_F_Ld;
     float       _P_F_Lq;

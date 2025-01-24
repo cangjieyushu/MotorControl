@@ -121,7 +121,7 @@ Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
     Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
     pCTRL->TG_Triangle.F_Angle = 0.0f;
-    pCTRL->TG_Triangle.F_Cos = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 1.0f;
     pCTRL->TG_Triangle.F_Sin = 0.0f;
     pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     
@@ -217,9 +217,14 @@ Ram_Func void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL)
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
     Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
     pCTRL->TG_Triangle.F_Angle = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 1.0f;
+    pCTRL->TG_Triangle.F_Sin = 0.0f;
+    pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     
     pCTRL->_V_F_Aalfa = 0.0f;
     pCTRL->_V_F_Abeta = 0.0f;
+    pCTRL->_V_F_Ealfa_tmp = 0.0f;
+    pCTRL->_V_F_Ebeta_tmp = 0.0f;
     pCTRL->_V_F_Ealfa = 0.0f;
     pCTRL->_V_F_Ebeta = 0.0f;
 }
@@ -249,14 +254,17 @@ Ram_Func void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->_V_F_ERRalfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_ERRbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
     
-    pCTRL->_V_F_Ealfa = MATH_SAT_F(pCTRL->_V_F_ERRalfa, pCTRL->_P_F_K1, -pCTRL->_P_F_K1);
-    pCTRL->_V_F_Ebeta = MATH_SAT_F(pCTRL->_V_F_ERRbeta, pCTRL->_P_F_K1, -pCTRL->_P_F_K1);
+    pCTRL->_V_F_Ealfa_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRalfa;
+    pCTRL->_V_F_Ebeta_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRbeta;
     
-    pCTRL->_V_F_Ealfa += pCTRL->_P_F_K2*pCTRL->_V_F_ERRalfa;
-    pCTRL->_V_F_Ebeta += pCTRL->_P_F_K2*pCTRL->_V_F_ERRbeta;
+    pCTRL->_V_F_Ealfa = pCTRL->_P_F_K1*pCTRL->_V_F_ERRalfa + pCTRL->_V_F_Ealfa_tmp;
+    pCTRL->_V_F_Ebeta = pCTRL->_P_F_K1*pCTRL->_V_F_ERRbeta + pCTRL->_V_F_Ebeta_tmp;
+    
+    pCTRL->_V_F_Ealfa = MATH_SAT_F(pCTRL->_V_F_Ealfa, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
+    pCTRL->_V_F_Ebeta = MATH_SAT_F(pCTRL->_V_F_Ebeta, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
         
     pCTRL->PID_PLL.F_Rf = -pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
-    pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->PID_PLL.F_Fb =  pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;
     PID_Pos_Cal_F(&pCTRL->PID_PLL);
     
     pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;

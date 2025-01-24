@@ -44,7 +44,7 @@
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.00577f)                      //Wb
 
-#define MOTOR_MAX_SPEED                     (3500.0f)             //rpm，最高转速
+#define MOTOR_MAX_SPEED                     (3600.0f)             //rpm，最高转速
 #define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
 ////电机额定参数，白色大电机

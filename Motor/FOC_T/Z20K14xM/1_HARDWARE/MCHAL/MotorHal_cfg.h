@@ -49,7 +49,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
 
 
 //频率设置

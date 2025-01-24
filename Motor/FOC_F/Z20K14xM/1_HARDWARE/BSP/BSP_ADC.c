@@ -101,13 +101,13 @@ void BSP_ADC_Init_Three_Shunt(void)
     /* mod value, single, divide4, SW trig, clear to mod */
     TDG_InitConfig_t Config=
     {
-        HAL_PWM_SET_COUNT_U*2U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
+        HAL_PWM_SET_COUNT_T*2U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
     };
   
     /* 001*1/64Tclock */
     TDG_DelayOutputConfig_t Doconfig =         
     {
-        TDG_DO_0, (HAL_PWM_SET_COUNT_U*2U - (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U), ENABLE
+        TDG_DO_0, (HAL_PWM_SET_COUNT_T*2U - (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U), ENABLE
     };
   
     const TDG_ChannelConfig_t Chconfig =
@@ -277,7 +277,7 @@ void BSP_ADC_Init_One_Shunt(void)
     /* mod value, single, divide4, SW trig, clear to mod */
     TDG_InitConfig_t Config=
     {
-        HAL_PWM_SET_COUNT_U*2U - 1U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
+        HAL_PWM_SET_COUNT_T*2U - 1U, TDG_COUNT_SINGLE, TDG_CLK_DIVIDE_1, TDG_TRIG_EXTERNAL, TDG_UPDATE_IMMEDIATELY, TDG_CLEAR_DELAY
     };
   
     /* 001*1/64Tclock */

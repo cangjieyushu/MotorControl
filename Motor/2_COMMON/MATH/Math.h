@@ -67,6 +67,15 @@ typedef unsigned    int             BIT;
 #define Q16I_LFT_23(A)              ((A)<<23U)
 #define Q16I_LFT_24(A)              ((A)<<24U)
 
+#define Q16I_LFT_25(A)              ((A)<<25U)
+#define Q16I_LFT_26(A)              ((A)<<26U)
+#define Q16I_LFT_27(A)              ((A)<<27U)
+#define Q16I_LFT_28(A)              ((A)<<28U)
+#define Q16I_LFT_29(A)              ((A)<<29U)
+#define Q16I_LFT_30(A)              ((A)<<30U)
+#define Q16I_LFT_31(A)              ((A)<<31U)
+#define Q16I_LFT_32(A)              ((A)<<32U)
+
 #define Q32I_RHT_01(A)              ((A)>>1U)
 #define Q32I_RHT_02(A)              ((A)>>2U)
 #define Q32I_RHT_03(A)              ((A)>>3U)
@@ -94,6 +103,15 @@ typedef unsigned    int             BIT;
 #define Q32I_RHT_23(A)              ((A)>>23U)
 #define Q32I_RHT_24(A)              ((A)>>24U)
 
+#define Q32I_RHT_25(A)              ((A)>>25U)
+#define Q32I_RHT_26(A)              ((A)>>26U)
+#define Q32I_RHT_27(A)              ((A)>>27U)
+#define Q32I_RHT_28(A)              ((A)>>28U)
+#define Q32I_RHT_29(A)              ((A)>>29U)
+#define Q32I_RHT_30(A)              ((A)>>30U)
+#define Q32I_RHT_31(A)              ((A)>>31U)
+#define Q32I_RHT_32(A)              ((A)>>32U)
+
 /********************************************************************/
 
 typedef struct
@@ -114,7 +132,7 @@ typedef struct
 #define MATH_2PI_TMP_T                      ((Q32U_)(Q28U_MAX))
 
 #define MATH_ANGLE_MOD_T(A)                 while(A>=MATH_2PI_T){A-=MATH_2PI_T;}while(A<0){A+=MATH_2PI_T;}
-#define MATH_ANGLE_TMP_T(A)                 while(A>=MATH_2PI_TMP_T){A-=MATH_2PI_TMP_T}while(A<0){A+=MATH_2PI_TMP_T;}
+#define MATH_ANGLE_TMP_T(A)                 while(A>=MATH_2PI_TMP_T){A-=MATH_2PI_TMP_T;}while(A<0){A+=MATH_2PI_TMP_T;}
     
 #define MATH_SQRT_THREE_T(A)                (Q32I_RHT_12(7095*(A)))
 #define MATH_SQRT_THREE_OVER_TWO_T(A)       (Q32I_RHT_12(3547*(A)))
@@ -153,8 +171,8 @@ typedef struct
 
 #define MATH_SQUARE_F(A)                    ((A)*(A))
 #define MATH_ABS_F(A)                       (((A)<(0.0f)) ? (-(A)) : (A))
-#define MATH_MAX_F(A, B)                    (((A)>(B)) ?   (A)  : (B))
-#define MATH_MIN_F(A, B)                    (((A)<(B)) ?   (A)  : (B))
+#define MATH_MAX_F(A, B)                    (((A)>(B)   ) ?   (A)  : (B))
+#define MATH_MIN_F(A, B)                    (((A)<(B)   ) ?   (A)  : (B))
 #define MATH_SAT_F(A, MAX, MIN)             (MATH_MAX_F(MATH_MIN_F((A), (MAX)), (MIN)))
 
 /**********************************************************************/
@@ -162,6 +180,11 @@ typedef struct
 #define MATH_DELAY_NS_COUNT                 (1U)
 #define MATH_DELAY_US_COUNT                 (21U)
 #define MATH_DELAY_MS_COUNT                 (21850U)
+
+typedef struct {
+    Q32I_ Q28I_High;
+    Q32I_ Q28I_Low;
+}ST_56_SPLIT;
 
 typedef struct
 {
@@ -217,6 +240,55 @@ typedef struct
     Q32I_ Q14I_OutMax;
     Q32I_ Q14I_OutMin;
 }ST_PID_POS_T;
+
+typedef struct
+{
+    Q32I_ Q28I_Rf;
+    Q32I_ Q28I_Fb;
+    
+    Q32I_ Q00I_Kp;
+    Q32I_ Q00I_Ki;
+    Q32I_ Q00I_Kd;
+    
+    Q32I_ Q14I_Ui;
+    Q32I_ Q18I_Ui_tmp;
+    Q32I_ Q14I_Output;
+    Q32I_ Q14I_OutMax;
+    Q32I_ Q14I_OutMin;
+}ST_PID_POS_P;
+
+/**********************************************************************************************
+Function: SPLIT_Q56I_Data
+Description: 将两个28位整数合并为一个56位数
+Input: 高28位，低28位
+Output: 无
+Input_Output: 无
+Return: 合并后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Data(Q32I_ high, Q32I_ low);
+
+/**********************************************************************************************
+Function: SPLIT_Q56I_Add
+Description: 将两个56位数相加
+Input: 两个56位数
+Output: 无
+Input_Output: 无
+Return: 相加后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Add(ST_56_SPLIT a, ST_56_SPLIT b);
+
+/**********************************************************************************************
+Function: SPLIT_Q56I_Multi
+Description: 将两个28位数相乘
+Input: 两个28位数
+Output: 无
+Input_Output: 无
+Return: 相乘后的数
+Author: CJYS
+***********************************************************************************************/ 
+ST_56_SPLIT SPLIT_Q56I_Multi(Q32I_ a, Q32I_ b);
 
 /**********************************************************************************************
 Function: Ramp_Init_T

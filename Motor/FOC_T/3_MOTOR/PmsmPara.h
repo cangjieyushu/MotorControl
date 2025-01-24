@@ -44,7 +44,7 @@
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.00577f)                      //Wb
 
-#define MOTOR_MAX_SPEED                     (3500.0f)             //rpm，最高转速
+#define MOTOR_MAX_SPEED                     (3600.0f)             //rpm，最高转速
 #define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
 
@@ -55,9 +55,9 @@
 #define MOTOR_MIN_SRAD                      (MATH_2PI_F*MOTOR_POLE_PAIR*MOTOR_MIN_SPEED/60.0f)        //Hz，最低角频率
 
 //标幺化
-#define V_BASE                              (0.5f*HAL_ADC_VOLTAGE_MAX)      //V，电压
-#define I_BASE                              (0.5f*HAL_ADC_CURRENT_MAX)      //A，电流
-#define F_BASE                              (2.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
+#define V_BASE                              (0.25f*HAL_ADC_VOLTAGE_MAX)      //V，电压
+#define I_BASE                              (0.25f*HAL_ADC_CURRENT_MAX)      //A，电流
+#define F_BASE                              (1.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
 
 #define W_BASE                              (F_BASE*MATH_2PI_F)     //Hz，角频率
 #define R_BASE                              (V_BASE/I_BASE)         //Ω，电阻
@@ -72,22 +72,22 @@
 #define Q24I_VOLTAGE_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_VOLTAGE_SCALE/V_BASE)          //电压
 #define Q24I_CURRENT_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
      
-#define Q14I_HTs_PU                         (Q32I_)(MOTOR_Q14_PU*MOTOR_HTs/T_BASE)
-#define Q14I_LTs_PU                         (Q32I_)(MOTOR_Q14_PU*MOTOR_LTs/T_BASE)
-#define Q14I_Rs_PU                          (Q32I_)(MOTOR_Q14_PU*MOTOR_Rs/R_BASE)           //Ω，相电阻
-#define Q14I_Ld_PU                          (Q32I_)(MOTOR_Q14_PU*MOTOR_Ld/L_BASE)           //H，d轴电感
-#define Q14I_Lq_PU                          (Q32I_)(MOTOR_Q14_PU*MOTOR_Lq/L_BASE)           //H，q轴电感
-#define Q14I_Ls_PU                          (Q32I_)(MOTOR_Q14_PU*MOTOR_Ls/L_BASE)           //H，相电感
-#define Q14I_FLUX_PU                        (Q32I_)(MOTOR_Q14_PU*MOTOR_FLUX/P_BASE)         //V*S，Wb
+#define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs/T_BASE)
+#define Q14I_LTs_PU                         (MOTOR_Q14_PU*MOTOR_LTs/T_BASE)
+#define Q14I_Rs_PU                          (MOTOR_Q14_PU*MOTOR_Rs/R_BASE)           //Ω，相电阻
+#define Q14I_Ld_PU                          (MOTOR_Q14_PU*MOTOR_Ld/L_BASE)           //H，d轴电感
+#define Q14I_Lq_PU                          (MOTOR_Q14_PU*MOTOR_Lq/L_BASE)           //H，q轴电感
+#define Q14I_Ls_PU                          (MOTOR_Q14_PU*MOTOR_Ls/L_BASE)           //H，相电感
+#define Q14I_FLUX_PU                        (MOTOR_Q14_PU*MOTOR_FLUX/P_BASE)         //V*S，Wb
 
 #define Q14I_VOLTAGE_MOTOR_TO_PU(a)         (Q32I_)(MOTOR_Q14_PU*(a)/V_BASE)                //电压标幺转换
 #define Q14I_CURRENT_MOTOR_TO_PU(a)         (Q32I_)(MOTOR_Q14_PU*(a)/I_BASE)                //电流标幺转换
 #define Q14I_SRAD_MOTOR_TO_PU(a)            (Q32I_)(MOTOR_Q14_PU*(a)/W_BASE)                //频率标幺转换
 
 #define Q14I_VOLTAGE_PU                     (MOTOR_Q14_PU*MOTOR_VOLTAGE_V/V_BASE)           //额定电压标幺值
-#define Q14I_CURRENT_PHASE_A_PU             (MOTOR_Q14_PU*MOTOR_CURRENT_PHASE_A/I_BASE)     //额定相电流标幺值
-#define Q14I_CURRENT_BUS_A_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)       //额定母线电流标幺值
-#define Q14I_CURRENT_BRAKE_A_PU             (MOTOR_Q14_PU*MOTOR_CURRENT_BRAKE_A/I_BASE)     //额定刹车电流标幺值
+#define Q14I_CURRENT_PHASE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_PHASE_A/I_BASE)     //额定相电流标幺值
+#define Q14I_CURRENT_BUS_PU                 (MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)       //额定母线电流标幺值
+#define Q14I_CURRENT_BRAKE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_BRAKE_A/I_BASE)     //额定刹车电流标幺值
 #define Q14I_MAX_SRAD_PU                    (MOTOR_Q14_PU*MOTOR_MAX_SRAD/W_BASE)            //额定频率标幺值
 #define Q14I_MIN_SRAD_PU                    (MOTOR_Q14_PU*MOTOR_MIN_SRAD/W_BASE)            //额定频率标幺值
 

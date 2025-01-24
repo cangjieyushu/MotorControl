@@ -49,7 +49,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_ONE_SHUNT               (0U)
 #define HAL_THREE_SHUNT             (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
 
 
 //频率设置
@@ -77,7 +77,7 @@
 #define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_16K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
-#define HAL_PWM_SET_COUNT_U                     (Q16U_)(HAL_PWM_SET_COUNT_F)
+#define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
 
 //PWM设置
 #define HAL_PWM_DEADTIME_TIME                   (0.5f)                  		//us，死区时间

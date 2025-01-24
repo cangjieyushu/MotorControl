@@ -65,7 +65,7 @@ Author: CJYS
     CPwmChConfig1.mainChannelOutputEnable = ENABLE;
     CPwmChConfig1.secondChannelOutputEnable = ENABLE;
     CPwmChConfig1.polarity = MCPWM_POL_LOW;
-    CPwmChConfig1.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig1.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig1.secondCompareValue = 0U;
     CPwmChConfig1.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig1.secondChannelOffVal = LEVEL_LOW;
@@ -83,7 +83,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config1.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm    fsoc/(2*fpwm) */
-    Config1.countModVal = HAL_PWM_SET_COUNT_U;                 
+    Config1.countModVal = HAL_PWM_SET_COUNT_T;                 
     Config1.cPwmChConfig = &CPwmChConfig1;
     /* output complementary pwm config */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config1);
@@ -99,7 +99,7 @@ Author: CJYS
     CPwmChConfig2.mainChannelOutputEnable = ENABLE;
     CPwmChConfig2.secondChannelOutputEnable = ENABLE;
     CPwmChConfig2.polarity = MCPWM_POL_LOW;
-    CPwmChConfig2.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig2.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig2.secondCompareValue = 0U;
     CPwmChConfig2.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig2.secondChannelOffVal = LEVEL_LOW;
@@ -116,7 +116,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config2.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm fsoc/(2*fpwm) */
-    Config2.countModVal = HAL_PWM_SET_COUNT_U;               
+    Config2.countModVal = HAL_PWM_SET_COUNT_T;               
     Config2.cPwmChConfig = &CPwmChConfig2;
     /* output complementary pwm config  */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config2);
@@ -132,7 +132,7 @@ Author: CJYS
     CPwmChConfig3.mainChannelOutputEnable = ENABLE;
     CPwmChConfig3.secondChannelOutputEnable = ENABLE;
     CPwmChConfig3.polarity = MCPWM_POL_LOW;
-    CPwmChConfig3.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig3.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig3.secondCompareValue = 0U;    
     CPwmChConfig3.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig3.secondChannelOffVal = LEVEL_LOW;
@@ -149,7 +149,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config3.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm  0x1f40  fsoc/(2*fpwm) */
-    Config3.countModVal = HAL_PWM_SET_COUNT_U;               
+    Config3.countModVal = HAL_PWM_SET_COUNT_T;               
     Config3.cPwmChConfig = &CPwmChConfig3;
     /* output complementary pwm config  */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config3);
@@ -190,9 +190,9 @@ Author: CJYS
     MCPWMx->MCPWM_RELOAD.LOADEN1 = (Q32U_)ENABLE;   
     MCPWMx->MCPWM_RELOAD.LOADEN2 = (Q32U_)ENABLE;    
 
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_0].CV = HAL_PWM_SET_COUNT_U;        
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_2].CV = HAL_PWM_SET_COUNT_U;  
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_U;
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_0].CV = HAL_PWM_SET_COUNT_T;        
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_2].CV = HAL_PWM_SET_COUNT_T;  
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_T;
     
     MCPWM_InitTriggerCmd(HAL_MCPWM_ID, ENABLE);     
     
@@ -282,7 +282,7 @@ Author: CJYS
     CPwmChConfig1.mainChannelOutputEnable = ENABLE;
     CPwmChConfig1.secondChannelOutputEnable = ENABLE;
     CPwmChConfig1.polarity = MCPWM_POL_LOW;
-    CPwmChConfig1.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig1.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig1.secondCompareValue = 0U;
     CPwmChConfig1.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig1.secondChannelOffVal = LEVEL_LOW;
@@ -300,7 +300,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config1.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm    fsoc/(2*fpwm) */
-    Config1.countModVal = HAL_PWM_SET_COUNT_U;                 
+    Config1.countModVal = HAL_PWM_SET_COUNT_T;                 
     Config1.cPwmChConfig = &CPwmChConfig1;
     /* output complementary pwm config */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config1);
@@ -316,7 +316,7 @@ Author: CJYS
     CPwmChConfig2.mainChannelOutputEnable = ENABLE;
     CPwmChConfig2.secondChannelOutputEnable = ENABLE;
     CPwmChConfig2.polarity = MCPWM_POL_LOW;
-    CPwmChConfig2.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig2.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig2.secondCompareValue = 0U;
     CPwmChConfig2.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig2.secondChannelOffVal = LEVEL_LOW;
@@ -333,7 +333,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config2.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm fsoc/(2*fpwm) */
-    Config2.countModVal = HAL_PWM_SET_COUNT_U;               
+    Config2.countModVal = HAL_PWM_SET_COUNT_T;               
     Config2.cPwmChConfig = &CPwmChConfig2;
     /* output complementary pwm config  */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config2);
@@ -349,7 +349,7 @@ Author: CJYS
     CPwmChConfig3.mainChannelOutputEnable = ENABLE;
     CPwmChConfig3.secondChannelOutputEnable = ENABLE;
     CPwmChConfig3.polarity = MCPWM_POL_LOW;
-    CPwmChConfig3.mainCompareValue = HAL_PWM_SET_COUNT_U;
+    CPwmChConfig3.mainCompareValue = HAL_PWM_SET_COUNT_T;
     CPwmChConfig3.secondCompareValue = 0U;    
     CPwmChConfig3.mainChannelOffVal = LEVEL_LOW;
     CPwmChConfig3.secondChannelOffVal = LEVEL_LOW;
@@ -366,7 +366,7 @@ Author: CJYS
     /* MCPWM complementary PWM output global config */
     Config3.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm  0x1f40  fsoc/(2*fpwm) */
-    Config3.countModVal = HAL_PWM_SET_COUNT_U;               
+    Config3.countModVal = HAL_PWM_SET_COUNT_T;               
     Config3.cPwmChConfig = &CPwmChConfig3;
     /* output complementary pwm config  */
     MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config3);
@@ -407,14 +407,14 @@ Author: CJYS
     MCPWMx->MCPWM_RELOAD.LOADEN1 = (Q32U_)ENABLE;   
     MCPWMx->MCPWM_RELOAD.LOADEN2 = (Q32U_)ENABLE;    
 
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_0].CV = HAL_PWM_SET_COUNT_U/2U;      
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_1].CV = HAL_PWM_SET_COUNT_U/2U; 
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_0].CV = HAL_PWM_SET_COUNT_T/2U;      
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_1].CV = HAL_PWM_SET_COUNT_T/2U; 
     
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_2].CV = HAL_PWM_SET_COUNT_U/2U;  
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_3].CV = HAL_PWM_SET_COUNT_U/2U;      
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_2].CV = HAL_PWM_SET_COUNT_T/2U;  
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_3].CV = HAL_PWM_SET_COUNT_T/2U;      
     
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_U/2U;  
-    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_5].CV = HAL_PWM_SET_COUNT_U/2U; 
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_T/2U;  
+    MCPWMx->MCPWM_CV[MCPWM_CHANNEL_5].CV = HAL_PWM_SET_COUNT_T/2U; 
     
     MCPWM_InitTriggerCmd(HAL_MCPWM_ID, ENABLE);     
     

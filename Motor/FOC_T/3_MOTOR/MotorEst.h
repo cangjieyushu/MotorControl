@@ -47,11 +47,11 @@ typedef struct
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
 
+    Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _I_Q14I_Ualfa;
     Q32I_       _I_Q14I_Ubeta;
     Q32I_       _I_Q14I_Ialfa;
     Q32I_       _I_Q14I_Ibeta;
-    Q32I_       _I_Q14I_IdRef;
     
     Q32I_       _V_Q14I_R_set;
     Q32I_       _V_Q14I_Yalfa;
@@ -59,8 +59,10 @@ typedef struct
     Q32I_       _V_Q14I_Nalfa;
     Q32I_       _V_Q14I_Nbeta;
     Q32I_       _V_Q14I_Nn2;
-    Q32I_       _V_Q14I_Ealfa;
-    Q32I_       _V_Q14I_Ebeta;
+    ST_56_SPLIT _V_Q56I_Valfa;
+    ST_56_SPLIT _V_Q56I_Vbeta;
+    ST_56_SPLIT _V_Q56I_Xalfa_tmp;
+    ST_56_SPLIT _V_Q56I_Xbeta_tmp;
     Q32I_       _V_Q14I_Xalfa;
     Q32I_       _V_Q14I_Xbeta;
     
@@ -68,7 +70,6 @@ typedef struct
     Q32I_       _P_Q14I_Gamma;
     Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
-    Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Ls;
     Q32I_       _P_Q14I_Flux2;
 }ST_FLUX_CONTROL_T;
@@ -79,25 +80,31 @@ typedef struct
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
 
+    Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _I_Q14I_Ualfa;
     Q32I_       _I_Q14I_Ubeta;
     Q32I_       _I_Q14I_Ialfa;
     Q32I_       _I_Q14I_Ibeta;
     
+    Q32I_       _V_Q28I_Aalfa_tmp;
+    Q32I_       _V_Q28I_Abeta_tmp;
     Q32I_       _V_Q14I_Aalfa;
     Q32I_       _V_Q14I_Abeta;
-    Q32I_       _V_Q14I_ERRalfa;
-    Q32I_       _V_Q14I_ERRbeta;
+    Q32I_       _V_Q28I_ERRalfa_tmp;
+    Q32I_       _V_Q28I_ERRbeta_tmp;
+    Q32I_       _V_Q28I_Ealfa_tmp;
+    Q32I_       _V_Q28I_Ebeta_tmp;
     Q32I_       _V_Q14I_Ealfa;
     Q32I_       _V_Q14I_Ebeta;
     
     Q32I_       _P_Q14I_Ts;
-    Q32I_       _P_Q14I_K1;
+    Q32I_       _P_Q10I_K1;
     Q32I_       _P_Q14I_K2;
+    Q32I_       _P_Q14I_Limit;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Lq;
-    Q32I_       _P_Q14I_One_Over_Ld;
+    Q32I_       _P_Q10I_One_Over_Ld;
     Q32I_       _P_Q14I_Rs_Over_Ld;
     Q32I_       _P_Q14I_Ld_Lq_Over_Ld;
 }ST_SMO_CONTROL_T;

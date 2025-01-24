@@ -16,9 +16,10 @@ typedef struct
     ST_RAMP_T       Ramp_SRAD;
     ST_RAMP_T       Ramp_AngleERR;
     
-    Q32I_       _I_Q14I_DIR_Target;
+    Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
+    Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _O_Q12U_Angle;
 
     Q32I_       _P_Q14I_Ts;
@@ -31,9 +32,10 @@ typedef struct
     ST_RAMP_T       Ramp_SRAD;
     ST_RAMP_T       Ramp_AngleERR;
 
-    Q32I_       _I_Q14I_DIR_Target;
+    Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
+    Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _O_Q12U_Angle;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_AngleERRLimit;
@@ -102,7 +104,7 @@ typedef struct
     ST_RAMP_T       Ramp_SRAD;
     ST_TRIG_T       TG_Triangle;
     
-    Q32I_       _I_Q14I_DIR_Target;
+    Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_SRAD_Target;
     Q32I_       _I_Q14I_SRAD;
     Q32I_       _I_Q14I_Vbus;
