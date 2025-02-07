@@ -41,7 +41,7 @@
 
 //IF
 #define MOTOR_IF_IQRAMP_INIT                ((Q32I_)(0.0000f*Q14I_CURRENT_PHASE_PU))  //Iq初始值
-#define MOTOR_IF_IQRAMP_TARGET              ((Q32I_)(0.2000f*Q14I_CURRENT_PHASE_PU))  //Iq目标值
+#define MOTOR_IF_IQRAMP_TARGET              ((Q32I_)(0.3000f*Q14I_CURRENT_PHASE_PU))  //Iq目标值
 #define MOTOR_IF_IQRAMP_STEP                ((Q32I_)(0.0050f*Q14I_CURRENT_PHASE_PU))  //Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             ((Q32I_)(0.0000f*Q14I_MAX_SRAD_PU))         //IF速度初始值
@@ -49,7 +49,7 @@
 #define MOTOR_IF_ANGLERAMP_STEP             ((Q32I_)(0.0005f*Q14I_MAX_SRAD_PU))         //IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (1024)                                      //rad,IF与观测器角度偏差允许切换值
-#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (100)                                       //rad,电机IF观测器角度收敛步长
+#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1)                                         //rad,电机IF观测器角度收敛步长
 
 //VF
 #define MOTOR_VF_VQRAMP_INIT                ((Q32I_)(0.0000f*Q14I_VOLTAGE_PU))          //Vq初始值
@@ -61,7 +61,7 @@
 #define MOTOR_VF_ANGLERAMP_STEP             ((Q32I_)(0.0005f*Q14I_MAX_SRAD_PU))         //VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (1024)                                      //rad,VF与观测器角度偏差允许切换值
-#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (100)                                       //rad,电机VF观测器角度收敛步长
+#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1)                                         //rad,电机VF观测器角度收敛步长
 
 
 //转速环PID    
@@ -72,7 +72,7 @@
 #define MOTOR_SPD_PID_MAX                   ( (Q32I_)(1.0000f*Q14I_CURRENT_PHASE_PU)) //A,转速环输出q轴电流限幅
 #define MOTOR_SPD_PID_MIN                   (-(Q32I_)(1.0000f*Q14I_CURRENT_PHASE_PU)) //A,转速环输出q轴电流限幅
 
-//电流PID 
+//电流PID
 #define MOTOR_FOC_P_Coeff                   (0.01f)                       //电流环P增益系数
 #define MOTOR_FOC_KP_GAIN                   (Q32I_)(MOTOR_Q14_PU * MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs * I_BASE / V_BASE)
 #define MOTOR_FOC_KI_GAIN                   (Q32I_)(MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls * I_BASE / V_BASE)
@@ -86,7 +86,7 @@
 #define USER_PLL_SPEED_LPF_COEFF            (10)                        //0~256，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (Q32I_)(MOTOR_Q14_PU * 2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX * P_BASE * P_BASE * P_BASE / V_BASE)      //增益系数
+#define MOTOR_FLUX_KT                       (Q32I_)(Q28U_MAX * 0.02f * Q14I_VOLTAGE_PU / Q14I_FLUX_PU / (Q14I_FLUX_PU*Q14I_FLUX_PU/MOTOR_Q14_PU))      //增益系数
 #define MOTOR_FLUX_R_Coeff                  (Q32I_)(MOTOR_Q14_PU * 0.75f)           //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU)                              //锁相环比例系数

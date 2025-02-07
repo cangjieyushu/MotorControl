@@ -30,6 +30,8 @@ Ram_Func void MotorFoc_Init_F(ST_MOTOR_TASK* pMotor)
     pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = 1.5f*MATH_PI_F;
     Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
     pMotor->Motor_Loop_Mode = MOTOR_ALIGNLOOP;
+    
+//    pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
 }
 
 /**********************************************************************************************
@@ -75,6 +77,10 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             }
             case MOTOR_OPENLOOP:
             {
+                MotorFoc_VF_OPEN_F(&pMotor->VF_CTRL);
+                MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
+                pMotor->CURRENT_CTRL._I_F_IdRef = 0;
+                pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->IF_CTRL.Ramp_Iq.F_Output;
                 break;
             }
             case MOTOR_CLOSELOOP1:
@@ -264,6 +270,9 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     }
                     case MOTOR_OPENLOOP:
                     {
+                        MotorFoc_IF_CURRENT_F(&pMotor->IF_CTRL);
+                        pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->IF_CTRL._O_F_Angle;
+                        Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
                         break;
                     }
                     case MOTOR_CLOSELOOP1:

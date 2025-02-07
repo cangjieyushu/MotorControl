@@ -19,7 +19,7 @@
 #include "USART.h"
 
 //JSCOPE_RTT模式使能标志位
-#define JSCOPE_RTT_EN                   (0U)
+#define JSCOPE_RTT_EN                   (1U)
 #define JSCOPE_RTT_Sytle                "JScope_f4f4f4"
 #if(JSCOPE_RTT_EN == 1U)
 #include "SEGGER_RTT.h"

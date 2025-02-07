@@ -50,28 +50,16 @@
 //换向系数
 #define DIAG_CROSS_RISE_TL              (51U)//base64
 #define DIAG_CROSS_FALL_TL              (13U)//base64
-#define CURRENT_CROSS_RISE_TL           (37U)//base64
-#define CURRENT_CROSS_FALL_TL           (27U)//base64
 #define FLUX_CROSS_RISE_TL              (37U)//base64
 #define FLUX_CROSS_FALL_TL              (27U)//base64
 
 #define DIAG_CROSS_FILTER               (2U)//滤波次数
-#define CURRENT_CROSS_FILTER            (2U)//滤波次数
 #define FLUX_CROSS_FILTER               (2U)//滤波次数
 #define BEMF_CROSS_FILTER               (2U)//滤波次数
 
 #define BEMF_CROSS_DELAY_COEFF          (16U)//base64，延迟换向比例，32为理论的30度
 
-#define CURRENT_CROSS_FAIL_FILTER       (1000U) //电流换向滤波次数
-#define CURRENT_CROSS_DIAG_FILTER       (500U)  //电流换向续流滤波次数
-
 //换向算法切换
-#define CURRENT_TO_FLUX_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.15f * MOTOR_MAX_FREQ))
-#define CURRENT_TO_FLUX_NUM             (20U)
-
-#define FLUX_TO_CURRENT_FREQ            (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.10f * MOTOR_MAX_FREQ))
-#define FLUX_TO_CURRENT_NUM             (20U)
-
 #define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.25f * MOTOR_MAX_FREQ))
 #define FLUX_TO_BEMF_NUM                (20U)
 
@@ -147,14 +135,13 @@
 #define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车时间
-#define NO_BRAKE_TIME                   (200U)              //ms，第1段自由滑行
+#define NO_BRAKE_TIME                   (20000U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
 #define SHORT_BRAKE_TIME                (10000U)            //ms，第3段短接刹车
 
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
 #define MOTOR_STALL_ERROR_TIME          (200U)  //ms，堵转时间
-#define MOTOR_STALL_CURRENT_ERROR_TIME  (5U)
 
 
 typedef enum{
@@ -163,6 +150,7 @@ typedef enum{
     MOTOR_STATE_IDLE,
     MOTOR_STATE_BOOT,
     MOTOR_STATE_POSITION,
+    MOTOR_STATE_DRAG,
     MOTOR_STATE_RUN,
     MOTOR_STATE_BRAKE,
 }EM_MOTOR_STATE_FLOW;
@@ -185,6 +173,7 @@ typedef union{
         BIT current_short       :1;//短路故障
         BIT current_offset      :1;//偏置故障
         BIT position_error      :1;//电机定位故障
+        BIT drag_fall           :1;//强拖失败
     }bit;
 }UN_MOTOR_ERROR_FLAG;
 
@@ -197,6 +186,7 @@ typedef struct{
     ST_MS_FLYING                MS_FLYING;
     ST_MS_BOOT                  MS_BOOT;
     ST_MS_POSITION              MS_POSITION;
+    ST_MS_DRAG                  MS_DRAG;
     ST_BRAKE_CONTROL            BRAKE_CTRL;
     
     ST_MS_CONTROL               MS_CTRL;

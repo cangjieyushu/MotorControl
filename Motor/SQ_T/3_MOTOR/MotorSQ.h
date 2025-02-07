@@ -34,7 +34,13 @@ typedef enum
 }EM_SECTOR_NUM;
 
 typedef enum{
-    SWITCH_CURRENT,
+    DRAG_RUN,
+    DRAG_WAIT,
+    DRAG_PULSE_1,
+    DRAG_PULSE_2,
+}EM_DRAG_FLOW;
+
+typedef enum{
     SWITCH_FLUX,
     SWITCH_BEMF,
     SWITCH_CMP,
@@ -128,6 +134,20 @@ typedef struct
     Q32U_   _P_Q12U_vbus_max_val;
 }ST_MS_POSITION;
 
+typedef struct
+{
+    EM_DRAG_FLOW    DG_Flow;
+    UN_MS_FLAG  Flag;
+    
+    Q32U_   _V_Q32U_cnt;
+    
+    Q32U_   _P_Q16U_max_time;
+    Q32U_   _P_Q16U_pluse_freq;
+    Q32U_   _P_Q14U_to_flux_freq;
+    Q32U_   _P_Q16U_to_flux_num;
+    
+}ST_MS_DRAG;
+
 typedef struct{
     UN_MS_FLAG  Flag;
     
@@ -171,7 +191,6 @@ typedef struct
     Q32U_   _P_Q06U_rise_tl;
     Q32U_   _P_Q06U_fall_tl;
     Q32U_   _P_Q08U_filter;
-    Q32U_   _P_Q16U_current_filter;
 }ST_MS_DIAG;
 
 typedef struct
@@ -184,35 +203,10 @@ typedef struct
     
     Q32U_   _V_Q32U_cnt;
     Q32U_   _V_Q32U_time_cnt;
-    Q32U_   _V_Q32U_switch_cnt;
     
     Q32U_   _P_Q06U_rise_tl;
     Q32U_   _P_Q06U_fall_tl;
     Q32U_   _P_Q08U_filter;
-    Q32U_   _P_Q16U_current_filter;
-    
-    Q32U_   _P_Q14U_to_flux_freq;
-    Q32U_   _P_Q16U_to_flux_num;
-}ST_MS_CURRENT;
-
-typedef struct
-{
-    UN_MS_FLAG  Flag;
-    
-    Q32I_   _I_Q12I_BEMF_ON_VAL;
-    Q32I_   _I_Q12I_BEMF_ZI_VAL;
-    Q32I_   _I_Q12I_BEMF_OF_VAL;
-    
-    Q32U_   _V_Q32U_cnt;
-    Q32U_   _V_Q32U_time_cnt;
-    Q32U_   _V_Q32U_switch_cnt;
-    
-    Q32U_   _P_Q06U_rise_tl;
-    Q32U_   _P_Q06U_fall_tl;
-    Q32U_   _P_Q08U_filter;
-    
-    Q32U_   _P_Q14U_to_current_freq;
-    Q32U_   _P_Q16U_to_current_num;
     
     Q32U_   _P_Q14U_to_bemf_freq;
     Q32U_   _P_Q16U_to_bemf_num;
@@ -249,7 +243,6 @@ typedef struct{
     Q32U_   _V_Q32U_current_cnt;
     Q32U_   _V_Q32U_switch_cnt;
     
-    Q32U_   _P_Q16U_current_error_time;
     Q32U_   _P_Q16U_error_time;
     Q32U_   _P_Q06U_switch_coeff;
 }ST_STALL_CONTROL;
@@ -292,7 +285,6 @@ typedef struct{
     EM_SWITCH_FLOW      SW_Math;
     
     ST_MS_DIAG          MS_DIAG;
-    ST_MS_CURRENT       MS_CURRENT;
     ST_MS_FLUX          MS_FLUX;
     ST_MS_BEMF          MS_BEMF;
     ST_MS_CMP           MS_CMP;
@@ -449,6 +441,28 @@ Author: CJYS
 Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* MS_POSITION, ST_MS_CONTROL* pMS_CTRL);
 
 /**********************************************************************************************
+Function: MotorSQ_Drag_Init
+Description: 拖动初始化
+Input: 无
+Output: 无
+Input_Output: 拖动指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ MotorSQ_Drag_Init(ST_MS_DRAG* pMS_DRAG);
+
+/**********************************************************************************************
+Function: MotorSQ_Drag
+Description: 拖动计算
+Input: 无
+Output: 无
+Input_Output: 拖动指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ MotorSQ_Drag(ST_MS_DRAG* pMS_DRAG);
+
+/**********************************************************************************************
 Function: MotorSQ_Brake_Init
 Description: 刹车控制初始化
 Input: 无
@@ -491,28 +505,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL);
-
-/**********************************************************************************************
-Function: MotorSQ_CURRENT_Init
-Description: 电流换向初始化
-Input: 无
-Output: 无
-Input_Output: 电流换向指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorSQ_CURRENT_Init(ST_MS_CURRENT* pMS_CURRENT);
-
-/**********************************************************************************************
-Function: MotorSQ_CURRENT_Zero_Cross
-Description: 电流换向计算
-Input: 无
-Output: 无
-Input_Output: 电流换向指针，方波控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_CTRL);
 
 /**********************************************************************************************
 Function: MotorSQ_FLUX_Init

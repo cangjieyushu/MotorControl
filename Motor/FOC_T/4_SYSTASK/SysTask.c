@@ -71,7 +71,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     
     Motor_Set_Dir((Q32I_)1);
     Motor_Set_Vbus((Q32I_)(Q32I_RHT_10(pST->_P_Q32I_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out)));
-    Motor_Set_Target_Speed((Q32I_)3000);
+    Motor_Set_Target_Speed((Q32I_)pST->Q16U_Duty_Target_pu);
     
     
     if(Motor_Read_Error() != 0U)

@@ -86,7 +86,7 @@
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (2.0f / MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
+#define MOTOR_FLUX_KT                       (0.02f * MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
 #define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                              //锁相环比例系数

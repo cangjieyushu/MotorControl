@@ -12,6 +12,7 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor);
+void MotorTask_Drag_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Brake_Flow(ST_MOTOR_TASK* pMotor);
 
@@ -22,6 +23,7 @@ pMOTOR_FUN Motor_Flow_Function[MOTOR_STATE_BRAKE+1] =
     MotorTask_Idle_Flow,
     MotorTask_Boot_Flow,
     MotorTask_Position_Flow,
+    MotorTask_Drag_Flow,
     MotorTask_Run_Flow,
     MotorTask_Brake_Flow
 };
@@ -31,9 +33,8 @@ void MotorTask_Switch_Flux_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Switch_Bemf_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Switch_Cmp_Flow(ST_MOTOR_TASK* pMotor);
 
-pMOTOR_FUN Motor_Math_Function[SQUARE_SWITCH_SUCC+1] = 
+pMOTOR_FUN Motor_Math_Function[SWITCH_CMP+1] = 
 {
-    MotorTask_Switch_Current_Flow,
     MotorTask_Switch_Flux_Flow,
     MotorTask_Switch_Bemf_Flow,
     MotorTask_Switch_Cmp_Flow
@@ -44,12 +45,22 @@ void MotorTask_Cross_Ing_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Cross_Succ_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Switch_Succ_Flow(ST_MOTOR_TASK* pMotor);
 
-pMOTOR_FUN Motor_Switch_Function[SWITCH_CMP+1] = 
+pMOTOR_FUN Motor_Switch_Function[SQUARE_SWITCH_SUCC+1] = 
 {
     MotorTask_Diag_Ing_Flow,
     MotorTask_Cross_Ing_Flow,
     MotorTask_Cross_Succ_Flow,
     MotorTask_Switch_Succ_Flow
+};
+
+pFUN_HPWMLPWM_SET POSITION_Set[6][2] =
+{
+    MH_POSITION_Up, MH_POSITION_Up,//U+
+    MH_POSITION_Wn, MH_POSITION_Vn,//W-
+    MH_POSITION_Vp, MH_POSITION_Wp,//V+
+    MH_POSITION_Un, MH_POSITION_Un,//U-
+    MH_POSITION_Wp, MH_POSITION_Vp,//W+
+    MH_POSITION_Vn, MH_POSITION_Wn,//V-
 };
 
 pFUN_HPWMLPWM_SET HPWMLPWM_Set[6][2] =
@@ -143,6 +154,7 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
         MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
+        MH_PWM_Preload_Enable();
         MH_HPWM_LPWM_Close();
         MotorSQ_Init(&pMotor->MS_CTRL);
         pMotor->Motor_Flow = MOTOR_STATE_INIT;
@@ -162,6 +174,11 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
+        if(pMotor->Q32U_MOS_Error_cnt >= 3U)
+        {
+            pMotor->Motor_Error_Flag.bit.mos_fault = 1U;
+        }
+    
         if(MotorSQ_Offset_Check_Init(&pMotor->MS_OFFSET) == SUCC)
         {
             pMotor->MS_OFFSET._I_Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
@@ -192,6 +209,12 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
             MH_HPWM_LPWM_Close();
             MH_ADC_Soft_Trigger();
         }
+    }
+    else
+    {
+        MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+        MH_HPWM_LPWM_Close();
+        pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
 
@@ -234,9 +257,8 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
                 case SUCC:
                 {
                     MotorSQ_Flying_Init(&pMotor->MS_CTRL, &pMotor->MS_FLYING);
-                    MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+                    MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
                     HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
-                    MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
                     pMotor->Motor_Flow = MOTOR_STATE_RUN;
                     break;
                 }
@@ -256,6 +278,8 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
     }
     else
     {
+        MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+        MH_HPWM_LPWM_Close();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -303,13 +327,15 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
         }
         else
         {
-            MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
+            MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
             MH_HPWM_LPWM_HOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
             MH_ADC_TrigTime_Set(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
         }
     }
     else
     {
+        MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+        MH_HPWM_LPWM_Close();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -339,19 +365,152 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
             {
                 case ING:
                 {
-                    HPWMLPWM_Set[pMotor->MS_POSITION._V_Q32U_cnt][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
+                    POSITION_Set[pMotor->MS_POSITION._V_Q32U_cnt][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
                     break;
                 }
                 case SUCC:
                 {
-                    MH_HPWM_LPWM_Init(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
+//                    MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
+//                    MH_PWM_Preload_Disable();
+//                    MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
+//                    pMotor->Motor_Flow = MOTOR_STATE_RUN;
+                    
+                    pMotor->Motor_Flow = MOTOR_STATE_DRAG;
+                    break;
+                }
+                case FAIL:
+                {
+                    pMotor->Motor_Error_Flag.bit.position_error = 1U;
+                    pMotor->Motor_Flow = MOTOR_STATE_PRE;
+                    break;
+                }
+                default:break;
+            }
+        }
+        else
+        {
+            POSITION_Set[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
+            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+        }
+    }
+    else
+    {
+        MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+        MH_HPWM_LPWM_Close();
+        pMotor->Motor_Flow = MOTOR_STATE_PRE;
+    }
+}
+
+/**********************************************************************************************
+Function: MotorTask_Drag_Flow
+Description: 电机控制拖动状态
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_Drag_Flow(ST_MOTOR_TASK* pMotor)
+{
+    if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
+    {
+        if(MotorSQ_Drag_Init(&pMotor->MS_DRAG) == SUCC)
+        {
+            switch(MotorSQ_Drag(&pMotor->MS_DRAG))
+            {
+                case ING:
+                {
+                    switch(pMotor->MS_DRAG.DG_Flow)
+                    {
+                        case DRAG_RUN:
+                        {
+                            pMotor->MS_CTRL.Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
+                            if(pMotor->MS_CTRL.Q12I_IPHASE_ADC > pMotor->MS_CTRL.Q12I_IPHASE_OFFSET)
+                            {
+                                pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q32U_Current_Scale
+                                *(pMotor->MS_CTRL.Q12I_IPHASE_ADC - pMotor->MS_CTRL.Q12I_IPHASE_OFFSET));
+                            }
+                            else
+                            {
+                                pMotor->MS_CTRL.Q14I_IPHASE_PU = 0U;
+                            }
+                            
+                            pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_in = pMotor->MS_CTRL.Q14I_IPHASE_PU;
+                            Filter_Cal_T(&pMotor->MS_CTRL.FL_Iphase);
+                            pMotor->MS_CTRL.PID_Iphase.Q14I_Rf = pMotor->MS_CTRL.Q14U_iphase_max_pu;
+                            pMotor->MS_CTRL.PID_Iphase.Q14I_Fb = pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_out;
+                            PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Iphase);
+                            
+                            pMotor->MS_CTRL.PWM_CTRL.Ramp_Duty.Q32I_Target = pMotor->MS_CTRL.PID_Iphase.Q14I_Output;
+                            pMotor->MS_CTRL.PWM_CTRL.Ramp_Duty.Q32I_Target = 400;
+                            Ramp_Cal_T(&pMotor->MS_CTRL.PWM_CTRL.Ramp_Duty);
+                            pMotor->MS_CTRL.PWM_CTRL._O_Q12I_duty_set = pMotor->MS_CTRL.PWM_CTRL.Ramp_Duty.Q32I_Output;
+                            pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val = Q32I_RHT_12(pMotor->MS_CTRL.PWM_CTRL._O_Q12I_duty_set
+                                                                                         *pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
+                            HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
+                            MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val - pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+                            
+                            if(++pMotor->MS_DRAG._V_Q32U_cnt > pMotor->MS_DRAG._P_Q16U_pluse_freq)
+                            {
+                                pMotor->MS_DRAG._V_Q32U_cnt = 0U;
+                                MH_HPWM_LPWM_Close();
+                                pMotor->MS_DRAG.DG_Flow = DRAG_WAIT;
+                            }
+                            break;
+                        }
+                        case DRAG_WAIT:
+                        {
+                            pMotor->MS_POSITION._V_Q12U_duty_set = Q32I_RHT_12(pMotor->MS_POSITION._P_Q12U_vbus_max_val
+                            *pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq/pMotor->MS_CTRL.Q12I_VBUS_VAL*pMotor->MS_POSITION._P_Q12U_position_duty);
+                            POSITION_Set[Next_Sector[pMotor->MS_CTRL.Sector]][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
+                            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+                            
+                            pMotor->MS_DRAG.DG_Flow = DRAG_PULSE_1;
+                            break;
+                        }
+                        case DRAG_PULSE_1:
+                        {
+                            MH_HPWM_LPWM_Close();
+                            Delay_us(10);
+                            pMotor->MS_POSITION._I_Q12I_Position_Current_VAL[0] = ADC_DATA_READ_CURRENT;
+                            
+                            pMotor->MS_POSITION._V_Q12U_duty_set = Q32I_RHT_12(pMotor->MS_POSITION._P_Q12U_vbus_max_val
+                            *pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq/pMotor->MS_CTRL.Q12I_VBUS_VAL*pMotor->MS_POSITION._P_Q12U_position_duty);
+                            POSITION_Set[Last_Sector[pMotor->MS_CTRL.Sector]][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
+                            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+                            
+                            pMotor->MS_DRAG.DG_Flow = DRAG_PULSE_2;
+                            break;
+                        }
+                        case DRAG_PULSE_2:
+                        {
+                            MH_HPWM_LPWM_Close();
+                            Delay_us(10);
+                            pMotor->MS_POSITION._I_Q12I_Position_Current_VAL[1] = ADC_DATA_READ_CURRENT;
+                            
+                            if(pMotor->MS_POSITION._I_Q12I_Position_Current_VAL[1] > pMotor->MS_POSITION._I_Q12I_Position_Current_VAL[0])
+                            {
+                                pMotor->MS_CTRL.Sector = Next_Sector[pMotor->MS_CTRL.Sector];
+                            }
+                            MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
+                            pMotor->MS_DRAG.DG_Flow = DRAG_RUN;
+                            break;
+                        }
+                        default:break;
+                    }
+                    break;
+                }
+                case SUCC:
+                {
+                    MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
+                    MH_PWM_Preload_Disable();
                     MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
                     pMotor->Motor_Flow = MOTOR_STATE_RUN;
                     break;
                 }
                 case FAIL:
                 {
-                    pMotor->Motor_Error_Flag.bit.position_error = 1U;
+                    pMotor->Motor_Error_Flag.bit.drag_fall = 1U;
                     MH_HPWM_LPWM_Close();
                     pMotor->Motor_Flow = MOTOR_STATE_PRE;
                     break;
@@ -361,12 +520,14 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         }
         else
         {
-            HPWMLPWM_Set[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
-            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+            MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
+            MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
         }
     }
     else
     {
+        MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
+        MH_HPWM_LPWM_Close();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -383,26 +544,6 @@ Author: CJYS
 void MotorTask_Diag_Ing_Flow(ST_MOTOR_TASK* pMotor)
 {
     MotorSQ_DIAG_Zero_Cross(&pMotor->MS_CTRL.MS_DIAG, &pMotor->MS_CTRL);
-}
-
-/**********************************************************************************************
-Function: MotorTask_Switch_Current_Flow
-Description: 电机控制恒流换向
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Switch_Current_Flow(ST_MOTOR_TASK* pMotor)
-{
-    MotorSQ_CURRENT_Zero_Cross(&pMotor->MS_CTRL.MS_CURRENT, &pMotor->MS_CTRL);
-    if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_SUCC)
-    {
-        pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
-        MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
-        MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
-    }
 }
    
 /**********************************************************************************************
@@ -628,11 +769,6 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
-    if(pMotor->Q32U_MOS_Error_cnt >= 3U)
-    {
-        pMotor->Motor_Error_Flag.bit.mos_fault = 1U;
-    }
-    
     if(pMotor->Motor_Error_Flag.all != 0U)
     {
         pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;

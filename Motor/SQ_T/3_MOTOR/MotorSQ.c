@@ -18,12 +18,12 @@ EM_CHANNEL_NUM ADC_VAL_Table[6][3] =
     W_CHANNEL_NUM, U_CHANNEL_NUM, V_CHANNEL_NUM,
 };
 
-EM_SECTOR_NUM Position_Sector[6][2] = {sector_3, sector_5,
-                                       sector_4, sector_6,
-                                       sector_5, sector_1,
-                                       sector_6, sector_2,
-                                       sector_1, sector_3,
-                                       sector_2, sector_4};
+EM_SECTOR_NUM Position_Sector[6][2] = {sector_3, sector_6,
+                                       sector_4, sector_1,
+                                       sector_5, sector_2,
+                                       sector_6, sector_3,
+                                       sector_1, sector_4,
+                                       sector_2, sector_5};
 
 EM_SECTOR_NUM Last_Sector[6] = {sector_6, sector_1, sector_2, sector_3, sector_4, sector_5};
 EM_SECTOR_NUM Next_Sector[6] = {sector_2, sector_3, sector_4, sector_5, sector_6, sector_1};
@@ -39,7 +39,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
 {
-    pMS_CTRL->SW_Math = SWITCH_CURRENT;
+    pMS_CTRL->SW_Math = SWITCH_FLUX;
     pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->DIR_Set = pMS_CTRL->DIR_Target;
     
@@ -56,7 +56,6 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, 0);
     
     MotorSQ_DIAG_Init(&pMS_CTRL->MS_DIAG);
-    MotorSQ_CURRENT_Init(&pMS_CTRL->MS_CURRENT);
     MotorSQ_FLUX_Init(&pMS_CTRL->MS_FLUX);
     MotorSQ_BEMF_Init(&pMS_CTRL->MS_BEMF);
     MotorSQ_CMP_Init(&pMS_CTRL->MS_CMP);
@@ -87,7 +86,7 @@ Author: CJYS
 void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
 {
     pMS_CTRL->SW_Math = SWITCH_BEMF;
-    pMS_CTRL->SQ_Flow = SQUARE_SWITCH_SUCC;
+    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCC;
     
     pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(
@@ -506,6 +505,52 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
     return flag_tmp;
 }
 
+
+/**********************************************************************************************
+Function: MotorSQ_Drag_Init
+Description: 拖动初始化
+Input: 无
+Output: 无
+Input_Output: 拖动指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ MotorSQ_Drag_Init(ST_MS_DRAG* pMS_DRAG)
+{
+    Q32U_ flag_tmp = ING;
+    
+    if(pMS_DRAG->Flag.bit.b0_init == 0U)
+    {
+        pMS_DRAG->Flag.all = 0U;
+
+        pMS_DRAG->_V_Q32U_cnt = 0U;
+        
+        pMS_DRAG->Flag.bit.b0_init = 1U;
+    }
+    else
+    {
+        flag_tmp = SUCC;
+    }
+    
+    return flag_tmp;
+}
+
+/**********************************************************************************************
+Function: MotorSQ_Drag
+Description: 拖动计算
+Input: 无
+Output: 无
+Input_Output: 拖动指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ MotorSQ_Drag(ST_MS_DRAG* pMS_DRAG)
+{
+    Q32U_ flag_tmp = ING;
+    
+    return flag_tmp;
+}
+
 /**********************************************************************************************
 Function: MotorSQ_Brake_Init
 Description: 刹车控制初始化
@@ -661,127 +706,6 @@ void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
         }
         default:break;
     }
-    
-    if(pMS_CTRL->SW_Math == SWITCH_CURRENT)
-    {
-        pMS_DIAG->_V_Q32U_time_cnt++;
-        if(pMS_DIAG->_V_Q32U_time_cnt > pMS_DIAG->_P_Q16U_current_filter)
-        {
-            pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
-        }
-    }
-    if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_ING)
-    {
-        pMS_DIAG->_V_Q32U_time_cnt = 0U;
-    }
-}
-
-/**********************************************************************************************
-Function: MotorSQ_CURRENT_Init
-Description: 电流换向初始化
-Input: 无
-Output: 无
-Input_Output: 电流换向指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorSQ_CURRENT_Init(ST_MS_CURRENT* pMS_CURRENT)
-{
-    pMS_CURRENT->_V_Q32U_cnt = 0U;
-    pMS_CURRENT->_V_Q32U_time_cnt = 0U;
-    pMS_CURRENT->_V_Q32U_switch_cnt = 0U;
-}
-
-/**********************************************************************************************
-Function: MotorSQ_CURRENT_Zero_Cross
-Description: 电流换向计算
-Input: 无
-Output: 无
-Input_Output: 电流换向指针，方波控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorSQ_CURRENT_Zero_Cross(ST_MS_CURRENT* pMS_CURRENT, ST_MS_CONTROL* pMS_CTRL)
-{
-    pMS_CURRENT->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
-    pMS_CURRENT->_I_Q12I_BEMF_ZI_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
-    pMS_CURRENT->_I_Q12I_BEMF_OF_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][2]];
-    
-    switch(pMS_CTRL->Sector)
-    {
-        case sector_1:case sector_3:case sector_5:
-        {
-            if(Q16I_LFT_06(pMS_CURRENT->_I_Q12I_BEMF_ZI_VAL) < pMS_CURRENT->_P_Q06U_fall_tl
-                                 *(pMS_CURRENT->_I_Q12I_BEMF_ON_VAL + pMS_CURRENT->_I_Q12I_BEMF_OF_VAL))
-            {
-                pMS_CURRENT->_V_Q32U_cnt++;
-                if(pMS_CURRENT->_V_Q32U_cnt > pMS_CURRENT->_P_Q08U_filter)
-                {
-                    pMS_CURRENT->_V_Q32U_time_cnt = 0U;
-                    pMS_CURRENT->_V_Q32U_cnt = 0U;
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_SUCC;
-                }
-            }
-            else
-            {
-                pMS_CURRENT->_V_Q32U_time_cnt++;
-                if(pMS_CURRENT->_V_Q32U_time_cnt > pMS_CURRENT->_P_Q16U_current_filter)
-                {
-                    pMS_CURRENT->_V_Q32U_time_cnt = 0U;
-                    pMS_CTRL->STALL_CTRL._V_Q32U_current_cnt++;
-                    pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
-                }
-                pMS_CURRENT->_V_Q32U_cnt = 0U;
-            }
-            break;
-        }
-        case sector_2:case sector_4:case sector_6:
-        {
-            if(Q16I_LFT_06(pMS_CURRENT->_I_Q12I_BEMF_ZI_VAL) > pMS_CURRENT->_P_Q06U_rise_tl
-                                  *(pMS_CURRENT->_I_Q12I_BEMF_ON_VAL + pMS_CURRENT->_I_Q12I_BEMF_OF_VAL))
-            {
-                pMS_CURRENT->_V_Q32U_cnt++;
-                if(pMS_CURRENT->_V_Q32U_cnt > pMS_CURRENT->_P_Q08U_filter)
-                {
-                    pMS_CURRENT->_V_Q32U_time_cnt = 0U;
-                    pMS_CURRENT->_V_Q32U_cnt = 0U;
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_SUCC;
-                }
-            }
-            else
-            {
-                pMS_CURRENT->_V_Q32U_time_cnt++;
-                if(pMS_CURRENT->_V_Q32U_time_cnt > pMS_CURRENT->_P_Q16U_current_filter)
-                {
-                    pMS_CURRENT->_V_Q32U_time_cnt = 0;
-                    pMS_CTRL->STALL_CTRL._V_Q32U_current_cnt++;
-                    pMS_CTRL->Sector = Last_Sector[pMS_CTRL->Sector];
-                    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
-                }
-                pMS_CURRENT->_V_Q32U_cnt = 0;
-            }
-            break;
-        }
-        default:break;
-    }
-    
-    if(pMS_CTRL->SQ_Flow == SQUARE_CROSS_SUCC)
-    {
-        if((pMS_CTRL->FL_Freq.Q16I_Filter_out > pMS_CURRENT->_P_Q14U_to_flux_freq))
-        {
-            pMS_CURRENT->_V_Q32U_switch_cnt++;
-            if(pMS_CURRENT->_V_Q32U_switch_cnt > pMS_CURRENT->_P_Q16U_to_flux_num)
-            {
-                pMS_CURRENT->_V_Q32U_switch_cnt = 0U;
-                pMS_CTRL->SW_Math = SWITCH_FLUX;
-            }
-        }
-        else
-        {
-            pMS_CURRENT->_V_Q32U_switch_cnt = 0U;
-        }
-    }
 }
 
 /**********************************************************************************************
@@ -797,7 +721,6 @@ void MotorSQ_FLUX_Init(ST_MS_FLUX* pMS_FLUX)
 {
     pMS_FLUX->_V_Q32U_cnt = 0U;
     pMS_FLUX->_V_Q32U_time_cnt = 0U;
-    pMS_FLUX->_V_Q32U_switch_cnt = 0U;
 }
 
 /**********************************************************************************************
@@ -864,7 +787,6 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
             if(pMS_FLUX->_V_Q32U_time_cnt > pMS_FLUX->_P_Q16U_to_bemf_num)
             {
                 pMS_FLUX->_V_Q32U_time_cnt = 0U;
-                pMS_FLUX->_V_Q32U_switch_cnt = 0U;
                 pMS_CTRL->SW_Math = SWITCH_BEMF;
             }
         }
@@ -872,21 +794,6 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
         {
             pMS_FLUX->_V_Q32U_time_cnt = 0U;
         }
-    }
-        
-    if(pMS_CTRL->FL_Freq.Q16I_Filter_out < pMS_FLUX->_P_Q14U_to_current_freq)
-    {
-        pMS_FLUX->_V_Q32U_switch_cnt++;
-        if(pMS_FLUX->_V_Q32U_switch_cnt > pMS_FLUX->_P_Q16U_to_current_num)
-        {
-            pMS_FLUX->_V_Q32U_time_cnt = 0U;
-            pMS_FLUX->_V_Q32U_switch_cnt = 0U;
-            pMS_CTRL->SW_Math = SWITCH_CURRENT;
-        }
-    }
-    else
-    {
-        pMS_FLUX->_V_Q32U_switch_cnt = 0U;
     }
 }
 
@@ -1207,47 +1114,36 @@ Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL
     Q32U_ motor_switch_cnt_max = 0U;
     Q32U_ motor_switch_cnt_min = 0U;
     
-    if(pMS_CTRL->SW_Math == SWITCH_CURRENT)
+    motor_switch_cnt_max = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    motor_switch_cnt_min = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    for(Q08U_ i=1;i<6;i++)
     {
-        if(pSTALL_CTRL->_V_Q32U_current_cnt >= pSTALL_CTRL->_P_Q16U_current_error_time)
+        if(motor_switch_cnt_max > pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i])
         {
-            pSTALL_CTRL->_V_Q32U_current_cnt = 0U;
+            motor_switch_cnt_max = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i];
+        }
+        if(motor_switch_cnt_min < pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i])
+        {
+            motor_switch_cnt_min = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i];
+        }
+    }
+    if(Q16I_LFT_06(motor_switch_cnt_min) < pSTALL_CTRL->_P_Q06U_switch_coeff*motor_switch_cnt_max)
+    {
+        flag_tmp = SUCC;
+    }
+
+    if(pMS_CTRL->Q32U_switch_cnt == pSTALL_CTRL->_V_Q32U_switch_cnt)
+    {
+        pSTALL_CTRL->_V_Q32U_cnt++;
+        if(pSTALL_CTRL->_V_Q32U_cnt > pSTALL_CTRL->_P_Q16U_error_time)
+        {
+            pSTALL_CTRL->_V_Q32U_cnt = 0U;
             flag_tmp = SUCC;
         }
     }
     else
     {
-        motor_switch_cnt_max = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
-        motor_switch_cnt_min = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
-        for(Q08U_ i=1;i<6;i++)
-        {
-            if(motor_switch_cnt_max > pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i])
-            {
-                motor_switch_cnt_max = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i];
-            }
-            if(motor_switch_cnt_min < pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i])
-            {
-                motor_switch_cnt_min = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[i];
-            }
-        }
-        if(Q16I_LFT_06(motor_switch_cnt_min) < pSTALL_CTRL->_P_Q06U_switch_coeff*motor_switch_cnt_max)
-        {
-            flag_tmp = SUCC;
-        }
-    
-        if(pMS_CTRL->Q32U_switch_cnt == pSTALL_CTRL->_V_Q32U_switch_cnt)
-        {
-            pSTALL_CTRL->_V_Q32U_cnt++;
-            if(pSTALL_CTRL->_V_Q32U_cnt > pSTALL_CTRL->_P_Q16U_error_time)
-            {
-                pSTALL_CTRL->_V_Q32U_cnt = 0U;
-                flag_tmp = SUCC;
-            }
-        }
-        else
-        {
-            pSTALL_CTRL->_V_Q32U_cnt = 0U;
-        }
+        pSTALL_CTRL->_V_Q32U_cnt = 0U;
     }
     
     pSTALL_CTRL->_V_Q32U_switch_cnt = pMS_CTRL->Q32U_switch_cnt;

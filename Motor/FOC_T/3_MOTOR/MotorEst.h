@@ -54,20 +54,21 @@ typedef struct
     Q32I_       _I_Q14I_Ibeta;
     
     Q32I_       _V_Q14I_R_set;
-    Q32I_       _V_Q14I_Yalfa;
-    Q32I_       _V_Q14I_Ybeta;
+    Q32I_       _V_Q28I_Yalfa;
+    Q32I_       _V_Q28I_Ybeta;
     Q32I_       _V_Q14I_Nalfa;
     Q32I_       _V_Q14I_Nbeta;
     Q32I_       _V_Q14I_Nn2;
-    ST_56_SPLIT _V_Q56I_Valfa;
-    ST_56_SPLIT _V_Q56I_Vbeta;
-    ST_56_SPLIT _V_Q56I_Xalfa_tmp;
-    ST_56_SPLIT _V_Q56I_Xbeta_tmp;
+    Q32I_       _V_Q28I_Valfa;
+    Q32I_       _V_Q28I_Vbeta;
+    ST_56_SPLIT _V_Q42I_Xalfa_tmp;
+    ST_56_SPLIT _V_Q42I_Xbeta_tmp;
     Q32I_       _V_Q14I_Xalfa;
     Q32I_       _V_Q14I_Xbeta;
     
     Q32I_       _P_Q14I_Ts;
-    Q32I_       _P_Q14I_Gamma;
+    Q32I_       _P_Q14I_Ws;
+    Q32I_       _P_Q28I_Gamma;
     Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;
@@ -98,6 +99,7 @@ typedef struct
     Q32I_       _V_Q14I_Ebeta;
     
     Q32I_       _P_Q14I_Ts;
+    Q32I_       _P_Q14I_Ws;
     Q32I_       _P_Q10I_K1;
     Q32I_       _P_Q14I_K2;
     Q32I_       _P_Q14I_Limit;

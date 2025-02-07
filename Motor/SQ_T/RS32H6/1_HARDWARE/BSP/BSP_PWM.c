@@ -42,11 +42,17 @@ void BSP_PWM_Init(void)
     TIM_Set_OC_CompareCH1(HAL_MOTOR_PWM, 0U);
     TIM_Set_OC_CompareCH2(HAL_MOTOR_PWM, 0U);
     TIM_Set_OC_CompareCH3(HAL_MOTOR_PWM, 0U);
-
+    
     //CH4
     TIM_Set_OC_Mode(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL, TIM_OCMODE_PWM1);
     TIM_Set_OC_Polarity(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL, TIM_OCPOLARITY_HIGH);
     TIM_Set_OC_CompareCH4(HAL_MOTOR_PWM, HAL_ADC_DELAY_VALUE);
+    
+    //Preload
+    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
+    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
+    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, WH_PWM_CHANNEL);
+    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL);
     
     /* Set Deadtime */
     TIM_Set_ClockDivision(HAL_MOTOR_PWM, TIM_CLOCKDIVISION_DIV1);

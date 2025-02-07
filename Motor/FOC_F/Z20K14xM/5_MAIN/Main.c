@@ -89,7 +89,7 @@ Input_Output: нч
 Return: нч
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void IRQHandleDMAIsr(void)
+void IRQHandleDMAIsr(void)
 {
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
     float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
@@ -155,9 +155,9 @@ Ram_Func void IRQHandleDMAIsr(void)
 #endif
     
 #if(JSCOPE_RTT_EN == 1U)
-    RTT_DATA[0] = 100.0f;
-    RTT_DATA[1] = 100.0f;
-    RTT_DATA[2] = 100.0f;
+    RTT_DATA[0] = 10000.0f*Motor.IF_CTRL._O_F_Angle;
+    RTT_DATA[1] = 10000.0f*Motor.SMO_CTRL.TG_Triangle.F_Angle;
+    RTT_DATA[2] = 10000.0f*Motor.FLUX_CTRL.TG_Triangle.F_Angle;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     

@@ -64,7 +64,7 @@
 
 #define L_BASE                              (V_BASE/W_BASE/I_BASE)  //H，电感
 #define P_BASE                              (V_BASE/W_BASE)         //wb，磁链
-#define T_BASE                              (MATH_2PI_F/W_BASE)     //s,时间
+#define T_BASE                              (1.0f/F_BASE)     //s,时间
 
 #define MOTOR_Q14_PU                        (Q14U_MAX)      //16384
 #define MOTOR_Q24_PU                        (Q24U_MAX)      //
@@ -74,6 +74,7 @@
      
 #define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs/T_BASE)
 #define Q14I_LTs_PU                         (MOTOR_Q14_PU*MOTOR_LTs/T_BASE)
+#define Q14I_HWs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*W_BASE)
 #define Q14I_Rs_PU                          (MOTOR_Q14_PU*MOTOR_Rs/R_BASE)           //Ω，相电阻
 #define Q14I_Ld_PU                          (MOTOR_Q14_PU*MOTOR_Ld/L_BASE)           //H，d轴电感
 #define Q14I_Lq_PU                          (MOTOR_Q14_PU*MOTOR_Lq/L_BASE)           //H，q轴电感
