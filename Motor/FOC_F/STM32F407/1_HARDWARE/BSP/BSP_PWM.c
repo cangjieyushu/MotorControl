@@ -28,7 +28,7 @@ void BSP_PWM_Init(void)
     TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;     // 互补中心对称
     TIM_TimeBaseInitStructure.TIM_Prescaler = 0;                                    // Timer clock = sysclock /(TIM_Prescaler+1) = 168M
     TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 1;
-    TIM_TimeBaseInitStructure.TIM_Period = (HAL_PWM_SET_COUNT_U-1);               // Period = (TIM counter clock / TIM output clock) - 1 = 20K
+    TIM_TimeBaseInitStructure.TIM_Period = (HAL_PWM_SET_COUNT_T-1);               // Period = (TIM counter clock / TIM output clock) - 1 = 20K
     TIM_TimeBaseInit(TIM1,&TIM_TimeBaseInitStructure);
         
     TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;                               // pwm模式

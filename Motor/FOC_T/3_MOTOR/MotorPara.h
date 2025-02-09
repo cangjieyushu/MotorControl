@@ -45,8 +45,8 @@
 #define MOTOR_IF_IQRAMP_STEP                ((Q32I_)(0.0050f*Q14I_CURRENT_PHASE_PU))  //Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             ((Q32I_)(0.0000f*Q14I_MAX_SRAD_PU))         //IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           ((Q32I_)(0.0500f*Q14I_MAX_SRAD_PU))         //IF速度目标值
-#define MOTOR_IF_ANGLERAMP_STEP             ((Q32I_)(0.0005f*Q14I_MAX_SRAD_PU))         //IF速度每秒增加步长
+#define MOTOR_IF_ANGLERAMP_TARGET           ((Q32I_)(0.1000f*Q14I_MAX_SRAD_PU))         //IF速度目标值
+#define MOTOR_IF_ANGLERAMP_STEP             ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (1024)                                      //rad,IF与观测器角度偏差允许切换值
 #define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1)                                         //rad,电机IF观测器角度收敛步长
@@ -57,8 +57,8 @@
 #define MOTOR_VF_VQRAMP_STEP                ((Q32I_)(0.0050f*Q14I_VOLTAGE_PU))          //Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             ((Q32I_)(0.0000f*Q14I_MAX_SRAD_PU))         //VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           ((Q32I_)(0.0500f*Q14I_MAX_SRAD_PU))         //VF速度目标值
-#define MOTOR_VF_ANGLERAMP_STEP             ((Q32I_)(0.0005f*Q14I_MAX_SRAD_PU))         //VF速度每秒增加步长
+#define MOTOR_VF_ANGLERAMP_TARGET           ((Q32I_)(0.1000f*Q14I_MAX_SRAD_PU))         //VF速度目标值
+#define MOTOR_VF_ANGLERAMP_STEP             ((Q32I_)(0.0001f*Q14I_MAX_SRAD_PU))         //VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (1024)                                      //rad,VF与观测器角度偏差允许切换值
 #define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1)                                         //rad,电机VF观测器角度收敛步长
@@ -82,7 +82,7 @@
 
 
 //观测器PLL系数
-#define MOTOR_PLL_Coeff                     (0.1f)
+#define MOTOR_PLL_Coeff                     (0.2f)
 #define USER_PLL_SPEED_LPF_COEFF            (10)                        //0~256，越小滤波越深
 
 //非线性磁链观测器  

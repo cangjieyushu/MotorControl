@@ -69,7 +69,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     System_ADC_Read(pST);
     
     
-    Motor_Set_Dir((Q32U_)1U);
+    Motor_Set_Dir((Q32U_)0U);
     Motor_Set_Vbus((Q32U_)pST->FL_VBUS.Q16I_Filter_out, (Q32U_)(Q32I_RHT_10(pST->_P_Q32U_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out)));
     Motor_Set_Target_Speed((Q32U_)pST->Q16U_Duty_Target_pu);
     

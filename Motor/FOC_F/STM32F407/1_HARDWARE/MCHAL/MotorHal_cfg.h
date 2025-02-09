@@ -30,6 +30,7 @@
 #define HAL_THREE_SHUNT             (1U)
 #define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
 
+
 //频率设置
 #define HAL_SYSTEM_FREQ                         (168000.0f)                      //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)               //kHz，PWM时钟频率
@@ -55,7 +56,7 @@
 #define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_20K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
-#define HAL_PWM_SET_COUNT_U                     (Q32U_)(HAL_PWM_SET_COUNT_F)
+#define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
 
 //PWM设置
 #define HAL_PWM_DEADTIME_TIME                   (0.5f)                  		//us，死区时间
@@ -68,11 +69,11 @@
 #define HAL_ADC_TRIGGER_TIME3                   (0.50f)
 
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
-#define HAL_ADC_DELAY_TIME                      (2.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (3.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (2.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 

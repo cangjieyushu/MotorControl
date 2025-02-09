@@ -505,52 +505,6 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
     return flag_tmp;
 }
 
-
-/**********************************************************************************************
-Function: MotorSQ_Drag_Init
-Description: 拖动初始化
-Input: 无
-Output: 无
-Input_Output: 拖动指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Q32U_ MotorSQ_Drag_Init(ST_MS_DRAG* pMS_DRAG)
-{
-    Q32U_ flag_tmp = ING;
-    
-    if(pMS_DRAG->Flag.bit.b0_init == 0U)
-    {
-        pMS_DRAG->Flag.all = 0U;
-
-        pMS_DRAG->_V_Q32U_cnt = 0U;
-        
-        pMS_DRAG->Flag.bit.b0_init = 1U;
-    }
-    else
-    {
-        flag_tmp = SUCC;
-    }
-    
-    return flag_tmp;
-}
-
-/**********************************************************************************************
-Function: MotorSQ_Drag
-Description: 拖动计算
-Input: 无
-Output: 无
-Input_Output: 拖动指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Q32U_ MotorSQ_Drag(ST_MS_DRAG* pMS_DRAG)
-{
-    Q32U_ flag_tmp = ING;
-    
-    return flag_tmp;
-}
-
 /**********************************************************************************************
 Function: MotorSQ_Brake_Init
 Description: 刹车控制初始化

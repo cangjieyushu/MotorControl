@@ -135,9 +135,9 @@
 #define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车时间
-#define NO_BRAKE_TIME                   (20000U)              //ms，第1段自由滑行
+#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (10000U)            //ms，第3段短接刹车
+#define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
 
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
@@ -150,7 +150,6 @@ typedef enum{
     MOTOR_STATE_IDLE,
     MOTOR_STATE_BOOT,
     MOTOR_STATE_POSITION,
-    MOTOR_STATE_DRAG,
     MOTOR_STATE_RUN,
     MOTOR_STATE_BRAKE,
 }EM_MOTOR_STATE_FLOW;
@@ -173,7 +172,6 @@ typedef union{
         BIT current_short       :1;//短路故障
         BIT current_offset      :1;//偏置故障
         BIT position_error      :1;//电机定位故障
-        BIT drag_fall           :1;//强拖失败
     }bit;
 }UN_MOTOR_ERROR_FLAG;
 
@@ -186,7 +184,6 @@ typedef struct{
     ST_MS_FLYING                MS_FLYING;
     ST_MS_BOOT                  MS_BOOT;
     ST_MS_POSITION              MS_POSITION;
-    ST_MS_DRAG                  MS_DRAG;
     ST_BRAKE_CONTROL            BRAKE_CTRL;
     
     ST_MS_CONTROL               MS_CTRL;

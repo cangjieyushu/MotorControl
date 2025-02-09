@@ -58,45 +58,95 @@ static inline void MH_PWM_Freq_Set(Q32U_ count)
 }
 
 /**********************************************************************************************
-Function: MH_HPWM_LPWM_Init
-Description: 同步整流初始化
-Input: PWM载频控制计数器值
+Function: MH_PWM_Preload_Enable
+Description: 预装载使能
+Input: 无
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_HPWM_LPWM_Init(Q32U_ count)
+static inline void MH_PWM_Preload_Enable(void)
 {
-//    GPIO_InitTypeDef GPIO_InitStruct = {0};
-//    
-//    /*TIM8:*/ 
-//    GPIO_InitStruct.Mode    = GPIO_MODER_MODER_AF;
-//    GPIO_InitStruct.Pull    = GPIO_PUPDR_Floating;
-//    GPIO_InitStruct.Speed   = GPIO_OSPEEDR_High;
-//
-//    GPIO_InitStruct.Alternate = UH_PWM_AF;
-//    GPIO_InitStruct.Pin = UH_PWM_PIN;			
-//    GPIO_Init(UH_PWM_GPIO_PORT,&GPIO_InitStruct);
-//    GPIO_InitStruct.Alternate = VH_PWM_AF;
-//    GPIO_InitStruct.Pin = VH_PWM_PIN;			
-//    GPIO_Init(VH_PWM_GPIO_PORT,&GPIO_InitStruct);
-//    GPIO_InitStruct.Alternate = WH_PWM_AF;
-//    GPIO_InitStruct.Pin = WH_PWM_PIN;			
-//    GPIO_Init(WH_PWM_GPIO_PORT,&GPIO_InitStruct);
-//    
-//    GPIO_InitStruct.Alternate = UL_PWM_AF;
-//    GPIO_InitStruct.Pin = UL_PWM_PIN;			
-//    GPIO_Init(UL_PWM_GPIO_PORT,&GPIO_InitStruct);
-//    GPIO_InitStruct.Alternate = VL_PWM_AF;
-//    GPIO_InitStruct.Pin = VL_PWM_PIN;			
-//    GPIO_Init(VL_PWM_GPIO_PORT,&GPIO_InitStruct);
-//    GPIO_InitStruct.Alternate = WL_PWM_AF;
-//    GPIO_InitStruct.Pin = WL_PWM_PIN;			
-//    GPIO_Init(WL_PWM_GPIO_PORT,&GPIO_InitStruct);
-//                        
-//    TIM_Set_AutoReload(HAL_MOTOR_PWM, (count-1));
-//    TIM_Set_OC_DeadTime(HAL_MOTOR_PWM, HAL_PWM_DEADTIME_VALUE);  //deadtime
+//    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
+//    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
+//    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, WH_PWM_CHANNEL);
+//    TIM_Enable_OC_Preload(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL);
+}
+
+/**********************************************************************************************
+Function: MH_PWM_Preload_Disable
+Description: 预装载关闭
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void MH_PWM_Preload_Disable(void)
+{
+//    TIM_Disable_OC_Preload(HAL_MOTOR_PWM, UH_PWM_CHANNEL);
+//    TIM_Disable_OC_Preload(HAL_MOTOR_PWM, VH_PWM_CHANNEL);
+//    TIM_Disable_OC_Preload(HAL_MOTOR_PWM, WH_PWM_CHANNEL);
+//    TIM_Disable_OC_Preload(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL);
+}
+
+/**********************************************************************************************
+Function: MH_POSITION_XX
+Description: 定位脉冲，开三管
+Input: PWM占空比控制计数器值
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+static inline void MH_POSITION_Up(Q32U_ duty)
+{
+//    HAL_MOTOR_PWM->CCR1 = duty;
+//    HAL_MOTOR_PWM->CCR2 = duty;
+//    HAL_MOTOR_PWM->CCR3 = duty;
+//    TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
+//    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
+}
+static inline void MH_POSITION_Wn(Q32U_ duty)
+{
+//    HAL_MOTOR_PWM->CCR1 = duty;
+//    HAL_MOTOR_PWM->CCR2 = duty;
+//    HAL_MOTOR_PWM->CCR3 = duty;
+//    TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
+//    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
+}
+static inline void MH_POSITION_Vp(Q32U_ duty)
+{
+//    HAL_MOTOR_PWM->CCR1 = duty;
+//    HAL_MOTOR_PWM->CCR2 = duty;
+//    HAL_MOTOR_PWM->CCR3 = duty;
+//    TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
+//    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
+}
+static inline void MH_POSITION_Un(Q32U_ duty)
+{
+//    HAL_MOTOR_PWM->CCR1 = duty;
+//    HAL_MOTOR_PWM->CCR2 = duty;
+//    HAL_MOTOR_PWM->CCR3 = duty;
+//    TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
+//    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
+}
+static inline void MH_POSITION_Wp(Q32U_ duty)
+{
+//    HAL_MOTOR_PWM->CCR1 = duty;
+//    HAL_MOTOR_PWM->CCR2 = duty;
+//    HAL_MOTOR_PWM->CCR3 = duty;
+//    TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
+//    TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
+}
+static inline void MH_POSITION_Vn(Q32U_ duty)
+{
+//  HAL_MOTOR_PWM->CCR1 = duty;
+//  HAL_MOTOR_PWM->CCR2 = duty;
+//  HAL_MOTOR_PWM->CCR3 = duty;
+//  TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
+//  TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
 
 /**********************************************************************************************

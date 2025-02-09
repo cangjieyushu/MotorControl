@@ -32,11 +32,6 @@ ST_MOTOR_TASK  Motor =
     .MS_POSITION._P_Q16U_position_tl = POSITION_TL_lsb,
     .MS_POSITION._P_Q12U_position_duty = POSITION_DUTY,
     .MS_POSITION._P_Q12U_vbus_max_val = (Q32U_)(MOTOR_VOLTAGE_V/HAL_ADC_VOLTAGE_SCALE),
-
-    .MS_DRAG._P_Q16U_max_time = POSITION_TL_lsb,
-    .MS_DRAG._P_Q16U_pluse_freq = 10,
-    .MS_DRAG._P_Q14U_to_flux_freq = POSITION_TL_lsb,
-    .MS_DRAG._P_Q16U_to_flux_num = POSITION_TL_lsb,
     
     .BRAKE_CTRL.Ramp_Brake_Duty.Q32I_Init = BRAKE_DUTY_CTRL_MIN,
     .BRAKE_CTRL.Ramp_Brake_Duty.Q32I_ADDStep = BRAKE_DUTY_RAMP_ADDSTEP,

@@ -34,13 +34,6 @@ typedef enum
 }EM_SECTOR_NUM;
 
 typedef enum{
-    DRAG_RUN,
-    DRAG_WAIT,
-    DRAG_PULSE_1,
-    DRAG_PULSE_2,
-}EM_DRAG_FLOW;
-
-typedef enum{
     SWITCH_FLUX,
     SWITCH_BEMF,
     SWITCH_CMP,
@@ -133,20 +126,6 @@ typedef struct
     Q32U_   _P_Q12U_position_duty;
     Q32U_   _P_Q12U_vbus_max_val;
 }ST_MS_POSITION;
-
-typedef struct
-{
-    EM_DRAG_FLOW    DG_Flow;
-    UN_MS_FLAG  Flag;
-    
-    Q32U_   _V_Q32U_cnt;
-    
-    Q32U_   _P_Q16U_max_time;
-    Q32U_   _P_Q16U_pluse_freq;
-    Q32U_   _P_Q14U_to_flux_freq;
-    Q32U_   _P_Q16U_to_flux_num;
-    
-}ST_MS_DRAG;
 
 typedef struct{
     UN_MS_FLAG  Flag;
@@ -439,28 +418,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* MS_POSITION, ST_MS_CONTROL* pMS_CTRL);
-
-/**********************************************************************************************
-Function: MotorSQ_Drag_Init
-Description: 拖动初始化
-Input: 无
-Output: 无
-Input_Output: 拖动指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Q32U_ MotorSQ_Drag_Init(ST_MS_DRAG* pMS_DRAG);
-
-/**********************************************************************************************
-Function: MotorSQ_Drag
-Description: 拖动计算
-Input: 无
-Output: 无
-Input_Output: 拖动指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-Q32U_ MotorSQ_Drag(ST_MS_DRAG* pMS_DRAG);
 
 /**********************************************************************************************
 Function: MotorSQ_Brake_Init

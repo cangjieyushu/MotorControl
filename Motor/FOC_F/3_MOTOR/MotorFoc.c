@@ -222,7 +222,7 @@ Ram_Func void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     float Txyz[3]= {0.0f,0.0f,0.0f};
     
     Utmp1 = MATH_SQRT_THREE_F*pCTRL->_O_F_Ubeta;
-    Utmp2 = 0.5f*(3.0f*pCTRL->_O_F_Ualfa - Utmp1)*pCTRL->_I_F_One_Over_Vbus;
+    Utmp2 = 0.5f*( 3.0f*pCTRL->_O_F_Ualfa - Utmp1)*pCTRL->_I_F_One_Over_Vbus;
     Utmp3 = 0.5f*(-3.0f*pCTRL->_O_F_Ualfa - Utmp1)*pCTRL->_I_F_One_Over_Vbus;
     Utmp1 = Utmp1*pCTRL->_I_F_One_Over_Vbus;
     

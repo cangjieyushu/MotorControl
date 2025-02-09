@@ -54,15 +54,15 @@ typedef struct
     Q32I_       _I_Q14I_Ibeta;
     
     Q32I_       _V_Q14I_R_set;
-    Q32I_       _V_Q28I_Yalfa;
-    Q32I_       _V_Q28I_Ybeta;
+    Q32I_       _V_Q14I_Yalfa;
+    Q32I_       _V_Q14I_Ybeta;
     Q32I_       _V_Q14I_Nalfa;
     Q32I_       _V_Q14I_Nbeta;
     Q32I_       _V_Q14I_Nn2;
-    Q32I_       _V_Q28I_Valfa;
-    Q32I_       _V_Q28I_Vbeta;
-    ST_56_SPLIT _V_Q42I_Xalfa_tmp;
-    ST_56_SPLIT _V_Q42I_Xbeta_tmp;
+    ST_56_SPLIT _V_Q56I_Valfa;
+    ST_56_SPLIT _V_Q56I_Vbeta;
+    Q32I_       _V_Q28I_Xalfa_tmp;
+    Q32I_       _V_Q28I_Xbeta_tmp;
     Q32I_       _V_Q14I_Xalfa;
     Q32I_       _V_Q14I_Xbeta;
     
