@@ -20,7 +20,7 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_Three(float* pADC_Ia, float* pADC_Ib ,float* pADC_Ic)
+static inline Ram_Func void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib, Q32U_* pADC_Ic)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
     Q32U_ adc_tmp = 0U;
@@ -31,11 +31,11 @@ static inline Ram_Func void MH_ADC_Data_Read_Three(float* pADC_Ia, float* pADC_I
     }
     
     adc_tmp = Hal_AdcLoopData[0] & 0x00000FFFU;
-    (*pADC_Ia) = (float)adc_tmp;
+    (*pADC_Ia) = (Q32U_)adc_tmp;
     adc_tmp = Hal_AdcLoopData[1] & 0x00000FFFU;
-    (*pADC_Ib) = (float)adc_tmp;
+    (*pADC_Ib) = (Q32U_)adc_tmp;
     adc_tmp = Hal_AdcLoopData[2] & 0x00000FFFU;
-    (*pADC_Ic) = (float)adc_tmp;
+    (*pADC_Ic) = (Q32U_)adc_tmp;
 }
 
 /**********************************************************************************************
@@ -47,7 +47,7 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_One(float* pADC_I1, float* pADC_I2)
+static inline Ram_Func void MH_ADC_Data_Read_One(Q32U_* pADC_I1, Q32U_* pADC_I2)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
     Q32U_ adc_tmp = 0U;
@@ -58,9 +58,9 @@ static inline Ram_Func void MH_ADC_Data_Read_One(float* pADC_I1, float* pADC_I2)
     }
     
     adc_tmp = Hal_AdcMapData[0] & 0x00000FFFU;
-    (*pADC_I1) = (float)adc_tmp;
+    (*pADC_I1) = (Q32U_)adc_tmp;
     adc_tmp = Hal_AdcMapData[1] & 0x00000FFFU;
-    (*pADC_I2) = (float)adc_tmp;
+    (*pADC_I2) = (Q32U_)adc_tmp;
 }
 
 /**********************************************************************************************

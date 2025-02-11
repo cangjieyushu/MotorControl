@@ -20,11 +20,11 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_Three(float* pADC_Ia, float* pADC_Ib ,float* pADC_Ic)
+static inline Ram_Func void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib ,Q32U_* pADC_Ic)
 {
-    (*pADC_Ia) = (float)ADC1->JDR1;
-    (*pADC_Ib) = (float)ADC1->JDR2;
-    (*pADC_Ic) = (float)ADC1->JDR3;
+    (*pADC_Ia) = (Q32U_)ADC1->JDR1;
+    (*pADC_Ib) = (Q32U_)ADC1->JDR2;
+    (*pADC_Ic) = (Q32U_)ADC1->JDR3;
 }
 
 /**********************************************************************************************

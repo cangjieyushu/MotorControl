@@ -47,7 +47,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
-        pMotor->SRAD_CTRL._I_Q14I_SRAD = pMotor->SMO_CTRL.FL_SRAD.Q16I_Filter_out;
+        pMotor->SRAD_CTRL._I_Q14I_SRAD = pMotor->FLUX_CTRL.FL_SRAD.Q16I_Filter_out;
         switch(pMotor->Motor_Loop_Mode)
         {
             case MOTOR_ALIGNLOOP:
@@ -93,7 +93,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
                             PID_Pos_Init_T(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->CURRENT_CTRL._I_Q14I_IqRef);
                             Ramp_Init_T(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_Q14I_SRAD);
                             
-                            pMotor->IF_CTRL.Ramp_AngleERR.Q32I_Init = pMotor->IF_CTRL._O_Q12U_Angle - pMotor->SMO_CTRL.TG_Triangle.Q12U_Angle;
+                            pMotor->IF_CTRL.Ramp_AngleERR.Q32I_Init = pMotor->IF_CTRL._O_Q12U_Angle - pMotor->FLUX_CTRL.TG_Triangle.Q12U_Angle;
                             pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP1;
                         }
                     }
@@ -301,14 +301,14 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
                     case MOTOR_CLOSELOOP1:
                     {
                         MotorFoc_IF_CLOSE_T(&pMotor->IF_CTRL);
-                        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->SMO_CTRL.TG_Triangle.Q12U_Angle + pMotor->IF_CTRL.Ramp_AngleERR.Q32I_Output;
+                        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->FLUX_CTRL.TG_Triangle.Q12U_Angle + pMotor->IF_CTRL.Ramp_AngleERR.Q32I_Output;
                         MATH_ANGLE_MOD_T(pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle);
                         Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
                         break;
                     }
                     case MOTOR_CLOSELOOP2:
                     {
-                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->SMO_CTRL.TG_Triangle;
+                        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->FLUX_CTRL.TG_Triangle;
                         break;
                     }
                     default:break;

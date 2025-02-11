@@ -127,8 +127,6 @@ void Est_Flux_Init_T(ST_FLUX_CONTROL_T* pCTRL)
     
     pCTRL->_V_Q14I_Xalfa = 0;
     pCTRL->_V_Q14I_Xbeta = 0;
-    pCTRL->_V_Q28I_Xalfa_tmp = 0;
-    pCTRL->_V_Q28I_Xalfa_tmp = 0;
 }
 
 /**********************************************************************************************
@@ -151,27 +149,24 @@ void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
         pCTRL->_V_Q14I_R_set = pCTRL->_P_Q14I_Rs;
     }
 	
-    pCTRL->_V_Q14I_Yalfa = -Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ialfa) + pCTRL->_I_Q14I_Ualfa;
-    pCTRL->_V_Q14I_Ybeta = -Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ibeta) + pCTRL->_I_Q14I_Ubeta;
+    pCTRL->_V_Q14I_Yalfa = pCTRL->_I_Q14I_Ualfa - Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ialfa);
+    pCTRL->_V_Q14I_Ybeta = pCTRL->_I_Q14I_Ubeta - Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ibeta);
 	
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
     pCTRL->_V_Q14I_Nn2 = Q32I_RHT_14(MATH_SQUARE_T(pCTRL->_V_Q14I_Nalfa) + MATH_SQUARE_T(pCTRL->_V_Q14I_Nbeta));
     
-    pCTRL->_V_Q56I_Valfa = SPLIT_Q56I_Add(pCTRL->_V_Q56I_Valfa, SPLIT_Q56I_Multi(Q32I_RHT_14(pCTRL->_P_Q14I_Ws*pCTRL->_P_Q28I_Gamma), pCTRL->_V_Q14I_Nalfa*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
-    pCTRL->_V_Q56I_Vbeta = SPLIT_Q56I_Add(pCTRL->_V_Q56I_Vbeta, SPLIT_Q56I_Multi(Q32I_RHT_14(pCTRL->_P_Q14I_Ws*pCTRL->_P_Q28I_Gamma), pCTRL->_V_Q14I_Nbeta*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
+    pCTRL->_V_Q14I_Valfa = Q32I_RHT_14(pCTRL->_P_Q14I_Gamma*Q32I_RHT_14(pCTRL->_V_Q14I_Nalfa*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
+    pCTRL->_V_Q14I_Vbeta = Q32I_RHT_14(pCTRL->_P_Q14I_Gamma*Q32I_RHT_14(pCTRL->_V_Q14I_Nbeta*(pCTRL->_P_Q14I_Flux2 - pCTRL->_V_Q14I_Nn2)));
     
-    pCTRL->_V_Q56I_Valfa.Q28I_High = MATH_SAT_T(pCTRL->_V_Q56I_Valfa.Q28I_High, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
-    pCTRL->_V_Q56I_Vbeta.Q28I_High = MATH_SAT_T(pCTRL->_V_Q56I_Vbeta.Q28I_High, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
-    
-    pCTRL->_V_Q28I_Xalfa_tmp += pCTRL->_P_Q14I_Ws*pCTRL->_V_Q14I_Yalfa;
-    pCTRL->_V_Q28I_Xbeta_tmp += pCTRL->_P_Q14I_Ws*pCTRL->_V_Q14I_Ybeta;
+    pCTRL->_V_Q28I_Xalfa_tmp += pCTRL->_P_Q14I_Ws*(pCTRL->_V_Q14I_Yalfa + pCTRL->_V_Q14I_Valfa);
+    pCTRL->_V_Q28I_Xbeta_tmp += pCTRL->_P_Q14I_Ws*(pCTRL->_V_Q14I_Ybeta + pCTRL->_V_Q14I_Vbeta);
     
     pCTRL->_V_Q28I_Xalfa_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xalfa_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
     pCTRL->_V_Q28I_Xbeta_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xbeta_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
     
-    pCTRL->_V_Q14I_Xalfa = Q32I_RHT_14(pCTRL->_V_Q28I_Xalfa_tmp + pCTRL->_V_Q56I_Valfa.Q28I_High);
-    pCTRL->_V_Q14I_Xbeta = Q32I_RHT_14(pCTRL->_V_Q28I_Xbeta_tmp + pCTRL->_V_Q56I_Vbeta.Q28I_High);
+    pCTRL->_V_Q14I_Xalfa = Q32I_RHT_14(pCTRL->_V_Q28I_Xalfa_tmp);
+    pCTRL->_V_Q14I_Xbeta = Q32I_RHT_14(pCTRL->_V_Q28I_Xbeta_tmp);
         
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);

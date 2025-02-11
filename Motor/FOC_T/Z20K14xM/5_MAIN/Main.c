@@ -92,9 +92,13 @@ Author: CJYS
 void IRQHandleDMAIsr(void)
 {
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
+    Q32U_ adc_data1,adc_data2,adc_data3 = 0;
     Q32I_ pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0;
     
-    MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_Q14I_Ia_Data, &Motor.SVPWM_CTRL._I_Q14I_Ib_Data, &Motor.SVPWM_CTRL._I_Q14I_Ic_Data);
+    MH_ADC_Data_Read_Three(&adc_data1, &adc_data2, &adc_data3);
+    Motor.SVPWM_CTRL._I_Q14I_Ia_Data = (Q32I_)adc_data1;
+    Motor.SVPWM_CTRL._I_Q14I_Ib_Data = (Q32I_)adc_data2;
+    Motor.SVPWM_CTRL._I_Q14I_Ic_Data = (Q32I_)adc_data3;
     
     Motor.SVPWM_CTRL._I_Q14I_Ia = Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q32I_Current_Scale
     *(Motor.SVPWM_CTRL._I_Q14I_Ia_Offset - Motor.SVPWM_CTRL._I_Q14I_Ia_Data));
@@ -123,9 +127,12 @@ void IRQHandleDMAIsr(void)
     
 #else
     
+    Q32U_ adc_data1,adc_data2 = 0;
     Q32I_ pwm_tmp1,pwm_tmp2,pwm_tmp3,pwm_tmp4,pwm_tmp5,pwm_tmp6,adc_tmp1,adc_tmp2 = 0;
     
-    MH_ADC_Data_Read_One(&Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data, &Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data);
+    MH_ADC_Data_Read_One(&adc_data1, &adc_data2);
+    Motor.SVPWM_CTRL._I_Q14I_Ishunt_2_Data = (Q32I_)adc_data1;
+    Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data = (Q32I_)adc_data2;
     
     Motor.SVPWM_CTRL._I_Q14I_Ishunt[0] =  Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q32I_Current_Scale
     *(Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Data - Motor.SVPWM_CTRL._I_Q14I_Ishunt_1_Offset));
@@ -160,12 +167,9 @@ void IRQHandleDMAIsr(void)
 #endif
     
 #if(JSCOPE_RTT_EN == 1U)
-//    RTT_DATA[0] = Motor.SVPWM_CTRL.TG_Triangle.Q12U_Angle;
-//    RTT_DATA[1] = Motor.SMO_CTRL.TG_Triangle.Q12U_Angle;
-//    RTT_DATA[2] = Motor.FLUX_CTRL.TG_Triangle.Q12U_Angle;
-    RTT_DATA[0] = -Motor.SMO_CTRL._V_Q14I_Ealfa;
-    RTT_DATA[1] = Motor.SMO_CTRL._V_Q14I_Ebeta;
-    RTT_DATA[2] = Motor.SMO_CTRL.TG_Triangle.Q14I_Cos;
+    RTT_DATA[0] = Motor.FLUX_CTRL.TG_Triangle.Q12U_Angle;
+    RTT_DATA[1] = Motor.FLUX_CTRL._V_Q14I_Nalfa;
+    RTT_DATA[2] = Motor.FLUX_CTRL._V_Q14I_Nn2;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     

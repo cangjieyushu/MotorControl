@@ -253,38 +253,38 @@ void MotorFoc_SVPWM_ThreeShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     {
         case 3U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         case 1U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         case 5U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         case 4U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         case 6U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         case 2U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
             break;
         }
         default:break;
@@ -386,8 +386,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     {
         case 3U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
@@ -399,8 +399,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         case 1U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
@@ -412,8 +412,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         case 5U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
@@ -425,8 +425,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         case 4U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
@@ -438,8 +438,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         case 6U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
@@ -451,8 +451,8 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         case 2U:
         {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_14(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_14(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
             
             pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
             pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;

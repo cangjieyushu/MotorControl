@@ -146,9 +146,12 @@ Ram_Func void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
     {
         case MOTOR_STATE_PRE:
         {
-            pMotor->Motor_State_Flag.bit.pwm_output_flag = 0U;
-            MotorFoc_Init_F(pMotor);
-            pMotor->Motor_Flow = MOTOR_STATE_INIT;
+            if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
+            {
+            	pMotor->Motor_State_Flag.bit.pwm_output_flag = 0U;
+            	MotorFoc_Init_F(pMotor);
+            	pMotor->Motor_Flow = MOTOR_STATE_INIT;
+            }
             break;
         }
         case MOTOR_STATE_INIT:

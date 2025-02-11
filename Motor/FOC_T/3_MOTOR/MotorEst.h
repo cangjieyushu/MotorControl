@@ -59,8 +59,8 @@ typedef struct
     Q32I_       _V_Q14I_Nalfa;
     Q32I_       _V_Q14I_Nbeta;
     Q32I_       _V_Q14I_Nn2;
-    ST_56_SPLIT _V_Q56I_Valfa;
-    ST_56_SPLIT _V_Q56I_Vbeta;
+    Q32I_       _V_Q14I_Valfa;
+    Q32I_       _V_Q14I_Vbeta;
     Q32I_       _V_Q28I_Xalfa_tmp;
     Q32I_       _V_Q28I_Xbeta_tmp;
     Q32I_       _V_Q14I_Xalfa;
@@ -68,7 +68,7 @@ typedef struct
     
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
-    Q32I_       _P_Q28I_Gamma;
+    Q32I_       _P_Q14I_Gamma;
     Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;

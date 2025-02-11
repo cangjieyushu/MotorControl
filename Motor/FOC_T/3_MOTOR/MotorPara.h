@@ -82,11 +82,11 @@
 
 
 //观测器PLL系数
-#define MOTOR_PLL_Coeff                     (0.2f)
-#define USER_PLL_SPEED_LPF_COEFF            (10)                        //0~256，越小滤波越深
+#define MOTOR_PLL_Coeff                     (0.30f)
+#define USER_PLL_SPEED_LPF_COEFF            (15)                        //0~256，越小滤波越深
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_KT                       (Q32I_)(Q28U_MAX * 0.02f * Q14I_VOLTAGE_PU / Q14I_FLUX_PU / (Q14I_FLUX_PU*Q14I_FLUX_PU/MOTOR_Q14_PU))      //增益系数
+#define MOTOR_FLUX_KT                       (Q32I_)(MOTOR_Q14_PU * 0.02f * Q14I_VOLTAGE_PU / Q14I_FLUX_PU / (Q14I_FLUX_PU*Q14I_FLUX_PU/MOTOR_Q14_PU/MOTOR_Q14_PU))      //增益系数
 #define MOTOR_FLUX_R_Coeff                  (Q32I_)(MOTOR_Q14_PU * 0.75f)           //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU)                              //锁相环比例系数

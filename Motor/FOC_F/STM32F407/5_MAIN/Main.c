@@ -76,10 +76,16 @@ Author: CJYS
 Ram_Func void ADC_IRQHandler(void)
 {
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
-    {
-        float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
+	{
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
-        MH_ADC_Data_Read_Three(&Motor.SVPWM_CTRL._I_F_Ia_Data, &Motor.SVPWM_CTRL._I_F_Ib_Data, &Motor.SVPWM_CTRL._I_F_Ic_Data);
+		
+    	Q32U_ adc_data1,adc_data2,adc_data3 = 0;
+        float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
+		
+    	MH_ADC_Data_Read_Three(&adc_data1, &adc_data2, &adc_data3);
+    	Motor.SVPWM_CTRL._I_F_Ia_Data = (float)adc_data1;
+    	Motor.SVPWM_CTRL._I_F_Ib_Data = (float)adc_data2;
+    	Motor.SVPWM_CTRL._I_F_Ic_Data = (float)adc_data3;
         
         Motor.SVPWM_CTRL._I_F_Ia = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
         Motor.SVPWM_CTRL._I_F_Ib = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
