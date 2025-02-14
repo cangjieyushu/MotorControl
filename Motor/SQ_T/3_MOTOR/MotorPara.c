@@ -89,7 +89,6 @@ ST_MOTOR_TASK  Motor =
     
     .MS_CTRL.Q14U_iphase_max_pu = IPHSAE_PID_RF,
     .MS_CTRL.Q14U_ibus_max_pu = IBUS_PID_RF,
-    .MS_CTRL.Q14U_ibrake_max_pu = IBRAKE_PID_RF,
     .MS_CTRL.Q14U_vbus_max_pu = Q14I_VOLTAGE_MOTOR_TO_PU(MOTOR_VOLTAGE_V),
     .MS_CTRL._P_Q32U_Current_Scale = Q24U_CURRENT_SCALE_PU,
     .MS_CTRL._P_Q32U_Freq_Scale = Q24U_FREQ_SCALE_PU,
@@ -97,7 +96,6 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.FL_Iphase.Q08I_Filter_Coeff = IPHASE_FILTER_COEFF,
     .MS_CTRL.FL_Freq.Q08I_Filter_Coeff = FREQ_FILTER_COEFF,
     .MS_CTRL.FL_Ibus.Q08I_Filter_Coeff = IBUS_FILTER_COEFF,
-    .MS_CTRL.FL_Ibrake.Q08I_Filter_Coeff = IBRAKE_FILTER_COEFF,
     
     .MS_CTRL.PID_Iphase.Q14I_Kp = IPHASE_PID_KP,
     .MS_CTRL.PID_Iphase.Q14I_Ki = IPHASE_PID_KI,
@@ -122,13 +120,5 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.PID_Ibus.Q14I_StepMin = IBUS_PID_STEPMIN,
     .MS_CTRL.PID_Ibus.Q14I_OutMax = IBUS_PID_OUTMAX,
     .MS_CTRL.PID_Ibus.Q14I_OutMin = IBUS_PID_OUTMIN,
-    
-    .MS_CTRL.PID_Ibrake.Q14I_Kp = IBRAKE_PID_KP,
-    .MS_CTRL.PID_Ibrake.Q14I_Ki = IBRAKE_PID_KI,
-    .MS_CTRL.PID_Ibrake.Q14I_Kd = IBRAKE_PID_KD,
-    .MS_CTRL.PID_Ibrake.Q14I_StepMax = IBRAKE_PID_STEPMAX,
-    .MS_CTRL.PID_Ibrake.Q14I_StepMin = IBRAKE_PID_STEPMIN,
-    .MS_CTRL.PID_Ibrake.Q14I_OutMax = IBRAKE_PID_OUTMAX,
-    .MS_CTRL.PID_Ibrake.Q14I_OutMin = IBRAKE_PID_OUTMIN,
     
 };

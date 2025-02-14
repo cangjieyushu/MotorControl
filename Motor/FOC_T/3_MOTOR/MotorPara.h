@@ -13,11 +13,39 @@
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
+#include "MotorSQ.h"
+
+
+//电流采样偏置检测
+#define CURRENT_OFFSET_VOLTAGE_V        (2.5f)                                              //V，电流采样偏置电压
+#define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)//lsb，电流采样偏置
+#define CURRENT_OFFSET_TL_lsb           (200U)                                              //lsb，电流采样偏置偏差阈值
+#define CURRENT_OFFSET_MAX_lsb          (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置上限
+#define CURRENT_OFFSET_MIN_lsb          (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置下限
+#define CURRENT_OFFSET_NUM              (20U)                                               //电流采样偏置检测次数
+
+//电机静止检测  
+#define BOOT_CHECK_DUTY                 (HAL_PWM_DUTY_50_PERCENT)   //电机静止检测占空比
+#define BOOT_CHECK_TL_lsb               (50U)                       //电机静止检测反电动势阈值
+#define BOOT_CHECK_NUM                  (10U)                       //电机静止检测判断次数
+#define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
+
+//刹车占空比控制
+#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
+
+#define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
+
+//刹车时间
+#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
+#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
+#define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
 
 
 //电机alignloop相关参数 
-#define MOTOR_ALIGNLOOP_RAMP_INIT           ((Q32I_)(0.0000f*Q14I_CURRENT_PHASE_PU))  //Iq初始值
-#define MOTOR_ALIGNLOOP_RAMP_TARGET         ((Q32I_)(0.2000f*Q14I_CURRENT_PHASE_PU))  //Iq目标值
+#define MOTOR_ALIGNLOOP_RAMP_INIT           ((Q32I_)(0.0000f*Q14I_CURRENT_PHASE_PU))    //Iq初始值
+#define MOTOR_ALIGNLOOP_RAMP_TARGET         ((Q32I_)(0.2000f*Q14I_CURRENT_PHASE_PU))    //Iq目标值
 #define MOTOR_ALIGNLOOP_RAMP_STEP           ((Q32I_)(0.0050f*Q14I_MAX_SRAD_PU))         //Iq每秒增加步长
 #define MOTOR_ALIGNLOOP_TIME1               (500U)                                      //ms,电机alignloop第一阶段
 #define MOTOR_ALIGNLOOP_TIME2               (500U)                                      //ms,电机alignloop第二阶段
@@ -135,7 +163,6 @@ typedef union{
     ALL all;
     struct{
         BIT motor_run_flag      :1;//电机运行标志位
-        BIT pwm_output_flag     :1;//pwm输出使能标志位
     }bit;
 }UN_MOTOR_STATE_FLAG;
 
@@ -179,6 +206,10 @@ typedef struct{
     EM_MOTOR_LOOP_MODE          Motor_Loop_Mode;
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
     UN_MOTOR_ERROR_FLAG         Motor_Error_Flag;
+    
+    ST_MS_OFFSET                MS_OFFSET;
+    ST_MS_BOOT                  MS_BOOT;
+    ST_BRAKE_CONTROL            BRAKE_CTRL;
     
     ST_LOOP_CONTROL_T           LOOP_CTRL;
     ST_IF_CONTROL_T             IF_CTRL;

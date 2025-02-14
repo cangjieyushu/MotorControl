@@ -23,7 +23,7 @@
 #define CURRENT_OFFSET_MAX_lsb          (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置上限
 #define CURRENT_OFFSET_MIN_lsb          (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置下限
 #define CURRENT_OFFSET_NUM              (20U)                                               //电流采样偏置检测次数
-    
+
 //顺风检测
 #define FREE_FLYING_TL                  (50U)               //lsb，顺风检测电压阈值
 #define FREE_FLYING_NUM                 (20U)               //顺风检测电压判断次数
@@ -44,7 +44,6 @@
 #define IPHASE_FILTER_COEFF             (25U) //0~256
 #define FREQ_FILTER_COEFF               (25U) //0~256
 #define IBUS_FILTER_COEFF               (25U) //0~256
-#define IBRAKE_FILTER_COEFF             (25U) //0~256
 
 
 //换向系数
@@ -116,23 +115,12 @@
 #define IPHASE_PID_OUTMAX               (DUTY_CTRL_MAX)
 #define IPHASE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
-//刹车母线电流PID
+//刹车占空比控制
 #define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
 #define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
 
 #define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX_F)
 #define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
-
-#define IBRAKE_GAIN                     (5)//刹车电流放大倍数，未使用
-#define IBRAKE_PID_RF                   (Q32I_)(Q14I_CURRENT_MOTOR_TO_PU(MOTOR_CURRENT_BRAKE_A))
-
-#define IBRAKE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
-#define IBRAKE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
-#define IBRAKE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX_F)
-#define IBRAKE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
-#define IBRAKE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
-#define IBRAKE_PID_OUTMAX               (DUTY_CTRL_MAX)
-#define IBRAKE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 //刹车时间
 #define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行

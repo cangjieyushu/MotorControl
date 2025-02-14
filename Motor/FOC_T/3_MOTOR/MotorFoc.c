@@ -312,9 +312,9 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_OneShunt_Cal_T(ST_SVPWM_CONTROL_T* pCTRL)
 {
-    pCTRL->_I_Q14I_Ia = pCTRL->_I_Q14I_Ishunt[ADC_Table[0][pCTRL->_O_Q08U_Sector]];
-    pCTRL->_I_Q14I_Ib = pCTRL->_I_Q14I_Ishunt[ADC_Table[1][pCTRL->_O_Q08U_Sector]];
-    pCTRL->_I_Q14I_Ic = pCTRL->_I_Q14I_Ishunt[ADC_Table[2][pCTRL->_O_Q08U_Sector]];
+    pCTRL->_I_Q14I_Ia = pCTRL->_I_Q12I_Ishunt[ADC_Table[0][pCTRL->_O_Q08U_Sector]];
+    pCTRL->_I_Q14I_Ib = pCTRL->_I_Q12I_Ishunt[ADC_Table[1][pCTRL->_O_Q08U_Sector]];
+    pCTRL->_I_Q14I_Ic = pCTRL->_I_Q12I_Ishunt[ADC_Table[2][pCTRL->_O_Q08U_Sector]];
 }
 
 /**********************************************************************************************

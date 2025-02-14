@@ -5,8 +5,8 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             无感方波头文件
 **************************************************************************************************/
-#ifndef MotorFoc_H
-#define MotorFoc_H
+#ifndef MotorSQ_H
+#define MotorSQ_H
 
 #include "Math.h"
 
@@ -49,7 +49,7 @@ typedef enum{
 typedef enum
 {
     ING,
-    SUCC,
+    SUCS,
     FAIL,
 }EM_FALG_STATE;
 
@@ -281,7 +281,6 @@ typedef struct{
     ST_RAMP_T           Ramp_Freq;
     Q32U_               Q14U_iphase_max_pu;
     Q32U_               Q14U_ibus_max_pu;
-    Q32U_               Q14U_ibrake_max_pu;
     Q32U_               Q14U_vbus_max_pu;
     Q32U_               _P_Q32U_Current_Scale;
     Q32U_               _P_Q32U_Freq_Scale;
@@ -289,12 +288,10 @@ typedef struct{
     ST_FILTER_T         FL_Iphase;
     ST_FILTER_T         FL_Freq;
     ST_FILTER_T         FL_Ibus;
-    ST_FILTER_T         FL_Ibrake;
     
     ST_PID_INC_T        PID_Iphase;
     ST_PID_INC_T        PID_Freq;
     ST_PID_INC_T        PID_Ibus;
-    ST_PID_INC_T        PID_Ibrake;
     
     Q32I_               Q12I_BEMF_ADC_tmp[3];
     Q32I_               Q12I_VBUS_VAL;
@@ -428,7 +425,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CONTROL, ST_MS_CONTROL* pMS_CTRL);
+Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
 
 /**********************************************************************************************
 Function: MotorSQ_Brake
@@ -439,7 +436,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL, ST_MS_CONTROL* pMS_CTRL);
+Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
 
 /**********************************************************************************************
 Function: MotorSQ_DIAG_Init

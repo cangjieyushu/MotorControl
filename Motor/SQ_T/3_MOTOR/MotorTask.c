@@ -131,7 +131,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
     {
-        if(MotorSQ_Brake(&pMotor->BRAKE_CTRL, &pMotor->MS_CTRL) == SUCC)
+        if(MotorSQ_Brake(&pMotor->BRAKE_CTRL) == SUCS)
         {
             pMotor->Motor_Flow = MOTOR_STATE_PRE;
         }
@@ -152,11 +152,14 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
         MH_PWM_Preload_Enable();
-        MH_HPWM_LPWM_Close();
         MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
         MotorSQ_Init(&pMotor->MS_CTRL);
         pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
         pMotor->Motor_Flow = MOTOR_STATE_INIT;
+    }
+    else
+    {
+        MH_HPWM_LPWM_Close();
     }
 }
 
@@ -178,7 +181,7 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->Motor_Error_Flag.bit.mos_fault = 1U;
         }
     
-        if(MotorSQ_Offset_Check_Init(&pMotor->MS_OFFSET) == SUCC)
+        if(MotorSQ_Offset_Check_Init(&pMotor->MS_OFFSET) == SUCS)
         {
             pMotor->MS_OFFSET._I_Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
             switch(MotorSQ_Offset_Check(&pMotor->MS_OFFSET))
@@ -188,7 +191,7 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
                     MH_ADC_Soft_Trigger();
                     break;
                 }
-                case SUCC:
+                case SUCS:
                 {
                     pMotor->MS_CTRL.Q12I_IPHASE_OFFSET = pMotor->MS_OFFSET._O_Q12I_IPHASE_OFFSET;
                     pMotor->Motor_Flow = MOTOR_STATE_IDLE;
@@ -230,7 +233,7 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
-        if(MotorSQ_Flying_Check_Init(&pMotor->MS_FLYING) == SUCC)
+        if(MotorSQ_Flying_Check_Init(&pMotor->MS_FLYING) == SUCS)
         {
             if(pMotor->MS_CTRL.DIR_Set == CW)
             {
@@ -253,7 +256,7 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
                     MH_ADC_Soft_Trigger();
                     break;
                 }
-                case SUCC:
+                case SUCS:
                 {
                     MotorSQ_Flying_Init(&pMotor->MS_CTRL, &pMotor->MS_FLYING);
                     MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
@@ -296,7 +299,7 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
-        if(MotorSQ_Boot_Check_Init(&pMotor->MS_BOOT) == SUCC)
+        if(MotorSQ_Boot_Check_Init(&pMotor->MS_BOOT) == SUCS)
         {
             pMotor->MS_BOOT._I_Q12I_BEMF_U_ADC = ADC_DATA_READ_U_BEMF;
             pMotor->MS_BOOT._I_Q12I_BEMF_V_ADC = ADC_DATA_READ_V_BEMF;
@@ -309,7 +312,7 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
                     MH_HPWM_LPWM_LOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
                     break;
                 }
-                case SUCC:
+                case SUCS:
                 {
                     MH_HPWM_LPWM_Close();
                     pMotor->Motor_Flow = MOTOR_STATE_POSITION;
@@ -356,7 +359,7 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->MS_POSITION._V_Q12U_duty_set = Q32I_RHT_12(pMotor->MS_POSITION._P_Q12U_vbus_max_val
         *pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq/pMotor->MS_CTRL.Q12I_VBUS_VAL*pMotor->MS_POSITION._P_Q12U_position_duty);
         
-        if(MotorSQ_Pluse_Positon_Init(&pMotor->MS_POSITION) == SUCC)
+        if(MotorSQ_Pluse_Positon_Init(&pMotor->MS_POSITION) == SUCS)
         {
             pMotor->MS_POSITION._I_Q12I_Position_Current_VAL[pMotor->MS_POSITION._V_Q32U_cnt] = ADC_DATA_READ_CURRENT;
             
@@ -367,7 +370,7 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
                     POSITION_Set[pMotor->MS_POSITION._V_Q32U_cnt][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
                     break;
                 }
-                case SUCC:
+                case SUCS:
                 {
                     MH_PWM_Preload_Disable();
                     MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
@@ -608,18 +611,7 @@ void MotorTask_Brake_Flow(ST_MOTOR_TASK* pMotor)
     }
     else
     {
-        pMotor->MS_CTRL.Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
-        if(pMotor->MS_CTRL.Q12I_IPHASE_ADC < pMotor->MS_CTRL.Q12I_IPHASE_OFFSET)
-        {
-            pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q32U_Current_Scale
-            *(pMotor->MS_CTRL.Q12I_IPHASE_OFFSET - pMotor->MS_CTRL.Q12I_IPHASE_ADC));
-        }
-        else
-        {
-            pMotor->MS_CTRL.Q14I_IPHASE_PU = 0U;
-        }
-        
-        if(MotorSQ_Brake_Init(&pMotor->BRAKE_CTRL, &pMotor->MS_CTRL) == SUCC)
+        if(MotorSQ_Brake_Init(&pMotor->BRAKE_CTRL) == SUCS)
         {
             MH_HPWM_LPWM_LOpen(Q32I_RHT_12(pMotor->BRAKE_CTRL._O_Q12U_brake_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq));
         }

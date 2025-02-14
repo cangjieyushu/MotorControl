@@ -53,12 +53,12 @@ typedef struct
     Q32I_       _I_Q14I_Ud;
     Q32I_       _I_Q14I_Uq;
     
-    Q32I_       _I_Q14I_Ia_Data;
-    Q32I_       _I_Q14I_Ib_Data;
-    Q32I_       _I_Q14I_Ic_Data;
-    Q32I_       _I_Q14I_Ia_Offset;
-    Q32I_       _I_Q14I_Ib_Offset;
-    Q32I_       _I_Q14I_Ic_Offset;
+    Q32I_       _I_Q12I_Ia_Data;
+    Q32I_       _I_Q12I_Ib_Data;
+    Q32I_       _I_Q12I_Ic_Data;
+    Q32I_       _I_Q12I_Ia_Offset;
+    Q32I_       _I_Q12I_Ib_Offset;
+    Q32I_       _I_Q12I_Ic_Offset;
     
     Q08U_       _O_Q08U_Sector; 
     Q32I_       _O_Q14I_Ialfa;
@@ -75,16 +75,16 @@ typedef struct
     Q32I_       _P_Q12I_MaxDuty;
     Q32I_       _P_Q12I_MinDuty;
     Q32I_       _P_Q12I_ADCSampleDuty;
-    Q32I_       _P_Q32I_Current_Scale;
+    Q32I_       _P_Q24I_Current_Scale;
     Q32I_       _P_Q12I_PWM_All_Count;    
     
     
-    Q32I_       _I_Q14I_Ishunt[3];
+    Q32I_       _I_Q12I_Ishunt[3];
     
-    Q32I_       _I_Q14I_Ishunt_1_Data;
-    Q32I_       _I_Q14I_Ishunt_2_Data;
-    Q32I_       _I_Q14I_Ishunt_1_Offset;
-    Q32I_       _I_Q14I_Ishunt_2_Offset;
+    Q32I_       _I_Q12I_Ishunt_1_Data;
+    Q32I_       _I_Q12I_Ishunt_2_Data;
+    Q32I_       _I_Q12I_Ishunt_1_Offset;
+    Q32I_       _I_Q12I_Ishunt_2_Offset;
     
     Q32I_       _O_Q12I_TaUp;
     Q32I_       _O_Q12I_TbUp;

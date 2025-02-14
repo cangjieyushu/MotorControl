@@ -48,12 +48,10 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     Filter_Init_T(&pMS_CTRL->FL_Iphase, 0);
     Filter_Init_T(&pMS_CTRL->FL_Freq, 0);
     Filter_Init_T(&pMS_CTRL->FL_Ibus, 0);
-    Filter_Init_T(&pMS_CTRL->FL_Ibrake, 0);
     
     PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, 0);
     PID_Inc_Init_T(&pMS_CTRL->PID_Freq, 0);
     PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, 0);
-    PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, 0);
     
     MotorSQ_DIAG_Init(&pMS_CTRL->MS_DIAG);
     MotorSQ_FLUX_Init(&pMS_CTRL->MS_FLUX);
@@ -87,7 +85,7 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
 {
     pMS_CTRL->SW_Math = SWITCH_BEMF;
     pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
-    pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCC;
+    pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCS;
     
     pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(
     pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[1]
@@ -143,7 +141,7 @@ Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
     }
     else
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     return flag_tmp;
@@ -182,7 +180,7 @@ Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
     if(pMS_OFFSET->Flag.bit.b1_succ == 1U)
     {
         pMS_OFFSET->Flag.bit.b0_init = 0U;
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     else if(pMS_OFFSET->Flag.bit.b2_fail == 1U)
     {
@@ -219,7 +217,7 @@ Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING)
     }
     else
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     return flag_tmp;
@@ -328,7 +326,7 @@ Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_
     if(pMS_FLYING->Flag.bit.b1_succ == 1U)
     {
         pMS_FLYING->Flag.bit.b0_init = 0U;
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     else if(pMS_FLYING->Flag.bit.b2_fail == 1U)
     {
@@ -363,7 +361,7 @@ Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT)
     }
     else
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     return flag_tmp;
@@ -401,7 +399,7 @@ Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
     if(pMS_BOOT->Flag.bit.b1_succ == 1U)
     {
         pMS_BOOT->Flag.bit.b0_init = 0U;
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     else if(pMS_BOOT->Flag.bit.b2_fail == 1U)
     {
@@ -435,7 +433,7 @@ Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
     }
     else
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     return flag_tmp;
@@ -494,7 +492,7 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
         pMS_POSITION->Flag.bit.b0_init = 0U;
         if(pMS_POSITION->Flag.bit.b1_succ == 1U)
         {
-            flag_tmp = SUCC;
+            flag_tmp = SUCS;
         }
         else if(pMS_POSITION->Flag.bit.b2_fail == 1U)
         {
@@ -514,7 +512,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
+Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL)
 {
     Q32U_ flag_tmp = ING;
     
@@ -524,13 +522,12 @@ Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
 
         pBRAKE_CTRL->_V_Q32U_cnt = 0U;
         pBRAKE_CTRL->_O_Q12U_brake_duty = 0U;
-        PID_Inc_Init_T(&pMS_CTRL->PID_Ibrake, pMS_CTRL->PID_Ibrake.Q14I_OutMin);
         
         pBRAKE_CTRL->Flag.bit.b0_init = 1U;
     }
     else
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     return flag_tmp;
@@ -545,7 +542,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
+Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
 {
     Q32U_ flag_tmp = ING;
     
@@ -585,7 +582,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL, ST_MS_CONTROL* pMS_CTRL)
     if(pBRAKE_CTRL->Flag.bit.b1_succ == 1U)
     {
         pBRAKE_CTRL->Flag.bit.b0_init = 0U;
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
     
     pBRAKE_CTRL->_V_Q32U_cnt++;
@@ -999,7 +996,7 @@ void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
                 {
                     if(pPWM_CTRL->_O_Q12I_duty_set > pPWM_CTRL->_P_Q12U_high_to_low_duty)//达到高占空比
                     {
-                        pPWM_CTRL->Flag.bit.b0_init = SUCC;
+                        pPWM_CTRL->Flag.bit.b0_init = SUCS;
                     }
                     pPWM_CTRL->_O_Q16U_arr_set = pPWM_CTRL->_P_Q14U_high_pwm_freq;
                 }
@@ -1083,7 +1080,7 @@ Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL
     }
     if(Q16I_LFT_06(motor_switch_cnt_min) < pSTALL_CTRL->_P_Q06U_switch_coeff*motor_switch_cnt_max)
     {
-        flag_tmp = SUCC;
+        flag_tmp = SUCS;
     }
 
     if(pMS_CTRL->Q32U_switch_cnt == pSTALL_CTRL->_V_Q32U_switch_cnt)
@@ -1092,7 +1089,7 @@ Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL
         if(pSTALL_CTRL->_V_Q32U_cnt > pSTALL_CTRL->_P_Q16U_error_time)
         {
             pSTALL_CTRL->_V_Q32U_cnt = 0U;
-            flag_tmp = SUCC;
+            flag_tmp = SUCS;
         }
     }
     else

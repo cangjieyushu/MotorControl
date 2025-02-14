@@ -67,7 +67,7 @@
 #define T_BASE                              (1.0f/F_BASE)     //s,时间
 
 #define MOTOR_Q14_PU                        (Q14U_MAX)      //16384
-#define MOTOR_Q24_PU                        (Q24U_MAX)      //
+#define MOTOR_Q24_PU                        (Q24U_MAX)      //16777216
 
 #define Q24I_VOLTAGE_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_VOLTAGE_SCALE/V_BASE)          //电压
 #define Q24I_CURRENT_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
