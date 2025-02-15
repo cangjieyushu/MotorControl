@@ -57,7 +57,7 @@ typedef union{
     ALL     all;
     struct{
         BIT b0_init         :1;
-        BIT b1_succ         :1;
+        BIT b1_sucs         :1;
         BIT b2_fail         :1;
     }bit;
 }UN_MS_FLAG;

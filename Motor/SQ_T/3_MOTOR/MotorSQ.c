@@ -173,11 +173,11 @@ Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
         }
         else
         {
-            pMS_OFFSET->Flag.bit.b1_succ = 1U;
+            pMS_OFFSET->Flag.bit.b1_sucs = 1U;
         }
     }
     
-    if(pMS_OFFSET->Flag.bit.b1_succ == 1U)
+    if(pMS_OFFSET->Flag.bit.b1_sucs == 1U)
     {
         pMS_OFFSET->Flag.bit.b0_init = 0U;
         flag_tmp = SUCS;
@@ -307,7 +307,7 @@ Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_
                 }
                 if(pMS_FLYING->_V_Q32U_phase_cnt == 6U)
                 {
-                    pMS_FLYING->Flag.bit.b1_succ = 1U;
+                    pMS_FLYING->Flag.bit.b1_sucs = 1U;
                 }
                 pMS_FLYING->_V_Q32U_phase_cnt++;
                 pMS_CTRL->Sector_Last = pMS_CTRL->Sector;
@@ -323,7 +323,7 @@ Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_
         pMS_FLYING->Flag.bit.b2_fail = 1U;
     }
     
-    if(pMS_FLYING->Flag.bit.b1_succ == 1U)
+    if(pMS_FLYING->Flag.bit.b1_sucs == 1U)
     {
         pMS_FLYING->Flag.bit.b0_init = 0U;
         flag_tmp = SUCS;
@@ -387,7 +387,7 @@ Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
         pMS_BOOT->_V_Q32U_cnt++;
         if(++pMS_BOOT->_V_Q32U_cnt == pMS_BOOT->_P_Q16U_boot_num)
         {
-            pMS_BOOT->Flag.bit.b1_succ = 1U;
+            pMS_BOOT->Flag.bit.b1_sucs = 1U;
         }
     }
     pMS_BOOT->_V_Q32U_time_cnt++;
@@ -396,7 +396,7 @@ Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
         pMS_BOOT->Flag.bit.b2_fail = 1U;
     }
     
-    if(pMS_BOOT->Flag.bit.b1_succ == 1U)
+    if(pMS_BOOT->Flag.bit.b1_sucs == 1U)
     {
         pMS_BOOT->Flag.bit.b0_init = 0U;
         flag_tmp = SUCS;
@@ -479,18 +479,18 @@ Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTR
         pMS_CTRL->Sector = Position_Sector[max_index][pMS_CTRL->DIR_Set];
         
         pMS_POSITION->Flag.bit.b2_fail = 0U;
-        pMS_POSITION->Flag.bit.b1_succ = 1U;
+        pMS_POSITION->Flag.bit.b1_sucs = 1U;
         for(Q08U_ j=0U;j<6U;j++)
         {
             if(pMS_POSITION->_I_Q12I_Position_Current_VAL[j] < pMS_POSITION->_P_Q16U_position_tl)
             {
-                pMS_POSITION->Flag.bit.b1_succ = 0U;
+                pMS_POSITION->Flag.bit.b1_sucs = 0U;
                 pMS_POSITION->Flag.bit.b2_fail = 1U;
             }
         }
         
         pMS_POSITION->Flag.bit.b0_init = 0U;
-        if(pMS_POSITION->Flag.bit.b1_succ == 1U)
+        if(pMS_POSITION->Flag.bit.b1_sucs == 1U)
         {
             flag_tmp = SUCS;
         }
@@ -576,10 +576,10 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
     else
     {
         pBRAKE_CTRL->_V_Q32U_cnt = 0U;
-        pBRAKE_CTRL->Flag.bit.b1_succ = 1U;
+        pBRAKE_CTRL->Flag.bit.b1_sucs = 1U;
     }
         
-    if(pBRAKE_CTRL->Flag.bit.b1_succ == 1U)
+    if(pBRAKE_CTRL->Flag.bit.b1_sucs == 1U)
     {
         pBRAKE_CTRL->Flag.bit.b0_init = 0U;
         flag_tmp = SUCS;
