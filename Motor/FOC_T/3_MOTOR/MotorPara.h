@@ -15,6 +15,12 @@
 #include "MotorFoc.h"
 #include "MotorSQ.h"
 
+//启动算法选择
+#define MOTOR_OPENLOOP_IF               (0U)
+#define MOTOR_OPENLOOP_VF               (1U)
+#define MOTOR_OPENLOOP_HFI              (2U)
+#define MOTOR_OPENLOOP_FLUX             (3U)
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
 
 //电流采样偏置检测
 #define CURRENT_OFFSET_VOLTAGE_V        (2.5f)                                              //V，电流采样偏置电压

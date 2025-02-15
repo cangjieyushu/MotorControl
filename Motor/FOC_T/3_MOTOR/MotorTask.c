@@ -81,8 +81,17 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             }
             case MOTOR_OPENLOOP:
             {
-                MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
+#if(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_IF)
                 MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
+                
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_IF)
+                
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
+                
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
+                
+#endif
+                MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
                 pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
                 pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL.Ramp_Iq.Q32I_Output;
                 if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
