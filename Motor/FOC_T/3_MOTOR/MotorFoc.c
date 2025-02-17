@@ -479,6 +479,8 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_SRAD_Init_T(ST_SRAD_CONTROL_T* pCTRL)
 {
+    pCTRL->_O_Q14I_IdRef = 0;
+    pCTRL->_O_Q14I_IqRef = 0;
     PID_Pos_Init_T(&pCTRL->PID_SRAD, 0);
     PID_Pos_Init_T(&pCTRL->PID_WEAK, 0);
     Ramp_Init_T(&pCTRL->Ramp_SRAD, 0);
@@ -526,6 +528,8 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_Current_Init_T(ST_CURRENT_CONTROL_T* pCTRL)
 {
+    pCTRL->_I_Q14I_IdRef = 0;
+    pCTRL->_I_Q14I_IqRef = 0;
     PID_Pos_Init_T(&pCTRL->PID_Id, 0);
     PID_Pos_Init_T(&pCTRL->PID_Iq, 0);
 }

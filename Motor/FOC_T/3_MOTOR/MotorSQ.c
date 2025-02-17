@@ -26,6 +26,12 @@ Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
         pMS_OFFSET->Flag.all = 0U;
         
         pMS_OFFSET->_V_Q32U_cnt = 0U;
+        
+        pMS_OFFSET->_O_Q12I_Ia_Offset = 0;
+        pMS_OFFSET->_O_Q12I_Ib_Offset = 0;
+        pMS_OFFSET->_O_Q12I_Ic_Offset = 0;
+        pMS_OFFSET->_O_Q12I_Ishunt_1_Offset = 0;
+        pMS_OFFSET->_O_Q12I_Ishunt_2_Offset = 0;
 
         pMS_OFFSET->Flag.bit.b0_init = 1U;
     }
