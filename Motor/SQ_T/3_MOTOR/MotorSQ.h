@@ -149,9 +149,10 @@ typedef struct
     Q32U_   _I_Q32U_time_count;
     
     Q32U_   _V_Q32U_60_degree_cnt_last;
-    Q32U_   _V_Q32U_60_degree_cnt_tmp[10];
+    Q32U_   _V_Q32U_60_degree_cnt_tmp[6];
     
     Q32U_   _O_Q32U_60_degree_cnt;
+    Q32U_   _O_Q32U_60_degree_cnt_filter;
     
     Q32U_   _P_Q32U_hall_tim_freq;
     Q32U_   _P_Q32U_hall_tim_max_cnt;
@@ -203,7 +204,7 @@ typedef struct
     Q32U_   _V_Q32U_time_cnt;
     
     Q32U_   _P_Q08U_filter;
-    Q32U_   _P_Q06U_coeff;
+    Q32U_   _P_Q10U_coeff;
     
     Q32U_   _P_Q14U_to_flux_freq;
     Q32U_   _P_Q16U_to_flux_num;
@@ -282,8 +283,8 @@ typedef struct{
     Q32U_               Q14U_iphase_max_pu;
     Q32U_               Q14U_ibus_max_pu;
     Q32U_               Q14U_vbus_max_pu;
-    Q32U_               _P_Q32U_Current_Scale;
-    Q32U_               _P_Q32U_Freq_Scale;
+    Q32U_               _P_Q24U_Current_Scale;
+    Q32U_               _P_Q24U_Freq_Scale;
     
     ST_FILTER_T         FL_Iphase;
     ST_FILTER_T         FL_Freq;

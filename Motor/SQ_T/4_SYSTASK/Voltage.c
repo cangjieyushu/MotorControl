@@ -31,7 +31,7 @@ void Voltage_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_VOLTAGE_PROTECT* pCVO = &Voltage_Protect_Over;
     ST_VOLTAGE_PROTECT* pCVL = &Voltage_Protect_Low;
     
-    pST->Q16U_Voltage_Bus_pu = Q32I_RHT_10(pST->_P_Q32U_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out);
+    pST->Q16U_Voltage_Bus_pu = Q32I_RHT_10(pST->_P_Q24U_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out);
     
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {

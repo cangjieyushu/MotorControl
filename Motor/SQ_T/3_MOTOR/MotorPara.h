@@ -56,7 +56,7 @@
 #define FLUX_CROSS_FILTER               (2U)//滤波次数
 #define BEMF_CROSS_FILTER               (2U)//滤波次数
 
-#define BEMF_CROSS_DELAY_COEFF          (16U)//base64，延迟换向比例，32为理论的30度
+#define BEMF_CROSS_DELAY_COEFF          (256U/6U)//base1024，延迟换向比例，512为理论的30度
 
 //换向算法切换
 #define FLUX_TO_BEMF_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.25f * MOTOR_MAX_FREQ))

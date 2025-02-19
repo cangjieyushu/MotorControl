@@ -53,7 +53,7 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.MS_FLUX._P_Q16U_to_bemf_num = FLUX_TO_BEMF_NUM,
     
     .MS_CTRL.MS_BEMF._P_Q08U_filter = BEMF_CROSS_FILTER,
-    .MS_CTRL.MS_BEMF._P_Q06U_coeff = BEMF_CROSS_DELAY_COEFF,
+    .MS_CTRL.MS_BEMF._P_Q10U_coeff = BEMF_CROSS_DELAY_COEFF,
     .MS_CTRL.MS_BEMF._P_Q14U_to_flux_freq = BEMF_TO_FLUX_FREQ,
     .MS_CTRL.MS_BEMF._P_Q16U_to_flux_num = BEMF_TO_FLUX_NUM,
     
@@ -90,8 +90,8 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.Q14U_iphase_max_pu = IPHSAE_PID_RF,
     .MS_CTRL.Q14U_ibus_max_pu = IBUS_PID_RF,
     .MS_CTRL.Q14U_vbus_max_pu = Q14I_VOLTAGE_MOTOR_TO_PU(MOTOR_VOLTAGE_V),
-    .MS_CTRL._P_Q32U_Current_Scale = Q24U_CURRENT_SCALE_PU,
-    .MS_CTRL._P_Q32U_Freq_Scale = Q24U_FREQ_SCALE_PU,
+    .MS_CTRL._P_Q24U_Current_Scale = Q24U_CURRENT_SCALE_PU,
+    .MS_CTRL._P_Q24U_Freq_Scale = Q24U_FREQ_SCALE_PU,
     
     .MS_CTRL.FL_Iphase.Q08I_Filter_Coeff = IPHASE_FILTER_COEFF,
     .MS_CTRL.FL_Freq.Q08I_Filter_Coeff = FREQ_FILTER_COEFF,

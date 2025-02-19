@@ -87,7 +87,7 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
     pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCS;
     
-    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(
+    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q24U_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/(
     pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[1]
     + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[2] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[3]
     + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[4] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[5])));
@@ -882,10 +882,6 @@ void MotorSQ_Freq_Cal_Init(ST_FREQ_CAL* pFREQ_CAL)
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3] = 0U;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] = 0U;
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5] = 0U;
-    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[6] = 0U;
-    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[7] = 0U;
-    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[8] = 0U;
-    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[9] = 0U;
     pFREQ_CAL->_O_Q32U_60_degree_cnt = 0U;
 }
 
@@ -923,10 +919,12 @@ void MotorSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1] = pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0];
     pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] = pFREQ_CAL->_O_Q32U_60_degree_cnt;
     
-    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q32U_Freq_Scale*(pFREQ_CAL->_P_Q32U_hall_tim_freq/(
-    pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1]
+    pFREQ_CAL->_O_Q32U_60_degree_cnt_filter = 
+     (pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[0] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[1]
     + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[2] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[3]
-    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5])));
+    + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60_degree_cnt_tmp[5]);
+    
+    pMS_CTRL->FL_Freq.Q16I_Filter_in = Q32I_RHT_10(pMS_CTRL->_P_Q24U_Freq_Scale*(pFREQ_CAL->_P_Q32U_hall_tim_freq/pFREQ_CAL->_O_Q32U_60_degree_cnt_filter));
     
     Filter_Cal_T(&pMS_CTRL->FL_Freq);
     

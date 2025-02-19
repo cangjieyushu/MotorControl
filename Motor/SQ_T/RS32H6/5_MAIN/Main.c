@@ -115,9 +115,9 @@ Author: CJYS
 ***********************************************************************************************/
 void TIM3_IRQHandler(void)
 {
-    if(TIM_Get_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_UIF))
+    if(TIM_Get_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_CC1IF))
     {
-        TIM_Clear_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_UIF);
+        TIM_Clear_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_CC1IF);
         MotorTask_Switch_Flow(&Motor);
     }
 }

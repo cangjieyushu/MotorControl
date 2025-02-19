@@ -271,7 +271,7 @@ Author: CJYS
 static inline void MH_Switch_TIM_Delay(Q32U_ count)
 {
     HAL_MOTOR_SWITCH_TIM->CNT = 0U;
-    HAL_MOTOR_SWITCH_TIM->ARR = (Q32U_)count;
+    HAL_MOTOR_SWITCH_TIM->CCR1 = (Q32U_)count;
     SET_BIT(HAL_MOTOR_SWITCH_TIM->CR1, TIM_CR1_CEN);
 }
 

@@ -33,6 +33,8 @@ void BSP_TIM_Init(void)
     TIM_TimeBaseInitStruct.ClockDivision        = TIM_CLOCKDIVISION_DIV1;
     TIM_TimeBaseInitStruct.Prescaler            = (uint32_t)HAL_SWITCH_TIM_PRESCALER;
     TIM_TimeBaseInit(HAL_MOTOR_SWITCH_TIM, &TIM_TimeBaseInitStruct);
-
-    TIM_Enable_IT(HAL_MOTOR_SWITCH_TIM, TIM_SR_UIF);
+    
+    TIM_Disable_OC_Preload(HAL_MOTOR_SWITCH_TIM, TIM_CHANNEL_CH1);
+    
+    TIM_Enable_IT(HAL_MOTOR_SWITCH_TIM, TIM_DIER_CC1IE);
 }

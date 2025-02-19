@@ -25,8 +25,7 @@ pMOTOR_FUN Motor_Flow_Function[MOTOR_STATE_BRAKE+1] =
     MotorTask_Run_Flow,
     MotorTask_Brake_Flow
 };
-    
-void MotorTask_Switch_Current_Flow(ST_MOTOR_TASK* pMotor);
+
 void MotorTask_Switch_Flux_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Switch_Bemf_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_Switch_Cmp_Flow(ST_MOTOR_TASK* pMotor);
@@ -36,19 +35,6 @@ pMOTOR_FUN Motor_Math_Function[SWITCH_CMP+1] =
     MotorTask_Switch_Flux_Flow,
     MotorTask_Switch_Bemf_Flow,
     MotorTask_Switch_Cmp_Flow
-};
-
-void MotorTask_Diag_Ing_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Cross_Ing_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Cross_Succ_Flow(ST_MOTOR_TASK* pMotor);
-void MotorTask_Switch_Succ_Flow(ST_MOTOR_TASK* pMotor);
-
-pMOTOR_FUN Motor_Switch_Function[SQUARE_SWITCH_SUCC+1] = 
-{
-    MotorTask_Diag_Ing_Flow,
-    MotorTask_Cross_Ing_Flow,
-    MotorTask_Cross_Succ_Flow,
-    MotorTask_Switch_Succ_Flow
 };
 
 pFUN_HPWMLPWM_SET POSITION_Set[6][2] =
@@ -390,7 +376,7 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         else
         {
             POSITION_Set[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
-            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 2*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+            MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 3*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
         }
     }
     else
@@ -399,20 +385,6 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         MH_HPWM_LPWM_Close();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
-}
-
-/**********************************************************************************************
-Function: MotorTask_Diag_Ing_Flow
-Description: 电机控制续流检测
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Diag_Ing_Flow(ST_MOTOR_TASK* pMotor)
-{
-    MotorSQ_DIAG_Zero_Cross(&pMotor->MS_CTRL.MS_DIAG, &pMotor->MS_CTRL);
 }
    
 /**********************************************************************************************
@@ -451,7 +423,7 @@ void MotorTask_Switch_Bemf_Flow(ST_MOTOR_TASK* pMotor)
     {
         pMotor->MS_CTRL.FREQ_CAL._I_Q32U_time_count = MH_HALL_TIM_Count_Read();
         MotorSQ_Freq_Cal(&pMotor->MS_CTRL.FREQ_CAL, &pMotor->MS_CTRL);
-        MH_Switch_TIM_Delay(Q32I_RHT_06(pMotor->MS_CTRL.MS_BEMF._P_Q06U_coeff*pMotor->MS_CTRL.FREQ_CAL._O_Q32U_60_degree_cnt));
+        MH_Switch_TIM_Delay(Q32I_RHT_10(pMotor->MS_CTRL.MS_BEMF._P_Q10U_coeff*pMotor->MS_CTRL.FREQ_CAL._O_Q32U_60_degree_cnt_filter));
     }
 }
  
@@ -468,38 +440,6 @@ void MotorTask_Switch_Cmp_Flow(ST_MOTOR_TASK* pMotor)
 {
     
 }
-  
-/**********************************************************************************************
-Function: MotorTask_Cross_Ing_Flow
-Description: 电机控制过零检测
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Cross_Ing_Flow(ST_MOTOR_TASK* pMotor)
-{
-    Motor_Math_Function[pMotor->MS_CTRL.SW_Math](pMotor);
-}
-
-/**********************************************************************************************
-Function: MotorTask_Cross_Succ_Flow
-Description: 电机控制过零成功
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Cross_Succ_Flow(ST_MOTOR_TASK* pMotor)
-{
-    MH_Switch_TIM_Stop();
-    pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_SUCC;
-    pMotor->MS_CTRL.Sector = Next_Sector[pMotor->MS_CTRL.Sector];
-    HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
-    MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
-}
 
 /**********************************************************************************************
 Function: MotorTask_Switch_Succ_Flow
@@ -512,8 +452,6 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Switch_Succ_Flow(ST_MOTOR_TASK* pMotor)
 {
-    pMotor->MS_CTRL.SQ_Flow = SQUARE_DIAG_ING;
-    MH_Switch_TIM_Stop();
 }
 
 /**********************************************************************************************
@@ -545,7 +483,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         
         if(pMotor->MS_CTRL.Q12I_IPHASE_ADC > pMotor->MS_CTRL.Q12I_IPHASE_OFFSET)
         {
-            pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q32U_Current_Scale
+            pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q24U_Current_Scale
             *(pMotor->MS_CTRL.Q12I_IPHASE_ADC - pMotor->MS_CTRL.Q12I_IPHASE_OFFSET));
         }
         else
@@ -553,7 +491,14 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->MS_CTRL.Q14I_IPHASE_PU = 0U;
         }
         
-        Motor_Switch_Function[pMotor->MS_CTRL.SQ_Flow](pMotor);
+        if(pMotor->MS_CTRL.SQ_Flow == SQUARE_DIAG_ING)
+        {
+            MotorSQ_DIAG_Zero_Cross(&pMotor->MS_CTRL.MS_DIAG, &pMotor->MS_CTRL);
+        }
+        else if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_ING)
+        {
+            Motor_Math_Function[pMotor->MS_CTRL.SW_Math](pMotor);
+        }
         
         MotorSQ_Ibus_Cal(&pMotor->MS_CTRL);
 
@@ -650,7 +595,19 @@ void MotorTask_Switch_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
     {
-        Motor_Switch_Function[pMotor->MS_CTRL.SQ_Flow](pMotor);
+        if(pMotor->MS_CTRL.SQ_Flow == SQUARE_CROSS_SUCC)
+        {
+            MH_Switch_TIM_Stop();
+            pMotor->MS_CTRL.SQ_Flow = SQUARE_SWITCH_SUCC;
+            pMotor->MS_CTRL.Sector = Next_Sector[pMotor->MS_CTRL.Sector];
+            HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
+            MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
+        }
+        else if(pMotor->MS_CTRL.SQ_Flow == SQUARE_SWITCH_SUCC)
+        {
+            MH_Switch_TIM_Stop();
+            pMotor->MS_CTRL.SQ_Flow = SQUARE_DIAG_ING;
+        }
     }
     else
     {
