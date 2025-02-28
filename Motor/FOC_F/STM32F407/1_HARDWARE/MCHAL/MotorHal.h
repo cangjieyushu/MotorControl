@@ -20,7 +20,7 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib ,Q32U_* pADC_Ic)
+static inline void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib ,Q32U_* pADC_Ic)
 {
     (*pADC_Ia) = (Q32U_)ADC1->JDR1;
     (*pADC_Ib) = (Q32U_)ADC1->JDR2;
@@ -36,7 +36,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Output_Enable(void) 
+static inline void MH_PWM_Output_Enable(void) 
 {
     TIM1->CCER |= 0x5555;
     TIM1->BDTR |= TIM_BDTR_MOE;
@@ -51,7 +51,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Output_Disable(void)
+static inline void MH_PWM_Output_Disable(void)
 {
     TIM1->CCR1 = 0;
     TIM1->CCR2 = 0;
@@ -69,7 +69,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
+static inline void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
 {
 	TIM1->CCR1 = Ta;
     TIM1->CCR2 = Tb;

@@ -41,10 +41,10 @@ extern "C" {
  *  @{
  */
 
-Z20A8300A_IfType Z20A8300AIf1;
+Z20A8300A_IfType Z20A8300AIf;
 
-Z20A8300A_StatusRegType         Z20A8300AStatus_1;
-Z20A8300A_AllDiagType           Z20A8300ADiag_1;
+Z20A8300A_StatusRegType         Z20A8300AStatus;
+Z20A8300A_AllDiagType           Z20A8300ADiag;
 
 /** @} end of group Init_Global_VariableDefinition */
 
@@ -161,15 +161,15 @@ uint32_t Z20A8300A_Init1(void)
     uint32_t ReturnValue = 1U;
 
     /*!< MCU SPI init */
-    MCU_Z20A8300A_SpiInit1();
+    MCU_Z20A8300A_SpiInit();
     /*!< MCU GPIO init */
-    MCU_Z20A8300A_GpioInit1();
+    MCU_Z20A8300A_GpioInit();
 
-    Z20A8300AIf1.SpiSendCallBack = MCU_SPI_SendToZ20A8300A1;
-    Z20A8300AIf1.SpiReceiveCallBack = MCU_SPI_ReceiveFromZ20A8300A1;
-    Z20A8300AIf1.SpiWaitingForReceptionCallBack = MCU_SPI_WaitingForReceptionFromZ20A8300A1;
+    Z20A8300AIf.SpiSendCallBack = MCU_SPI_SendToZ20A8300A;
+    Z20A8300AIf.SpiReceiveCallBack = MCU_SPI_ReceiveFromZ20A8300A;
+    Z20A8300AIf.SpiWaitingForReceptionCallBack = MCU_SPI_WaitingForReceptionFromZ20A8300A;
 
-    while(Z20A8300A_ERR_OK != Z20A8300A_Diag_ReadClearDiag(&Z20A8300AIf1,&Status,&Diag))
+    while(Z20A8300A_ERR_OK != Z20A8300A_Diag_ReadClearDiag(&Z20A8300AIf,&Status,&Diag))
     {
         if(SpiErrorCounter > 10U)
         {
@@ -181,112 +181,112 @@ uint32_t Z20A8300A_Init1(void)
     if(ReturnValue!=0U)
     {
         SpiErrorCounter = 0U;
-        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetDiagMode(&Z20A8300AIf1,CtrlConfigStruct.DiagMode))
+        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetDiagMode(&Z20A8300AIf,CtrlConfigStruct.DiagMode))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseAStates(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseAStates(&Z20A8300AIf,
                                CtrlConfigStruct.PhaseAInitVal))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseBStates(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseBStates(&Z20A8300AIf,
                                CtrlConfigStruct.PhaseBInitVal))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseCStates(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Ctrl_SetPhaseCStates(&Z20A8300AIf,
                                CtrlConfigStruct.PhaseCInitVal))
         { 
             SpiErrorCounter++;
         }
 
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetDeadTime(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetDeadTime(&Z20A8300AIf,
                                ParamsConfigStruct.DeadTime))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverTempeThreshold(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverTempeThreshold(&Z20A8300AIf,
                                ParamsConfigStruct.OverTempeThreshold))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVbbOverVoltageThreshold(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVbbOverVoltageThreshold(&Z20A8300AIf,
                                ParamsConfigStruct.VbbOverVoltageThreshold))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverCurrentBlankingTime(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverCurrentBlankingTime(&Z20A8300AIf,
                                ParamsConfigStruct.OverCurrentBlankingTime))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverCurrentThreshold(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetOverCurrentThreshold(&Z20A8300AIf,
                                ParamsConfigStruct.OverCurrentThreshold))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVgsVdsBlankingTime(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVgsVdsBlankingTime(&Z20A8300AIf,
                                ParamsConfigStruct.VgsVdsBlankingTime))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetChargePumpFrequency(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetChargePumpFrequency(&Z20A8300AIf,
                                ParamsConfigStruct.ChargePumpFrequency))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetChargePumpMode(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetChargePumpMode(&Z20A8300AIf,
                                ParamsConfigStruct.ChargePumpMode))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVdsLowSideThreshold(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVdsLowSideThreshold(&Z20A8300AIf,
                                ParamsConfigStruct.VdsLowSideThreshold))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetBootstrapManagementEnable(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetBootstrapManagementEnable(&Z20A8300AIf,
                                ParamsConfigStruct.BootstrapManagementEnable))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSourcePeakCurrent(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSourcePeakCurrent(&Z20A8300AIf,
                                ParamsConfigStruct.SourcePeakCurrent))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVdsHighSideThreshold(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetVdsHighSideThreshold(&Z20A8300AIf,
                                ParamsConfigStruct.VdsHighSideThreshold))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorAmplifierOffset(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorAmplifierOffset(&Z20A8300AIf,
                                ParamsConfigStruct.SensorAmplifierOffset))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorAGain(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorAGain(&Z20A8300AIf,
                                ParamsConfigStruct.SensorAGain))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorBGain(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorBGain(&Z20A8300AIf,
                                ParamsConfigStruct.SensorBGain))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorCGain(&Z20A8300AIf1,
+        if(Z20A8300A_ERR_OK != Z20A8300A_Config_SetSensorCGain(&Z20A8300AIf,
                                ParamsConfigStruct.SensorCGain))
         { 
             SpiErrorCounter++;
         }
 
-        if(Z20A8300A_ERR_OK != Z20A8300A_Diag_SetAllFaultEnableStatus(&Z20A8300AIf1,&DpsConfigStruct))
+        if(Z20A8300A_ERR_OK != Z20A8300A_Diag_SetAllFaultEnableStatus(&Z20A8300AIf,&DpsConfigStruct))
         { 
             SpiErrorCounter++;
         }
-        if(Z20A8300A_ERR_OK != Z20A8300A_Diag_SetAllDiagMaskStatus(&Z20A8300AIf1,&MaskConfigStruct))
+        if(Z20A8300A_ERR_OK != Z20A8300A_Diag_SetAllDiagMaskStatus(&Z20A8300AIf,&MaskConfigStruct))
         { 
             SpiErrorCounter++;
         }

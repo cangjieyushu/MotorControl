@@ -2447,6 +2447,12 @@
             <name>$PROJ_DIR$\..\3_MOTOR\MotorPara.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\3_MOTOR\MotorSQ.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\3_MOTOR\MotorSQ.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\3_MOTOR\MotorTask.c</name>
         </file>
         <file>

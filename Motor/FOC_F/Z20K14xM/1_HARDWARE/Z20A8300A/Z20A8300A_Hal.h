@@ -97,7 +97,7 @@ extern "C"
  * @return      none
  *
  */
-void MCU_Z20A8300A_SpiInit1(void);
+void MCU_Z20A8300A_SpiInit(void);
 /**
  * @brief       MCU Z20A8300A GPIO Init
  *
@@ -106,7 +106,7 @@ void MCU_Z20A8300A_SpiInit1(void);
  * @return      none
  *
  */
-void MCU_Z20A8300A_GpioInit1(void);
+void MCU_Z20A8300A_GpioInit(void);
 /**
  * @brief       MCU SPI Send To Z20A8300A
  *
@@ -117,7 +117,7 @@ void MCU_Z20A8300A_GpioInit1(void);
  * @retval      1: send succsess
  *
  */
-uint16_t MCU_SPI_SendToZ20A8300A1(uint16_t Data);
+uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data);
 /**
  * @brief       get the data received from Z20A8300A
  *
@@ -126,7 +126,7 @@ uint16_t MCU_SPI_SendToZ20A8300A1(uint16_t Data);
  * @return      uint16_t
  * @retval      receive data
  */
-uint16_t MCU_SPI_ReceiveFromZ20A8300A1(void);
+uint16_t MCU_SPI_ReceiveFromZ20A8300A(void);
 /**
  * @brief      MCU SPI Waiting For Reception From Z20A8300A
  *
@@ -137,7 +137,7 @@ uint16_t MCU_SPI_ReceiveFromZ20A8300A1(void);
  * @retval     1: data received
  *
  */
-uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A1(void);
+uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void);
 /**
  * @brief      Z20A8300A Set PWM Enable Pin
  *

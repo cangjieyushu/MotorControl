@@ -73,7 +73,7 @@ extern "C" {
  * @return      none
  *
  */
-void MCU_Z20A8300A_SpiInit1(void)
+void MCU_Z20A8300A_SpiInit(void)
 {
     /* spi master initial configuration */
     SPI_Config_t SpiMasterCfgStruct =
@@ -119,7 +119,7 @@ void MCU_Z20A8300A_SpiInit1(void)
  * @return      none
  *
  */
-void MCU_Z20A8300A_GpioInit1(void)
+void MCU_Z20A8300A_GpioInit(void)
 {
     PORT_PinmuxConfig(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, Z20A8300A_M1ENABLE_PINMUX);
     GPIO_SetPinDir(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, GPIO_OUTPUT);
@@ -140,7 +140,7 @@ void MCU_Z20A8300A_GpioInit1(void)
  * @retval      1: send succsess
  *
  */
-uint16_t MCU_SPI_SendToZ20A8300A1(uint16_t Data)
+uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data)
 {
     uint16_t Status = 1U;
     if(RESET == SPI_GetStatus(Z20A8300A_M1SPI_ID, SPI_STATUS_TFNF))
@@ -160,7 +160,7 @@ uint16_t MCU_SPI_SendToZ20A8300A1(uint16_t Data)
  * @return      uint16_t
  * @retval      receive data
  */
-uint16_t MCU_SPI_ReceiveFromZ20A8300A1(void)
+uint16_t MCU_SPI_ReceiveFromZ20A8300A(void)
 {
     return (uint16_t)(SPI_ReceiveData(Z20A8300A_M1SPI_ID));
 }
@@ -175,7 +175,7 @@ uint16_t MCU_SPI_ReceiveFromZ20A8300A1(void)
  * @retval     1: data received
  *
  */
-uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A1(void)
+uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void)
 {
     uint32_t LocalCnt = 0U;
     uint16_t Status = 1U;

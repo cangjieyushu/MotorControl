@@ -433,6 +433,14 @@ Author: CJYS
 void MotorTask_Current_AlignLoop_Flow(ST_MOTOR_TASK* pMotor)
 {
     Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
+    
+    MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
+    pMotor->CURRENT_CTRL._I_Q14I_Id = pMotor->SVPWM_CTRL._O_Q14I_Id;
+    pMotor->CURRENT_CTRL._I_Q14I_Iq = pMotor->SVPWM_CTRL._O_Q14I_Iq;
+    MotorFoc_Current_Loop_T(&pMotor->CURRENT_CTRL);
+    
+    pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
+    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
 }
 
 /**********************************************************************************************

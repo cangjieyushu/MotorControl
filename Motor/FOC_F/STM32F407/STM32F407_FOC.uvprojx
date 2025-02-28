@@ -361,7 +361,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -563,6 +563,16 @@
               <FileType>5</FileType>
               <FilePath>.\1_HARDWARE\BSP\BSP_USART.h</FilePath>
             </File>
+            <File>
+              <FileName>BSP_WDG.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP_WDG.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_WDG.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\1_HARDWARE\BSP\BSP_WDG.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -672,6 +682,16 @@
               <FileName>MotorPara.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\3_MOTOR\MotorPara.h</FilePath>
+            </File>
+            <File>
+              <FileName>MotorSQ.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\3_MOTOR\MotorSQ.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorSQ.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\3_MOTOR\MotorSQ.h</FilePath>
             </File>
             <File>
               <FileName>MotorTask.c</FileName>

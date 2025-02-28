@@ -2483,6 +2483,9 @@
             <name>$PROJ_DIR$\..\4_SYSTASK\Speed.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\4_SYSTASK\SYS.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\4_SYSTASK\SysTask.c</name>
         </file>
         <file>

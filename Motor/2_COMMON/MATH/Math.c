@@ -546,7 +546,7 @@ Input_Output: 浮点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Ramp_Init_F(ST_RAMP_F* pRamp, float init)
+void Ramp_Init_F(ST_RAMP_F* pRamp, float init)
 {
     pRamp->F_Output = init;
 }
@@ -560,7 +560,7 @@ Input_Output: 浮点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Ramp_Cal_F(ST_RAMP_F* pRamp)
+void Ramp_Cal_F(ST_RAMP_F* pRamp)
 {    
     if(pRamp->F_Target > pRamp->F_Output) 
     { 
@@ -599,7 +599,7 @@ Input_Output: 浮点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Filter_Init_F(ST_FILTER_F* pFltr, float init)
+void Filter_Init_F(ST_FILTER_F* pFltr, float init)
 {
     pFltr->F_Filter_out = init;
 }
@@ -613,7 +613,7 @@ Input_Output: 浮点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Filter_Cal_F(ST_FILTER_F* pFltr)
+void Filter_Cal_F(ST_FILTER_F* pFltr)
 {
     pFltr->F_Filter_out = pFltr->F_Filter_Coeff*pFltr->F_Filter_in + (1.0f - pFltr->F_Filter_Coeff)*pFltr->F_Filter_out;
 }
@@ -627,7 +627,7 @@ Input_Output: 浮点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init)
+void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init)
 {
     pPID->F_Rf = 0.0f;
     pPID->F_Fb = 0.0f;
@@ -644,7 +644,7 @@ Input_Output: 浮点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
+void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
 {
     float F_Error = pPID->F_Rf - pPID->F_Fb;
     
@@ -755,7 +755,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Math_SinCos_F(ST_TRIG_F* pTIG)
+void Math_SinCos_F(ST_TRIG_F* pTIG)
 {
     float Input;
     float Findex;
@@ -793,7 +793,7 @@ Input_Output: 浮点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Math_Atan_F(ST_TRIG_F* pTIG)
+void Math_Atan_F(ST_TRIG_F* pTIG)
 {
     Q08U_ Sector_N;
 	Q08U_ Sector_a = 0U;
@@ -879,7 +879,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Sqrt_F(float A)
+float Math_Sqrt_F(float A)
 {
     if(A > 0.0f)
     {

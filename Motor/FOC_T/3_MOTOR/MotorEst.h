@@ -72,6 +72,7 @@ typedef struct
     Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;
+    Q32I_       _P_Q14I_Flux;
     Q32I_       _P_Q14I_Flux2;
 }ST_FLUX_CONTROL_T;
 

@@ -13,6 +13,46 @@
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
+#include "MotorSQ.h"
+
+//启动算法选择
+#define MOTOR_OPENLOOP_IF               (0U)
+#define MOTOR_OPENLOOP_VF               (1U)
+#define MOTOR_OPENLOOP_HFI              (2U)
+#define MOTOR_OPENLOOP_FLUX             (3U)
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
+
+//观测器选择
+#define MOTOR_EST_FLUX                  (0U)
+#define MOTOR_EST_SMO                   (1U)
+#define MOTOR_EST_MODE                  MOTOR_EST_SMO
+
+
+//电流采样偏置检测
+#define CURRENT_OFFSET_VOLTAGE_V        (HAL_ADC_CURRENT_OFFSET)                            //V，电流采样偏置电压
+#define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)//lsb，电流采样偏置
+#define CURRENT_OFFSET_TL_lsb           (200U)                                              //lsb，电流采样偏置偏差阈值
+#define CURRENT_OFFSET_MAX_lsb          (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置上限
+#define CURRENT_OFFSET_MIN_lsb          (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置下限
+#define CURRENT_OFFSET_NUM              (20U)                                               //电流采样偏置检测次数
+
+//电机静止检测  
+#define BOOT_CHECK_DUTY                 (HAL_PWM_DUTY_50_PERCENT)   //电机静止检测占空比
+#define BOOT_CHECK_TL_lsb               (50U)                       //电机静止检测反电动势阈值
+#define BOOT_CHECK_NUM                  (10U)                       //电机静止检测判断次数
+#define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
+
+//刹车占空比控制
+#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
+
+#define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
+
+//刹车时间
+#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
+#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
+#define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
 
 
 //电机alignloop相关参数 
@@ -29,15 +69,7 @@
 #define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP1_TARGET_SRAD        (60.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_STEP               (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop1增速步长
-#define MOTOR_CLOSELOOP1_SWITCH_SRAD        (30.0f * MATH_2PI_F)            //Hz,电机closeloop1切换closeloop2转速
-#define MOTOR_CLOSELOOP1_SWITCH_TIME        (100U)                          //ms,电机closeloop1切换closeloop2的时间
-
-//电机closeloop2相关参数，闭环运行阶段         
-#define MOTOR_CLOSELOOP2_SRAD_TARGET        (MOTOR_MAX_SRAD)                //Hz,电机closeloop2目标转速
-#define MOTOR_CLOSELOOP2_STEP               (0.05f * MATH_2PI_F)            //Hz/ms,电机closeloop2增速步长 
-
+#define MOTOR_CLOSELOOP_STEP                (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop增速步长
 
 //IF
 #define MOTOR_IF_IQRAMP_INIT                (0.0f)                          //A,Iq初始值
@@ -45,7 +77,7 @@
 #define MOTOR_IF_IQRAMP_STEP                (1.0f * MOTOR_LTs)              //A/s,Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,IF速度目标值
+#define MOTOR_IF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)             //Hz,IF速度目标值
 #define MOTOR_IF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (3.0f)                          //rad,IF与观测器角度偏差允许切换值
@@ -57,7 +89,7 @@
 #define MOTOR_VF_VQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           (8.0f * MATH_2PI_F)             //Hz,VF速度目标值
+#define MOTOR_VF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)             //Hz,VF速度目标值
 #define MOTOR_VF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (3.0f)                          //rad,VF与观测器角度偏差允许切换值
@@ -106,13 +138,6 @@
 #define MOTOR_SMO_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
 
-//母线电流PID 
-#define MOTOR_BUS_P_REf                     (MOTOR_CURRENT_BUS_A)           //母线电流参考值
-#define MOTOR_BUS_KP_GAIN                   (2.00f)
-#define MOTOR_BUS_KI_GAIN                   (5.0f)
-#define MOTOR_BUS_KD_GAIN                   (0.0f)
-
-
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
     MOTOR_STATE_INIT,           //硬件初始化阶段
@@ -127,15 +152,13 @@ typedef enum
 {
     MOTOR_ALIGNLOOP,            //预定位阶段
     MOTOR_OPENLOOP,             //开环阶段
-    MOTOR_CLOSELOOP1,           //闭环启动阶段
-    MOTOR_CLOSELOOP2,           //闭环运行阶段
+    MOTOR_CLOSELOOP             //闭环阶段
 }EM_MOTOR_LOOP_MODE;
 
 typedef union{
     ALL all;
     struct{
         BIT motor_run_flag      :1;//电机运行标志位
-        BIT pwm_output_flag     :1;//pwm输出使能标志位
     }bit;
 }UN_MOTOR_STATE_FLAG;
 
@@ -163,15 +186,8 @@ typedef struct{
     float                       _P_F_Open_Switch_SRAD;
     Q32U_                       _P_Q32U_Open_Switch_Time;
     
-    Q32U_                       _V_Q32U_Close1_cnt;
-    float                       _P_F_Close1_Target_SRAD;
-    float                       _P_F_Close1_SRAD_Step;
-    float                       _P_F_Close1_Switch_SRAD;
-    Q32U_                       _P_Q32U_Close1_Switch_Time;
-    
-    Q32U_                       _V_Q32U_Close2_cnt;
-    float                       _P_F_Close2_Target_SRAD;
-    float                       _P_F_Close2_SRAD_Step;
+    Q32U_                       _V_Q32U_Close_cnt;
+    float                       _P_F_Close_SRAD_Step;
 }ST_LOOP_CONTROL_F;
 
 typedef struct{
@@ -179,6 +195,10 @@ typedef struct{
     EM_MOTOR_LOOP_MODE          Motor_Loop_Mode;
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
     UN_MOTOR_ERROR_FLAG         Motor_Error_Flag;
+    
+    ST_MS_OFFSET                MS_OFFSET;
+    ST_MS_BOOT                  MS_BOOT;
+    ST_BRAKE_CONTROL            BRAKE_CTRL;
     
     ST_LOOP_CONTROL_F           LOOP_CTRL;
     ST_IF_CONTROL_F             IF_CTRL;

@@ -46,10 +46,10 @@ extern "C"
  *  @{
  */
 
-extern Z20A8300A_IfType Z20A8300AIf1;
+extern Z20A8300A_IfType Z20A8300AIf;
 
-extern Z20A8300A_StatusRegType         Z20A8300AStatus_1;
-extern Z20A8300A_AllDiagType           Z20A8300ADiag_1;
+extern Z20A8300A_StatusRegType         Z20A8300AStatus;
+extern Z20A8300A_AllDiagType           Z20A8300ADiag;
 
 /** @} end of group Global_VariableDeclaration */
 

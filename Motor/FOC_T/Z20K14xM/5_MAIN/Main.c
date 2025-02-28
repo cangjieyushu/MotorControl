@@ -25,6 +25,8 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
+        Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
+        Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
 		Button_Control(&Button_Ctrl, pST);
 		
 		BSP_FeedWatchDog();
@@ -50,15 +52,9 @@ int main(void)
     BSP_GPIO_Init();
     Z20A8300A_Init1();
     
-#if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
-    BSP_ADC_Init_Three_Shunt();
-    BSP_DMA_Init_Three_Shunt(IRQHandleDMAIsr);
-    BSP_PWM_Init_Three_Shunt(IRQHandleMCBKIsr);
-#else
-    BSP_ADC_Init_One_Shunt();
-    BSP_DMA_Init_One_Shunt(IRQHandleDMAIsr);
-    BSP_PWM_Init_One_Shunt(IRQHandleMCBKIsr);
-#endif
+    BSP_ADC_Init();
+    BSP_DMA_Init(IRQHandleDMAIsr);
+    BSP_PWM_Init(IRQHandleMCBKIsr);
     
     BSP_ADC_Init_S();
     BSP_DMA_Init_S();
@@ -116,17 +112,15 @@ void IRQHandleMCBKIsr(void)
 {
     MH_PWM_Output_Disable();
     
-    MCU_Z20A8300A_SpiInit1();
-    MCU_Z20A8300A_GpioInit1();
+    MCU_Z20A8300A_SpiInit();
+    MCU_Z20A8300A_GpioInit();
     
-    Z20A8300AIf1.SpiSendCallBack = MCU_SPI_SendToZ20A8300A1;
-    Z20A8300AIf1.SpiReceiveCallBack = MCU_SPI_ReceiveFromZ20A8300A1;
-    Z20A8300AIf1.SpiWaitingForReceptionCallBack = MCU_SPI_WaitingForReceptionFromZ20A8300A1;
-    if(Z20A8300A_ERR_OK == Z20A8300A_Diag_ReadClearDiag(&Z20A8300AIf1,
-                                                        &Z20A8300AStatus_1,
-                                                        &Z20A8300ADiag_1))
+    Z20A8300AIf.SpiSendCallBack = MCU_SPI_SendToZ20A8300A;
+    Z20A8300AIf.SpiReceiveCallBack = MCU_SPI_ReceiveFromZ20A8300A;
+    Z20A8300AIf.SpiWaitingForReceptionCallBack = MCU_SPI_WaitingForReceptionFromZ20A8300A;
+    if(Z20A8300A_ERR_OK == Z20A8300A_Diag_ReadClearDiag(&Z20A8300AIf, &Z20A8300AStatus, &Z20A8300ADiag))
     {
-        if(Z20A8300ADiag_1.WORD != 0U)
+        if(Z20A8300ADiag.WORD != 0U)
         {
             Motor.Motor_Error_Flag.bit.current_short = 1U;
         }

@@ -8,12 +8,6 @@
 #ifndef Math_H
 #define Math_H
 
-#ifdef DEV_Z20K148M
-#define Ram_Func                    __ramfunc
-#else
-#define Ram_Func                    __attribute__((section (".ram_motor")))
-#endif
-
 /**********************************定点数学库**********************************/
 
 typedef unsigned    char            Q08U_;
@@ -442,7 +436,7 @@ Input_Output: 浮点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Ramp_Init_F(ST_RAMP_F* pRamp, float init);
+void Ramp_Init_F(ST_RAMP_F* pRamp, float init);
 
 /**********************************************************************************************
 Function: Ramp_Cal_F
@@ -453,7 +447,7 @@ Input_Output: 浮点斜坡指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Ramp_Cal_F(ST_RAMP_F* pRamp);
+void Ramp_Cal_F(ST_RAMP_F* pRamp);
 
 /**********************************************************************************************
 Function: Filter_Init_F
@@ -464,7 +458,7 @@ Input_Output: 浮点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Filter_Init_F(ST_FILTER_F* pFltr, float init);
+void Filter_Init_F(ST_FILTER_F* pFltr, float init);
 
 /**********************************************************************************************
 Function: Filter_Cal_F
@@ -475,7 +469,7 @@ Input_Output: 浮点低通滤波指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Filter_Cal_F(ST_FILTER_F* pFltr);
+void Filter_Cal_F(ST_FILTER_F* pFltr);
 
 /**********************************************************************************************
 Function: PID_Pos_Init_F
@@ -486,7 +480,7 @@ Input_Output: 浮点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init);
+void PID_Pos_Init_F(ST_PID_POS_F* pPID, float init);
 
 /**********************************************************************************************
 Function: PID_Pos_Cal_F
@@ -497,7 +491,7 @@ Input_Output: 浮点位置式PID指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void PID_Pos_Cal_F(ST_PID_POS_F* pPID);
+void PID_Pos_Cal_F(ST_PID_POS_F* pPID);
 
 /**********************************************************************************************
 Function: Math_SinCos_F
@@ -508,7 +502,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Math_SinCos_F(ST_TRIG_F* pTIG);
+void Math_SinCos_F(ST_TRIG_F* pTIG);
 
 /**********************************************************************************************
 Function: Math_Atan_F
@@ -519,7 +513,7 @@ Input_Output: 浮点角度指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Math_Atan_F(ST_TRIG_F* pTIG);
+void Math_Atan_F(ST_TRIG_F* pTIG);
 
 /**********************************************************************************************
 Function: Math_Sqrt_F
@@ -530,7 +524,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func float Math_Sqrt_F(float A);
+float Math_Sqrt_F(float A);
 
 /********************************延迟函数**********************************/
 

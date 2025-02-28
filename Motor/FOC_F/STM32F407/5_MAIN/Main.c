@@ -25,7 +25,11 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        Button_Control(&Button_Ctrl, pST);
+        Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
+        Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
+		Button_Control(&Button_Ctrl, pST);
+		
+		BSP_FeedWatchDog();
 
 		pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
@@ -73,41 +77,13 @@ Input_Output: нч
 Return: нч
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void ADC_IRQHandler(void)
+void ADC_IRQHandler(void)
 {
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
 	{
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
-		
-    	Q32U_ adc_data1,adc_data2,adc_data3 = 0;
-        float pwm_tmp1,pwm_tmp2,pwm_tmp3 = 0.0f;
-		
-    	MH_ADC_Data_Read_Three(&adc_data1, &adc_data2, &adc_data3);
-    	Motor.SVPWM_CTRL._I_F_Ia_Data = (float)adc_data1;
-    	Motor.SVPWM_CTRL._I_F_Ib_Data = (float)adc_data2;
-    	Motor.SVPWM_CTRL._I_F_Ic_Data = (float)adc_data3;
-        
-        Motor.SVPWM_CTRL._I_F_Ia = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ia_Offset - Motor.SVPWM_CTRL._I_F_Ia_Data);
-        Motor.SVPWM_CTRL._I_F_Ib = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ib_Offset - Motor.SVPWM_CTRL._I_F_Ib_Data);
-        Motor.SVPWM_CTRL._I_F_Ic = Motor.SVPWM_CTRL._P_F_Current_Scale*(Motor.SVPWM_CTRL._I_F_Ic_Offset - Motor.SVPWM_CTRL._I_F_Ic_Data);
         
         MotorTask_Current_Flow(&Motor);
-        
-        if(Motor.Motor_State_Flag.bit.pwm_output_flag == 1U)
-        {
-            MotorFoc_SVPWM_ThreeShunt_F(&Motor.SVPWM_CTRL);
-
-        	pwm_tmp1 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Ta;
-        	pwm_tmp2 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Tb;
-        	pwm_tmp3 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_Tc;
-			
-            MH_PWM_Duty_Set_Three((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3);
-            MH_PWM_Output_Enable();
-        }
-        else
-        {
-            MH_PWM_Output_Disable(); 
-        }
 	
 #if(JSCOPE_RTT_EN == 1U)
         RTT_DATA[0] = 10000.0f*Motor.SVPWM_CTRL._I_F_Ia;

@@ -20,7 +20,7 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib, Q32U_* pADC_Ic)
+static inline void MH_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib, Q32U_* pADC_Ic)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
     Q32U_ adc_tmp = 0U;
@@ -47,7 +47,7 @@ Input_Output: ADC数据指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_Data_Read_One(Q32U_* pADC_I1, Q32U_* pADC_I2)
+static inline void MH_ADC_Data_Read_One(Q32U_* pADC_I1, Q32U_* pADC_I2)
 {
     adc_reg_t * ADCx = (adc_reg_t *)(ADC0_BASE_ADDR);
     Q32U_ adc_tmp = 0U;
@@ -72,7 +72,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Output_Enable(void) 
+static inline void MH_PWM_Output_Enable(void) 
 {
     mcpwm_reg_w_t * MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
     Q32U_ regVal = MCPWMwx->MCPWM_GLBCR;
@@ -89,7 +89,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Output_Disable(void)
+static inline void MH_PWM_Output_Disable(void)
 {
     mcpwm_reg_w_t * MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
     Q32U_ regVal = MCPWMwx->MCPWM_GLBCR;
@@ -106,7 +106,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
+static inline void MH_PWM_Duty_Set_Three(Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
 {
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
     mcpwm_reg_w_t *MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
@@ -126,7 +126,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWM_Duty_Set_One(Q32U_ Ta1, Q32U_ Ta2, Q32U_ Tb1, Q32U_ Tb2, Q32U_ Tc1, Q32U_ Tc2)
+static inline void MH_PWM_Duty_Set_One(Q32U_ Ta1, Q32U_ Ta2, Q32U_ Tb1, Q32U_ Tb2, Q32U_ Tc1, Q32U_ Tc2)
 {
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
     mcpwm_reg_w_t *MCPWMwx = (mcpwm_reg_w_t *)(MCPWM1_BASE_ADDR);
@@ -149,7 +149,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_ADC_TrigTime_Set(Q32U_ Ch1, Q32U_ Ch2)
+static inline void MH_ADC_TrigTime_Set(Q32U_ Ch1, Q32U_ Ch2)
 {
     tdg_reg_t * TDGx = (tdg_reg_t *)(TDG0_BASE_ADDR);
     tdg_reg_w_t * TDGw = (tdg_reg_w_t *)(TDG0_BASE_ADDR);
@@ -183,7 +183,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_Current_IntFlag_Clear(void)
+static inline void MH_Current_IntFlag_Clear(void)
 {
     dma_reg_w_t* dmaRegWPtr = (dma_reg_w_t *) DMA_BASE_ADDR;
     dmaRegWPtr->DMA_GCC = 0x00808080U | ((((Q32U_)0U << 16U) | ((Q32U_)0U << 24U)) & 0x0F000000U);
@@ -198,7 +198,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Ram_Func void MH_PWMFault_IntFlag_Clear(void)
+static inline void MH_PWMFault_IntFlag_Clear(void)
 {
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(MCPWM1_BASE_ADDR);  
     

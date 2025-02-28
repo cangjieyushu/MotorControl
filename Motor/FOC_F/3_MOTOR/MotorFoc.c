@@ -18,7 +18,7 @@ Input_Output: IF控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL)
+void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.F_Init);
@@ -64,7 +64,7 @@ Input_Output: IF控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL)
+void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_SRAD.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
@@ -81,7 +81,7 @@ Input_Output: VF控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL)
+void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.F_Init);
@@ -127,7 +127,7 @@ Input_Output: VF控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL)
+void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_SRAD.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
@@ -144,7 +144,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Clark_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_Clark_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Ialfa = MATH_ONE_OVER_THREE_F*(2.0f*pCTRL->_I_F_Ia - pCTRL->_I_F_Ib - pCTRL->_I_F_Ic);
     pCTRL->_O_F_Ibeta = MATH_ONE_OVER_SQRT_THREE_F*(pCTRL->_I_F_Ib - pCTRL->_I_F_Ic);
@@ -159,7 +159,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Park_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_Park_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Id =  pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Sin;
     pCTRL->_O_F_Iq = -pCTRL->_O_F_Ialfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_O_F_Ibeta*pCTRL->TG_Triangle.F_Cos;
@@ -174,7 +174,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Ipark_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_Ipark_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Ualfa = pCTRL->_I_F_Ud*pCTRL->TG_Triangle.F_Cos - pCTRL->_I_F_Uq*pCTRL->TG_Triangle.F_Sin;
     pCTRL->_O_F_Ubeta = pCTRL->_I_F_Ud*pCTRL->TG_Triangle.F_Sin + pCTRL->_I_F_Uq*pCTRL->TG_Triangle.F_Cos;
@@ -191,7 +191,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_SVPWM_Init_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_SVPWM_Init_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->TG_Triangle.F_Angle = 0.0f;
     pCTRL->TG_Triangle.F_Cos = 0.0f;
@@ -215,7 +215,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_SVPWM_ThreeShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     float Utmp1 = 0.0f,Utmp2 = 0.0f,Utmp3 = 0.0f;
     float Ttmp1 = 0.0f,Ttmp2 = 0.0f,Ttmpsum = 0.0f;
@@ -308,7 +308,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_OneShunt_Cal_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_OneShunt_Cal_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->_I_F_Ia = pCTRL->_I_F_Ishunt[ADC_Table[0][pCTRL->_O_Q08U_Sector]];
     pCTRL->_I_F_Ib = pCTRL->_I_F_Ishunt[ADC_Table[1][pCTRL->_O_Q08U_Sector]];
@@ -324,7 +324,7 @@ Input_Output: SVPWM控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
+void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     float Utmp1 = 0.0f,Utmp2 = 0.0f,Utmp3 = 0.0f;
     float Ttmp1 = 0.0f,Ttmp2 = 0.0f,Ttmpsum = 0.0f;
@@ -475,7 +475,7 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL)
+void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL)
 {
     PID_Pos_Init_F(&pCTRL->PID_SRAD, 0.0f);
     PID_Pos_Init_F(&pCTRL->PID_WEAK, 0.0f);
@@ -522,7 +522,7 @@ Input_Output: 电流环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Current_Init_F(ST_CURRENT_CONTROL_F* pCTRL)
+void MotorFoc_Current_Init_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
     PID_Pos_Init_F(&pCTRL->PID_Id, 0.0f);
     PID_Pos_Init_F(&pCTRL->PID_Iq, 0.0f);
@@ -537,7 +537,7 @@ Input_Output: 电流环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
+void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
     pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;
     pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;

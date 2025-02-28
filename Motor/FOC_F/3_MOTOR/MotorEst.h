@@ -70,18 +70,8 @@ typedef struct
     float       _P_F_Rs;
     float       _P_F_Ld;
     float       _P_F_Ls;
+    float       _P_F_Flux;
     float       _P_F_Flux2;
-    
-    float       _V_F_Yalfa_L;
-    float       _V_F_Ybeta_L;
-    float       _V_F_Yalfa_HF;
-    float       _V_F_Ybeta_HF;
-    float       _V_F_Xalfa_F;
-    float       _V_F_Xbeta_F;
-    float       _V_F_Nnalfa_F;
-    float       _V_F_Nnbeta_F;
-    float       _V_F_Nn2_F;
-    float       _V_F_Nn2_L;
 }ST_FLUX_CONTROL_F;
 
 typedef struct
@@ -208,7 +198,7 @@ Input_Output: 磁链观测器指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL);
+void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_Flux_F
@@ -219,7 +209,7 @@ Input_Output: 磁链观测器指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL);
+void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_SMO_Init_F
@@ -230,7 +220,7 @@ Input_Output: 滑模观测器指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL);
+void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_SMO_F
@@ -241,7 +231,7 @@ Input_Output: 滑模观测器指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Ram_Func void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL);
+void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL);
 
 float Hallest_Angle_Mean(float* DATA, ST_HALL_CONTROL_F* pCTRL);
 void Hallest_Study_Task_Flow(ST_HALL_CONTROL_F* pCTRL);

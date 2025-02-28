@@ -27,8 +27,6 @@ Author: CJYS
 void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
 {
 #if(BUTTON_MODE == BUTTON_MODE_BUTTON)
-    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
-    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
     
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
@@ -80,8 +78,6 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     float VRtmp = 0.0f;
     
     VRtmp = pST->F_FL_VR.F_Filter_out;
-    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
-    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
     
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {

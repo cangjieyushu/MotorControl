@@ -20,16 +20,16 @@
 #define MOTOR_OPENLOOP_VF               (1U)
 #define MOTOR_OPENLOOP_HFI              (2U)
 #define MOTOR_OPENLOOP_FLUX             (3U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_FLUX
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (0U)
 #define MOTOR_EST_SMO                   (1U)
-#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
+#define MOTOR_EST_MODE                  MOTOR_EST_SMO
 
 
 //电流采样偏置检测
-#define CURRENT_OFFSET_VOLTAGE_V        (2.5f)                                              //V，电流采样偏置电压
+#define CURRENT_OFFSET_VOLTAGE_V        (HAL_ADC_CURRENT_OFFSET)                            //V，电流采样偏置电压
 #define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)//lsb，电流采样偏置
 #define CURRENT_OFFSET_TL_lsb           (200U)                                              //lsb，电流采样偏置偏差阈值
 #define CURRENT_OFFSET_MAX_lsb          (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置上限

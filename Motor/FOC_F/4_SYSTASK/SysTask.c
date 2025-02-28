@@ -121,11 +121,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
             {
                 if(pST->System_State_Flag.BIT.system_runflag == 0U)
                 {
-                    Motor_Set_Target_Speed(pST->F_Duty_Target*1800.0f);
-                    if(Motor_Read_Speed() < 2000.0f)
-                    {
-                        pST->System_Flow = SYSTEM_STATE_IDLE;
-                    }
+                    pST->System_Flow = SYSTEM_STATE_IDLE;
                 }
             }
             break;

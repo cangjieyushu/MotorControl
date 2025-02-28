@@ -124,9 +124,9 @@ void Est_Flux_Init_T(ST_FLUX_CONTROL_T* pCTRL)
     pCTRL->TG_Triangle.Q14I_Cos = 16384;
     pCTRL->TG_Triangle.Q14I_Sin = 0;
     pCTRL->TG_Triangle.Q12U_ReAngle = 0;
-    
-    pCTRL->_V_Q14I_Xalfa = 0;
-    pCTRL->_V_Q14I_Xbeta = 0;
+	
+    pCTRL->_V_Q28I_Xalfa_tmp = Q16I_LFT_14(pCTRL->_P_Q14I_Flux);
+	pCTRL->_V_Q28I_Xbeta_tmp = 0;
 }
 
 /**********************************************************************************************

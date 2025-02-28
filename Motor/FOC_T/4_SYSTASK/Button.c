@@ -29,9 +29,6 @@ Author: CJYS
 void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
 {
 #if(BUTTON_MODE == BUTTON_MODE_BUTTON)
-    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
-    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
-    
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
         if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
@@ -82,8 +79,6 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     Q32I_ VRtmp = 0U;
     
     VRtmp = (Q32I_)pST->FL_VR.Q16I_Filter_out;
-    pButton->Button0_State = BSP_GPIO_Read_SW0_State();
-    pButton->Button1_State = BSP_GPIO_Read_SW1_State();
     
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {

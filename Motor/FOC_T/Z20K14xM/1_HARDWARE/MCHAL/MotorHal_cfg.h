@@ -161,6 +161,7 @@
 #define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
 
 //相电流采样
+#define HAL_ADC_CURRENT_OFFSET                  (2.5f)                  //V，电流采样偏置电压
 #define HAL_ADC_CURRENT_GAIN                    (20.0f)                 //相电流采样放大倍数
 #define HAL_ADC_CURRENT_RESISTOR                (0.005f)                //Ω，相电流采样电阻
 #define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))
