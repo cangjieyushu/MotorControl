@@ -44,7 +44,11 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MotorTask_Init_Flow_ADC_Read_One(ST_MS_OFFSET* pMS_OFFSET)
 {
+    Q32U_ adc_data1,adc_data2 = 0;
     
+    MH_ADC_Data_Read_One(&adc_data1, &adc_data2);
+    pMS_OFFSET->_I_Q12I_Ishunt_2_Data = (Q32I_)adc_data1;
+    pMS_OFFSET->_I_Q12I_Ishunt_1_Data = (Q32I_)adc_data2;
 }
 
 /**********************************************************************************************
@@ -81,7 +85,16 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MotorTask_Run_Flow_ADC_Read_One(ST_SVPWM_CONTROL_F* pCTRL)
 {
+    Q32U_ adc_data1,adc_data2 = 0;
     
+    MH_ADC_Data_Read_One(&adc_data1, &adc_data2);
+    pCTRL->_I_Q12I_Ishunt_2_Data = (Q32I_)adc_data1;
+    pCTRL->_I_Q12I_Ishunt_1_Data = (Q32I_)adc_data2;
+    
+    pCTRL->_I_F_Ishunt[0] =  pCTRL->_P_F_Current_Scale*(pCTRL->_I_Q12I_Ishunt_1_Data - pCTRL->_I_Q12I_Ishunt_1_Offset);
+    pCTRL->_I_F_Ishunt[1] = -pCTRL->_P_F_Current_Scale*(pCTRL->_I_Q12I_Ishunt_2_Data - pCTRL->_I_Q12I_Ishunt_2_Offset);
+    pCTRL->_I_F_Ishunt[2] = -pCTRL->_I_F_Ishunt[0] - pCTRL->_I_F_Ishunt[1];
+    MotorFoc_OneShunt_Cal_F(pCTRL);
 }
 
 /**********************************************************************************************
@@ -107,7 +120,7 @@ static inline void MotorTask_Run_Flow_PWM_Set_Three(ST_SVPWM_CONTROL_F* pCTRL)
 }
 
 /**********************************************************************************************
-Function: MotorTask_Run_Flow_PWM_Set_Three
+Function: MotorTask_Run_Flow_PWM_Set_One
 Description: 电机控制运行状态PWM设置
 Input: 无
 Output: 无
@@ -117,7 +130,21 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MotorTask_Run_Flow_PWM_Set_One(ST_SVPWM_CONTROL_F* pCTRL)
 {
+    float pwm_tmp1,pwm_tmp2,pwm_tmp3,pwm_tmp4,pwm_tmp5,pwm_tmp6,adc_tmp1,adc_tmp2 = 0;
     
+    MotorFoc_SVPWM_OneShunt_F(&Motor.SVPWM_CTRL);
+    
+    pwm_tmp1 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TaUp;
+    pwm_tmp2 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TaDn;
+    pwm_tmp3 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TbUp;
+    pwm_tmp4 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TbDn;
+    pwm_tmp5 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TcUp;
+    pwm_tmp6 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_TcDn;
+    adc_tmp1 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_ADCTrigTime1;
+    adc_tmp2 = Motor.SVPWM_CTRL._P_F_PWM_All_Count*Motor.SVPWM_CTRL._O_F_ADCTrigTime2;
+    
+    MH_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3,(Q32U_)pwm_tmp4,(Q32U_)pwm_tmp5,(Q32U_)pwm_tmp6);
+    MH_ADC_TrigTime_Set((Q32U_)adc_tmp1,(Q32U_)adc_tmp2);
 }
 
 

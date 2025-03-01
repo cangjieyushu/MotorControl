@@ -12,7 +12,7 @@
 #define MotorTask_Init_Flow_ADC_Read    MotorTask_Init_Flow_ADC_Read_Three
 #define MotorTask_Run_Flow_ADC_Read     MotorTask_Run_Flow_ADC_Read_Three
 #define MotorTask_Run_Flow_PWM_Set      MotorTask_Run_Flow_PWM_Set_Three
-#else
+#elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
 #define MotorSQ_Offset_Check            MotorSQ_Offset_Check_One
 #define MotorTask_Init_Flow_ADC_Read    MotorTask_Init_Flow_ADC_Read_One
 #define MotorTask_Run_Flow_ADC_Read     MotorTask_Run_Flow_ADC_Read_One
@@ -250,6 +250,11 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
+        pMotor->LOOP_CTRL._V_Q32U_Align_cnt = 0U;
+        pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+        pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
+        pMotor->LOOP_CTRL._V_Q32U_Close_cnt = 0U;
+        
         MotorFoc_IF_Init_T(&pMotor->IF_CTRL);
         MotorFoc_VF_Init_T(&pMotor->VF_CTRL);
         
@@ -607,5 +612,34 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
     }
     
-    Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
+//    Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
+    
+    MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
+    MotorFoc_VF_CURRENT_T(&pMotor->VF_CTRL);
+    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
+    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
+    
+    pMotor->SVPWM_CTRL._I_Q14I_Ud = 0;
+    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->VF_CTRL.Ramp_Vq.Q32I_Output;
+        MotorFoc_Ipark_T(&pMotor->SVPWM_CTRL);
+        
+        MotorTask_Run_Flow_PWM_Set(&pMotor->SVPWM_CTRL);
+        
+        MH_PWM_Output_Enable();
+}
+
+/**********************************************************************************************
+Function: MotorTask_Shut_Flow
+Description: 电机控制故障关断
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_Shut_Flow(ST_MOTOR_TASK* pMotor)
+{
+//    MH_HPWM_LPWM_Close();
+//    pMotor->Q32U_MOS_Error_cnt++;
+    pMotor->Motor_Error_Flag.bit.current_short = 1U;
 }

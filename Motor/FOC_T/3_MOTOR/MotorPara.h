@@ -20,12 +20,12 @@
 #define MOTOR_OPENLOOP_VF               (1U)
 #define MOTOR_OPENLOOP_HFI              (2U)
 #define MOTOR_OPENLOOP_FLUX             (3U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (0U)
 #define MOTOR_EST_SMO                   (1U)
-#define MOTOR_EST_MODE                  MOTOR_EST_SMO
+#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
 
 
 //电流采样偏置检测

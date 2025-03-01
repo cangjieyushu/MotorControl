@@ -9,7 +9,6 @@
 #define MotorHal_cfg_H
 
 //调用所有外设的头文件
-
 #include "Device_Regs.h"
 #include "Platform_Cfg.h"
 #include "Platform_Types.h"

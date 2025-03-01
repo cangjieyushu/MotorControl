@@ -9,7 +9,6 @@
 #define MotorHal_cfg_H
 
 //调用所有外设的头文件
-
 #include "rx32h6xx.h"
 #include "rx32h6xx_adc.h"
 #include "rx32h6xx_cmp.h"

@@ -112,15 +112,15 @@ static inline void MotorTask_Run_Flow_PWM_Set_Three(ST_SVPWM_CONTROL_T* pCTRL)
     
     MotorFoc_SVPWM_ThreeShunt_T(&Motor.SVPWM_CTRL);
     
-    pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Ta);
-    pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Tb);
-    pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Tc);
+    pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Ta);
+    pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Tb);
+    pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_Tc);
     
     MH_PWM_Duty_Set_Three((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3);
 }
 
 /**********************************************************************************************
-Function: MotorTask_Run_Flow_PWM_Set_Three
+Function: MotorTask_Run_Flow_PWM_Set_One
 Description: 电机控制运行状态PWM设置
 Input: 无
 Output: 无
@@ -134,19 +134,18 @@ static inline void MotorTask_Run_Flow_PWM_Set_One(ST_SVPWM_CONTROL_T* pCTRL)
     
     MotorFoc_SVPWM_OneShunt_T(&Motor.SVPWM_CTRL);
     
-    pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaUp);
-    pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaDn);
-    pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbUp);
-    pwm_tmp4 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbDn);
-    pwm_tmp5 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcUp);
-    pwm_tmp6 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcDn);
-    adc_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime1);
-    adc_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q12I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime2);
+    pwm_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaUp);
+    pwm_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TaDn);
+    pwm_tmp3 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbUp);
+    pwm_tmp4 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TbDn);
+    pwm_tmp5 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcUp);
+    pwm_tmp6 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_TcDn);
+    adc_tmp1 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime1);
+    adc_tmp2 = Q32I_RHT_12(Motor.SVPWM_CTRL._P_Q16I_PWM_All_Count*Motor.SVPWM_CTRL._O_Q12I_ADCTrigTime2);
     
     MH_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3,(Q32U_)pwm_tmp4,(Q32U_)pwm_tmp5,(Q32U_)pwm_tmp6);
     MH_ADC_TrigTime_Set((Q32U_)adc_tmp1,(Q32U_)adc_tmp2);
 }
-
 
 /************************************电机控制接口函数*****************************************/
 /**********************************************************************************************
@@ -339,5 +338,16 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
+
+/**********************************************************************************************
+Function: MotorTask_Shut_Flow
+Description: 电机控制故障关断
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_Shut_Flow(ST_MOTOR_TASK* pMotor);
 
 #endif /* MotorTask_H */

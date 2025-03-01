@@ -76,7 +76,7 @@ typedef struct
     Q32I_       _P_Q12I_MinDuty;
     Q32I_       _P_Q12I_ADCSampleDuty;
     Q32I_       _P_Q24I_Current_Scale;
-    Q32I_       _P_Q12I_PWM_All_Count;    
+    Q32I_       _P_Q16I_PWM_All_Count;    
     
     
     Q32I_       _I_Q12I_Ishunt[3];
