@@ -101,9 +101,9 @@ typedef struct
     
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
-    Q32I_       _P_Q10I_K1;
-    Q32I_       _P_Q14I_K2;
-    Q32I_       _P_Q14I_Limit;
+    Q32I_       _P_Q14I_K1;
+    Q32I_       _P_Q24I_K2;
+    Q32I_       _P_Q28I_Limit;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Lq;

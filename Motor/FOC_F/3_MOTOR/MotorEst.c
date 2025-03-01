@@ -234,11 +234,11 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->_V_F_Ealfa_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRalfa;
     pCTRL->_V_F_Ebeta_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRbeta;
     
+    pCTRL->_V_F_Ealfa_tmp = MATH_SAT_F(pCTRL->_V_F_Ealfa_tmp, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
+    pCTRL->_V_F_Ebeta_tmp = MATH_SAT_F(pCTRL->_V_F_Ebeta_tmp, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
+    
     pCTRL->_V_F_Ealfa = pCTRL->_P_F_K1*pCTRL->_V_F_ERRalfa + pCTRL->_V_F_Ealfa_tmp;
     pCTRL->_V_F_Ebeta = pCTRL->_P_F_K1*pCTRL->_V_F_ERRbeta + pCTRL->_V_F_Ebeta_tmp;
-    
-    pCTRL->_V_F_Ealfa = MATH_SAT_F(pCTRL->_V_F_Ealfa, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
-    pCTRL->_V_F_Ebeta = MATH_SAT_F(pCTRL->_V_F_Ebeta, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
         
     pCTRL->PID_PLL.F_Rf = -pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb =  pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;

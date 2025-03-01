@@ -36,17 +36,7 @@ del *.local /s
 
 cd /d %~dp0
 rd /s/q Debug
-rd /s/q settings
-del *.dep
-del *.ewt
-
-cd /d %~dp0
-rd /s/q Debug
-rd /s/q settings
-del *.dep
-del *.ewt
-rd /s/q Debug
-rd /s/q settings
+::rd /s/q settings
 del *.dep
 del *.ewt
 
