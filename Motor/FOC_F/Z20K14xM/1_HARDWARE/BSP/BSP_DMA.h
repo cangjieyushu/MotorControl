@@ -17,7 +17,7 @@
 //ADC数据接口宏定义
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
 #define BSP_ADC_READ_DATA_VBUS              (Hal_AdcLoopData[3] & 0x00000FFFU)
-#else
+#elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
 #define BSP_ADC_READ_DATA_VBUS              (Hal_AdcMapData[2] & 0x00000FFFU)
 #endif
 

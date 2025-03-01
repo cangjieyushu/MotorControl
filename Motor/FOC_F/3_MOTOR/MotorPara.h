@@ -65,7 +65,7 @@
 
 //电机openloop相关参数 
 #define MOTOR_OPENLOOP_MIN_TIME             (5000U)                         //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_SRAD          (5.0f * MATH_2PI_F)             //Hz,电机openloop切换closeloop1转速
+#define MOTOR_OPENLOOP_SWITCH_SRAD          (15.0f * MATH_2PI_F)            //Hz,电机openloop切换closeloop1转速
 #define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop1时间
 
 //电机closeloop1相关参数，闭环开始阶段 
@@ -77,7 +77,7 @@
 #define MOTOR_IF_IQRAMP_STEP                (1.0f * MOTOR_LTs)              //A/s,Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)             //Hz,IF速度目标值
+#define MOTOR_IF_ANGLERAMP_TARGET           (20.0f * MATH_2PI_F)            //Hz,IF速度目标值
 #define MOTOR_IF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (3.0f)                          //rad,IF与观测器角度偏差允许切换值
@@ -89,7 +89,7 @@
 #define MOTOR_VF_VQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)             //Hz,VF速度目标值
+#define MOTOR_VF_ANGLERAMP_TARGET           (20.0f * MATH_2PI_F)            //Hz,VF速度目标值
 #define MOTOR_VF_ANGLERAMP_STEP             (2.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (3.0f)                          //rad,VF与观测器角度偏差允许切换值
@@ -128,7 +128,7 @@
 #define MOTOR_FLUX_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_K1                        (2.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
+#define MOTOR_SMO_K1                        (4.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
 #define MOTOR_SMO_K2                        (0.02f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数2
 
 #define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * MOTOR_VOLTAGE_V))                              //锁相环比例系数

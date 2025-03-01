@@ -175,11 +175,6 @@ typedef struct
 #define MATH_DELAY_US_COUNT                 (21U)
 #define MATH_DELAY_MS_COUNT                 (21850U)
 
-typedef struct {
-    Q32I_ Q28I_High;
-    Q32I_ Q28I_Low;
-}ST_56_SPLIT;
-
 typedef struct
 {
     Q32I_ Q32I_Init;
@@ -250,39 +245,6 @@ typedef struct
     Q32I_ Q14I_OutMax;
     Q32I_ Q14I_OutMin;
 }ST_PID_POS_P;
-
-/**********************************************************************************************
-Function: SPLIT_Q56I_Data
-Description: 将两个28位整数合并为一个56位数
-Input: 高28位，低28位
-Output: 无
-Input_Output: 无
-Return: 合并后的数
-Author: CJYS
-***********************************************************************************************/ 
-ST_56_SPLIT SPLIT_Q56I_Data(Q32I_ high, Q32I_ low);
-
-/**********************************************************************************************
-Function: SPLIT_Q56I_Add
-Description: 将两个56位数相加
-Input: 两个56位数
-Output: 无
-Input_Output: 无
-Return: 相加后的数
-Author: CJYS
-***********************************************************************************************/ 
-ST_56_SPLIT SPLIT_Q56I_Add(ST_56_SPLIT a, ST_56_SPLIT b);
-
-/**********************************************************************************************
-Function: SPLIT_Q56I_Multi
-Description: 将两个28位数相乘
-Input: 两个28位数
-Output: 无
-Input_Output: 无
-Return: 相乘后的数
-Author: CJYS
-***********************************************************************************************/ 
-ST_56_SPLIT SPLIT_Q56I_Multi(Q32I_ a, Q32I_ b);
 
 /**********************************************************************************************
 Function: Ramp_Init_T

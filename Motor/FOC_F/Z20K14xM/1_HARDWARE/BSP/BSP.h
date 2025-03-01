@@ -21,7 +21,7 @@
 #define BSP_ADC_Init                    BSP_ADC_Init_Three_Shunt
 #define BSP_DMA_Init                    BSP_DMA_Init_Three_Shunt
 #define BSP_PWM_Init                    BSP_PWM_Init_Three_Shunt
-#else
+#elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
 #define BSP_ADC_Init                    BSP_ADC_Init_One_Shunt
 #define BSP_DMA_Init                    BSP_DMA_Init_One_Shunt
 #define BSP_PWM_Init                    BSP_PWM_Init_One_Shunt

@@ -26,25 +26,7 @@
 #include "tmu_drv.h"
 #include "uart_drv.h"
 #include "wdog_drv.h"
-
 #include "Math.h"
-
-#define BIT0    0x0001U
-#define BIT1    0x0002U
-#define BIT2    0x0004U
-#define BIT3    0x0008U
-#define BIT4    0x0010U
-#define BIT5    0x0020U
-#define BIT6    0x0040U
-#define BIT7    0x0080U
-#define BIT8    0x0100U
-#define BIT9    0x0200U
-#define BIT10   0x0400U
-#define BIT11   0x0800U
-#define BIT12   0x1000U
-#define BIT13   0x2000U
-#define BIT14   0x4000U
-#define BIT15   0x8000U
 
 //三电阻采样或者单电阻采样选择
 #define HAL_THREE_SHUNT             (0U)

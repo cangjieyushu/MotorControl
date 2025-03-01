@@ -25,7 +25,7 @@
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
 #define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
+#define MOTOR_EST_MODE                  MOTOR_EST_SMO
 
 
 //电流采样偏置检测
@@ -129,7 +129,7 @@
 #define MOTOR_FLUX_PLL_MIN                  (Q32I_)(-2.000f * Q14I_MAX_SRAD_PU)  	//锁相环最小输出
 
 //SMO观测器            
-#define MOTOR_SMO_K1                        (Q32I_)(Q10U_MAX * 2.00f * Q14I_VOLTAGE_PU / Q14I_CURRENT_PHASE_PU)           //增益系数1
+#define MOTOR_SMO_K1                        (Q32I_)(Q10U_MAX * 4.00f * Q14I_VOLTAGE_PU / Q14I_CURRENT_PHASE_PU)           //增益系数1
 #define MOTOR_SMO_K2                        (Q32I_)(MOTOR_Q14_PU * 0.02f * Q14I_VOLTAGE_PU / Q14I_CURRENT_PHASE_PU)       //增益系数2
 
 #define MOTOR_SMO_PLL_KP                    (Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU))                              //锁相环比例系数
