@@ -340,4 +340,15 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor);
 
+/**********************************************************************************************
+Function: MotorTask_Shut_Flow
+Description: 电机控制故障关断
+Input: 无
+Output: 无
+Input_Output: 电机控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorTask_Shut_Flow(ST_MOTOR_TASK* pMotor);
+
 #endif /* MotorTask_H */

@@ -612,20 +612,7 @@ void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
     }
     
-//    Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
-    
-    MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
-    MotorFoc_VF_CURRENT_T(&pMotor->VF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
-    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
-    
-    pMotor->SVPWM_CTRL._I_Q14I_Ud = 0;
-    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->VF_CTRL.Ramp_Vq.Q32I_Output;
-        MotorFoc_Ipark_T(&pMotor->SVPWM_CTRL);
-        
-        MotorTask_Run_Flow_PWM_Set(&pMotor->SVPWM_CTRL);
-        
-        MH_PWM_Output_Enable();
+    Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
 }
 
 /**********************************************************************************************
