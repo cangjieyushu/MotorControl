@@ -92,18 +92,12 @@ typedef struct
     Q32I_       _V_Q28I_Abeta_tmp;
     Q32I_       _V_Q14I_Aalfa;
     Q32I_       _V_Q14I_Abeta;
-    Q32I_       _V_Q28I_ERRalfa_tmp;
-    Q32I_       _V_Q28I_ERRbeta_tmp;
-    Q32I_       _V_Q28I_Ealfa_tmp;
-    Q32I_       _V_Q28I_Ebeta_tmp;
     Q32I_       _V_Q14I_Ealfa;
     Q32I_       _V_Q14I_Ebeta;
     
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
     Q32I_       _P_Q14I_K1;
-    Q32I_       _P_Q24I_K2;
-    Q32I_       _P_Q28I_Limit;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Lq;

@@ -34,9 +34,9 @@ Return: нч
 Author: CJYS
 ***********************************************************************************************/
 void Ramp_Cal_T(ST_RAMP_T* pRamp)
-{    
+{
     if(pRamp->Q32I_Target > pRamp->Q32I_Output) 
-    { 
+    {
         if(pRamp->Q32I_Target > pRamp->Q32I_Output + pRamp->Q32I_ADDStep) 
         {
             pRamp->Q32I_Output += pRamp->Q32I_ADDStep;
@@ -309,22 +309,18 @@ void Math_SinCos_T(ST_TRIG_T* pTIG)
             pTIG->Q14I_Sin =  Math_Sin_Table_I16[Q16U_index_tmp];
             pTIG->Q14I_Cos =  Math_Sin_Table_I16[(0x3FFU - Q16U_index_tmp)];
             break;
-
         case U90_180:
             pTIG->Q14I_Sin =  Math_Sin_Table_I16[(0x3FFU - Q16U_index_tmp)];
             pTIG->Q14I_Cos = -Math_Sin_Table_I16[Q16U_index_tmp];
             break;
-
         case U180_270:
             pTIG->Q14I_Sin = -Math_Sin_Table_I16[Q16U_index_tmp];
             pTIG->Q14I_Cos = -Math_Sin_Table_I16[(0x3FFU - Q16U_index_tmp)];
             break;
-
         case U270_360:
             pTIG->Q14I_Sin = -Math_Sin_Table_I16[(0x3FFU - Q16U_index_tmp)];
             pTIG->Q14I_Cos =  Math_Sin_Table_I16[Q16U_index_tmp];
             break;
-        
         default:
             break;
     }

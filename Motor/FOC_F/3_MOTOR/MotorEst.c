@@ -9,100 +9,184 @@
 
 /**********************************************************************/
 
-//void Est_HFI_Init(ST_HFI_CONTROL* pCTRL)
-//{
-//    pCTRL->ElecFreqHz = 0.0f;
-//    pCTRL->ElecFreqHz_Filter = 0.0f;
-//    pCTRL->AngleRad = 0.0f;
-//    pCTRL->AngleSpeed = 0.0f;
-//    pCTRL->Id_LPF = 0.0f;
-//    pCTRL->Iq_LPF = 0.0f;
-//    pCTRL->Id_HPF = 0.0f;
-//    pCTRL->Iq_HPF = 0.0f;
-//    pCTRL->AngleRad_HFI = 0.0f;  
-//    pCTRL->AngleRad_ERROR = 0.0f;    
-//    pCTRL->Ud_HFI = 0.0f;     
-//    pCTRL->cnt = 0U;
-//    PID_POS_Init(&pCTRL->Pll_Pid, 0.0f);
-//}
+/**********************************HFI观测器************************************/
 
-//void Est_HFI(ST_HFI_CONTROL* pCTRL)
-//{
-//    /* Clarke transform */   
-//    Clarke_Transform(pFoc);
-//    
-//    pCTRL->cnt++;
-//    if(pCTRL->cnt == 5U)
-//    {
-//        pCTRL->cnt = 0U;
-//        pCTRL->Id_LPF = 0.5f*(pFoc->Ialpha + pCTRL->Id_Last);
-//        pCTRL->Id_HPF = 0.5f*(pFoc->Ialpha - pCTRL->Id_Last)*pCTRL->SIGN;
-//        pCTRL->Iq_LPF = 0.5f*(pFoc->Ibeta + pCTRL->Iq_Last);
-//        pCTRL->Iq_HPF = 0.5f*(pFoc->Ibeta - pCTRL->Iq_Last)*pCTRL->SIGN;
-//        
-//        pCTRL->Id_Last = pFoc->Ialpha;
-//        pCTRL->Iq_Last = pFoc->Ibeta;
-//        pFoc->Ialpha = pCTRL->Id_LPF;
-//        pFoc->Ibeta = pCTRL->Iq_LPF;
-//        
-//        pCTRL->Pll_Pid.Ref = pFoc->CosValue*pCTRL->Iq_HPF;
-//        pCTRL->Pll_Pid.Fdb = pFoc->SinValue*pCTRL->Id_HPF;
-//        PID_POS_Cal(&pCTRL->Pll_Pid);
-//        
-//        pCTRL->AngleSpeed = pCTRL->Pll_Pid.Output;
-//        pCTRL->ElecFreqHz = ZXMATH_ONE_OVER_2PI*pCTRL->AngleSpeed;
-//        pCTRL->ElecFreqHz_Filter = 0.001f*(USER_PLL_SPEED_LPF_COEFF*pCTRL->ElecFreqHz + (1000.0f-USER_PLL_SPEED_LPF_COEFF)*pCTRL->ElecFreqHz_Filter);
-//        
-//        pCTRL->AngleRad += 10.0f*pCTRL->Ts*pCTRL->AngleSpeed;
-//        while(pCTRL->AngleRad > MATH_2PI_F)
-//        {
-//            pCTRL->AngleRad -= MATH_2PI_F;
-//        }
-//        while(pCTRL->AngleRad < 0.0f)
-//        {
-//            pCTRL->AngleRad += MATH_2PI_F;
-//        }
-//        
-//        if(pCTRL->cnt_1 == 0U)
-//        {
-//            pCTRL->cnt_1 = 1U;
-//            pCTRL->SIGN = 1.0f;
-//        }
-//        else if(pCTRL->cnt_1 == 1U)
-//        {
-//            pCTRL->cnt_1 = 0U;
-//            pCTRL->SIGN = -1.0f;
-//        }
-//        pCTRL->Ud_HFI = pCTRL->SIGN*pCTRL->Ud_Ref;
-//    }
-//    
-//    pFoc->AngleRad = pCTRL->AngleRad;
-//    /* Park transform */
-//    pFoc->SinValue = ZxMath_SinF32(pFoc->AngleRad);
-//    pFoc->CosValue = ZxMath_CosF32(pFoc->AngleRad);
-//    Park_Transform(pFoc);
-//    
-//    pFoc->VsMax = pFoc->RealVdc * pFoc->VsMaxScale;
-//    /* Id PID */
-//    pFoc->PidId.OutMax = pCTRL->Udq_Coeff*pFoc->VsMax;
-//    pFoc->PidId.OutMin = -pCTRL->Udq_Coeff*pFoc->VsMax;
-//    pFoc->PidId.Ref = pFoc->IdRef;
-//    pFoc->PidId.Fdb = pFoc->Id;
-//    PID_POS_Cal(&pFoc->PidId);
-//    /* Iq PID */
-//    pFoc->PidIq.OutMax = pCTRL->Udq_Coeff*pFoc->VsMax;
-//    pFoc->PidIq.OutMin = -pCTRL->Udq_Coeff*pFoc->VsMax;
-//    pFoc->PidIq.Ref = pFoc->IqRef;
-//    pFoc->PidIq.Fdb = pFoc->Iq;
-//    PID_POS_Cal(&pFoc->PidIq);
-//    
-//    pFoc->Ud = pFoc->PidId.Output + pCTRL->Ud_HFI;
-//    pFoc->Uq = pFoc->PidIq.Output;
-//    /* IPark transform */	
-//    Ipark_Transform(pFoc);
-//    /* SVGEN */
-//    SVPWM_Cal(pFoc);
-//}
+/**********************************************************************************************
+Function: Est_HFI_Init_F
+Description: HFI观观测器初始化
+Input: 无
+Output: 无
+Input_Output: HFI观观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL)
+{
+    PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
+    Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
+    pCTRL->TG_Triangle.F_Angle = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 1.0f;
+    pCTRL->TG_Triangle.F_Sin = 0.0f;
+    pCTRL->TG_Triangle.F_ReAngle = 0.0f;
+    
+    pCTRL->_V_Q32U_State = 0U;
+    pCTRL->_V_Q32U_Flag_En = 0U;
+    pCTRL->_V_Q32U_NS_cnt = 0U;
+    pCTRL->_V_F_NS_Ud = 0.0f;
+    pCTRL->_V_F_NS_Id_N = 0.0f;
+    pCTRL->_V_F_NS_Id_S = 0.0f;
+    pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
+    
+    pCTRL->_V_Q32U_Ud_cnt = 0U;
+    pCTRL->_V_F_Ud_Sign = 1.0f;
+    pCTRL->_V_F_Ialfa_Last = 0.0f;
+    pCTRL->_V_F_Ibeta_Last = 0.0f;
+}
+
+/**********************************************************************************************
+Function: Est_HFI_State_F
+Description: HFI观测器
+Input: 无
+Output: 无
+Input_Output: HFI观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_State_F(ST_HFI_CONTROL_F* pCTRL)
+{
+    if(pCTRL->_V_Q32U_State == 0U)
+    {
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            pCTRL->_V_F_NS_Ud = pCTRL->_P_F_NS_Ud_Ref;
+            pCTRL->_V_F_NS_Ud_Ref_Sign = 0.0f;
+            
+            pCTRL->_V_Q32U_State = 1U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 1U)
+    {
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            
+            pCTRL->_V_Q32U_State = 2U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 2U)
+    {
+        pCTRL->_V_F_NS_Id_N += pCTRL->_I_F_Id;
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time2)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            pCTRL->_V_F_NS_Ud = 0.0f;
+            pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
+            
+            pCTRL->_V_Q32U_State = 3U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 3U)
+    {
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            pCTRL->_V_F_NS_Ud = -pCTRL->_P_F_NS_Ud_Ref;
+            pCTRL->_V_F_NS_Ud_Ref_Sign = 0.0f;
+            
+            pCTRL->_V_Q32U_State = 4U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 4U)
+    {
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            
+            pCTRL->_V_Q32U_State = 5U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 5U)
+    {
+        pCTRL->_V_F_NS_Id_S += pCTRL->_I_F_Id;
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time2)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            pCTRL->_V_F_NS_Ud = 0.0f;
+            pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
+            
+            if(MATH_ABS_F(pCTRL->_V_F_NS_Id_N) <= MATH_ABS_F(pCTRL->_V_F_NS_Id_S))
+            {
+                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
+            }
+            
+            pCTRL->_V_Q32U_State = 6U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 6U)
+    {
+        pCTRL->_V_Q32U_Flag_En = 1U;
+    }
+}
+
+/**********************************************************************************************
+Function: Est_HFI_F
+Description: HFI观测器计算
+Input: 无
+Output: 无
+Input_Output: HFI观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
+{
+    pCTRL->_V_Q32U_Ud_cnt++;
+    if(pCTRL->_V_Q32U_Ud_cnt == pCTRL->_P_Q32U_Ud_Period)
+    {
+        pCTRL->_V_Q32U_Ud_cnt = 0U;
+        pCTRL->_V_F_Ialfa_LPF = 0.5f*(pCTRL->_I_F_Ialfa + pCTRL->_V_F_Ialfa_Last);
+        pCTRL->_V_F_Ialfa_HPF = 0.5f*(pCTRL->_I_F_Ialfa - pCTRL->_V_F_Ialfa_Last)*pCTRL->_V_F_Ud_Sign;
+        pCTRL->_V_F_Ibeta_LPF = 0.5f*(pCTRL->_I_F_Ibeta + pCTRL->_V_F_Ibeta_Last);
+        pCTRL->_V_F_Ibeta_HPF = 0.5f*(pCTRL->_I_F_Ibeta - pCTRL->_V_F_Ibeta_Last)*pCTRL->_V_F_Ud_Sign;
+        
+        pCTRL->_V_F_Ialfa_Last = pCTRL->_I_F_Ialfa;
+        pCTRL->_V_F_Ibeta_Last = pCTRL->_I_F_Ibeta;
+        pCTRL->_O_F_Ialfa = pCTRL->_V_F_Ialfa_LPF;
+        pCTRL->_O_F_Ibeta = pCTRL->_V_F_Ibeta_LPF;
+        
+        if(pCTRL->_V_F_Ud_Sign == 1.0f)
+        {
+            pCTRL->_V_F_Ud_Sign = -1.0f;
+        }
+        else if(pCTRL->_V_F_Ud_Sign == -1.0f)
+        {
+            pCTRL->_V_F_Ud_Sign = 1.0f;
+        }
+    }
+    
+    if((pCTRL->_V_Q32U_State == 0U) || (pCTRL->_V_Q32U_State == 3U) || (pCTRL->_V_Q32U_State == 6U))
+    {
+        pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Ibeta_HPF*pCTRL->TG_Triangle.F_Cos;
+        pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ialfa_HPF*pCTRL->TG_Triangle.F_Sin;
+        PID_Pos_Cal_F(&pCTRL->PID_PLL);
+        
+        pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
+        Filter_Cal_F(&pCTRL->FL_SRAD);
+        
+        pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
+        MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
+        
+        Math_SinCos_F(&pCTRL->TG_Triangle);
+    }
+    
+    pCTRL->_O_F_Ud_HFI = pCTRL->_V_F_NS_Ud_Ref_Sign*pCTRL->_V_F_Ud_Sign*pCTRL->_P_F_Ud_Ref + pCTRL->_V_F_NS_Ud;
+}
 
 /**********************************磁链观测器************************************/
 
@@ -154,7 +238,7 @@ void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
-    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta) - MATH_SQUARE_F(pCTRL->_P_F_Ld*pCTRL->_I_F_IdRef);
+    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta);
     
     pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
     pCTRL->_V_F_Ebeta = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nbeta*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
@@ -164,7 +248,7 @@ void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
         
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
-        
+    
     pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Nbeta*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Nalfa*pCTRL->TG_Triangle.F_Sin;
     PID_Pos_Cal_F(&pCTRL->PID_PLL);
@@ -200,10 +284,6 @@ void Est_SMO_Init_F(ST_SMO_CONTROL_F* pCTRL)
     
     pCTRL->_V_F_Aalfa = 0.0f;
     pCTRL->_V_F_Abeta = 0.0f;
-    pCTRL->_V_F_Ealfa_tmp = 0.0f;
-    pCTRL->_V_F_Ebeta_tmp = 0.0f;
-    pCTRL->_V_F_Ealfa = 0.0f;
-    pCTRL->_V_F_Ebeta = 0.0f;
 }
 
 /**********************************************************************************************
@@ -228,18 +308,9 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ubeta
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ebeta);
     
-    pCTRL->_V_F_ERRalfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
-    pCTRL->_V_F_ERRbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
+    pCTRL->_V_F_Ealfa = pCTRL->_P_F_K1*(pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa);
+    pCTRL->_V_F_Ebeta = pCTRL->_P_F_K1*(pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta);
     
-    pCTRL->_V_F_Ealfa_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRalfa;
-    pCTRL->_V_F_Ebeta_tmp += pCTRL->_P_F_K2*pCTRL->_V_F_ERRbeta;
-    
-    pCTRL->_V_F_Ealfa_tmp = MATH_SAT_F(pCTRL->_V_F_Ealfa_tmp, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
-    pCTRL->_V_F_Ebeta_tmp = MATH_SAT_F(pCTRL->_V_F_Ebeta_tmp, pCTRL->_P_F_Limit, -pCTRL->_P_F_Limit);
-    
-    pCTRL->_V_F_Ealfa = pCTRL->_P_F_K1*pCTRL->_V_F_ERRalfa + pCTRL->_V_F_Ealfa_tmp;
-    pCTRL->_V_F_Ebeta = pCTRL->_P_F_K1*pCTRL->_V_F_ERRbeta + pCTRL->_V_F_Ebeta_tmp;
-        
     pCTRL->PID_PLL.F_Rf = -pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb =  pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;
     PID_Pos_Cal_F(&pCTRL->PID_PLL);

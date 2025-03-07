@@ -52,7 +52,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     
     float VRtmp = 0.0f;
     
-    VRtmp = pST->F_FL_VR.F_Filter_out;
+    VRtmp = pST->FL_VR.F_Filter_out;
     if(VRtmp > pButton->F_vr_start_tl)
     {
         pST->System_State_Flag.BIT.system_runflag = 1U;
@@ -77,7 +77,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     
     float VRtmp = 0.0f;
     
-    VRtmp = pST->F_FL_VR.F_Filter_out;
+    VRtmp = pST->FL_VR.F_Filter_out;
     
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {

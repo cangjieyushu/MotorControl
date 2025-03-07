@@ -61,6 +61,8 @@
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
 #define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
 
+#define HAL_CURRENT_PRESCALER                   (1.0f)
+
 #define HAL_PWM_DUTY_MAX_F                      (Q12U_MAX)
 #define HAL_PWM_DUTY_MAX_T                      (Q16U_)(Q12U_MAX)
 
@@ -97,11 +99,11 @@
 #define HAL_ADC_TRIGGER_TIME3                   (0.55f)
 
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
-#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.2f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (3.8f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 
@@ -109,11 +111,11 @@
 #define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)
 
 #elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
-#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.2f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (2.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (1.3f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 

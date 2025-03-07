@@ -70,8 +70,8 @@
 #define MOTOR_MIN_SRAD                      (MATH_2PI_F*MOTOR_POLE_PAIR*MOTOR_MIN_SPEED/60.0f)        //Hz，最低角频率
 
 //标幺化
-#define V_BASE                              (0.25f*HAL_ADC_VOLTAGE_MAX)      //V，电压
-#define I_BASE                              (0.25f*HAL_ADC_CURRENT_MAX)      //A，电流
+#define V_BASE                              (0.50f*HAL_ADC_VOLTAGE_MAX)      //V，电压
+#define I_BASE                              (0.50f*HAL_ADC_CURRENT_MAX)      //A，电流
 #define F_BASE                              (1.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
 
 #define W_BASE                              (F_BASE*MATH_2PI_F)     //Hz，角频率
@@ -87,9 +87,9 @@
 #define Q24I_VOLTAGE_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_VOLTAGE_SCALE/V_BASE)          //电压
 #define Q24I_CURRENT_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
      
-#define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*F_BASE)
+#define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*F_BASE*HAL_CURRENT_PRESCALER)
 #define Q14I_LTs_PU                         (MOTOR_Q14_PU*MOTOR_LTs*F_BASE)
-#define Q14I_HWs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*W_BASE)
+#define Q14I_HWs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*W_BASE*HAL_CURRENT_PRESCALER)
 #define Q14I_Rs_PU                          (MOTOR_Q14_PU*MOTOR_Rs/R_BASE)           //Ω，相电阻
 #define Q14I_Ld_PU                          (MOTOR_Q14_PU*MOTOR_Ld/L_BASE)           //H，d轴电感
 #define Q14I_Lq_PU                          (MOTOR_Q14_PU*MOTOR_Lq/L_BASE)           //H，q轴电感

@@ -10,35 +10,47 @@
 
 #include "Math.h"
 
-//typedef struct
-//{
-//    float ElecFreqHz;
-//    float ElecFreqHz_Filter;
-//    float AngleRad;
-//    float AngleSpeed;
-//    
-//    float AngleRad_HFI;  
-//    float AngleRad_ERROR;    
-//    
-//    float Ud_HFI;     
-//    
-//    uint8_t cnt;
-//    uint8_t cnt_1;
-//    float SIGN;
-//    float Id_LPF;
-//    float Iq_LPF;
-//    float Id_HPF;
-//    float Iq_HPF;
-//    float Id_Last;
-//    float Iq_Last;
-//    
-//    float Ud_Ref;     
-//    float Ud_Freq;       
-//    float Udq_Coeff;     
-//    float Speed;  
-//    float Ts;
-//    ST_PID_POS        Pll_Pid;      /*!< Internal Variable: The PLL PID in FSO */
-//}ST_HFI_CONTROL;
+typedef struct
+{
+    ST_PID_POS_F    PID_PLL;
+    ST_FILTER_F     FL_SRAD;
+    ST_TRIG_F       TG_Triangle;
+    
+    float       _I_F_Ialfa;
+    float       _I_F_Ibeta;
+    float       _I_F_Id;
+    
+    Q32U_       _V_Q32U_State;
+    
+    Q32U_       _V_Q32U_Flag_En;
+    Q32U_       _V_Q32U_NS_cnt;
+    float       _V_F_NS_Ud;
+    float       _V_F_NS_Id_N;
+    float       _V_F_NS_Id_S;
+    float       _V_F_NS_Ud_Ref_Sign;
+    
+    Q32U_       _V_Q32U_Ud_cnt;
+    float       _V_F_Ud_Sign;
+    float       _V_F_Ialfa_LPF;
+    float       _V_F_Ibeta_LPF;
+    float       _V_F_Ialfa_HPF;
+    float       _V_F_Ibeta_HPF;
+    float       _V_F_Ialfa_Last;
+    float       _V_F_Ibeta_Last;
+    
+    float       _O_F_Ialfa;
+    float       _O_F_Ibeta;
+    float       _O_F_Ud_HFI;
+    
+    float       _P_F_Target;
+    float       _P_F_Ud_Ref;
+    Q32U_       _P_Q32U_Ud_Period;
+    float       _P_F_Udq_Coeff;
+    float       _P_F_NS_Ud_Ref;
+    float       _P_F_NS_Time1;
+    float       _P_F_NS_Time2;
+    float       _P_F_Ts;
+}ST_HFI_CONTROL_F;
 
 typedef struct
 {
@@ -51,7 +63,6 @@ typedef struct
     float       _I_F_Ubeta;
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
-    float       _I_F_IdRef;
     
     float       _V_F_R_set;
     float       _V_F_Yalfa;
@@ -87,17 +98,11 @@ typedef struct
     
     float       _V_F_Aalfa;
     float       _V_F_Abeta;
-    float       _V_F_ERRalfa;
-    float       _V_F_ERRbeta;
-    float       _V_F_Ealfa_tmp;
-    float       _V_F_Ebeta_tmp;
     float       _V_F_Ealfa;
     float       _V_F_Ebeta;
     
     float       _P_F_Ts;
     float       _P_F_K1;
-    float       _P_F_K2;
-    float       _P_F_Limit;
     float       _P_F_Rs;
     float       _P_F_Ld;
     float       _P_F_Lq;
@@ -188,6 +193,39 @@ typedef struct
     float P_HS_Ud;   
     Q08U_ P_HS_num;      
 }ST_HALL_CONTROL_F;
+
+/**********************************************************************************************
+Function: Est_HFI_Init_F
+Description: HFI观观测器初始化
+Input: 无
+Output: 无
+Input_Output: HFI观观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: Est_HFI_State_F
+Description: HFI观测器
+Input: 无
+Output: 无
+Input_Output: HFI观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_State_F(ST_HFI_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: Est_HFI_F
+Description: HFI观测器计算
+Input: 无
+Output: 无
+Input_Output: HFI观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_Flux_Init_F

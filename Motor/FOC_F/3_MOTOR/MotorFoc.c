@@ -477,6 +477,8 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL)
 {
+    pCTRL->_O_F_IdRef = 0.0f;
+    pCTRL->_O_F_IqRef = 0.0f;
     PID_Pos_Init_F(&pCTRL->PID_SRAD, 0.0f);
     PID_Pos_Init_F(&pCTRL->PID_WEAK, 0.0f);
     Ramp_Init_F(&pCTRL->Ramp_SRAD, 0.0f);
@@ -524,6 +526,8 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_Current_Init_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
+    pCTRL->_I_F_IdRef = 0.0f;
+    pCTRL->_I_F_IqRef = 0.0f;
     PID_Pos_Init_F(&pCTRL->PID_Id, 0.0f);
     PID_Pos_Init_F(&pCTRL->PID_Iq, 0.0f);
 }
@@ -541,6 +545,35 @@ void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
     pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;
     pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale;
+    
+    pCTRL->PID_Id.F_OutMax = pCTRL->_V_F_Vsd;
+    pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;
+    pCTRL->PID_Id.F_Rf = pCTRL->_I_F_IdRef;
+    pCTRL->PID_Id.F_Fb = pCTRL->_I_F_Id;
+    PID_Pos_Cal_F(&pCTRL->PID_Id);
+    pCTRL->_O_F_Ud = pCTRL->PID_Id.F_Output;
+    
+    pCTRL->PID_Iq.F_OutMax = pCTRL->_V_F_Vsq;
+    pCTRL->PID_Iq.F_OutMin = -pCTRL->_V_F_Vsq;
+    pCTRL->PID_Iq.F_Rf = pCTRL->_I_F_IqRef;
+    pCTRL->PID_Iq.F_Fb = pCTRL->_I_F_Iq;
+    PID_Pos_Cal_F(&pCTRL->PID_Iq);
+    pCTRL->_O_F_Uq = pCTRL->PID_Iq.F_Output;
+}
+
+/**********************************************************************************************
+Function: MotorFoc_HFI_Current_Loop_F
+Description: 电流环控制
+Input: 无
+Output: 无
+Input_Output: 电流环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL, float PWM_Coeff)
+{
+    pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale*PWM_Coeff;
+    pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale*PWM_Coeff;
     
     pCTRL->PID_Id.F_OutMax = pCTRL->_V_F_Vsd;
     pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;

@@ -316,8 +316,8 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
         else
         {
             MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
-            MH_HPWM_LPWM_HOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
             MH_ADC_TrigTime_Set(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
+            MH_HPWM_LPWM_HOpen(Q32I_RHT_12(pMotor->MS_BOOT._P_Q12U_boot_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq));
         }
     }
     else
@@ -358,9 +358,9 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
                 }
                 case SUCS:
                 {
+                    MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
                     MH_PWM_Preload_Disable();
                     MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_low_pwm_freq);
-                    MH_ADC_TrigTime_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value);
                     pMotor->Motor_Flow = MOTOR_STATE_RUN;
                     break;
                 }
@@ -375,8 +375,8 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         }
         else
         {
-            POSITION_Set[0][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
             MH_ADC_TrigTime_Set(pMotor->MS_POSITION._V_Q12U_duty_set - 3*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value);
+            POSITION_Set[pMotor->MS_POSITION._V_Q32U_cnt][pMotor->MS_CTRL.DIR_Set](pMotor->MS_POSITION._V_Q12U_duty_set);
         }
     }
     else
@@ -523,9 +523,9 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._O_Q16U_arr_set);
             HPWMLPWM_Set[pMotor->MS_CTRL.Sector][pMotor->MS_CTRL.DIR_Set](pMotor->MS_CTRL.PWM_CTRL._O_Q16U_duty_final_val);
             
-            if(pMotor->Q14I_IPHASE_MAX_PU < pMotor->Q14I_IPHASE_MAX_PU)
+            if(pMotor->Q14I_IPHASE_MAX_PU < pMotor->MS_CTRL.Q14I_IPHASE_PU)
             {
-                pMotor->Q14I_IPHASE_MAX_PU = pMotor->Q14I_IPHASE_MAX_PU;
+                pMotor->Q14I_IPHASE_MAX_PU = pMotor->MS_CTRL.Q14I_IPHASE_PU;
             }
         }
     }

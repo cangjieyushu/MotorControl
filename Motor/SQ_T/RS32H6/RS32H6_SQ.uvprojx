@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_SDK\DEVICE\RX32H6\Core;..\..\0_SDK\DEVICE\RX32H6\RX32H6\INC;..\..\0_SDK\DEVICE\RX32H6\RX32H6\STARTUP\KEIL;..\..\0_SDK\DEVICE\RX32H6;..\..\0_SDK\STD\RS32H6\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

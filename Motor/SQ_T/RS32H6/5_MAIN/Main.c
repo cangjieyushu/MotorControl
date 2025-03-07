@@ -27,10 +27,10 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
     {
         Button_Control(&Button_Ctrl, pST);
         
-        USART_Get_Resceive_Data_1();
-        USART_Get_Resceive_Data_2();
-        USART_Send_Transmission_Data_1();
-        USART_Send_Transmission_Data_2();
+//        USART_Get_Resceive_Data_1();
+//        USART_Get_Resceive_Data_2();
+//        USART_Send_Transmission_Data_1();
+//        USART_Send_Transmission_Data_2();
         
         Voltage_Protect_Flow(&Systask);
         Current_Protect_Flow(&Systask);
@@ -188,12 +188,12 @@ void UART1_IRQHandler(void)
 	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
 	{		
 		UART_Clear_Flag(UART1, UART_FLAG_RXNE);
-        USART_Resceive_Int_1();
+//        USART_Resceive_Int_1();
 	}
 	else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
 	{
 		UART_Clear_Flag(UART1, UART_IT_TCIE);
-        USART_Transmission_Int_1();
+//        USART_Transmission_Int_1();
     }
 }
 
@@ -211,12 +211,12 @@ void UART2_IRQHandler()
 	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
 	{		
 		UART_Clear_Flag(UART2, UART_FLAG_RXNE);
-        USART_Resceive_Int_2();
+//        USART_Resceive_Int_2();
 	}
 	else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
 	{
 		UART_Clear_Flag(UART2, UART_IT_TCIE);
-        USART_Transmission_Int_2();
+//        USART_Transmission_Int_2();
     }
 }
 

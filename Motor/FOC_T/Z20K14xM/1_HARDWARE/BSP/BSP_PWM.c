@@ -16,7 +16,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
- void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
+void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
 {
     /*PRQA S 0303 ++*/
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) MCPWM1_BASE_ADDR;
@@ -233,7 +233,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
- void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
+void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
 {
     /*PRQA S 0303 ++*/
     mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) MCPWM1_BASE_ADDR;

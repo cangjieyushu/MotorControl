@@ -8,6 +8,7 @@
 #ifndef MotorHal_H
 #define MotorHal_H
 
+#include "BSP.h"
 #include "MotorHal_cfg.h"
 
 #define ADC_DATA_READ_U_BEMF        ((Q32U_)0)

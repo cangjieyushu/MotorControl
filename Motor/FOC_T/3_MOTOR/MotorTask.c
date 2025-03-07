@@ -83,16 +83,16 @@ void MotorTask_AlignLoop_Flow(ST_MOTOR_TASK* pMotor)
     {
         pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 3072;
         Ramp_Init_T(&pMotor->LOOP_CTRL.Align_Ramp, pMotor->LOOP_CTRL.Align_Ramp.Q32I_Init);
-        pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
+        pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
     }
     else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
     {
         pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 0;
-        pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
+        pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->LOOP_CTRL.Align_Ramp.Q32I_Output;
     }
     else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2)
     {
-        pMotor->CURRENT_CTRL._I_Q14I_IqRef = 0;
+        pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
     }
     else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time3)
     {
@@ -254,7 +254,7 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
         pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
         pMotor->LOOP_CTRL._V_Q32U_Close_cnt = 0U;
-        
+		
         MotorFoc_IF_Init_T(&pMotor->IF_CTRL);
         MotorFoc_VF_Init_T(&pMotor->VF_CTRL);
         

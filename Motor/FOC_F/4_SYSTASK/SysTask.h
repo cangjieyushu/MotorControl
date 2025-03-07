@@ -52,10 +52,10 @@ typedef struct{
     UN_SYSTEM_STATE_FLAG        System_State_Flag;
     UN_SYSTEM_ERROR_FLAG        System_Error_Flag;
     
-    ST_FILTER_F                 F_FL_VBUS;
-    ST_FILTER_F                 F_FL_TEMP;
-    ST_FILTER_F                 F_FL_VR;
-    ST_FILTER_F                 F_FL_VBG;
+    ST_FILTER_F                 FL_VBUS;
+    ST_FILTER_F                 FL_TEMP;
+    ST_FILTER_F                 FL_VR;
+    ST_FILTER_F                 FL_VBG;
     
     float                       F_Duty_Target;
     float                       F_Current_Max;

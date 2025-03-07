@@ -32,10 +32,10 @@ void BSP_ADC_Init_Three_Shunt(void)
         ADC_CONVERSION_SINGLE,
         /* average disabled */    
         ADC_AVGS_DISABLED,
-        /* Set sample interval > 500ns */        
+        /* Set sample interval > 700ns */        
         28,
-        /* Set ADC Stable time interval */                       
-        28,                       
+        /* Set ADC Stable time interval > 500ns */                       
+        20,                       
     }; 
    
     ADC_ChannelConfig_t AdcChannelCfg1 = 
@@ -208,10 +208,10 @@ void BSP_ADC_Init_One_Shunt(void)
         ADC_CONVERSION_SINGLE, 
         /* average disabled */   
         ADC_AVGS_DISABLED,     
-        /* Set sample interval > 500ns */   
+        /* Set sample interval > 700ns */   
         28,                 
-        /* Set ADC Stable time interval */      
-        28,                       
+        /* Set ADC Stable time interval > 500ns */      
+        20,                       
     }; 
    
     ADC_ChannelConfig_t AdcChannelCfg1 = 
@@ -401,9 +401,9 @@ void BSP_ADC_Init_S(void)
         ADC_CONVERSION_SINGLE,
         /* average disabled */
         ADC_AVGS_DISABLED,
-        /* Set sample interval > 500ns */
+        /* Set sample interval > 700ns */
         50,
-        /* Set ADC Stable time interval */
+        /* Set ADC Stable time interval > 500ns  */
         50,
     };
     

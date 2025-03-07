@@ -20,12 +20,12 @@
 #define MOTOR_OPENLOOP_VF               (01U)
 #define MOTOR_OPENLOOP_HFI              (02U)
 #define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_FLUX
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
 #define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MODE                  MOTOR_EST_SMO
+#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
 
 
 //电流采样偏置检测
@@ -104,7 +104,7 @@
 #define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)       //A,转速环输出q轴电流限幅
 #define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)      //A,转速环输出q轴电流限幅
 
-//电流PID 
+//电流PID
 #define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
 #define MOTOR_FOC_KP_GAIN                   (MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
 #define MOTOR_FOC_KI_GAIN                   (MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
@@ -117,6 +117,21 @@
 #define MOTOR_PLL_Coeff                     (0.2f)
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
 
+//HFI观测器  
+#define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                        //Hz,HFI速度目标值
+#define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)  //HFI电压幅值
+#define MOTOR_HFI_UD_PERIOD                 (4U)                                        //注入分频
+#define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                     //调制度限制
+#define MOTOR_HFI_NS_UD_REF                 (0.10f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)  //电压幅值
+#define MOTOR_HFI_NS_TIME1                  (50U)                                       //ms,电机HFI第一阶段
+#define MOTOR_HFI_NS_TIME2                  (50U)                                       //ms,电机HFI第二阶段
+
+#define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.05f * MOTOR_CURRENT_PHASE_A))                              //锁相环比例系数
+#define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.05f * MOTOR_CURRENT_PHASE_A))   //锁相环积分系数
+#define MOTOR_HFI_PLL_KD                    (0.0f)                    	//锁相环微分系数
+#define MOTOR_HFI_PLL_MAX                   ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
+#define MOTOR_HFI_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出05
+
 //非线性磁链观测器  
 #define MOTOR_FLUX_KT                       (0.02f * MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
 #define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
@@ -128,8 +143,7 @@
 #define MOTOR_FLUX_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_K1                        (0.20f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
-#define MOTOR_SMO_K2                        (2.00f * MOTOR_HTs * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数2
+#define MOTOR_SMO_K1                        (1.00f * MOTOR_VOLTAGE_V / MOTOR_CURRENT_PHASE_A)           //增益系数1
 
 #define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * MOTOR_VOLTAGE_V))                              //锁相环比例系数
 #define MOTOR_SMO_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * MOTOR_VOLTAGE_V))   //锁相环积分系数
@@ -207,6 +221,7 @@ typedef struct{
     ST_SRAD_CONTROL_F           SRAD_CTRL;
     ST_CURRENT_CONTROL_F        CURRENT_CTRL;
     
+    ST_HFI_CONTROL_F            HFI_CTRL;
     ST_FLUX_CONTROL_F           FLUX_CTRL;
     ST_SMO_CONTROL_F            SMO_CTRL;
     

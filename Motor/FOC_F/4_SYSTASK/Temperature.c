@@ -31,7 +31,7 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_TEMP_PROTECT* pCVO = &Temperature_Protect_Over;
     ST_TEMP_PROTECT* pCVL = &Temperature_Protect_Low;
     
-    pST->F_Temp_0p01_C = pST->F_FL_TEMP.F_Filter_out;
+    pST->F_Temp_0p01_C = pST->FL_TEMP.F_Filter_out;
     
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {

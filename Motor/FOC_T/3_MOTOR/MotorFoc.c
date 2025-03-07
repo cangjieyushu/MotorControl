@@ -21,8 +21,8 @@ Author: CJYS
 void MotorFoc_IF_Init_T(ST_IF_CONTROL_T* pCTRL)
 {
     pCTRL->_O_Q12U_Angle = 0;
-    Ramp_Init_T(&pCTRL->Ramp_Iq, 0);
-    Ramp_Init_T(&pCTRL->Ramp_SRAD, 0);
+    Ramp_Init_T(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.Q32I_Init);
+    Ramp_Init_T(&pCTRL->Ramp_SRAD, pCTRL->Ramp_SRAD.Q32I_Init);
     Ramp_Init_T(&pCTRL->Ramp_AngleERR, 0);
 }
 
@@ -85,8 +85,8 @@ Author: CJYS
 void MotorFoc_VF_Init_T(ST_VF_CONTROL_T* pCTRL)
 {
     pCTRL->_O_Q12U_Angle = 0;
-    Ramp_Init_T(&pCTRL->Ramp_Vq, 0);
-    Ramp_Init_T(&pCTRL->Ramp_SRAD, 0);
+    Ramp_Init_T(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.Q32I_Init);
+    Ramp_Init_T(&pCTRL->Ramp_SRAD, pCTRL->Ramp_SRAD.Q32I_Init);
     Ramp_Init_T(&pCTRL->Ramp_AngleERR, 0);
 }
 

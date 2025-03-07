@@ -346,4 +346,15 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_HFI_Current_Loop_F
+Description: 电流环控制
+Input: 无
+Output: 无
+Input_Output: 电流环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL, float PWM_Coeff);
+
 #endif /* MotorState_H */

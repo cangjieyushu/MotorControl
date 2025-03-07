@@ -12,40 +12,40 @@
 #include "MotorHal_cfg.h"   
 
 //电机额定参数，正点原子
-//#define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
-//#define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
-//#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
-//#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-//
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
-//#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
-//#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
-//#define MOTOR_Rs                            (0.31f)                         //Ω，相电阻
-//#define MOTOR_Ld                            (0.37f*0.001f)                  //H，d轴电感
-//#define MOTOR_Lq                            (0.44f*0.001f)                  //H，q轴电感，q轴电感至少需要比d轴电感大10uH
-//#define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
-//#define MOTOR_FLUX                          (0.017f)                        //Wb
-//
-//#define MOTOR_MAX_SPEED                     (4000.0f)             //rpm，最高转速
-//#define MOTOR_MIN_SPEED                     (1000.0f)             //rpm，最低转速
-
-//电机额定参数，灰色电机
 #define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
-#define MOTOR_CURRENT_PHASE_A               (10.0f)             //A，相电流幅值
-#define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
+#define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
+#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
 #define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
-#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
-#define MOTOR_Rs                            (0.36f)                         //Ω，相电阻
-#define MOTOR_Ld                            (0.225f*0.001f)                 //H，d轴电感
-#define MOTOR_Lq                            (0.245f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
+#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
+#define MOTOR_Rs                            (0.31f)                         //Ω，相电阻
+#define MOTOR_Ld                            (0.37f*0.001f)                  //H，d轴电感
+#define MOTOR_Lq                            (0.44f*0.001f)                  //H，q轴电感，q轴电感至少需要比d轴电感大10uH
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
-#define MOTOR_FLUX                          (0.00577f)                      //Wb
+#define MOTOR_FLUX                          (0.017f)                        //Wb
 
-#define MOTOR_MAX_SPEED                     (3600.0f)             //rpm，最高转速
-#define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
+#define MOTOR_MAX_SPEED                     (4000.0f)             //rpm，最高转速
+#define MOTOR_MIN_SPEED                     (1000.0f)             //rpm，最低转速
+
+////电机额定参数，灰色电机
+//#define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
+//#define MOTOR_CURRENT_PHASE_A               (10.0f)             //A，相电流幅值
+//#define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
+//#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
+
+//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
+//#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
+//#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
+//#define MOTOR_Rs                            (0.36f)                         //Ω，相电阻
+//#define MOTOR_Ld                            (0.225f*0.001f)                 //H，d轴电感
+//#define MOTOR_Lq                            (0.245f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
+//#define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
+//#define MOTOR_FLUX                          (0.00577f)                      //Wb
+
+//#define MOTOR_MAX_SPEED                     (3600.0f)             //rpm，最高转速
+//#define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
 ////电机额定参数，白色大电机
 //#define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压

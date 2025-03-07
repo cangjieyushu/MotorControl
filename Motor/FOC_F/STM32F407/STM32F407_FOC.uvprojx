@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER,__CC_ARM</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_SDK\CORE;..\..\0_SDK\DEVICE\STM32F4\STM32F407\INC;..\..\0_SDK\DEVICE\STM32F4\STM32F407\STARTUP\KEIL;..\..\0_SDK\DEVICE\STM32F4;..\..\0_SDK\STD\STM32F4\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_SDK\DEVICE\STM32F4\Core;..\..\0_SDK\DEVICE\STM32F4\STM32F407\INC;..\..\0_SDK\DEVICE\STM32F4\STM32F407\STARTUP\KEIL;..\..\0_SDK\DEVICE\STM32F4;..\..\0_SDK\STD\STM32F4\inc;.\1_HARDWARE\BSP;.\1_HARDWARE\MCHAL;..\..\2_COMMON\CMU;..\..\2_COMMON\MATH;..\..\2_COMMON\RTT;..\3_MOTOR;..\4_SYSTASK;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

@@ -31,7 +31,7 @@ void Voltage_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_VOLTAGE_PROTECT* pCVO = &Voltage_Protect_Over;
     ST_VOLTAGE_PROTECT* pCVL = &Voltage_Protect_Low;
     
-    pST->F_Voltage_Bus = pST->F_FL_VBUS.F_Filter_out;
+    pST->F_Voltage_Bus = pST->FL_VBUS.F_Filter_out;
     
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {

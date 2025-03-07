@@ -25,14 +25,14 @@
 #define CURRENT_OFFSET_NUM              (20U)                                               //电流采样偏置检测次数
 
 //顺风检测
-#define FREE_FLYING_TL                  (50U)               //lsb，顺风检测电压阈值
+#define FREE_FLYING_TL                  (150U)              //lsb，顺风检测电压阈值
 #define FREE_FLYING_NUM                 (20U)               //顺风检测电压判断次数
 #define FREE_FLYING_FILTER              (2U)                //滤波次数
 #define FREE_FLYING_TIME                (1000U)             //顺风检测每个扇区最长检测次数
 
 //电机静止检测  
 #define BOOT_CHECK_DUTY                 (HAL_PWM_DUTY_50_PERCENT)   //电机静止检测占空比
-#define BOOT_CHECK_TL_lsb               (50U)                       //电机静止检测反电动势阈值
+#define BOOT_CHECK_TL_lsb               (150U)                      //电机静止检测反电动势阈值
 #define BOOT_CHECK_NUM                  (10U)                       //电机静止检测判断次数
 #define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
 
@@ -69,8 +69,8 @@
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(30.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(20.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //20us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(60.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //20us
 
 
 //最大占空比，最小占空比
