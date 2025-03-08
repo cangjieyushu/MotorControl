@@ -50,7 +50,7 @@ int main(void)
     
     BSP_CLK_Init();
     BSP_GPIO_Init();
-    Z20A8300A_Init1();
+    Z20A8300A_Init();
     
     BSP_ADC_Init();
     BSP_DMA_Init(IRQHandleDMAIsr);
@@ -88,6 +88,7 @@ Author: CJYS
 void IRQHandleDMAIsr(void)
 {
     MotorTask_Current_Flow(&Motor);
+    MH_Current_IntFlag_Clear();
     
 #if(JSCOPE_RTT_EN == 1U)
     RTT_DATA[0] = Motor.FLUX_CTRL.TG_Triangle.Q12U_Angle;
@@ -95,8 +96,6 @@ void IRQHandleDMAIsr(void)
     RTT_DATA[2] = Motor.SMO_CTRL._V_Q14I_Aalfa;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
-    
-    MH_Current_IntFlag_Clear();
 }
 
 /**********************************************************************************************
@@ -125,6 +124,7 @@ void IRQHandleMCBKIsr(void)
             Motor.Motor_Error_Flag.bit.current_short = 1U;
         }
     }
+	
     MH_PWMFault_IntFlag_Clear();
 }
 
@@ -142,6 +142,6 @@ void IRQHandleSTIMIsr(void)
     System_Tick_Isr(&Systask);
     System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
-    TDG_SoftwareTrig(TDG1_ID);
-    STIM_ClearInt(HAL_STIM_ID); 
+    TDG_SoftwareTrig(HAL_SYSTEM_TDG);
+    STIM_ClearInt(HAL_SYSTEM_STIM); 
 }

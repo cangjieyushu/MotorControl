@@ -39,7 +39,7 @@ void BSP_DMA_Init_Three_Shunt(isr_cb_t *DMADoneCbf)
     DMA_InstallCallBackFunc(DMA_CHANNEL0,DMA_INT_DONE,DMADoneCbf);
     
     /* Address pointing to the source data */
-    GtDMATransferConfig.srcAddr = (uint32_t)HAL_ADC_DATA_ADDRESS;
+    GtDMATransferConfig.srcAddr = (uint32_t)HAL_MOTOR_ADC_DATA_ADDRESS;
     /* Address pointing to the destination data */
     /*PRQA S 0306 ++*/
     GtDMATransferConfig.destAddr = (uint32_t)Hal_AdcLoopData;
@@ -53,14 +53,14 @@ void BSP_DMA_Init_Three_Shunt(isr_cb_t *DMADoneCbf)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = -16;
+    GtDMATransferConfig.majorLoopDestOffset = - 4*HAL_MOTOR_ADC_NUM_THREE;
     
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Destination data transfer size */
     GtDMATransferConfig.destTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Transfer bytes number */
-    GtDMATransferConfig.transferByteNum = 16U;
+    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_THREE;
     /* Disable request after done control */
     GtDMATransferConfig.disableRequestAfterDoneCmd = DISABLE;
     /* DMA transfer Configure */
@@ -97,7 +97,7 @@ void BSP_DMA_Init_One_Shunt(isr_cb_t *DMADoneCbf)
   
     
     /* Address pointing to the source data */
-    GtDMATransferConfig.srcAddr = (uint32_t)HAL_ADC_DATA_ADDRESS;
+    GtDMATransferConfig.srcAddr = (uint32_t)HAL_MOTOR_ADC_DATA_ADDRESS;
     /* Address pointing to the destination data */
     GtDMATransferConfig.destAddr  = (uint32_t)Hal_AdcMapData;
     /* Number of minor loop in a major loop: 1 */
@@ -109,14 +109,14 @@ void BSP_DMA_Init_One_Shunt(isr_cb_t *DMADoneCbf)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = -12;
+    GtDMATransferConfig.majorLoopDestOffset = -4*HAL_MOTOR_ADC_NUM_ONE;
     
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Destination data transfer size */
     GtDMATransferConfig.destTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Transfer bytes number */
-    GtDMATransferConfig.transferByteNum = 12U;
+    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_ONE;
     /* Disable request after done control */
     GtDMATransferConfig.disableRequestAfterDoneCmd = DISABLE;
     /* DMA transfer Configure */
@@ -158,7 +158,7 @@ void BSP_DMA_Init_S(void)
     /* Done int Callback that will be registered for channel 1 */
 //    DMA_InstallCallBackFunc(DMA_CHANNEL1,DMA_INT_DONE,DMADoneCbf);
     /* Address pointing to the source data */
-    GtDMATransferConfig.srcAddr = (uint32_t)HAL_ADC_DATA_ADDRESS_S;
+    GtDMATransferConfig.srcAddr = (uint32_t)HAL_SYSTEM_ADC_DATA_ADDRESS;
     /* Address pointing to the destination data */
     /*PRQA S 0306 ++*/
     GtDMATransferConfig.destAddr = (uint32_t)Hal_AdcLoopData_S;
@@ -172,13 +172,13 @@ void BSP_DMA_Init_S(void)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = - 4*ADC_DATA_NUM_S;
+    GtDMATransferConfig.majorLoopDestOffset = - 4*HAL_SYSTEM_ADC_NUM;
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Destination data transfer size */
     GtDMATransferConfig.destTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Transfer bytes number */
-    GtDMATransferConfig.transferByteNum = 4*ADC_DATA_NUM_S;
+    GtDMATransferConfig.transferByteNum = 4*HAL_SYSTEM_ADC_NUM;
     /* Disable request after done control */
     GtDMATransferConfig.disableRequestAfterDoneCmd = DISABLE;
     GtDMATransferConfig.channelPreempt =  DMA_SUSPEND_NOPREEMPT;

@@ -49,19 +49,12 @@ void BSP_CLK_Init(void)
     CLK_SetClkDivider(CLK_BUS, CLK_DIV_2);
     
     /* Select clock source for PWM1 */
-    (void)CLK_ModuleSrc(HAL_M1PWM_CLK_MODULE, CLK_SRC_PLL);
+    (void)CLK_ModuleSrc(CLK_MCPWM1, CLK_SRC_PLL);
     /* set clock for MCPWM0 , make sure it is not greater than bus clock */
-    CLK_SetClkDivider(HAL_M1PWM_CLK_MODULE, CLK_DIV_2);
+    CLK_SetClkDivider(CLK_MCPWM1, CLK_DIV_2);
     /* Enable MCPWM0 clock */
-    SYSCTRL_EnableModule(HAL_M1PWM_SYSCTRL_MODULE);
+    SYSCTRL_EnableModule(SYSCTRL_MCPWM1);
     
-    /* Select clock source for PWM2 */
-    (void)CLK_ModuleSrc(HAL_M2PWM_CLK_MODULE, CLK_SRC_PLL);
-    /* set clock for MCPWM1 , make sure it is not greater than bus clock */
-    CLK_SetClkDivider(HAL_M2PWM_CLK_MODULE, CLK_DIV_2);
-    /* Enable MCPWM1 clock */
-    SYSCTRL_EnableModule(HAL_M2PWM_SYSCTRL_MODULE);
-
      /* Select clock source for ADC0 */
     (void)CLK_ModuleSrc(CLK_ADC0, CLK_SRC_OSC40M);
     /* set clock for ADC , make sure it is not greater than bus clock */

@@ -32,19 +32,19 @@ void BSP_TIM_Init(isr_cb_t *StimIntCbf)
     /* Enable STIM module */
     SYSCTRL_EnableModule(SYSCTRL_STIM);
     /* Init STIM_0*/
-    STIM_Init(HAL_STIM_ID, &StimConfig);
+    STIM_Init(HAL_SYSTEM_STIM, &StimConfig);
     /* Disable STIM */
-    STIM_Disable(HAL_STIM_ID);
+    STIM_Disable(HAL_SYSTEM_STIM);
     
-    STIM_InstallCallBackFunc(HAL_STIM_ID, STIM_INT, StimIntCbf);
-    STIM_ClearInt(HAL_STIM_ID);
+    STIM_InstallCallBackFunc(HAL_SYSTEM_STIM, STIM_INT, StimIntCbf);
+    STIM_ClearInt(HAL_SYSTEM_STIM);
     
     /* start counter STIM */
-    STIM_Enable(HAL_STIM_ID);
+    STIM_Enable(HAL_SYSTEM_STIM);
     /* Enable STIM_0 interrupt */
-    STIM_IntCmd(HAL_STIM_ID, ENABLE);
+    STIM_IntCmd(HAL_SYSTEM_STIM, ENABLE);
     /* start counter STIM */
-    STIM_Enable(STIM_1);
+    STIM_Enable(HAL_SYSTEM_STIM);
 }
 
 /**********************************************************************************************
@@ -58,24 +58,5 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_HALL_Init(void)
 {
-    /* STIM configuration */
-    const STIM_Config_t StimConfig1 =
-    {
-        .workMode = STIM_FREE_COUNT,
-        /* counter clock is 160M, compare value =160000,  period = 1ms */
-        /* counter clock is 10M, period = 0.1us */
-        .compareValue = (uint32_t)(0xFFFFFFFF),
-        .countResetMode = STIM_INCREASE_CONTINUE,
-        .clockSource = STIM_FUNCTION_CLOCK,
-        .prescalerOrFilterValue = STIM_DIV_16_FILTER_7,
-        .prescalerMode = ENABLE,
-    };
-    /* Configure STIM function clock */
-    (void)CLK_ModuleSrc(CLK_STIM, CLK_SRC_PLL);
-    /* Enable STIM module */
-    SYSCTRL_EnableModule(SYSCTRL_STIM);
-    /* Init STIM_0*/
-    STIM_Init(HAL_STIM_HALL, &StimConfig1);
-    /* Disable STIM */
-    STIM_Disable(HAL_STIM_HALL);
+    
 }

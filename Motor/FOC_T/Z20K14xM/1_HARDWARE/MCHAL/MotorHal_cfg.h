@@ -154,21 +154,25 @@
 
 
 //Õ‚…Ë
-#define HAL_ADC_ID                  ADC0_ID
-#define HAL_ADC1_ID                 ADC1_ID
-#define HAL_TGD_ID	                TDG0_ID
-#define HAL_STIM_ID                 STIM_0
-#define HAL_STIM_HALL               STIM_1
+#define HAL_MOTOR_PWM               MCPWM1_ID
+#define HAL_MOTOR_PWM_ADDRESS       MCPWM1_BASE_ADDR
+#define HAL_MOTOR_ADC               ADC0_ID
+#define HAL_MOTOR_ADC_ADDRESS       ADC0_BASE_ADDR
+#define HAL_MOTOR_ADC_DATA_ADDRESS  (HAL_MOTOR_ADC_ADDRESS + 0x20U)
+#define HAL_MOTOR_ADC_NUM_THREE     4
+#define HAL_MOTOR_ADC_NUM_ONE       3
+#define HAL_MOTOR_TDG	            TDG0_ID   
+#define HAL_MOTOR_TDG_ADDRESS       TDG0_BASE_ADDR
 
+#define HAL_SYSTEM_ADC              ADC1_ID
+#define HAL_SYSTEM_ADC_ADDRESS      ADC1_BASE_ADDR
+#define HAL_SYSTEM_ADC_DATA_ADDRESS (HAL_SYSTEM_ADC_ADDRESS + 0x20U)
+#define HAL_SYSTEM_ADC_NUM          2
+#define HAL_SYSTEM_TDG	            TDG1_ID   
+#define HAL_SYSTEM_TDG_ADDRESS      TDG1_BASE_ADDR
+#define HAL_SYSTEM_STIM             STIM_1
 
-#define HAL_MCPWM_ID                MCPWM1_ID
-#define HAL_PWM_COUNTER_ID          MCPWM_COUNTER_0
-
-#define HAL_FAULTIN                 MCPWM_INT_FAULT
-#define HAL_FAULTIN_PORT            PORT_B
-#define HAL_FAULTIN_PIN             GPIO_2
-#define HAL_FAULTIN_PINMUX          PTB2_MCPWM1_FLT3
-    
+//PWM
 #define HAL_PWM_UH_PORT             PORT_E
 #define HAL_PWM_UH_PIN              GPIO_8
 #define HAL_PWM_UH_PINMUX           PTE8_MCPWM1_CH0
@@ -199,47 +203,58 @@
 #define HAL_PWM_WL_PINMUX           PTD6_MCPWM1_CH5
 #define HAL_PWM_WL_CHN              MCPWM_CHANNEL_5
 
-#define HAL_PWM_UP_CHN              ((0x1UL << ((Q32U_)HAL_PWM_UH_CHN))|(0x1UL << ((Q32U_)HAL_PWM_VH_CHN))|(0x1UL << ((Q32U_)HAL_PWM_WH_CHN)))
-#define HAL_PWM_DN_CHN              ((0x1UL << ((Q32U_)HAL_PWM_UL_CHN))|(0x1UL << ((Q32U_)HAL_PWM_VL_CHN))|(0x1UL << ((Q32U_)HAL_PWM_WL_CHN)))
-#define HAL_PWM_ALL_CHN             ((HAL_PWM_UP_CHN)|(HAL_PWM_DN_CHN))
-    
-#define HAL_PWM_U_PAIR_ID           MCPWM_PAIR_CHANNEL_0
-#define HAL_PWM_V_PAIR_ID           MCPWM_PAIR_CHANNEL_1
-#define HAL_PWM_W_PAIR_ID           MCPWM_PAIR_CHANNEL_2
-    
-#define HAL_ADC_VBUS_PORT           PORT_C
-#define HAL_ADC_VBUS_PIN            GPIO_14
-#define HAL_ADC_VBUS_PINMUX         PTC14_ADC0_CH12
-#define HAL_ADC_VBUS_CHN            ADC_P_CH12
-    
+#define HAL_PWM_U_PAIR           	MCPWM_PAIR_CHANNEL_0
+#define HAL_PWM_V_PAIR           	MCPWM_PAIR_CHANNEL_1
+#define HAL_PWM_W_PAIR           	MCPWM_PAIR_CHANNEL_2
+
+#define HAL_PWM_UH_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_UH_CHN)))
+#define HAL_PWM_UL_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_UL_CHN)))
+#define HAL_PWM_VH_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_VH_CHN)))
+#define HAL_PWM_VL_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_VL_CHN)))
+#define HAL_PWM_WH_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_WH_CHN)))
+#define HAL_PWM_WL_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_WL_CHN)))
+#define HAL_PWM_UP_CHN              (HAL_PWM_UH_CHN_EN|HAL_PWM_VH_CHN_EN|HAL_PWM_WH_CHN_EN)
+#define HAL_PWM_DN_CHN              (HAL_PWM_UL_CHN_EN|HAL_PWM_VL_CHN_EN|HAL_PWM_WL_CHN_EN)
+#define HAL_PWM_ALL_CHN             (HAL_PWM_UP_CHN|HAL_PWM_DN_CHN)
+
+#define HAL_FAULTIN_PORT            PORT_B
+#define HAL_FAULTIN_PIN             GPIO_2
+#define HAL_FAULTIN_PINMUX          PTB2_MCPWM1_FLT3
+
+
+//ADC_MOTOR
 #define HAL_ADC_IU_PORT             PORT_C
 #define HAL_ADC_IU_PIN              GPIO_17
 #define HAL_ADC_IU_PINMUX           PTC17_ADC0_CH15
-#define HAL_ADC_IU_CHN              ADC_P_CH15  
+#define HAL_ADC_IU_CHN              ADC_P_CH15
+
 #define HAL_ADC_IV_PORT             PORT_C
 #define HAL_ADC_IV_PIN              GPIO_16
 #define HAL_ADC_IV_PINMUX           PTC16_ADC0_CH14
-#define HAL_ADC_IV_CHN              ADC_P_CH14  
+#define HAL_ADC_IV_CHN              ADC_P_CH14
+
 #define HAL_ADC_IW_PORT             PORT_C
 #define HAL_ADC_IW_PIN              GPIO_15
 #define HAL_ADC_IW_PINMUX           PTC15_ADC0_CH13
 #define HAL_ADC_IW_CHN              ADC_P_CH13
 
-#define HAL_ADC1_VR_PORT            PORT_B
-#define HAL_ADC1_VR_PIN             GPIO_14
-#define HAL_ADC1_VR_PINMUX          PTB14_ADC1_CH9
-#define HAL_ADC1_VR_CHN             ADC_P_CH9
-    
-#define HAL_ADC1_TEMP_PORT          PORT_B
-#define HAL_ADC1_TEMP_PIN           GPIO_15
-#define HAL_ADC1_TEMP_PINMUX        PTB15_ADC1_CH14
-#define HAL_ADC1_TEMP_CHN           ADC_P_CH14
-    
-#define HAL_ADC1_BAT_PORT           PORT_B
-#define HAL_ADC1_BAT_PIN            GPIO_16
-#define HAL_ADC1_BAT_PINMUX         PTB16_ADC1_CH15
-#define HAL_ADC1_BAT_CHN            ADC_P_CH15
+#define HAL_ADC_VBUS_PORT           PORT_C
+#define HAL_ADC_VBUS_PIN            GPIO_14
+#define HAL_ADC_VBUS_PINMUX         PTC14_ADC0_CH12
+#define HAL_ADC_VBUS_CHN            ADC_P_CH12
 
+//ADC_SYSTEM
+#define HAL_ADC_VR_PORT             PORT_B
+#define HAL_ADC_VR_PIN              GPIO_14
+#define HAL_ADC_VR_PINMUX           PTB14_ADC1_CH9
+#define HAL_ADC_VR_CHN              ADC_P_CH9
+    
+#define HAL_ADC_TEMP_PORT           PORT_B
+#define HAL_ADC_TEMP_PIN            GPIO_15
+#define HAL_ADC_TEMP_PINMUX         PTB15_ADC1_CH14
+#define HAL_ADC_TEMP_CHN            ADC_P_CH14
+
+//HALL
 #define HAL_HALLA_PORT              PORT_A
 #define HAL_HALLA_PIN               GPIO_10
 #define HAL_HALLA_PINMUX            PTA10_GPIO
@@ -249,5 +264,6 @@
 #define HAL_HALLC_PORT              PORT_A
 #define HAL_HALLC_PIN               GPIO_12
 #define HAL_HALLC_PINMUX            PTA12_GPIO
+
 
 #endif /* MotorHal_cfg_H */

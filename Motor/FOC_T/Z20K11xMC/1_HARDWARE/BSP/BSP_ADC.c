@@ -18,6 +18,8 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_Three_Shunt(isr_cb_t *ADCDoneCbf)
 {
+    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
+    
     ADC_Config_t SubcaseAdcCfg =
     {
         /* resolution */
@@ -155,6 +157,24 @@ void BSP_ADC_Init_Three_Shunt(isr_cb_t *ADCDoneCbf)
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);
     /* Load channel Configuration */
     TDG_LoadCmd(HAL_MOTOR_TDG);
+
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
+    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
+    while (0U == ADCx->ADC_STAT.TCOMP_INT)
+    {
+    }
+
+    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
+    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
+    
+    /* Clear FIFO */
+    while (0U != ADCx->ADC_FCTRL.FCOUNT)
+    {
+        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
+    }
     
     ADC_InstallCallBackFunc(HAL_MOTOR_ADC, ADC_FWM_INT, ADCDoneCbf);
 }
@@ -170,6 +190,8 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_One_Shunt(isr_cb_t *ADCDoneCbf)
 {
+    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
+    
     ADC_Config_t SubcaseAdcCfg =
     {
         /* resolution */
@@ -297,6 +319,25 @@ void BSP_ADC_Init_One_Shunt(isr_cb_t *ADCDoneCbf)
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);
     /* Load channel Configuration */
     TDG_LoadCmd(HAL_MOTOR_TDG);
+
+
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
+    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
+    while (0U == ADCx->ADC_STAT.TCOMP_INT)
+    {
+    }
+
+    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
+    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
+    
+    /* Clear FIFO */
+    while (0U != ADCx->ADC_FCTRL.FCOUNT)
+    {
+        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
+    }
     
     ADC_InstallCallBackFunc(HAL_MOTOR_ADC, ADC_FWM_INT, ADCDoneCbf);
 }

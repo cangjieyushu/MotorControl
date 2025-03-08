@@ -2,13 +2,13 @@
 /** 
  * @file      : Z20A8300A_Init.h
  * @brief     : Z20A8300A Init Header File.
- *              - Platform : Z20K11xM
- * @version   : V0.1
- * @date      : 2022-08-15
+ *              - Platform : Z20K14xM
+ * @version   : V0.2.0
+ * @date      : 23-Oct-2023
  * @author    : Zhixin Semiconductor
  * @note      : None
  *
- * @Copyright : Copyright (C) 2022 Zhixin Semiconductor Ltd. All rights reserved.
+ * @Copyright : Copyright (C) 2023 Zhixin Semiconductor Ltd. All rights reserved.
  **************************************************************************************************/
 #ifndef Z20A8300A_INIT_H
 #define Z20A8300A_INIT_H
@@ -23,7 +23,8 @@
  */
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #include "Z20A8300A_Spi.h"

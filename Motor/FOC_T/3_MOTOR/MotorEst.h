@@ -10,36 +10,6 @@
 
 #include "Math.h"
 
-//typedef struct
-//{
-//    float ElecFreqHz;
-//    float ElecFreqHz_Filter;
-//    float AngleRad;
-//    float AngleSpeed;
-//    
-//    float AngleRad_HFI;  
-//    float AngleRad_ERROR;    
-//    
-//    float Ud_HFI;     
-//    
-//    uint8_t cnt;
-//    uint8_t cnt_1;
-//    float SIGN;
-//    float Id_LPF;
-//    float Iq_LPF;
-//    float Id_HPF;
-//    float Iq_HPF;
-//    float Id_Last;
-//    float Iq_Last;
-//    
-//    float Ud_Ref;     
-//    float Ud_Freq;       
-//    float Udq_Coeff;     
-//    float Speed;  
-//    float Ts;
-//    ST_PID_POS        Pll_Pid;      /*!< Internal Variable: The PLL PID in FSO */
-//}ST_HFI_CONTROL;
-
 typedef struct
 {
     Q08U_       Est_State_Flag;

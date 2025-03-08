@@ -13,9 +13,11 @@
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
 #define BSP_ADC_READ_DATA_VBUS              (Hal_AdcLoopData[4] & 0x00000FFFU)
 #define BSP_ADC_READ_DATA_VR                (Hal_AdcLoopData[5] & 0x00000FFFU)
+#define BSP_ADC_READ_DATA_TEMP              (Hal_AdcLoopData[6] & 0x00000FFFU)
 #elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
 #define BSP_ADC_READ_DATA_VBUS              (Hal_AdcLoopData[2] & 0x00000FFFU)
 #define BSP_ADC_READ_DATA_VR                (Hal_AdcLoopData[5] & 0x00000FFFU)
+#define BSP_ADC_READ_DATA_TEMP              (Hal_AdcLoopData[6] & 0x00000FFFU)
 #endif
 
 

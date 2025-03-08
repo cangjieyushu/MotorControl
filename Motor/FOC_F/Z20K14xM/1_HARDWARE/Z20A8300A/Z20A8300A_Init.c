@@ -153,7 +153,7 @@ static const Z20A8300A_MaskConfigType MaskConfigStruct =
  * @retval      0: failture
  *
  */
-uint32_t Z20A8300A_Init1(void)
+uint32_t Z20A8300A_Init(void)
 {
     Z20A8300A_StatusRegType Status;
     Z20A8300A_AllDiagType   Diag;

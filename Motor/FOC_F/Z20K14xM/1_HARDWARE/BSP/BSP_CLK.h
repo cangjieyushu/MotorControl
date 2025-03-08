@@ -10,11 +10,6 @@
 
 #include "MotorHal_cfg.h"
 
-#define HAL_M1PWM_CLK_MODULE            CLK_MCPWM0
-#define HAL_M1PWM_SYSCTRL_MODULE        SYSCTRL_MCPWM0
-#define HAL_M2PWM_CLK_MODULE            CLK_MCPWM1
-#define HAL_M2PWM_SYSCTRL_MODULE        SYSCTRL_MCPWM1
-
 /**********************************************************************************************
 Function: BSP_CLK_Init
 Description:  ±÷”≥ı ºªØ

@@ -121,8 +121,9 @@ typedef struct
 
 #define MATH_PI_T                           (2048)
 #define MATH_2PI_T                          (MATH_PI_T*2)
-#define MATH_PI_OVER_SIX_T                  (MATH_PI_T/6)
 #define MATH_PI_OVER_TWO_T                  (MATH_PI_T/2)
+#define MATH_PI_OVER_FOUR_T                 (MATH_PI_T/4)
+#define MATH_PI_OVER_SIX_T                  (MATH_PI_T/6)
 #define MATH_2PI_TMP_T                      ((Q32U_)(Q28U_MAX))
 
 #define MATH_ANGLE_MOD_T(A)                 while(A>=MATH_2PI_T){A-=MATH_2PI_T;}while(A<0){A+=MATH_2PI_T;}
@@ -152,9 +153,9 @@ typedef struct
 #define MATH_PI_F                           (3.1415926535897932384626433832795f)
 #define MATH_2PI_F                          (2.0f*MATH_PI_F)
 #define MATH_ONE_OVER_2PI_F                 (1.0f/MATH_2PI_F)
-#define MATH_PI_OVER_SIX_F                  (MATH_PI_F/6.0f)
 #define MATH_PI_OVER_TWO_F                  (MATH_PI_F/2.0f)
 #define MATH_PI_OVER_FOUR_F                 (MATH_PI_F/4.0f)
+#define MATH_PI_OVER_SIX_F                  (MATH_PI_F/6.0f)
     
 #define MATH_ANGLE_MOD_F(A)                 while(A>MATH_2PI_F){A-=MATH_2PI_F;}while(A<0.0f){A+=MATH_2PI_F;}
 

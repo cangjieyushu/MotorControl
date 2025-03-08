@@ -88,29 +88,30 @@ void MCU_Z20A8300A_SpiInit(void)
         2U                                    /* receive FIFO threshold level */
     };
     /* spi clock */
-    PORT_PinmuxConfig(Z20A8300A_M1SPI_SCK_PORT, Z20A8300A_M1SPI_SCK_PIN, Z20A8300A_M1SPI_SCK_PINMUX);
+    PORT_PinmuxConfig(Z20A8300A_SPI_SCK_PORT, Z20A8300A_SPI_SCK_PIN, Z20A8300A_SPI_SCK_PINMUX);
     /* spi master rx */
-    PORT_PinmuxConfig(Z20A8300A_M1SPI_MISO_PORT, Z20A8300A_M1SPI_MISO_PIN, Z20A8300A_M1SPI_MISO_PINMUX);
+    PORT_PinmuxConfig(Z20A8300A_SPI_MISO_PORT, Z20A8300A_SPI_MISO_PIN, Z20A8300A_SPI_MISO_PINMUX);
     /* spi master tx */
-    PORT_PinmuxConfig(Z20A8300A_M1SPI_MOSI_PORT, Z20A8300A_M1SPI_MOSI_PIN, Z20A8300A_M1SPI_MOSI_PINMUX);
+    PORT_PinmuxConfig(Z20A8300A_SPI_MOSI_PORT, Z20A8300A_SPI_MOSI_PIN, Z20A8300A_SPI_MOSI_PINMUX);
     /* spi pcs0 */
-    PORT_PinmuxConfig(Z20A8300A_M1SPI_PCS_PORT, Z20A8300A_M1SPI_PCS_PIN, Z20A8300A_M1SPI_PCS_PINMUX);
+    PORT_PinmuxConfig(Z20A8300A_SPI_PCS_PORT, Z20A8300A_SPI_PCS_PIN, Z20A8300A_SPI_PCS_PINMUX);
+    
     /* choose osc clock as function clock of spi */
-    while(ERR == CLK_ModuleSrc(Z20A8300A_M1SPI_CLOCK_MODULE, CLK_SRC_OSC40M))
+    while(ERR == CLK_ModuleSrc(Z20A8300A_SPI_CLOCK_MODULE, CLK_SRC_OSC40M))
     {}
     /* set divide ratio of spi's function clock*/
-    CLK_SetClkDivider(Z20A8300A_M1SPI_CLOCK_MODULE, CLK_DIV_1);
+    CLK_SetClkDivider(Z20A8300A_SPI_CLOCK_MODULE, CLK_DIV_1);
     /* enable clock for spi */
-    SYSCTRL_EnableModule(Z20A8300A_M1SPI_CLOCK_GATE);
+    SYSCTRL_EnableModule(Z20A8300A_SPI_CLOCK_GATE);
     
     /* initiate spi */
-    SPI_Init(Z20A8300A_M1SPI_ID, &SpiMasterCfgStruct);
+    SPI_Init(Z20A8300A_SPI_ID, &SpiMasterCfgStruct);
     /* Pull down the CS signal to select slave */
-    SPI_SelectSlave(Z20A8300A_M1SPI_ID, Z20A8300A_M1SPI_PCS);
+    SPI_SelectSlave(Z20A8300A_SPI_ID, Z20A8300A_SPI_PCS);
     /* enable spi */
-    SPI_Enable(Z20A8300A_M1SPI_ID);
+    SPI_Enable(Z20A8300A_SPI_ID);
 }
-    
+
 /**
  * @brief       MCU Z20A8300A GPIO Init
  *
@@ -121,13 +122,13 @@ void MCU_Z20A8300A_SpiInit(void)
  */
 void MCU_Z20A8300A_GpioInit(void)
 {
-    PORT_PinmuxConfig(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, Z20A8300A_M1ENABLE_PINMUX);
-    GPIO_SetPinDir(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, GPIO_OUTPUT);
-    GPIO_WritePinOutput(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, GPIO_HIGH);
+    PORT_PinmuxConfig(Z20A8300A_ENABLE_PORT, Z20A8300A_ENABLE_PIN, Z20A8300A_ENABLE_PINMUX);
+    GPIO_SetPinDir(Z20A8300A_ENABLE_PORT, Z20A8300A_ENABLE_PIN, GPIO_OUTPUT);
+    GPIO_WritePinOutput(Z20A8300A_ENABLE_PORT, Z20A8300A_ENABLE_PIN, GPIO_HIGH);
 
-    PORT_PinmuxConfig(Z20A8300A_M1RST_PORT, Z20A8300A_M1RST_PIN, Z20A8300A_M1RST_PINMUX);
-    GPIO_SetPinDir(Z20A8300A_M1RST_PORT, Z20A8300A_M1RST_PIN, GPIO_OUTPUT);
-    GPIO_WritePinOutput(Z20A8300A_M1RST_PORT, Z20A8300A_M1RST_PIN, GPIO_HIGH);
+    PORT_PinmuxConfig(Z20A8300A_RST_PORT, Z20A8300A_RST_PIN, Z20A8300A_RST_PINMUX);
+    GPIO_SetPinDir(Z20A8300A_RST_PORT, Z20A8300A_RST_PIN, GPIO_OUTPUT);
+    GPIO_WritePinOutput(Z20A8300A_RST_PORT, Z20A8300A_RST_PIN, GPIO_HIGH);
 }
 
 /**
@@ -143,11 +144,11 @@ void MCU_Z20A8300A_GpioInit(void)
 uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data)
 {
     uint16_t Status = 1U;
-    if(RESET == SPI_GetStatus(Z20A8300A_M1SPI_ID, SPI_STATUS_TFNF))
+    if(RESET == SPI_GetStatus(Z20A8300A_SPI_ID, SPI_STATUS_TFNF))
     {
         Status = 0U;
     }
-    SPI_SendData(Z20A8300A_M1SPI_ID, Data);
+    SPI_SendData(Z20A8300A_SPI_ID, Data);
 
     return Status;
 }
@@ -162,7 +163,7 @@ uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data)
  */
 uint16_t MCU_SPI_ReceiveFromZ20A8300A(void)
 {
-    return (uint16_t)(SPI_ReceiveData(Z20A8300A_M1SPI_ID));
+    return (uint16_t)(SPI_ReceiveData(Z20A8300A_SPI_ID));
 }
 
 /**
@@ -180,7 +181,7 @@ uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void)
     uint32_t LocalCnt = 0U;
     uint16_t Status = 1U;
 
-    while(RESET == SPI_GetStatus(Z20A8300A_M1SPI_ID, SPI_STATUS_RFNE))
+    while(RESET == SPI_GetStatus(Z20A8300A_SPI_ID, SPI_STATUS_RFNE))
     { 
         if(LocalCnt > 0xFFU)
         {
@@ -204,15 +205,15 @@ uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void)
  * @return     none
  *
  */
-void Z20A8300A_SetPWMEnablePin1(uint16_t States)
+void Z20A8300A_SetPWMEnablePin(uint16_t States)
 {
     if(1U == States)
     {
-        GPIO_WritePinOutput(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, GPIO_HIGH);
+        GPIO_WritePinOutput(Z20A8300A_ENABLE_PORT, Z20A8300A_ENABLE_PIN, GPIO_HIGH);
     }
     else
     {
-        GPIO_WritePinOutput(Z20A8300A_M1ENABLE_PORT, Z20A8300A_M1ENABLE_PIN, GPIO_LOW);
+        GPIO_WritePinOutput(Z20A8300A_ENABLE_PORT, Z20A8300A_ENABLE_PIN, GPIO_LOW);
     }
 }
 
@@ -226,15 +227,15 @@ void Z20A8300A_SetPWMEnablePin1(uint16_t States)
  * @return     none
  *
  */
-void Z20A8300A_SetResetPin1(uint16_t States)
+void Z20A8300A_SetResetPin(uint16_t States)
 {
     if(1U == States)
     {
-        GPIO_WritePinOutput(Z20A8300A_M1RST_PORT, Z20A8300A_M1RST_PIN, GPIO_HIGH);
+        GPIO_WritePinOutput(Z20A8300A_RST_PORT, Z20A8300A_RST_PIN, GPIO_HIGH);
     }
     else
     {
-        GPIO_WritePinOutput(Z20A8300A_M1RST_PORT, Z20A8300A_M1RST_PIN, GPIO_LOW);
+        GPIO_WritePinOutput(Z20A8300A_RST_PORT, Z20A8300A_RST_PIN, GPIO_LOW);
     }
 }
 
@@ -248,9 +249,9 @@ void Z20A8300A_SetResetPin1(uint16_t States)
  * @retval     1: normal
  *
  */
-uint16_t Z20A8300A_GetDiagPinStates1(void)
+uint16_t Z20A8300A_GetDiagPinStates(void)
 {
-    return (uint16_t)(GPIO_ReadPinLevel(HAL_FAULTIN_PORT, HAL_FAULTIN_PIN));
+    return (uint16_t)(GPIO_ReadPinLevel(Z20A8300A_DIAG_PORT, Z20A8300A_DIAG_PIN));
 }
 
 

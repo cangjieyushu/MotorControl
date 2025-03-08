@@ -31,9 +31,7 @@ void System_Task_Init(ST_SYSTEM_TASK* pST)
     Q32U_ adc_tmp = 0U;
     
     adc_tmp = BSP_ADC_READ_DATA_VBUS;   Filter_Init_F(&pST->FL_VBUS, (float)adc_tmp);
-    adc_tmp = BSP_ADC_READ_DATA_TEMP;   Filter_Init_F(&pST->FL_TEMP, (float)adc_tmp);
     adc_tmp = BSP_ADC_READ_DATA_VR;     Filter_Init_F(&pST->FL_VR, (float)adc_tmp);
-    adc_tmp = BSP_ADC_READ_DATA_VBG;    Filter_Init_F(&pST->FL_VBG, (float)adc_tmp);
 }
 
 /**********************************************************************************************
@@ -50,14 +48,10 @@ void System_ADC_Read(ST_SYSTEM_TASK* pST)
     Q32U_ adc_tmp = 0U;
     
     adc_tmp = BSP_ADC_READ_DATA_VBUS;   pST->FL_VBUS.F_Filter_in = (float)adc_tmp;
-    adc_tmp = BSP_ADC_READ_DATA_TEMP;   pST->FL_TEMP.F_Filter_in = (float)adc_tmp;
     adc_tmp = BSP_ADC_READ_DATA_VR;     pST->FL_VR.F_Filter_in = (float)adc_tmp;
-    adc_tmp = BSP_ADC_READ_DATA_VBG;    pST->FL_VBG.F_Filter_in = (float)adc_tmp;
     
     Filter_Cal_F(&pST->FL_VBUS);
-    Filter_Cal_F(&pST->FL_TEMP);
     Filter_Cal_F(&pST->FL_VR);
-    Filter_Cal_F(&pST->FL_VBG);
 }
 
 /**********************************************************************************************

@@ -67,7 +67,8 @@ extern Z20A8300A_AllDiagType           Z20A8300ADiag;
  * @retval      0: failture
  *
  */
-uint32_t Z20A8300A_Init1(void);
+uint32_t Z20A8300A_Init(void);
+
 /** @} end of group Init_Public_FunctionDefinition */
 
 #ifdef __cplusplus

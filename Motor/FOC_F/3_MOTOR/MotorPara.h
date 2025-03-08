@@ -20,7 +20,7 @@
 #define MOTOR_OPENLOOP_VF               (01U)
 #define MOTOR_OPENLOOP_HFI              (02U)
 #define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_FLUX
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
@@ -71,10 +71,11 @@
 //电机closeloop1相关参数，闭环开始阶段 
 #define MOTOR_CLOSELOOP_STEP                (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop增速步长
 
+
 //IF
 #define MOTOR_IF_IQRAMP_INIT                (0.0f)                          //A,Iq初始值
-#define MOTOR_IF_IQRAMP_TARGET              (8.0f)                          //A,Iq目标值
-#define MOTOR_IF_IQRAMP_STEP                (1.0f * MOTOR_LTs)              //A/s,Iq每秒增加步长
+#define MOTOR_IF_IQRAMP_TARGET              (4.0f)                          //A,Iq目标值
+#define MOTOR_IF_IQRAMP_STEP                (0.1f * MOTOR_LTs)              //A/s,Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
 #define MOTOR_IF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)            //Hz,IF速度目标值
@@ -86,7 +87,7 @@
 //VF
 #define MOTOR_VF_VQRAMP_INIT                (0.0f)                          //V,Vq初始值
 #define MOTOR_VF_VQRAMP_TARGET              (2.0f)                          //V,Vq目标值
-#define MOTOR_VF_VQRAMP_STEP                (0.5f * MOTOR_LTs)              //V/s,Vq每秒增加步长
+#define MOTOR_VF_VQRAMP_STEP                (0.1f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
 #define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
 #define MOTOR_VF_ANGLERAMP_TARGET           (10.0f * MATH_2PI_F)            //Hz,VF速度目标值
@@ -97,12 +98,12 @@
 
 
 //转速环PID    
-#define MOTOR_SPD_PID_Coeff                 (0.25f)                          //转速环PID增益系数
+#define MOTOR_SPD_PID_Coeff                 (0.25f)                         //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
 #define MOTOR_SPD_KI_GAIN                   (0.1f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (0.0f)
-#define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)       //A,转速环输出q轴电流限幅
-#define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)      //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)         //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)        //A,转速环输出q轴电流限幅
 
 //电流PID
 #define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
@@ -110,21 +111,19 @@
 #define MOTOR_FOC_KI_GAIN                   (MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
 #define MOTOR_FOC_KD_GAIN                   (0.0f)
 //dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      (0.6667f)
+#define MOTOR_VS_SCALE                      (0.5774f)
 
 
 //观测器PLL系数
 #define MOTOR_PLL_Coeff                     (0.2f)
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
 
-//HFI观测器  
-#define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                        //Hz,HFI速度目标值
-#define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)  //HFI电压幅值
-#define MOTOR_HFI_UD_PERIOD                 (4U)                                        //注入分频
-#define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                     //调制度限制
-#define MOTOR_HFI_NS_UD_REF                 (0.10f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)  //电压幅值
-#define MOTOR_HFI_NS_TIME1                  (50U)                                       //ms,电机HFI第一阶段
-#define MOTOR_HFI_NS_TIME2                  (50U)                                       //ms,电机HFI第二阶段
+//HFI观测器
+#define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                            //Hz,HFI速度目标值
+#define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
+#define MOTOR_HFI_UD_PERIOD                 (4U)                                            //注入频率分频
+#define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                         //调制度限制
+#define MOTOR_HFI_NS_TIME                   (100U)                                          //电机HFI
 
 #define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.05f * MOTOR_CURRENT_PHASE_A))                              //锁相环比例系数
 #define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.05f * MOTOR_CURRENT_PHASE_A))   //锁相环积分系数
@@ -134,7 +133,7 @@
 
 //非线性磁链观测器  
 #define MOTOR_FLUX_KT                       (0.02f * MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
-#define MOTOR_FLUX_R_Coeff                  (0.75f)                     //电阻系数
+#define MOTOR_FLUX_R_Coeff                  (0.00f)                     //电阻系数
 
 #define MOTOR_FLUX_PLL_KP                   (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                              //锁相环比例系数
 #define MOTOR_FLUX_PLL_KI                   (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / MOTOR_FLUX)   //锁相环积分系数

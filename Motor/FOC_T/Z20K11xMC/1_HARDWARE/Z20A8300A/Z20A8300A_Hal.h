@@ -2,13 +2,13 @@
 /** 
  * @file      : Z20A8300A_Hal.h
  * @brief     : Z20A8300A Hardware Abstract Layer Header File.
- *              - Platform : Z20K11xM
- * @version   : V0.1
- * @date      : 2022-08-15
+ *              - Platform : Z20K14xM
+ * @version   : V0.2.0
+ * @date      : 23-Oct-2023
  * @author    : Zhixin Semiconductor
  * @note      : None
  *
- * @Copyright : Copyright (C) 2022 Zhixin Semiconductor Ltd. All rights reserved.
+ * @Copyright : Copyright (C) 2023 Zhixin Semiconductor Ltd. All rights reserved.
  **************************************************************************************************/
 #ifndef Z20A8300A_HAL_H
 #define Z20A8300A_HAL_H
@@ -23,17 +23,19 @@
  */
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "Z20k11xM_spi.h"
+#include "BSP_PWM.h"
 
 /** @defgroup Hal_Public_MacroDefinition
  *  @{
  */
-
 #define Z20A8300A_SPI_ID             SPI1_ID
 #define Z20A8300A_SPI_CLOCK_MODULE   CLK_SPI1
 #define Z20A8300A_SPI_CLOCK_GATE     SYSCTRL_SPI1
@@ -65,7 +67,6 @@ extern "C" {
 
 #define Z20A8300A_DIAG_PORT          PORT_A
 #define Z20A8300A_DIAG_PIN           GPIO_6
-//#define Z20A8300A_DIAG_PINMUX      PTA6_GPIO
 #define Z20A8300A_DIAG_PINMUX        PTA6_TIM0_FLT1
 
 /** @} end of Hal_Public_MacroDefinition */

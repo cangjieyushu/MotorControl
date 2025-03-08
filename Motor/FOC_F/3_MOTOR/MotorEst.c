@@ -32,107 +32,18 @@ void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL)
     pCTRL->_V_Q32U_State = 0U;
     pCTRL->_V_Q32U_Flag_En = 0U;
     pCTRL->_V_Q32U_NS_cnt = 0U;
-    pCTRL->_V_F_NS_Ud = 0.0f;
-    pCTRL->_V_F_NS_Id_N = 0.0f;
-    pCTRL->_V_F_NS_Id_S = 0.0f;
-    pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
     
     pCTRL->_V_Q32U_Ud_cnt = 0U;
     pCTRL->_V_F_Ud_Sign = 1.0f;
+    pCTRL->_V_F_Ialfa_LPF = 0.0f;
+    pCTRL->_V_F_Ibeta_LPF = 0.0f;
+    pCTRL->_V_F_Ialfa_HPF = 0.0f;
+    pCTRL->_V_F_Ibeta_HPF = 0.0f;
     pCTRL->_V_F_Ialfa_Last = 0.0f;
     pCTRL->_V_F_Ibeta_Last = 0.0f;
-}
-
-/**********************************************************************************************
-Function: Est_HFI_State_F
-Description: HFI观测器
-Input: 无
-Output: 无
-Input_Output: HFI观测器指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_HFI_State_F(ST_HFI_CONTROL_F* pCTRL)
-{
-    if(pCTRL->_V_Q32U_State == 0U)
-    {
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            pCTRL->_V_F_NS_Ud = pCTRL->_P_F_NS_Ud_Ref;
-            pCTRL->_V_F_NS_Ud_Ref_Sign = 0.0f;
-            
-            pCTRL->_V_Q32U_State = 1U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 1U)
-    {
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            
-            pCTRL->_V_Q32U_State = 2U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 2U)
-    {
-        pCTRL->_V_F_NS_Id_N += pCTRL->_I_F_Id;
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time2)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            pCTRL->_V_F_NS_Ud = 0.0f;
-            pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
-            
-            pCTRL->_V_Q32U_State = 3U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 3U)
-    {
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            pCTRL->_V_F_NS_Ud = -pCTRL->_P_F_NS_Ud_Ref;
-            pCTRL->_V_F_NS_Ud_Ref_Sign = 0.0f;
-            
-            pCTRL->_V_Q32U_State = 4U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 4U)
-    {
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time1)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            
-            pCTRL->_V_Q32U_State = 5U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 5U)
-    {
-        pCTRL->_V_F_NS_Id_S += pCTRL->_I_F_Id;
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time2)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            pCTRL->_V_F_NS_Ud = 0.0f;
-            pCTRL->_V_F_NS_Ud_Ref_Sign = 1.0f;
-            
-            if(MATH_ABS_F(pCTRL->_V_F_NS_Id_N) <= MATH_ABS_F(pCTRL->_V_F_NS_Id_S))
-            {
-                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
-            }
-            
-            pCTRL->_V_Q32U_State = 6U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 6U)
-    {
-        pCTRL->_V_Q32U_Flag_En = 1U;
-    }
+    pCTRL->_O_F_Ialfa = 0.0f;
+    pCTRL->_O_F_Ibeta = 0.0f;
+    pCTRL->_O_F_Ud_HFI = 0.0f;
 }
 
 /**********************************************************************************************
@@ -146,6 +57,36 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
 {
+    if(pCTRL->_V_Q32U_State == 0U)
+    {
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            if((MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) > MATH_PI_OVER_TWO_F)
+            && (MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) < 3.0f*MATH_PI_OVER_TWO_F))
+            {
+                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
+            }
+            pCTRL->_V_Q32U_State = 1U;
+        }
+    }
+    else if(pCTRL->_V_Q32U_State == 1U)
+    {
+        pCTRL->_V_Q32U_Flag_En = 1U;
+        pCTRL->_V_Q32U_NS_cnt++;
+        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time)
+        {
+            pCTRL->_V_Q32U_NS_cnt = 0U;
+            if((MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) > MATH_PI_OVER_TWO_F)
+            && (MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) < 3.0f*MATH_PI_OVER_TWO_F))
+            {
+                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
+            }
+            pCTRL->_V_Q32U_State = 1U;
+        }
+    }
+    
     pCTRL->_V_Q32U_Ud_cnt++;
     if(pCTRL->_V_Q32U_Ud_cnt == pCTRL->_P_Q32U_Ud_Period)
     {
@@ -170,22 +111,19 @@ void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
         }
     }
     
-    if((pCTRL->_V_Q32U_State == 0U) || (pCTRL->_V_Q32U_State == 3U) || (pCTRL->_V_Q32U_State == 6U))
-    {
-        pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Ibeta_HPF*pCTRL->TG_Triangle.F_Cos;
-        pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ialfa_HPF*pCTRL->TG_Triangle.F_Sin;
-        PID_Pos_Cal_F(&pCTRL->PID_PLL);
-        
-        pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
-        Filter_Cal_F(&pCTRL->FL_SRAD);
-        
-        pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
-        MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
-        
-        Math_SinCos_F(&pCTRL->TG_Triangle);
-    }
+    pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Ibeta_HPF*pCTRL->TG_Triangle.F_Cos;
+    pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ialfa_HPF*pCTRL->TG_Triangle.F_Sin;
+    PID_Pos_Cal_F(&pCTRL->PID_PLL);
     
-    pCTRL->_O_F_Ud_HFI = pCTRL->_V_F_NS_Ud_Ref_Sign*pCTRL->_V_F_Ud_Sign*pCTRL->_P_F_Ud_Ref + pCTRL->_V_F_NS_Ud;
+    pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
+    Filter_Cal_F(&pCTRL->FL_SRAD);
+    
+    pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
+    MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
+    
+    Math_SinCos_F(&pCTRL->TG_Triangle);
+    
+    pCTRL->_O_F_Ud_HFI = pCTRL->_V_F_Ud_Sign*pCTRL->_P_F_Ud_Ref;
 }
 
 /**********************************磁链观测器************************************/

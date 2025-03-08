@@ -44,7 +44,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_THREE_SHUNT             (0U)
 #define HAL_ONE_SHUNT               (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
 
 
 //频率设置
@@ -175,7 +175,6 @@
 #define HAL_MOTOR_ADC_NUM           6U
 #define HAL_MOTOR_TDG	            TDG0_ID   
 #define HAL_MOTOR_TDG_ADDRESS       TDG0_BASE_ADDR
-#define HAL_MOTOR_STIM_ADDRESS      STIM_BASE_ADDR
 
 //PWM
 #define HAL_PWM_UH_PORT             PORT_B
@@ -211,8 +210,6 @@
 #define HAL_PWM_U_PAIR              TIM_PAIR_CHANNEL_2
 #define HAL_PWM_V_PAIR              TIM_PAIR_CHANNEL_3
 #define HAL_PWM_W_PAIR              TIM_PAIR_CHANNEL_0
-#define HAL_PWM_ADC_CHN             TIM_CHANNEL_3
-#define HAL_PWM_ADC_PAIR            TIM_PAIR_CHANNEL_1
 
 #define HAL_PWM_UH_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_UH_CHN)))
 #define HAL_PWM_UL_CHN_EN           ((Q32U_)(0x1UL << ((Q32U_)HAL_PWM_UL_CHN)))
@@ -250,19 +247,27 @@
 #define HAL_ADC_VBUS_PINMUX         PTC14_ADC0_CH12
 #define HAL_ADC_VBUS_CHN            ADC_P_CH12
 
+//ADC_SYSTEM
 #define HAL_ADC_VR_PORT             PORT_C
 #define HAL_ADC_VR_PIN              GPIO_1
 #define HAL_ADC_VR_PINMUX           PTC1_ADC0_CH9
 #define HAL_ADC_VR_CHN              ADC_P_CH9
+    
+#define HAL_ADC_TEMP_PORT           PORT_B
+#define HAL_ADC_TEMP_PIN            GPIO_15
+#define HAL_ADC_TEMP_PINMUX         PTB15_ADC1_CH14
+#define HAL_ADC_TEMP_CHN            ADC_P_CH14
 
 //HALL
-#define U_HALL_GPIO_PORT            GPIOC
-#define U_HALL_PIN                  GPIO_0
+#define HAL_HALLA_PORT              PORT_A
+#define HAL_HALLA_PIN               GPIO_11
+#define HAL_HALLA_PINMUX            PTA11_GPIO
+#define HAL_HALLB_PORT              PORT_A
+#define HAL_HALLB_PIN               GPIO_12
+#define HAL_HALLB_PINMUX            PTA12_GPIO
+#define HAL_HALLC_PORT              PORT_A
+#define HAL_HALLC_PIN               GPIO_13
+#define HAL_HALLC_PINMUX            PTA13_GPIO
 
-#define V_HALL_GPIO_PORT            GPIOB
-#define V_HALL_PIN                  GPIO_6
-
-#define W_HALL_GPIO_PORT            GPIOB
-#define W_HALL_PIN                  GPIO_4
 
 #endif /* MotorHal_cfg_H */

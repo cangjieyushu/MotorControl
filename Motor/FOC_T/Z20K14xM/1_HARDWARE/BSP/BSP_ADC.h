@@ -10,8 +10,6 @@
 
 #include "MotorHal_cfg.h"
 
-#define ADC_DATA_NUM_S          (3)     //应用层ADC采样通道个数
-
 /**********************************************************************************************
 Function: BSP_ADC_Init_Three_Shunt
 Description: 电机控制用ADC初始化

@@ -53,7 +53,7 @@
 #define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz，PWM载频
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz，PWM载频
 
-#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_20K)
+#define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_16K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
 #define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
 #define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
@@ -140,7 +140,7 @@
 #define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
 
 //相电流采样
-#define HAL_ADC_CURRENT_OFFSET                  (1.3f)                  //V，电流采样偏置电压
+#define HAL_ADC_CURRENT_OFFSET                  (1.245f)                //V，电流采样偏置电压
 #define HAL_ADC_CURRENT_GAIN                    (6.0f)                  //相电流采样放大倍数
 #define HAL_ADC_CURRENT_RESISTOR                (0.020f)                //Ω，相电流采样电阻
 #define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))

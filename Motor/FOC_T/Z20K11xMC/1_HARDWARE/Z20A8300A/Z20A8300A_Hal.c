@@ -2,13 +2,13 @@
 /** 
  * @file      : Z20A8300A_Hal.c
  * @brief     : Z20A8300A Hardware Abstract Layer Source File.
- *              - Platform : Z20K11xM
- * @version   : V0.1
- * @date      : 2022-08-15
+ *              - Platform : Z20K14xM
+ * @version   : V0.2.0
+ * @date      : 23-Oct-2023
  * @author    : Zhixin Semiconductor
  * @note      : None
  *
- * @Copyright : Copyright (C) 2022 Zhixin Semiconductor Ltd. All rights reserved.
+ * @Copyright : Copyright (C) 2023 Zhixin Semiconductor Ltd. All rights reserved.
  **************************************************************************************************/
 /** @addtogroup Z20A8300A_Driver
  *  @{
@@ -22,14 +22,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "Z20k118M.h"
-#include "Z20k11xM_drv.h"
-#include "Z20k11xM_spi.h"
-#include "Z20k11xM_wdog.h"
-#include "Z20k11xM_gpio.h"
-#include "Z20k11xM_clock.h"
-#include "Z20k11xM_sysctrl.h"
 
 #include "Z20A8300A_Hal.h"
 
@@ -160,6 +152,7 @@ uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data)
 
     return Status;
 }
+
 /**
  * @brief       get the data received from Z20A8300A
  *
@@ -172,6 +165,7 @@ uint16_t MCU_SPI_ReceiveFromZ20A8300A(void)
 {
     return (uint16_t)(SPI_ReceiveData(Z20A8300A_SPI_ID));
 }
+
 /**
  * @brief      MCU SPI Waiting For Reception From Z20A8300A
  *
@@ -259,6 +253,7 @@ uint16_t Z20A8300A_GetDiagPinStates(void)
 {
     return (uint16_t)(GPIO_ReadPinLevel(Z20A8300A_DIAG_PORT, Z20A8300A_DIAG_PIN));
 }
+
 
 /** @} end of group Hal_Public_FunctionDefinition */
 

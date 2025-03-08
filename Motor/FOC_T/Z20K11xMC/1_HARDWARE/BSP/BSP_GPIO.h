@@ -7,18 +7,6 @@
 
 #include "MotorHal_cfg.h"
 
-#define HAL_HALLA_PORT              PORT_A
-#define HAL_HALLA_PIN               GPIO_11
-#define HAL_HALLA_PINMUX            PTA11_GPIO
-
-#define HAL_HALLB_PORT              PORT_A
-#define HAL_HALLB_PIN               GPIO_12
-#define HAL_HALLB_PINMUX            PTA12_GPIO
-
-#define HAL_HALLC_PORT              PORT_A
-#define HAL_HALLC_PIN               GPIO_13
-#define HAL_HALLC_PINMUX            PTA13_GPIO
-
 #define HAL_SW2_PORT                        PORT_E
 #define HAL_SW2_PIN                         GPIO_10
 #define HAL_SW2_PINMUX                      PTE10_GPIO

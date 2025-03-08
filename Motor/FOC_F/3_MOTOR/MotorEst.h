@@ -18,16 +18,13 @@ typedef struct
     
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
-    float       _I_F_Id;
+    float       _I_F_Angle;
+    float       _V_F_Angle;
     
     Q32U_       _V_Q32U_State;
     
     Q32U_       _V_Q32U_Flag_En;
     Q32U_       _V_Q32U_NS_cnt;
-    float       _V_F_NS_Ud;
-    float       _V_F_NS_Id_N;
-    float       _V_F_NS_Id_S;
-    float       _V_F_NS_Ud_Ref_Sign;
     
     Q32U_       _V_Q32U_Ud_cnt;
     float       _V_F_Ud_Sign;
@@ -46,9 +43,7 @@ typedef struct
     float       _P_F_Ud_Ref;
     Q32U_       _P_Q32U_Ud_Period;
     float       _P_F_Udq_Coeff;
-    float       _P_F_NS_Ud_Ref;
-    float       _P_F_NS_Time1;
-    float       _P_F_NS_Time2;
+    float       _P_F_NS_Time;
     float       _P_F_Ts;
 }ST_HFI_CONTROL_F;
 
@@ -79,7 +74,6 @@ typedef struct
     float       _P_F_Gamma;
     float       _P_F_Rs_Coeff;
     float       _P_F_Rs;
-    float       _P_F_Ld;
     float       _P_F_Ls;
     float       _P_F_Flux;
     float       _P_F_Flux2;
@@ -204,17 +198,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL);
-
-/**********************************************************************************************
-Function: Est_HFI_State_F
-Description: HFI观测器
-Input: 无
-Output: 无
-Input_Output: HFI观测器指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_HFI_State_F(ST_HFI_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_HFI_F

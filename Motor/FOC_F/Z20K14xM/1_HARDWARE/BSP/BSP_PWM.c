@@ -16,10 +16,10 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
- void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
+void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
 {
     /*PRQA S 0303 ++*/
-    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) MCPWM1_BASE_ADDR;
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) HAL_MOTOR_PWM_ADDRESS;
     
     /*PRQA S 0303 --*/
     MCPWM_CompPwmChannelConfig_t CPwmChConfig1;
@@ -55,7 +55,7 @@ Author: CJYS
     PORT_PinmuxConfig(HAL_PWM_WL_PORT, HAL_PWM_WL_PIN,HAL_PWM_WL_PINMUX);       
     
     /* MCPWM complementary PWM output channel config */
-    CPwmChConfig1.pairId = HAL_PWM_U_PAIR_ID;
+    CPwmChConfig1.pairId = HAL_PWM_U_PAIR;
     CPwmChConfig1.pec = MCPWM_MAIN_CV;
     
     /* symmetric PWM output */
@@ -86,10 +86,10 @@ Author: CJYS
     Config1.countModVal = HAL_PWM_SET_COUNT_T;                 
     Config1.cPwmChConfig = &CPwmChConfig1;
     /* output complementary pwm config */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config1);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_U_PAIR_ID, ENABLE);
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config1);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_U_PAIR, ENABLE);
     
-    CPwmChConfig2.pairId = HAL_PWM_V_PAIR_ID;
+    CPwmChConfig2.pairId = HAL_PWM_V_PAIR;
     CPwmChConfig2.pec = MCPWM_MAIN_CV;
 
     /* symmetric PWM output */
@@ -119,10 +119,10 @@ Author: CJYS
     Config2.countModVal = HAL_PWM_SET_COUNT_T;               
     Config2.cPwmChConfig = &CPwmChConfig2;
     /* output complementary pwm config  */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config2);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_V_PAIR_ID, ENABLE);
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config2);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_V_PAIR, ENABLE);
      
-    CPwmChConfig3.pairId = HAL_PWM_W_PAIR_ID;
+    CPwmChConfig3.pairId = HAL_PWM_W_PAIR;
     CPwmChConfig3.pec = MCPWM_MAIN_CV;
 
     /* symmetric PWM output */
@@ -152,8 +152,8 @@ Author: CJYS
     Config3.countModVal = HAL_PWM_SET_COUNT_T;               
     Config3.cPwmChConfig = &CPwmChConfig3;
     /* output complementary pwm config  */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config3);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_W_PAIR_ID, ENABLE);   
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config3);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_W_PAIR, ENABLE);   
 
     /* fault channel config */
     FaultChannelConfig[0].faultInputChannelEnable = DISABLE;
@@ -178,13 +178,13 @@ Author: CJYS
     Configfault.faultFilterValue = 0xf;
     Configfault.status =  MCPWM_INACTIVE_STATE;   
     Configfault.faultChannelConfig = FaultChannelConfig;
-    MCPWM_FaultControlConfig(HAL_MCPWM_ID, &Configfault);
+    MCPWM_FaultControlConfig(HAL_MOTOR_PWM, &Configfault);
     
     /* clock config */
-    MCPWM_ClockSourceConfig(HAL_MCPWM_ID, MCPWM_CLK_SOURCE_SYSTEM,MCPWM_CLK_DIVIDE_2); 
+    MCPWM_ClockSourceConfig(HAL_MOTOR_PWM, MCPWM_CLK_SOURCE_SYSTEM,MCPWM_CLK_DIVIDE_2); 
     
     /* cnt0 config */
-    MCPWM_ReloadParamConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &ReloadConfig);      
+    MCPWM_ReloadParamConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &ReloadConfig);      
 
     MCPWMx->MCPWM_RELOAD.LOADEN0 = (Q32U_)ENABLE;
     MCPWMx->MCPWM_RELOAD.LOADEN1 = (Q32U_)ENABLE;   
@@ -194,34 +194,34 @@ Author: CJYS
     MCPWMx->MCPWM_CV[MCPWM_CHANNEL_2].CV = HAL_PWM_SET_COUNT_T;  
     MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_T;
     
-    MCPWM_InitTriggerCmd(HAL_MCPWM_ID, ENABLE);     
+    MCPWM_InitTriggerCmd(HAL_MOTOR_PWM, ENABLE);     
     
-    MCPWM_InstallCallBackFunc(HAL_MCPWM_ID, HAL_FAULTIN, M1FaultIntCbf);
-    MCPWM_IntClear(HAL_MCPWM_ID, HAL_FAULTIN);
+    MCPWM_InstallCallBackFunc(HAL_MOTOR_PWM, MCPWM_INT_FAULT, M1FaultIntCbf);
+    MCPWM_IntClear(HAL_MOTOR_PWM, MCPWM_INT_FAULT);
     
     /* unmask/mask interrupt */
-    MCPWM_IntMask(HAL_MCPWM_ID, HAL_FAULTIN, UNMASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH0, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH1, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH2, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH3, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH4, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH5, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH7, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH7, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_FAULT, UNMASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH0, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH1, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH2, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH3, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH4, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH5, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH7, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH7, MASK);
     /* disable DMA */
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_0, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_1, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_2, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_3, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_4, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_5, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_6, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_7, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_0, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_1, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_2, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_3, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_4, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_5, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_6, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_7, DISABLE);
     
     /* start counter */
-    MCPWM_StartGlobalCounter(HAL_MCPWM_ID);
-    MCPWM_StartCounter(HAL_MCPWM_ID,HAL_PWM_COUNTER_ID);
+    MCPWM_StartGlobalCounter(HAL_MOTOR_PWM);
+    MCPWM_StartCounter(HAL_MOTOR_PWM, MCPWM_COUNTER_0);
 }
 
 /**********************************************************************************************
@@ -233,10 +233,10 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
- void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
+void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
 {
     /*PRQA S 0303 ++*/
-    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) MCPWM1_BASE_ADDR;
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t*) HAL_MOTOR_PWM_ADDRESS;
     
     /*PRQA S 0303 --*/
     MCPWM_CompPwmChannelConfig_t CPwmChConfig1;
@@ -272,7 +272,7 @@ Author: CJYS
     PORT_PinmuxConfig(HAL_PWM_WL_PORT, HAL_PWM_WL_PIN,HAL_PWM_WL_PINMUX);       
     
     /* MCPWM complementary PWM output channel config */
-    CPwmChConfig1.pairId = HAL_PWM_U_PAIR_ID;
+    CPwmChConfig1.pairId = HAL_PWM_U_PAIR;
     CPwmChConfig1.pec = MCPWM_MAIN_CV;
     
     /* Asymmetric PWM output */
@@ -303,10 +303,10 @@ Author: CJYS
     Config1.countModVal = HAL_PWM_SET_COUNT_T;                 
     Config1.cPwmChConfig = &CPwmChConfig1;
     /* output complementary pwm config */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config1);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_U_PAIR_ID, ENABLE);
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config1);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_U_PAIR, ENABLE);
     
-    CPwmChConfig2.pairId = HAL_PWM_V_PAIR_ID;
+    CPwmChConfig2.pairId = HAL_PWM_V_PAIR;
     CPwmChConfig2.pec = MCPWM_MAIN_CV;
 
     /* Asymmetric PWM output */
@@ -336,10 +336,10 @@ Author: CJYS
     Config2.countModVal = HAL_PWM_SET_COUNT_T;               
     Config2.cPwmChConfig = &CPwmChConfig2;
     /* output complementary pwm config  */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config2);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_V_PAIR_ID, ENABLE);
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config2);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_V_PAIR, ENABLE);
      
-    CPwmChConfig3.pairId = HAL_PWM_W_PAIR_ID;
+    CPwmChConfig3.pairId = HAL_PWM_W_PAIR;
     CPwmChConfig3.pec = MCPWM_MAIN_CV;
 
     /* Asymmetric PWM output */
@@ -369,8 +369,8 @@ Author: CJYS
     Config3.countModVal = HAL_PWM_SET_COUNT_T;               
     Config3.cPwmChConfig = &CPwmChConfig3;
     /* output complementary pwm config  */
-    MCPWM_OutputComplementaryPwmConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &Config3);
-    MCPWM_PairCombineCmd(HAL_MCPWM_ID, HAL_PWM_W_PAIR_ID, ENABLE);   
+    MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config3);
+    MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_W_PAIR, ENABLE);   
 
     /* fault channel config */
     FaultChannelConfig[0].faultInputChannelEnable = DISABLE;
@@ -395,13 +395,13 @@ Author: CJYS
     Configfault.faultFilterValue = 0xf;
     Configfault.status =  MCPWM_INACTIVE_STATE;   
     Configfault.faultChannelConfig = FaultChannelConfig;
-    MCPWM_FaultControlConfig(HAL_MCPWM_ID, &Configfault);
+    MCPWM_FaultControlConfig(HAL_MOTOR_PWM, &Configfault);
     
     /* clock config */
-    MCPWM_ClockSourceConfig(HAL_MCPWM_ID, MCPWM_CLK_SOURCE_SYSTEM,MCPWM_CLK_DIVIDE_2); 
+    MCPWM_ClockSourceConfig(HAL_MOTOR_PWM, MCPWM_CLK_SOURCE_SYSTEM,MCPWM_CLK_DIVIDE_2); 
     
     /* cnt0 config */
-    MCPWM_ReloadParamConfig(HAL_MCPWM_ID, HAL_PWM_COUNTER_ID, &ReloadConfig);      
+    MCPWM_ReloadParamConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &ReloadConfig);      
 
     MCPWMx->MCPWM_RELOAD.LOADEN0 = (Q32U_)ENABLE;
     MCPWMx->MCPWM_RELOAD.LOADEN1 = (Q32U_)ENABLE;   
@@ -416,32 +416,32 @@ Author: CJYS
     MCPWMx->MCPWM_CV[MCPWM_CHANNEL_4].CV = HAL_PWM_SET_COUNT_T/2U;  
     MCPWMx->MCPWM_CV[MCPWM_CHANNEL_5].CV = HAL_PWM_SET_COUNT_T/2U; 
     
-    MCPWM_InitTriggerCmd(HAL_MCPWM_ID, ENABLE);     
+    MCPWM_InitTriggerCmd(HAL_MOTOR_PWM, ENABLE);     
     
-    MCPWM_InstallCallBackFunc(HAL_MCPWM_ID, HAL_FAULTIN, M1FaultIntCbf);
-    MCPWM_IntClear(HAL_MCPWM_ID, HAL_FAULTIN);
+    MCPWM_InstallCallBackFunc(HAL_MOTOR_PWM, MCPWM_INT_FAULT, M1FaultIntCbf);
+    MCPWM_IntClear(HAL_MOTOR_PWM, MCPWM_INT_FAULT);
     
     /* unmask/mask interrupt */
-    MCPWM_IntMask(HAL_MCPWM_ID, HAL_FAULTIN, UNMASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH0, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH1, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH2, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH3, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH4, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH5, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH7, MASK);
-    MCPWM_IntMask(HAL_MCPWM_ID, MCPWM_INT_CH7, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_FAULT, UNMASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH0, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH1, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH2, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH3, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH4, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH5, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH7, MASK);
+    MCPWM_IntMask(HAL_MOTOR_PWM, MCPWM_INT_CH7, MASK);
     /* disable DMA */
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_0, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_1, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_2, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_3, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_4, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_5, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_6, DISABLE);
-    MCPWM_DMACmd(HAL_MCPWM_ID, MCPWM_CHANNEL_7, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_0, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_1, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_2, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_3, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_4, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_5, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_6, DISABLE);
+    MCPWM_DMACmd(HAL_MOTOR_PWM, MCPWM_CHANNEL_7, DISABLE);
     
     /* start counter */
-    MCPWM_StartGlobalCounter(HAL_MCPWM_ID);
-    MCPWM_StartCounter(HAL_MCPWM_ID,HAL_PWM_COUNTER_ID);
+    MCPWM_StartGlobalCounter(HAL_MOTOR_PWM);
+    MCPWM_StartCounter(HAL_MOTOR_PWM, MCPWM_COUNTER_0);
 }

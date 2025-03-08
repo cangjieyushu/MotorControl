@@ -18,7 +18,7 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_Three_Shunt(void)
 {
-    static adc_reg_t * ADC0 = (adc_reg_t *)(ADC0_BASE_ADDR);       /*PRQA S 0303*/  
+    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
     
     ADC_Config_t SubcaseAdcCfg=
     {
@@ -95,7 +95,7 @@ void BSP_ADC_Init_Three_Shunt(void)
         /* CMD5: channel 7; all CMDs can be configured as different channels */                
         ADC_P_CH7,
         /* Loop depth */                
-        4,                   
+        HAL_MOTOR_ADC_NUM_THREE,                   
     };
     
     /* mod value, single, divide4, SW trig, clear to mod */
@@ -130,56 +130,56 @@ void BSP_ADC_Init_Three_Shunt(void)
     PORT_PinmuxConfig(HAL_ADC_VBUS_PORT, HAL_ADC_VBUS_PIN, HAL_ADC_VBUS_PINMUX); 
     
     /* Reset software */
-    ADC_SoftwareReset(HAL_ADC_ID);
+    ADC_SoftwareReset(HAL_MOTOR_ADC);
     /* Initialize ADC */
-    ADC_Init(HAL_ADC_ID,&SubcaseAdcCfg);
+    ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_ADC_ID,4); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE)); 
     /* Set ADC watermark */
     /* fifo WM > 3, that is when WM=4,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_ADC_ID,3);                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE-1));                               
     /* Configure input channel */
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg1);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg2);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg3);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg4);     
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg3);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg4);     
     /* Mask FIFO watermark interrupt */
-    ADC_IntMask(HAL_ADC_ID,ADC_FWM_INT, MASK);   
+    ADC_IntMask(HAL_MOTOR_ADC,ADC_FWM_INT, MASK);   
     
     /* Set trigger mode */
-    ADC_TDGTriggerConfig(HAL_ADC_ID,&AdcTriggerConfig);
+    ADC_TDGTriggerConfig(HAL_MOTOR_ADC,&AdcTriggerConfig);
     /* Clear TCOMP interrupt */
-    ADC_IntClear(HAL_ADC_ID,ADC_TCOMP_INT);
+    ADC_IntClear(HAL_MOTOR_ADC,ADC_TCOMP_INT);
     /* Enable ADC module */
-    ADC_Enable(HAL_ADC_ID);
+    ADC_Enable(HAL_MOTOR_ADC);
     /* Enable ADC dma request */
-    ADC_DmaRequestCmd(HAL_ADC_ID, ENABLE);
+    ADC_DmaRequestCmd(HAL_MOTOR_ADC, ENABLE);
     
     /* Initialize TDG */
-    TDG_InitConfig(HAL_TGD_ID, &Config);
+    TDG_InitConfig(HAL_MOTOR_TDG, &Config);
     /* Set TDG delay output */
-    TDG_ChannelDelayOutputConfig(HAL_TGD_ID, &Chconfig, ENABLE);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, ENABLE);
     /* enable TDG */
-    TDG_Enable(HAL_TGD_ID, ENABLE);    
+    TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */
-    TDG_LoadCmd(HAL_TGD_ID); 
+    TDG_LoadCmd(HAL_MOTOR_TDG); 
 
-    ADC0->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADC0->ADC_CFG.CHSELP = (uint32_t)HAL_ADC_VBUS_CHN;             /* config channel */
-    ADC0->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADC0->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADC0->ADC_STAT.TCOMP_INT)
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
+    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
+    while (0U == ADCx->ADC_STAT.TCOMP_INT)
     {
     }
 
-    ADC0->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADC0->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADC0->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
+    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
+    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
     
     /* Clear FIFO */
-    while (0U != ADC0->ADC_FCTRL.FCOUNT)
+    while (0U != ADCx->ADC_FCTRL.FCOUNT)
     {
-        (void)ADC0->ADC_DATA_RD.ADC_DATA_RD;
+        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }
 }
 
@@ -194,7 +194,7 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_One_Shunt(void)
 {
-    static adc_reg_t * ADC0 = (adc_reg_t *)(ADC0_BASE_ADDR);       /*PRQA S 0303*/  
+    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
     
     ADC_Config_t SubcaseAdcCfg=
     {
@@ -312,67 +312,67 @@ void BSP_ADC_Init_One_Shunt(void)
     PORT_PinmuxConfig(HAL_ADC_VBUS_PORT, HAL_ADC_VBUS_PIN, HAL_ADC_VBUS_PINMUX); 
     
     /* Reset software */
-    ADC_SoftwareReset(HAL_ADC_ID);
+    ADC_SoftwareReset(HAL_MOTOR_ADC);
     
     /* Initialize ADC */
-    ADC_Init(HAL_ADC_ID,&SubcaseAdcCfg);
+    ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_ADC_ID,3); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE)); 
     /* Set ADC watermark */
     /* fifo WM > 2, that is when WM=3,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_ADC_ID,2);                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE-1));                               
     /* Configure input channel */
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg1);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg2);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg3);
-    ADC_ChannelConfig(HAL_ADC_ID, &AdcChannelCfg4);     
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg3);
+    ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg4);     
     /* Mask FIFO watermark interrupt */
-    ADC_IntMask(HAL_ADC_ID,ADC_FWM_INT, MASK);   
+    ADC_IntMask(HAL_MOTOR_ADC,ADC_FWM_INT, MASK);   
     
     /* Set trigger mode */
-    ADC_TDGTriggerConfig(HAL_ADC_ID,&AdcTriggerConfig);
+    ADC_TDGTriggerConfig(HAL_MOTOR_ADC,&AdcTriggerConfig);
     /* Clear TCOMP interrupt */
-    ADC_IntClear(HAL_ADC_ID,ADC_TCOMP_INT);
+    ADC_IntClear(HAL_MOTOR_ADC,ADC_TCOMP_INT);
     /* Enable ADC module */
-    ADC_Enable(HAL_ADC_ID);
+    ADC_Enable(HAL_MOTOR_ADC);
     /* Enable ADC dma request */
-    ADC_DmaRequestCmd(HAL_ADC_ID, ENABLE);
+    ADC_DmaRequestCmd(HAL_MOTOR_ADC, ENABLE);
     
     
     /* Initialize TDG */
-    TDG_InitConfig(HAL_TGD_ID, &Config);
+    TDG_InitConfig(HAL_MOTOR_TDG, &Config);
     /* Set TDG delay output */
-    TDG_ChannelDelayOutputConfig(HAL_TGD_ID, &Chconfig, ENABLE);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, ENABLE);
     
     Chconfig.channelId = TDG_CHANNEL_0;
     Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME1*HAL_PWM_ALL_COUNT_F);
-    TDG_ChannelDelayOutputConfig(HAL_TGD_ID, &Chconfig, ENABLE);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, ENABLE);
 
     Chconfig.channelId = TDG_CHANNEL_1;
     Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME2*HAL_PWM_ALL_COUNT_F);
-    TDG_ChannelDelayOutputConfig(HAL_TGD_ID, &Chconfig, ENABLE);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, ENABLE);
     /* enable TDG */
-    TDG_Enable(HAL_TGD_ID, ENABLE);    
+    TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */
-    TDG_LoadCmd(HAL_TGD_ID);
+    TDG_LoadCmd(HAL_MOTOR_TDG);
 
 
-    ADC0->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADC0->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
-    ADC0->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADC0->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADC0->ADC_STAT.TCOMP_INT)
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
+    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
+    while (0U == ADCx->ADC_STAT.TCOMP_INT)
     {
     }
 
-    ADC0->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADC0->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADC0->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
+    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
+    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
     
     /* Clear FIFO */
-    while (0U != ADC0->ADC_FCTRL.FCOUNT)
+    while (0U != ADCx->ADC_FCTRL.FCOUNT)
     {
-        (void)ADC0->ADC_DATA_RD.ADC_DATA_RD;
+        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }      
 }
 
@@ -387,7 +387,7 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_S(void)
 {
-    static adc_reg_t * ADC1 = (adc_reg_t *)(ADC1_BASE_ADDR);       /*PRQA S 0303*/  
+    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_SYSTEM_ADC_ADDRESS);       /*PRQA S 0303*/  
     
     ADC_Config_t SubcaseAdcCfg =
     {
@@ -412,7 +412,7 @@ void BSP_ADC_Init_S(void)
         /* Single-Ended Mode Selected */
         ADC_SINGLE_MODE,
         /* Single mode vssa */
-        HAL_ADC1_VR_CHN,
+        HAL_ADC_VR_CHN,
         /* Single mode, N-channel donn't need to configure */
         ADC_N_NONE,
     };
@@ -421,16 +421,7 @@ void BSP_ADC_Init_S(void)
         /* Single-Ended Mode Selected */
         ADC_SINGLE_MODE,
         /* Single mode vssa */
-        HAL_ADC1_TEMP_CHN,
-        /* Single mode, N-channel donn't need to configure */
-        ADC_N_NONE,
-    };
-    ADC_ChannelConfig_t Adc1ChannelCfg3 =
-    {
-        /* Single-Ended Mode Selected */
-        ADC_SINGLE_MODE,
-        /* Single mode, channel vssa */
-        HAL_ADC1_BAT_CHN,
+        HAL_ADC_TEMP_CHN,
         /* Single mode, N-channel donn't need to configure */
         ADC_N_NONE,
     };
@@ -441,50 +432,48 @@ void BSP_ADC_Init_S(void)
     /* Enable ADC1 clock */
     SYSCTRL_EnableModule(SYSCTRL_ADC1);
     /* adc pinmux */
-    PORT_PinmuxConfig(HAL_ADC1_VR_PORT, HAL_ADC1_VR_PIN, HAL_ADC1_VR_PINMUX);
-    PORT_PinmuxConfig(HAL_ADC1_TEMP_PORT, HAL_ADC1_TEMP_PIN, HAL_ADC1_TEMP_PINMUX);
-    PORT_PinmuxConfig(HAL_ADC1_BAT_PORT, HAL_ADC1_BAT_PIN, HAL_ADC1_BAT_PINMUX);
+    PORT_PinmuxConfig(HAL_ADC_VR_PORT, HAL_ADC_VR_PIN, HAL_ADC_VR_PINMUX);
+    PORT_PinmuxConfig(HAL_ADC_TEMP_PORT, HAL_ADC_TEMP_PIN, HAL_ADC_TEMP_PINMUX);
 
     /* Reset software */
-    ADC_SoftwareReset(HAL_ADC1_ID);
+    ADC_SoftwareReset(HAL_SYSTEM_ADC);
     /* Initialize ADC */
-    ADC_Init(HAL_ADC1_ID, &SubcaseAdcCfg);
+    ADC_Init(HAL_SYSTEM_ADC, &SubcaseAdcCfg);
     /* Redefine the depth the function */
-    ADC_FifoDepthRedefine(HAL_ADC1_ID, ADC_DATA_NUM_S);
+    ADC_FifoDepthRedefine(HAL_SYSTEM_ADC, HAL_SYSTEM_ADC_NUM);
     /* Set ADC watermark */
     /* fifo WM > 2, that is when WM=3,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_ADC1_ID, (ADC_DATA_NUM_S-1));
+    ADC_FifoWatermarkConfig(HAL_SYSTEM_ADC, (HAL_SYSTEM_ADC_NUM-1));
     /* Configure input channel */
-    ADC_ChannelConfig(HAL_ADC1_ID, &Adc1ChannelCfg1);
-    ADC_ChannelConfig(HAL_ADC1_ID, &Adc1ChannelCfg2);
-    ADC_ChannelConfig(HAL_ADC1_ID, &Adc1ChannelCfg3);
+    ADC_ChannelConfig(HAL_SYSTEM_ADC, &Adc1ChannelCfg1);
+    ADC_ChannelConfig(HAL_SYSTEM_ADC, &Adc1ChannelCfg2);
     /* Mask FIFO watermark interrupt */
-    ADC_IntMask(HAL_ADC1_ID, ADC_FWM_INT, MASK);
+    ADC_IntMask(HAL_SYSTEM_ADC, ADC_FWM_INT, MASK);
     
     /* M1&Bus */
     ADC_TDGTriggerConfig_t  Adc1TriggerConfig =
     {
         /* Loop mode Selected */
         ADC_LOOP_MODE,
-        HAL_ADC1_VR_CHN,
-        HAL_ADC1_TEMP_CHN,
-        HAL_ADC1_BAT_CHN,
+        HAL_ADC_VR_CHN,
+        HAL_ADC_TEMP_CHN,
+        ADC_P_CH7,
         ADC_P_CH7,
         ADC_P_CH7,
         ADC_P_CH7,
         /* Loop depth */
-        ADC_DATA_NUM_S,
+        HAL_SYSTEM_ADC_NUM,
     };
     
     /* Set trigger mode */
-    ADC_TDGTriggerConfig(HAL_ADC1_ID, &Adc1TriggerConfig);
+    ADC_TDGTriggerConfig(HAL_SYSTEM_ADC, &Adc1TriggerConfig);
     
     /* Clear TCOMP interrupt */
-    ADC_IntClear(HAL_ADC1_ID, ADC_TCOMP_INT);
+    ADC_IntClear(HAL_SYSTEM_ADC, ADC_TCOMP_INT);
     /* Enable ADC1 module */
-    ADC_Enable(HAL_ADC1_ID);
+    ADC_Enable(HAL_SYSTEM_ADC);
     /* Enable ADC1 dma request */
-    ADC_DmaRequestCmd(HAL_ADC1_ID, ENABLE);
+    ADC_DmaRequestCmd(HAL_SYSTEM_ADC, ENABLE);
     /* mod value, single, divide4, SW trig, clear to mod */
     TDG_InitConfig_t Config =
     {
@@ -499,29 +488,29 @@ void BSP_ADC_Init_S(void)
         TDG_CHANNEL_0, 0U, 1U, &Doconfig
     };
     
-    TDG_InitConfig(TDG1_ID, &Config);
+    TDG_InitConfig(HAL_SYSTEM_TDG, &Config);
     /* Set TDG delay output */
-    TDG_ChannelDelayOutputConfig(TDG1_ID, &Chconfig, ENABLE);
+    TDG_ChannelDelayOutputConfig(HAL_SYSTEM_TDG, &Chconfig, ENABLE);
     /* enable TDG */
-    TDG_Enable(TDG1_ID, ENABLE);
+    TDG_Enable(HAL_SYSTEM_TDG, ENABLE);
     /* Load channel Configuration */
-    TDG_LoadCmd(TDG1_ID);
+    TDG_LoadCmd(HAL_SYSTEM_TDG);
 
-    ADC1->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADC1->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
-    ADC1->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADC1->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADC1->ADC_STAT.TCOMP_INT)
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VR_CHN;             /* config channel */
+    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
+    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
+    while (0U == ADCx->ADC_STAT.TCOMP_INT)
     {
     }
 
-    ADC1->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADC1->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADC1->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
+    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
+    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
+    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
 
     /* Clear FIFO */
-    while (0U != ADC1->ADC_FCTRL.FCOUNT)
+    while (0U != ADCx->ADC_FCTRL.FCOUNT)
     {
-        (void)ADC1->ADC_DATA_RD.ADC_DATA_RD;
+        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
     }
 }
