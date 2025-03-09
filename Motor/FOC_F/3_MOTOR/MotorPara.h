@@ -20,12 +20,12 @@
 #define MOTOR_OPENLOOP_VF               (01U)
 #define MOTOR_OPENLOOP_HFI              (02U)
 #define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
 #define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
+#define MOTOR_EST_MODE                  MOTOR_EST_SMO
 
 
 //电流采样偏置检测
@@ -149,7 +149,6 @@
 #define MOTOR_SMO_PLL_KD                    (0.0f)                    	//锁相环微分系数
 #define MOTOR_SMO_PLL_MAX                   ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
-
 
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
