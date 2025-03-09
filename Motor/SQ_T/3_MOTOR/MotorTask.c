@@ -173,8 +173,12 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
             switch(MotorSQ_Offset_Check(&pMotor->MS_OFFSET))
             {
                 case ING:
-                {
-                    MH_ADC_Soft_Trigger();
+                { 
+                    Q32U_ Q32U_pwm_count_tmp = MH_PWM_Count_Read();
+                    if(Q32U_pwm_count_tmp + pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_solve_value < pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq)
+                    {
+                        MH_ADC_Soft_Trigger();
+                    }
                     break;
                 }
                 case SUCS:
@@ -239,7 +243,11 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
             {
                 case ING:
                 {
-                    MH_ADC_Soft_Trigger();
+                    Q32U_ Q32U_pwm_count_tmp = MH_PWM_Count_Read();
+                    if(Q32U_pwm_count_tmp + pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_solve_value < pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq)
+                    {
+                        MH_ADC_Soft_Trigger();
+                    }
                     break;
                 }
                 case SUCS:
