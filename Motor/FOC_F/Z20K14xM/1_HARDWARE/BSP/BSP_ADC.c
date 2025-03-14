@@ -95,7 +95,7 @@ void BSP_ADC_Init_Three_Shunt(void)
         /* CMD5: channel 7; all CMDs can be configured as different channels */                
         ADC_P_CH7,
         /* Loop depth */                
-        HAL_MOTOR_ADC_NUM_THREE,                   
+        HAL_MOTOR_ADC_NUM_THREE_SHUNT,                   
     };
     
     /* mod value, single, divide4, SW trig, clear to mod */
@@ -134,10 +134,10 @@ void BSP_ADC_Init_Three_Shunt(void)
     /* Initialize ADC */
     ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE)); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE_SHUNT)); 
     /* Set ADC watermark */
     /* fifo WM > 3, that is when WM=4,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE-1));                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE_SHUNT-1));                               
     /* Configure input channel */
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
@@ -165,7 +165,7 @@ void BSP_ADC_Init_Three_Shunt(void)
     TDG_LoadCmd(HAL_MOTOR_TDG); 
 
     ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADCx->ADC_CFG.CHSELP = (uint32_t)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
     ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
     ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
     while (0U == ADCx->ADC_STAT.TCOMP_INT)
@@ -317,10 +317,10 @@ void BSP_ADC_Init_One_Shunt(void)
     /* Initialize ADC */
     ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE)); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE_SHUNT)); 
     /* Set ADC watermark */
     /* fifo WM > 2, that is when WM=3,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE-1));                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE_SHUNT-1));                               
     /* Configure input channel */
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
@@ -497,7 +497,7 @@ void BSP_ADC_Init_S(void)
     TDG_LoadCmd(HAL_SYSTEM_TDG);
 
     ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
+    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VR_CHN;             /* config channel */
     ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
     ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
     while (0U == ADCx->ADC_STAT.TCOMP_INT)

@@ -460,7 +460,16 @@ void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
             pCTRL-> _O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
             break;
         }
-        default:break;
+        default:
+        {
+            pCTRL->_O_F_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
+            pCTRL->_O_F_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]];
+            pCTRL->_O_F_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]];
+            pCTRL->_O_F_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
+            pCTRL->_O_F_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]];
+            pCTRL->_O_F_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]];
+            break;
+        }
     }
 }
 

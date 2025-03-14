@@ -13,14 +13,14 @@
 
 ////电机额定参数，正点原子
 //#define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
-//#define MOTOR_CURRENT_PHASE_A               (30.0f)             //A，相电流幅值
+//#define MOTOR_CURRENT_PHASE_A               (12.0f)             //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 //
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
 //#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
-//#define MOTOR_Rs                            (0.31f)                         //Ω，相电阻
+//#define MOTOR_Rs                            (0.25f)                         //Ω，相电阻
 //#define MOTOR_Ld                            (0.37f*0.001f)                  //H，d轴电感
 //#define MOTOR_Lq                            (0.44f*0.001f)                  //H，q轴电感，q轴电感至少需要比d轴电感大10uH
 //#define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
@@ -35,7 +35,7 @@
 #define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 
-#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
+#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
 #define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 #define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
 #define MOTOR_Rs                            (0.36f)                         //Ω，相电阻
@@ -52,16 +52,16 @@
 //#define MOTOR_CURRENT_PHASE_A               (12.0f)             //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ)
+//
+//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_SET_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
 //#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (5.0f)                          //转子极对数
-//#define MOTOR_Rs                            (0.175f)                         //Ω，相电阻
+//#define MOTOR_Rs                            (0.175f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (0.31f*0.001f)                  //H，d轴电感
 //#define MOTOR_Lq                            (0.43f*0.001f)                  //H，q轴电感，q轴电感至少需要比d轴电感大10uH
 //#define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
-//#define MOTOR_FLUX                          (0.00975f)                        //Wb
-
+//#define MOTOR_FLUX                          (0.00975f)                      //Wb
+//
 //#define MOTOR_MAX_SPEED                     (3300.0f)             //rpm，最高转速
 //#define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
@@ -70,8 +70,8 @@
 #define MOTOR_MIN_SRAD                      (MATH_2PI_F*MOTOR_POLE_PAIR*MOTOR_MIN_SPEED/60.0f)        //Hz，最低角频率
 
 //标幺化
-#define V_BASE                              (0.50f*HAL_ADC_VOLTAGE_MAX)      //V，电压
-#define I_BASE                              (0.50f*HAL_ADC_CURRENT_MAX)      //A，电流
+#define V_BASE                              (0.5f*HAL_ADC_VOLTAGE_MAX)      //V，电压
+#define I_BASE                              (0.5f*HAL_ADC_CURRENT_MAX)      //A，电流
 #define F_BASE                              (1.0f*MOTOR_POLE_PAIR*MOTOR_MAX_SPEED/60.0f)    //Hz，频率
 
 #define W_BASE                              (F_BASE*MATH_2PI_F)     //Hz，角频率
@@ -87,9 +87,9 @@
 #define Q24I_VOLTAGE_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_VOLTAGE_SCALE/V_BASE)          //电压
 #define Q24I_CURRENT_SCALE_PU               (Q32I_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
      
-#define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*F_BASE*HAL_CURRENT_PRESCALER)
+#define Q14I_HTs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*F_BASE)
 #define Q14I_LTs_PU                         (MOTOR_Q14_PU*MOTOR_LTs*F_BASE)
-#define Q14I_HWs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*W_BASE*HAL_CURRENT_PRESCALER)
+#define Q14I_HWs_PU                         (MOTOR_Q14_PU*MOTOR_HTs*W_BASE)
 #define Q14I_Rs_PU                          (MOTOR_Q14_PU*MOTOR_Rs/R_BASE)           //Ω，相电阻
 #define Q14I_Ld_PU                          (MOTOR_Q14_PU*MOTOR_Ld/L_BASE)           //H，d轴电感
 #define Q14I_Lq_PU                          (MOTOR_Q14_PU*MOTOR_Lq/L_BASE)           //H，q轴电感

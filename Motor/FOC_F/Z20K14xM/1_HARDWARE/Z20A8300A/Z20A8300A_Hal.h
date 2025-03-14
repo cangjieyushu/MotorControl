@@ -96,6 +96,7 @@ extern "C"
  *
  */
 void MCU_Z20A8300A_SpiInit(void);
+
 /**
  * @brief       MCU Z20A8300A GPIO Init
  *
@@ -105,6 +106,7 @@ void MCU_Z20A8300A_SpiInit(void);
  *
  */
 void MCU_Z20A8300A_GpioInit(void);
+
 /**
  * @brief       MCU SPI Send To Z20A8300A
  *
@@ -116,6 +118,7 @@ void MCU_Z20A8300A_GpioInit(void);
  *
  */
 uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data);
+
 /**
  * @brief       get the data received from Z20A8300A
  *
@@ -125,6 +128,7 @@ uint16_t MCU_SPI_SendToZ20A8300A(uint16_t Data);
  * @retval      receive data
  */
 uint16_t MCU_SPI_ReceiveFromZ20A8300A(void);
+
 /**
  * @brief      MCU SPI Waiting For Reception From Z20A8300A
  *
@@ -136,6 +140,7 @@ uint16_t MCU_SPI_ReceiveFromZ20A8300A(void);
  *
  */
 uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void);
+
 /**
  * @brief      Z20A8300A Set PWM Enable Pin
  *
@@ -146,7 +151,8 @@ uint16_t MCU_SPI_WaitingForReceptionFromZ20A8300A(void);
  * @return     none
  *
  */
-void Z20A8300A_SetPWMEnablePin1(uint16_t States);
+void Z20A8300A_SetPWMEnablePin(uint16_t States);
+
 /**
  * @brief      Z20A8300A Set Reset Pin
  *
@@ -157,7 +163,8 @@ void Z20A8300A_SetPWMEnablePin1(uint16_t States);
  * @return     none
  *
  */
-void Z20A8300A_SetResetPin1(uint16_t States);
+void Z20A8300A_SetResetPin(uint16_t States);
+
 /**
  * @brief      Z20A8300A Get Diag Pin States
  *
@@ -168,7 +175,7 @@ void Z20A8300A_SetResetPin1(uint16_t States);
  * @retval     1: normal
  *
  */
-uint16_t Z20A8300A_GetDiagPinStates1(void);
+uint16_t Z20A8300A_GetDiagPinStates(void);
 
 /** @} end of group Hal_Public_FunctionDeclaration */
 

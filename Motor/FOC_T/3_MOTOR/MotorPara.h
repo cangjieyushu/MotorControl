@@ -20,12 +20,12 @@
 #define MOTOR_OPENLOOP_VF               (01U)
 #define MOTOR_OPENLOOP_HFI              (02U)
 #define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_FLUX
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
 
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
 #define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MODE                  MOTOR_EST_FLUX
+#define MOTOR_EST_MODE                  MOTOR_EST_SMO
 
 
 //电流采样偏置检测
@@ -98,7 +98,7 @@
 
 
 //转速环PID    
-#define MOTOR_SPD_PID_Coeff                 (0.05f)                                     //转速环PID增益系数
+#define MOTOR_SPD_PID_Coeff                 (0.25f)                                     //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (Q32I_)(MOTOR_Q14_PU * MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD * W_BASE / I_BASE)
 #define MOTOR_SPD_KI_GAIN                   (Q32I_)(MOTOR_Q14_PU * 0.1f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F * W_BASE / I_BASE)
 #define MOTOR_SPD_KD_GAIN                   (Q32I_)(0.0f)
@@ -106,16 +106,16 @@
 #define MOTOR_SPD_PID_MIN                   (-(Q32I_)(1.0000f*Q14I_CURRENT_PHASE_PU)) //A,转速环输出q轴电流限幅
 
 //电流PID
-#define MOTOR_FOC_P_Coeff                   (0.01f)                       //电流环P增益系数
+#define MOTOR_FOC_P_Coeff                   (0.02f)                       //电流环P增益系数
 #define MOTOR_FOC_KP_GAIN                   (Q32I_)(MOTOR_Q14_PU * MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs * I_BASE / V_BASE)
 #define MOTOR_FOC_KI_GAIN                   (Q32I_)(MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls * I_BASE / V_BASE)
 #define MOTOR_FOC_KD_GAIN                   (Q32I_)(0.0f)
 //dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      ((Q32I_)(0.6667f * MOTOR_Q14_PU))
+#define MOTOR_VS_SCALE                      ((Q32I_)(0.5774f * MOTOR_Q14_PU))
 
 
 //观测器PLL系数
-#define MOTOR_PLL_Coeff                     (0.30f)
+#define MOTOR_PLL_Coeff                     (0.20f)
 #define USER_PLL_SPEED_LPF_COEFF            (15)                        //0~256，越小滤波越深
 
 //非线性磁链观测器  
@@ -128,7 +128,7 @@
 #define MOTOR_FLUX_PLL_MAX                  (Q32I_)( 2.000f * Q14I_MAX_SRAD_PU)     //锁相环最大输出
 #define MOTOR_FLUX_PLL_MIN                  (Q32I_)(-2.000f * Q14I_MAX_SRAD_PU)  	//锁相环最小输出
 
-//SMO观测器            
+//SMO观测器
 #define MOTOR_SMO_K1                        (Q32I_)(MOTOR_Q14_PU * 1.00f * Q14I_VOLTAGE_PU / Q14I_CURRENT_PHASE_PU)           //增益系数1
 
 #define MOTOR_SMO_PLL_KP                    (Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU))                              //锁相环比例系数

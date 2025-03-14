@@ -109,7 +109,7 @@ Author: CJYS
 ***********************************************************************************************/
 void IRQHandleMCBKIsr(void)
 {
-    MH_PWM_Output_Disable();
+    MotorTask_Shut_Flow(&Motor);
     
     MCU_Z20A8300A_SpiInit();
     MCU_Z20A8300A_GpioInit();

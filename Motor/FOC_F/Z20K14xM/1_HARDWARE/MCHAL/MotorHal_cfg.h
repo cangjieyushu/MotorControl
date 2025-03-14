@@ -31,7 +31,10 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_THREE_SHUNT             (0U)
 #define HAL_ONE_SHUNT               (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT   
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT
+
+#define HAL_MOTOR_ADC_NUM_THREE_SHUNT       (4)
+#define HAL_MOTOR_ADC_NUM_ONE_SHUNT         (3)
 
 
 //频率设置
@@ -95,6 +98,7 @@
 #define HAL_ADC_TRIGGER_TIME1                   (0.15f)
 #define HAL_ADC_TRIGGER_TIME2                   (0.35f)
 #define HAL_ADC_TRIGGER_TIME3                   (0.55f)
+#define HAL_ADC_TRIGGER_TIME4                   (0.60f)
 
 #if(HAL_CURRENT_SAMPLE_MODE == HAL_THREE_SHUNT)
 #define HAL_ADC_DELAY_TIME                      (1.2f)                  //us，米勒平台时间
@@ -157,8 +161,6 @@
 #define HAL_MOTOR_ADC               ADC0_ID
 #define HAL_MOTOR_ADC_ADDRESS       ADC0_BASE_ADDR
 #define HAL_MOTOR_ADC_DATA_ADDRESS  (HAL_MOTOR_ADC_ADDRESS + 0x20U)
-#define HAL_MOTOR_ADC_NUM_THREE     4
-#define HAL_MOTOR_ADC_NUM_ONE       3
 #define HAL_MOTOR_TDG	            TDG0_ID   
 #define HAL_MOTOR_TDG_ADDRESS       TDG0_BASE_ADDR
 

@@ -95,7 +95,7 @@ void BSP_ADC_Init_Three_Shunt(void)
         /* CMD5: channel 7; all CMDs can be configured as different channels */                
         ADC_P_CH7,
         /* Loop depth */                
-        HAL_MOTOR_ADC_NUM_THREE,                   
+        HAL_MOTOR_ADC_NUM_THREE_SHUNT,                   
     };
     
     /* mod value, single, divide4, SW trig, clear to mod */
@@ -134,10 +134,10 @@ void BSP_ADC_Init_Three_Shunt(void)
     /* Initialize ADC */
     ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE)); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_CURRENT_LOOP_FREQ_PRESCALER*HAL_MOTOR_ADC_NUM_THREE_SHUNT)); 
     /* Set ADC watermark */
     /* fifo WM > 3, that is when WM=4,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_THREE-1));                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_CURRENT_LOOP_FREQ_PRESCALER*HAL_MOTOR_ADC_NUM_THREE_SHUNT-1));                               
     /* Configure input channel */
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
@@ -317,10 +317,10 @@ void BSP_ADC_Init_One_Shunt(void)
     /* Initialize ADC */
     ADC_Init(HAL_MOTOR_ADC,&SubcaseAdcCfg);
     /* Redefine the depth the function */    
-    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE)); 
+    ADC_FifoDepthRedefine(HAL_MOTOR_ADC, (HAL_CURRENT_LOOP_FREQ_PRESCALER*HAL_MOTOR_ADC_NUM_ONE_SHUNT)); 
     /* Set ADC watermark */
     /* fifo WM > 2, that is when WM=3,flag will be set */
-    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_MOTOR_ADC_NUM_ONE-1));                               
+    ADC_FifoWatermarkConfig(HAL_MOTOR_ADC, (HAL_CURRENT_LOOP_FREQ_PRESCALER*HAL_MOTOR_ADC_NUM_ONE_SHUNT-1));                               
     /* Configure input channel */
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg1);
     ADC_ChannelConfig(HAL_MOTOR_ADC, &AdcChannelCfg2);
