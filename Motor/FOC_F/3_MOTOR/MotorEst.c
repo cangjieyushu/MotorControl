@@ -262,6 +262,72 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     Math_SinCos_F(&pCTRL->TG_Triangle);
 }
 
+/**********************************模型参考自适应************************************/
+
+/**********************************************************************************************
+Function: Est_MRAS_Init_F
+Description: MRAS初始化
+Input: 无
+Output: 无
+Input_Output: MRAS指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_MRAS_Init_F(ST_MRAS_CONTROL_F* pCTRL)
+{
+    PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
+    Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
+    pCTRL->TG_Triangle.F_Angle = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 1.0f;
+    pCTRL->TG_Triangle.F_Sin = 0.0f;
+    pCTRL->TG_Triangle.F_ReAngle = 0.0f;
+    
+    pCTRL->_V_F_Id_Est = 0.0f;
+    pCTRL->_V_F_Iq_Est = 0.0f;
+}
+
+/**********************************************************************************************
+Function: Est_MRAS_F
+Description: MRAS计算
+Input: 无
+Output: 无
+Input_Output: MRAS指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_MRAS_F(ST_MRAS_CONTROL_F* pCTRL)
+{
+    pCTRL->_V_F_Id =  pCTRL->_I_F_Ialfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_I_F_Ibeta*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->_V_F_Iq = -pCTRL->_I_F_Ialfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_I_F_Ibeta*pCTRL->TG_Triangle.F_Cos;
+    pCTRL->_V_F_Ud =  pCTRL->_I_F_Ualfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_I_F_Ubeta*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->_V_F_Uq = -pCTRL->_I_F_Ualfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_I_F_Ubeta*pCTRL->TG_Triangle.F_Cos;
+    
+    pCTRL->_V_F_Id_tmp = pCTRL->_P_F_Ts*(
+                       - pCTRL->_P_F_Rs_Over_Ls*pCTRL->_V_F_Id_Est
+                       + pCTRL->FL_SRAD.F_Filter_in*pCTRL->_V_F_Iq_Est
+                       + pCTRL->_P_F_One_Over_Ls*pCTRL->_V_F_Ud);
+    pCTRL->_V_F_Iq_tmp = pCTRL->_P_F_Ts*(
+                       - pCTRL->_P_F_Rs_Over_Ls*pCTRL->_V_F_Iq_Est
+                       - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_V_F_Id_Est
+                       - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Flux_Over_Ls
+                       + pCTRL->_P_F_One_Over_Ls*pCTRL->_V_F_Uq);
+    
+    pCTRL->_V_F_Id_Est += pCTRL->_V_F_Id_tmp;
+    pCTRL->_V_F_Iq_Est += pCTRL->_V_F_Iq_tmp;
+                                         
+    pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Id*pCTRL->_V_F_Iq_Est - pCTRL->_V_F_Iq*pCTRL->_V_F_Id_Est;
+    pCTRL->PID_PLL.F_Fb = pCTRL->_P_F_Flux_Over_Ls*(pCTRL->_V_F_Iq - pCTRL->_V_F_Iq_Est);
+    PID_Pos_Cal_F(&pCTRL->PID_PLL);
+    
+    pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
+    Filter_Cal_F(&pCTRL->FL_SRAD);
+    
+    pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
+    MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
+    
+    Math_SinCos_F(&pCTRL->TG_Triangle);
+}
+
 /**********************************************************************/
 
 void Hallest_Positon_Control(ST_POSITION_CONTROL* pCTRL)

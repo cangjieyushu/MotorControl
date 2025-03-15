@@ -23,6 +23,8 @@
 #define Motor_EST                       FLUX_CTRL
 #elif(MOTOR_EST_MODE == MOTOR_EST_SMO)
 #define Motor_EST                       SMO_CTRL
+#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
+#define Motor_EST                       MRAS_CTRL
 #endif
 
 void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor);
@@ -334,6 +336,7 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         Est_HFI_Init_F(&pMotor->HFI_CTRL);
         Est_Flux_Init_F(&pMotor->FLUX_CTRL);
         Est_SMO_Init_F(&pMotor->SMO_CTRL);
+        Est_MRAS_Init_F(&pMotor->MRAS_CTRL);
         
         pMotor->Motor_Loop_Mode = MOTOR_ALIGNLOOP;
         
@@ -754,6 +757,13 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SMO_CTRL._I_F_Ualfa = pMotor->SVPWM_CTRL._O_F_Ualfa;
         pMotor->SMO_CTRL._I_F_Ubeta = pMotor->SVPWM_CTRL._O_F_Ubeta;
         Est_SMO_F(&pMotor->SMO_CTRL);
+        
+#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
+        pMotor->MRAS_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
+        pMotor->MRAS_CTRL._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
+        pMotor->MRAS_CTRL._I_F_Ualfa = pMotor->SVPWM_CTRL._O_F_Ualfa;
+        pMotor->MRAS_CTRL._I_F_Ubeta = pMotor->SVPWM_CTRL._O_F_Ubeta;
+        Est_MRAS_F(&pMotor->MRAS_CTRL);
         
 #endif
         

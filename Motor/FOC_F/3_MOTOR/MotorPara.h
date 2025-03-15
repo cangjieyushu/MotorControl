@@ -27,6 +27,7 @@
 //观测器选择
 #define MOTOR_EST_FLUX                  (10U)
 #define MOTOR_EST_SMO                   (11U)
+#define MOTOR_EST_MRAS                  (12U)
 #define MOTOR_EST_MODE                  MOTOR_EST_SMO
 
 
@@ -167,6 +168,13 @@
 #define MOTOR_SMO_PLL_MAX                   ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
+//MRAS
+#define MOTOR_MRAS_PLL_KP                   (0.5f)                      //锁相环比例系数
+#define MOTOR_MRAS_PLL_KI                   (1.0f)                      //锁相环积分系数
+#define MOTOR_MRAS_PLL_KD                   (0.0f)                    	//锁相环微分系数
+#define MOTOR_MRAS_PLL_MAX                  ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
+#define MOTOR_MRAS_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
+
 
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
@@ -242,6 +250,7 @@ typedef struct{
     ST_HFI_CONTROL_F            HFI_CTRL;
     ST_FLUX_CONTROL_F           FLUX_CTRL;
     ST_SMO_CONTROL_F            SMO_CTRL;
+    ST_MRAS_CONTROL_F           MRAS_CTRL;
     
     float                       F_Iphase_Max;
 }ST_MOTOR_TASK;
