@@ -22,6 +22,7 @@
 #define MOTOR_OPENLOOP_VF               (02U)
 #define MOTOR_OPENLOOP_HFI              (03U)
 #define MOTOR_OPENLOOP_FLUX             (04U)
+#define MOTOR_OPENLOOP_MRAS             (05U)
 #define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
 
 //观测器选择
@@ -133,7 +134,7 @@
 
 
 //观测器PLL系数
-#define MOTOR_PLL_Coeff                     (0.2f)
+#define MOTOR_PLL_Coeff                     (0.20f)
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
 
 //HFI观测器
@@ -170,7 +171,7 @@
 
 //MRAS
 #define MOTOR_MRAS_PLL_KP                   (0.5f)                      //锁相环比例系数
-#define MOTOR_MRAS_PLL_KI                   (1.0f)                      //锁相环积分系数
+#define MOTOR_MRAS_PLL_KI                   (0.2f)                      //锁相环积分系数
 #define MOTOR_MRAS_PLL_KD                   (0.0f)                    	//锁相环微分系数
 #define MOTOR_MRAS_PLL_MAX                  ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
 #define MOTOR_MRAS_PLL_MIN                  (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
