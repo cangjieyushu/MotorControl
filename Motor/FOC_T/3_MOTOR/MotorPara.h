@@ -20,7 +20,7 @@
 #define MOTOR_OPENLOOP_VF               (01U)
 #define MOTOR_OPENLOOP_HFI              (02U)
 #define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
+#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_VF
 
 //¹Û²âÆ÷Ñ¡Ôñ
 #define MOTOR_EST_FLUX                  (10U)

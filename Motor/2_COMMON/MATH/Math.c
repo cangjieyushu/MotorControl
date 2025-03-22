@@ -529,7 +529,7 @@ void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
     float F_Error = pPID->F_Rf - pPID->F_Fb;
     
     pPID->F_Ui += pPID->F_Ki*F_Error;
-    pPID->F_Ui = MATH_SAT_T(pPID->F_Ui, pPID->F_OutMax, pPID->F_OutMin);
+    pPID->F_Ui = MATH_SAT_F(pPID->F_Ui, pPID->F_OutMax, pPID->F_OutMin);
     
     pPID->F_Output = pPID->F_Kp*F_Error + pPID->F_Ui;
     pPID->F_Output = MATH_SAT_F(pPID->F_Output, pPID->F_OutMax, pPID->F_OutMin);

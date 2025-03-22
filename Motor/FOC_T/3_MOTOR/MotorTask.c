@@ -145,8 +145,9 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
                 pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
                 
-                PID_Pos_Init_T(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->CURRENT_CTRL._I_Q14I_IqRef);
+                PID_Pos_Init_T(&pMotor->SRAD_CTRL.PID_SRAD, pMotor->SVPWM_CTRL._O_Q14I_Iq);
                 Ramp_Init_T(&pMotor->SRAD_CTRL.Ramp_SRAD, pMotor->SRAD_CTRL._I_Q14I_SRAD);
+                PID_Pos_Init_T(&pMotor->CURRENT_CTRL.PID_Iq, pMotor->SVPWM_CTRL._I_Q14I_Uq);
                 
                 pMotor->IF_CTRL.Ramp_AngleERR.Q32I_Init = pMotor->IF_CTRL._O_Q12U_Angle - pMotor->Motor_EST.TG_Triangle.Q12U_Angle;
                 pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
