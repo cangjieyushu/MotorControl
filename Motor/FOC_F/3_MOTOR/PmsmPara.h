@@ -31,7 +31,7 @@
 
 //电机额定参数，灰色电机
 #define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
-#define MOTOR_CURRENT_PHASE_A               (10.0f)             //A，相电流幅值
+#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
 #define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
 

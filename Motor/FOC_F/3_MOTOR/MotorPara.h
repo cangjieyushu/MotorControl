@@ -33,12 +33,12 @@
 
 
 //静态参数辨识
-#define MOTOR_PARAID_ID_TARGET1         (2.0f)                   //A,Id目标值
-#define MOTOR_PARAID_ID_TARGET2         (4.0f)                   //A,Id目标值
+#define MOTOR_PARAID_ID_TARGET1         (1.0f)                   //A,Id目标值
+#define MOTOR_PARAID_ID_TARGET2         (2.0f)                   //A,Id目标值
 
-#define MOTOR_PARAID_UD_REF             (0.30f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
-#define MOTOR_PARAID_UD_PERIOD          (Q32U_)(HAL_PWM_SET_FREQ/2.0f)                  //注入频率分频
-#define MOTOR_PARAID_UDQ_COEFF          (0.50f)                                         //调制度限制
+#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
+#define MOTOR_PARAID_UD_PERIOD          (2.0f)                   //kHz，注入频率
+#define MOTOR_PARAID_UDQ_COEFF          (0.50f)                  //调制度限制
 
 #define MOTOR_PARAID_LPF_COEFF          (0.05f)                  //0~1，越小滤波越深
 #define MOTOR_PARAID_HPF_COEFF          (0.999f)                 //0~1，越大滤波越深
@@ -76,8 +76,8 @@
 
 //电机alignloop相关参数 
 #define MOTOR_ALIGNLOOP_RAMP_INIT           (0.0f)                     		//A,Iq初始值
-#define MOTOR_ALIGNLOOP_RAMP_TARGET         (5.0f)                    	 	//A,Iq目标值
-#define MOTOR_ALIGNLOOP_RAMP_STEP           (5.0f * MOTOR_LTs)        		//A/s,Iq每秒增加步长
+#define MOTOR_ALIGNLOOP_RAMP_TARGET         (1.0f)                    	 	//A,Iq目标值
+#define MOTOR_ALIGNLOOP_RAMP_STEP           (1.0f * MOTOR_LTs)        		//A/s,Iq每秒增加步长
 #define MOTOR_ALIGNLOOP_TIME1               (500U)                          //ms,电机alignloop第一阶段
 #define MOTOR_ALIGNLOOP_TIME2               (500U)                          //ms,电机alignloop第二阶段
 #define MOTOR_ALIGNLOOP_TIME3               (500U)                          //ms,电机alignloop第三阶段
@@ -93,7 +93,7 @@
 
 //IF
 #define MOTOR_IF_IQRAMP_INIT                (0.0f)                          //A,Iq初始值
-#define MOTOR_IF_IQRAMP_TARGET              (4.0f)                          //A,Iq目标值
+#define MOTOR_IF_IQRAMP_TARGET              (2.0f)                          //A,Iq目标值
 #define MOTOR_IF_IQRAMP_STEP                (1.0f * MOTOR_LTs)              //A/s,Iq每秒增加步长
 
 #define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
@@ -130,7 +130,7 @@
 #define MOTOR_FOC_KI_GAIN                   (MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
 #define MOTOR_FOC_KD_GAIN                   (0.0f)
 //dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      (0.5774f)
+#define MOTOR_VS_SCALE                      (0.6667f)
 
 
 //观测器PLL系数
@@ -140,7 +140,7 @@
 //HFI观测器
 #define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                            //Hz,HFI速度目标值
 #define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
-#define MOTOR_HFI_UD_PERIOD                 (4U)                                            //注入频率分频
+#define MOTOR_HFI_UD_PERIOD                 (4.0f)                                          //kHz，注入频率
 #define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                         //调制度限制
 #define MOTOR_HFI_NS_TIME                   (100U)                                          //电机HFI
 

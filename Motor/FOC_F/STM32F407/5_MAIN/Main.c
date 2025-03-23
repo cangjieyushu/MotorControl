@@ -86,9 +86,9 @@ void ADC_IRQHandler(void)
         MotorTask_Current_Flow(&Motor);
 	
 #if(JSCOPE_RTT_EN == 1U)
-    	RTT_DATA[0] = 10000.0f*Motor.FLUX_CTRL.TG_Triangle.F_Angle;
-    	RTT_DATA[1] = 10000.0f*Motor.HFI_CTRL.TG_Triangle.F_Angle;
-    	RTT_DATA[2] = 10000.0f*Motor.HFI_CTRL._I_F_Angle;
+    	RTT_DATA[0] = 1000.0f*Motor.SVPWM_CTRL._I_F_Ia;
+    	RTT_DATA[1] = 1000.0f*Motor.PARA_ID._V_F_Ibeta_HPF;
+    	RTT_DATA[2] = 10.0f*Motor.PARA_ID._O_F_Ud_HFI;
     	SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     }

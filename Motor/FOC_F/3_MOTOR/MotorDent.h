@@ -21,10 +21,10 @@ typedef struct
     
     float       _I_F_Ud;
     float       _I_F_Id;
-    float       _V_F_tmp1;
-    float       _V_F_tmp2;
-    float       _V_F_tmp3;
-    float       _V_F_tmp4;
+    float       _V_F_Udtmp1;
+    float       _V_F_Idtmp1;
+    float       _V_F_Udtmp2;
+    float       _V_F_Idtmp2;
     
     float       _O_F_IdRef;
     float       _O_F_Uq;
@@ -32,14 +32,17 @@ typedef struct
     float       _P_F_Ts;
     float       _P_F_Id1;
     float       _P_F_Id2;
-    Q32U_       _P_F_Rs_Time;
-    Q32U_       _P_F_Ls_Time;
-    Q32U_       _P_F_Flux_Time;
+    Q32U_       _P_Q32U_Rs_Time;
+    Q32U_       _P_Q32U_Ls_Time;
+    Q32U_       _P_Q32U_Flux_Time;
     
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
     
+    float       _V_F_Istmp1;
+    float       _V_F_Istmp2;
     Q32U_       _V_Q32U_Ud_cnt;
+    Q32U_       _V_Q32U_Ud_Count;
     float       _V_F_Ud_Sign;
     float       _V_F_Ialfa_LPF;
     float       _V_F_Ibeta_LPF;
@@ -67,7 +70,8 @@ typedef struct
     float       _V_F_Nbeta;
     
     float       _P_F_Ud_Ref;
-    Q32U_       _P_Q32U_Ud_Period;
+    Q32U_       _P_Q32U_PWM_Freq;
+    Q32U_       _P_Q32U_Ud_Freq;
     float       _P_F_Udq_Coeff;
     
     float       _P_F_Hpf_Coeff;

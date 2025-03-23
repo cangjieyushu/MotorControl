@@ -107,19 +107,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
 #if(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_PARAID)
     Est_Para_Id_Srad_F(&pMotor->PARA_ID);
     
-    if(pMotor->PARA_ID._V_Q32U_State == 3U)
+    if(pMotor->PARA_ID._V_Q32U_State == 6U)
     {
-        Est_SMO_Init_F(&pMotor->SMO_CTRL);
-    }
-    else if(pMotor->PARA_ID._V_Q32U_State == 4U)
-    {
-        pMotor->SMO_CTRL._P_F_Rs = pMotor->PARA_ID._P_F_Rs;
-        pMotor->SMO_CTRL._P_F_Ld = pMotor->PARA_ID._P_F_Ld;
-        pMotor->SMO_CTRL._P_F_Lq = pMotor->PARA_ID._P_F_Lq;
-        pMotor->SMO_CTRL._P_F_One_Over_Ld = 1.0f / pMotor->PARA_ID._P_F_Ld;
-        pMotor->SMO_CTRL._P_F_Rs_Over_Ld = pMotor->PARA_ID._P_F_Rs / pMotor->PARA_ID._P_F_Ld;
-        pMotor->SMO_CTRL._P_F_Ld_Lq_Over_Ld = (pMotor->PARA_ID._P_F_Ld - pMotor->PARA_ID._P_F_Lq) / pMotor->PARA_ID._P_F_Ld;
-        
         pMotor->SRAD_CTRL._I_F_SRAD = pMotor->Motor_EST.FL_SRAD.F_Filter_out;
         
         MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
@@ -218,7 +207,7 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     }
     else
     {
-        pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_F_IdRef = 2.0f;
         pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
     }
     
@@ -556,6 +545,8 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
 #if(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_PARAID)
     pMotor->PARA_ID._I_F_Ud = pMotor->SVPWM_CTRL._I_F_Ud;
     pMotor->PARA_ID._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
+    pMotor->PARA_ID._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
+    pMotor->PARA_ID._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
     
     Est_Para_Id_Current_F(&pMotor->PARA_ID);
     
@@ -575,9 +566,20 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     }
     else if(pMotor->PARA_ID._V_Q32U_State == 2U)
     {
-        pMotor->PARA_ID._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
-        pMotor->PARA_ID._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
+        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->PARA_ID.TG_Triangle;
         
+        MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
+        pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
+        pMotor->CURRENT_CTRL._I_F_Iq = pMotor->SVPWM_CTRL._O_F_Iq;
+        MotorFoc_Current_Loop_F(&pMotor->CURRENT_CTRL);
+    
+        pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud;
+        pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq;
+    }
+    else if(pMotor->PARA_ID._V_Q32U_State == 3U)
+    {
         pMotor->SVPWM_CTRL.TG_Triangle = pMotor->PARA_ID.TG_Triangle;
         pMotor->SVPWM_CTRL._O_F_Ialfa = pMotor->PARA_ID._O_F_Ialfa;
         pMotor->SVPWM_CTRL._O_F_Ibeta = pMotor->PARA_ID._O_F_Ibeta;
@@ -592,17 +594,14 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud + pMotor->PARA_ID._O_F_Ud_HFI;
         pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq;
     }
-    else if(pMotor->PARA_ID._V_Q32U_State == 3U)
+    else if(pMotor->PARA_ID._V_Q32U_State == 4U)
     {
-        pMotor->PARA_ID._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
-        pMotor->PARA_ID._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
-        
         pMotor->SVPWM_CTRL.TG_Triangle = pMotor->PARA_ID.TG_Triangle;
         pMotor->SVPWM_CTRL._O_F_Ialfa = pMotor->PARA_ID._O_F_Ialfa;
         pMotor->SVPWM_CTRL._O_F_Ibeta = pMotor->PARA_ID._O_F_Ibeta;
         
         MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
-        pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->PARA_ID._O_F_IdRef;
+        pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
         pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
         pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
         pMotor->CURRENT_CTRL._I_F_Iq = pMotor->SVPWM_CTRL._O_F_Iq;
@@ -611,7 +610,29 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud;
         pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq + pMotor->PARA_ID._O_F_Ud_HFI;
     }
-    else if(pMotor->PARA_ID._V_Q32U_State == 4U)
+    else if(pMotor->PARA_ID._V_Q32U_State == 5U)
+    {
+        Est_SMO_Init_F(&pMotor->SMO_CTRL);
+        pMotor->SMO_CTRL._P_F_Rs = pMotor->PARA_ID._P_F_Rs;
+        pMotor->SMO_CTRL._P_F_Ld = pMotor->PARA_ID._P_F_Ld;
+        pMotor->SMO_CTRL._P_F_Lq = pMotor->PARA_ID._P_F_Lq;
+        pMotor->SMO_CTRL._P_F_One_Over_Ld = 1.0f / pMotor->PARA_ID._P_F_Ld;
+        pMotor->SMO_CTRL._P_F_Rs_Over_Ld = pMotor->PARA_ID._P_F_Rs / pMotor->PARA_ID._P_F_Ld;
+        pMotor->SMO_CTRL._P_F_Ld_Lq_Over_Ld = (pMotor->PARA_ID._P_F_Ld - pMotor->PARA_ID._P_F_Lq) / pMotor->PARA_ID._P_F_Ld;
+        
+        pMotor->SVPWM_CTRL.TG_Triangle = pMotor->PARA_ID.TG_Triangle;
+        
+        MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
+        pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
+        pMotor->CURRENT_CTRL._I_F_Iq = pMotor->SVPWM_CTRL._O_F_Iq;
+        MotorFoc_Current_Loop_F(&pMotor->CURRENT_CTRL);
+    
+        pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud;
+        pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq;
+    }
+    else if(pMotor->PARA_ID._V_Q32U_State == 6U)
     {
         MotorFoc_IF_CURRENT_F(&pMotor->IF_CTRL);
         pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->IF_CTRL._O_F_Angle;
@@ -721,7 +742,7 @@ void MotorTask_Current_CloseLoop_Flow(ST_MOTOR_TASK* pMotor)
     MotorFoc_IF_CLOSE_F(&pMotor->IF_CTRL);
     pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->Motor_EST.TG_Triangle.F_Angle + pMotor->IF_CTRL.Ramp_AngleERR.F_Output;
     
-    if(pMotor->PARA_ID._V_Q32U_State == 5U)
+    if(pMotor->PARA_ID._V_Q32U_State == 7U)
     {
         pMotor->Motor_Error_Flag.bit.paraid_finish = 1U;
     }

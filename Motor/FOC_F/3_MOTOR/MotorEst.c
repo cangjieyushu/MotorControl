@@ -34,6 +34,7 @@ void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL)
     pCTRL->_V_Q32U_NS_cnt = 0U;
     
     pCTRL->_V_Q32U_Ud_cnt = 0U;
+    pCTRL->_V_Q32U_Ud_Count = pCTRL->_P_Q32U_PWM_Freq/pCTRL->_P_Q32U_Ud_Freq/2U;
     pCTRL->_V_F_Ud_Sign = 1.0f;
     pCTRL->_V_F_Ialfa_LPF = 0.0f;
     pCTRL->_V_F_Ibeta_LPF = 0.0f;
@@ -88,7 +89,7 @@ void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
     }
     
     pCTRL->_V_Q32U_Ud_cnt++;
-    if(pCTRL->_V_Q32U_Ud_cnt == pCTRL->_P_Q32U_Ud_Period)
+    if(pCTRL->_V_Q32U_Ud_cnt == pCTRL->_V_Q32U_Ud_Count)
     {
         pCTRL->_V_Q32U_Ud_cnt = 0U;
         pCTRL->_V_F_Ialfa_LPF = 0.5f*(pCTRL->_I_F_Ialfa + pCTRL->_V_F_Ialfa_Last);

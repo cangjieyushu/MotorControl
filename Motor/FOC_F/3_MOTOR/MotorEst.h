@@ -27,6 +27,7 @@ typedef struct
     Q32U_       _V_Q32U_NS_cnt;
     
     Q32U_       _V_Q32U_Ud_cnt;
+    Q32U_       _V_Q32U_Ud_Count;
     float       _V_F_Ud_Sign;
     float       _V_F_Ialfa_LPF;
     float       _V_F_Ibeta_LPF;
@@ -41,7 +42,8 @@ typedef struct
     
     float       _P_F_Target;
     float       _P_F_Ud_Ref;
-    Q32U_       _P_Q32U_Ud_Period;
+    Q32U_       _P_Q32U_PWM_Freq;
+    Q32U_       _P_Q32U_Ud_Freq;
     float       _P_F_Udq_Coeff;
     float       _P_F_NS_Time;
     float       _P_F_Ts;
