@@ -266,7 +266,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
         {
             if(pBRAKE_CTRL->_P_Q16U_slow_time > 0U)
             {
-                Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
+                Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q14I_Init);
             }
             else
             {
@@ -280,7 +280,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
     else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
     {
         Ramp_Cal_T(&pBRAKE_CTRL->Ramp_Brake_Duty);
-        pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Output;
+        pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q14I_Output;
     }
     else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
     {

@@ -72,13 +72,13 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
     {
         if(pMotor->Motor_State_Flag.bit.motor_speed_flag == 1U)
         {
-            pMotor->MS_CTRL.Ramp_Freq.Q32I_Target = Q32I_RHT_14(pMotor->MS_CTRL.PWM_CTRL._I_Q14I_duty_vr
+            pMotor->MS_CTRL.Ramp_Freq.Q14I_Target = Q32I_RHT_14(pMotor->MS_CTRL.PWM_CTRL._I_Q14I_duty_vr
             *(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max - pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min)
             + Q16I_LFT_14(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min));
             
             Ramp_Cal_T(&pMotor->MS_CTRL.Ramp_Freq);
             
-            pMotor->MS_CTRL.PID_Freq.Q14I_Rf = pMotor->MS_CTRL.Ramp_Freq.Q32I_Output;
+            pMotor->MS_CTRL.PID_Freq.Q14I_Rf = pMotor->MS_CTRL.Ramp_Freq.Q14I_Output;
             pMotor->MS_CTRL.PID_Freq.Q14I_Fb = pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out;
             PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Freq);
             

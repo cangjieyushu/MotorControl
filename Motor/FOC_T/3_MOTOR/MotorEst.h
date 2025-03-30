@@ -12,7 +12,6 @@
 
 typedef struct
 {
-    Q08U_       Est_State_Flag;
     ST_PID_POS_T    PID_PLL;
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
@@ -23,7 +22,6 @@ typedef struct
     Q32I_       _I_Q14I_Ialfa;
     Q32I_       _I_Q14I_Ibeta;
     
-    Q32I_       _V_Q14I_R_set;
     Q32I_       _V_Q14I_Yalfa;
     Q32I_       _V_Q14I_Ybeta;
     Q32I_       _V_Q14I_Nalfa;
@@ -39,7 +37,6 @@ typedef struct
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
     Q32I_       _P_Q14I_Gamma;
-    Q32I_       _P_Q14I_Rs_Coeff;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;
     Q32I_       _P_Q14I_Flux;
@@ -48,6 +45,7 @@ typedef struct
 
 typedef struct
 {
+    Q32I_       _I_Q00I_DIR_Target;
     ST_PID_POS_T    PID_PLL;
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
@@ -62,8 +60,12 @@ typedef struct
     Q32I_       _V_Q28I_Abeta_tmp;
     Q32I_       _V_Q14I_Aalfa;
     Q32I_       _V_Q14I_Abeta;
+    Q32I_       _V_Q14I_IErralfa;
+    Q32I_       _V_Q14I_IErrbeta;
     Q32I_       _V_Q14I_Ealfa;
     Q32I_       _V_Q14I_Ebeta;
+    Q32I_       _V_Q32I_K1_alfa_tmp;
+    Q32I_       _V_Q32I_K1_beta_tmp;
     
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
@@ -119,5 +121,16 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL);
+
+/**********************************************************************************************
+Function: Est_SMO_Study_T
+Description: 滑模观测器参数学习
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_SMO_Study_T(ST_SMO_CONTROL_T* pCTRL);
 
 #endif /* MotorEst_H */

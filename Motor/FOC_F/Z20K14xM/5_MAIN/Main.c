@@ -92,8 +92,8 @@ void IRQHandleDMAIsr(void)
     
 #if(JSCOPE_RTT_EN == 1U)
     RTT_DATA[0] = 10000.0f*Motor.FLUX_CTRL.TG_Triangle.F_Angle;
-    RTT_DATA[1] = 10000.0f*Motor.SMO_CTRL.TG_Triangle.F_Angle;
-    RTT_DATA[2] = 10000.0f*Motor.HFI_CTRL._V_F_Ibeta_HPF;
+    RTT_DATA[1] = 10000.0f*Motor.SMO_CTRL.FL_SRAD.F_Filter_out;
+    RTT_DATA[2] = 10000.0f*Motor.VF_CTRL.Ramp_SRAD.F_Output;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
 }

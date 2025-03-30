@@ -135,6 +135,7 @@ typedef struct
 #define MATH_ONE_OVER_THREE_T(A)            (Q32I_RHT_12(1365*(A)))
 
 #define MATH_SQUARE_T(A)                    ((A)*(A))
+#define MATH_SIGN_T(A)                      (((A)<(0)) ? (-1) : (1))
 #define MATH_ABS_T(A)                       (((A)<(0)) ? (-(A)) : (A))
 #define MATH_MAX_T(A, B)                    (((A)>(B)) ?   (A)  : (B))
 #define MATH_MIN_T(A, B)                    (((A)<(B)) ?   (A)  : (B))
@@ -165,6 +166,7 @@ typedef struct
 #define MATH_SQRT_THREE_OVER_TWO_F          (MATH_SQRT_THREE_F/2.0f)
 
 #define MATH_SQUARE_F(A)                    ((A)*(A))
+#define MATH_SIGN_F(A)                      (((A)<(0.0f)) ? (-1.0f) : (1.0f))
 #define MATH_ABS_F(A)                       (((A)<(0.0f)) ? (-(A)) : (A))
 #define MATH_MAX_F(A, B)                    (((A)>(B)   ) ?   (A)  : (B))
 #define MATH_MIN_F(A, B)                    (((A)<(B)   ) ?   (A)  : (B))
@@ -178,11 +180,12 @@ typedef struct
 
 typedef struct
 {
-    Q32I_ Q32I_Init;
-    Q32I_ Q32I_Target;
-    Q32I_ Q32I_ADDStep;
-    Q32I_ Q32I_SUBStep;
-    Q32I_ Q32I_Output;
+    Q32I_ Q14I_Init;
+    Q32I_ Q14I_Target;
+    Q32I_ Q24I_ADDStep;
+    Q32I_ Q24I_SUBStep;
+    Q32I_ Q24I_Output_tmp;
+    Q32I_ Q14I_Output;
 }ST_RAMP_T;
 
 typedef struct
@@ -203,8 +206,8 @@ typedef struct
     Q32I_ Q14I_Kd;
     
     Q32I_ Q28I_Step;
-    Q32I_ Q14I_StepMax;
-    Q32I_ Q14I_StepMin;
+    Q32I_ Q28I_StepMax;
+    Q32I_ Q28I_StepMin;
     
     Q32I_ Q14I_Output;
     Q32I_ Q28I_Output_tmp;

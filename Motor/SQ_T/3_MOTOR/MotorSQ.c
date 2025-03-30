@@ -43,7 +43,7 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->DIR_Set = pMS_CTRL->DIR_Target;
     
-    Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->Ramp_Freq.Q32I_Init);
+    Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->Ramp_Freq.Q14I_Init);
     
     Filter_Init_T(&pMS_CTRL->FL_Iphase, 0);
     Filter_Init_T(&pMS_CTRL->FL_Freq, 0);
@@ -553,7 +553,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
         {
             if(pBRAKE_CTRL->_P_Q16U_slow_time > 0U)
             {
-                Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Init);
+                Ramp_Init_T(&pBRAKE_CTRL->Ramp_Brake_Duty, pBRAKE_CTRL->Ramp_Brake_Duty.Q14I_Init);
             }
             else
             {
@@ -567,7 +567,7 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
     else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time)
     {
         Ramp_Cal_T(&pBRAKE_CTRL->Ramp_Brake_Duty);
-        pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q32I_Output;
+        pBRAKE_CTRL->_O_Q12U_brake_duty = pBRAKE_CTRL->Ramp_Brake_Duty.Q14I_Output;
     }
     else if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time + pBRAKE_CTRL->_P_Q16U_slow_time + pBRAKE_CTRL->_P_Q16U_short_time)
     {
@@ -943,7 +943,7 @@ Author: CJYS
 void MotorSQ_PWM_Freq_Switch_Init(ST_PWM_CONTROL* pPWM_CTRL)
 {
     pPWM_CTRL->Flag.all = 0U;
-    pPWM_CTRL->Ramp_Duty.Q32I_Output = 0U;
+    pPWM_CTRL->Ramp_Duty.Q14I_Output = 0U;
     pPWM_CTRL->_O_Q16U_arr_set = pPWM_CTRL->_P_Q14U_low_pwm_freq;
 }
 
@@ -973,9 +973,9 @@ void MotorSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
         Q12I_duty_tmp = pPWM_CTRL->_I_Q12I_duty_iphase;
     }
     
-    pPWM_CTRL->Ramp_Duty.Q32I_Target = Q12I_duty_tmp;
+    pPWM_CTRL->Ramp_Duty.Q14I_Target = Q12I_duty_tmp;
     Ramp_Cal_T(&pPWM_CTRL->Ramp_Duty);
-    pPWM_CTRL->_O_Q12I_duty_set = pPWM_CTRL->Ramp_Duty.Q32I_Output;
+    pPWM_CTRL->_O_Q12I_duty_set = pPWM_CTRL->Ramp_Duty.Q14I_Output;
                     
     if(pPWM_CTRL->Flag.bit.b0_init == ING)
     {

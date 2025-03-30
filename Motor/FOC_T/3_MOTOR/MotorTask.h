@@ -198,14 +198,14 @@ static inline void Motor_Set_Dir(Q32I_ Dir)
 Function: Motor_Read_Dir
 Description: 获取电机运行方向
 Input: 无
-Output: 1.0f（正转），-1.0f（反转）
+Output: 1（正转），-1（反转）
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
 static inline float Motor_Read_Dir(void)
 {
-    return Motor.SRAD_CTRL._O_Q14I_DIR_Set;
+    return Motor.SRAD_CTRL._O_Q00I_DIR_Set;
 }
 
 /**********************************************************************************************

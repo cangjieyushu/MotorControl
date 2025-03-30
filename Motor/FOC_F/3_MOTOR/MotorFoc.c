@@ -39,6 +39,7 @@ void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL)
 {
     Ramp_Cal_F(&pCTRL->Ramp_Iq);
     Ramp_Cal_F(&pCTRL->Ramp_SRAD);
+    pCTRL->_O_F_Iq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Iq.F_Output;
 }
 
 /**********************************************************************************************
@@ -102,6 +103,7 @@ void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL)
 {
     Ramp_Cal_F(&pCTRL->Ramp_Vq);
     Ramp_Cal_F(&pCTRL->Ramp_SRAD);
+    pCTRL->_O_F_Vq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Vq.F_Output;
 }
 
 /**********************************************************************************************
@@ -504,7 +506,8 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL)
 {
-    pCTRL->Ramp_SRAD.F_Target = MATH_SAT_F(pCTRL->_I_F_SRAD_Target, pCTRL->_P_F_SRAD_Max, pCTRL->_P_F_SRAD_Min);
+    pCTRL->Ramp_SRAD.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_SRAD_Target,
+                                pCTRL->_P_F_SRAD_Max, pCTRL->_P_F_SRAD_Min);
     Ramp_Cal_F(&pCTRL->Ramp_SRAD);
     
     pCTRL->PID_SRAD.F_Rf = pCTRL->Ramp_SRAD.F_Output;
@@ -572,7 +575,7 @@ void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
 
 /**********************************************************************************************
 Function: MotorFoc_HFI_Current_Loop_F
-Description: 电流环控制
+Description: HFI电流环控制
 Input: 无
 Output: 无
 Input_Output: 电流环控制指针

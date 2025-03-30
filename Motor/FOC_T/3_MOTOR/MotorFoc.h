@@ -19,6 +19,7 @@ typedef struct
     Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
+    Q32I_       _O_Q14U_Iq;
     Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _O_Q12U_Angle;
 
@@ -35,8 +36,10 @@ typedef struct
     Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
     
+    Q32I_       _O_Q14U_Vq;
     Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _O_Q12U_Angle;
+    
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_AngleERRLimit;
 }ST_VF_CONTROL_T;
@@ -111,7 +114,7 @@ typedef struct
     Q32I_       _I_Q14I_Ud;
     Q32I_       _I_Q14I_Uq;
 
-    Q32I_       _O_Q14I_DIR_Set;
+    Q32I_       _O_Q00I_DIR_Set;
     Q32I_       _O_Q14I_IdRef;
     Q32I_       _O_Q14I_IqRef;
     

@@ -19,6 +19,7 @@ typedef struct
     float       _I_F_DIR_Target;
     float       _I_F_AngleEst;
     
+    float       _O_F_Iq;
     float       _O_F_Angle;
 
     float       _P_F_Ts;
@@ -34,6 +35,7 @@ typedef struct
     float       _I_F_DIR_Target;
     float       _I_F_AngleEst;
     
+    float       _O_F_Vq;
     float       _O_F_Angle;
     float       _P_F_Ts;
     float       _P_F_AngleERRLimit;
@@ -348,7 +350,7 @@ void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_HFI_Current_Loop_F
-Description: 电流环控制
+Description: HFI电流环控制
 Input: 无
 Output: 无
 Input_Output: 电流环控制指针

@@ -31,7 +31,7 @@
 //三电阻采样或者单电阻采样选择
 #define HAL_THREE_SHUNT             (0U)
 #define HAL_ONE_SHUNT               (1U)
-#define HAL_CURRENT_SAMPLE_MODE     HAL_THREE_SHUNT
+#define HAL_CURRENT_SAMPLE_MODE     HAL_ONE_SHUNT
 
 #define HAL_CURRENT_LOOP_FREQ_PRESCALER     (1)                             //电流环分频
 #define HAL_MOTOR_ADC_NUM_THREE_SHUNT       (4)

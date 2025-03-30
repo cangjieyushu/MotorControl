@@ -51,7 +51,6 @@ typedef struct
 
 typedef struct
 {
-    Q08U_       Est_State_Flag;
     ST_PID_POS_F    PID_PLL;
     ST_FILTER_F     FL_SRAD;
     ST_TRIG_F       TG_Triangle;
@@ -61,7 +60,6 @@ typedef struct
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
     
-    float       _V_F_R_set;
     float       _V_F_Yalfa;
     float       _V_F_Ybeta;
     float       _V_F_Nalfa;
@@ -74,7 +72,6 @@ typedef struct
     
     float       _P_F_Ts;
     float       _P_F_Gamma;
-    float       _P_F_Rs_Coeff;
     float       _P_F_Rs;
     float       _P_F_Ls;
     float       _P_F_Flux;
@@ -83,6 +80,7 @@ typedef struct
 
 typedef struct
 {
+    float       _I_F_DIR_Target;
     ST_PID_POS_F    PID_PLL;
     ST_FILTER_F     FL_SRAD;
     ST_TRIG_F       TG_Triangle;
@@ -94,8 +92,12 @@ typedef struct
     
     float       _V_F_Aalfa;
     float       _V_F_Abeta;
+    float       _V_F_IErralfa;
+    float       _V_F_IErrbeta;
     float       _V_F_Ealfa;
     float       _V_F_Ebeta;
+    float       _V_F_K1_alfa_tmp;
+    float       _V_F_K1_beta_tmp;
     
     float       _P_F_Ts;
     float       _P_F_K1;
@@ -281,6 +283,17 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL);
+
+/**********************************************************************************************
+Function: Est_SMO_Study_F
+Description: 滑模观测器参数学习
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_SMO_Study_F(ST_SMO_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: Est_MRAS_Init_F

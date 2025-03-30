@@ -21,7 +21,8 @@ Author: CJYS
 ***********************************************************************************************/
 void Ramp_Init_T(ST_RAMP_T* pRamp, Q32I_ init)
 {
-    pRamp->Q32I_Output = init;
+    pRamp->Q24I_Output_tmp = Q16I_LFT_10(init);
+    pRamp->Q14I_Output = init;
 }
 
 /**********************************************************************************************
@@ -35,32 +36,35 @@ Author: CJYS
 ***********************************************************************************************/
 void Ramp_Cal_T(ST_RAMP_T* pRamp)
 {
-    if(pRamp->Q32I_Target > pRamp->Q32I_Output) 
+    Q32I_ Q24I_Target_tmp = Q16I_LFT_10(pRamp->Q14I_Target);
+    if(Q24I_Target_tmp > pRamp->Q24I_Output_tmp) 
     {
-        if(pRamp->Q32I_Target > pRamp->Q32I_Output + pRamp->Q32I_ADDStep) 
+        if(Q24I_Target_tmp > pRamp->Q24I_Output_tmp + pRamp->Q24I_ADDStep) 
         {
-            pRamp->Q32I_Output += pRamp->Q32I_ADDStep;
+            pRamp->Q24I_Output_tmp += pRamp->Q24I_ADDStep;
         }
         else 
         {
-            pRamp->Q32I_Output = pRamp->Q32I_Target;
+            pRamp->Q24I_Output_tmp = Q24I_Target_tmp;
         }
     }
-    else if(pRamp->Q32I_Target < pRamp->Q32I_Output) 
+    else if(Q24I_Target_tmp < pRamp->Q24I_Output_tmp) 
     { 
-        if(pRamp->Q32I_Target < pRamp->Q32I_Output + pRamp->Q32I_SUBStep) 
+        if(Q24I_Target_tmp < pRamp->Q24I_Output_tmp + pRamp->Q24I_SUBStep) 
         {
-            pRamp->Q32I_Output -= pRamp->Q32I_ADDStep;
+            pRamp->Q24I_Output_tmp += pRamp->Q24I_SUBStep;
         }
         else 
         {
-            pRamp->Q32I_Output = pRamp->Q32I_Target;
+            pRamp->Q24I_Output_tmp = Q24I_Target_tmp;
         }
     }
     else 
     {
-        pRamp->Q32I_Output = pRamp->Q32I_Target;
+        pRamp->Q24I_Output_tmp = Q24I_Target_tmp;
     }
+    
+    pRamp->Q14I_Output = Q32I_RHT_10(pRamp->Q24I_Output_tmp);
 }
 
 /**********************************************************************************************
@@ -129,7 +133,7 @@ void PID_Inc_Cal_T(ST_PID_INC_T* pPID)
     
     pPID->Q28I_Step = pPID->Q14I_Kp*(Q14I_Error - pPID->Q14I_LastError) + pPID->Q14I_Ki*Q14I_Error
     + pPID->Q14I_Kd*(Q14I_Error + pPID->Q14I_PrevError - 2*pPID->Q14I_LastError);
-    pPID->Q28I_Step = MATH_SAT_T(pPID->Q28I_Step, Q16I_LFT_14(pPID->Q14I_StepMax), Q16I_LFT_14(pPID->Q14I_StepMin));
+    pPID->Q28I_Step = MATH_SAT_T(pPID->Q28I_Step, pPID->Q28I_StepMax, pPID->Q28I_StepMin);
     
     pPID->Q28I_Output_tmp += pPID->Q28I_Step;
     pPID->Q28I_Output_tmp = MATH_SAT_T(pPID->Q28I_Output_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
@@ -457,7 +461,7 @@ void Ramp_Cal_F(ST_RAMP_F* pRamp)
     { 
         if(pRamp->F_Target < pRamp->F_Output + pRamp->F_SUBStep) 
         {
-            pRamp->F_Output -= pRamp->F_ADDStep;
+            pRamp->F_Output += pRamp->F_SUBStep;
         }
         else 
         {

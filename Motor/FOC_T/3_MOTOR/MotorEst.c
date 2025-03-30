@@ -22,7 +22,6 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_Init_T(ST_FLUX_CONTROL_T* pCTRL)
 {
-    pCTRL->Est_State_Flag = 0U;
     PID_Pos_Init_T(&pCTRL->PID_PLL, 0);
     Filter_Init_T(&pCTRL->FL_SRAD, 0);
     pCTRL->TG_Triangle.Q12U_Angle = 0;
@@ -45,17 +44,8 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
 {
-    if(pCTRL->Est_State_Flag == 0U)
-    {
-        pCTRL->_V_Q14I_R_set = Q32I_RHT_14(pCTRL->_P_Q14I_Rs_Coeff*pCTRL->_P_Q14I_Rs);
-    }
-    else
-    {
-        pCTRL->_V_Q14I_R_set = pCTRL->_P_Q14I_Rs;
-    }
-	
-    pCTRL->_V_Q14I_Yalfa = pCTRL->_I_Q14I_Ualfa - Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ialfa);
-    pCTRL->_V_Q14I_Ybeta = pCTRL->_I_Q14I_Ubeta - Q32I_RHT_14(pCTRL->_V_Q14I_R_set*pCTRL->_I_Q14I_Ibeta);
+    pCTRL->_V_Q14I_Yalfa = pCTRL->_I_Q14I_Ualfa - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ialfa);
+    pCTRL->_V_Q14I_Ybeta = pCTRL->_I_Q14I_Ubeta - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ibeta);
 	
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
@@ -142,11 +132,18 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->_V_Q14I_Aalfa = Q32I_RHT_14(pCTRL->_V_Q28I_Aalfa_tmp);
     pCTRL->_V_Q14I_Abeta = Q32I_RHT_14(pCTRL->_V_Q28I_Abeta_tmp);
     
-    pCTRL->_V_Q14I_Ealfa = Q32I_RHT_14(pCTRL->_P_Q14I_K1*(pCTRL->_V_Q14I_Aalfa - pCTRL->_I_Q14I_Ialfa));
-    pCTRL->_V_Q14I_Ebeta = Q32I_RHT_14(pCTRL->_P_Q14I_K1*(pCTRL->_V_Q14I_Abeta - pCTRL->_I_Q14I_Ibeta));
+    pCTRL->_V_Q14I_IErralfa = pCTRL->_V_Q14I_Aalfa - pCTRL->_I_Q14I_Ialfa;
+    pCTRL->_V_Q14I_IErrbeta = pCTRL->_V_Q14I_Abeta - pCTRL->_I_Q14I_Ibeta;
     
-    pCTRL->PID_PLL.Q14I_Rf = -Q32I_RHT_14(pCTRL->_V_Q14I_Ealfa*pCTRL->TG_Triangle.Q14I_Cos);
-    pCTRL->PID_PLL.Q14I_Fb =  Q32I_RHT_14(pCTRL->_V_Q14I_Ebeta*pCTRL->TG_Triangle.Q14I_Sin);
+    if      (pCTRL->_V_Q14I_IErralfa >  pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa =  pCTRL->_P_Q14I_K1;}
+    else if (pCTRL->_V_Q14I_IErralfa < -pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa = -pCTRL->_P_Q14I_K1;}
+    else                                                    {pCTRL->_V_Q14I_Ealfa =  pCTRL->_V_Q14I_IErralfa;}
+    if      (pCTRL->_V_Q14I_IErrbeta >  pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ebeta =  pCTRL->_P_Q14I_K1;}
+    else if (pCTRL->_V_Q14I_IErrbeta < -pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ebeta = -pCTRL->_P_Q14I_K1;}
+    else                                                    {pCTRL->_V_Q14I_Ebeta =  pCTRL->_V_Q14I_IErrbeta;}
+    
+    pCTRL->PID_PLL.Q14I_Rf = -pCTRL->_I_Q00I_DIR_Target*Q32I_RHT_14(pCTRL->_V_Q14I_Ealfa*pCTRL->TG_Triangle.Q14I_Cos);
+    pCTRL->PID_PLL.Q14I_Fb =  pCTRL->_I_Q00I_DIR_Target*Q32I_RHT_14(pCTRL->_V_Q14I_Ebeta*pCTRL->TG_Triangle.Q14I_Sin);
     PID_Pos_Cal_T(&pCTRL->PID_PLL);
     
     pCTRL->FL_SRAD.Q16I_Filter_in = pCTRL->PID_PLL.Q14I_Output;
@@ -157,4 +154,33 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->TG_Triangle.Q12U_Angle = Q32I_RHT_16(pCTRL->_O_Q28U_Angle_tmp);
     
     Math_SinCos_T(&pCTRL->TG_Triangle);
+}
+
+/**********************************************************************************************
+Function: Est_SMO_Study_T
+Description: 滑模观测器参数学习
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_SMO_Study_T(ST_SMO_CONTROL_T* pCTRL)
+{
+    Q32I_ Alfa_abs;
+    Q32I_ Alfa_sign;
+    Q32I_ Beta_abs;
+    Q32I_ Beta_sign;
+    
+    Alfa_abs = MATH_ABS_T(pCTRL->_V_Q14I_IErralfa);
+    Alfa_sign = MATH_SIGN_T(pCTRL->_V_Q14I_IErralfa);
+    Beta_abs = MATH_ABS_T(pCTRL->_V_Q14I_IErrbeta);
+    Beta_sign = MATH_SIGN_T(pCTRL->_V_Q14I_IErrbeta);
+    
+    pCTRL->_V_Q32I_K1_alfa_tmp = - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*Alfa_abs) + pCTRL->_V_Q14I_Ealfa*Alfa_sign
+                                 - Alfa_sign*Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_in*Q32I_RHT_14((pCTRL->_P_Q14I_Ld - pCTRL->_P_Q14I_Lq)
+                                   *pCTRL->_V_Q14I_IErrbeta));
+    pCTRL->_V_Q32I_K1_beta_tmp = - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*Beta_abs) + pCTRL->_V_Q14I_Ebeta*Beta_sign
+                                 + Beta_sign*Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_in*Q32I_RHT_14((pCTRL->_P_Q14I_Ld - pCTRL->_P_Q14I_Lq)
+                                   *pCTRL->_V_Q14I_IErralfa));
 }

@@ -140,7 +140,6 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_Init_F(ST_FLUX_CONTROL_F* pCTRL)
 {
-    pCTRL->Est_State_Flag = 0U;
     PID_Pos_Init_F(&pCTRL->PID_PLL, 0.0f);
     Filter_Init_F(&pCTRL->FL_SRAD, 0.0f);
     pCTRL->TG_Triangle.F_Angle = 0.0f;
@@ -163,17 +162,8 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
 {
-    if(pCTRL->Est_State_Flag == 0U)
-    {
-        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs_Coeff*pCTRL->_P_F_Rs;
-    }
-    else
-    {
-        pCTRL->_V_F_R_set = pCTRL->_P_F_Rs;
-    }
-	
-    pCTRL->_V_F_Yalfa = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ialfa + pCTRL->_I_F_Ualfa;
-    pCTRL->_V_F_Ybeta = -pCTRL->_V_F_R_set*pCTRL->_I_F_Ibeta + pCTRL->_I_F_Ubeta;
+    pCTRL->_V_F_Yalfa = pCTRL->_I_F_Ualfa - pCTRL->_P_F_Rs*pCTRL->_I_F_Ialfa;
+    pCTRL->_V_F_Ybeta = pCTRL->_I_F_Ubeta - pCTRL->_P_F_Rs*pCTRL->_I_F_Ibeta;
     
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
@@ -247,11 +237,18 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ubeta
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ebeta);
     
-    pCTRL->_V_F_Ealfa = pCTRL->_P_F_K1*(pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa);
-    pCTRL->_V_F_Ebeta = pCTRL->_P_F_K1*(pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta);
+    pCTRL->_V_F_IErralfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
+    pCTRL->_V_F_IErrbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
     
-    pCTRL->PID_PLL.F_Rf = -pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
-    pCTRL->PID_PLL.F_Fb =  pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;
+    if      (pCTRL->_V_F_IErralfa >  pCTRL->_P_F_K1)  {pCTRL->_V_F_Ealfa =  pCTRL->_P_F_K1;}
+    else if (pCTRL->_V_F_IErralfa < -pCTRL->_P_F_K1)  {pCTRL->_V_F_Ealfa = -pCTRL->_P_F_K1;}
+    else                                              {pCTRL->_V_F_Ealfa =  pCTRL->_V_F_IErralfa;}
+    if      (pCTRL->_V_F_IErrbeta >  pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta =  pCTRL->_P_F_K1;}
+    else if (pCTRL->_V_F_IErrbeta < -pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta = -pCTRL->_P_F_K1;}
+    else                                              {pCTRL->_V_F_Ebeta =  pCTRL->_V_F_IErrbeta;}
+    
+    pCTRL->PID_PLL.F_Rf = -pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
+    pCTRL->PID_PLL.F_Fb =  pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;
     PID_Pos_Cal_F(&pCTRL->PID_PLL);
     
     pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
@@ -261,6 +258,33 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
     
     Math_SinCos_F(&pCTRL->TG_Triangle);
+}
+
+/**********************************************************************************************
+Function: Est_SMO_Study_F
+Description: 滑模观测器参数学习
+Input: 无
+Output: 无
+Input_Output: 滑模观测器指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_SMO_Study_F(ST_SMO_CONTROL_F* pCTRL)
+{
+    float Alfa_abs;
+    float Alfa_sign;
+    float Beta_abs;
+    float Beta_sign;
+    
+    Alfa_abs = MATH_ABS_T(pCTRL->_V_F_IErralfa);
+    Alfa_sign = MATH_SIGN_T(pCTRL->_V_F_IErralfa);
+    Beta_abs = MATH_ABS_T(pCTRL->_V_F_IErrbeta);
+    Beta_sign = MATH_SIGN_T(pCTRL->_V_F_IErrbeta);
+    
+    pCTRL->_V_F_K1_alfa_tmp = - pCTRL->_P_F_Rs*Alfa_abs + pCTRL->_V_F_Ealfa*Alfa_sign
+                              - Alfa_sign*pCTRL->FL_SRAD.F_Filter_in*(pCTRL->_P_F_Ld - pCTRL->_P_F_Lq)*pCTRL->_V_F_IErrbeta;
+    pCTRL->_V_F_K1_beta_tmp = - pCTRL->_P_F_Rs*Beta_abs + pCTRL->_V_F_Ebeta*Beta_sign
+                              + Beta_sign*pCTRL->FL_SRAD.F_Filter_in*(pCTRL->_P_F_Ld - pCTRL->_P_F_Lq)*pCTRL->_V_F_IErralfa;
 }
 
 /**********************************模型参考自适应************************************/
