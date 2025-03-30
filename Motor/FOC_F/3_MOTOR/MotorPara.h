@@ -117,7 +117,7 @@
 
 
 //转速环PID    
-#define MOTOR_SPD_PID_Coeff                 (0.80f)                         //转速环PID增益系数
+#define MOTOR_SPD_PID_Coeff                 (0.35f)                         //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
 #define MOTOR_SPD_KI_GAIN                   (0.02f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (0.0f)

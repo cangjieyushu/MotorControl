@@ -37,7 +37,7 @@
         <CustomRangesText9 />
     </PlCacheRanges>
     <DebugChecksum>
-        <Checksum>2850871567</Checksum>
+        <Checksum>2707790325</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -93,8 +93,8 @@
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
     <ArmDriver>
-        <EnableCache>0</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+        <EnableCache>0</EnableCache>
     </ArmDriver>
     <Trace2>
         <Enabled>0</Enabled>

@@ -91,7 +91,7 @@ void IRQHandleDMAIsr(void)
     MH_Current_IntFlag_Clear();
     
 #if(JSCOPE_RTT_EN == 1U)
-    RTT_DATA[0] = Motor.SRAD_CTRL.Ramp_SRAD.Q14I_Output;
+    RTT_DATA[0] = Motor.SMO_CTRL.TG_Triangle.Q12U_Angle;
     RTT_DATA[1] = Motor.SMO_CTRL.FL_SRAD.Q16I_Filter_out;
     RTT_DATA[2] = Motor.SMO_CTRL._V_Q32I_K1_beta_tmp;
     SEGGER_RTT_Write(1,&RTT_DATA,12U);
