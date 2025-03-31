@@ -145,17 +145,17 @@
 #define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                         //调制度限制
 #define MOTOR_HFI_NS_TIME                   (100U)                                          //电机HFI
 
-#define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.05f * MOTOR_CURRENT_PHASE_A))                         //锁相环比例系数
-#define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.05f * MOTOR_CURRENT_PHASE_A))     //锁相环积分系数
+#define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.05f * MOTOR_CURRENT_PHASE_A))                             //锁相环比例系数
+#define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.05f * MOTOR_CURRENT_PHASE_A))  //锁相环积分系数
 #define MOTOR_HFI_PLL_KD                    (0.0f)                    	//锁相环微分系数
-#define MOTOR_HFI_PLL_MAX                   ( 10.0f * MOTOR_MAX_SRAD)   //锁相环最大输出
-#define MOTOR_HFI_PLL_MIN                   (-10.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出05
+#define MOTOR_HFI_PLL_MAX                   ( 2.0f * MOTOR_MAX_SRAD)    //锁相环最大输出
+#define MOTOR_HFI_PLL_MIN                   (-2.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出05
 
 //非线性磁链观测器  
 #define MOTOR_FLUX_GAMMA                    (0.02f * MOTOR_VOLTAGE_V / MOTOR_FLUX / MOTOR_FLUX / MOTOR_FLUX) //增益系数
 
-#define MOTOR_FLUX_PLL_KP                   (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                          //锁相环比例系数
-#define MOTOR_FLUX_PLL_KI                   (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / MOTOR_FLUX)      //锁相环积分系数
+#define MOTOR_FLUX_PLL_KP                   (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_FLUX)                                  //锁相环比例系数
+#define MOTOR_FLUX_PLL_KI                   (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / MOTOR_FLUX)       //锁相环积分系数
 #define MOTOR_FLUX_PLL_KD                   (0.0f)                    	//锁相环微分系数
 #define MOTOR_FLUX_PLL_MAX                  ( 2.0f * MOTOR_MAX_SRAD)    //锁相环最大输出
 #define MOTOR_FLUX_PLL_MIN                  (-2.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
@@ -163,8 +163,8 @@
 //SMO观测器
 #define MOTOR_SMO_K1                        (5.00f)           			//增益系数
 
-#define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / MOTOR_VOLTAGE_V)                     //锁相环比例系数
-#define MOTOR_SMO_PLL_KI                    (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / MOTOR_VOLTAGE_V) //锁相环积分系数
+#define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * MOTOR_VOLTAGE_V))                             //锁相环比例系数
+#define MOTOR_SMO_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * MOTOR_VOLTAGE_V))  //锁相环积分系数
 #define MOTOR_SMO_PLL_KD                    (0.0f)                    	//锁相环微分系数
 #define MOTOR_SMO_PLL_MAX                   ( 2.0f * MOTOR_MAX_SRAD)    //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   (-2.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出

@@ -117,7 +117,7 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         
         if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
         {
-            if(pMotor->SRAD_CTRL._I_F_DIR_Target*pMotor->SRAD_CTRL._I_F_SRAD) >= pMotor->LOOP_CTRL._P_F_Open_Switch_SRAD)
+            if(pMotor->SRAD_CTRL._I_F_DIR_Target*pMotor->SRAD_CTRL._I_F_SRAD >= pMotor->LOOP_CTRL._P_F_Open_Switch_SRAD)
             {
                 if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
                 {

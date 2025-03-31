@@ -46,29 +46,21 @@ Author: CJYS
 ***********************************************************************************************/
 int main(void)
 {
-    COMMON_DISABLE_INTERRUPTS();
+    __disable_irq();
     
     BSP_CLK_Init();
     BSP_GPIO_Init();
-    Z20A8300A_Init();
-    
+    BSP_DMA_Init();
     BSP_ADC_Init();
-    BSP_DMA_Init(IRQHandleDMAIsr);
-    BSP_PWM_Init(IRQHandleMCBKIsr);
-    
-    BSP_ADC_Init_S();
-    BSP_DMA_Init_S();
-    BSP_TMU_Init();
-    BSP_TIM_Init(IRQHandleSTIMIsr);
-    BSP_HALL_Init();
+    BSP_PWM_Init();
+    BSP_TIM_Init();
     BSP_ISR_Init();
-    BSP_WDG_Init();
-    
+
 #if(JSCOPE_RTT_EN == 1U)
     SEGGER_RTT_ConfigUpBuffer(1,JSCOPE_RTT_Sytle,Buffer,sizeof(Buffer),SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 #endif
     
-    COMMON_ENABLE_INTERRUPTS();
+    __enable_irq();
     
     for(;;)
     {
@@ -85,17 +77,21 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void IRQHandleDMAIsr(void)
+void ADC_IRQHandler(void)
 {
-    MotorTask_Current_Flow(&Motor);
-    MH_Current_IntFlag_Clear();
-    
+    if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
+	{
+        ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
+        
+        MotorTask_Current_Flow(&Motor);
+	
 #if(JSCOPE_RTT_EN == 1U)
-    RTT_DATA[0] = 0;
-    RTT_DATA[1] = 0;
-    RTT_DATA[2] = 0;
-    SEGGER_RTT_Write(1,&RTT_DATA,12U);
+    	RTT_DATA[0] = Motor.SVPWM_CTRL._I_Q14I_Ia;
+    	RTT_DATA[1] = Motor.SVPWM_CTRL._I_Q14I_Ib;
+    	RTT_DATA[2] = Motor.SVPWM_CTRL._I_Q14I_Ic;
+    	SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
+    }
 }
 
 /**********************************************************************************************
@@ -107,25 +103,27 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void IRQHandleMCBKIsr(void)
+void TIM1_BRK_TIM9_IRQHandler(void)
 {
-    MotorTask_Shut_Flow(&Motor);
-    
-    MCU_Z20A8300A_SpiInit();
-    MCU_Z20A8300A_GpioInit();
-    
-    Z20A8300AIf.SpiSendCallBack = MCU_SPI_SendToZ20A8300A;
-    Z20A8300AIf.SpiReceiveCallBack = MCU_SPI_ReceiveFromZ20A8300A;
-    Z20A8300AIf.SpiWaitingForReceptionCallBack = MCU_SPI_WaitingForReceptionFromZ20A8300A;
-    if(Z20A8300A_ERR_OK == Z20A8300A_Diag_ReadClearDiag(&Z20A8300AIf, &Z20A8300AStatus, &Z20A8300ADiag))
+    TIM_ClearFlag(TIM1, TIM_FLAG_Break);
+    MH_PWM_Output_Disable();
+}
+
+/**********************************************************************************************
+Function: TIM2_IRQHandler
+Description: HALL电平翻转中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void TIM2_IRQHandler(void)
+{
+    if(TIM_GetFlagStatus(TIM2, TIM_FLAG_Update))
     {
-        if(Z20A8300ADiag.WORD != 0U)
-        {
-            Motor.Motor_Error_Flag.bit.current_short = 1U;
-        }
+        TIM_ClearFlag(TIM2, TIM_FLAG_Update);
     }
-	
-    MH_PWMFault_IntFlag_Clear();
 }
 
 /**********************************************************************************************
@@ -137,11 +135,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void IRQHandleSTIMIsr(void)
+void SysTick_Handler(void)
 {
     System_Tick_Isr(&Systask);
     System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
-    TDG_SoftwareTrig(HAL_SYSTEM_TDG);
-    STIM_ClearInt(HAL_SYSTEM_STIM); 
 }

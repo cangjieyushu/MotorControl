@@ -539,7 +539,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
     {
         MotorTask_Run_Flow_ADC_Read(&pMotor->SVPWM_CTRL);
         MotorFoc_Clark_T(&pMotor->SVPWM_CTRL);
-		
+        
         if(pMotor->Motor_Loop_Mode == MOTOR_ALIGNLOOP)
         {
             MotorTask_Current_AlignLoop_Flow(pMotor);

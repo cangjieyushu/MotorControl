@@ -226,9 +226,9 @@ void MotorFoc_SVPWM_ThreeShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     Q32I_ Txyz[3]= {0,0,0};
     
     Utmp1 = MATH_SQRT_THREE_T(pCTRL->_O_Q14I_Ubeta);
-    Utmp2 = Q32I_RHT_10((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
-    Utmp3 = Q32I_RHT_10(((-3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
-    Utmp1 = Q32I_RHT_10(Utmp1*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp2 = Q32I_RHT_12((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp3 = Q32I_RHT_12(((-3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp1 = Q32I_RHT_12(Utmp1*pCTRL->_I_Q10I_One_Over_Vbus);
     
     pCTRL->_O_Q08U_Sector = 0U;
     if(Utmp1>0){pCTRL->_O_Q08U_Sector+=1U;}else{}
@@ -336,9 +336,9 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     Q32I_ Delta_Ttmp1 = 0,Delta_Ttmp2 = 0,Delta_Ttmp3 = 0;
     
     Utmp1 = MATH_SQRT_THREE_T(pCTRL->_O_Q14I_Ubeta);
-    Utmp2 = Q32I_RHT_10((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
-    Utmp3 = Q32I_RHT_10(((-3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
-    Utmp1 = Q32I_RHT_10(Utmp1*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp2 = Q32I_RHT_12((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp3 = Q32I_RHT_12(((-3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
+    Utmp1 = Q32I_RHT_12(Utmp1*pCTRL->_I_Q10I_One_Over_Vbus);
     
     pCTRL->_O_Q08U_Sector = 0U;
     if(Utmp1>0){pCTRL->_O_Q08U_Sector+=1U;}else{}

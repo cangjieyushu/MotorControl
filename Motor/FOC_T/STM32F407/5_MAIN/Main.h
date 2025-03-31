@@ -11,10 +11,11 @@
 #include "Math.h"
 #include "BSP.h"
 #include "SYS.h"
-#include "Z20A8300A_Init.h"
 
 #include "MotorTask.h"
 #include "SysTask.h"
+
+#include "USART.h"
 
 //JSCOPE_RTT模式使能标志位
 #define JSCOPE_RTT_EN                   (1U)
@@ -22,9 +23,5 @@
 #if(JSCOPE_RTT_EN == 1U)
 #include "SEGGER_RTT.h"
 #endif
-
-void IRQHandleDMAIsr(void);
-void IRQHandleMCBKIsr(void);
-void IRQHandleSTIMIsr(void);
 
 #endif /* Main_H */
