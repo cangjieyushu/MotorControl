@@ -84,11 +84,11 @@
 
 //电机openloop相关参数 
 #define MOTOR_OPENLOOP_MIN_TIME             (5000U)                         //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_SRAD          (10.0f * MATH_2PI_F)            //Hz,电机openloop切换closeloop1转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop1时间
+#define MOTOR_OPENLOOP_SWITCH_SRAD          (10.0f * MATH_2PI_F)            //Hz,电机openloop切换closeloop转速
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP_STEP                (0.5f * MATH_2PI_F)             //Hz/ms,电机closeloop增速步长
+#define MOTOR_CLOSELOOP_STEP                (0.1f * MATH_2PI_F)             //Hz/ms,电机closeloop增速步长
 
 
 //IF
@@ -101,7 +101,7 @@
 #define MOTOR_IF_ANGLERAMP_STEP             (5.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (1.5f)                          //rad,IF与观测器角度偏差允许切换值
-#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //Hz,电机IF观测器角度收敛步长
+#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //rad,电机IF观测器角度收敛步长
 
 //VF
 #define MOTOR_VF_VQRAMP_INIT                (0.0f)                          //V,Vq初始值
@@ -113,17 +113,17 @@
 #define MOTOR_VF_ANGLERAMP_STEP             (5.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (1.5f)                          //rad,VF与观测器角度偏差允许切换值
-#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //Hz,电机VF观测器角度收敛步长
+#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //rad,电机VF观测器角度收敛步长
 
 
 //转速环PID    
 #define MOTOR_SPD_PID_Coeff                 (0.35f)                         //转速环PID增益系数
 #define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
-#define MOTOR_SPD_KI_GAIN                   (0.02f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
+#define MOTOR_SPD_KI_GAIN                   (0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
 #define MOTOR_SPD_KD_GAIN                   (0.0f)
 
-#define MOTOR_SPD_PID_MAX                   (MOTOR_CURRENT_PHASE_A)         //A,转速环输出q轴电流限幅
-#define MOTOR_SPD_PID_MIN                   (-MOTOR_CURRENT_PHASE_A)        //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MAX                   ( 1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
+#define MOTOR_SPD_PID_MIN                   (-1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
 
 //电流PID
 #define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
@@ -136,7 +136,7 @@
 
 //观测器PLL系数
 #define MOTOR_PLL_Coeff                     (0.20f)
-#define USER_PLL_SPEED_LPF_COEFF            (0.05f)                     //0~1，越小滤波越深
+#define USER_PLL_SPEED_LPF_COEFF            (0.05f)                         //0~1，越小滤波越深
 
 //HFI观测器
 #define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                            //Hz,HFI速度目标值
