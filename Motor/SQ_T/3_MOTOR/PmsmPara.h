@@ -35,7 +35,7 @@
 //标幺化
 #define V_BASE                              (0.5f*HAL_ADC_VOLTAGE_MAX)      //V，电压
 #define I_BASE                              (0.5f*HAL_ADC_CURRENT_MAX)      //A，电流
-#define F_BASE                              (2.0f*MOTOR_MAX_FREQ)           //Hz，频率
+#define F_BASE                              (1.0f*MOTOR_MAX_FREQ)           //Hz，频率
 
 #define W_BASE                              (F_BASE*MATH_2PI_F)     //Hz，角频率
 #define R_BASE                              (V_BASE/I_BASE)         //Ω，电阻

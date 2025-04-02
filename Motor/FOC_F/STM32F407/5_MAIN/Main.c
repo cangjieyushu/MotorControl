@@ -9,7 +9,7 @@
 
 #if(JSCOPE_RTT_EN == 1U)
 char Buffer[128];
-float RTT_DATA[8];
+Q32I_ RTT_DATA[8];
 #endif
 
 /**********************************************************************************************
@@ -86,9 +86,9 @@ void ADC_IRQHandler(void)
         MotorTask_Current_Flow(&Motor);
 	
 #if(JSCOPE_RTT_EN == 1U)
-    	RTT_DATA[0] = 1000.0f*Motor.SVPWM_CTRL._I_F_Ia;
-    	RTT_DATA[1] = 1000.0f*Motor.PARA_ID._V_F_Ibeta_HPF;
-    	RTT_DATA[2] = 10.0f*Motor.PARA_ID._O_F_Ud_HFI;
+    	RTT_DATA[0] = 0;
+    	RTT_DATA[1] = 0;
+    	RTT_DATA[2] = 0;
     	SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     }

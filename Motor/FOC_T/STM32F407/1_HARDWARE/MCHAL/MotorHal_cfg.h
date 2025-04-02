@@ -33,7 +33,6 @@
 #define HAL_CURRENT_LOOP_FREQ_PRESCALER     (1)                             //电流环分频
 
 
-
 //频率设置
 #define HAL_SYSTEM_FREQ                         (168000.0f)                //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)          //kHz，PWM时钟频率

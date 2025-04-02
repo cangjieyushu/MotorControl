@@ -114,11 +114,11 @@
 #define HAL_MIN_DUTY                            (HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY)
 
 #elif(HAL_CURRENT_SAMPLE_MODE == HAL_ONE_SHUNT)
-#define HAL_ADC_DELAY_TIME                      (1.2f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.5f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (1.3f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (1.5f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
 

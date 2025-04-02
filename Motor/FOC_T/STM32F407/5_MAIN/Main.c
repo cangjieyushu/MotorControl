@@ -86,9 +86,9 @@ void ADC_IRQHandler(void)
         MotorTask_Current_Flow(&Motor);
 	
 #if(JSCOPE_RTT_EN == 1U)
-    	RTT_DATA[0] = Motor.SVPWM_CTRL._I_Q14I_Ia;
-    	RTT_DATA[1] = Motor.SVPWM_CTRL._I_Q14I_Ib;
-    	RTT_DATA[2] = Motor.SVPWM_CTRL._I_Q14I_Ic;
+    	RTT_DATA[0] = 0;
+    	RTT_DATA[1] = 0;
+    	RTT_DATA[2] = 0;
     	SEGGER_RTT_Write(1,&RTT_DATA,12U);
 #endif
     }

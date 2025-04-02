@@ -859,7 +859,14 @@ void MotorTask_Brake_Flow(ST_MOTOR_TASK* pMotor)
     {
         if(MotorSQ_Brake_Init(&pMotor->BRAKE_CTRL) == SUCS)
         {
-//            MH_HPWM_LPWM_LOpen(Q32I_RHT_12(pMotor->BRAKE_CTRL._O_Q12U_brake_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq));
+            if(pMotor->BRAKE_CTRL._O_Q00U_brake_En == 1U)
+            {
+//                MH_HPWM_LPWM_LOpen(Q32I_RHT_12(pMotor->BRAKE_CTRL._O_Q12U_brake_duty*pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq));
+            }
+            else
+            {
+//                MH_HPWM_LPWM_Close();
+            }
         }
     }
 }

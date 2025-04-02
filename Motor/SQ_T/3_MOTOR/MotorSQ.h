@@ -133,6 +133,7 @@ typedef struct{
     ST_RAMP_T   Ramp_Brake_Duty;
     
     Q32U_   _O_Q12U_brake_duty;
+    Q32U_   _O_Q00U_brake_En;
     
     Q32U_   _V_Q32U_cnt;
     

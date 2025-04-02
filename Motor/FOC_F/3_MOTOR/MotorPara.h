@@ -37,7 +37,7 @@
 #define MOTOR_PARAID_ID_TARGET2         (2.0f)                   //A,Id目标值
 
 #define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
-#define MOTOR_PARAID_UD_PERIOD          (2.0f)                   //kHz，注入频率
+#define MOTOR_PARAID_UD_PERIOD          (4.0f)                   //kHz，注入频率
 #define MOTOR_PARAID_UDQ_COEFF          (0.50f)                  //调制度限制
 
 #define MOTOR_PARAID_LPF_COEFF          (0.05f)                  //0~1，越小滤波越深

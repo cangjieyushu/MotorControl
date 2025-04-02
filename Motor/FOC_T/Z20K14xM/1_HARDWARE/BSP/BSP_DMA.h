@@ -53,8 +53,8 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_DMA_Init_S(void);
 
-extern uint32_t Hal_AdcLoopData[24];
-extern uint32_t Hal_AdcMapData[24];
-extern uint32_t Hal_AdcLoopData_S[24];
+extern uint32_t Hal_AdcLoopData[8];
+extern uint32_t Hal_AdcMapData[8];
+extern uint32_t Hal_AdcLoopData_S[8];
 
 #endif /* BSP_DMA_H */

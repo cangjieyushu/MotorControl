@@ -8,9 +8,9 @@
 #include "BSP_DMA.h"
 #include "BSP_ADC.h"
 
-uint32_t Hal_AdcLoopData[24];
-uint32_t Hal_AdcMapData[24];
-uint32_t Hal_AdcLoopData_S[24];
+uint32_t Hal_AdcLoopData[8] = {0,0,0,0,0,0,0,0};
+uint32_t Hal_AdcMapData[8] = {0,0,0,0,0,0,0,0};
+uint32_t Hal_AdcLoopData_S[8] = {0,0,0,0,0,0,0,0};
 
 /**********************************************************************************************
 Function: BSP_DMA_Init_Three_Shunt
@@ -53,14 +53,14 @@ void BSP_DMA_Init_Three_Shunt(isr_cb_t *DMADoneCbf)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = - 4*HAL_MOTOR_ADC_NUM_THREE_SHUNT*HAL_CURRENT_LOOP_FREQ_PRESCALER;
+    GtDMATransferConfig.majorLoopDestOffset = - 4*HAL_MOTOR_ADC_NUM_THREE_SHUNT;
     
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Destination data transfer size */
     GtDMATransferConfig.destTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Transfer bytes number */
-    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_THREE_SHUNT*HAL_CURRENT_LOOP_FREQ_PRESCALER;
+    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_THREE_SHUNT;
     /* Disable request after done control */
     GtDMATransferConfig.disableRequestAfterDoneCmd = DISABLE;
     /* DMA transfer Configure */
@@ -109,14 +109,14 @@ void BSP_DMA_Init_One_Shunt(isr_cb_t *DMADoneCbf)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = -4*HAL_MOTOR_ADC_NUM_ONE_SHUNT*HAL_CURRENT_LOOP_FREQ_PRESCALER;
+    GtDMATransferConfig.majorLoopDestOffset = -4*HAL_MOTOR_ADC_NUM_ONE_SHUNT;
     
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Destination data transfer size */
     GtDMATransferConfig.destTransferSize = DMA_TRANSFER_SIZE_4B;
     /* Transfer bytes number */
-    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_ONE_SHUNT*HAL_CURRENT_LOOP_FREQ_PRESCALER;
+    GtDMATransferConfig.transferByteNum = 4*HAL_MOTOR_ADC_NUM_ONE_SHUNT;
     /* Disable request after done control */
     GtDMATransferConfig.disableRequestAfterDoneCmd = DISABLE;
     /* DMA transfer Configure */
