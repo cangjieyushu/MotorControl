@@ -37,7 +37,7 @@
 #define MOTOR_PARAID_ID_TARGET2         (2.0f)                   //A,Id目标值
 
 #define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
-#define MOTOR_PARAID_UD_PERIOD          (4.0f)                   //kHz，注入频率
+#define MOTOR_PARAID_UD_PERIOD          (8.0f)                   //kHz，注入频率
 #define MOTOR_PARAID_UDQ_COEFF          (0.50f)                  //调制度限制
 
 #define MOTOR_PARAID_LPF_COEFF          (0.05f)                  //0~1，越小滤波越深
@@ -161,7 +161,7 @@
 #define MOTOR_FLUX_PLL_MIN                  (-2.0f * MOTOR_MAX_SRAD)  	//锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_K1                        (5.00f)           			//增益系数
+#define MOTOR_SMO_K1                        (8.00f)           			//增益系数
 
 #define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * MOTOR_VOLTAGE_V))                             //锁相环比例系数
 #define MOTOR_SMO_PLL_KI                    (MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * MOTOR_VOLTAGE_V))  //锁相环积分系数
