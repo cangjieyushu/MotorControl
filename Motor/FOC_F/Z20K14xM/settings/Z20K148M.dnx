@@ -37,7 +37,7 @@
         <CustomRangesText9 />
     </PlCacheRanges>
     <DebugChecksum>
-        <Checksum>2329788784</Checksum>
+        <Checksum>1563472872</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -76,11 +76,11 @@
     </JLinkDriver>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>72000000</CpuClock>
+        <CpuClock>67140</CpuClock>
         <ClockAutoDetect>0</ClockAutoDetect>
-        <ClockWanted>2000000</ClockWanted>
-        <JtagSpeed>2000000</JtagSpeed>
-        <Prescaler>36</Prescaler>
+        <ClockWanted>67142</ClockWanted>
+        <JtagSpeed>67189</JtagSpeed>
+        <Prescaler>1</Prescaler>
         <TimeStampPrescIndex>0</TimeStampPrescIndex>
         <TimeStampPrescData>0</TimeStampPrescData>
         <PcSampCYCTAP>1</PcSampCYCTAP>

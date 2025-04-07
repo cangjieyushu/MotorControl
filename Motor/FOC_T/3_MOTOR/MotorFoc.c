@@ -374,11 +374,13 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     {
         Delta_Ttmp1 =  (pCTRL->_P_Q12I_MinDuty - Ttmp1)>>2;
         Delta_Ttmp2 = -pCTRL->_P_Q12I_MinDuty>>2;
+        Delta_Ttmp3 =  Delta_Ttmp2;
     }
     else if((Ttmp1 >= pCTRL->_P_Q12I_MinDuty)&&(Ttmp2 < pCTRL->_P_Q12I_MinDuty))
     {
         Delta_Ttmp2 =  pCTRL->_P_Q12I_MinDuty>>2;
         Delta_Ttmp3 = -(pCTRL->_P_Q12I_MinDuty - Ttmp2)>>2;
+        Delta_Ttmp1 =  Delta_Ttmp2;
     }
     
     pCTRL->_O_Q12I_ADCTrigTime1 = Txyz[0] + Delta_Ttmp1 - pCTRL->_P_Q12I_ADCSampleDuty;
