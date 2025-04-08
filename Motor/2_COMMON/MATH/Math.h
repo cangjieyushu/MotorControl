@@ -153,11 +153,11 @@ typedef struct
 
 #define MATH_PI_F                           (3.1415926535897932384626433832795f)
 #define MATH_2PI_F                          (2.0f*MATH_PI_F)
-#define MATH_ONE_OVER_2PI_F                 (1.0f/MATH_2PI_F)
 #define MATH_PI_OVER_TWO_F                  (MATH_PI_F/2.0f)
 #define MATH_PI_OVER_FOUR_F                 (MATH_PI_F/4.0f)
 #define MATH_PI_OVER_SIX_F                  (MATH_PI_F/6.0f)
     
+#define MATH_OVER_2PI_F(A)                  (A/MATH_2PI_F)
 #define MATH_ANGLE_MOD_F(A)                 while(A>MATH_2PI_F){A-=MATH_2PI_F;}while(A<0.0f){A+=MATH_2PI_F;}
 
 #define MATH_ONE_OVER_THREE_F               (1.0f/3.0f)

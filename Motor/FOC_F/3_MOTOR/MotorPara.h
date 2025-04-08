@@ -17,26 +17,26 @@
 #include "MotorSQ.h"
 
 //启动算法选择
-#define MOTOR_OPENLOOP_PARAID           (00U)
-#define MOTOR_OPENLOOP_IF               (01U)
-#define MOTOR_OPENLOOP_VF               (02U)
-#define MOTOR_OPENLOOP_HFI              (03U)
-#define MOTOR_OPENLOOP_FLUX             (04U)
-#define MOTOR_OPENLOOP_MRAS             (05U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
+#define MOTOR_OPENLOOP_PARAID       (00U)
+#define MOTOR_OPENLOOP_IF           (01U)
+#define MOTOR_OPENLOOP_VF           (02U)
+#define MOTOR_OPENLOOP_HFI          (03U)
+#define MOTOR_OPENLOOP_FLUX         (04U)
+#define MOTOR_OPENLOOP_MRAS         (05U)
+#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_FLUX
 
 //观测器选择
-#define MOTOR_EST_FLUX                  (10U)
-#define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MRAS                  (12U)
-#define MOTOR_EST_MODE                  MOTOR_EST_SMO
+#define MOTOR_EST_FLUX              (10U)
+#define MOTOR_EST_SMO               (11U)
+#define MOTOR_EST_MRAS              (12U)
+#define MOTOR_EST_MODE              MOTOR_EST_FLUX
 
 
 //静态参数辨识
 #define MOTOR_PARAID_ID_TARGET1         (1.0f)                   //A,Id目标值
 #define MOTOR_PARAID_ID_TARGET2         (2.0f)                   //A,Id目标值
 
-#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
+#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_MAX_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
 #define MOTOR_PARAID_UD_PERIOD          (8.0f)                   //kHz，注入频率
 #define MOTOR_PARAID_UDQ_COEFF          (0.50f)                  //调制度限制
 
@@ -84,11 +84,11 @@
 
 //电机openloop相关参数 
 #define MOTOR_OPENLOOP_MIN_TIME             (5000U)                         //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_SRAD          (10.0f * MATH_2PI_F)            //Hz,电机openloop切换closeloop转速
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop时间
+#define MOTOR_OPENLOOP_SWITCH_FREQ          (10.0f)                         //Hz,电机openloop切换closeloop转速阈值
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                           //ms,电机openloop切换closeloop转速检测时间
 
 //电机closeloop1相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP_STEP                (0.1f * MATH_2PI_F)             //Hz/ms,电机closeloop增速步长
+#define MOTOR_CLOSELOOP_STEP                (100.0f * MOTOR_LTs)            //Hz/s,电机closeloop每秒增速步长
 
 
 //IF
@@ -96,9 +96,9 @@
 #define MOTOR_IF_IQRAMP_TARGET              (2.0f)                          //A,Iq目标值
 #define MOTOR_IF_IQRAMP_STEP                (1.0f * MOTOR_LTs)              //A/s,Iq每秒增加步长
 
-#define MOTOR_IF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,IF速度初始值
-#define MOTOR_IF_ANGLERAMP_TARGET           (20.0f * MATH_2PI_F)            //Hz,IF速度目标值
-#define MOTOR_IF_ANGLERAMP_STEP             (5.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,IF速度每秒增加步长
+#define MOTOR_IF_FREQRAMP_INIT              (0.0f)                          //Hz,IF速度初始值
+#define MOTOR_IF_FREQRAMP_TARGET            (20.0f)                         //Hz,IF速度目标值
+#define MOTOR_IF_FREQRAMP_STEP              (5.0f * MOTOR_LTs)              //Hz/s,IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (1.5f)                          //rad,IF与观测器角度偏差允许切换值
 #define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //rad,电机IF观测器角度收敛步长
@@ -108,39 +108,40 @@
 #define MOTOR_VF_VQRAMP_TARGET              (2.0f)                          //V,Vq目标值
 #define MOTOR_VF_VQRAMP_STEP                (1.0f * MOTOR_LTs)              //V/s,Vq每秒增加步长
 
-#define MOTOR_VF_ANGLERAMP_INIT             (0.0f * MATH_2PI_F)             //Hz,VF速度初始值
-#define MOTOR_VF_ANGLERAMP_TARGET           (20.0f * MATH_2PI_F)            //Hz,VF速度目标值
-#define MOTOR_VF_ANGLERAMP_STEP             (5.0f * MATH_2PI_F * MOTOR_LTs) //Hz/s,VF速度每秒增加步长
+#define MOTOR_VF_FREQRAMP_INIT              (0.0f)                          //Hz,VF速度初始值
+#define MOTOR_VF_FREQRAMP_TARGET            (20.0f)                         //Hz,VF速度目标值
+#define MOTOR_VF_FREQRAMP_STEP              (5.0f * MOTOR_LTs)              //Hz/s,VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (1.5f)                          //rad,VF与观测器角度偏差允许切换值
 #define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (1.0f * MOTOR_LTs)              //rad,电机VF观测器角度收敛步长
 
 
 //转速环PID    
-#define MOTOR_SPD_PID_Coeff                 (0.35f)                         //转速环PID增益系数
-#define MOTOR_SPD_KP_GAIN                   (MOTOR_SPD_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_SRAD)
-#define MOTOR_SPD_KI_GAIN                   (0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs / MATH_2PI_F)
-#define MOTOR_SPD_KD_GAIN                   (0.0f)
+#define MOTOR_FREQ_PID_Coeff                (0.35f)                         //转速环PID增益系数
+#define MOTOR_FREQ_KP_GAIN                  (MOTOR_FREQ_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_FREQ)
+#define MOTOR_FREQ_KI_GAIN                  (0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs)
+#define MOTOR_FREQ_KD_GAIN                  (0.0f)
 
-#define MOTOR_SPD_PID_MAX                   ( 1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
-#define MOTOR_SPD_PID_MIN                   (-1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
+#define MOTOR_FREQ_PID_MAX                  ( 1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
+#define MOTOR_FREQ_PID_MIN                  (-1.0f * MOTOR_CURRENT_PHASE_A) //A,转速环输出q轴电流限幅
 
 //电流PID
-#define MOTOR_FOC_P_Coeff                   (0.05f)                         //电流环P增益系数
-#define MOTOR_FOC_KP_GAIN                   (MOTOR_FOC_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
-#define MOTOR_FOC_KI_GAIN                   (MOTOR_FOC_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
-#define MOTOR_FOC_KD_GAIN                   (0.0f)
+#define MOTOR_CURRENT_P_Coeff               (0.05f)                         //电流环P增益系数
+#define MOTOR_CURRENT_KP_GAIN               (MOTOR_CURRENT_P_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs)
+#define MOTOR_CURRENT_KI_GAIN               (MOTOR_CURRENT_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls)
+#define MOTOR_CURRENT_KD_GAIN               (0.0f)
 //dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
-#define MOTOR_VS_SCALE                      (0.6667f)
+#define MOTOR_VS_MAX_SCALE                  (0.6667f)
 
 
 //观测器PLL系数
 #define MOTOR_PLL_Coeff                     (0.20f)
 #define USER_PLL_SPEED_LPF_COEFF            (0.05f)                         //0~1，越小滤波越深
+#define MOTOR_MAX_SRAD                      (MOTOR_MAX_FREQ * MATH_2PI_F)
 
 //HFI观测器
-#define MOTOR_HFI_TARGET                    (10.0f * MATH_2PI_F)                            //Hz,HFI速度目标值
-#define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_SCALE * MOTOR_VOLTAGE_V)      //V,HFI高频注入电压幅值
+#define MOTOR_HFI_TARGET                    (10.0f)                                         //Hz,HFI速度目标值
+#define MOTOR_HFI_UD_REF                    (0.20f * MOTOR_VS_MAX_SCALE * MOTOR_VOLTAGE_V)  //V,HFI高频注入电压幅值
 #define MOTOR_HFI_UD_PERIOD                 (4.0f)                                          //kHz，注入频率
 #define MOTOR_HFI_UDQ_COEFF                 (0.50f)                                         //调制度限制
 #define MOTOR_HFI_NS_TIME                   (100U)                                          //电机HFI
@@ -223,11 +224,11 @@ typedef struct{
     Q32U_                       _V_Q32U_Open_cnt;
     Q32U_                       _V_Q32U_Open_min_cnt;
     Q32U_                       _P_Q32U_Open_Min_Time;
-    float                       _P_F_Open_Switch_SRAD;
+    float                       _P_F_Open_Switch_Freq;
     Q32U_                       _P_Q32U_Open_Switch_Time;
     
     Q32U_                       _V_Q32U_Close_cnt;
-    float                       _P_F_Close_SRAD_Step;
+    float                       _P_F_Close_Freq_Step;
 }ST_LOOP_CONTROL_F;
 
 typedef struct{
@@ -245,7 +246,7 @@ typedef struct{
     ST_IF_CONTROL_F             IF_CTRL;
     ST_VF_CONTROL_F             VF_CTRL;
     ST_SVPWM_CONTROL_F          SVPWM_CTRL;
-    ST_SRAD_CONTROL_F           SRAD_CTRL;
+    ST_FREQ_CONTROL_F           FREQ_CTRL;
     ST_CURRENT_CONTROL_F        CURRENT_CTRL;
     
     ST_HFI_CONTROL_F            HFI_CTRL;

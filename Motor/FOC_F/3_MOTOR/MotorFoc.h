@@ -13,7 +13,7 @@
 typedef struct
 {
     ST_RAMP_F       Ramp_Iq;
-    ST_RAMP_F       Ramp_SRAD;
+    ST_RAMP_F       Ramp_FREQ;
     ST_RAMP_F       Ramp_AngleERR;
     
     float       _I_F_DIR_Target;
@@ -29,7 +29,7 @@ typedef struct
 typedef struct
 {
     ST_RAMP_F       Ramp_Vq;
-    ST_RAMP_F       Ramp_SRAD;
+    ST_RAMP_F       Ramp_FREQ;
     ST_RAMP_F       Ramp_AngleERR;
 
     float       _I_F_DIR_Target;
@@ -99,14 +99,14 @@ typedef struct
 
 typedef struct
 {
-    ST_PID_POS_F    PID_SRAD;
+    ST_PID_POS_F    PID_FREQ;
     ST_PID_POS_F    PID_WEAK;
-    ST_RAMP_F       Ramp_SRAD;
+    ST_RAMP_F       Ramp_FREQ;
     ST_TRIG_F       TG_Triangle;
     
     float       _I_F_DIR_Target;
-    float       _I_F_SRAD_Target;
-    float       _I_F_SRAD;
+    float       _I_F_FREQ_Target;
+    float       _I_F_FREQ;
     float       _I_F_Vbus;
     float       _I_F_Ud;
     float       _I_F_Uq;
@@ -115,9 +115,9 @@ typedef struct
     float       _O_F_IdRef;
     float       _O_F_IqRef;
     
-    float       _P_F_SRAD_Max;
-    float       _P_F_SRAD_Min;
-}ST_SRAD_CONTROL_F;
+    float       _P_F_FREQ_Max;
+    float       _P_F_FREQ_Min;
+}ST_FREQ_CONTROL_F;
 
 typedef struct
 {
@@ -313,7 +313,7 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL);
+void MotorFoc_SRAD_Init_F(ST_FREQ_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_SRAD_Loop_F
@@ -324,7 +324,7 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL);
+void MotorFoc_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_Current_Init_F

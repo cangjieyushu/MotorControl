@@ -22,7 +22,7 @@ void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.F_Init);
-    Ramp_Init_F(&pCTRL->Ramp_SRAD, pCTRL->Ramp_SRAD.F_Init);
+    Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
     Ramp_Init_F(&pCTRL->Ramp_AngleERR, 0.0f);
 }
 
@@ -38,7 +38,7 @@ Author: CJYS
 void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL)
 {
     Ramp_Cal_F(&pCTRL->Ramp_Iq);
-    Ramp_Cal_F(&pCTRL->Ramp_SRAD);
+    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     pCTRL->_O_F_Iq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Iq.F_Output;
 }
 
@@ -67,7 +67,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL)
 {
-    pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_SRAD.F_Output;
+    pCTRL->_O_F_Angle += MATH_2PI_F*pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
 }
 
@@ -86,7 +86,7 @@ void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.F_Init);
-    Ramp_Init_F(&pCTRL->Ramp_SRAD, pCTRL->Ramp_SRAD.F_Init);
+    Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
     Ramp_Init_F(&pCTRL->Ramp_AngleERR, 0.0f);
 }
 
@@ -102,7 +102,7 @@ Author: CJYS
 void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL)
 {
     Ramp_Cal_F(&pCTRL->Ramp_Vq);
-    Ramp_Cal_F(&pCTRL->Ramp_SRAD);
+    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     pCTRL->_O_F_Vq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Vq.F_Output;
 }
 
@@ -131,7 +131,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL)
 {
-    pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_SRAD.F_Output;
+    pCTRL->_O_F_Angle += MATH_2PI_F*pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
 }
 
@@ -488,13 +488,13 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Init_F(ST_SRAD_CONTROL_F* pCTRL)
+void MotorFoc_SRAD_Init_F(ST_FREQ_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_IdRef = 0.0f;
     pCTRL->_O_F_IqRef = 0.0f;
-    PID_Pos_Init_F(&pCTRL->PID_SRAD, 0.0f);
+    PID_Pos_Init_F(&pCTRL->PID_FREQ, 0.0f);
     PID_Pos_Init_F(&pCTRL->PID_WEAK, 0.0f);
-    Ramp_Init_F(&pCTRL->Ramp_SRAD, 0.0f);
+    Ramp_Init_F(&pCTRL->Ramp_FREQ, 0.0f);
 }
 
 /**********************************************************************************************
@@ -506,15 +506,15 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL)
+void MotorFoc_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL)
 {
-    pCTRL->Ramp_SRAD.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_SRAD_Target,
-                                pCTRL->_P_F_SRAD_Max, pCTRL->_P_F_SRAD_Min);
-    Ramp_Cal_F(&pCTRL->Ramp_SRAD);
+    pCTRL->Ramp_FREQ.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_FREQ_Target,
+                                pCTRL->_P_F_FREQ_Max, pCTRL->_P_F_FREQ_Min);
+    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     
-    pCTRL->PID_SRAD.F_Rf = pCTRL->Ramp_SRAD.F_Output;
-    pCTRL->PID_SRAD.F_Fb = pCTRL->_I_F_SRAD;
-    PID_Pos_Cal_F(&pCTRL->PID_SRAD);
+    pCTRL->PID_FREQ.F_Rf = pCTRL->Ramp_FREQ.F_Output;
+    pCTRL->PID_FREQ.F_Fb = pCTRL->_I_F_FREQ;
+    PID_Pos_Cal_F(&pCTRL->PID_FREQ);
     
     pCTRL->PID_WEAK.F_Rf = MATH_ONE_OVER_SQRT_THREE_F*pCTRL->_I_F_Vbus;
     pCTRL->PID_WEAK.F_Fb = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_I_F_Ud) + MATH_SQUARE_F(pCTRL->_I_F_Uq));
@@ -523,8 +523,8 @@ void MotorFoc_SRAD_Loop_F(ST_SRAD_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Angle = pCTRL->PID_WEAK.F_Output;
     Math_SinCos_F(&pCTRL->TG_Triangle);
     
-    pCTRL->_O_F_IdRef = pCTRL->PID_SRAD.F_Output*pCTRL->TG_Triangle.F_Sin;
-    pCTRL->_O_F_IqRef = pCTRL->PID_SRAD.F_Output*pCTRL->TG_Triangle.F_Cos;
+    pCTRL->_O_F_IdRef = pCTRL->PID_FREQ.F_Output*pCTRL->TG_Triangle.F_Sin;
+    pCTRL->_O_F_IqRef = pCTRL->PID_FREQ.F_Output*pCTRL->TG_Triangle.F_Cos;
 }
 
 /*******************************电流环***************************************/

@@ -30,7 +30,7 @@
 //#define MOTOR_MIN_SPEED                     (1000.0f)             //rpm，最低转速
 
 //电机额定参数，灰色电机
-#define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
+#define MOTOR_VOLTAGE_V                     (12.0f)             //V，母线电压
 #define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
 #define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
@@ -44,7 +44,7 @@
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.00504f)                      //Wb
 
-#define MOTOR_MAX_SPEED                     (7200.0f)             //rpm，最高转速
+#define MOTOR_MAX_SPEED                     (3600.0f)             //rpm，最高转速
 #define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
 ////电机额定参数，手枪钻
@@ -81,10 +81,10 @@
 
 /**********************************************************************************/
 
-#define MOTOR_SPEED_TO_SRAD(A)              (MATH_2PI_F*MOTOR_POLE_PAIR*(A)/60.0f)                  //转速rpm转电角频率
-#define MOTOR_SRAD_TO_SPEED(A)              (60.0f*(A)/MATH_2PI_F/MOTOR_POLE_PAIR)                  //电角频率转转速rpm
+#define MOTOR_SPEED_TO_FREQ(A)              (MOTOR_POLE_PAIR*(A)/60.0f)                 //转速rpm转频率
+#define MOTOR_FREQ_TO_SPEED(A)              (60.0f*(A)/MOTOR_POLE_PAIR)                 //频率转转速rpm
 
-#define MOTOR_MAX_SRAD                      (MOTOR_SPEED_TO_SRAD(MOTOR_MAX_SPEED))                  //Hz，最高电角频率
-#define MOTOR_MIN_SRAD                      (MOTOR_SPEED_TO_SRAD(MOTOR_MIN_SPEED)) 
+#define MOTOR_MAX_FREQ                      (MOTOR_SPEED_TO_FREQ(MOTOR_MAX_SPEED))      //Hz，最高频率
+#define MOTOR_MIN_FREQ                      (MOTOR_SPEED_TO_FREQ(MOTOR_MIN_SPEED)) 
 
 #endif /* PmsmPara_H */

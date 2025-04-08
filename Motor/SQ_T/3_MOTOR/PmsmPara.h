@@ -40,7 +40,7 @@
 
 #define L_BASE                              (V_BASE/W_BASE/I_BASE)  //H，电感
 #define P_BASE                              (V_BASE/W_BASE)         //wb，磁链
-#define T_BASE                              (MATH_2PI_F/W_BASE)     //s,时间
+#define T_BASE                              (1.0f/F_BASE)     		//s,时间
 
 #define MOTOR_Q10_PU                        (Q10U_MAX)      //1024
 #define MOTOR_Q14_PU                        (Q14U_MAX)      //16384
@@ -50,26 +50,26 @@
 #define Q24U_CURRENT_SCALE_PU               (Q32U_)(MOTOR_Q24_PU*HAL_ADC_CURRENT_SCALE/I_BASE)          //电流
 #define Q24U_FREQ_SCALE_PU                  (Q32U_)(MOTOR_Q24_PU/F_BASE)                                //频率
      
-#define Q14I_HTs_PU                         (Q32U_)(MOTOR_Q14_PU*MOTOR_HTs/T_BASE)
-#define Q14I_LTs_PU                         (Q32U_)(MOTOR_Q14_PU*MOTOR_LTs/T_BASE)
-#define Q14I_Rs_PU                          (Q32U_)(MOTOR_Q14_PU*MOTOR_Rs/R_BASE)       	//Ω，相电阻
-#define Q14I_Ld_PU                          (Q32U_)(MOTOR_Q14_PU*MOTOR_Ld/L_BASE)       	//H，d轴电感
-#define Q14I_Lq_PU                          (Q32U_)(MOTOR_Q14_PU*MOTOR_Lq/L_BASE)       	//H，q轴电感
-#define Q14I_Ls_PU                          (Q32U_)(MOTOR_Q14_PU*MOTOR_Ls/L_BASE)       	//H，相电感
-#define Q14I_FLUX_PU                        (Q32U_)(MOTOR_Q14_PU*MOTOR_FLUX/P_BASE)     	//V*S，Wb
+#define Q14I_HTs_PU                         ((Q32U_)(MOTOR_Q14_PU*MOTOR_HTs/T_BASE))
+#define Q14I_LTs_PU                         ((Q32U_)(MOTOR_Q14_PU*MOTOR_LTs/T_BASE))
+#define Q14I_Rs_PU                          ((Q32U_)(MOTOR_Q14_PU*MOTOR_Rs/R_BASE))       	//Ω，相电阻
+#define Q14I_Ld_PU                          ((Q32U_)(MOTOR_Q14_PU*MOTOR_Ld/L_BASE))       	//H，d轴电感
+#define Q14I_Lq_PU                          ((Q32U_)(MOTOR_Q14_PU*MOTOR_Lq/L_BASE))       	//H，q轴电感
+#define Q14I_Ls_PU                          ((Q32U_)(MOTOR_Q14_PU*MOTOR_Ls/L_BASE))      	//H，相电感
+#define Q14I_FLUX_PU                        ((Q32U_)(MOTOR_Q14_PU*MOTOR_FLUX/P_BASE))     	//V*S，Wb
 
-#define Q14I_VOLTAGE_MOTOR_TO_PU(a)         (Q32U_)(MOTOR_Q14_PU*(a)/V_BASE)              	//电压标幺转换
-#define Q14I_CURRENT_MOTOR_TO_PU(a)         (Q32U_)(MOTOR_Q14_PU*(a)/I_BASE)              	//电流标幺转换
-#define Q14I_FREQ_MOTOR_TO_PU(a)            (Q32U_)(MOTOR_Q14_PU*(a)/F_BASE)             	//频率标幺转换
-#define Q24I_VOLTAGE_MOTOR_TO_PU(a)         (Q32U_)(MOTOR_Q24_PU*(a)/V_BASE)              	//电压标幺转换
-#define Q24I_CURRENT_MOTOR_TO_PU(a)         (Q32U_)(MOTOR_Q24_PU*(a)/I_BASE)              	//电流标幺转换
-#define Q24I_FREQ_MOTOR_TO_PU(a)            (Q32U_)(MOTOR_Q24_PU*(a)/F_BASE)             	//频率标幺转换
+#define Q14I_VOLTAGE_MOTOR_TO_PU(a)         ((Q32U_)(MOTOR_Q14_PU*(a)/V_BASE))              //电压标幺转换
+#define Q14I_CURRENT_MOTOR_TO_PU(a)         ((Q32U_)(MOTOR_Q14_PU*(a)/I_BASE))              //电流标幺转换
+#define Q14I_FREQ_MOTOR_TO_PU(a)            ((Q32U_)(MOTOR_Q14_PU*(a)/F_BASE))             	//频率标幺转换
+#define Q24I_VOLTAGE_MOTOR_TO_PU(a)         ((Q32U_)(MOTOR_Q24_PU*(a)/V_BASE))              //电压标幺转换
+#define Q24I_CURRENT_MOTOR_TO_PU(a)         ((Q32U_)(MOTOR_Q24_PU*(a)/I_BASE))              //电流标幺转换
+#define Q24I_FREQ_MOTOR_TO_PU(a)            ((Q32U_)(MOTOR_Q24_PU*(a)/F_BASE))             	//频率标幺转换
 
-#define Q14I_VOLTAGE_PU                     (MOTOR_Q14_PU*MOTOR_VOLTAGE_V/V_BASE)        	//额定电压标幺值
-#define Q14I_CURRENT_PHASE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_PHASE_A/I_BASE)  	//额定相电流标幺值
-#define Q14I_CURRENT_BUS_PU                 (MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)    	//额定母线电流标幺值
-#define Q14I_CURRENT_BRAKE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_BRAKE_A/I_BASE)  	//额定刹车电流标幺值
-#define Q14I_MAX_FREQ_PU                    (MOTOR_Q14_PU*MOTOR_MAX_FREQ/F_BASE)         	//额定频率标幺值
-#define Q14I_MIN_FREQ_PU                    (MOTOR_Q14_PU*MOTOR_MIN_FREQ/F_BASE)         	//额定频率标幺值
+#define Q14I_VOLTAGE_PU                     (MOTOR_Q14_PU*MOTOR_VOLTAGE_V/V_BASE)           //额定电压标幺值
+#define Q14I_CURRENT_PHASE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_PHASE_A/I_BASE)     //额定相电流标幺值
+#define Q14I_CURRENT_BUS_PU                 (MOTOR_Q14_PU*MOTOR_CURRENT_BUS_A/I_BASE)       //额定母线电流标幺值
+#define Q14I_CURRENT_BRAKE_PU               (MOTOR_Q14_PU*MOTOR_CURRENT_BRAKE_A/I_BASE)     //额定刹车电流标幺值
+#define Q14I_MAX_FREQ_PU                    (Q14I_FREQ_MOTOR_TO_PU(MOTOR_MAX_FREQ))         //额定频率标幺值
+#define Q14I_MIN_FREQ_PU                    (Q14I_FREQ_MOTOR_TO_PU(MOTOR_MIN_FREQ))         //额定频率标幺值
 
 #endif /* PmsmPara_H */

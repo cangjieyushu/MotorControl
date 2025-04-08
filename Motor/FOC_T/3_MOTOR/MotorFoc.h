@@ -13,7 +13,7 @@
 typedef struct
 {
     ST_RAMP_T       Ramp_Iq;
-    ST_RAMP_T       Ramp_SRAD;
+    ST_RAMP_T       Ramp_FREQ;
     ST_RAMP_T       Ramp_AngleERR;
     
     Q32I_       _I_Q00I_DIR_Target;
@@ -30,7 +30,7 @@ typedef struct
 typedef struct
 {
     ST_RAMP_T       Ramp_Vq;
-    ST_RAMP_T       Ramp_SRAD;
+    ST_RAMP_T       Ramp_FREQ;
     ST_RAMP_T       Ramp_AngleERR;
 
     Q32I_       _I_Q00I_DIR_Target;
@@ -102,14 +102,14 @@ typedef struct
 
 typedef struct
 {
-    ST_PID_POS_T    PID_SRAD;
+    ST_PID_POS_T    PID_FREQ;
     ST_PID_POS_T    PID_WEAK;
-    ST_RAMP_T       Ramp_SRAD;
+    ST_RAMP_T       Ramp_FREQ;
     ST_TRIG_T       TG_Triangle;
     
     Q32I_       _I_Q00I_DIR_Target;
-    Q32I_       _I_Q14I_SRAD_Target;
-    Q32I_       _I_Q14I_SRAD;
+    Q32I_       _I_Q14I_FREQ_Target;
+    Q32I_       _I_Q14I_FREQ;
     Q32I_       _I_Q14I_Vbus;
     Q32I_       _I_Q14I_Ud;
     Q32I_       _I_Q14I_Uq;
@@ -118,9 +118,9 @@ typedef struct
     Q32I_       _O_Q14I_IdRef;
     Q32I_       _O_Q14I_IqRef;
     
-    Q32I_       _P_Q14I_SRAD_Max;
-    Q32I_       _P_Q14I_SRAD_Min;
-}ST_SRAD_CONTROL_T;
+    Q32I_       _P_Q14I_FREQ_Max;
+    Q32I_       _P_Q14I_FREQ_Min;
+}ST_FREQ_CONTROL_T;
 
 typedef struct
 {
@@ -316,7 +316,7 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Init_T(ST_SRAD_CONTROL_T* pCTRL);
+void MotorFoc_SRAD_Init_T(ST_FREQ_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_SRAD_Loop_T
@@ -327,7 +327,7 @@ Input_Output: 速度环控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MotorFoc_SRAD_Loop_T(ST_SRAD_CONTROL_T* pCTRL);
+void MotorFoc_SRAD_Loop_T(ST_FREQ_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_Current_Init_T

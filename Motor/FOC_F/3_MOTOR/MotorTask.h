@@ -189,7 +189,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Dir(float Dir)
 {
-    Motor.SRAD_CTRL._I_F_DIR_Target = Dir;
+    Motor.FREQ_CTRL._I_F_DIR_Target = Dir;
     Motor.IF_CTRL._I_F_DIR_Target = Dir;
     Motor.VF_CTRL._I_F_DIR_Target = Dir;
 }
@@ -205,7 +205,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline float Motor_Read_Dir(void)
 {
-    return Motor.SRAD_CTRL._O_F_DIR_Set;
+    return Motor.FREQ_CTRL._O_F_DIR_Set;
 }
 
 /**********************************************************************************************
@@ -240,7 +240,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Target_Speed(float Speed)
 {
-    Motor.SRAD_CTRL._I_F_SRAD_Target = MOTOR_SPEED_TO_SRAD(Speed);
+    Motor.FREQ_CTRL._I_F_FREQ_Target = MOTOR_SPEED_TO_FREQ(Speed);
 }
 
 /**********************************************************************************************
@@ -254,7 +254,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline float Motor_Read_Speed(void)
 {
-    return Motor.SRAD_CTRL._I_F_SRAD;
+    return Motor.FREQ_CTRL._I_F_FREQ;
 }
 
 /**********************************************************************************************
@@ -270,7 +270,7 @@ static inline void Motor_Set_Vbus(float Vbus_Val)
 {
     Motor.SVPWM_CTRL._I_F_Vbus = Vbus_Val;
     Motor.SVPWM_CTRL._I_F_One_Over_Vbus = 1.0f/Vbus_Val;
-    Motor.SRAD_CTRL._I_F_Vbus = Vbus_Val;
+    Motor.FREQ_CTRL._I_F_Vbus = Vbus_Val;
     Motor.CURRENT_CTRL._I_F_Vbus = Vbus_Val;
 }
 

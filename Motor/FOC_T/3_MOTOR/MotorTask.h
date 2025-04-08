@@ -189,7 +189,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Dir(Q32I_ Dir)
 {
-    Motor.SRAD_CTRL._I_Q00I_DIR_Target = Dir;
+    Motor.FREQ_CTRL._I_Q00I_DIR_Target = Dir;
     Motor.IF_CTRL._I_Q00I_DIR_Target = Dir;
     Motor.VF_CTRL._I_Q00I_DIR_Target = Dir;
 }
@@ -205,7 +205,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline float Motor_Read_Dir(void)
 {
-    return Motor.SRAD_CTRL._O_Q00I_DIR_Set;
+    return Motor.FREQ_CTRL._O_Q00I_DIR_Set;
 }
 
 /**********************************************************************************************
@@ -240,7 +240,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Target_Speed(Q32I_ Speed)
 {
-    Motor.SRAD_CTRL._I_Q14I_SRAD_Target = Speed;
+    Motor.FREQ_CTRL._I_Q14I_FREQ_Target = Speed;
 }
 
 /**********************************************************************************************
@@ -254,7 +254,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline Q32I_ Motor_Read_Speed(void)
 {
-    return Motor.SRAD_CTRL._I_Q14I_SRAD;
+    return Motor.FREQ_CTRL._I_Q14I_FREQ;
 }
 
 /**********************************************************************************************
@@ -270,7 +270,7 @@ static inline void Motor_Set_Vbus(Q32I_ Vbus_Val)
 {
     Motor.SVPWM_CTRL._I_Q14I_Vbus = Vbus_Val;
     Motor.SVPWM_CTRL._I_Q10I_One_Over_Vbus = ((Q32I_)MOTOR_Q24_PU)/Vbus_Val;
-    Motor.SRAD_CTRL._I_Q14I_Vbus = Vbus_Val;
+    Motor.FREQ_CTRL._I_Q14I_Vbus = Vbus_Val;
     Motor.CURRENT_CTRL._I_Q14I_Vbus = Vbus_Val;
 }
 
