@@ -438,7 +438,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
+void MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
 
 /**********************************************************************************************
 Function: MotorSQ_DIAG_Init

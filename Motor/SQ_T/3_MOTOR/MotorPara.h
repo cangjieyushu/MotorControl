@@ -16,6 +16,7 @@
 #define I_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：母线电流环
 #define P_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：功率环，如果同时使能了电流环和功率环，只有电流环起作用
 
+
 //电流采样偏置检测
 #define CURRENT_OFFSET_VOLTAGE_V        (HAL_ADC_CURRENT_OFFSET)                            //V，电流采样偏置电压
 #define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)//lsb，电流采样偏置
@@ -24,11 +25,13 @@
 #define CURRENT_OFFSET_MIN_lsb          (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置下限
 #define CURRENT_OFFSET_NUM              (20U)                                               //电流采样偏置检测次数
 
+
 //顺风检测
 #define FREE_FLYING_TL                  (150U)              //lsb，顺风检测电压阈值
 #define FREE_FLYING_NUM                 (20U)               //顺风检测电压判断次数
 #define FREE_FLYING_FILTER              (2U)                //滤波次数
 #define FREE_FLYING_TIME                (1000U)             //顺风检测每个扇区最长检测次数
+
 
 //电机静止检测  
 #define BOOT_CHECK_DUTY                 (HAL_PWM_DUTY_50_PERCENT)   //电机静止检测占空比
@@ -36,15 +39,16 @@
 #define BOOT_CHECK_NUM                  (10U)                       //电机静止检测判断次数
 #define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
 
+
 //脉冲定位 
 #define POSITION_DUTY                   (HAL_PWM_DUTY_10_PERCENT)   //1kHz，脉冲定位占空比
 #define POSITION_TL_lsb                 (1000U)                     //脉冲定位是否成功判断阈值
+
 
 //滤波器系数
 #define IPHASE_FILTER_COEFF             (25U) //0~256
 #define FREQ_FILTER_COEFF               (25U) //0~256
 #define IBUS_FILTER_COEFF               (25U) //0~256
-
 
 //换向系数
 #define DIAG_CROSS_RISE_TL              (51U)//base64
@@ -65,30 +69,31 @@
 #define BEMF_TO_FLUX_FREQ               (Q32U_)(Q14I_FREQ_MOTOR_TO_PU(0.20f * MOTOR_MAX_FREQ))
 #define BEMF_TO_FLUX_NUM                (20U)
 
+
 //载频切换
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
 #define PWM_FREQ_LOW_TO_HIGH_DUTY       ((Q32U_)(60.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //20us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       ((Q32U_)(40.0f*HAL_PWM_DUTY_MAX_F*HAL_PWM_RUN2_FREQ/1000.0f))     //40us
 
 
 //最大占空比，最小占空比
-#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.02f * HAL_PWM_DUTY_MAX_F)
-#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.02f * HAL_PWM_DUTY_MAX_F)
+#define DUTY_RAMP_ADDSTEP               (Q32I_)( 0.02f * HAL_PWM_DUTY_MAX_F * MOTOR_Q10_PU)
+#define DUTY_RAMP_SUBSTEP               (Q32I_)(-0.02f * HAL_PWM_DUTY_MAX_F * MOTOR_Q10_PU)
 
 #define DUTY_CTRL_MAX                   (Q32I_)(HAL_PWM_DUTY_100_PERCENT)
 #define DUTY_CTRL_MIN                   (Q32I_)(HAL_PWM_DUTY_5_PERCENT)
 
 //转速PID
-#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q14I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
-#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q14I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q24I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q24I_FREQ_MOTOR_TO_PU(0.005f * MOTOR_MAX_FREQ))
 
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
 #define FREQ_PID_KI                     (Q32I_)(0.0010f * MATH_PID_MAX_F)
 #define FREQ_PID_KD                     (Q32I_)(0.0001f * MATH_PID_MAX_F)
-#define FREQ_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
-#define FREQ_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
+#define FREQ_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
+#define FREQ_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
 #define FREQ_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define FREQ_PID_OUTMIN                 (DUTY_CTRL_MIN)
     
@@ -99,8 +104,8 @@
 #define IBUS_PID_KP                     (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IBUS_PID_KI                     (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IBUS_PID_KD                     (Q32I_)(0.000f * MATH_PID_MAX_F)
-#define IBUS_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
-#define IBUS_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
+#define IBUS_PID_STEPMAX                (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
+#define IBUS_PID_STEPMIN                (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
 #define IBUS_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define IBUS_PID_OUTMIN                 (DUTY_CTRL_MIN)
 
@@ -110,14 +115,15 @@
 #define IPHASE_PID_KP                   (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IPHASE_PID_KI                   (Q32I_)(0.010f * MATH_PID_MAX_F)
 #define IPHASE_PID_KD                   (Q32I_)(0.000f * MATH_PID_MAX_F)
-#define IPHASE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F)
-#define IPHASE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F)
+#define IPHASE_PID_STEPMAX              (Q32I_)( 0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
+#define IPHASE_PID_STEPMIN              (Q32I_)(-0.010f * HAL_PWM_DUTY_MAX_F * MOTOR_Q14_PU)
 #define IPHASE_PID_OUTMAX               (DUTY_CTRL_MAX)
 #define IPHASE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
+
 //刹车占空比控制
-#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F)
-#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F)
+#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( 0.020f * HAL_PWM_DUTY_MAX_F * MOTOR_Q10_PU)
+#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-0.020f * HAL_PWM_DUTY_MAX_F * MOTOR_Q10_PU)
 
 #define BRAKE_DUTY_CTRL_MAX             (Q32I_)(0.400f * HAL_PWM_DUTY_MAX_F)
 #define BRAKE_DUTY_CTRL_MIN             (Q32I_)(0.200f * HAL_PWM_DUTY_MAX_F)
@@ -127,9 +133,10 @@
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
 #define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
 
+
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
-#define MOTOR_STALL_ERROR_TIME          (200U)  //ms，堵转时间
+#define MOTOR_STALL_ERROR_TIME          (500U)  //ms，堵转时间
 
 
 typedef enum{

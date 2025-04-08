@@ -117,10 +117,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
     {
-        if(MotorSQ_Brake(&pMotor->BRAKE_CTRL) == SUCS)
-        {
-            pMotor->Motor_Flow = MOTOR_STATE_PRE;
-        }
+        MotorSQ_Brake(&pMotor->BRAKE_CTRL);
     }
 }
 
@@ -140,7 +137,6 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         MH_PWM_Preload_Enable();
         MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq);
         MotorSQ_Init(&pMotor->MS_CTRL);
-        pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
         pMotor->Motor_Flow = MOTOR_STATE_INIT;
     }
     else
@@ -394,7 +390,7 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
-   
+
 /**********************************************************************************************
 Function: MotorTask_Switch_Flux_Flow
 Description: 电机控制磁链换向
@@ -447,19 +443,6 @@ Author: CJYS
 void MotorTask_Switch_Cmp_Flow(ST_MOTOR_TASK* pMotor)
 {
     
-}
-
-/**********************************************************************************************
-Function: MotorTask_Switch_Succ_Flow
-Description: 电机控制切换成功
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Switch_Succ_Flow(ST_MOTOR_TASK* pMotor)
-{
 }
 
 /**********************************************************************************************
@@ -560,6 +543,7 @@ void MotorTask_Brake_Flow(ST_MOTOR_TASK* pMotor)
     {
         MH_PWM_Freq_Set(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq);
         MH_HPWM_LPWM_Close();
+        pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
     else
@@ -574,6 +558,11 @@ void MotorTask_Brake_Flow(ST_MOTOR_TASK* pMotor)
             {
                 MH_HPWM_LPWM_Close();
             }
+        }
+        if(pMotor->BRAKE_CTRL.Flag.bit.b1_sucs == 1U)
+        {
+            pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
+            pMotor->Motor_Flow = MOTOR_STATE_PRE;
         }
     }
 }

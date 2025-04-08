@@ -543,10 +543,8 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
+void MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
 {
-    Q32U_ flag_tmp = ING;
-    
     if(pBRAKE_CTRL->_V_Q32U_cnt <= pBRAKE_CTRL->_P_Q16U_no_time)
     {
         pBRAKE_CTRL->_O_Q12U_brake_duty = 0U;
@@ -581,16 +579,8 @@ Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CTRL)
         pBRAKE_CTRL->_V_Q32U_cnt = 0U;
         pBRAKE_CTRL->Flag.bit.b1_sucs = 1U;
     }
-        
-    if(pBRAKE_CTRL->Flag.bit.b1_sucs == 1U)
-    {
-        pBRAKE_CTRL->Flag.bit.b0_init = 0U;
-        flag_tmp = SUCS;
-    }
     
     pBRAKE_CTRL->_V_Q32U_cnt++;
-    
-    return flag_tmp;
 }
 
 /**********************************************************************************************
