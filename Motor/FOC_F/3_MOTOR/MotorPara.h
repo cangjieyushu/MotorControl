@@ -23,13 +23,13 @@
 #define MOTOR_OPENLOOP_HFI          (03U)
 #define MOTOR_OPENLOOP_FLUX         (04U)
 #define MOTOR_OPENLOOP_MRAS         (05U)
-#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_FLUX
+#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_IF
 
 //观测器选择
 #define MOTOR_EST_FLUX              (10U)
 #define MOTOR_EST_SMO               (11U)
 #define MOTOR_EST_MRAS              (12U)
-#define MOTOR_EST_MODE              MOTOR_EST_FLUX
+#define MOTOR_EST_MODE              MOTOR_EST_SMO
 
 
 //静态参数辨识
