@@ -241,8 +241,8 @@ void Est_Para_Id_Current_F(ST_PARA_ID_F* pCTRL)
         pCTRL->_V_F_Yalfa_Last = pCTRL->_V_F_Yalfa_In;
         pCTRL->_V_F_Ybeta_Last = pCTRL->_V_F_Ybeta_In;
         
-        pCTRL->_V_F_Xalfa += pCTRL->_P_F_Ts*pCTRL->_V_F_Yalfa_Hpf;
-        pCTRL->_V_F_Xbeta += pCTRL->_P_F_Ts*pCTRL->_V_F_Ybeta_Hpf;
+        pCTRL->_V_F_Xalfa += pCTRL->_P_F_Ws*pCTRL->_V_F_Yalfa_Hpf;
+        pCTRL->_V_F_Xbeta += pCTRL->_P_F_Ws*pCTRL->_V_F_Ybeta_Hpf;
     
         pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
         pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;

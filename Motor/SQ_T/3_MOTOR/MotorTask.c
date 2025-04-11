@@ -93,7 +93,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         
         if(pMotor->Motor_State_Flag.bit.motor_busA_flag == 1U)
         {
-            pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = pMotor->MS_CTRL.Q14U_ibus_max_pu;;
+            pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = pMotor->MS_CTRL.Q14I_ibus_max_pu;;
             pMotor->MS_CTRL.PID_Ibus.Q14I_Fb = pMotor->MS_CTRL.FL_Ibus.Q16I_Filter_out;
             PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Ibus);
             
@@ -102,7 +102,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         else if(pMotor->Motor_State_Flag.bit.motor_busP_flag == 1U)
         {
         
-            pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = Q32I_RHT_14(pMotor->MS_CTRL.Q14U_ibus_max_pu*pMotor->MS_CTRL.Q14U_vbus_max_pu);
+            pMotor->MS_CTRL.PID_Ibus.Q14I_Rf = Q32I_RHT_14(pMotor->MS_CTRL.Q14I_ibus_max_pu*pMotor->MS_CTRL.Q14I_vbus_max_pu);
             pMotor->MS_CTRL.PID_Ibus.Q14I_Fb = Q32I_RHT_14(pMotor->MS_CTRL.FL_Ibus.Q16I_Filter_out*pMotor->MS_CTRL.Q12I_VBUS_PU);
             PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Ibus);
             
@@ -474,7 +474,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         
         if(pMotor->MS_CTRL.Q12I_IPHASE_ADC > pMotor->MS_CTRL.Q12I_IPHASE_OFFSET)
         {
-            pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q24U_Current_Scale
+            pMotor->MS_CTRL.Q14I_IPHASE_PU = Q32I_RHT_10(pMotor->MS_CTRL._P_Q24I_Current_Scale
             *(pMotor->MS_CTRL.Q12I_IPHASE_ADC - pMotor->MS_CTRL.Q12I_IPHASE_OFFSET));
         }
         else
@@ -504,7 +504,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_in = pMotor->MS_CTRL.Q14I_IPHASE_PU;
             Filter_Cal_T(&pMotor->MS_CTRL.FL_Iphase);
             
-            pMotor->MS_CTRL.PID_Iphase.Q14I_Rf = pMotor->MS_CTRL.Q14U_iphase_max_pu;
+            pMotor->MS_CTRL.PID_Iphase.Q14I_Rf = pMotor->MS_CTRL.Q14I_iphase_max_pu;
             pMotor->MS_CTRL.PID_Iphase.Q14I_Fb = pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_out;
             PID_Inc_Cal_T(&pMotor->MS_CTRL.PID_Iphase);
             pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_iphase = pMotor->MS_CTRL.PID_Iphase.Q14I_Output;

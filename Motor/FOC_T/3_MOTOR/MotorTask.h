@@ -181,7 +181,7 @@ static inline void Motor_Stop(void)
 /**********************************************************************************************
 Function: Motor_Set_Dir
 Description: 设置电机运行方向
-Input: 1.0f（正转），-1.0f（反转）
+Input:  1（正转），-1（反转）
 Output: 无
 Input_Output: 无
 Return: 无
@@ -203,7 +203,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline float Motor_Read_Dir(void)
+static inline Q32I_ Motor_Read_Dir(void)
 {
     return Motor.FREQ_CTRL._O_Q00I_DIR_Set;
 }
@@ -240,7 +240,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Target_Speed(Q32I_ Speed)
 {
-    Motor.FREQ_CTRL._I_Q14I_FREQ_Target = Speed;
+    Motor.FREQ_CTRL._I_Q14I_FREQ_Target = Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(Speed));
 }
 
 /**********************************************************************************************
@@ -254,7 +254,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline Q32I_ Motor_Read_Speed(void)
 {
-    return Motor.FREQ_CTRL._I_Q14I_FREQ;
+    return Q32I_RHT_14(Motor.FREQ_CTRL._I_Q14I_FREQ*((Q32I_)MOTOR_MAX_SPEED));
 }
 
 /**********************************************************************************************
@@ -266,8 +266,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Vbus(Q32I_ Vbus_Val)
+static inline void Motor_Set_Vbus(Q32I_ Vbus_lsb)
 {
+    Q32I_ Vbus_Val = Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);
     Motor.SVPWM_CTRL._I_Q14I_Vbus = Vbus_Val;
     Motor.SVPWM_CTRL._I_Q10I_One_Over_Vbus = ((Q32I_)MOTOR_Q24_PU)/Vbus_Val;
     Motor.FREQ_CTRL._I_Q14I_Vbus = Vbus_Val;

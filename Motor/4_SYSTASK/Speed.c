@@ -8,12 +8,12 @@
 #include "Speed.h"
 
 ST_SPEED_PROTECT Speed_Protect_Over = {
-    .F_speed_protect_tl = OVER_SPEED_PROTECT_LEVEL_TL,
+    .Q16U_speed_protect_tl = OVER_SPEED_PROTECT_LEVEL_TL,
     .Q16U_speed_protect_time = OVER_SPEED_PROTECT_LEVEL_TIME/10U,
 };
 
 ST_SPEED_PROTECT Speed_Protect_Low = {
-    .F_speed_protect_tl = LOW_SPEED_PROTECT_LEVEL_TL,
+    .Q16U_speed_protect_tl = LOW_SPEED_PROTECT_LEVEL_TL,
     .Q16U_speed_protect_time = LOW_SPEED_PROTECT_LEVEL_TIME/10U,
 };
 
@@ -31,13 +31,11 @@ void Speed_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_SPEED_PROTECT* pCVO = &Speed_Protect_Over;
     ST_SPEED_PROTECT* pCVL = &Speed_Protect_Low;
     
-    pST->F_Motor_Speed = Motor_Read_Speed();
-    
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {
         if(pST->System_Error_Flag.BIT.over_speed_error == 0U)
         {
-            if(pST->F_Motor_Speed >= pCVO->F_speed_protect_tl)
+            if(pST->Q16U_Motor_Speed >= pCVO->Q16U_speed_protect_tl)
             {
                 if(++pCVO->Q16U_speed_protect_cnt >= pCVO->Q16U_speed_protect_time)
                 {
@@ -57,7 +55,7 @@ void Speed_Protect_Flow(ST_SYSTEM_TASK*  pST)
         
         if(pST->System_Error_Flag.BIT.low_speed_error == 0U)
         {
-            if(pST->F_Motor_Speed <= pCVL->F_speed_protect_tl)
+            if(pST->Q16U_Motor_Speed <= pCVL->Q16U_speed_protect_tl)
             {
                 if(++pCVL->Q16U_speed_protect_cnt >= pCVL->Q16U_speed_protect_time)
                 {

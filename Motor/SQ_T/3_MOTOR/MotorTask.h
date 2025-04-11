@@ -143,10 +143,10 @@ Input_Output: нч
 Return: нч
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Vbus(Q32U_ Vbus_Val, Q32U_ Vbus_Pu)
+static inline void Motor_Set_Vbus(Q32U_ Vbus_lsb)
 {
-    Motor.MS_CTRL.Q12I_VBUS_VAL = Vbus_Val;
-    Motor.MS_CTRL.Q12I_VBUS_PU = Vbus_Pu;
+    Motor.MS_CTRL.Q12I_VBUS_VAL = Vbus_lsb;
+    Motor.MS_CTRL.Q12I_VBUS_PU = Q32I_RHT_10(Motor.MS_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);
 }
 
 /**********************************************************************************************

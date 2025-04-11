@@ -647,7 +647,7 @@ void Math_SinCos_F(ST_TRIG_F* pTIG)
 	float M;
 	float N;
 	float Fract;
-    Input = MATH_OVER_2PI_F(pTIG->F_Angle);
+    Input = pTIG->F_Angle;
     Findex = Input * (float)SINE_TABLE_SIZE;
     Index = (Q32I_)Findex;
     M = Math_Sin_Table_Float[Index];

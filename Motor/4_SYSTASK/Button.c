@@ -8,11 +8,13 @@
 #include "Button.h"
 
 ST_BUTTON_CONTROL Button_Ctrl = {
-    .F_vr_start_tl = VR_START_TL,
-    .F_vr_stop_tl = VR_STOP_TL,
+    .Q16U_vr_start_tl = VR_START_TL,
+    .Q16U_vr_stop_tl = VR_STOP_TL,
     
-    .F_vr_max_limit = VR_MAX_LIMIT,
-    .F_vr_min_limit = VR_MIN_LIMIT,
+    .Q16U_vr_max_limit = VR_MAX_LIMIT,
+    .Q16U_vr_min_limit = VR_MIN_LIMIT,
+    
+    .Q16U_vr_duty_max = VR_MAX_DUTY,
 };
 
 /**********************************************************************************************
@@ -27,7 +29,6 @@ Author: CJYS
 void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
 {
 #if(BUTTON_MODE == BUTTON_MODE_BUTTON)
-    
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
         if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
@@ -46,38 +47,38 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     pButton->Button0_State_Last = pButton->Button0_State;
     pButton->Button1_State_Last = pButton->Button1_State;
     
-    pST->F_Duty_Target = 1.0f;
+    pST->Q16U_Duty_Target = pButton->Q16U_vr_duty_max;
         
 #elif(BUTTON_MODE == BUTTON_MODE_VR)
     
-    float VRtmp = 0.0f;
+    Q32I_ VRtmp = 0U;
     
-    VRtmp = pST->FL_VR.F_Filter_out;
-    if(VRtmp > pButton->F_vr_start_tl)
+    VRtmp = (Q32I_)pST->FL_VR.Q16I_Filter_out;
+    if(VRtmp > pButton->Q16U_vr_start_tl)
     {
         pST->System_State_Flag.BIT.system_runflag = 1U;
     }
-    else if(VRtmp < pButton->F_vr_stop_tl)
+    else if(VRtmp < pButton->Q16U_vr_stop_tl)
     {
         pST->System_State_Flag.BIT.system_runflag = 0U;
     }
     
-    if(VRtmp > pButton->F_vr_max_limit)
+    if(VRtmp > pButton->Q16U_vr_max_limit)
     {
-        VRtmp = pButton->F_vr_max_limit;
+        VRtmp = pButton->Q16U_vr_max_limit;
     }
-    else if(VRtmp < pButton->F_vr_min_limit)
+    else if(VRtmp < pButton->Q16U_vr_min_limit)
     {
-        VRtmp = pButton->F_vr_min_limit;
+        VRtmp = pButton->Q16U_vr_min_limit;
     }
     
-    pST->F_Duty_Target = (VRtmp - pButton->F_vr_min_limit)/(pButton->F_vr_max_limit - pButton->F_vr_min_limit);
+    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
 	
 #elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
     
-    float VRtmp = 0.0f;
+    Q32I_ VRtmp = 0U;
     
-    VRtmp = pST->FL_VR.F_Filter_out;
+    VRtmp = (Q32I_)pST->FL_VR.Q16I_Filter_out;
     
     if(pST->System_State_Flag.BIT.system_runflag == 0U)
     {
@@ -97,16 +98,16 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     pButton->Button0_State_Last = pButton->Button0_State;
     pButton->Button1_State_Last = pButton->Button1_State;
     
-    if(VRtmp > pButton->F_vr_max_limit)
+    if(VRtmp > pButton->Q16U_vr_max_limit)
     {
-        VRtmp = pButton->F_vr_max_limit;
+        VRtmp = pButton->Q16U_vr_max_limit;
     }
-    else if(VRtmp < pButton->F_vr_min_limit)
+    else if(VRtmp < pButton->Q16U_vr_min_limit)
     {
-        VRtmp = pButton->F_vr_min_limit;
+        VRtmp = pButton->Q16U_vr_min_limit;
     }
     
-    pST->F_Duty_Target = (VRtmp - pButton->F_vr_min_limit)/(pButton->F_vr_max_limit - pButton->F_vr_min_limit);
+    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
     
 #else
     

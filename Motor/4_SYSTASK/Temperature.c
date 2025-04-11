@@ -31,13 +31,11 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
     ST_TEMP_PROTECT* pCVO = &Temperature_Protect_Over;
     ST_TEMP_PROTECT* pCVL = &Temperature_Protect_Low;
     
-    pST->F_Temp_0p01_C = pST->FL_TEMP.F_Filter_out;
-    
     if(pST->System_Flow != SYSTEM_STATE_POWERUP)
     {
         if(pST->System_Error_Flag.BIT.over_temperature_error == 0U)
         {
-            if((Q32U_)pST->F_Temp_0p01_C >= pCVO->Q16U_temp_protect_tl)
+            if(pST->Q16U_Temp_0p01_C >= pCVO->Q16U_temp_protect_tl)
             {
                 if(++pCVO->Q16U_temp_protect_cnt >= pCVO->Q16U_temp_protect_time)
                 {
@@ -57,7 +55,7 @@ void Temperature_Protect_Flow(ST_SYSTEM_TASK*  pST)
         
         if(pST->System_Error_Flag.BIT.low_temperature_error == 0U)
         {
-            if((Q32U_)pST->F_Temp_0p01_C <= pCVL->Q16U_temp_protect_tl)
+            if(pST->Q16U_Temp_0p01_C <= pCVL->Q16U_temp_protect_tl)
             {
                 if(++pCVL->Q16U_temp_protect_cnt >= pCVL->Q16U_temp_protect_time)
                 {

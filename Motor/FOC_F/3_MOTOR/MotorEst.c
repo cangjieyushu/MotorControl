@@ -172,8 +172,8 @@ void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
     pCTRL->_V_F_Ebeta = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nbeta*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
     
-    pCTRL->_V_F_Xalfa += pCTRL->_P_F_Ts*(pCTRL->_V_F_Yalfa + pCTRL->_V_F_Ealfa);
-    pCTRL->_V_F_Xbeta += pCTRL->_P_F_Ts*(pCTRL->_V_F_Ybeta + pCTRL->_V_F_Ebeta);
+    pCTRL->_V_F_Xalfa += pCTRL->_P_F_Ws*(pCTRL->_V_F_Yalfa + pCTRL->_V_F_Ealfa);
+    pCTRL->_V_F_Xbeta += pCTRL->_P_F_Ws*(pCTRL->_V_F_Ybeta + pCTRL->_V_F_Ebeta);
         
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
@@ -226,12 +226,12 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
 {
-    pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ts*(
+    pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ws*(
 					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa
                        - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Abeta
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ualfa
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ealfa);
-    pCTRL->_V_F_Abeta += pCTRL->_P_F_Ts*(
+    pCTRL->_V_F_Abeta += pCTRL->_P_F_Ws*(
 					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Abeta
                        + pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Aalfa
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ubeta

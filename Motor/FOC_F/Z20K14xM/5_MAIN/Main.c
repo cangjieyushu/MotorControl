@@ -28,7 +28,12 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
         Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
         Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
 		Button_Control(&Button_Ctrl, pST);
-		
+        
+		Current_Protect_Flow(pST);
+        Speed_Protect_Flow(pST);
+        Temperature_Protect_Flow(pST);
+        Voltage_Protect_Flow(pST);
+        
 		BSP_FeedWatchDog();
 
 		pST->System_State_Flag.BIT.systick_intflow = 0U;

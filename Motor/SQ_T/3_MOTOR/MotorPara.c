@@ -40,7 +40,7 @@ ST_MOTOR_TASK  Motor =
     .BRAKE_CTRL._P_Q16U_no_time = NO_BRAKE_TIME,
     .BRAKE_CTRL._P_Q16U_slow_time = SLOW_BRAKE_TIME,
     .BRAKE_CTRL._P_Q16U_short_time = SHORT_BRAKE_TIME,
-    .BRAKE_CTRL._P_Q12U_duty_max = HAL_PWM_DUTY_MAX_T,
+    .BRAKE_CTRL._P_Q12U_duty_max = Q12I_DUTY_TO_PU(1.0f),
     
     .MS_CTRL.MS_DIAG._P_Q06U_rise_tl = DIAG_CROSS_RISE_TL,
     .MS_CTRL.MS_DIAG._P_Q06U_fall_tl = DIAG_CROSS_FALL_TL,
@@ -71,8 +71,8 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.PWM_CTRL._P_Q14U_high_pwm_freq = PWM_FREQ_HIGH,
     .MS_CTRL.PWM_CTRL._P_Q12U_duty_max = DUTY_CTRL_MAX,
     .MS_CTRL.PWM_CTRL._P_Q12U_duty_min = DUTY_CTRL_MIN,
-    .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max = Q14I_FREQ_MOTOR_TO_PU(MOTOR_MAX_FREQ),
-    .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min = Q14I_FREQ_MOTOR_TO_PU(MOTOR_MIN_FREQ),
+    .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_max = Q14I_MAX_FREQ_PU,
+    .MS_CTRL.PWM_CTRL._P_Q14U_motor_freq_min = Q14I_MIN_FREQ_PU,
     
     .MS_CTRL.PWM_CTRL._P_Q14U_adc_delay_value = HAL_ADC_DELAY_VALUE,
     .MS_CTRL.PWM_CTRL._P_Q14U_adc_sample_value = HAL_ADC_SAMPLE_VALUE,
@@ -83,15 +83,16 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.STALL_CTRL._P_Q16U_error_time = MOTOR_STALL_ERROR_TIME,
     .MS_CTRL.STALL_CTRL._P_Q06U_switch_coeff = MOTOR_STALL_SWITCH_COEFF,
     
-    .MS_CTRL.Ramp_Freq.Q14I_Init = Q14I_FREQ_MOTOR_TO_PU(MOTOR_MIN_FREQ),
+    .MS_CTRL.Ramp_Freq.Q14I_Init = Q14I_MIN_FREQ_PU,
     .MS_CTRL.Ramp_Freq.Q24I_ADDStep = FREQ_RAMP_ADDSTEP,
     .MS_CTRL.Ramp_Freq.Q24I_SUBStep = FREQ_RAMP_SUBSTEP,
     
-    .MS_CTRL.Q14U_iphase_max_pu = IPHSAE_PID_RF,
-    .MS_CTRL.Q14U_ibus_max_pu = IBUS_PID_RF,
-    .MS_CTRL.Q14U_vbus_max_pu = Q14I_VOLTAGE_MOTOR_TO_PU(MOTOR_VOLTAGE_V),
-    .MS_CTRL._P_Q24U_Current_Scale = Q24U_CURRENT_SCALE_PU,
-    .MS_CTRL._P_Q24U_Freq_Scale = Q24U_FREQ_SCALE_PU,
+    .MS_CTRL.Q14I_iphase_max_pu = Q14I_CURRENT_PHASE_PU,
+    .MS_CTRL.Q14I_ibus_max_pu = Q14I_CURRENT_BUS_PU,
+    .MS_CTRL.Q14I_vbus_max_pu = Q14I_VOLTAGE_PU,
+    .MS_CTRL._P_Q24I_Voltage_Scale = Q24I_VOLTAGE_SCALE_PU,
+    .MS_CTRL._P_Q24I_Current_Scale = Q24I_CURRENT_SCALE_PU,
+    .MS_CTRL._P_Q24I_Freq_Scale = Q24I_FREQ_SCALE_PU,
     
     .MS_CTRL.FL_Iphase.Q08I_Filter_Coeff = IPHASE_FILTER_COEFF,
     .MS_CTRL.FL_Freq.Q08I_Filter_Coeff = FREQ_FILTER_COEFF,

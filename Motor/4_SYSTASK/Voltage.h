@@ -11,14 +11,14 @@
 #include "SysTask.h"
 
 //电压保护
-#define LOW_VOLTAGE_PROTECT_LEVEL_TL        (10.0f)                                     //V，低压保护阈值
+#define LOW_VOLTAGE_PROTECT_LEVEL_TL        (Q14I_VOLTAGE_TO_PU(10.0f))                 //V，低压保护阈值
 #define LOW_VOLTAGE_PROTECT_LEVEL_TIME      (100U)                                      //ms，低压保护时间
 
-#define OVER_VOLTAGE_PROTECT_LEVEL_TL       (28.0f)                                     //V，过压保护阈值
+#define OVER_VOLTAGE_PROTECT_LEVEL_TL       (Q14I_VOLTAGE_TO_PU(28.0f))                 //V，过压保护阈值
 #define OVER_VOLTAGE_PROTECT_LEVEL_TIME     (100U)                                      //ms，过压保护时间
 
 typedef struct{
-    float F_voltage_protect_tl;
+    Q32U_ Q16U_voltage_protect_tl;
     Q32U_ Q16U_voltage_protect_time;
     
     Q32U_ Q16U_voltage_protect_cnt;

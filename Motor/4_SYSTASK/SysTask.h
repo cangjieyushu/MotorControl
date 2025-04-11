@@ -57,14 +57,16 @@ typedef struct{
     ST_FILTER_T                 FL_VR;
     ST_FILTER_T                 FL_VBG;
     
-    Q32U_                       Q16U_Duty_Target_pu;
-    Q32U_                       Q16U_Current_Max_pu;
-    Q32U_                       Q16U_Voltage_Bus_pu;
-    Q32U_                       Q16U_Motor_Speed_pu;
-    Q32U_                       Q16U_Temp_0p01_C_lsb;
+    Q32I_                       Q16U_Duty_Target;
+    Q32I_                       Q16U_Current_Max;
+    Q32I_                       Q16U_Voltage_Bus;
+    Q32I_                       Q16U_Motor_Speed_Target;
+    Q32I_                       Q16U_Motor_Speed;
+    Q32I_                       Q16U_Temp_0p01_C;
+    
     Q32I_                       _P_Q24I_Voltage_Scale;
-	
-    Q32U_                       Q32U_System_PowerUp_Time;
+    Q32U_                       _P_Q32U_System_PowerUp_Time;
+    
     Q32U_                       flow_cnt;
 }ST_SYSTEM_TASK;
 

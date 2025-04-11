@@ -67,7 +67,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL)
 {
-    pCTRL->_O_F_Angle += MATH_2PI_F*pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
+    pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
 }
 
@@ -131,7 +131,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL)
 {
-    pCTRL->_O_F_Angle += MATH_2PI_F*pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
+    pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
 }
 
@@ -371,12 +371,12 @@ void MotorFoc_SVPWM_OneShunt_F(ST_SVPWM_CONTROL_F* pCTRL)
     else if((Ttmp1 < pCTRL->_P_F_MinDuty)&&(Ttmp2 >= pCTRL->_P_F_MinDuty))
     {
         Delta_Ttmp1 =  0.25f*(pCTRL->_P_F_MinDuty - Ttmp1);
-        Delta_Ttmp2 = -0.25f*pCTRL->_P_F_MinDuty;
+        Delta_Ttmp2 = -0.25f*(pCTRL->_P_F_MinDuty - Ttmp1);
         Delta_Ttmp3 =  Delta_Ttmp2;
     }
     else if((Ttmp1 >= pCTRL->_P_F_MinDuty)&&(Ttmp2 < pCTRL->_P_F_MinDuty))
     {
-        Delta_Ttmp2 =  0.25f*pCTRL->_P_F_MinDuty;
+        Delta_Ttmp2 =  0.25f*(pCTRL->_P_F_MinDuty - Ttmp2);
         Delta_Ttmp3 = -0.25f*(pCTRL->_P_F_MinDuty - Ttmp2);
         Delta_Ttmp1 =  Delta_Ttmp2;
     }

@@ -8,7 +8,7 @@
 #include "SysTask.h"
 
 ST_SYSTEM_TASK  Systask = {
-    .Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
+    ._P_Q32U_System_PowerUp_Time = SYSTEM_POWERUP_TIME,
     ._P_Q24I_Voltage_Scale = Q24I_VOLTAGE_SCALE_PU,
     
     .FL_VBUS.Q08I_Filter_Coeff = 25,
@@ -70,11 +70,15 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
 {
     System_ADC_Read(pST);
     
+    pST->Q16U_Current_Max = Motor_Read_Current_Max();
+    pST->Q16U_Voltage_Bus = Q32I_RHT_10(pST->_P_Q24I_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out);
+    pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
+    pST->Q16U_Motor_Speed = Motor_Read_Speed();
+    pST->Q16U_Temp_0p01_C = pST->FL_TEMP.Q16I_Filter_out;
     
-    Motor_Set_Dir((Q32I_)1);
-    Motor_Set_Vbus((Q32I_)(Q32I_RHT_10(pST->_P_Q24I_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out)));
-    Motor_Set_Target_Speed((Q32I_)pST->Q16U_Duty_Target_pu);
-    
+    Motor_Set_Dir(MOTOR_DIR_CW);
+    Motor_Set_Vbus(pST->FL_VBUS.Q16I_Filter_out);
+    Motor_Set_Target_Speed(pST->Q16U_Motor_Speed_Target);
     
     if(Motor_Read_Error() != 0U)
     {
@@ -85,7 +89,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     {
         case SYSTEM_STATE_POWERUP:
         {
-            if(++pST->flow_cnt >= pST->Q32U_System_PowerUp_Time)
+            if(++pST->flow_cnt >= pST->_P_Q32U_System_PowerUp_Time)
             {
                 pST->flow_cnt = 0U;
                 System_Task_Init(pST);

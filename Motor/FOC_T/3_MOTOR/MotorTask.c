@@ -50,46 +50,9 @@ void MotorTask_CloseLoop_Flow(ST_MOTOR_TASK* pMotor);
 
 pMOTOR_FUN Motor_Loop_Flow_Function[MOTOR_CLOSELOOP+1] =
 {
-    MotorTask_AlignLoop_Flow,
     MotorTask_OpenLoop_Flow,
     MotorTask_CloseLoop_Flow
 };
-
-/**********************************************************************************************
-Function: MotorTask_AlignLoop_Flow
-Description: 电机控制强拖定位
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_AlignLoop_Flow(ST_MOTOR_TASK* pMotor)
-{
-    Ramp_Cal_T(&pMotor->LOOP_CTRL.Align_Ramp);
-    pMotor->LOOP_CTRL._V_Q32U_Align_cnt++;
-    if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == 0U)
-    {
-        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 3072;
-        Ramp_Init_T(&pMotor->LOOP_CTRL.Align_Ramp, pMotor->LOOP_CTRL.Align_Ramp.Q14I_Init);
-        pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->LOOP_CTRL.Align_Ramp.Q14I_Output;
-    }
-    else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1)
-    {
-        pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = 0;
-        pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->LOOP_CTRL.Align_Ramp.Q14I_Output;
-    }
-    else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2)
-    {
-        pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
-    }
-    else if(pMotor->LOOP_CTRL._V_Q32U_Align_cnt == pMotor->LOOP_CTRL._P_Q32U_Align_Time1 + pMotor->LOOP_CTRL._P_Q32U_Align_Time2 + pMotor->LOOP_CTRL._P_Q32U_Align_Time3)
-    {
-        pMotor->LOOP_CTRL._V_Q32U_Align_cnt = 0U;
-        pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
-    }
-    else{}
-}
 
 /**********************************************************************************************
 Function: MotorTask_OpenLoop_Flow
@@ -239,7 +202,6 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
 {
     if(pMotor->Motor_State_Flag.bit.motor_run_flag == 1U)
     {
-        pMotor->LOOP_CTRL._V_Q32U_Align_cnt = 0U;
         pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
         pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
         pMotor->LOOP_CTRL._V_Q32U_Close_cnt = 0U;
@@ -254,7 +216,7 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         Est_Flux_Init_T(&pMotor->FLUX_CTRL);
         Est_SMO_Init_T(&pMotor->SMO_CTRL);
         
-        pMotor->Motor_Loop_Mode = MOTOR_ALIGNLOOP;
+        pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
         
         pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
         
@@ -416,28 +378,6 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
 }
 
 /**********************************************************************************************
-Function: MotorTask_Current_AlignLoop_Flow
-Description: 电机控制强拖定位
-Input: 无
-Output: 无
-Input_Output: 电机控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorTask_Current_AlignLoop_Flow(ST_MOTOR_TASK* pMotor)
-{
-    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
-    
-    MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
-    pMotor->CURRENT_CTRL._I_Q14I_Id = pMotor->SVPWM_CTRL._O_Q14I_Id;
-    pMotor->CURRENT_CTRL._I_Q14I_Iq = pMotor->SVPWM_CTRL._O_Q14I_Iq;
-    MotorFoc_Current_Loop_T(&pMotor->CURRENT_CTRL);
-    
-    pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
-    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
-}
-
-/**********************************************************************************************
 Function: MotorTask_Current_OpenLoop_Flow
 Description: 电机控制开环
 Input: 无
@@ -540,11 +480,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         MotorTask_Run_Flow_ADC_Read(&pMotor->SVPWM_CTRL);
         MotorFoc_Clark_T(&pMotor->SVPWM_CTRL);
         
-        if(pMotor->Motor_Loop_Mode == MOTOR_ALIGNLOOP)
-        {
-            MotorTask_Current_AlignLoop_Flow(pMotor);
-        }
-        else if(pMotor->Motor_Loop_Mode == MOTOR_OPENLOOP)
+        if(pMotor->Motor_Loop_Mode == MOTOR_OPENLOOP)
         {
             MotorTask_Current_OpenLoop_Flow(pMotor);
         }

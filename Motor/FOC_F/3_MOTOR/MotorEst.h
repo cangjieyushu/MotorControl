@@ -71,6 +71,7 @@ typedef struct
     float       _V_F_Xbeta;
     
     float       _P_F_Ts;
+    float       _P_F_Ws;
     float       _P_F_Gamma;
     float       _P_F_Rs;
     float       _P_F_Ls;
@@ -100,6 +101,7 @@ typedef struct
     float       _V_F_K1_beta_tmp;
     
     float       _P_F_Ts;
+    float       _P_F_Ws;
     float       _P_F_K1;
     float       _P_F_Rs;
     float       _P_F_Ld;

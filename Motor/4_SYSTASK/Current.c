@@ -8,17 +8,17 @@
 #include "Current.h"
 
 ST_CURRENT_PROTECT Current_Protect_1 = {
-    .F_current_protect_tl = CURRENT_PROTECT_LEVEL_1_TL,
+    .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_1_TL,
     .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_1_TIME/10U,
 };
 
 ST_CURRENT_PROTECT Current_Protect_2 = {
-    .F_current_protect_tl = CURRENT_PROTECT_LEVEL_2_TL,
+    .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_2_TL,
     .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_2_TIME/10U,
 };
 
 ST_CURRENT_PROTECT Current_Protect_3 = {
-    .F_current_protect_tl = CURRENT_PROTECT_LEVEL_3_TL,
+    .Q16U_current_protect_tl = CURRENT_PROTECT_LEVEL_3_TL,
     .Q16U_current_protect_time = CURRENT_PROTECT_LEVEL_3_TIME/10U,
 };
 
@@ -33,7 +33,7 @@ Author: CJYS
 ***********************************************************************************************/
 void Current_Protect_Level(ST_CURRENT_PROTECT* pCP, ST_SYSTEM_TASK*  pST)
 {
-    if(pST->F_Current_Max >= pCP->F_current_protect_tl)
+    if(pST->Q16U_Current_Max >= pCP->Q16U_current_protect_tl)
     {
         if(++pCP->Q16U_current_protect_cnt >= pCP->Q16U_current_protect_time)
         {
@@ -61,8 +61,6 @@ Author: CJYS
 ***********************************************************************************************/
 void Current_Protect_Flow(ST_SYSTEM_TASK*  pST)
 {
-    pST->F_Current_Max = Motor_Read_Current_Max();
-    
     if((pST->System_Flow == SYSTEM_STATE_RUN)
     && (pST->System_Error_Flag.BIT.over_current_error == 0U))
     {

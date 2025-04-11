@@ -30,6 +30,7 @@ typedef struct
     float       _O_F_Uq;
     
     float       _P_F_Ts;
+    float       _P_F_Ws;
     float       _P_F_Id1;
     float       _P_F_Id2;
     Q32U_       _P_Q32U_Rs_Time;

@@ -29,6 +29,7 @@ typedef unsigned    int             BIT;
 #define Q14U_MAX                    (16384.0f)
 #define Q16U_MAX                    (65536.0f)
 #define Q20U_MAX                    (1048576.0f)
+#define Q22U_MAX                    (4194304.0f)
 #define Q24U_MAX                    (16777216.0f)
 #define Q28U_MAX                    (268435456.0f)
 #define Q30U_MAX                    (1073741824.0f)
@@ -117,14 +118,13 @@ typedef struct
 }ST_TRIG_T;
 
 #define MATH_FILTER_MAX_T                   ((Q16I_)(Q08U_MAX))
-#define MATH_PID_MAX_F                      (Q14U_MAX)
 
 #define MATH_PI_T                           (2048)
 #define MATH_2PI_T                          (MATH_PI_T*2)
 #define MATH_PI_OVER_TWO_T                  (MATH_PI_T/2)
 #define MATH_PI_OVER_FOUR_T                 (MATH_PI_T/4)
 #define MATH_PI_OVER_SIX_T                  (MATH_PI_T/6)
-#define MATH_2PI_TMP_T                      ((Q32U_)(Q28U_MAX))
+#define MATH_2PI_TMP_T                      ((Q32I_)(Q28U_MAX))
 
 #define MATH_ANGLE_MOD_T(A)                 while(A>=MATH_2PI_T){A-=MATH_2PI_T;}while(A<0){A+=MATH_2PI_T;}
 #define MATH_ANGLE_TMP_T(A)                 while(A>=MATH_2PI_TMP_T){A-=MATH_2PI_TMP_T;}while(A<0){A+=MATH_2PI_TMP_T;}
@@ -156,9 +156,8 @@ typedef struct
 #define MATH_PI_OVER_TWO_F                  (MATH_PI_F/2.0f)
 #define MATH_PI_OVER_FOUR_F                 (MATH_PI_F/4.0f)
 #define MATH_PI_OVER_SIX_F                  (MATH_PI_F/6.0f)
-    
-#define MATH_OVER_2PI_F(A)                  (A/MATH_2PI_F)
-#define MATH_ANGLE_MOD_F(A)                 while(A>MATH_2PI_F){A-=MATH_2PI_F;}while(A<0.0f){A+=MATH_2PI_F;}
+
+#define MATH_ANGLE_MOD_F(A)                 while(A>1.0f){A-=1.0f;}while(A<0.0f){A+=1.0f;}
 
 #define MATH_ONE_OVER_THREE_F               (1.0f/3.0f)
 #define MATH_SQRT_THREE_F                   (1.7320508075688772935274463415059f)

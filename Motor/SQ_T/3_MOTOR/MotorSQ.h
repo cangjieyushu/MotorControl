@@ -281,11 +281,12 @@ typedef struct{
     ST_STALL_CONTROL    STALL_CTRL;
     
     ST_RAMP_T           Ramp_Freq;
-    Q32U_               Q14U_iphase_max_pu;
-    Q32U_               Q14U_ibus_max_pu;
-    Q32U_               Q14U_vbus_max_pu;
-    Q32U_               _P_Q24U_Current_Scale;
-    Q32U_               _P_Q24U_Freq_Scale;
+    Q32I_               Q14I_iphase_max_pu;
+    Q32I_               Q14I_ibus_max_pu;
+    Q32I_               Q14I_vbus_max_pu;
+    Q32I_               _P_Q24I_Voltage_Scale;
+    Q32I_               _P_Q24I_Current_Scale;
+    Q32I_               _P_Q24I_Freq_Scale;
     
     ST_FILTER_T         FL_Iphase;
     ST_FILTER_T         FL_Freq;

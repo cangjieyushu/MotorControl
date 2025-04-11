@@ -353,8 +353,8 @@
                     <state>$PROJ_DIR$\..\..\2_COMMON\CMU</state>
                     <state>$PROJ_DIR$\..\..\2_COMMON\MATH</state>
                     <state>$PROJ_DIR$\..\..\2_COMMON\RTT</state>
+                    <state>$PROJ_DIR$\..\..\4_SYSTASK</state>
                     <state>$PROJ_DIR$\..\3_MOTOR</state>
-                    <state>$PROJ_DIR$\..\4_SYSTASK</state>
                     <state>$PROJ_DIR$\1_HARDWARE\BSP</state>
                     <state>$PROJ_DIR$\1_HARDWARE\MCHAL</state>
                     <state>$PROJ_DIR$\5_MAIN</state>
@@ -2465,49 +2465,49 @@
     <group>
         <name>4_SYSTASK</name>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Button.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Button.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Button.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Button.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Current.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Current.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Current.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Current.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Error.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Error.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Error.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Error.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Speed.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Speed.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Speed.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Speed.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\SYS.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\SYS.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\SysTask.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\SysTask.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\SysTask.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\SysTask.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Temperature.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Temperature.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Temperature.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Temperature.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Voltage.c</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Voltage.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\4_SYSTASK\Voltage.h</name>
+            <name>$PROJ_DIR$\..\..\4_SYSTASK\Voltage.h</name>
         </file>
     </group>
     <group>
