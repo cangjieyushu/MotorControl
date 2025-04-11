@@ -500,7 +500,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SMO_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
         Est_SMO_T(&pMotor->SMO_CTRL);
         Est_SMO_Study_T(&pMotor->SMO_CTRL);
-            
+        
 #endif
         
         if(pMotor->Motor_Loop_Mode == MOTOR_CLOSELOOP)

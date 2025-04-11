@@ -639,6 +639,11 @@
               <FilePath>..\..\2_COMMON\MATH\Matrix.h</FilePath>
             </File>
             <File>
+              <FileName>PmsmPara.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_COMMON\MATH\PmsmPara.h</FilePath>
+            </File>
+            <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\2_COMMON\RTT\SEGGER_RTT.c</FilePath>
@@ -697,11 +702,6 @@
               <FileName>MotorTask.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\3_MOTOR\MotorTask.h</FilePath>
-            </File>
-            <File>
-              <FileName>PmsmPara.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\3_MOTOR\PmsmPara.h</FilePath>
             </File>
           </Files>
         </Group>

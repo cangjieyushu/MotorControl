@@ -432,6 +432,7 @@ void BSP_ADC_Init_S(void)
     /* Enable ADC1 clock */
     SYSCTRL_EnableModule(SYSCTRL_ADC1);
     /* adc pinmux */
+    SCM_AdcChannelMuxSelect(SCM_ADC1CH15_TYPE, SCM_ADCMUX1_TYPE);
     PORT_PinmuxConfig(HAL_ADC_VR_PORT, HAL_ADC_VR_PIN, HAL_ADC_VR_PINMUX);
     PORT_PinmuxConfig(HAL_ADC_TEMP_PORT, HAL_ADC_TEMP_PIN, HAL_ADC_TEMP_PINMUX);
 

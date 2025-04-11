@@ -1,12 +1,12 @@
 /**************************************************************************************************
-*     File Name :                        MotorSQ.h
+*     File Name :                        MotorState.h
 *     Library/Module Name :              Motor
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
 *     Abstract Description :             无感方波头文件
 **************************************************************************************************/
-#ifndef MotorSQ_H
-#define MotorSQ_H
+#ifndef MotorState_H
+#define MotorState_H
 
 #include "Math.h"
 
@@ -159,4 +159,4 @@ Author: CJYS
 ***********************************************************************************************/
 Q32U_ MotorSQ_Brake(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
 
-#endif /* MotorSQ_H */
+#endif /* MotorState_H */

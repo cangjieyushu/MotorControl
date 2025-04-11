@@ -50,12 +50,10 @@ ST_MOTOR_TASK  Motor =
     .BRAKE_CTRL._P_Q16U_slow_time = SLOW_BRAKE_TIME,
     .BRAKE_CTRL._P_Q16U_short_time = SHORT_BRAKE_TIME,
     .BRAKE_CTRL._P_Q12U_duty_max = Q12I_DUTY_TO_PU(1.0f),
-	
+    
     .LOOP_CTRL._P_Q32U_Open_Min_Time = MOTOR_OPENLOOP_MIN_TIME,
     .LOOP_CTRL._P_F_Open_Switch_Freq = MOTOR_OPENLOOP_SWITCH_FREQ,
     .LOOP_CTRL._P_Q32U_Open_Switch_Time = MOTOR_OPENLOOP_SWITCH_TIME,
-    
-    .LOOP_CTRL._P_F_Close_Freq_Step = MOTOR_CLOSELOOP_STEP,
 	
     .IF_CTRL.Ramp_Iq.F_Init = MOTOR_IF_IQRAMP_INIT,
     .IF_CTRL.Ramp_Iq.F_Target = MOTOR_IF_IQRAMP_TARGET,

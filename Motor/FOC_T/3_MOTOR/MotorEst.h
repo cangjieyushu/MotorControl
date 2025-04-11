@@ -15,7 +15,7 @@ typedef struct
     ST_PID_POS_T    PID_PLL;
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
-
+    
     Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _I_Q14I_Ualfa;
     Q32I_       _I_Q14I_Ubeta;

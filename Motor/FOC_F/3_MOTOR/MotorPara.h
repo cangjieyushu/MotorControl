@@ -14,7 +14,7 @@
 #include "MotorDent.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
-#include "MotorSQ.h"
+#include "MotorState.h"
 
 //启动算法选择
 #define MOTOR_OPENLOOP_PARAID       (00U)
@@ -62,8 +62,8 @@
 #define BOOT_CHECK_TIME                 (5000U)                     //电机静止检测总次数
 
 //刹车占空比控制
-#define BRAKE_DUTY_RAMP_ADDSTEP         (Q22I_DUTY_TO_PU( 0.02f))
-#define BRAKE_DUTY_RAMP_SUBSTEP         (Q22I_DUTY_TO_PU(-0.02f))
+#define BRAKE_DUTY_RAMP_ADDSTEP         ( Q22I_DUTY_TO_PU(0.02f))
+#define BRAKE_DUTY_RAMP_SUBSTEP         (-Q22I_DUTY_TO_PU(0.02f))
 
 #define BRAKE_DUTY_CTRL_MAX             (Q12I_DUTY_TO_PU(0.4f))
 #define BRAKE_DUTY_CTRL_MIN             (Q12I_DUTY_TO_PU(0.2f))
@@ -93,7 +93,7 @@
 #define MOTOR_IF_FREQRAMP_STEP              (FREQ_TO_PU(5.0f * MOTOR_LTs))      //Hz/s,IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (ANGLE_TO_PU(1.5f))                 //rad,IF与观测器角度偏差允许切换值
-#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (ANGLE_TO_PU(1.5f * MOTOR_LTs))     //rad,电机IF观测器角度收敛步长
+#define MOTOR_IF_ANGLE_ERROR_RAMP_STEP      (ANGLE_TO_PU(1.0f * MOTOR_LTs))     //rad,电机IF观测器角度收敛步长
 
 //VF
 #define MOTOR_VF_VQRAMP_INIT                (VOLTAGE_TO_PU(0.0f))               //V,Vq初始值
@@ -105,7 +105,7 @@
 #define MOTOR_VF_FREQRAMP_STEP              (FREQ_TO_PU(5.0f * MOTOR_LTs))      //Hz/s,VF速度每秒增加步长
 
 #define MOTOR_VF_ANGLE_ERROR                (ANGLE_TO_PU(1.5f))                 //rad,VF与观测器角度偏差允许切换值
-#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (ANGLE_TO_PU(1.5f * MOTOR_LTs))     //rad,电机VF观测器角度收敛步长
+#define MOTOR_VF_ANGLE_ERROR_RAMP_STEP      (ANGLE_TO_PU(1.0f * MOTOR_LTs))     //rad,电机VF观测器角度收敛步长
 
 
 //转速环PID
@@ -213,7 +213,6 @@ typedef struct{
     Q32U_                       _P_Q32U_Open_Switch_Time;
     
     Q32U_                       _V_Q32U_Close_cnt;
-    float                       _P_F_Close_Freq_Step;
 }ST_LOOP_CONTROL_F;
 
 typedef struct{

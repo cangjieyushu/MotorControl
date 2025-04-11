@@ -186,7 +186,7 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
     pMotor->FREQ_CTRL._I_F_FREQ = pMotor->Motor_EST.FL_SRAD.F_Filter_out;
-	
+    
     MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
     pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
     pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->IF_CTRL._O_F_Iq;
@@ -196,6 +196,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
         {
             pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+            
+            Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, 2.0f*pMotor->FREQ_CTRL._I_F_FREQ);
             
             pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
         }

@@ -2406,6 +2406,9 @@
             <file>
                 <name>$PROJ_DIR$\..\..\2_COMMON\MATH\Matrix.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\2_COMMON\MATH\PmsmPara.h</name>
+            </file>
         </group>
         <group>
             <name>RTT</name>
@@ -2441,19 +2444,16 @@
             <name>$PROJ_DIR$\..\3_MOTOR\MotorPara.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\3_MOTOR\MotorSQ.c</name>
+            <name>$PROJ_DIR$\..\3_MOTOR\MotorState.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\3_MOTOR\MotorSQ.h</name>
+            <name>$PROJ_DIR$\..\3_MOTOR\MotorState.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\3_MOTOR\MotorTask.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\3_MOTOR\MotorTask.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\3_MOTOR\PmsmPara.h</name>
         </file>
     </group>
     <group>

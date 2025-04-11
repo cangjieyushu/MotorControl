@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>STM32F407VETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.17.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IRAM2(0x10000000,0x00010000) IROM(0x08000000,0x00080000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -614,6 +614,11 @@
               <FilePath>..\..\2_COMMON\MATH\Matrix.h</FilePath>
             </File>
             <File>
+              <FileName>PmsmPara.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_COMMON\MATH\PmsmPara.h</FilePath>
+            </File>
+            <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\2_COMMON\RTT\SEGGER_RTT.c</FilePath>
@@ -684,14 +689,14 @@
               <FilePath>..\3_MOTOR\MotorPara.h</FilePath>
             </File>
             <File>
-              <FileName>MotorSQ.c</FileName>
+              <FileName>MotorState.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\3_MOTOR\MotorSQ.c</FilePath>
+              <FilePath>..\3_MOTOR\MotorState.c</FilePath>
             </File>
             <File>
-              <FileName>MotorSQ.h</FileName>
+              <FileName>MotorState.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\3_MOTOR\MotorSQ.h</FilePath>
+              <FilePath>..\3_MOTOR\MotorState.h</FilePath>
             </File>
             <File>
               <FileName>MotorTask.c</FileName>
@@ -702,11 +707,6 @@
               <FileName>MotorTask.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\3_MOTOR\MotorTask.h</FilePath>
-            </File>
-            <File>
-              <FileName>PmsmPara.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\3_MOTOR\PmsmPara.h</FilePath>
             </File>
           </Files>
         </Group>

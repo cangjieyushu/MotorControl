@@ -181,17 +181,22 @@ static inline void Motor_Stop(void)
 /**********************************************************************************************
 Function: Motor_Set_Dir
 Description: 设置电机运行方向
-Input: 1.0f（正转），-1.0f（反转）
+Input:  1（正转），-1（反转）
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Dir(float Dir)
+static inline void Motor_Set_Dir(Q32I_ Dir)
 {
-    Motor.FREQ_CTRL._I_F_DIR_Target = Dir;
-    Motor.IF_CTRL._I_F_DIR_Target = Dir;
-    Motor.VF_CTRL._I_F_DIR_Target = Dir;
+    float Dir_tmp = 1.0f;
+    if(Dir == -1)
+    {
+        Dir_tmp = -1.0f;
+    }
+    Motor.FREQ_CTRL._I_F_DIR_Target = Dir_tmp;
+    Motor.IF_CTRL._I_F_DIR_Target = Dir_tmp;
+    Motor.VF_CTRL._I_F_DIR_Target = Dir_tmp;
 }
 
 /**********************************************************************************************

@@ -223,7 +223,7 @@ void MotorFoc_SVPWM_ThreeShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
 {
     Q32I_ Utmp1 = 0,Utmp2 = 0,Utmp3 = 0;
     Q32I_ Ttmp1 = 0,Ttmp2 = 0,Ttmpsum = 0;
-    Q32I_ Txyz[3]= {0,0,0};
+    Q32I_ Txyz[3] = {0,0,0};
     
     Utmp1 = MATH_SQRT_THREE_T(pCTRL->_O_Q14I_Ubeta);
     Utmp2 = Q32I_RHT_12((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
@@ -247,10 +247,6 @@ void MotorFoc_SVPWM_ThreeShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     
     Ttmpsum = Ttmp1 + Ttmp2;
     if(Ttmpsum > pCTRL->_P_Q12I_MaxDuty){Ttmp1 = pCTRL->_P_Q12I_MaxDuty*Ttmp1/Ttmpsum;Ttmp2 = pCTRL->_P_Q12I_MaxDuty - Ttmp1;}else{}
-    Txyz[0] = ((pCTRL->_P_Q12I_MaxDuty - Ttmp1 - Ttmp2)>>2) + (pCTRL->_P_Q12I_MinDuty>>1);
-    Txyz[1] = Txyz[0] + (Ttmp1>>1);
-    Txyz[2] = Txyz[1] + (Ttmp2>>1);
-    
     switch(pCTRL->_O_Q08U_Sector)
     {
         case 3U:
@@ -291,6 +287,10 @@ void MotorFoc_SVPWM_ThreeShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         }
         default:break;
     }
+    
+    Txyz[0] = ((pCTRL->_P_Q12I_MaxDuty - Ttmp1 - Ttmp2)>>2) + (pCTRL->_P_Q12I_MinDuty>>1);
+    Txyz[1] = Txyz[0] + (Ttmp1>>1);
+    Txyz[2] = Txyz[1] + (Ttmp2>>1);
     
     pCTRL->_O_Q12I_Ta = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
     pCTRL->_O_Q12I_Tb = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]];
@@ -332,8 +332,9 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
 {
     Q32I_ Utmp1 = 0,Utmp2 = 0,Utmp3 = 0;
     Q32I_ Ttmp1 = 0,Ttmp2 = 0,Ttmpsum = 0;
-    Q32I_ Txyz[3]= {0,0,0};
-    Q32I_ Delta_Ttmp1 = 0,Delta_Ttmp2 = 0,Delta_Ttmp3 = 0;
+    Q32I_ Txyz[3] = {0,0,0};
+    Q32I_ Delta_Ttmp[3] = {0,0,0};
+    Q32U_ Ntmp1 = 0,Ntmp2 = 0,Ntmp3 = 0;
     
     Utmp1 = MATH_SQRT_THREE_T(pCTRL->_O_Q14I_Ubeta);
     Utmp2 = Q32I_RHT_12((( 3*pCTRL->_O_Q14I_Ualfa - Utmp1)>>1)*pCTRL->_I_Q10I_One_Over_Vbus);
@@ -357,6 +358,47 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     
     Ttmpsum = Ttmp1 + Ttmp2;
     if(Ttmpsum > pCTRL->_P_Q12I_MaxDuty){Ttmp1 = pCTRL->_P_Q12I_MaxDuty*Ttmp1/Ttmpsum;Ttmp2 = pCTRL->_P_Q12I_MaxDuty - Ttmp1;}else{}
+    switch(pCTRL->_O_Q08U_Sector)
+    {
+        case 3U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        case 1U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        case 5U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        case 4U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        case 6U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        case 2U:
+        {
+            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
+            break;
+        }
+        default:{break;}
+    }
+    
 //    Txyz[0] = (4096 - Ttmp1 - Ttmp2)>>2;
 //    Txyz[1] = Txyz[0] + (Ttmp1>>1);
 //    Txyz[2] = Txyz[1] + (Ttmp2>>1);
@@ -367,116 +409,35 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
     
     if((Ttmp1 < pCTRL->_P_Q12I_MinDuty)&&(Ttmp2 < pCTRL->_P_Q12I_MinDuty))
     {
-        Delta_Ttmp1 =  (pCTRL->_P_Q12I_MinDuty - Ttmp1)>>1;
-        Delta_Ttmp3 = -(pCTRL->_P_Q12I_MinDuty - Ttmp2)>>1;
+        Delta_Ttmp[0] =  (pCTRL->_P_Q12I_MinDuty - Ttmp1)>>1;
+        Delta_Ttmp[2] = -(pCTRL->_P_Q12I_MinDuty - Ttmp2)>>1;
     }
     else if((Ttmp1 < pCTRL->_P_Q12I_MinDuty)&&(Ttmp2 >= pCTRL->_P_Q12I_MinDuty))
     {
-        Delta_Ttmp1 =  (pCTRL->_P_Q12I_MinDuty - Ttmp1)>>2;
-        Delta_Ttmp2 = -pCTRL->_P_Q12I_MinDuty>>2;
-        Delta_Ttmp3 =  Delta_Ttmp2;
+        Delta_Ttmp[0] =  (pCTRL->_P_Q12I_MinDuty - Ttmp1)>>2;
+        Delta_Ttmp[1] = -(pCTRL->_P_Q12I_MinDuty - Ttmp1)>>2;
+        Delta_Ttmp[2] =  Delta_Ttmp[1];
     }
     else if((Ttmp1 >= pCTRL->_P_Q12I_MinDuty)&&(Ttmp2 < pCTRL->_P_Q12I_MinDuty))
     {
-        Delta_Ttmp2 =  pCTRL->_P_Q12I_MinDuty>>2;
-        Delta_Ttmp3 = -(pCTRL->_P_Q12I_MinDuty - Ttmp2)>>2;
-        Delta_Ttmp1 =  Delta_Ttmp2;
+        Delta_Ttmp[1] =  (pCTRL->_P_Q12I_MinDuty - Ttmp2)>>2;
+        Delta_Ttmp[2] = -(pCTRL->_P_Q12I_MinDuty - Ttmp2)>>2;
+        Delta_Ttmp[0] =  Delta_Ttmp[1];
     }
     
-    pCTRL->_O_Q12I_ADCTrigTime1 = Txyz[0] + Delta_Ttmp1 - pCTRL->_P_Q12I_ADCSampleDuty;
-    pCTRL->_O_Q12I_ADCTrigTime2 = Txyz[1] + Delta_Ttmp2 - pCTRL->_P_Q12I_ADCSampleDuty;
+    pCTRL->_O_Q12I_ADCTrigTime1 = Txyz[0] + Delta_Ttmp[0] - pCTRL->_P_Q12I_ADCSampleDuty;
+    pCTRL->_O_Q12I_ADCTrigTime2 = Txyz[1] + Delta_Ttmp[1] - pCTRL->_P_Q12I_ADCSampleDuty;
     
-    switch(pCTRL->_O_Q08U_Sector)
-    {
-        case 3U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            break;
-        }
-        case 1U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            break;
-        }
-        case 5U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            break;
-        }
-        case 4U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(-2*Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            break;
-        }
-        case 6U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(Ttmp2-Ttmp1)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(MATH_ONE_OVER_SQRT_THREE_T(-Ttmp1-Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            break;
-        }
-        case 2U:
-        {
-            pCTRL->_O_Q14I_Ualfa = Q32I_RHT_12(MATH_ONE_OVER_THREE_T(2*Ttmp1+Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            pCTRL->_O_Q14I_Ubeta = Q32I_RHT_12(-MATH_ONE_OVER_SQRT_THREE_T(Ttmp2)*pCTRL->_I_Q14I_Vbus);
-            
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp1;
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp3;
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] + Delta_Ttmp2;
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp1;
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp3;
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]] - Delta_Ttmp2;
-            break;
-        }
-        default:
-        {
-            pCTRL->_O_Q12I_TaUp = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
-            pCTRL->_O_Q12I_TbUp = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]];
-            pCTRL->_O_Q12I_TcUp = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]];
-            pCTRL->_O_Q12I_TaDn = Txyz[Txyz_Table[0][pCTRL->_O_Q08U_Sector]];
-            pCTRL->_O_Q12I_TbDn = Txyz[Txyz_Table[1][pCTRL->_O_Q08U_Sector]];
-            pCTRL->_O_Q12I_TcDn = Txyz[Txyz_Table[2][pCTRL->_O_Q08U_Sector]];
-            break;
-        }
-    }
+    Ntmp1 = Txyz_Table[0][pCTRL->_O_Q08U_Sector];
+    Ntmp2 = Txyz_Table[1][pCTRL->_O_Q08U_Sector];
+    Ntmp3 = Txyz_Table[2][pCTRL->_O_Q08U_Sector];
+    
+    pCTRL->_O_Q12I_TaUp = Txyz[Ntmp1] + Delta_Ttmp[Ntmp1];
+    pCTRL->_O_Q12I_TbUp = Txyz[Ntmp2] + Delta_Ttmp[Ntmp2];
+    pCTRL->_O_Q12I_TcUp = Txyz[Ntmp3] + Delta_Ttmp[Ntmp3];
+    pCTRL->_O_Q12I_TaDn = Txyz[Ntmp1] - Delta_Ttmp[Ntmp1];
+    pCTRL->_O_Q12I_TbDn = Txyz[Ntmp2] - Delta_Ttmp[Ntmp2];
+    pCTRL->_O_Q12I_TcDn = Txyz[Ntmp3] - Delta_Ttmp[Ntmp3];
 }
 
 /********************************ËÙ¶È»·**************************************/

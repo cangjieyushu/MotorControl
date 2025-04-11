@@ -13,19 +13,22 @@
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
-#include "MotorSQ.h"
+#include "MotorState.h"
 
 //启动算法选择
-#define MOTOR_OPENLOOP_IF               (00U)
-#define MOTOR_OPENLOOP_VF               (01U)
-#define MOTOR_OPENLOOP_HFI              (02U)
-#define MOTOR_OPENLOOP_FLUX             (03U)
-#define MOTOR_OPENLOOP_MODE             MOTOR_OPENLOOP_IF
+#define MOTOR_OPENLOOP_PARAID       (00U)
+#define MOTOR_OPENLOOP_IF           (01U)
+#define MOTOR_OPENLOOP_VF           (02U)
+#define MOTOR_OPENLOOP_HFI          (03U)
+#define MOTOR_OPENLOOP_FLUX         (04U)
+#define MOTOR_OPENLOOP_MRAS         (05U)
+#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_IF
 
 //观测器选择
-#define MOTOR_EST_FLUX                  (10U)
-#define MOTOR_EST_SMO                   (11U)
-#define MOTOR_EST_MODE                  MOTOR_EST_SMO
+#define MOTOR_EST_FLUX              (10U)
+#define MOTOR_EST_SMO               (11U)
+#define MOTOR_EST_MRAS              (12U)
+#define MOTOR_EST_MODE              MOTOR_EST_SMO
 
 
 //电流采样偏置检测
@@ -56,12 +59,12 @@
 
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (5000U)                                     //ms,电机openloop最小时间
-#define MOTOR_OPENLOOP_SWITCH_FREQ          (Q14I_FREQ_TO_PU(10.0f))                    //Hz,电机openloop切换closeloop转速阈值
-#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                                       //ms,电机openloop切换closeloop转速检测时间
+#define MOTOR_OPENLOOP_MIN_TIME             (5000U)                                 //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_SWITCH_FREQ          (Q14I_FREQ_TO_PU(10.0f))                //Hz,电机openloop切换closeloop转速阈值
+#define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                                   //ms,电机openloop切换closeloop转速检测时间
 
 //电机closeloop相关参数，闭环开始阶段 
-#define MOTOR_CLOSELOOP_STEP                (Q24I_FREQ_TO_PU(100.0f * MOTOR_LTs))       //Hz/s,电机closeloop每秒增速步长
+#define MOTOR_CLOSELOOP_STEP                (Q24I_FREQ_TO_PU(100.0f * MOTOR_LTs))   //Hz/s,电机closeloop每秒增速步长
 
 
 //IF
@@ -90,13 +93,13 @@
 
 
 //转速环PID
-#define MOTOR_FREQ_PID_Coeff                (0.35f)                             //转速环PID增益系数
+#define MOTOR_FREQ_PID_Coeff                (0.35f)                                 //转速环PID增益系数
 #define MOTOR_FREQ_KP_GAIN                  ((Q32I_)(MOTOR_Q14_PU * MOTOR_FREQ_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_FREQ * F_BASE / I_BASE))
 #define MOTOR_FREQ_KI_GAIN                  ((Q32I_)(MOTOR_Q14_PU * 0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs * F_BASE / I_BASE))
 #define MOTOR_FREQ_KD_GAIN             	    ((Q32I_)(0.0f))
 
-#define MOTOR_FREQ_PID_MAX                  ((Q32I_)( 1.0f * Q14I_CURRENT_PHASE_PU))      //A,转速环输出q轴电流限幅
-#define MOTOR_FREQ_PID_MIN                  ((Q32I_)(-1.0f * Q14I_CURRENT_PHASE_PU))      //A,转速环输出q轴电流限幅
+#define MOTOR_FREQ_PID_MAX                  ((Q32I_)( 1.0f * Q14I_CURRENT_PHASE_PU))//A,转速环输出q轴电流限幅
+#define MOTOR_FREQ_PID_MIN                  ((Q32I_)(-1.0f * Q14I_CURRENT_PHASE_PU))//A,转速环输出q轴电流限幅
 
 //电流PID
 #define MOTOR_CURRENT_PID_Coeff             (0.05f)                             //电流环P增益系数
@@ -113,7 +116,7 @@
 #define MOTOR_MAX_SRAD                      (MOTOR_MAX_FREQ * MATH_2PI_F)
 
 //非线性磁链观测器  
-#define MOTOR_FLUX_GAMMA                    ((Q32I_)(0.02f * MOTOR_Q14_PU * Q14I_VOLTAGE_PU / Q14I_FLUX_PU / (Q14I_FLUX_PU*Q14I_FLUX_PU/MOTOR_Q14_PU/MOTOR_Q14_PU)))    //增益系数
+#define MOTOR_FLUX_GAMMA                    ((Q32I_)(0.02f * Q14I_VOLTAGE_PU * ((MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU))))    //增益系数
 
 #define MOTOR_FLUX_PLL_KP                   ((Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU))                                        //锁相环比例系数
 #define MOTOR_FLUX_PLL_KI                   ((Q32I_)(MOTOR_Q14_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / Q14I_FLUX_PU))             //锁相环积分系数
@@ -122,7 +125,7 @@
 #define MOTOR_FLUX_PLL_MIN                  ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_K1                        (6500)       //增益系数
+#define MOTOR_SMO_K1                        (3500)                              //增益系数
 
 #define MOTOR_SMO_PLL_KP                    ((Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU)))                            //锁相环比例系数
 #define MOTOR_SMO_PLL_KI                    ((Q32I_)(MOTOR_Q14_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * Q14I_VOLTAGE_PU))) //锁相环积分系数
@@ -173,7 +176,6 @@ typedef struct{
     Q32U_                       _P_Q32U_Open_Switch_Time;
     
     Q32U_                       _V_Q32U_Close_cnt;
-    Q32I_                       _P_Q32I_Close_Freq_Step;
 }ST_LOOP_CONTROL_T;
 
 typedef struct{

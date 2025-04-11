@@ -189,9 +189,14 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Dir(Q32I_ Dir)
 {
-    Motor.FREQ_CTRL._I_Q00I_DIR_Target = Dir;
-    Motor.IF_CTRL._I_Q00I_DIR_Target = Dir;
-    Motor.VF_CTRL._I_Q00I_DIR_Target = Dir;
+    Q32I_ Dir_tmp = 1;
+    if(Dir == -1)
+    {
+        Dir_tmp = -1;
+    }
+    Motor.FREQ_CTRL._I_Q00I_DIR_Target = Dir_tmp;
+    Motor.IF_CTRL._I_Q00I_DIR_Target = Dir_tmp;
+    Motor.VF_CTRL._I_Q00I_DIR_Target = Dir_tmp;
 }
 
 /**********************************************************************************************
@@ -259,8 +264,8 @@ static inline Q32I_ Motor_Read_Speed(void)
 
 /**********************************************************************************************
 Function: Motor_Set_Vbus
-Description: 设置FOC算法的母线电压值
-Input: 母线电压（V）
+Description: 设置母线电压值
+Input: 母线电压（lsb）
 Output: 无
 Input_Output: 无
 Return: 无

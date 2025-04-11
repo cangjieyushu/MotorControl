@@ -46,42 +46,40 @@ static inline void Motor_Stop(void)
 /**********************************************************************************************
 Function: Motor_Set_Dir
 Description: 设置电机运行方向
-Input: 0（正转），1（反转）
+Input:  1（正转），-1（反转）
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Dir(Q32U_ Dir)
+static inline void Motor_Set_Dir(Q32I_ Dir)
 {
-    if(Dir == 0U)
+    EM_DIRECTION Dir_tmp = CW;
+    if(Dir == -1)
     {
-        Motor.MS_CTRL.DIR_Target = CW;
+        Dir_tmp = CCW;
     }
-    else
-    {
-        Motor.MS_CTRL.DIR_Target = CCW;
-    }
+    Motor.MS_CTRL.DIR_Target = Dir_tmp;
 }
 
 /**********************************************************************************************
 Function: Motor_Read_Dir
 Description: 获取电机运行方向
 Input: 无
-Output: 0（正转），1（反转）
+Output: 1（正转），-1（反转）
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ Motor_Read_Dir(void)
+static inline Q32I_ Motor_Read_Dir(void)
 {
     if(Motor.MS_CTRL.DIR_Set == CW)
     {
-        return 0;
+        return 1;
     }
     else
     {
-        return 1;
+        return -1;
     }
 }
 
@@ -109,15 +107,15 @@ static inline Q32U_ Motor_Read_Run_State(void)
 /**********************************************************************************************
 Function: Motor_Set_Target_Speed
 Description: 设置目标占空比
-Input: 占空比（0~4095）
+Input: 占空比
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Target_Speed(Q32U_ Speed)
+static inline void Motor_Set_Target_Speed(Q32U_ Duty)
 {
-    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Speed;
+    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Q16I_LFT_14(Duty)/((Q32I_)MOTOR_MAX_SPEED);
 }
 
 /**********************************************************************************************
@@ -129,9 +127,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ Motor_Read_Speed(void)
+static inline Q32I_ Motor_Read_Speed(void)
 {
-    return Motor.MS_CTRL.FL_Freq.Q16I_Filter_out;
+    return Q32I_RHT_14(Motor.MS_CTRL.FL_Freq.Q16I_Filter_out*((Q32I_)MOTOR_MAX_SPEED));
 }
 
 /**********************************************************************************************
@@ -158,9 +156,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline Q32U_ Motor_Read_Current_Max(void)
+static inline Q32I_ Motor_Read_Current_Max(void)
 {
-    Q32U_ iphase_max_tmp = Motor.Q14I_IPHASE_MAX_PU;
+    Q32I_ iphase_max_tmp = Motor.Q14I_IPHASE_MAX_PU;
     Motor.Q14I_IPHASE_MAX_PU = 0;
     return iphase_max_tmp;
 }
