@@ -176,7 +176,7 @@ void BSP_ADC_Init(void)
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */
     TDG_LoadCmd(HAL_MOTOR_TDG); 
-
+    
     ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
     ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
     ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */

@@ -5,7 +5,6 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             电机控制参数初始化源文件
 **************************************************************************************************/
- 
 #include "MotorPara.h"
 
 ST_MOTOR_TASK  Motor = 
@@ -59,7 +58,7 @@ ST_MOTOR_TASK  Motor =
     
     .MS_CTRL.FREQ_CAL._P_Q32U_hall_tim_freq = HAL_HALL_TIM_PRE_FREQ,
     .MS_CTRL.FREQ_CAL._P_Q32U_hall_tim_max_cnt = 0xFFFFFFFFU,
- 
+    
     .MS_CTRL.PWM_CTRL.Ramp_Duty.Q14I_Init = DUTY_CTRL_MIN,
     .MS_CTRL.PWM_CTRL.Ramp_Duty.Q24I_ADDStep = DUTY_RAMP_ADDSTEP,
     .MS_CTRL.PWM_CTRL.Ramp_Duty.Q24I_SUBStep = DUTY_RAMP_SUBSTEP,
@@ -123,3 +122,4 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.PID_Ibus.Q14I_OutMin = IBUS_PID_OUTMIN,
     
 };
+

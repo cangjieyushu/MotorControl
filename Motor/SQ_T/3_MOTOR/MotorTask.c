@@ -162,14 +162,14 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
         {
             pMotor->Motor_Error_Flag.bit.mos_fault = 1U;
         }
-    
+        
         if(MotorSQ_Offset_Check_Init(&pMotor->MS_OFFSET) == SUCS)
         {
             pMotor->MS_OFFSET._I_Q12I_IPHASE_ADC = ADC_DATA_READ_CURRENT;
             switch(MotorSQ_Offset_Check(&pMotor->MS_OFFSET))
             {
                 case ING:
-                { 
+                {
                     Q32U_ Q32U_pwm_count_tmp = MH_PWM_Count_Read();
                     if(Q32U_pwm_count_tmp + pMotor->MS_CTRL.PWM_CTRL._P_Q14U_adc_solve_value < pMotor->MS_CTRL.PWM_CTRL._P_Q14U_start_pwm_freq)
                     {

@@ -8,9 +8,9 @@
 #ifndef MotorPara_H
 #define MotorPara_H
 
+#include "PmsmPara.h"
 #include "MotorHal_cfg.h"
 #include "MotorSQ.h"
-#include "PmsmPara.h"
 
 #define SPEED_CLOSE_EN                  (1U)        //0：开环，1：转速环
 #define I_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：母线电流环
@@ -135,13 +135,13 @@
 
 
 typedef enum{
-    MOTOR_STATE_PRE,
-    MOTOR_STATE_INIT,
-    MOTOR_STATE_IDLE,
-    MOTOR_STATE_BOOT,
-    MOTOR_STATE_POSITION,
-    MOTOR_STATE_RUN,
-    MOTOR_STATE_BRAKE,
+    MOTOR_STATE_PRE,            //参数复位阶段
+    MOTOR_STATE_INIT,           //硬件初始化阶段
+    MOTOR_STATE_IDLE,           //电机静止检测阶段
+    MOTOR_STATE_BOOT,           //自举电容充电阶段
+    MOTOR_STATE_POSITION,       //脉冲定位阶段阶段
+    MOTOR_STATE_RUN,            //电机运行阶段
+    MOTOR_STATE_BRAKE,          //电机刹车阶段
 }EM_MOTOR_STATE_FLOW;
 
 typedef union{

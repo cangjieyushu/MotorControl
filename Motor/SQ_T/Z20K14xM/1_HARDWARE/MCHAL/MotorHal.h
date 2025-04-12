@@ -369,7 +369,7 @@ static inline void MH_Switch_TIM_Stop(void)
 
 /**********************************************************************************************
 Function: MH_ADC_IntFlag_Clear
-Description: ADC中断标志位清除
+Description: DMA的0号通道中断标志位清除
 Input: 无
 Output: 无
 Input_Output: 无

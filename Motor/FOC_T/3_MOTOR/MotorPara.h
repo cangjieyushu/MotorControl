@@ -8,7 +8,6 @@
 #ifndef MotorPara_H
 #define MotorPara_H
 
-#include "Math.h"
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
 #include "MotorEst.h"
@@ -160,10 +159,10 @@ typedef union{
 typedef union{
     ALL all;
     struct{
-        BIT current_offset      :1;//偏置故障
-        BIT current_short       :1;//短路故障
-        BIT mos_fault           :1;//mos故障（单个上电周期内，发生三次短路保护，锁死故障状态）
         BIT motor_stall         :1;//电机堵转故障
+        BIT mos_fault           :1;//mos故障（单个上电周期内，发生三次短路保护，锁死故障状态）
+        BIT current_short       :1;//短路故障
+        BIT current_offset      :1;//偏置故障
         BIT position_error      :1;//电机定位故障
     }bit;
 }UN_MOTOR_ERROR_FLAG;
@@ -200,7 +199,6 @@ typedef struct{
     
     Q32I_                       Q14I_IPHASE_MAX_PU;
 }ST_MOTOR_TASK;
-
 
 extern ST_MOTOR_TASK  Motor;
 

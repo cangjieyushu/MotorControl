@@ -61,7 +61,7 @@
 
 
 //PWM设置
-#define HAL_PWM_DEADTIME_TIME                   (2.0f)                  //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (0.5f)                  		//us，死区时间
 #define HAL_PWM_DEADTIME_VALUE                  (Q32U_)(HAL_PWM_PRE_FREQ*HAL_PWM_DEADTIME_TIME/1000.0f)
 
 
@@ -197,7 +197,7 @@
 #define HAL_ADC_WBEMF_PIN           GPIO_1
 #define HAL_ADC_WBEMF_PINMUX        PTA1_ADC0_CH1
 #define HAL_ADC_WBEMF_CHN           ADC_P_CH1
-   
+
 #define HAL_ADC_IPHASE_PORT         PORT_C
 #define HAL_ADC_IPHASE_PIN          GPIO_16
 #define HAL_ADC_IPHASE_PINMUX       PTC16_ADC0_CH14
