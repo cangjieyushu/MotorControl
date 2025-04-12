@@ -41,7 +41,7 @@
 
 
 //脉冲定位 
-#define POSITION_DUTY                   (Q12I_DUTY_TO_PU(0.100f))   //1kHz，脉冲定位占空比
+#define POSITION_DUTY                   (Q12I_DUTY_TO_PU(0.400f))   //1kHz，脉冲定位占空比
 #define POSITION_TL_lsb                 (1000U)                     //脉冲定位是否成功判断阈值
 
 
@@ -74,7 +74,7 @@
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q12I_DUTY_TO_PU(60.0f*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q12I_DUTY_TO_PU(300.0f*HAL_PWM_RUN1_FREQ/1000.0f))    //30us
 #define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q12I_DUTY_TO_PU(40.0f*HAL_PWM_RUN2_FREQ/1000.0f))     //40us
 
 
@@ -82,8 +82,8 @@
 #define DUTY_RAMP_ADDSTEP               (Q32I_)( Q22I_DUTY_TO_PU(0.020f))
 #define DUTY_RAMP_SUBSTEP               (Q32I_)(-Q22I_DUTY_TO_PU(0.020f))
 
-#define DUTY_CTRL_MAX                   (Q12I_DUTY_TO_PU(1.000f))
-#define DUTY_CTRL_MIN                   (Q12I_DUTY_TO_PU(0.050f))
+#define DUTY_CTRL_MAX                   (Q12I_DUTY_TO_PU(0.950f))
+#define DUTY_CTRL_MIN                   (Q12I_DUTY_TO_PU(0.010f))
 
 //转速PID
 #define FREQ_RAMP_ADDSTEP               (Q32I_)( Q24I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))

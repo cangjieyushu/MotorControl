@@ -24,8 +24,8 @@
 #define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 #define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 #define MOTOR_Rs                            (0.233f)                        //Ω，相电阻
-#define MOTOR_Ld                            (0.362f*0.001f)                 //H，d轴电感
-#define MOTOR_Lq                            (0.443f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
+#define MOTOR_Ld                            (0.381f*0.001f)                 //H，d轴电感
+#define MOTOR_Lq                            (0.468f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.0165f)                       //Wb
 #define MOTOR_MAX_SPEED                     (4000.0f)             //rpm，最高转速

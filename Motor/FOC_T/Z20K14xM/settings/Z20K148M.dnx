@@ -5,7 +5,7 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>1239486134</Checksum>
+        <Checksum>1949034846</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -34,21 +34,21 @@
         <ShowArgs>0</ShowArgs>
     </CallStack>
     <JLinkDriver>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+        <CStepIntDis>_ 0</CStepIntDis>
         <jlinkResetStyle>12</jlinkResetStyle>
         <jlinkResetStrategy>0</jlinkResetStrategy>
         <TraceBufferSize>0x10000</TraceBufferSize>
         <TraceStallIfFIFOFull>0x0</TraceStallIfFIFOFull>
         <TracePortSize>0x4</TracePortSize>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
-        <CStepIntDis>_ 0</CStepIntDis>
     </JLinkDriver>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>513812195</CpuClock>
+        <CpuClock>538976288</CpuClock>
         <ClockAutoDetect>1</ClockAutoDetect>
-        <ClockWanted>2250000</ClockWanted>
-        <JtagSpeed>2250000</JtagSpeed>
-        <Prescaler>228</Prescaler>
+        <ClockWanted>7500000</ClockWanted>
+        <JtagSpeed>7500000</JtagSpeed>
+        <Prescaler>72</Prescaler>
         <TimeStampPrescIndex>0</TimeStampPrescIndex>
         <TimeStampPrescData>0</TimeStampPrescData>
         <PcSampCYCTAP>1</PcSampCYCTAP>
@@ -61,16 +61,18 @@
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
     <ArmDriver>
-        <EnableCache>0</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+        <EnableCache>0</EnableCache>
     </ArmDriver>
     <PlDdfRanges>
         <ConfigRanges0>Memory Periph0 1073741824 524288 2</ConfigRanges0>
         <ConfigRanges1>Memory Periph1 1074786304 4096 2</ConfigRanges1>
         <ConfigRanges2>Memory ARMPPB 3758096384 1048576 2</ConfigRanges2>
         <ConfigRanges3>Memory Flash 0 2097152 1</ConfigRanges3>
-        <ConfigRanges4>Memory RAM0 536739840 131072 0</ConfigRanges4>
-        <ConfigRanges5>Memory RAM1 536870912 131072 0</ConfigRanges5>
+        <ConfigRanges4>Memory DFlash 16777216 131072 1</ConfigRanges4>
+        <ConfigRanges5>Memory FlashIFR 33554432 32768 1</ConfigRanges5>
+        <ConfigRanges6>Memory RAM0 536739840 131072 0</ConfigRanges6>
+        <ConfigRanges7>Memory RAM1 536870912 131072 0</ConfigRanges7>
     </PlDdfRanges>
     <PlCacheRanges>
         <CustomRanges0>0 0 2097152 1 0</CustomRanges0>

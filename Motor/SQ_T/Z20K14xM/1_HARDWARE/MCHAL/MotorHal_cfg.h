@@ -52,7 +52,7 @@
 
 
 #define HAL_PWM_INIT_FREQ                       (HAL_PWM_FREQ_1K)
-#define HAL_PWM_RUN1_FREQ                       (HAL_PWM_FREQ_2K)
+#define HAL_PWM_RUN1_FREQ                       (HAL_PWM_FREQ_1K)
 #define HAL_PWM_RUN2_FREQ                       (HAL_PWM_FREQ_10K)
 
 #define HAL_PWM_INIT_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_INIT_FREQ)
@@ -68,10 +68,10 @@
 //ADC采样时刻设置
 #define HAL_ADC_DELAY_TIME                      (5.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_TIME*HAL_PWM_PRE_FREQ/1000.0f)
-#define HAL_ADC_SAMPLE_TIME                     (8.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
-#define HAL_ADC_SOLVE_TIME                      (10.0f)                 //us，换向判断时间
+#define HAL_ADC_SOLVE_TIME                      (5.0f)                  //us，换向判断时间
 #define HAL_ADC_SOLVE_VALUE                     (Q32U_)(HAL_ADC_SOLVE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
 
 

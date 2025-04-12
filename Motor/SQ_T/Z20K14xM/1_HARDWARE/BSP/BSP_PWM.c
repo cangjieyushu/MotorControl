@@ -157,7 +157,7 @@ void BSP_PWM_Init(void)
     MCPWM_OutputComplementaryPwmConfig(HAL_MOTOR_PWM, MCPWM_COUNTER_0, &Config3);
     MCPWM_PairCombineCmd(HAL_MOTOR_PWM, HAL_PWM_W_PAIR, ENABLE);   
 
-    CPwmChConfig4.pairId = HAL_PWM_W_PAIR;
+    CPwmChConfig4.pairId = HAL_PWM_ADC_PAIR;
     CPwmChConfig4.pec = MCPWM_MAIN_CV;
 
     /* symmetric PWM output */

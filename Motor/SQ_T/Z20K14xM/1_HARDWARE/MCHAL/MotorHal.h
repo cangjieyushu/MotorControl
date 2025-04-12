@@ -57,8 +57,10 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MH_ADC_TrigTime_Set(Q32U_ count)
 {
-    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS);  
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS);
+    mcpwm_reg_w_t *MCPWMwx = (mcpwm_reg_w_t *)(HAL_MOTOR_PWM_ADDRESS); 
     MCPWMx->MCPWM_CV[HAL_PWM_ADC_CHN].CV = count;
+    MCPWMwx->MCPWM_RELOAD |= 0x0800U;
 }
 
 /**********************************************************************************************
@@ -87,7 +89,8 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MH_PWM_Preload_Enable(void)
 {
-    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS); 
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS);
+    MCPWMx->MCPWM_SYNC.SYNCOSWC = 1U;
     MCPWMx->MCPWM_SYNC.SWWRBUF = 0U;
     MCPWMx->MCPWM_SYNC.SWRSTCNT = 0U;
 }
@@ -103,9 +106,10 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MH_PWM_Preload_Disable(void)
 {
-    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS); 
+    mcpwm_reg_t * MCPWMx = (mcpwm_reg_t *)(HAL_MOTOR_PWM_ADDRESS);
+    MCPWMx->MCPWM_SYNC.SYNCOSWC = 1U;
     MCPWMx->MCPWM_SYNC.SWWRBUF = 1U;
-    MCPWMx->MCPWM_SYNC.SWRSTCNT = 1U;
+    MCPWMx->MCPWM_SYNC.SWRSTCNT = 0U;
 }
 
 /**********************************************************************************************
@@ -203,6 +207,7 @@ static inline void MH_HPWM_LPWM_UpVn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN|HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_UpWn(Q32U_ duty)
 {
@@ -214,6 +219,7 @@ static inline void MH_HPWM_LPWM_UpWn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN|HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_VpWn(Q32U_ duty)
 {
@@ -225,6 +231,7 @@ static inline void MH_HPWM_LPWM_VpWn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN|HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_VpUn(Q32U_ duty)
 {
@@ -236,6 +243,7 @@ static inline void MH_HPWM_LPWM_VpUn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN|HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_WpUn(Q32U_ duty)
 {
@@ -247,6 +255,7 @@ static inline void MH_HPWM_LPWM_WpUn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN|HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_WpVn(Q32U_ duty)
 {
@@ -258,6 +267,7 @@ static inline void MH_HPWM_LPWM_WpVn(Q32U_ duty)
     MCPWMwx->MCPWM_GLBCR &= (~(HAL_PWM_UH_CHN_EN|HAL_PWM_UL_CHN_EN));
     MCPWMwx->MCPWM_GLBCR |= (HAL_PWM_VH_CHN_EN|HAL_PWM_VL_CHN_EN|HAL_PWM_WH_CHN_EN|HAL_PWM_WL_CHN_EN);
     MCPWMwx->MCPWM_RELOAD |= 0x0700U;
+    MCPWMx->MCPWM_SYNC.SWTRIG = 1U;
 }
 static inline void MH_HPWM_LPWM_HOpen(Q32U_ duty)
 {

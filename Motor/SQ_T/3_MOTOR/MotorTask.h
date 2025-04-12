@@ -106,16 +106,20 @@ static inline Q32U_ Motor_Read_Run_State(void)
 
 /**********************************************************************************************
 Function: Motor_Set_Target_Speed
-Description: 设置目标占空比
-Input: 占空比
+Description: 设置目标速度
+Input: 速度
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Target_Speed(Q32U_ Duty)
+static inline void Motor_Set_Target_Speed(Q32I_ Speed)
 {
-    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Q16I_LFT_14(Duty)/((Q32I_)MOTOR_MAX_SPEED);
+    if(Speed < ((Q32I_)MOTOR_MIN_SPEED))
+    {
+        Speed = (Q32I_)MOTOR_MIN_SPEED;
+    }
+    Motor.MS_CTRL.PWM_CTRL._I_Q14I_duty_vr = Q16I_LFT_14(Speed - ((Q32I_)MOTOR_MIN_SPEED))/(((Q32I_)MOTOR_MAX_SPEED) - ((Q32I_)MOTOR_MIN_SPEED));
 }
 
 /**********************************************************************************************
