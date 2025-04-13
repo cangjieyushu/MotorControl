@@ -5,7 +5,7 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>2981748965</Checksum>
+        <Checksum>1229576942</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -44,9 +44,9 @@
     </JLinkDriver>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>1</CpuClock>
+        <CpuClock>35</CpuClock>
         <ClockAutoDetect>0</ClockAutoDetect>
-        <ClockWanted>9</ClockWanted>
+        <ClockWanted>0</ClockWanted>
         <JtagSpeed>1</JtagSpeed>
         <Prescaler>1</Prescaler>
         <TimeStampPrescIndex>0</TimeStampPrescIndex>

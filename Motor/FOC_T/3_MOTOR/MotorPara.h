@@ -178,6 +178,15 @@ typedef struct{
 }ST_LOOP_CONTROL_T;
 
 typedef struct{
+    float F_V_BASE;
+    float F_I_BASE;
+    float F_F_BASE;
+    float F_W_BASE;
+    float F_R_BASE;
+    float F_L_BASE;
+    float F_P_BASE;
+    float F_T_BASE;
+    
     EM_MOTOR_STATE_FLOW         Motor_Flow;
     EM_MOTOR_LOOP_MODE          Motor_Loop_Mode;
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
