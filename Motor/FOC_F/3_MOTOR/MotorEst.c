@@ -226,6 +226,8 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
 {
+    float Freq_abs = MATH_ABS_F(pCTRL->FL_SRAD.F_Filter_out);
+    
     pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ws*(
 					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa
                        - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Abeta
@@ -246,6 +248,22 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     if      (pCTRL->_V_F_IErrbeta >  pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta =  pCTRL->_P_F_K1;}
     else if (pCTRL->_V_F_IErrbeta < -pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta = -pCTRL->_P_F_K1;}
     else                                              {pCTRL->_V_F_Ebeta =  pCTRL->_V_F_IErrbeta;}
+    
+    if(Freq_abs < 0.1f)
+    {
+        pCTRL->_V_F_Ealfa *= 10.0f;
+        pCTRL->_V_F_Ebeta *= 10.0f;
+    }
+    else if(Freq_abs < 0.2f)
+    {
+        pCTRL->_V_F_Ealfa *= 5.0f;
+        pCTRL->_V_F_Ebeta *= 5.0f;
+    }
+    else if(Freq_abs < 0.5f)
+    {
+        pCTRL->_V_F_Ealfa *= 2.0f;
+        pCTRL->_V_F_Ebeta *= 2.0f;
+    }
     
     pCTRL->PID_PLL.F_Rf = -pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb =  pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;

@@ -115,6 +115,8 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
 {
+    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
+    
     pCTRL->_V_Q28I_Aalfa_tmp += pCTRL->_P_Q14I_Ws*(
                               - Q32I_RHT_14(pCTRL->_P_Q14I_Rs_Over_Ld*pCTRL->_V_Q14I_Aalfa)
                               - Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_in*Q32I_RHT_14(pCTRL->_P_Q14I_Ld_Lq_Over_Ld*pCTRL->_V_Q14I_Abeta))
@@ -141,6 +143,22 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     if      (pCTRL->_V_Q14I_IErrbeta >  pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ebeta =  pCTRL->_P_Q14I_K1;}
     else if (pCTRL->_V_Q14I_IErrbeta < -pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ebeta = -pCTRL->_P_Q14I_K1;}
     else                                                    {pCTRL->_V_Q14I_Ebeta =  pCTRL->_V_Q14I_IErrbeta;}
+    
+    if(Freq_abs < 1638)
+    {
+        pCTRL->_V_Q14I_Ealfa *= 10;
+        pCTRL->_V_Q14I_Ebeta *= 10;
+    }
+    else if(Freq_abs < 3276)
+    {
+        pCTRL->_V_Q14I_Ealfa *= 5;
+        pCTRL->_V_Q14I_Ebeta *= 5;
+    }
+    else if(Freq_abs < 8192)
+    {
+        pCTRL->_V_Q14I_Ealfa *= 2;
+        pCTRL->_V_Q14I_Ebeta *= 2;
+    }
     
     pCTRL->PID_PLL.Q14I_Rf = -pCTRL->_I_Q00I_DIR_Target*Q32I_RHT_14(pCTRL->_V_Q14I_Ealfa*pCTRL->TG_Triangle.Q14I_Cos);
     pCTRL->PID_PLL.Q14I_Fb =  pCTRL->_I_Q00I_DIR_Target*Q32I_RHT_14(pCTRL->_V_Q14I_Ebeta*pCTRL->TG_Triangle.Q14I_Sin);
