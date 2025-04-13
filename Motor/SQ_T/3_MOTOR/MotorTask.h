@@ -106,8 +106,8 @@ static inline Q32U_ Motor_Read_Run_State(void)
 
 /**********************************************************************************************
 Function: Motor_Set_Target_Speed
-Description: 设置目标速度
-Input: 速度
+Description: 设置电机转速
+Input: 电机转速（rpm）
 Output: 无
 Input_Output: 无
 Return: 无
@@ -145,7 +145,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void Motor_Set_Vbus(Q32U_ Vbus_lsb)
+static inline void Motor_Set_Vbus(Q32I_ Vbus_lsb)
 {
     Motor.MS_CTRL.Q12I_VBUS_VAL = Vbus_lsb;
     Motor.MS_CTRL.Q12I_VBUS_PU = Q32I_RHT_10(Motor.MS_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);

@@ -24,7 +24,7 @@ Author: CJYS
 void BSP_DMA_Init(void)
 {
     DMA_TransferConfig_t GtDMATransferConfig;
-
+    
     /* Select DMA channel 0 transfer */
     GtDMATransferConfig.channel = DMA_CHANNEL0;
     /* Select ADC as the DMA request for channel 0 */
@@ -41,9 +41,7 @@ void BSP_DMA_Init(void)
     /* Address pointing to the source data */
     GtDMATransferConfig.srcAddr = (uint32_t)HAL_MOTOR_ADC_DATA_ADDRESS;
     /* Address pointing to the destination data */
-    /*PRQA S 0306 ++*/
     GtDMATransferConfig.destAddr = (uint32_t)Hal_AdcLoopData;
-    /*PRQA S 0306 --*/
     /* Number of minor loop in a major loop: 1 */
     GtDMATransferConfig.minorLoopNum = 1U;
     /* Source address offset in minor loop */
@@ -53,7 +51,7 @@ void BSP_DMA_Init(void)
     /* Source address offset after a major loop done */
     GtDMATransferConfig.majorLoopSrcOffset = 0;
     /* Destination address offset after a major loop done */
-    GtDMATransferConfig.majorLoopDestOffset = - 4*HAL_MOTOR_ADC_NUM;
+    GtDMATransferConfig.majorLoopDestOffset = -4*HAL_MOTOR_ADC_NUM;
     
     /* Source data transfer size */
     GtDMATransferConfig.srcTransferSize = DMA_TRANSFER_SIZE_4B;

@@ -63,10 +63,10 @@
 #define BEMF_CROSS_DELAY_COEFF          (256U/6U)//base1024，延迟换向比例，512为理论的30度
 
 //换向算法切换
-#define FLUX_TO_BEMF_FREQ               (Q32I_)(Q14I_FREQ_TO_PU(0.25f * MOTOR_MAX_FREQ))
+#define FLUX_TO_BEMF_FREQ               (Q14I_FREQ_TO_PU(0.25f * MOTOR_MAX_FREQ))
 #define FLUX_TO_BEMF_NUM                (20U)
 
-#define BEMF_TO_FLUX_FREQ               (Q32I_)(Q14I_FREQ_TO_PU(0.20f * MOTOR_MAX_FREQ))
+#define BEMF_TO_FLUX_FREQ               (Q14I_FREQ_TO_PU(0.20f * MOTOR_MAX_FREQ))
 #define BEMF_TO_FLUX_NUM                (20U)
 
 
@@ -74,26 +74,26 @@
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q12I_DUTY_TO_PU(300.0f*HAL_PWM_RUN1_FREQ/1000.0f))    //30us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q12I_DUTY_TO_PU(40.0f*HAL_PWM_RUN2_FREQ/1000.0f))     //40us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q12I_DUTY_TO_PU(300.0f/HAL_PWM_RUN1_FREQ/1000.0f))     //30us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q12I_DUTY_TO_PU(400.0f/HAL_PWM_RUN2_FREQ/1000.0f))     //40us
 
 
 //最大占空比，最小占空比
-#define DUTY_RAMP_ADDSTEP               (Q32I_)( Q22I_DUTY_TO_PU(0.020f))
-#define DUTY_RAMP_SUBSTEP               (Q32I_)(-Q22I_DUTY_TO_PU(0.020f))
+#define DUTY_RAMP_ADDSTEP               ( Q22I_DUTY_TO_PU(0.020f))
+#define DUTY_RAMP_SUBSTEP               (-Q22I_DUTY_TO_PU(0.020f))
 
 #define DUTY_CTRL_MAX                   (Q12I_DUTY_TO_PU(0.950f))
-#define DUTY_CTRL_MIN                   (Q12I_DUTY_TO_PU(0.010f))
+#define DUTY_CTRL_MIN                   (Q12I_DUTY_TO_PU(0.050f))
 
 //转速PID
-#define FREQ_RAMP_ADDSTEP               (Q32I_)( Q24I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
-#define FREQ_RAMP_SUBSTEP               (Q32I_)(-Q24I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_ADDSTEP               ( Q24I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_SUBSTEP               (-Q24I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
 
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
 #define FREQ_PID_KI                     (Q32I_)(0.0010f * MOTOR_Q14_PU)
 #define FREQ_PID_KD                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
-#define FREQ_PID_STEPMAX                (Q32I_)( Q28I_DUTY_TO_PU(0.010f))
-#define FREQ_PID_STEPMIN                (Q32I_)(-Q28I_DUTY_TO_PU(0.010f))
+#define FREQ_PID_STEPMAX                ( Q28I_DUTY_TO_PU(0.010f))
+#define FREQ_PID_STEPMIN                (-Q28I_DUTY_TO_PU(0.010f))
 #define FREQ_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define FREQ_PID_OUTMIN                 (DUTY_CTRL_MIN)
     
@@ -101,8 +101,8 @@
 #define IBUS_PID_KP                     (Q32I_)(0.010f * MOTOR_Q14_PU)
 #define IBUS_PID_KI                     (Q32I_)(0.010f * MOTOR_Q14_PU)
 #define IBUS_PID_KD                     (Q32I_)(0.000f * MOTOR_Q14_PU)
-#define IBUS_PID_STEPMAX                (Q32I_)( Q28I_DUTY_TO_PU(0.010f))
-#define IBUS_PID_STEPMIN                (Q32I_)(-Q28I_DUTY_TO_PU(0.010f))
+#define IBUS_PID_STEPMAX                ( Q28I_DUTY_TO_PU(0.010f))
+#define IBUS_PID_STEPMIN                (-Q28I_DUTY_TO_PU(0.010f))
 #define IBUS_PID_OUTMAX                 (DUTY_CTRL_MAX)
 #define IBUS_PID_OUTMIN                 (DUTY_CTRL_MIN)
 
@@ -110,15 +110,15 @@
 #define IPHASE_PID_KP                   (Q32I_)(0.010f * MOTOR_Q14_PU)
 #define IPHASE_PID_KI                   (Q32I_)(0.010f * MOTOR_Q14_PU)
 #define IPHASE_PID_KD                   (Q32I_)(0.000f * MOTOR_Q14_PU)
-#define IPHASE_PID_STEPMAX              (Q32I_)( Q28I_DUTY_TO_PU(0.010f))
-#define IPHASE_PID_STEPMIN              (Q32I_)(-Q28I_DUTY_TO_PU(0.010f))
+#define IPHASE_PID_STEPMAX              ( Q28I_DUTY_TO_PU(0.010f))
+#define IPHASE_PID_STEPMIN              (-Q28I_DUTY_TO_PU(0.010f))
 #define IPHASE_PID_OUTMAX               (DUTY_CTRL_MAX)
 #define IPHASE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 
 //刹车占空比控制
-#define BRAKE_DUTY_RAMP_ADDSTEP         (Q32I_)( Q22I_DUTY_TO_PU(0.020f))
-#define BRAKE_DUTY_RAMP_SUBSTEP         (Q32I_)(-Q22I_DUTY_TO_PU(0.020f))
+#define BRAKE_DUTY_RAMP_ADDSTEP         ( Q22I_DUTY_TO_PU(0.020f))
+#define BRAKE_DUTY_RAMP_SUBSTEP         (-Q22I_DUTY_TO_PU(0.020f))
 
 #define BRAKE_DUTY_CTRL_MAX             (Q12I_DUTY_TO_PU(0.400f))
 #define BRAKE_DUTY_CTRL_MIN             (Q12I_DUTY_TO_PU(0.200f))

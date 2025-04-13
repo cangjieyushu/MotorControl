@@ -8,7 +8,6 @@
 #ifndef MotorPara_H
 #define MotorPara_H
 
-#include "Math.h"
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
 #include "MotorDent.h"

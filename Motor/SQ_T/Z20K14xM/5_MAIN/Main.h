@@ -23,8 +23,4 @@
 #include "SEGGER_RTT.h"
 #endif
 
-void IRQHandleDMAIsr(void);
-void IRQHandleMCBKIsr(void);
-void IRQHandleSTIMIsr(void);
-
 #endif /* Main_H */

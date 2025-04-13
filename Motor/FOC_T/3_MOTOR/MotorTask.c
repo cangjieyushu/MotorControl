@@ -44,7 +44,6 @@ pMOTOR_FUN Motor_Flow_Function[MOTOR_STATE_BRAKE+1] =
     MotorTask_Brake_Flow
 };
 
-void MotorTask_AlignLoop_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor);
 void MotorTask_CloseLoop_Flow(ST_MOTOR_TASK* pMotor);
 

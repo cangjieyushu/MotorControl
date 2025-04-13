@@ -117,8 +117,8 @@
 //非线性磁链观测器  
 #define MOTOR_FLUX_GAMMA                    ((Q32I_)(0.02f * Q14I_VOLTAGE_PU * ((MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU))))    //增益系数
 
-#define MOTOR_FLUX_PLL_KP                   ((Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU))                                        //锁相环比例系数
-#define MOTOR_FLUX_PLL_KI                   ((Q32I_)(MOTOR_Q14_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / Q14I_FLUX_PU))             //锁相环积分系数
+#define MOTOR_FLUX_PLL_KP                   ((Q32I_)(MOTOR_Q28_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU / W_BASE))                                        //锁相环比例系数
+#define MOTOR_FLUX_PLL_KI                   ((Q32I_)(MOTOR_Q28_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / Q14I_FLUX_PU / W_BASE))             //锁相环积分系数
 #define MOTOR_FLUX_PLL_KD                   ((Q32I_)(0.0f))                     //锁相环微分系数
 #define MOTOR_FLUX_PLL_MAX                  ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
 #define MOTOR_FLUX_PLL_MIN                  ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
@@ -126,8 +126,8 @@
 //SMO观测器
 #define MOTOR_SMO_K1                        (3500)                              //增益系数
 
-#define MOTOR_SMO_PLL_KP                    ((Q32I_)(MOTOR_Q14_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU)))                            //锁相环比例系数
-#define MOTOR_SMO_PLL_KI                    ((Q32I_)(MOTOR_Q14_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * Q14I_VOLTAGE_PU))) //锁相环积分系数
+#define MOTOR_SMO_PLL_KP                    ((Q32I_)(MOTOR_Q28_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU) / W_BASE))                            //锁相环比例系数
+#define MOTOR_SMO_PLL_KI                    ((Q32I_)(MOTOR_Q28_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * Q14I_VOLTAGE_PU) / W_BASE)) //锁相环积分系数
 #define MOTOR_SMO_PLL_KD                    ((Q32I_)(0.0f))                     //锁相环微分系数
 #define MOTOR_SMO_PLL_MAX                   ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出

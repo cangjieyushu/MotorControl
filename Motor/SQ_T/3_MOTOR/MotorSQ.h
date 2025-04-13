@@ -306,6 +306,7 @@ typedef struct{
     Q32U_               Q32U_switch_cnt;
 }ST_MS_CONTROL;
 
+extern EM_SECTOR_NUM Position_Sector[6][2];
 extern EM_SECTOR_NUM Last_Sector[6];
 extern EM_SECTOR_NUM Next_Sector[6];
 
