@@ -29,6 +29,9 @@
 #include "Math.h"
 
 
+#define HAL_CURRENT_LOOP_FREQ_PRESCALER     (1)                            //电流环分频
+
+
 //频率设置
 #define HAL_SYSTEM_FREQ                         (160000.0f)                //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)          //kHz，PWM时钟频率
@@ -59,6 +62,11 @@
 #define HAL_PWM_RUN1_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN1_FREQ)
 #define HAL_PWM_RUN2_SET                        (Q16U_)(HAL_PWM_PRE_FREQ/HAL_PWM_RUN2_FREQ)
 
+#define HAL_PWM_SET_FREQ                        (HAL_PWM_RUN2_FREQ)
+#define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)
+#define HAL_PWM_SET_COUNT_F                     (HAL_PWM_ALL_COUNT_F/2.0f)
+#define HAL_PWM_SET_COUNT_T                     (Q16U_)(HAL_PWM_SET_COUNT_F)
+
 
 //PWM设置
 #define HAL_PWM_DEADTIME_TIME                   (0.5f)                  		//us，死区时间
@@ -66,13 +74,31 @@
 
 
 //ADC采样时刻设置
-#define HAL_ADC_DELAY_TIME                      (5.0f)                  //us，米勒平台时间
-#define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_TIME*HAL_PWM_PRE_FREQ/1000.0f)
-#define HAL_ADC_SAMPLE_TIME                     (5.0f)                  //us，ADC采样时间
-#define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
+#define HAL_ADC_TRIGGER_TIME1                   (0.15f)
+#define HAL_ADC_TRIGGER_TIME2                   (0.35f)
+#define HAL_ADC_TRIGGER_TIME3                   (0.50f)
+#define HAL_ADC_TRIGGER_TIME4                   (0.525f)
+#define HAL_ADC_TRIGGER_TIME5                   (0.55f)
 
-#define HAL_ADC_SOLVE_TIME                      (5.0f)                  //us，换向判断时间
-#define HAL_ADC_SOLVE_VALUE                     (Q32U_)(HAL_ADC_SOLVE_TIME*HAL_PWM_PRE_FREQ/1000.0f)
+#define HAL_ADC_DELAY_TIME_SQ                   (5.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_VALUE_SQ                  (Q32U_)(HAL_ADC_DELAY_TIME_SQ*HAL_PWM_PRE_FREQ/1000.0f)
+
+#define HAL_ADC_SAMPLE_TIME_SQ                  (5.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_VALUE_SQ                 (Q32U_)(HAL_ADC_SAMPLE_TIME_SQ*HAL_PWM_PRE_FREQ/1000.0f)
+
+#define HAL_ADC_SOLVE_TIME_SQ                   (15.0f)                 //us，换向判断时间
+#define HAL_ADC_SOLVE_VALUE_SQ                  (Q32U_)(HAL_ADC_SOLVE_TIME_SQ*HAL_PWM_PRE_FREQ/1000.0f)
+
+#define HAL_ADC_DELAY_TIME                      (1.5f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_DELAY_VALUE                     (Q16U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_ADC_SAMPLE_TIME                     (1.5f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_SET_FREQ/1000.0f)
+#define HAL_ADC_SAMPLE_VALUE                    (Q16U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_COUNT_F)
+
+#define HAL_MAX_DUTY                            (1.0f - 2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
+#define HAL_MIN_DUTY                            (2.0f*(HAL_ADC_DELAY_DUTY + HAL_ADC_SAMPLE_DUTY))
 
 
 //TIM设置
@@ -98,7 +124,7 @@
 #define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
 
 //相电流采样
-#define HAL_ADC_CURRENT_OFFSET                  (0.5f)                  //V，电流采样偏置电压
+#define HAL_ADC_CURRENT_OFFSET                  (2.5f)                  //V，电流采样偏置电压
 #define HAL_ADC_CURRENT_GAIN                    (20.0f)                 //相电流采样放大倍数
 #define HAL_ADC_CURRENT_RESISTOR                (0.005f)                //Ω，相电流采样电阻
 #define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))
@@ -183,6 +209,21 @@
 
 
 //ADC_MOTOR
+#define HAL_ADC_IU_PORT             PORT_C
+#define HAL_ADC_IU_PIN              GPIO_17
+#define HAL_ADC_IU_PINMUX           PTC17_ADC0_CH15
+#define HAL_ADC_IU_CHN              ADC_P_CH15
+
+#define HAL_ADC_IV_PORT             PORT_C
+#define HAL_ADC_IV_PIN              GPIO_16
+#define HAL_ADC_IV_PINMUX           PTC16_ADC0_CH14
+#define HAL_ADC_IV_CHN              ADC_P_CH14
+
+#define HAL_ADC_IW_PORT             PORT_C
+#define HAL_ADC_IW_PIN              GPIO_15
+#define HAL_ADC_IW_PINMUX           PTC15_ADC0_CH13
+#define HAL_ADC_IW_CHN              ADC_P_CH13
+
 #define HAL_ADC_UBEMF_PORT          PORT_A
 #define HAL_ADC_UBEMF_PIN           GPIO_7
 #define HAL_ADC_UBEMF_PINMUX        PTA7_ADC0_CH3

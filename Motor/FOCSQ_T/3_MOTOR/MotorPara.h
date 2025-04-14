@@ -10,6 +10,8 @@
 
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
+#include "MotorEst.h"
+#include "MotorFoc.h"
 #include "MotorSQ.h"
 
 #define SPEED_CLOSE_EN                  (1U)        //0：开环，1：转速环
@@ -133,6 +135,58 @@
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
 #define MOTOR_STALL_ERROR_TIME          (2000U) //ms，堵转时间
 
+/******************************************************************************/
+//观测器选择
+#define MOTOR_EST_FLUX              (10U)
+#define MOTOR_EST_SMO               (11U)
+#define MOTOR_EST_MODE              MOTOR_EST_FLUX
+
+
+//电机closeloop相关参数，闭环开始阶段 
+#define MOTOR_CLOSELOOP_STEP                (Q24I_FREQ_TO_PU(100.0f * MOTOR_LTs))   //Hz/s,电机closeloop每秒增速步长
+
+
+//转速环PID
+#define MOTOR_FREQ_PID_Coeff                (0.35f)                                 //转速环PID增益系数
+#define MOTOR_FREQ_KP_GAIN                  ((Q32I_)(MOTOR_Q14_PU * MOTOR_FREQ_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_FREQ * F_BASE / I_BASE))
+#define MOTOR_FREQ_KI_GAIN                  ((Q32I_)(MOTOR_Q14_PU * 0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs * F_BASE / I_BASE))
+#define MOTOR_FREQ_KD_GAIN             	    ((Q32I_)(0.0f))
+
+#define MOTOR_FREQ_PID_MAX                  ((Q32I_)( 1.0f * Q14I_CURRENT_PHASE_PU))//A,转速环输出q轴电流限幅
+#define MOTOR_FREQ_PID_MIN                  ((Q32I_)(-1.0f * Q14I_CURRENT_PHASE_PU))//A,转速环输出q轴电流限幅
+
+//电流PID
+#define MOTOR_CURRENT_PID_Coeff             (0.05f)                             //电流环P增益系数
+#define MOTOR_CURRENT_KP_GAIN               ((Q32I_)(MOTOR_Q14_PU * MOTOR_CURRENT_PID_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs * I_BASE / V_BASE))
+#define MOTOR_CURRENT_KI_GAIN               ((Q32I_)(MOTOR_CURRENT_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls * I_BASE / V_BASE))
+#define MOTOR_CURRENT_KD_GAIN               ((Q32I_)(0.0f))
+//dq轴输出电压限制，如果保证电压矢量为圆形，设置为0.5774f，如果需要过调制，则最大为0.6667f
+#define MOTOR_VS_MAX_SCALE                  ((Q32I_)(0.6667f * MOTOR_Q14_PU))
+
+
+//观测器PLL系数
+#define MOTOR_PLL_Coeff                     (0.20f)
+#define MOTOR_PLL_SPEED_LPF_COEFF           (13)                                //0~256，越小滤波越深
+#define MOTOR_MAX_SRAD                      (MOTOR_MAX_FREQ * MATH_2PI_F)
+
+//非线性磁链观测器  
+#define MOTOR_FLUX_GAMMA                    ((Q32I_)(0.02f * Q14I_VOLTAGE_PU * ((MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU)*(MOTOR_Q14_PU/Q14I_FLUX_PU))))    //增益系数
+
+#define MOTOR_FLUX_PLL_KP                   ((Q32I_)(MOTOR_Q28_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / Q14I_FLUX_PU / W_BASE))                                        //锁相环比例系数
+#define MOTOR_FLUX_PLL_KI                   ((Q32I_)(MOTOR_Q28_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / Q14I_FLUX_PU / W_BASE))             //锁相环积分系数
+#define MOTOR_FLUX_PLL_KD                   ((Q32I_)(0.0f))                     //锁相环微分系数
+#define MOTOR_FLUX_PLL_MAX                  ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
+#define MOTOR_FLUX_PLL_MIN                  ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
+
+//SMO观测器
+#define MOTOR_SMO_K1                        (3500)                              //增益系数
+
+#define MOTOR_SMO_PLL_KP                    ((Q32I_)(MOTOR_Q28_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.5f * Q14I_VOLTAGE_PU) / W_BASE))                            //锁相环比例系数
+#define MOTOR_SMO_PLL_KI                    ((Q32I_)(MOTOR_Q28_PU * MATH_SQUARE_F(2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.5f * Q14I_VOLTAGE_PU) / W_BASE)) //锁相环积分系数
+#define MOTOR_SMO_PLL_KD                    ((Q32I_)(0.0f))                     //锁相环微分系数
+#define MOTOR_SMO_PLL_MAX                   ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
+#define MOTOR_SMO_PLL_MIN                   ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
+
 
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
@@ -140,6 +194,7 @@ typedef enum{
     MOTOR_STATE_IDLE,           //电机静止检测阶段
     MOTOR_STATE_BOOT,           //自举电容充电阶段
     MOTOR_STATE_POSITION,       //脉冲定位阶段阶段
+    MOTOR_STATE_RUN_SQ,         //电机方波运行阶段
     MOTOR_STATE_RUN,            //电机运行阶段
     MOTOR_STATE_BRAKE,          //电机刹车阶段
 }EM_MOTOR_STATE_FLOW;
@@ -151,6 +206,12 @@ typedef union{
         BIT motor_speed_flag    :1;//速度环使能标志位
         BIT motor_busA_flag     :1;//母线电流环使能标志位
         BIT motor_busP_flag     :1;//母线功率环使能标志位
+        BIT motor_sq_flag       :1;//方波标志位
+        BIT motor_foc_flag      :1;//FOC标志位
+        BIT motor_sqtofoc_en    :1;//方波切FOC使能位
+        BIT motor_foctosq_en    :1;//FOC切方波使能位
+        BIT motor_sqtofoc_flag  :1;//方波切FOC标志位
+        BIT motor_foctosq_flag  :1;//FOC切方波标志位
     }bit;
 }UN_MOTOR_STATE_FLAG;
 
@@ -166,6 +227,19 @@ typedef union{
 }UN_MOTOR_ERROR_FLAG;
 
 typedef struct{
+    Q32U_                       _V_Q32U_Close_cnt;
+}ST_LOOP_CONTROL_T;
+
+typedef struct{
+    float F_V_BASE;
+    float F_I_BASE;
+    float F_F_BASE;
+    float F_W_BASE;
+    float F_R_BASE;
+    float F_L_BASE;
+    float F_P_BASE;
+    float F_T_BASE;
+        
     EM_MOTOR_STATE_FLOW         Motor_Flow;
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
     UN_MOTOR_ERROR_FLAG         Motor_Error_Flag;
@@ -177,6 +251,14 @@ typedef struct{
     ST_BRAKE_CONTROL            BRAKE_CTRL;
     
     ST_MS_CONTROL               MS_CTRL;
+    
+    ST_LOOP_CONTROL_T           LOOP_CTRL;
+    ST_SVPWM_CONTROL_T          SVPWM_CTRL;
+    ST_FREQ_CONTROL_T           FREQ_CTRL;
+    ST_CURRENT_CONTROL_T        CURRENT_CTRL;
+    
+    ST_FLUX_CONTROL_T           FLUX_CTRL;
+    ST_SMO_CONTROL_T            SMO_CTRL;
     
     Q32U_                       Q32U_MOS_Error_cnt;
     Q32I_                       Q14I_IPHASE_MAX_PU;

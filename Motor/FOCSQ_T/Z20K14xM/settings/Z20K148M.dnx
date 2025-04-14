@@ -5,7 +5,7 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>542785163</Checksum>
+        <Checksum>2335595809</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -44,10 +44,10 @@
     </JLinkDriver>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>35</CpuClock>
-        <ClockAutoDetect>0</ClockAutoDetect>
-        <ClockWanted>0</ClockWanted>
-        <JtagSpeed>1</JtagSpeed>
+        <CpuClock>6029411</CpuClock>
+        <ClockAutoDetect>1</ClockAutoDetect>
+        <ClockWanted>7500000</ClockWanted>
+        <JtagSpeed>6000000</JtagSpeed>
         <Prescaler>1</Prescaler>
         <TimeStampPrescIndex>0</TimeStampPrescIndex>
         <TimeStampPrescData>0</TimeStampPrescData>
@@ -96,6 +96,14 @@
         <CustomRanges9>0 3758096384 1048576 2 0</CustomRanges9>
         <CustomRangesText9 />
     </PlCacheRanges>
+    <Registers>
+        <regBase0>MCPWM1_MCPWM_CNT0 10</regBase0>
+        <regBase1>SYST_CVR 10</regBase1>
+        <regBase2>MCPWM1_MCPWM_MOD0 10</regBase2>
+    </Registers>
+    <array_types>
+        <Fmt0>uint32_t[8]	4	0</Fmt0>
+    </array_types>
     <Trace2>
         <Enabled>0</Enabled>
         <ShowSource>0</ShowSource>

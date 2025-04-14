@@ -119,6 +119,57 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
 }
 
 /**********************************************************************************************
+Function: MotorSQ_FOCtoSQ_Init
+Description: FOCtoSQ启动初始化
+Input: 无
+Output: 无
+Input_Output: 方波控制指针，顺风检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorSQ_FOCtoSQ_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
+{
+    pMS_CTRL->SW_Math = SWITCH_FLUX;
+    pMS_CTRL->SQ_Flow = SQUARE_CROSS_ING;
+    pMS_CTRL->PWM_CTRL.Flag.bit.b0_init = SUCS;
+    
+    pMS_CTRL->FREQ_CAL.Flag.bit.b0_init = 1U;
+    pMS_CTRL->FREQ_CAL._O_Q32U_60_degree_cnt_filter = Q32I_RHT_10(pMS_CTRL->_P_Q24I_Freq_Scale*(pMS_CTRL->FREQ_CAL._P_Q32U_hall_tim_freq/pMS_CTRL->FL_Freq.Q16I_Filter_in));
+    
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0] = pMS_CTRL->FREQ_CAL._O_Q32U_60_degree_cnt_filter/6;
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[1] = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[2] = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[3] = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[4] = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+    pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[5] = pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[0];
+        
+    pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_FLYING->_P_Q12U_vbus_max_val*(pMS_CTRL->PWM_CTRL._P_Q12U_duty_max
+    *pMS_CTRL->FL_Freq.Q16I_Filter_in/pMS_CTRL->PWM_CTRL._P_Q14U_motor_freq_max)/pMS_CTRL->Q12I_VBUS_VAL;
+    if(pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val > pMS_CTRL->PWM_CTRL._P_Q12U_duty_max)
+    {
+        pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_CTRL->PWM_CTRL._P_Q12U_duty_max;
+    }
+    
+    Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
+    
+    PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Freq, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    
+    Ramp_Init_T(&pMS_CTRL->PWM_CTRL.Ramp_Duty, pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val);
+    
+    Filter_Init_T(&pMS_CTRL->FL_Freq, pMS_CTRL->FL_Freq.Q16I_Filter_in);
+    
+    pMS_CTRL->PWM_CTRL._I_Q12I_duty_freq = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
+    pMS_CTRL->PWM_CTRL._I_Q12I_duty_ibus = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
+    pMS_CTRL->PWM_CTRL._I_Q12I_duty_iphase = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
+    pMS_CTRL->PWM_CTRL._O_Q12I_duty_set = pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val;
+    pMS_CTRL->PWM_CTRL._O_Q16U_arr_set = pMS_CTRL->PWM_CTRL._P_Q14U_high_pwm_freq;
+    
+    pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = Q32I_RHT_12(pMS_CTRL->PWM_CTRL._O_Q12I_duty_set*pMS_CTRL->PWM_CTRL._O_Q16U_arr_set);
+}
+
+/**********************************************************************************************
 Function: MotorSQ_Offset_Check_Init
 Description: 偏置检测初始化
 Input: 无
@@ -138,6 +189,8 @@ EM_FALG_STATE MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
         pMS_OFFSET->_V_Q32U_cnt = 0U;
         
         pMS_OFFSET->_O_Q12I_IPHASE_OFFSET = 0;
+        pMS_OFFSET->_O_Q12I_Ishunt_1_Offset = 0;
+        pMS_OFFSET->_O_Q12I_Ishunt_2_Offset = 0;
 
         pMS_OFFSET->Flag.bit.b0_init = 1U;
     }
@@ -170,6 +223,26 @@ EM_FALG_STATE MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
         pMS_OFFSET->_O_Q12I_IPHASE_OFFSET /= pMS_OFFSET->_V_Q32U_cnt;
         if((pMS_OFFSET->_O_Q12I_IPHASE_OFFSET > pMS_OFFSET->_P_Q16U_offset_max)
         || (pMS_OFFSET->_O_Q12I_IPHASE_OFFSET < pMS_OFFSET->_P_Q16U_offset_min))
+        {
+            pMS_OFFSET->Flag.bit.b2_fail = 1U;
+        }
+        else
+        {
+            pMS_OFFSET->Flag.bit.b1_sucs = 1U;
+        }
+    }
+    
+    pMS_OFFSET->_O_Q12I_Ishunt_1_Offset += pMS_OFFSET->_I_Q12I_Ishunt_1_Data;
+    pMS_OFFSET->_O_Q12I_Ishunt_2_Offset += pMS_OFFSET->_I_Q12I_Ishunt_2_Data;
+    
+    if(pMS_OFFSET->_V_Q32U_cnt == pMS_OFFSET->_P_Q16U_check_num)
+    {
+        pMS_OFFSET->_O_Q12I_Ishunt_1_Offset /= pMS_OFFSET->_V_Q32U_cnt;
+        pMS_OFFSET->_O_Q12I_Ishunt_2_Offset /= pMS_OFFSET->_V_Q32U_cnt;
+        if((pMS_OFFSET->_O_Q12I_Ishunt_1_Offset > pMS_OFFSET->_P_Q16U_offset_max)
+        || (pMS_OFFSET->_O_Q12I_Ishunt_1_Offset < pMS_OFFSET->_P_Q16U_offset_min)
+        || (pMS_OFFSET->_O_Q12I_Ishunt_2_Offset > pMS_OFFSET->_P_Q16U_offset_max)
+        || (pMS_OFFSET->_O_Q12I_Ishunt_2_Offset < pMS_OFFSET->_P_Q16U_offset_min))
         {
             pMS_OFFSET->Flag.bit.b2_fail = 1U;
         }
