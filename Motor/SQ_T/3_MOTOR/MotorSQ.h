@@ -221,7 +221,7 @@ typedef struct{
     UN_MS_FLAG  Flag;
     
     Q32U_   _V_Q32U_cnt;
-    Q32U_   _V_Q32U_current_cnt;
+    Q32U_   _V_Q32U_reset_cnt;
     Q32U_   _V_Q32U_switch_cnt;
     
     Q32U_   _P_Q16U_error_time;
@@ -341,7 +341,7 @@ Input_Output: 偏置检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET);
+EM_FALG_STATE MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET);
 
 /**********************************************************************************************
 Function: MotorSQ_Offset_Check
@@ -352,7 +352,7 @@ Input_Output: 偏置检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET);
+EM_FALG_STATE MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET);
     
 /**********************************************************************************************
 Function: MotorSQ_Flying_Check_Init
@@ -363,7 +363,7 @@ Input_Output: 顺风检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING);
+EM_FALG_STATE MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING);
 
 /**********************************************************************************************
 Function: MotorSQ_Flying_Check
@@ -374,7 +374,7 @@ Input_Output: 顺风检测指针，频率计算指针，方波控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL);
+EM_FALG_STATE MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL);
     
 /**********************************************************************************************
 Function: MotorSQ_Boot_Check_Init
@@ -385,7 +385,7 @@ Input_Output: 自举控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT);
+EM_FALG_STATE MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT);
 
 /**********************************************************************************************
 Function: MotorSQ_Boot_Check
@@ -396,7 +396,7 @@ Input_Output: 自举控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT);
+EM_FALG_STATE MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT);
 
 /**********************************************************************************************
 Function: MotorSQ_Pluse_Positon_Init
@@ -407,7 +407,7 @@ Input_Output: 脉冲定位指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* MS_POSITION);
+EM_FALG_STATE MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* MS_POSITION);
 
 /**********************************************************************************************
 Function: MotorSQ_Pluse_Positon
@@ -418,7 +418,7 @@ Input_Output: 脉冲定位指针，方波控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* MS_POSITION, ST_MS_CONTROL* pMS_CTRL);
+EM_FALG_STATE MotorSQ_Pluse_Positon(ST_MS_POSITION* MS_POSITION, ST_MS_CONTROL* pMS_CTRL);
 
 /**********************************************************************************************
 Function: MotorSQ_Brake_Init
@@ -429,7 +429,7 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
+EM_FALG_STATE MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CONTROL);
 
 /**********************************************************************************************
 Function: MotorSQ_Brake
@@ -594,7 +594,7 @@ Input_Output: 堵转检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL);
+EM_FALG_STATE MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL);
 
 /**********************************************************************************************
 Function: MotorSQ_Ibus_Cal

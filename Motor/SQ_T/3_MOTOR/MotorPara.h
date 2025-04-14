@@ -131,7 +131,7 @@
 
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
-#define MOTOR_STALL_ERROR_TIME          (500U)  //ms，堵转时间
+#define MOTOR_STALL_ERROR_TIME          (2000U) //ms，堵转时间
 
 
 typedef enum{

@@ -127,9 +127,9 @@ Input_Output: 偏置检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
+EM_FALG_STATE MotorSQ_Offset_Check_Init(ST_MS_OFFSET* pMS_OFFSET)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if(pMS_OFFSET->Flag.bit.b0_init == 0U)
     {
@@ -158,9 +158,9 @@ Input_Output: 偏置检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
+EM_FALG_STATE MotorSQ_Offset_Check(ST_MS_OFFSET* pMS_OFFSET)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     pMS_OFFSET->_O_Q12I_IPHASE_OFFSET += pMS_OFFSET->_I_Q12I_IPHASE_ADC;
     pMS_OFFSET->_V_Q32U_cnt++;
@@ -202,9 +202,9 @@ Input_Output: 顺风检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING)
+EM_FALG_STATE MotorSQ_Flying_Check_Init(ST_MS_FLYING* pMS_FLYING)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if(pMS_FLYING->Flag.bit.b0_init == 0U)
     {
@@ -234,9 +234,9 @@ Input_Output: 顺风检测指针，频率计算指针，方波控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
+EM_FALG_STATE MotorSQ_Flying_Check(ST_MS_FLYING* pMS_FLYING, ST_FREQ_CAL* pFREQ_CAL, ST_MS_CONTROL* pMS_CTRL)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if((pMS_FLYING->_I_Q12I_BEMF_U_ADC < pMS_FLYING->_P_Q16U_check_tl)
     && (pMS_FLYING->_I_Q12I_BEMF_V_ADC < pMS_FLYING->_P_Q16U_check_tl)
@@ -348,9 +348,9 @@ Input_Output: 自举控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT)
+EM_FALG_STATE MotorSQ_Boot_Check_Init(ST_MS_BOOT* pMS_BOOT)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if(pMS_BOOT->Flag.bit.b0_init == 0U)
     {
@@ -378,9 +378,9 @@ Input_Output: 自举控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
+EM_FALG_STATE MotorSQ_Boot_Check(ST_MS_BOOT* pMS_BOOT)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if((pMS_BOOT->_I_Q12I_BEMF_U_ADC < pMS_BOOT->_P_Q16U_boot_tl)
     && (pMS_BOOT->_I_Q12I_BEMF_V_ADC < pMS_BOOT->_P_Q16U_boot_tl)
@@ -421,9 +421,9 @@ Input_Output: 脉冲定位指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
+EM_FALG_STATE MotorSQ_Pluse_Positon_Init(ST_MS_POSITION* pMS_POSITION)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if(pMS_POSITION->Flag.bit.b0_init == 0U)
     {
@@ -450,9 +450,9 @@ Input_Output: 脉冲定位指针，方波控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTRL)
+EM_FALG_STATE MotorSQ_Pluse_Positon(ST_MS_POSITION* pMS_POSITION, ST_MS_CONTROL* pMS_CTRL)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     switch(pMS_POSITION->_V_Q32U_cnt)
     {
@@ -514,9 +514,9 @@ Input_Output: 刹车控制指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL)
+EM_FALG_STATE MotorSQ_Brake_Init(ST_BRAKE_CONTROL* pBRAKE_CTRL)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     
     if(pBRAKE_CTRL->Flag.bit.b0_init == 0U)
     {
@@ -1036,8 +1036,8 @@ Author: CJYS
 void MotorSQ_Stall_Check_Init(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
     pSTALL_CTRL->Flag.all = 0U;
-    pSTALL_CTRL->_V_Q32U_current_cnt = 0U;
     pSTALL_CTRL->_V_Q32U_cnt = 0U;
+    pSTALL_CTRL->_V_Q32U_reset_cnt = 0U;
     pSTALL_CTRL->_V_Q32U_switch_cnt = 0U;
     
     pMS_CTRL->Q32U_switch_cnt = 0U;
@@ -1052,9 +1052,9 @@ Input_Output: 堵转检测指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL)
+EM_FALG_STATE MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL)
 {
-    Q32U_ flag_tmp = ING;
+    EM_FALG_STATE flag_tmp = ING;
     Q32U_ motor_switch_cnt_max = 0U;
     Q32U_ motor_switch_cnt_min = 0U;
     
@@ -1075,14 +1075,23 @@ Q32U_ MotorSQ_Stall_Check(ST_STALL_CONTROL* pSTALL_CTRL, ST_MS_CONTROL* pMS_CTRL
     {
         flag_tmp = SUCS;
     }
-
+    
     if(pMS_CTRL->Q32U_switch_cnt == pSTALL_CTRL->_V_Q32U_switch_cnt)
     {
         pSTALL_CTRL->_V_Q32U_cnt++;
+        pSTALL_CTRL->_V_Q32U_reset_cnt++;
         if(pSTALL_CTRL->_V_Q32U_cnt > pSTALL_CTRL->_P_Q16U_error_time)
         {
             pSTALL_CTRL->_V_Q32U_cnt = 0U;
             flag_tmp = SUCS;
+        }
+        
+        if(pSTALL_CTRL->_V_Q32U_reset_cnt > 100U)
+        {
+            pSTALL_CTRL->_V_Q32U_reset_cnt = 0U;
+            pMS_CTRL->FL_Freq.Q16I_Filter_out = 0;
+            pMS_CTRL->FL_Freq.Q24I_Filter_tmp = 0;
+            flag_tmp = FAIL;
         }
     }
     else

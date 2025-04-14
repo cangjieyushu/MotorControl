@@ -113,7 +113,10 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->MS_CTRL.PWM_CTRL._I_Q12I_duty_ibus = pMotor->MS_CTRL.PWM_CTRL._P_Q12U_duty_max;
         }
         
-        pMotor->Motor_Error_Flag.bit.motor_stall = MotorSQ_Stall_Check(&pMotor->MS_CTRL.STALL_CTRL, &pMotor->MS_CTRL);
+        if(MotorSQ_Stall_Check(&pMotor->MS_CTRL.STALL_CTRL, &pMotor->MS_CTRL) == SUCS)
+        {
+            pMotor->Motor_Error_Flag.bit.motor_stall = 1U;
+        }
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
     {
