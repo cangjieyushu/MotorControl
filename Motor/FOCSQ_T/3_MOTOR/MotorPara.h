@@ -139,7 +139,7 @@
 //观测器选择
 #define MOTOR_EST_FLUX              (10U)
 #define MOTOR_EST_SMO               (11U)
-#define MOTOR_EST_MODE              MOTOR_EST_FLUX
+#define MOTOR_EST_MODE              MOTOR_EST_SMO
 
 
 //电机closeloop相关参数，闭环开始阶段 
@@ -260,6 +260,7 @@ typedef struct{
     ST_FLUX_CONTROL_T           FLUX_CTRL;
     ST_SMO_CONTROL_T            SMO_CTRL;
     
+    Q32I_                       Q12U_Last_Angle;
     Q32U_                       Q32U_MOS_Error_cnt;
     Q32I_                       Q14I_IPHASE_MAX_PU;
 }ST_MOTOR_TASK;
