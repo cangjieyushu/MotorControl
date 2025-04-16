@@ -30,7 +30,7 @@ ST_MOTOR_TASK  Motor =
     .MS_FLYING._P_Q16U_check_num = FREE_FLYING_NUM,
     .MS_FLYING._P_Q16U_flying_filter = FREE_FLYING_FILTER,
     .MS_FLYING._P_Q16U_flying_time = FREE_FLYING_TIME,
-    .MS_FLYING._P_Q12U_vbus_max_val = (Q32U_)(MOTOR_VOLTAGE_V/HAL_ADC_VOLTAGE_SCALE),
+    .MS_FLYING._P_Q12U_vbus_max_adc = (Q32U_)(MOTOR_VOLTAGE_V/HAL_ADC_VOLTAGE_SCALE),
     
     .MS_BOOT._P_Q16U_boot_tl = BOOT_CHECK_TL_lsb,
     .MS_BOOT._P_Q16U_boot_num = BOOT_CHECK_NUM,
@@ -39,7 +39,7 @@ ST_MOTOR_TASK  Motor =
     
     .MS_POSITION._P_Q16U_position_tl = POSITION_TL_lsb,
     .MS_POSITION._P_Q12U_position_duty = POSITION_DUTY,
-    .MS_POSITION._P_Q12U_vbus_max_val = (Q32U_)(MOTOR_VOLTAGE_V/HAL_ADC_VOLTAGE_SCALE),
+    .MS_POSITION._P_Q12U_vbus_max_adc = (Q32U_)(MOTOR_VOLTAGE_V/HAL_ADC_VOLTAGE_SCALE),
     
     .BRAKE_CTRL.Ramp_Brake_Duty.Q14I_Init = BRAKE_DUTY_CTRL_MIN,
     .BRAKE_CTRL.Ramp_Brake_Duty.Q24I_ADDStep = BRAKE_DUTY_RAMP_ADDSTEP,
@@ -95,9 +95,9 @@ ST_MOTOR_TASK  Motor =
     .MS_CTRL.Ramp_Freq.Q24I_ADDStep = FREQ_RAMP_ADDSTEP,
     .MS_CTRL.Ramp_Freq.Q24I_SUBStep = FREQ_RAMP_SUBSTEP,
     
-    .MS_CTRL.Q14I_iphase_max_pu = Q14I_CURRENT_PHASE_PU,
-    .MS_CTRL.Q14I_ibus_max_pu = Q14I_CURRENT_BUS_PU,
-    .MS_CTRL.Q14I_vbus_max_pu = Q14I_VOLTAGE_PU,
+    .MS_CTRL._P_Q14I_iphase_max_pu = Q14I_CURRENT_PHASE_PU,
+    .MS_CTRL._P_Q14I_ibus_max_pu = Q14I_CURRENT_BUS_PU,
+    .MS_CTRL._P_Q14I_vbus_max_pu = Q14I_VOLTAGE_PU,
     .MS_CTRL._P_Q24I_Voltage_Scale = Q24I_VOLTAGE_SCALE_PU,
     .MS_CTRL._P_Q24I_Current_Scale = Q24I_CURRENT_SCALE_PU,
     .MS_CTRL._P_Q24I_Freq_Scale = Q24I_FREQ_SCALE_PU,

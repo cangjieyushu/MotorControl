@@ -64,7 +64,7 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->Q12I_BEMF_ADC_tmp[0] = 0;
     pMS_CTRL->Q12I_BEMF_ADC_tmp[1] = 0;
     pMS_CTRL->Q12I_BEMF_ADC_tmp[2] = 0;
-    pMS_CTRL->Q12I_VBUS_VAL = 0;
+    pMS_CTRL->Q12I_VBUS_ADC = 0;
     pMS_CTRL->Q12I_IPHASE_ADC = 0;
     pMS_CTRL->Q12I_IPHASE_OFFSET = 0;
     pMS_CTRL->Q14I_IPHASE_PU = 0;
@@ -92,8 +92,8 @@ void MotorSQ_Flying_Init(ST_MS_CONTROL* pMS_CTRL, ST_MS_FLYING* pMS_FLYING)
     + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[2] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[3]
     + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[4] + pMS_CTRL->FREQ_CAL._V_Q32U_60_degree_cnt_tmp[5])));
     
-    pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_FLYING->_P_Q12U_vbus_max_val*(pMS_CTRL->PWM_CTRL._P_Q12U_duty_max
-    *pMS_CTRL->FL_Freq.Q16I_Filter_in/pMS_CTRL->PWM_CTRL._P_Q14U_motor_freq_max)/pMS_CTRL->Q12I_VBUS_VAL;
+    pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_FLYING->_P_Q12U_vbus_max_adc*(pMS_CTRL->PWM_CTRL._P_Q12U_duty_max
+    *pMS_CTRL->FL_Freq.Q16I_Filter_in/pMS_CTRL->PWM_CTRL._P_Q14U_motor_freq_max)/pMS_CTRL->Q12I_VBUS_ADC;
     if(pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val > pMS_CTRL->PWM_CTRL._P_Q12U_duty_max)
     {
         pMS_CTRL->PWM_CTRL._O_Q16U_duty_final_val = pMS_CTRL->PWM_CTRL._P_Q12U_duty_max;
@@ -611,14 +611,14 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
 { 
-    pMS_DIAG->_I_Q12I_BEMF_ZI_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
-    pMS_DIAG->_I_Q12I_VBUS_VAL = pMS_CTRL->Q12I_VBUS_VAL;
+    pMS_DIAG->_I_Q12I_BEMF_ZI_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
+    pMS_DIAG->_I_Q12I_VBUS_ADC = pMS_CTRL->Q12I_VBUS_ADC;
     
     switch(pMS_CTRL->Sector)
     {
         case sector_1:case sector_3:case sector_5:
         {
-            if(Q16I_LFT_06(pMS_DIAG->_I_Q12I_BEMF_ZI_VAL) > pMS_DIAG->_P_Q06U_fall_tl*pMS_DIAG->_I_Q12I_VBUS_VAL)
+            if(Q16I_LFT_06(pMS_DIAG->_I_Q12I_BEMF_ZI_ADC) > pMS_DIAG->_P_Q06U_fall_tl*pMS_DIAG->_I_Q12I_VBUS_ADC)
             {
                 pMS_DIAG->_V_Q32U_cnt++;
                 if(pMS_DIAG->_V_Q32U_cnt > pMS_DIAG->_P_Q08U_filter)
@@ -635,7 +635,7 @@ void MotorSQ_DIAG_Zero_Cross(ST_MS_DIAG* pMS_DIAG, ST_MS_CONTROL* pMS_CTRL)
         }
         case sector_2:case sector_4:case sector_6:
         {
-            if(Q16I_LFT_06(pMS_DIAG->_I_Q12I_BEMF_ZI_VAL) < pMS_DIAG->_P_Q06U_rise_tl*pMS_DIAG->_I_Q12I_VBUS_VAL)
+            if(Q16I_LFT_06(pMS_DIAG->_I_Q12I_BEMF_ZI_ADC) < pMS_DIAG->_P_Q06U_rise_tl*pMS_DIAG->_I_Q12I_VBUS_ADC)
             {
                 pMS_DIAG->_V_Q32U_cnt++;
                 if(pMS_DIAG->_V_Q32U_cnt > pMS_DIAG->_P_Q08U_filter)
@@ -680,16 +680,16 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
 {
-    pMS_FLUX->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
-    pMS_FLUX->_I_Q12I_BEMF_ZI_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
-    pMS_FLUX->_I_Q12I_BEMF_OF_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][2]];
+    pMS_FLUX->_I_Q12I_BEMF_ON_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
+    pMS_FLUX->_I_Q12I_BEMF_ZI_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
+    pMS_FLUX->_I_Q12I_BEMF_OF_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][2]];
     
     switch(pMS_CTRL->Sector)
     {
         case sector_1:case sector_3:case sector_5:
         {
-            if(Q16I_LFT_06(pMS_FLUX->_I_Q12I_BEMF_ZI_VAL) < pMS_FLUX->_P_Q06U_fall_tl
-                                 *(pMS_FLUX->_I_Q12I_BEMF_ON_VAL + pMS_FLUX->_I_Q12I_BEMF_OF_VAL))
+            if(Q16I_LFT_06(pMS_FLUX->_I_Q12I_BEMF_ZI_ADC) < pMS_FLUX->_P_Q06U_fall_tl
+                                 *(pMS_FLUX->_I_Q12I_BEMF_ON_ADC + pMS_FLUX->_I_Q12I_BEMF_OF_ADC))
             {
                 pMS_FLUX->_V_Q32U_cnt++;
                 if(pMS_FLUX->_V_Q32U_cnt > pMS_FLUX->_P_Q08U_filter)
@@ -706,8 +706,8 @@ void MotorSQ_FLUX_Zero_Cross(ST_MS_FLUX* pMS_FLUX, ST_MS_CONTROL* pMS_CTRL)
         }
         case sector_2:case sector_4:case sector_6:
         {
-            if(Q16I_LFT_06(pMS_FLUX->_I_Q12I_BEMF_ZI_VAL) > pMS_FLUX->_P_Q06U_rise_tl
-                                 *(pMS_FLUX->_I_Q12I_BEMF_ON_VAL + pMS_FLUX->_I_Q12I_BEMF_OF_VAL))
+            if(Q16I_LFT_06(pMS_FLUX->_I_Q12I_BEMF_ZI_ADC) > pMS_FLUX->_P_Q06U_rise_tl
+                                 *(pMS_FLUX->_I_Q12I_BEMF_ON_ADC + pMS_FLUX->_I_Q12I_BEMF_OF_ADC))
             {
                 pMS_FLUX->_V_Q32U_cnt++;
                 if(pMS_FLUX->_V_Q32U_cnt > pMS_FLUX->_P_Q08U_filter)
@@ -769,15 +769,15 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
 {
-    pMS_BEMF->_I_Q12I_BEMF_ON_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
-    pMS_BEMF->_I_Q12I_BEMF_ZI_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
-    pMS_BEMF->_I_Q12I_BEMF_OF_VAL = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][2]];
+    pMS_BEMF->_I_Q12I_BEMF_ON_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][0]];
+    pMS_BEMF->_I_Q12I_BEMF_ZI_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][1]];
+    pMS_BEMF->_I_Q12I_BEMF_OF_ADC = pMS_CTRL->Q12I_BEMF_ADC_tmp[ADC_VAL_Table[pMS_CTRL->Sector][2]];
     
     switch(pMS_CTRL->Sector)
     {
         case sector_1:case sector_3:case sector_5:
         {
-            if(Q16I_LFT_01(pMS_BEMF->_I_Q12I_BEMF_ZI_VAL) < pMS_BEMF->_I_Q12I_BEMF_ON_VAL + pMS_BEMF->_I_Q12I_BEMF_OF_VAL)
+            if(Q16I_LFT_01(pMS_BEMF->_I_Q12I_BEMF_ZI_ADC) < pMS_BEMF->_I_Q12I_BEMF_ON_ADC + pMS_BEMF->_I_Q12I_BEMF_OF_ADC)
             {
                 pMS_BEMF->_V_Q32U_cnt++;
                 if(pMS_BEMF->_V_Q32U_cnt > pMS_BEMF->_P_Q08U_filter)
@@ -794,7 +794,7 @@ void MotorSQ_BEMF_Zero_Cross(ST_MS_BEMF* pMS_BEMF, ST_MS_CONTROL* pMS_CTRL)
         }
         case sector_2:case sector_4:case sector_6:
         {
-            if(Q16I_LFT_01(pMS_BEMF->_I_Q12I_BEMF_ZI_VAL) > pMS_BEMF->_I_Q12I_BEMF_ON_VAL + pMS_BEMF->_I_Q12I_BEMF_OF_VAL)
+            if(Q16I_LFT_01(pMS_BEMF->_I_Q12I_BEMF_ZI_ADC) > pMS_BEMF->_I_Q12I_BEMF_ON_ADC + pMS_BEMF->_I_Q12I_BEMF_OF_ADC)
             {
                 pMS_BEMF->_V_Q32U_cnt++;
                 if(pMS_BEMF->_V_Q32U_cnt > pMS_BEMF->_P_Q08U_filter)

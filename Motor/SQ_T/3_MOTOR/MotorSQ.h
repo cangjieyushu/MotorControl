@@ -93,7 +93,7 @@ typedef struct
     Q32U_   _P_Q16U_check_num;
     Q32U_   _P_Q16U_flying_filter;
     Q32U_   _P_Q16U_flying_time;
-    Q32U_   _P_Q12U_vbus_max_val;
+    Q32U_   _P_Q12U_vbus_max_adc;
 }ST_MS_FLYING;
 
 typedef struct
@@ -124,7 +124,7 @@ typedef struct
     
     Q32U_   _P_Q16U_position_tl;
     Q32U_   _P_Q12U_position_duty;
-    Q32U_   _P_Q12U_vbus_max_val;
+    Q32U_   _P_Q12U_vbus_max_adc;
 }ST_MS_POSITION;
 
 typedef struct{
@@ -163,8 +163,8 @@ typedef struct
 {
     UN_MS_FLAG  Flag;
     
-    Q32I_   _I_Q12I_BEMF_ZI_VAL;
-    Q32I_   _I_Q12I_VBUS_VAL;
+    Q32I_   _I_Q12I_BEMF_ZI_ADC;
+    Q32I_   _I_Q12I_VBUS_ADC;
     
     Q32U_   _V_Q32U_cnt;
     Q32U_   _V_Q32U_time_cnt;
@@ -178,9 +178,9 @@ typedef struct
 {
     UN_MS_FLAG  Flag;
     
-    Q32I_   _I_Q12I_BEMF_ON_VAL;
-    Q32I_   _I_Q12I_BEMF_ZI_VAL;
-    Q32I_   _I_Q12I_BEMF_OF_VAL;
+    Q32I_   _I_Q12I_BEMF_ON_ADC;
+    Q32I_   _I_Q12I_BEMF_ZI_ADC;
+    Q32I_   _I_Q12I_BEMF_OF_ADC;
     
     Q32U_   _V_Q32U_cnt;
     Q32U_   _V_Q32U_time_cnt;
@@ -197,9 +197,9 @@ typedef struct
 {
     UN_MS_FLAG  Flag;
     
-    Q32I_   _I_Q12I_BEMF_ON_VAL;
-    Q32I_   _I_Q12I_BEMF_ZI_VAL;
-    Q32I_   _I_Q12I_BEMF_OF_VAL;
+    Q32I_   _I_Q12I_BEMF_ON_ADC;
+    Q32I_   _I_Q12I_BEMF_ZI_ADC;
+    Q32I_   _I_Q12I_BEMF_OF_ADC;
     
     Q32U_   _V_Q32U_cnt;
     Q32U_   _V_Q32U_time_cnt;
@@ -281,9 +281,9 @@ typedef struct{
     ST_STALL_CONTROL    STALL_CTRL;
     
     ST_RAMP_T           Ramp_Freq;
-    Q32I_               Q14I_iphase_max_pu;
-    Q32I_               Q14I_ibus_max_pu;
-    Q32I_               Q14I_vbus_max_pu;
+    Q32I_               _P_Q14I_iphase_max_pu;
+    Q32I_               _P_Q14I_ibus_max_pu;
+    Q32I_               _P_Q14I_vbus_max_pu;
     Q32I_               _P_Q24I_Voltage_Scale;
     Q32I_               _P_Q24I_Current_Scale;
     Q32I_               _P_Q24I_Freq_Scale;
@@ -297,8 +297,8 @@ typedef struct{
     ST_PID_INC_T        PID_Ibus;
     
     Q32I_               Q12I_BEMF_ADC_tmp[3];
-    Q32I_               Q12I_VBUS_VAL;
-    Q32I_               Q12I_VBUS_PU;
+    Q32I_               Q12I_VBUS_ADC;
+    Q32I_               Q14I_VBUS_PU;
     Q32I_               Q12I_IPHASE_ADC;
     Q32I_               Q12I_IPHASE_OFFSET;
     Q32I_               Q14I_IPHASE_PU;

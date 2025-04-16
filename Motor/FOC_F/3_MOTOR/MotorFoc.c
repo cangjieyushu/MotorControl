@@ -196,7 +196,7 @@ Author: CJYS
 void MotorFoc_SVPWM_Init_F(ST_SVPWM_CONTROL_F* pCTRL)
 {
     pCTRL->TG_Triangle.F_Angle = 0.0f;
-    pCTRL->TG_Triangle.F_Cos = 0.0f;
+    pCTRL->TG_Triangle.F_Cos = 1.0f;
     pCTRL->TG_Triangle.F_Sin = 0.0f;
     pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     

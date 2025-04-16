@@ -203,8 +203,8 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void Motor_Set_Vbus(Q32I_ Vbus_lsb)
 {
-    Motor.MS_CTRL.Q12I_VBUS_VAL = Vbus_lsb;
-    Motor.MS_CTRL.Q12I_VBUS_PU = Q32I_RHT_10(Motor.MS_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);
+    Motor.MS_CTRL.Q12I_VBUS_ADC = Vbus_lsb;
+    Motor.MS_CTRL.Q14I_VBUS_PU = Q32I_RHT_10(Motor.MS_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);
     
     Q32I_ Vbus_Val = Q32I_RHT_10(Motor.SVPWM_CTRL._P_Q24I_Voltage_Scale*Vbus_lsb);
     Motor.SVPWM_CTRL._I_Q14I_Vbus = Vbus_Val;

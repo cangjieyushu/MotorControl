@@ -69,7 +69,7 @@ Author: CJYS
 void MotorFoc_SVPWM_Init_T(ST_SVPWM_CONTROL_T* pCTRL)
 {
     pCTRL->TG_Triangle.Q12U_Angle = 0;
-    pCTRL->TG_Triangle.Q14I_Cos = 0;
+    pCTRL->TG_Triangle.Q14I_Cos = 16384;
     pCTRL->TG_Triangle.Q14I_Sin = 0;
     pCTRL->TG_Triangle.Q12U_ReAngle = 0;
     
