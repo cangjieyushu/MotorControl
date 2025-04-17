@@ -18,8 +18,6 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_SQ(void)
 {
-    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
-    
     ADC_Config_t SubcaseAdcCfg=
     {
         /* resolution  */
@@ -175,25 +173,7 @@ void BSP_ADC_Init_SQ(void)
     /* enable TDG */
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */
-    TDG_LoadCmd(HAL_MOTOR_TDG); 
-
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
-    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADCx->ADC_STAT.TCOMP_INT)
-    {
-    }
-
-    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
-    
-    /* Clear FIFO */
-    while (0U != ADCx->ADC_FCTRL.FCOUNT)
-    {
-        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
-    }
+    TDG_LoadCmd(HAL_MOTOR_TDG);
 }
 
 /**********************************************************************************************
@@ -207,8 +187,6 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init(void)
 {
-    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_MOTOR_ADC_ADDRESS);       /*PRQA S 0303*/  
-    
     ADC_Config_t SubcaseAdcCfg=
     {
         /* resolution */
@@ -377,24 +355,6 @@ void BSP_ADC_Init(void)
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */
     TDG_LoadCmd(HAL_MOTOR_TDG);
-
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VBUS_CHN;             /* config channel */
-    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADCx->ADC_STAT.TCOMP_INT)
-    {
-    }
-
-    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
-    
-    /* Clear FIFO */
-    while (0U != ADCx->ADC_FCTRL.FCOUNT)
-    {
-        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
-    }
 }
 
 /**********************************************************************************************
@@ -408,8 +368,6 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_ADC_Init_S(void)
 {
-    static adc_reg_t * ADCx = (adc_reg_t *)(HAL_SYSTEM_ADC_ADDRESS);       /*PRQA S 0303*/  
-    
     ADC_Config_t SubcaseAdcCfg =
     {
         /* resolution  */
@@ -517,22 +475,4 @@ void BSP_ADC_Init_S(void)
     TDG_Enable(HAL_SYSTEM_TDG, ENABLE);
     /* Load channel Configuration */
     TDG_LoadCmd(HAL_SYSTEM_TDG);
-
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 0;
-    ADCx->ADC_CFG.CHSELP = (Q32U_)HAL_ADC_VR_CHN;             /* config channel */
-    ADCx->ADC_IE.TCOM_IE = 1U;                                         /* enable complete Int */
-    ADCx->ADC_SWTRIG.ADC_SWTRIG = 1U;                                  /* start conversion */
-    while (0U == ADCx->ADC_STAT.TCOMP_INT)
-    {
-    }
-
-    ADCx->ADC_IE.TCOM_IE = 0U;                                         /* disable complete Int */
-    ADCx->ADC_STAT.TCOMP_INT = 1U;                                     /* clear flag */
-    ADCx->ADC_CTRL.TRIG_MODE_ENABLE = 1;                              /* change to tdg trigger */
-
-    /* Clear FIFO */
-    while (0U != ADCx->ADC_FCTRL.FCOUNT)
-    {
-        (void)ADCx->ADC_DATA_RD.ADC_DATA_RD;
-    }
 }

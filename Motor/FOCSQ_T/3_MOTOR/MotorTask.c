@@ -120,7 +120,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->Motor_Error_Flag.bit.motor_stall = 1U;
         }
         
-        if(pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out > 8192)
+        if((pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out > 4192) && (pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out < 8288))
         {
             pMotor->Motor_State_Flag.bit.motor_sqtofoc_en = 1U;
         }
@@ -132,7 +132,7 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->FREQ_CTRL._O_Q14I_IdRef;
         pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->FREQ_CTRL._O_Q14I_IqRef;
         
-        if(pMotor->FREQ_CTRL._I_Q14I_FREQ < 4096)
+        if((pMotor->FREQ_CTRL._I_Q14I_FREQ < 3096) || (pMotor->FREQ_CTRL._I_Q14I_FREQ > 10288))
         {
             pMotor->Motor_State_Flag.bit.motor_foctosq_en = 1U;
         }
@@ -663,7 +663,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->Motor_State_Flag.bit.motor_foctosq_flag = 0U;
             
             pMotor->MS_CTRL.SW_Math = SWITCH_FLUX;
-            pMotor->MS_CTRL.SQ_Flow = SQUARE_CROSS_SUCC;
+            pMotor->MS_CTRL.SQ_Flow = SQUARE_CROSS_ING;
             
             Ramp_Init_T(&pMotor->MS_CTRL.Ramp_Freq, pMotor->SMO_CTRL.FL_SRAD.Q16I_Filter_out);
             
@@ -694,13 +694,12 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             
             pMotor->MS_CTRL.Q32U_switch_cnt = 0U;
             
-            pMotor->MS_CTRL.Sector = sector_2;
+            pMotor->MS_CTRL.Sector = sector_3;
             
             BSP_ADC_Init_SQ();
             BSP_PWM_Init_FOCtoSQ();
             MH_PWM_Preload_Disable();
             
-            MH_Switch_TIM_Delay(pMotor->MS_CTRL.PWM_CTRL._P_Q14U_tim_delay_min_value);
             Motor.Motor_Flow = MOTOR_STATE_RUN_SQ;
         }
         else

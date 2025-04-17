@@ -418,7 +418,7 @@ void BSP_PWM_Init(void)
 
     /* symmetric PWM output */
     CPwmChConfig4.asym = MCPWM_SYMMETRIC;	
-    CPwmChConfig4.pulsePol = MCPWM_LOW_PULSE_POL;
+    CPwmChConfig4.pulsePol = MCPWM_HIGH_PULSE_POL;
     
     CPwmChConfig4.mainChannelOutputEnable = DISABLE;
     CPwmChConfig4.secondChannelOutputEnable = DISABLE;

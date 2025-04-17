@@ -79,7 +79,7 @@ void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig1.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig1.secondSafeStatusForFaultB =LEVEL_LOW;
     /* deattime is set in predrive */ 
-    CPwmChConfig1.deadTimeVal = 160;                                                     
+    CPwmChConfig1.deadTimeVal = 0;                                                     
     /* MCPWM complementary PWM output global config */
     Config1.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm    fsoc/(2*fpwm) */
@@ -112,7 +112,7 @@ void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig2.secondSafeStatusForFaultA =LEVEL_LOW;
     CPwmChConfig2.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig2.secondSafeStatusForFaultB =LEVEL_LOW;
-    CPwmChConfig2.deadTimeVal = 160;  
+    CPwmChConfig2.deadTimeVal = 0;  
     /* MCPWM complementary PWM output global config */
     Config2.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm fsoc/(2*fpwm) */
@@ -145,7 +145,7 @@ void BSP_PWM_Init_Three_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig3.secondSafeStatusForFaultA =LEVEL_LOW;
     CPwmChConfig3.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig3.secondSafeStatusForFaultB =LEVEL_LOW;
-    CPwmChConfig3.deadTimeVal = 160;     
+    CPwmChConfig3.deadTimeVal = 0;     
     /* MCPWM complementary PWM output global config */
     Config3.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm  0x1f40  fsoc/(2*fpwm) */
@@ -296,7 +296,7 @@ void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig1.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig1.secondSafeStatusForFaultB =LEVEL_LOW;
     /* deattime is set in predrive */ 
-    CPwmChConfig1.deadTimeVal = 160;                                                     
+    CPwmChConfig1.deadTimeVal = 0;                                                     
     /* MCPWM complementary PWM output global config */
     Config1.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm    fsoc/(2*fpwm) */
@@ -329,7 +329,7 @@ void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig2.secondSafeStatusForFaultA =LEVEL_LOW;
     CPwmChConfig2.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig2.secondSafeStatusForFaultB =LEVEL_LOW;
-    CPwmChConfig2.deadTimeVal = 160;  
+    CPwmChConfig2.deadTimeVal = 0;  
     /* MCPWM complementary PWM output global config */
     Config2.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm fsoc/(2*fpwm) */
@@ -362,7 +362,7 @@ void BSP_PWM_Init_One_Shunt(isr_cb_t *M1FaultIntCbf)
     CPwmChConfig3.secondSafeStatusForFaultA =LEVEL_LOW;
     CPwmChConfig3.mainSafeStatusForFaultB=LEVEL_LOW;
     CPwmChConfig3.secondSafeStatusForFaultB =LEVEL_LOW;
-    CPwmChConfig3.deadTimeVal = 160;     
+    CPwmChConfig3.deadTimeVal = 0;     
     /* MCPWM complementary PWM output global config */
     Config3.countMode = MCPWM_COUNTING_UP_DOWN;
     /* 10kpwm  0x1f40  fsoc/(2*fpwm) */

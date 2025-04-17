@@ -399,10 +399,6 @@ void MotorFoc_SVPWM_OneShunt_T(ST_SVPWM_CONTROL_T* pCTRL)
         default:{break;}
     }
     
-//    Txyz[0] = (4096 - Ttmp1 - Ttmp2)>>2;
-//    Txyz[1] = Txyz[0] + (Ttmp1>>1);
-//    Txyz[2] = Txyz[1] + (Ttmp2>>1);
-    
     Txyz[2] = (4096 - Ttmp1 - Ttmp2)>>2;
     Txyz[1] = Txyz[2] + (Ttmp2>>1);
     Txyz[0] = Txyz[1] + (Ttmp1>>1);

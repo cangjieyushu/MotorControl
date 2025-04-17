@@ -128,7 +128,7 @@
 //刹车时间
 #define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
+#define SHORT_BRAKE_TIME                (0U)                //ms，第3段短接刹车
 
 
 //堵转保护参数
