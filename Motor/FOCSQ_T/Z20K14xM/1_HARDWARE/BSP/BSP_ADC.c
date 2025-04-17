@@ -118,7 +118,7 @@ void BSP_ADC_Init_SQ(void)
         TDG_DO_0, 1U, ENABLE
     };
   
-    const TDG_ChannelConfig_t Chconfig =
+    TDG_ChannelConfig_t Chconfig =
     {
         TDG_CHANNEL_0, 0U, 1U, &Doconfig
     };
@@ -170,6 +170,24 @@ void BSP_ADC_Init_SQ(void)
     TDG_InitConfig(HAL_MOTOR_TDG, &Config);
     /* Set TDG delay output */
     TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, ENABLE);
+    
+    Chconfig.channelId = TDG_CHANNEL_1;
+    Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME1*HAL_PWM_ALL_COUNT_F);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, DISABLE);
+
+    Chconfig.channelId = TDG_CHANNEL_2;
+    Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME2*HAL_PWM_ALL_COUNT_F);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, DISABLE);
+    
+    Chconfig.channelId = TDG_CHANNEL_3;
+    Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME4*HAL_PWM_ALL_COUNT_F);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, DISABLE);
+    
+    Chconfig.channelId = TDG_CHANNEL_4;
+    Doconfig.offset = (Q16U_)(HAL_ADC_TRIGGER_TIME5*HAL_PWM_ALL_COUNT_F);
+    TDG_ChannelDelayOutputConfig(HAL_MOTOR_TDG, &Chconfig, DISABLE);
+    
+    
     /* enable TDG */
     TDG_Enable(HAL_MOTOR_TDG, ENABLE);    
     /* Load channel Configuration */

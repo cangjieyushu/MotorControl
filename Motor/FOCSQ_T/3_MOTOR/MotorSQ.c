@@ -68,8 +68,6 @@ void MotorSQ_Init(ST_MS_CONTROL* pMS_CTRL)
     pMS_CTRL->Q12I_IPHASE_ADC = 0;
     pMS_CTRL->Q12I_IPHASE_OFFSET = 0;
     pMS_CTRL->Q14I_IPHASE_PU = 0;
-    
-    pMS_CTRL->Q32U_switch_cnt = 0;
 }
 
 /**********************************************************************************************
