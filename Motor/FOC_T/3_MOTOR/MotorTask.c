@@ -23,6 +23,8 @@
 #define Motor_EST                       FLUX_CTRL
 #elif(MOTOR_EST_MODE == MOTOR_EST_SMO)
 #define Motor_EST                       SMO_CTRL
+#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
+#define Motor_EST                       MRAS_CTRL
 #endif
 
 void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor);
@@ -120,6 +122,29 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
 	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
+    
+    MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
+    pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
+    pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._O_Q14U_Iq;
+    
+    if(pMotor->FREQ_CTRL._I_Q00I_DIR_Target*pMotor->FREQ_CTRL._I_Q14I_FREQ >= pMotor->LOOP_CTRL._P_Q32I_Open_Switch_Freq)
+    {
+        if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
+        {
+            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+            
+            Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
+            
+            pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
+        }
+    }
+    else
+    {
+        pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+    }
+    
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_MRAS)
+    pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
     
     MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
     pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
@@ -483,6 +508,13 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SMO_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
         Est_SMO_T(&pMotor->SMO_CTRL);
         Est_SMO_Study_T(&pMotor->SMO_CTRL);
+
+#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
+        pMotor->MRAS_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
+        pMotor->MRAS_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
+        pMotor->MRAS_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
+        pMotor->MRAS_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
+        Est_MRAS_T(&pMotor->MRAS_CTRL);
         
 #endif
         

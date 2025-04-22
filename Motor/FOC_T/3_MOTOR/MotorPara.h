@@ -130,6 +130,13 @@
 #define MOTOR_SMO_PLL_MAX                   ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
 
+//MRAS
+#define MOTOR_MRAS_PLL_KP                   ((Q32I_)(5.0f * MOTOR_Q14_PU))                  //锁相环比例系数
+#define MOTOR_MRAS_PLL_KI                   ((Q32I_)(10.0f * MOTOR_HTs * MOTOR_Q14_PU))     //锁相环积分系数
+#define MOTOR_MRAS_PLL_KD                   ((Q32I_)(0.0f))                    	//锁相环微分系数
+#define MOTOR_MRAS_PLL_MAX                  ((Q32I_)( 2.0f * Q14I_MAX_FREQ_PU)) //锁相环最大输出
+#define MOTOR_MRAS_PLL_MIN                  ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
+
 
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
@@ -203,6 +210,7 @@ typedef struct{
     
     ST_FLUX_CONTROL_T           FLUX_CTRL;
     ST_SMO_CONTROL_T            SMO_CTRL;
+    ST_MRAS_CONTROL_T           MRAS_CTRL;
     
     Q32I_                       Q14I_IPHASE_MAX_PU;
 }ST_MOTOR_TASK;

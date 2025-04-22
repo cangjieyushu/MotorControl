@@ -216,6 +216,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         {
             pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
             
+            Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, 2.0f*pMotor->FREQ_CTRL._I_F_FREQ);
+            
             pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
         }
     }

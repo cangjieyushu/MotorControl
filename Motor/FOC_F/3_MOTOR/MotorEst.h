@@ -135,6 +135,7 @@ typedef struct
     float       _V_F_Iq_Est;
     
     float       _P_F_Ts;
+    float       _P_F_Ws;
     float       _P_F_One_Over_Ls;
     float       _P_F_Rs_Over_Ls;
     float       _P_F_Flux_Over_Ls;

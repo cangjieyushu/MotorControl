@@ -196,3 +196,73 @@ void Est_SMO_Study_T(ST_SMO_CONTROL_T* pCTRL)
                                  + Beta_sign*Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_in*Q32I_RHT_14((pCTRL->_P_Q14I_Ld - pCTRL->_P_Q14I_Lq)
                                    *pCTRL->_V_Q14I_IErralfa));
 }
+
+/**********************************模型参考自适应************************************/
+
+/**********************************************************************************************
+Function: Est_MRAS_Init_T
+Description: MRAS初始化
+Input: 无
+Output: 无
+Input_Output: MRAS指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_MRAS_Init_T(ST_MRAS_CONTROL_T* pCTRL)
+{
+    PID_Pos_Init_T(&pCTRL->PID_PLL, 0);
+    Filter_Init_T(&pCTRL->FL_SRAD, 0);
+    pCTRL->TG_Triangle.Q12U_Angle = 0;
+    pCTRL->TG_Triangle.Q14I_Cos = 16384;
+    pCTRL->TG_Triangle.Q14I_Sin = 0;
+    pCTRL->TG_Triangle.Q12U_ReAngle = 0;
+    
+    pCTRL->_V_Q14I_Id_Est = 0;
+    pCTRL->_V_Q14I_Iq_Est = 0;
+}
+
+/**********************************************************************************************
+Function: Est_MRAS_T
+Description: MRAS计算
+Input: 无
+Output: 无
+Input_Output: MRAS指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Est_MRAS_T(ST_MRAS_CONTROL_T* pCTRL)
+{
+    pCTRL->_V_Q14I_Id =  Q32I_RHT_14(pCTRL->_I_Q14I_Ialfa*pCTRL->TG_Triangle.Q14I_Cos) + Q32I_RHT_14(pCTRL->_I_Q14I_Ibeta*pCTRL->TG_Triangle.Q14I_Sin);
+    pCTRL->_V_Q14I_Iq = -Q32I_RHT_14(pCTRL->_I_Q14I_Ialfa*pCTRL->TG_Triangle.Q14I_Sin) + Q32I_RHT_14(pCTRL->_I_Q14I_Ibeta*pCTRL->TG_Triangle.Q14I_Cos);
+    pCTRL->_V_Q14I_Ud =  Q32I_RHT_14(pCTRL->_I_Q14I_Ualfa*pCTRL->TG_Triangle.Q14I_Cos) + Q32I_RHT_14(pCTRL->_I_Q14I_Ubeta*pCTRL->TG_Triangle.Q14I_Sin);
+    pCTRL->_V_Q14I_Uq = -Q32I_RHT_14(pCTRL->_I_Q14I_Ualfa*pCTRL->TG_Triangle.Q14I_Sin) + Q32I_RHT_14(pCTRL->_I_Q14I_Ubeta*pCTRL->TG_Triangle.Q14I_Cos);
+    
+    pCTRL->_V_Q28I_Id_Est_tmp += pCTRL->_P_Q14I_Ws*(
+                               - Q32I_RHT_14(pCTRL->_P_Q14I_Rs_Over_Ls*pCTRL->_V_Q14I_Id_Est)
+                               + Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_out*pCTRL->_V_Q14I_Iq_Est)
+                               + Q32I_RHT_10(pCTRL->_P_Q10I_One_Over_Ls*pCTRL->_V_Q14I_Ud));
+    pCTRL->_V_Q28I_Iq_Est_tmp += pCTRL->_P_Q14I_Ws*(
+                               - Q32I_RHT_14(pCTRL->_P_Q14I_Rs_Over_Ls*pCTRL->_V_Q14I_Iq_Est)
+                               - Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_out*pCTRL->_V_Q14I_Id_Est)
+                               - Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_out*pCTRL->_P_Q14I_Flux_Over_Ls)
+                               + Q32I_RHT_10(pCTRL->_P_Q10I_One_Over_Ls*pCTRL->_V_Q14I_Uq));
+    
+    pCTRL->_V_Q28I_Id_Est_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Id_Est_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
+    pCTRL->_V_Q28I_Iq_Est_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Iq_Est_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
+    
+    pCTRL->_V_Q14I_Id_Est = Q32I_RHT_14(pCTRL->_V_Q28I_Id_Est_tmp);
+    pCTRL->_V_Q14I_Iq_Est = Q32I_RHT_14(pCTRL->_V_Q28I_Iq_Est_tmp);
+                                         
+    pCTRL->PID_PLL.Q14I_Rf = Q32I_RHT_14(pCTRL->_V_Q14I_Id*pCTRL->_V_Q14I_Iq_Est - pCTRL->_V_Q14I_Iq*pCTRL->_V_Q14I_Id_Est);
+    pCTRL->PID_PLL.Q14I_Fb = Q32I_RHT_14(pCTRL->_P_Q14I_Flux_Over_Ls*(pCTRL->_V_Q14I_Iq - pCTRL->_V_Q14I_Iq_Est));
+    PID_Pos_Cal_T(&pCTRL->PID_PLL);
+    
+    pCTRL->FL_SRAD.Q16I_Filter_in = pCTRL->PID_PLL.Q14I_Output;
+    Filter_Cal_T(&pCTRL->FL_SRAD);
+    
+    pCTRL->_O_Q28U_Angle_tmp += pCTRL->_P_Q14I_Ts*pCTRL->FL_SRAD.Q16I_Filter_in;
+    MATH_ANGLE_TMP_T(pCTRL->_O_Q28U_Angle_tmp);
+    pCTRL->TG_Triangle.Q12U_Angle = Q32I_RHT_16(pCTRL->_O_Q28U_Angle_tmp);
+    
+    Math_SinCos_T(&pCTRL->TG_Triangle);
+}

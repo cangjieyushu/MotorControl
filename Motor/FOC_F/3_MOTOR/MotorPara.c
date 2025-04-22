@@ -162,6 +162,7 @@ ST_MOTOR_TASK  Motor =
     .MRAS_CTRL.PID_PLL.F_OutMin = MOTOR_MRAS_PLL_MIN,
     .MRAS_CTRL.FL_SRAD.F_Filter_Coeff = MOTOR_PLL_SPEED_LPF_COEFF,
     .MRAS_CTRL._P_F_Ts = HTs_PU,
+    .MRAS_CTRL._P_F_Ws = HWs_PU,
     .MRAS_CTRL._P_F_One_Over_Ls = 1.0f / Ls_PU,
     .MRAS_CTRL._P_F_Rs_Over_Ls = Rs_PU / Ls_PU,
     .MRAS_CTRL._P_F_Flux_Over_Ls = FLUX_PU / Ls_PU,

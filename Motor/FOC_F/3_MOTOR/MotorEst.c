@@ -339,11 +339,11 @@ void Est_MRAS_F(ST_MRAS_CONTROL_F* pCTRL)
     pCTRL->_V_F_Ud =  pCTRL->_I_F_Ualfa*pCTRL->TG_Triangle.F_Cos + pCTRL->_I_F_Ubeta*pCTRL->TG_Triangle.F_Sin;
     pCTRL->_V_F_Uq = -pCTRL->_I_F_Ualfa*pCTRL->TG_Triangle.F_Sin + pCTRL->_I_F_Ubeta*pCTRL->TG_Triangle.F_Cos;
     
-    pCTRL->_V_F_Id_tmp = pCTRL->_P_F_Ts*(
+    pCTRL->_V_F_Id_tmp = pCTRL->_P_F_Ws*(
                        - pCTRL->_P_F_Rs_Over_Ls*pCTRL->_V_F_Id_Est
                        + pCTRL->FL_SRAD.F_Filter_out*pCTRL->_V_F_Iq_Est
                        + pCTRL->_P_F_One_Over_Ls*pCTRL->_V_F_Ud);
-    pCTRL->_V_F_Iq_tmp = pCTRL->_P_F_Ts*(
+    pCTRL->_V_F_Iq_tmp = pCTRL->_P_F_Ws*(
                        - pCTRL->_P_F_Rs_Over_Ls*pCTRL->_V_F_Iq_Est
                        - pCTRL->FL_SRAD.F_Filter_out*pCTRL->_V_F_Id_Est
                        - pCTRL->FL_SRAD.F_Filter_out*pCTRL->_P_F_Flux_Over_Ls

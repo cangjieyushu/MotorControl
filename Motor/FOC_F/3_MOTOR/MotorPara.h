@@ -160,8 +160,8 @@
 #define MOTOR_SMO_PLL_MIN                   (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出
 
 //MRAS
-#define MOTOR_MRAS_PLL_KP                   (0.5f)                              //锁相环比例系数
-#define MOTOR_MRAS_PLL_KI                   (0.2f)                              //锁相环积分系数
+#define MOTOR_MRAS_PLL_KP                   (5.0f)                              //锁相环比例系数
+#define MOTOR_MRAS_PLL_KI                   (10.0f * MOTOR_HTs)                 //锁相环积分系数
 #define MOTOR_MRAS_PLL_KD                   (0.0f)                    	        //锁相环微分系数
 #define MOTOR_MRAS_PLL_MAX                  ( 2.0f * MAX_FREQ_PU)               //锁相环最大输出
 #define MOTOR_MRAS_PLL_MIN                  (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出
