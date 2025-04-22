@@ -12,79 +12,79 @@
 
 typedef struct
 {
-    ST_TRIG_F       TG_Triangle;
-    ST_FILTER_F     FL_tmp1;
-    ST_FILTER_F     FL_tmp2;
+    ST_TRIG_T       TG_Triangle;
+    ST_FILTER_T     FL_tmp1;
+    ST_FILTER_T     FL_tmp2;
 
     Q32U_       _V_Q32U_State;
     Q32U_       _V_Q32U_cnt;
     
-    float       _I_F_Ud;
-    float       _I_F_Id;
-    float       _V_F_Udtmp1;
-    float       _V_F_Idtmp1;
-    float       _V_F_Udtmp2;
-    float       _V_F_Idtmp2;
+    Q32I_       _I_Q14I_Ud;
+    Q32I_       _I_Q14I_Id;
+    Q32I_       _V_Q14I_Udtmp1;
+    Q32I_       _V_Q14I_Idtmp1;
+    Q32I_       _V_Q14I_Udtmp2;
+    Q32I_       _V_Q14I_Idtmp2;
     
-    float       _O_F_IdRef;
-    float       _O_F_Uq;
+    Q32I_       _O_Q14I_IdRef;
+    Q32I_       _O_Q14I_Uq;
     
-    float       _P_F_Ts;
-    float       _P_F_Ws;
-    float       _P_F_Id1;
-    float       _P_F_Id2;
+    Q32I_       _P_Q14I_Ts;
+    Q32I_       _P_Q14I_Ws;
+    Q32I_       _P_Q14I_Id1;
+    Q32I_       _P_Q14I_Id2;
     Q32U_       _P_Q32U_Rs_Time;
     Q32U_       _P_Q32U_Ls_Time;
     Q32U_       _P_Q32U_Flux_Time;
     
-    float       _I_F_Ialfa;
-    float       _I_F_Ibeta;
+    Q32I_       _I_Q14I_Ialfa;
+    Q32I_       _I_Q14I_Ibeta;
     
-    float       _V_F_Istmp1;
-    float       _V_F_Istmp2;
+    Q32I_       _V_Q14I_Istmp1;
+    Q32I_       _V_Q14I_Istmp2;
     Q32U_       _V_Q32U_Ud_cnt;
     Q32U_       _V_Q32U_Ud_Count;
-    float       _V_F_Ud_Sign;
-    float       _V_F_Ialfa_LPF;
-    float       _V_F_Ibeta_LPF;
-    float       _V_F_Ialfa_HPF;
-    float       _V_F_Ibeta_HPF;
-    float       _V_F_Ialfa_Last;
-    float       _V_F_Ibeta_Last;
+    Q32I_       _V_Q14I_Ud_Sign;
+    Q32I_       _V_Q14I_Ialfa_LPF;
+    Q32I_       _V_Q14I_Ibeta_LPF;
+    Q32I_       _V_Q14I_Ialfa_HPF;
+    Q32I_       _V_Q14I_Ibeta_HPF;
+    Q32I_       _V_Q14I_Ialfa_Last;
+    Q32I_       _V_Q14I_Ibeta_Last;
     
-    float       _O_F_Ialfa;
-    float       _O_F_Ibeta;
-    float       _O_F_Ud_HFI;
+    Q32I_       _O_Q14I_Ialfa;
+    Q32I_       _O_Q14I_Ibeta;
+    Q32I_       _O_Q14I_Ud_HFI;
     
-    float       _I_F_Ualfa;
-    float       _I_F_Ubeta;
+    Q32I_       _I_Q14I_Ualfa;
+    Q32I_       _I_Q14I_Ubeta;
     
-    float       _V_F_Yalfa_In;
-    float       _V_F_Ybeta_In;
-    float       _V_F_Yalfa_Hpf;
-    float       _V_F_Ybeta_Hpf;
-    float       _V_F_Yalfa_Last;
-    float       _V_F_Ybeta_Last;
-    float       _V_F_Xalfa;
-    float       _V_F_Xbeta;
-    float       _V_F_Nalfa;
-    float       _V_F_Nbeta;
+    Q32I_       _V_Q14I_Yalfa_In;
+    Q32I_       _V_Q14I_Ybeta_In;
+    Q32I_       _V_Q24I_Yalfa_Hpf;
+    Q32I_       _V_Q24I_Ybeta_Hpf;
+    Q32I_       _V_Q14I_Yalfa_Last;
+    Q32I_       _V_Q14I_Ybeta_Last;
+    Q32I_       _V_Q28I_Xalfa_tmp;
+    Q32I_       _V_Q28I_Xbeta_tmp;
+    Q32I_       _V_Q14I_Nalfa;
+    Q32I_       _V_Q14I_Nbeta;
     
-    float       _P_F_Ud_Ref;
+    Q32I_       _P_Q14I_Ud_Ref;
     Q32U_       _P_Q32U_PWM_Freq;
     Q32U_       _P_Q32U_Ud_Freq;
     
-    float       _P_F_Hpf_Coeff;
+    Q32I_       _P_Q08I_Hpf_Coeff;
     
-    float       _P_F_Rs;
-    float       _P_F_Ld;
-    float       _P_F_Lq;
-    float       _P_F_Ls;
-    float       _P_F_Flux;
-}ST_PARA_ID_F;
+    Q32I_       _P_Q14I_Rs;
+    Q32I_       _P_Q24I_Ld;
+    Q32I_       _P_Q24I_Lq;
+    Q32I_       _P_Q14I_Ls;
+    Q32I_       _P_Q14I_Flux;
+}ST_PARA_ID_T;
 
 /**********************************************************************************************
-Function: Est_Para_Id_Init_F
+Function: Est_Para_Id_Init_T
 Description: 静态参数辨识初始化
 Input: 无
 Output: 无
@@ -92,7 +92,7 @@ Input_Output: 静态参数辨识指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Est_Para_Id_Init_F(ST_PARA_ID_F* pCTRL);
+void Est_Para_Id_Init_T(ST_PARA_ID_T* pCTRL);
 
 /**********************************************************************************************
 Function: Est_Para_Id_Srad_F
@@ -103,10 +103,10 @@ Input_Output: 静态参数辨识指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Est_Para_Id_Srad_F(ST_PARA_ID_F* pCTRL);
+void Est_Para_Id_Srad_T(ST_PARA_ID_T* pCTRL);
 
 /**********************************************************************************************
-Function: Est_Para_Id_Current_F
+Function: Est_Para_Id_Current_T
 Description: 静态参数辨识计算
 Input: 无
 Output: 无
@@ -114,6 +114,6 @@ Input_Output: 静态参数辨识指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Est_Para_Id_Current_F(ST_PARA_ID_F* pCTRL);
+void Est_Para_Id_Current_T(ST_PARA_ID_T* pCTRL);
 
 #endif /* MotorDent_H */

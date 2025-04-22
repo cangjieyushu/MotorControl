@@ -146,7 +146,6 @@ void Est_Para_Id_Srad_F(ST_PARA_ID_F* pCTRL)
         {
             pCTRL->_V_F_Istmp2 /= pCTRL->_P_Q32U_Ls_Time;
             pCTRL->_P_F_Lq = pCTRL->_P_F_Ud_Ref/(((float)pCTRL->_P_Q32U_Ud_Freq)*4000.0f*pCTRL->_V_F_Istmp2);
-            pCTRL->_P_F_Ls = 0.5f*(pCTRL->_P_F_Ld + pCTRL->_P_F_Lq);
             Filter_Init_F(&pCTRL->FL_tmp1, 0.0f);
             pCTRL->_V_Q32U_State = 5U;
             pCTRL->_V_Q32U_cnt = 0U;

@@ -10,6 +10,7 @@
 
 #include "PmsmPara.h"
 #include "MotorHal_cfg.h"
+#include "MotorDent.h"
 #include "MotorEst.h"
 #include "MotorFoc.h"
 #include "MotorState.h"
@@ -28,6 +29,20 @@
 #define MOTOR_EST_SMO               (11U)
 #define MOTOR_EST_MRAS              (12U)
 #define MOTOR_EST_MODE              MOTOR_EST_SMO
+
+
+//静态参数辨识
+#define MOTOR_PARAID_ID_TARGET1         (Q14I_CURRENT_TO_PU(1.0f))              //A,Id目标值
+#define MOTOR_PARAID_ID_TARGET2         (Q14I_CURRENT_TO_PU(2.0f))              //A,Id目标值
+
+#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_MAX_SCALE * Q14I_VOLTAGE_PU / MOTOR_Q14_PU)    //V,HFI高频注入电压幅值
+#define MOTOR_PARAID_UD_PERIOD          (8.0f)                                  //kHz，注入频率
+
+#define MOTOR_PARAID_LPF_COEFF          (13)                                    //0~256，越小滤波越深
+#define MOTOR_PARAID_HPF_COEFF          (250)                                   //0~256，越大滤波越深
+#define MOTOR_PARAID_RS_TIME            (2000U)                                 //ms,电机电阻阶段
+#define MOTOR_PARAID_LS_TIME            (2000U)                                 //ms,电机电感阶段
+#define MOTOR_PARAID_FLUX_TIME          (10000U)                                //ms,电机磁链阶段
 
 
 //电流采样偏置检测
@@ -164,11 +179,12 @@ typedef union{
 typedef union{
     ALL all;
     struct{
-        BIT motor_stall         :1;//电机堵转故障
-        BIT mos_fault           :1;//mos故障（单个上电周期内，发生三次短路保护，锁死故障状态）
-        BIT current_short       :1;//短路故障
         BIT current_offset      :1;//偏置故障
+        BIT current_short       :1;//短路故障
+        BIT mos_fault           :1;//mos故障（单个上电周期内，发生三次短路保护，锁死故障状态）
+        BIT motor_stall         :1;//电机堵转故障
         BIT position_error      :1;//电机定位故障
+        BIT paraid_finish       :1;//电机自学习结束
     }bit;
 }UN_MOTOR_ERROR_FLAG;
 
@@ -197,6 +213,7 @@ typedef struct{
     UN_MOTOR_STATE_FLAG         Motor_State_Flag;
     UN_MOTOR_ERROR_FLAG         Motor_Error_Flag;
     
+    ST_PARA_ID_T                PARA_ID;
     ST_MS_OFFSET                MS_OFFSET;
     ST_MS_BOOT                  MS_BOOT;
     ST_BRAKE_CONTROL            BRAKE_CTRL;

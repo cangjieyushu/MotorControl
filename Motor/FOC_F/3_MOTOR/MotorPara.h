@@ -37,10 +37,9 @@
 
 #define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)    //V,HFI高频注入电压幅值
 #define MOTOR_PARAID_UD_PERIOD          (8.0f)                   //kHz，注入频率
-#define MOTOR_PARAID_UDQ_COEFF          (0.50f)                  //调制度限制
 
 #define MOTOR_PARAID_LPF_COEFF          (0.05f)                  //0~1，越小滤波越深
-#define MOTOR_PARAID_HPF_COEFF          (0.999f)                 //0~1，越大滤波越深
+#define MOTOR_PARAID_HPF_COEFF          (0.995f)                 //0~1，越大滤波越深
 #define MOTOR_PARAID_RS_TIME            (2000U)                  //ms,电机电阻阶段
 #define MOTOR_PARAID_LS_TIME            (2000U)                  //ms,电机电感阶段
 #define MOTOR_PARAID_FLUX_TIME          (10000U)                 //ms,电机磁链阶段
@@ -246,7 +245,6 @@ typedef struct{
     
     float                       F_Iphase_Max;
 }ST_MOTOR_TASK;
-
 
 extern ST_MOTOR_TASK  Motor;
 
