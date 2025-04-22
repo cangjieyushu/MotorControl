@@ -141,7 +141,7 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->_V_Q14I_IErralfa = pCTRL->_V_Q14I_Aalfa - pCTRL->_I_Q14I_Ialfa;
     pCTRL->_V_Q14I_IErrbeta = pCTRL->_V_Q14I_Abeta - pCTRL->_I_Q14I_Ibeta;
     
-    Q32I_ Freq_abs = pCTRL->_I_Q00I_DIR_Target*pCTRL->FL_SRAD.Q16I_Filter_out;
+    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
     if      (Freq_abs < 2048)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_03(pCTRL->_P_Q14I_PLL_Ki);}
     else if (Freq_abs < 4096)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Ki);}
     else if (Freq_abs < 8192)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_01(pCTRL->_P_Q14I_PLL_Ki);}

@@ -246,7 +246,7 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->_V_F_IErralfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_IErrbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
     
-    float Freq_abs = pCTRL->_I_F_DIR_Target*pCTRL->FL_SRAD.F_Filter_out;
+    float Freq_abs = MATH_ABS_F(pCTRL->FL_SRAD.F_Filter_out);
     if      (Freq_abs < 0.125f) {pCTRL->PID_PLL.F_Ki = 0.125f*pCTRL->_P_F_PLL_Ki;}
     else if (Freq_abs < 0.25f)  {pCTRL->PID_PLL.F_Ki = 0.25f*pCTRL->_P_F_PLL_Ki;}
     else if (Freq_abs < 0.5f)   {pCTRL->PID_PLL.F_Ki = 0.5f*pCTRL->_P_F_PLL_Ki;}
