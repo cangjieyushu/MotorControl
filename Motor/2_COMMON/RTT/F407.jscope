@@ -4,9 +4,9 @@
     <Project>
         <Configuration>
             <JLink>
-                <Options Connection="1" IsRTTSession="1" IsRTTWithTimeStamp="0" SamplingPeriod="100" SerialNo="0" JTAG_IRPre="0" JTAG_DRPre="0" IP="" TargetDevice="STM32F407IG" TargetInterface="SWD" InterfaceSpeed="4000" />
+                <Options Connection="1" IsRTTSession="1" IsRTTWithTimeStamp="0" SamplingPeriod="100" SerialNo="0" JTAG_IRPre="0" JTAG_DRPre="0" IP="" TargetDevice="STM32F407IG" TargetInterface="SWD" InterfaceSpeed="50000" />
             </JLink>
-            <ElfFile Name="" />
+            <ElfFile Name="C:\Users\sq\Desktop\MControl\Motor\FOC_F\STM32F407\Objects\STM32F407_FOC.axf" />
             <Scope>
                 <Options TimeResolutionUs="1000000" />
             </Scope>
@@ -17,13 +17,10 @@
         </Windows>
         <SelectedSymbols>
             <Symbol>
-                <Options Name="4 Byte float RTT Data" Address="0x00000000" Type="" TypeID="1" Size="4" GraphColorRed="255" GraphColorGreen="0" GraphColorBlue="0" YMinSampled="1.79769e+308" YMaxSampled="-1.79769e+308" YAvgSampled="0" Offset="0" ShowInGraph="1" ACCoupling="0" YOffset="0" IsAutoConfig="0" YResolution="1" MaxValue="0" File="" Scope="1" DrawStyle="0" />
+                <Options Name="4 Byte signed RTT Data" Address="0x00000000" Type="" TypeID="12" Size="4" GraphColorRed="255" GraphColorGreen="0" GraphColorBlue="0" YMinSampled="-2.14748e+009" YMaxSampled="2.14748e+009" YAvgSampled="5.98846e+006" Offset="0" ShowInGraph="1" ACCoupling="0" YOffset="0" IsAutoConfig="0" YResolution="1000000000" MaxValue="0" File="" Scope="1" DrawStyle="0" />
             </Symbol>
             <Symbol>
-                <Options Name="4 Byte float RTT Data" Address="0x00000000" Type="" TypeID="1" Size="4" GraphColorRed="0" GraphColorGreen="0" GraphColorBlue="255" YMinSampled="1.79769e+308" YMaxSampled="-1.79769e+308" YAvgSampled="0" Offset="4" ShowInGraph="1" ACCoupling="0" YOffset="0" IsAutoConfig="0" YResolution="1" MaxValue="0" File="" Scope="1" DrawStyle="0" />
-            </Symbol>
-            <Symbol>
-                <Options Name="4 Byte float RTT Data" Address="0x00000000" Type="" TypeID="1" Size="4" GraphColorRed="0" GraphColorGreen="255" GraphColorBlue="0" YMinSampled="1.79769e+308" YMaxSampled="-1.79769e+308" YAvgSampled="0" Offset="8" ShowInGraph="1" ACCoupling="0" YOffset="0" IsAutoConfig="0" YResolution="1" MaxValue="0" File="" Scope="1" DrawStyle="0" />
+                <Options Name="4 Byte signed RTT Data" Address="0x00000000" Type="" TypeID="12" Size="4" GraphColorRed="0" GraphColorGreen="0" GraphColorBlue="255" YMinSampled="-2.14748e+009" YMaxSampled="2.14748e+009" YAvgSampled="6.12536e+006" Offset="4" ShowInGraph="1" ACCoupling="0" YOffset="0" IsAutoConfig="0" YResolution="1000000000" MaxValue="0" File="" Scope="1" DrawStyle="0" />
             </Symbol>
         </SelectedSymbols>
     </Project>

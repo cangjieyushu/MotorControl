@@ -8,7 +8,7 @@
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
-char Buffer[128];
+Q32I_ Buffer[128];
 Q32I_ RTT_DATA[8];
 #endif
 

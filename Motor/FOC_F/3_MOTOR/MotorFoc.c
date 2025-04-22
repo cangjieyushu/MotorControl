@@ -23,7 +23,6 @@ void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL)
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.F_Init);
     Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
-    Ramp_Init_F(&pCTRL->Ramp_AngleERR, 0.0f);
 }
 
 /**********************************************************************************************
@@ -40,20 +39,6 @@ void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL)
     Ramp_Cal_F(&pCTRL->Ramp_Iq);
     Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     pCTRL->_O_F_Iq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Iq.F_Output;
-}
-
-/**********************************************************************************************
-Function: MotorFoc_IF_CLOSE_F
-Description: IF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: IF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_IF_CLOSE_F(ST_IF_CONTROL_F* pCTRL)
-{
-    Ramp_Cal_F(&pCTRL->Ramp_AngleERR);
 }
 
 /**********************************************************************************************
@@ -87,7 +72,6 @@ void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL)
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.F_Init);
     Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
-    Ramp_Init_F(&pCTRL->Ramp_AngleERR, 0.0f);
 }
 
 /**********************************************************************************************
@@ -104,20 +88,6 @@ void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL)
     Ramp_Cal_F(&pCTRL->Ramp_Vq);
     Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     pCTRL->_O_F_Vq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Vq.F_Output;
-}
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CLOSE_F
-Description: VF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CLOSE_F(ST_VF_CONTROL_F* pCTRL)
-{
-    Ramp_Cal_F(&pCTRL->Ramp_AngleERR);
 }
 
 /**********************************************************************************************

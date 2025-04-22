@@ -14,7 +14,6 @@ typedef struct
 {
     ST_RAMP_F       Ramp_Iq;
     ST_RAMP_F       Ramp_FREQ;
-    ST_RAMP_F       Ramp_AngleERR;
     
     float       _I_F_DIR_Target;
     float       _I_F_AngleEst;
@@ -30,13 +29,13 @@ typedef struct
 {
     ST_RAMP_F       Ramp_Vq;
     ST_RAMP_F       Ramp_FREQ;
-    ST_RAMP_F       Ramp_AngleERR;
 
     float       _I_F_DIR_Target;
     float       _I_F_AngleEst;
     
     float       _O_F_Vq;
     float       _O_F_Angle;
+    
     float       _P_F_Ts;
     float       _P_F_AngleERRLimit;
 }ST_VF_CONTROL_F;
@@ -163,17 +162,6 @@ Author: CJYS
 void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
-Function: MotorFoc_IF_CLOSE_F
-Description: IF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: IF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_IF_CLOSE_F(ST_IF_CONTROL_F* pCTRL);
-
-/**********************************************************************************************
 Function: MotorFoc_IF_CURRENT_F
 Description: IF电流环中断控制函数
 Input: 无
@@ -205,17 +193,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL);
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CLOSE_F
-Description: VF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CLOSE_F(ST_VF_CONTROL_F* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_VF_CURRENT_F

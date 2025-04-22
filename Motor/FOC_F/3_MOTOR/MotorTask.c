@@ -74,8 +74,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->FREQ_CTRL._I_F_FREQ = pMotor->Motor_EST.FL_SRAD.F_Filter_out;
         
         MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
-        pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
-        pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->IF_CTRL._O_F_Iq;
+        pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->IF_CTRL._O_F_Iq;
+        pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
         
         if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
         {
@@ -86,10 +86,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                     pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
                     pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
                     
-                    PID_Pos_Init_F(&pMotor->FREQ_CTRL.PID_FREQ, pMotor->CURRENT_CTRL._I_F_IqRef);
-                    Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, pMotor->FREQ_CTRL._I_F_FREQ);
+                    Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, 2.0f*pMotor->FREQ_CTRL._I_F_FREQ);
                     
-                    pMotor->IF_CTRL.Ramp_AngleERR.F_Init = pMotor->IF_CTRL._O_F_Angle - pMotor->Motor_EST.TG_Triangle.F_Angle;
                     pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
                 }
             }
@@ -104,8 +102,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->FREQ_CTRL._I_F_FREQ = pMotor->Motor_EST.FL_SRAD.F_Filter_out;
     
     MotorFoc_IF_OPEN_F(&pMotor->IF_CTRL);
-    pMotor->CURRENT_CTRL._I_F_IdRef = 0.0f;
-    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->IF_CTRL._O_F_Iq;
+    pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->IF_CTRL._O_F_Iq;
+    pMotor->CURRENT_CTRL._I_F_IqRef = 0.0f;
     
     if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
     {
@@ -118,7 +116,6 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                 
                 Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, 2.0f*pMotor->FREQ_CTRL._I_F_FREQ);
                 
-                pMotor->IF_CTRL.Ramp_AngleERR.F_Init = pMotor->IF_CTRL._O_F_Angle - pMotor->Motor_EST.TG_Triangle.F_Angle;
                 pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
             }
         }
@@ -144,7 +141,6 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                 
                 Ramp_Init_F(&pMotor->FREQ_CTRL.Ramp_FREQ, 2.0f*pMotor->FREQ_CTRL._I_F_FREQ);
                 
-                pMotor->VF_CTRL.Ramp_AngleERR.F_Init = pMotor->VF_CTRL._O_F_Angle - pMotor->Motor_EST.TG_Triangle.F_Angle;
                 pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
             }
         }
@@ -609,8 +605,8 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->VF_CTRL._O_F_Angle;
     Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
     
-    pMotor->SVPWM_CTRL._I_F_Ud = 0.0f;
-    pMotor->SVPWM_CTRL._I_F_Uq = pMotor->VF_CTRL._O_F_Vq;
+    pMotor->SVPWM_CTRL._I_F_Ud = pMotor->VF_CTRL._O_F_Vq;
+    pMotor->SVPWM_CTRL._I_F_Uq = 0.0f;
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
     pMotor->HFI_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
@@ -679,29 +675,17 @@ void MotorTask_Current_CloseLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->PARA_ID._I_F_Ubeta = pMotor->SVPWM_CTRL._O_F_Ubeta;
     Est_Para_Id_Current_F(&pMotor->PARA_ID);
     
-    MotorFoc_IF_CLOSE_F(&pMotor->IF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->Motor_EST.TG_Triangle.F_Angle + pMotor->IF_CTRL.Ramp_AngleERR.F_Output;
+    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->Motor_EST.TG_Triangle.F_Angle;
     
     if(pMotor->PARA_ID._V_Q32U_State == 7U)
     {
         pMotor->Motor_Error_Flag.bit.paraid_finish = 1U;
     }
     
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_IF)
-    MotorFoc_IF_CLOSE_F(&pMotor->IF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->Motor_EST.TG_Triangle.F_Angle + pMotor->IF_CTRL.Ramp_AngleERR.F_Output;
-    
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_VF)
-    MotorFoc_VF_CLOSE_F(&pMotor->VF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.F_Angle = pMotor->Motor_EST.TG_Triangle.F_Angle + pMotor->VF_CTRL.Ramp_AngleERR.F_Output;
-    
 #else
     pMotor->SVPWM_CTRL.TG_Triangle = pMotor->Motor_EST.TG_Triangle;
 	
 #endif
-    
-    MATH_ANGLE_MOD_F(pMotor->SVPWM_CTRL.TG_Triangle.F_Angle);
-    Math_SinCos_F(&pMotor->SVPWM_CTRL.TG_Triangle);
     
     MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
     pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;

@@ -66,6 +66,12 @@ void Est_Flux_T(ST_FLUX_CONTROL_T* pCTRL)
     pCTRL->_V_Q14I_Nalfa = pCTRL->_V_Q14I_Xalfa - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
     pCTRL->_V_Q14I_Nbeta = pCTRL->_V_Q14I_Xbeta - Q32I_RHT_14(pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
     
+    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
+    if      (Freq_abs < 2048)   {pCTRL->PID_PLL.Q14I_Kp = Q32I_RHT_03(pCTRL->_P_Q14I_PLL_Kp);   pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_06(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 4096)   {pCTRL->PID_PLL.Q14I_Kp = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Kp);   pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_04(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 8192)   {pCTRL->PID_PLL.Q14I_Kp = Q32I_RHT_01(pCTRL->_P_Q14I_PLL_Kp);   pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Ki);}
+    else                        {pCTRL->PID_PLL.Q14I_Kp = pCTRL->_P_Q14I_PLL_Kp;                pCTRL->PID_PLL.Q14I_Ki = pCTRL->_P_Q14I_PLL_Ki;}
+    
     pCTRL->PID_PLL.Q14I_Rf = Q32I_RHT_14(pCTRL->_V_Q14I_Nbeta*pCTRL->TG_Triangle.Q14I_Cos);
     pCTRL->PID_PLL.Q14I_Fb = Q32I_RHT_14(pCTRL->_V_Q14I_Nalfa*pCTRL->TG_Triangle.Q14I_Sin);
     PID_Pos_Cal_T(&pCTRL->PID_PLL);
@@ -115,8 +121,6 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
 {
-    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
-    
     pCTRL->_V_Q28I_Aalfa_tmp += pCTRL->_P_Q14I_Ws*(
                               - Q32I_RHT_14(pCTRL->_P_Q14I_Rs_Over_Ld*pCTRL->_V_Q14I_Aalfa)
                               - Q32I_RHT_14(pCTRL->FL_SRAD.Q16I_Filter_in*Q32I_RHT_14(pCTRL->_P_Q14I_Ld_Lq_Over_Ld*pCTRL->_V_Q14I_Abeta))
@@ -137,21 +141,11 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->_V_Q14I_IErralfa = pCTRL->_V_Q14I_Aalfa - pCTRL->_I_Q14I_Ialfa;
     pCTRL->_V_Q14I_IErrbeta = pCTRL->_V_Q14I_Abeta - pCTRL->_I_Q14I_Ibeta;
     
-    if(Freq_abs < 1638)
-    {
-        pCTRL->_V_Q14I_IErralfa *= 10;
-        pCTRL->_V_Q14I_IErrbeta *= 10;
-    }
-    else if(Freq_abs < 3276)
-    {
-        pCTRL->_V_Q14I_IErralfa *= 5;
-        pCTRL->_V_Q14I_IErrbeta *= 5;
-    }
-    else if(Freq_abs < 8192)
-    {
-        pCTRL->_V_Q14I_IErralfa *= 2;
-        pCTRL->_V_Q14I_IErrbeta *= 2;
-    }
+    Q32I_ Freq_abs = pCTRL->_I_Q00I_DIR_Target*pCTRL->FL_SRAD.Q16I_Filter_out;
+    if      (Freq_abs < 2048)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_03(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 4096)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 8192)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_01(pCTRL->_P_Q14I_PLL_Ki);}
+    else                        {pCTRL->PID_PLL.Q14I_Ki = pCTRL->_P_Q14I_PLL_Ki;}             
     
     if      (pCTRL->_V_Q14I_IErralfa >  pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa =  pCTRL->_P_Q14I_K1;}
     else if (pCTRL->_V_Q14I_IErralfa < -pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa = -pCTRL->_P_Q14I_K1;}

@@ -34,6 +34,8 @@ typedef struct
     Q32I_       _V_Q14I_Xalfa;
     Q32I_       _V_Q14I_Xbeta;
     
+    Q32I_       _P_Q14I_PLL_Kp;
+    Q32I_       _P_Q14I_PLL_Ki;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
     Q32I_       _P_Q14I_Gamma;
@@ -67,6 +69,7 @@ typedef struct
     Q32I_       _V_Q32I_K1_alfa_tmp;
     Q32I_       _V_Q32I_K1_beta_tmp;
     
+    Q32I_       _P_Q14I_PLL_Ki;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
     Q32I_       _P_Q14I_K1;

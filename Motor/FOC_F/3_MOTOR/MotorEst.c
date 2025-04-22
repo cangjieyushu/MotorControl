@@ -178,6 +178,12 @@ void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
     
+    float Freq_abs = MATH_ABS_F(pCTRL->FL_SRAD.F_Filter_out);
+    if      (Freq_abs < 0.125f) {pCTRL->PID_PLL.F_Kp = 0.125f*pCTRL->_P_F_PLL_Kp;   pCTRL->PID_PLL.F_Ki = 0.015625f*pCTRL->_P_F_PLL_Ki;}
+    else if (Freq_abs < 0.25f)  {pCTRL->PID_PLL.F_Kp = 0.25f*pCTRL->_P_F_PLL_Kp;    pCTRL->PID_PLL.F_Ki = 0.0625f*pCTRL->_P_F_PLL_Ki;}
+    else if (Freq_abs < 0.5f)   {pCTRL->PID_PLL.F_Kp = 0.5f*pCTRL->_P_F_PLL_Kp;     pCTRL->PID_PLL.F_Ki = 0.25f*pCTRL->_P_F_PLL_Ki;}
+    else                        {pCTRL->PID_PLL.F_Kp = pCTRL->_P_F_PLL_Kp;          pCTRL->PID_PLL.F_Ki = pCTRL->_P_F_PLL_Ki;}
+    
     pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Nbeta*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Nalfa*pCTRL->TG_Triangle.F_Sin;
     PID_Pos_Cal_F(&pCTRL->PID_PLL);
@@ -226,8 +232,6 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
 {
-    float Freq_abs = MATH_ABS_F(pCTRL->FL_SRAD.F_Filter_out);
-    
     pCTRL->_V_F_Aalfa += pCTRL->_P_F_Ws*(
 					   - pCTRL->_P_F_Rs_Over_Ld*pCTRL->_V_F_Aalfa
                        - pCTRL->FL_SRAD.F_Filter_in*pCTRL->_P_F_Ld_Lq_Over_Ld*pCTRL->_V_F_Abeta
@@ -242,28 +246,18 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
     pCTRL->_V_F_IErralfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_IErrbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
     
-    if(Freq_abs < 0.1f)
-    {
-        pCTRL->_V_F_IErralfa *= 10.0f;
-        pCTRL->_V_F_IErrbeta *= 10.0f;
-    }
-    else if(Freq_abs < 0.2f)
-    {
-        pCTRL->_V_F_IErralfa *= 5.0f;
-        pCTRL->_V_F_IErrbeta *= 5.0f;
-    }
-    else if(Freq_abs < 0.5f)
-    {
-        pCTRL->_V_F_IErralfa *= 2.0f;
-        pCTRL->_V_F_IErrbeta *= 2.0f;
-    }
+    float Freq_abs = pCTRL->_I_F_DIR_Target*pCTRL->FL_SRAD.F_Filter_out;
+    if      (Freq_abs < 0.125f) {pCTRL->PID_PLL.F_Ki = 0.125f*pCTRL->_P_F_PLL_Ki;}
+    else if (Freq_abs < 0.25f)  {pCTRL->PID_PLL.F_Ki = 0.25f*pCTRL->_P_F_PLL_Ki;}
+    else if (Freq_abs < 0.5f)   {pCTRL->PID_PLL.F_Ki = 0.5f*pCTRL->_P_F_PLL_Ki;}
+    else                        {pCTRL->PID_PLL.F_Ki = pCTRL->_P_F_PLL_Ki;}
     
-    if      (pCTRL->_V_F_IErralfa >  pCTRL->_P_F_K1)  {pCTRL->_V_F_Ealfa =  pCTRL->_P_F_K1;}
-    else if (pCTRL->_V_F_IErralfa < -pCTRL->_P_F_K1)  {pCTRL->_V_F_Ealfa = -pCTRL->_P_F_K1;}
-    else                                              {pCTRL->_V_F_Ealfa =  pCTRL->_V_F_IErralfa;}
-    if      (pCTRL->_V_F_IErrbeta >  pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta =  pCTRL->_P_F_K1;}
-    else if (pCTRL->_V_F_IErrbeta < -pCTRL->_P_F_K1)  {pCTRL->_V_F_Ebeta = -pCTRL->_P_F_K1;}
-    else                                              {pCTRL->_V_F_Ebeta =  pCTRL->_V_F_IErrbeta;}
+    if      (pCTRL->_V_F_IErralfa >  pCTRL->_P_F_K1)    {pCTRL->_V_F_Ealfa =  pCTRL->_P_F_K1;}
+    else if (pCTRL->_V_F_IErralfa < -pCTRL->_P_F_K1)    {pCTRL->_V_F_Ealfa = -pCTRL->_P_F_K1;}
+    else                                                {pCTRL->_V_F_Ealfa =  pCTRL->_V_F_IErralfa;}
+    if      (pCTRL->_V_F_IErrbeta >  pCTRL->_P_F_K1)    {pCTRL->_V_F_Ebeta =  pCTRL->_P_F_K1;}
+    else if (pCTRL->_V_F_IErrbeta < -pCTRL->_P_F_K1)    {pCTRL->_V_F_Ebeta = -pCTRL->_P_F_K1;}
+    else                                                {pCTRL->_V_F_Ebeta =  pCTRL->_V_F_IErrbeta;}
     
     pCTRL->PID_PLL.F_Rf = -pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ealfa*pCTRL->TG_Triangle.F_Cos;
     pCTRL->PID_PLL.F_Fb =  pCTRL->_I_F_DIR_Target*pCTRL->_V_F_Ebeta*pCTRL->TG_Triangle.F_Sin;

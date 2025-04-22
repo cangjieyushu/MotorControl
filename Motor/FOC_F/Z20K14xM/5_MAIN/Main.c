@@ -8,7 +8,7 @@
 #include "Main.h"
 
 #if(JSCOPE_RTT_EN == 1U)
-char Buffer[128];
+Q32I_ Buffer[128];
 Q32I_ RTT_DATA[8];
 #endif
 
@@ -25,8 +25,6 @@ void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
-        Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
         Button_Control(&Button_Ctrl, pST);
         
 		Current_Protect_Flow(pST);

@@ -14,7 +14,6 @@ typedef struct
 {
     ST_RAMP_T       Ramp_Iq;
     ST_RAMP_T       Ramp_FREQ;
-    ST_RAMP_T       Ramp_AngleERR;
     
     Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
@@ -31,7 +30,6 @@ typedef struct
 {
     ST_RAMP_T       Ramp_Vq;
     ST_RAMP_T       Ramp_FREQ;
-    ST_RAMP_T       Ramp_AngleERR;
 
     Q32I_       _I_Q00I_DIR_Target;
     Q32I_       _I_Q14I_AngleEst;
@@ -166,17 +164,6 @@ Author: CJYS
 void MotorFoc_IF_OPEN_T(ST_IF_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
-Function: MotorFoc_IF_CLOSE_T
-Description: IF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: IF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_IF_CLOSE_T(ST_IF_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
 Function: MotorFoc_IF_CURRENT_T
 Description: IF电流环中断控制函数
 Input: 无
@@ -208,17 +195,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_VF_OPEN_T(ST_VF_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CLOSE_T
-Description: VF闭环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CLOSE_T(ST_VF_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_VF_CURRENT_T

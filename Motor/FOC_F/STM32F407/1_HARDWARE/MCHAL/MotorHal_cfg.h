@@ -52,8 +52,10 @@
 #define HAL_PWM_FREQ_10K                        (10.0f)                         //kHz£¨PWM‘ÿ∆µ
 #define HAL_PWM_FREQ_12K                        (12.0f)                         //kHz£¨PWM‘ÿ∆µ
 #define HAL_PWM_FREQ_16K                        (16.0f)                         //kHz£¨PWM‘ÿ∆µ
-#define HAL_PWM_FREQ_18K                        (18.0f)                         //kHz£¨PWM‘ÿ∆µ
 #define HAL_PWM_FREQ_20K                        (20.0f)                         //kHz£¨PWM‘ÿ∆µ
+#define HAL_PWM_FREQ_24K                        (24.0f)                         //kHz£¨PWM‘ÿ∆µ
+#define HAL_PWM_FREQ_28K                        (28.0f)                         //kHz£¨PWM‘ÿ∆µ
+#define HAL_PWM_FREQ_32K                        (32.0f)                         //kHz£¨PWM‘ÿ∆µ
 
 #define HAL_PWM_SET_FREQ                        (HAL_PWM_FREQ_16K)
 #define HAL_PWM_ALL_COUNT_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_SET_FREQ)

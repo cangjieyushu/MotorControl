@@ -68,8 +68,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
 	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
 	
     MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
-    pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
-    pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._O_Q14U_Iq;
+    pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->IF_CTRL._O_Q14U_Iq;
+    pMotor->CURRENT_CTRL._I_Q14I_IqRef = 0;
     
     if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
     {
@@ -82,7 +82,6 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                 
                 Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
                 
-                pMotor->IF_CTRL.Ramp_AngleERR.Q14I_Init = pMotor->IF_CTRL._O_Q12U_Angle - pMotor->Motor_EST.TG_Triangle.Q12U_Angle;
                 pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
             }
         }
@@ -108,7 +107,6 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
                 
                 Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
                 
-                pMotor->VF_CTRL.Ramp_AngleERR.Q14I_Init = pMotor->VF_CTRL._O_Q12U_Angle - pMotor->Motor_EST.TG_Triangle.Q12U_Angle;
                 pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
             }
         }
@@ -407,8 +405,8 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
     Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
     
-    pMotor->SVPWM_CTRL._I_Q14I_Ud = 0;
-    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->VF_CTRL._O_Q14U_Vq;
+    pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->VF_CTRL._O_Q14U_Vq;
+    pMotor->SVPWM_CTRL._I_Q14I_Uq = 0;
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
     
@@ -438,21 +436,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_CloseLoop_Flow(ST_MOTOR_TASK* pMotor)
 {
-#if(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_IF)
-    MotorFoc_IF_CLOSE_T(&pMotor->IF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->Motor_EST.TG_Triangle.Q12U_Angle + pMotor->IF_CTRL.Ramp_AngleERR.Q14I_Output;
-    
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_VF)
-    MotorFoc_VF_CLOSE_T(&pMotor->VF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->Motor_EST.TG_Triangle.Q12U_Angle + pMotor->VF_CTRL.Ramp_AngleERR.Q14I_Output;
-    
-#else
     pMotor->SVPWM_CTRL.TG_Triangle = pMotor->Motor_EST.TG_Triangle;
-	
-#endif
-    
-    MATH_ANGLE_MOD_T(pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle);
-    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
     
     MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
     pMotor->CURRENT_CTRL._I_Q14I_Id = pMotor->SVPWM_CTRL._O_Q14I_Id;

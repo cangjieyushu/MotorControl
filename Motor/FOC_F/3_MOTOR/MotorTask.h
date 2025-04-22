@@ -264,8 +264,8 @@ static inline Q32I_ Motor_Read_Speed(void)
 
 /**********************************************************************************************
 Function: Motor_Set_Vbus
-Description: 设置FOC算法的母线电压值
-Input: 母线电压（V）
+Description: 设置母线电压值
+Input: 母线电压（lsb）
 Output: 无
 Input_Output: 无
 Return: 无
