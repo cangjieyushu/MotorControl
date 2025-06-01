@@ -539,6 +539,43 @@ void PID_Pos_Cal_F(ST_PID_POS_F* pPID)
     pPID->F_Output = MATH_SAT_F(pPID->F_Output, pPID->F_OutMax, pPID->F_OutMin);
 }
 
+/**********************************************************************************************
+Function: PID_Sat_Init_F
+Description: 抗饱和位置式PID初始化
+Input: 抗饱和积分器初始值
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Init_F(ST_PID_SAT_F* pPID, float init)
+{
+    pPID->F_Rf = 0.0f;
+    pPID->F_Fb = 0.0f;
+    pPID->F_Ui = init;
+    pPID->F_Output = init;
+}
+
+/**********************************************************************************************
+Function: PID_Sat_Cal_F
+Description: 抗饱和位置式PID计算
+Input: 无
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Cal_F(ST_PID_SAT_F* pPID)
+{
+    float F_Error = pPID->F_Rf - pPID->F_Fb;
+    
+    pPID->F_Ui += pPID->F_Ki*F_Error - pPID->F_Kc*pPID->F_USat;
+    
+    pPID->F_Output = pPID->F_Kp*F_Error + pPID->F_Ui;
+    pPID->F_Output = MATH_SAT_F(pPID->F_Output, pPID->F_OutMax, pPID->F_OutMin);
+    pPID->F_USat = pPID->F_Ui - pPID->F_Output;
+}
+
 #define SINE_TABLE_SIZE                 (512U)
 static float Math_Sin_Table_Float[SINE_TABLE_SIZE + 2U] =
 {

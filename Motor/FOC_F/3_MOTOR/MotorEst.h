@@ -18,13 +18,6 @@ typedef struct
     
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
-    float       _I_F_Angle;
-    float       _V_F_Angle;
-    
-    Q32U_       _V_Q32U_State;
-    
-    Q32U_       _V_Q32U_Flag_En;
-    Q32U_       _V_Q32U_NS_cnt;
     
     Q32U_       _V_Q32U_Ud_cnt;
     Q32U_       _V_Q32U_Ud_Count;
@@ -40,12 +33,12 @@ typedef struct
     float       _O_F_Ibeta;
     float       _O_F_Ud_HFI;
     
-    float       _P_F_Target;
+    float       _P_F_Freq_Target;
+    float       _P_F_Id_Ref;
     float       _P_F_Ud_Ref;
-    Q32U_       _P_Q32U_PWM_Freq;
-    Q32U_       _P_Q32U_Ud_Freq;
+    float       _P_F_PWM_Freq;
+    float       _P_F_Ud_Freq;
     float       _P_F_Udq_Coeff;
-    float       _P_F_NS_Time;
     float       _P_F_Ts;
 }ST_HFI_CONTROL_F;
 
@@ -55,6 +48,7 @@ typedef struct
     ST_FILTER_F     FL_SRAD;
     ST_TRIG_F       TG_Triangle;
 
+    float       _I_F_IdRef;
     float       _I_F_Ualfa;
     float       _I_F_Ubeta;
     float       _I_F_Ialfa;
@@ -77,6 +71,7 @@ typedef struct
     float       _P_F_Gamma;
     float       _P_F_Rs;
     float       _P_F_Ls;
+    float       _P_F_Ld;
     float       _P_F_Flux;
     float       _P_F_Flux2;
 }ST_FLUX_CONTROL_F;
@@ -105,6 +100,7 @@ typedef struct
     float       _P_F_PLL_Ki;
     float       _P_F_Ts;
     float       _P_F_Ws;
+    float       _P_F_H1;
     float       _P_F_K1;
     float       _P_F_Rs;
     float       _P_F_Ld;
@@ -119,7 +115,7 @@ typedef struct
     ST_PID_POS_F    PID_PLL;
     ST_FILTER_F     FL_SRAD;
     ST_TRIG_F       TG_Triangle;
-
+    
     float       _I_F_Ualfa;
     float       _I_F_Ubeta;
     float       _I_F_Ialfa;

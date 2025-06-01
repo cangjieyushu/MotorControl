@@ -72,7 +72,7 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     
     pST->Q16U_Current_Max = Motor_Read_Current_Max();
     pST->Q16U_Voltage_Bus = Q32I_RHT_10(pST->_P_Q24I_Voltage_Scale*pST->FL_VBUS.Q16I_Filter_out);
-    pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
+//    pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
     pST->Q16U_Motor_Speed = Motor_Read_Speed();
     pST->Q16U_Temp_0p01_C = pST->FL_TEMP.Q16I_Filter_out;
     
@@ -91,6 +91,9 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
         {
             if(++pST->flow_cnt >= pST->_P_Q32U_System_PowerUp_Time)
             {
+                
+                pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
+                
                 pST->flow_cnt = 0U;
                 System_Task_Init(pST);
                 pST->System_Flow = SYSTEM_STATE_IDLE;

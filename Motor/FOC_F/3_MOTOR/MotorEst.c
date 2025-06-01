@@ -29,12 +29,8 @@ void Est_HFI_Init_F(ST_HFI_CONTROL_F* pCTRL)
     pCTRL->TG_Triangle.F_Sin = 0.0f;
     pCTRL->TG_Triangle.F_ReAngle = 0.0f;
     
-    pCTRL->_V_Q32U_State = 0U;
-    pCTRL->_V_Q32U_Flag_En = 0U;
-    pCTRL->_V_Q32U_NS_cnt = 0U;
-    
     pCTRL->_V_Q32U_Ud_cnt = 0U;
-    pCTRL->_V_Q32U_Ud_Count = pCTRL->_P_Q32U_PWM_Freq/pCTRL->_P_Q32U_Ud_Freq/2U;
+    pCTRL->_V_Q32U_Ud_Count = (Q32U_)(pCTRL->_P_F_PWM_Freq/pCTRL->_P_F_Ud_Freq/2.0f);
     pCTRL->_V_F_Ud_Sign = 1.0f;
     pCTRL->_V_F_Ialfa_LPF = 0.0f;
     pCTRL->_V_F_Ibeta_LPF = 0.0f;
@@ -58,40 +54,11 @@ Author: CJYS
 ***********************************************************************************************/
 void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
 {
-    if(pCTRL->_V_Q32U_State == 0U)
-    {
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            if((MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) > MATH_PI_OVER_TWO_F)
-            && (MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) < 3.0f*MATH_PI_OVER_TWO_F))
-            {
-                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
-            }
-            pCTRL->_V_Q32U_State = 1U;
-        }
-    }
-    else if(pCTRL->_V_Q32U_State == 1U)
-    {
-        pCTRL->_V_Q32U_Flag_En = 1U;
-        pCTRL->_V_Q32U_NS_cnt++;
-        if(pCTRL->_V_Q32U_NS_cnt == pCTRL->_P_F_NS_Time)
-        {
-            pCTRL->_V_Q32U_NS_cnt = 0U;
-            if((MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) > MATH_PI_OVER_TWO_F)
-            && (MATH_ABS_F(pCTRL->TG_Triangle.F_Angle - pCTRL->_I_F_Angle) < 3.0f*MATH_PI_OVER_TWO_F))
-            {
-                pCTRL->TG_Triangle.F_Angle += MATH_PI_F;
-            }
-            pCTRL->_V_Q32U_State = 1U;
-        }
-    }
-    
     pCTRL->_V_Q32U_Ud_cnt++;
     if(pCTRL->_V_Q32U_Ud_cnt == pCTRL->_V_Q32U_Ud_Count)
     {
         pCTRL->_V_Q32U_Ud_cnt = 0U;
+        
         pCTRL->_V_F_Ialfa_LPF = 0.5f*(pCTRL->_I_F_Ialfa + pCTRL->_V_F_Ialfa_Last);
         pCTRL->_V_F_Ialfa_HPF = 0.5f*(pCTRL->_I_F_Ialfa - pCTRL->_V_F_Ialfa_Last)*pCTRL->_V_F_Ud_Sign;
         pCTRL->_V_F_Ibeta_LPF = 0.5f*(pCTRL->_I_F_Ibeta + pCTRL->_V_F_Ibeta_Last);
@@ -110,18 +77,19 @@ void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
         {
             pCTRL->_V_F_Ud_Sign = 1.0f;
         }
+    
+        pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Ibeta_HPF*pCTRL->TG_Triangle.F_Cos;
+        pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ialfa_HPF*pCTRL->TG_Triangle.F_Sin;
+        PID_Pos_Cal_F(&pCTRL->PID_PLL);
+    
+        pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
     }
     
-    pCTRL->PID_PLL.F_Rf = pCTRL->_V_F_Ibeta_HPF*pCTRL->TG_Triangle.F_Cos;
-    pCTRL->PID_PLL.F_Fb = pCTRL->_V_F_Ialfa_HPF*pCTRL->TG_Triangle.F_Sin;
-    PID_Pos_Cal_F(&pCTRL->PID_PLL);
-    
-    pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
     Filter_Cal_F(&pCTRL->FL_SRAD);
     
     pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
     MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
-    
+
     Math_SinCos_F(&pCTRL->TG_Triangle);
     
     pCTRL->_O_F_Ud_HFI = pCTRL->_V_F_Ud_Sign*pCTRL->_P_F_Ud_Ref;
@@ -167,7 +135,7 @@ void Est_Flux_F(ST_FLUX_CONTROL_F* pCTRL)
     
     pCTRL->_V_F_Nalfa = pCTRL->_V_F_Xalfa - pCTRL->_P_F_Ls*pCTRL->_I_F_Ialfa;
     pCTRL->_V_F_Nbeta = pCTRL->_V_F_Xbeta - pCTRL->_P_F_Ls*pCTRL->_I_F_Ibeta;
-    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta);
+    pCTRL->_V_F_Nn2 = MATH_SQUARE_F(pCTRL->_V_F_Nalfa) + MATH_SQUARE_F(pCTRL->_V_F_Nbeta) - MATH_SQUARE_F(pCTRL->_P_F_Ld*pCTRL->_I_F_IdRef);
     
     pCTRL->_V_F_Ealfa = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nalfa*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
     pCTRL->_V_F_Ebeta = pCTRL->_P_F_Gamma*pCTRL->_V_F_Nbeta*(pCTRL->_P_F_Flux2 - pCTRL->_V_F_Nn2);
@@ -243,8 +211,8 @@ void Est_SMO_F(ST_SMO_CONTROL_F* pCTRL)
                        + pCTRL->_P_F_One_Over_Ld*pCTRL->_I_F_Ubeta
                        - pCTRL->_P_F_One_Over_Ld*pCTRL->_V_F_Ebeta);
     
-    pCTRL->_V_F_IErralfa = pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa;
-    pCTRL->_V_F_IErrbeta = pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta;
+    pCTRL->_V_F_IErralfa = pCTRL->_P_F_H1*(pCTRL->_V_F_Aalfa - pCTRL->_I_F_Ialfa);
+    pCTRL->_V_F_IErrbeta = pCTRL->_P_F_H1*(pCTRL->_V_F_Abeta - pCTRL->_I_F_Ibeta);
     
     float Freq_abs = MATH_ABS_F(pCTRL->FL_SRAD.F_Filter_out);
     if      (Freq_abs < 0.125f) {pCTRL->PID_PLL.F_Ki = 0.125f*pCTRL->_P_F_PLL_Ki;}

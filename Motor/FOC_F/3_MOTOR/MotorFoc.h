@@ -99,8 +99,8 @@ typedef struct
 
 typedef struct
 {
-    ST_PID_POS_F    PID_FREQ;
-    ST_PID_POS_F    PID_WEAK;
+    ST_PID_SAT_F    PID_FREQ;
+    ST_PID_SAT_F    PID_WEAK;
     ST_RAMP_F       Ramp_FREQ;
     ST_TRIG_F       TG_Triangle;
     
@@ -115,14 +115,13 @@ typedef struct
     float       _O_F_IdRef;
     float       _O_F_IqRef;
     
-    float       _P_F_FREQ_Max;
-    float       _P_F_FREQ_Min;
+    float       _P_F_CURRENT_Min;
 }ST_FREQ_CONTROL_F;
 
 typedef struct
 {
-    ST_PID_POS_F    PID_Id;
-    ST_PID_POS_F    PID_Iq;
+    ST_PID_SAT_F    PID_Id;
+    ST_PID_SAT_F    PID_Iq;
     
     float       _I_F_Vbus;
     float       _I_F_IdRef;
@@ -326,6 +325,17 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL);
 
+/**********************************************************************************************
+Function: MotorFoc_HFI_SRAD_Loop_F
+Description: 速度环控制
+Input: 无
+Output: 无
+Input_Output: 速度环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL);
+    
 /**********************************************************************************************
 Function: MotorFoc_HFI_Current_Loop_F
 Description: HFI电流环控制

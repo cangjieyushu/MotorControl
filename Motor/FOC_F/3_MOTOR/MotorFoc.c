@@ -419,8 +419,8 @@ void MotorFoc_SRAD_Init_F(ST_FREQ_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_IdRef = 0.0f;
     pCTRL->_O_F_IqRef = 0.0f;
-    PID_Pos_Init_F(&pCTRL->PID_FREQ, 0.0f);
-    PID_Pos_Init_F(&pCTRL->PID_WEAK, 0.0f);
+    PID_Sat_Init_F(&pCTRL->PID_FREQ, 0.0f);
+    PID_Sat_Init_F(&pCTRL->PID_WEAK, 0.0f);
     Ramp_Init_F(&pCTRL->Ramp_FREQ, 0.0f);
 }
 
@@ -435,23 +435,28 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL)
 {
-    pCTRL->Ramp_FREQ.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_FREQ_Target,
-                                pCTRL->_P_F_FREQ_Max, pCTRL->_P_F_FREQ_Min);
+    pCTRL->Ramp_FREQ.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_FREQ_Target,1.0f, -1.0f);
+    
     Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     
     pCTRL->PID_FREQ.F_Rf = pCTRL->Ramp_FREQ.F_Output;
     pCTRL->PID_FREQ.F_Fb = pCTRL->_I_F_FREQ;
-    PID_Pos_Cal_F(&pCTRL->PID_FREQ);
+    PID_Sat_Cal_F(&pCTRL->PID_FREQ);
     
     pCTRL->PID_WEAK.F_Rf = MATH_ONE_OVER_SQRT_THREE_F*pCTRL->_I_F_Vbus;
     pCTRL->PID_WEAK.F_Fb = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_I_F_Ud) + MATH_SQUARE_F(pCTRL->_I_F_Uq));
-    PID_Pos_Cal_F(&pCTRL->PID_WEAK);
+    PID_Sat_Cal_F(&pCTRL->PID_WEAK);
     
     pCTRL->TG_Triangle.F_Angle = pCTRL->PID_WEAK.F_Output;
     Math_SinCos_F(&pCTRL->TG_Triangle);
     
     pCTRL->_O_F_IdRef = pCTRL->PID_FREQ.F_Output*pCTRL->TG_Triangle.F_Sin;
     pCTRL->_O_F_IqRef = pCTRL->PID_FREQ.F_Output*pCTRL->TG_Triangle.F_Cos;
+    
+    if(pCTRL->_O_F_IqRef < MATH_ABS_F(pCTRL->_P_F_CURRENT_Min))
+    {
+        pCTRL->_O_F_IdRef = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_P_F_CURRENT_Min) - MATH_SQUARE_F(pCTRL->_O_F_IqRef));
+    }
 }
 
 /*******************************电流环***************************************/
@@ -469,8 +474,8 @@ void MotorFoc_Current_Init_F(ST_CURRENT_CONTROL_F* pCTRL)
 {
     pCTRL->_I_F_IdRef = 0.0f;
     pCTRL->_I_F_IqRef = 0.0f;
-    PID_Pos_Init_F(&pCTRL->PID_Id, 0.0f);
-    PID_Pos_Init_F(&pCTRL->PID_Iq, 0.0f);
+    PID_Sat_Init_F(&pCTRL->PID_Id, 0.0f);
+    PID_Sat_Init_F(&pCTRL->PID_Iq, 0.0f);
 }
 
 /**********************************************************************************************
@@ -491,15 +496,37 @@ void MotorFoc_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL)
     pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;
     pCTRL->PID_Id.F_Rf = pCTRL->_I_F_IdRef;
     pCTRL->PID_Id.F_Fb = pCTRL->_I_F_Id;
-    PID_Pos_Cal_F(&pCTRL->PID_Id);
+    PID_Sat_Cal_F(&pCTRL->PID_Id);
     pCTRL->_O_F_Ud = pCTRL->PID_Id.F_Output;
     
     pCTRL->PID_Iq.F_OutMax = pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_OutMin = -pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_Rf = pCTRL->_I_F_IqRef;
     pCTRL->PID_Iq.F_Fb = pCTRL->_I_F_Iq;
-    PID_Pos_Cal_F(&pCTRL->PID_Iq);
+    PID_Sat_Cal_F(&pCTRL->PID_Iq);
     pCTRL->_O_F_Uq = pCTRL->PID_Iq.F_Output;
+}
+
+/**********************************************************************************************
+Function: MotorFoc_HFI_SRAD_Loop_F
+Description: 速度环控制
+Input: 无
+Output: 无
+Input_Output: 速度环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL)
+{
+    pCTRL->Ramp_FREQ.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_FREQ_Target, 1.0f, -1.0f);
+    
+    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
+    
+    pCTRL->PID_FREQ.F_Rf = pCTRL->Ramp_FREQ.F_Output;
+    pCTRL->PID_FREQ.F_Fb = pCTRL->_I_F_FREQ;
+    PID_Sat_Cal_F(&pCTRL->PID_FREQ);
+    
+    pCTRL->_O_F_IqRef = pCTRL->PID_FREQ.F_Output;
 }
 
 /**********************************************************************************************
@@ -514,19 +541,20 @@ Author: CJYS
 void MotorFoc_HFI_Current_Loop_F(ST_CURRENT_CONTROL_F* pCTRL, float PWM_Coeff)
 {
     pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale*PWM_Coeff;
-    pCTRL->_V_F_Vsq = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale*PWM_Coeff;
     
     pCTRL->PID_Id.F_OutMax = pCTRL->_V_F_Vsd;
     pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;
     pCTRL->PID_Id.F_Rf = pCTRL->_I_F_IdRef;
     pCTRL->PID_Id.F_Fb = pCTRL->_I_F_Id;
-    PID_Pos_Cal_F(&pCTRL->PID_Id);
+    PID_Sat_Cal_F(&pCTRL->PID_Id);
     pCTRL->_O_F_Ud = pCTRL->PID_Id.F_Output;
+    
+    pCTRL->_V_F_Vsq = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_V_F_Vsd) - MATH_SQUARE_F(pCTRL->PID_Id.F_Output));
     
     pCTRL->PID_Iq.F_OutMax = pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_OutMin = -pCTRL->_V_F_Vsq;
     pCTRL->PID_Iq.F_Rf = pCTRL->_I_F_IqRef;
     pCTRL->PID_Iq.F_Fb = pCTRL->_I_F_Iq;
-    PID_Pos_Cal_F(&pCTRL->PID_Iq);
+    PID_Sat_Cal_F(&pCTRL->PID_Iq);
     pCTRL->_O_F_Uq = pCTRL->PID_Iq.F_Output;
 }
