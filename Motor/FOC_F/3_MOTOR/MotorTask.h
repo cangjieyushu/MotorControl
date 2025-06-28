@@ -196,7 +196,6 @@ static inline void Motor_Set_Dir(Q32I_ Dir)
     }
     Motor.FREQ_CTRL._I_F_DIR_Target = Dir_tmp;
     Motor.IF_CTRL._I_F_DIR_Target = Dir_tmp;
-    Motor.VF_CTRL._I_F_DIR_Target = Dir_tmp;
 }
 
 /**********************************************************************************************

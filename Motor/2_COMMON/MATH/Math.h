@@ -235,19 +235,21 @@ typedef struct
 
 typedef struct
 {
-    Q32I_ Q28I_Rf;
-    Q32I_ Q28I_Fb;
+    Q32I_ Q14I_Rf;
+    Q32I_ Q14I_Fb;
     
-    Q32I_ Q00I_Kp;
-    Q32I_ Q00I_Ki;
-    Q32I_ Q00I_Kd;
+    Q32I_ Q14I_Kp;
+    Q32I_ Q14I_Ki;
+    Q32I_ Q14I_Kd;
+    Q32I_ Q14I_Kc;
     
     Q32I_ Q14I_Ui;
-    Q32I_ Q18I_Ui_tmp;
+    Q32I_ Q28I_Ui_tmp;
+    Q32I_ Q14I_USat;
     Q32I_ Q14I_Output;
     Q32I_ Q14I_OutMax;
     Q32I_ Q14I_OutMin;
-}ST_PID_POS_P;
+}ST_PID_SAT_T;
 
 /**********************************************************************************************
 Function: Ramp_Init_T
@@ -337,6 +339,28 @@ Author: CJYS
 ***********************************************************************************************/
 void PID_Pos_Cal_T(ST_PID_POS_T* pPID);
 
+/**********************************************************************************************
+Function: PID_Sat_Init_T
+Description: 抗饱和位置式PID初始化
+Input: 抗饱和积分器初始值
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Init_T(ST_PID_SAT_T* pPID, Q32I_ init);
+    
+/**********************************************************************************************
+Function: PID_Sat_Cal_T
+Description: 抗饱和位置式PID计算
+Input: 无
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Cal_T(ST_PID_SAT_T* pPID);
+    
 /**********************************************************************************************
 Function: Math_SinCos_T
 Description: 定点正余弦计算

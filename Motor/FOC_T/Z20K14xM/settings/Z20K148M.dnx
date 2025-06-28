@@ -5,7 +5,7 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>3600502574</Checksum>
+        <Checksum>3965956016</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -61,8 +61,8 @@
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
     <ArmDriver>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
         <EnableCache>0</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
     </ArmDriver>
     <PlDdfRanges>
         <ConfigRanges0>Memory Periph0 1073741824 524288 2</ConfigRanges0>

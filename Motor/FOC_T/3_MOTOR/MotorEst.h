@@ -12,6 +12,38 @@
 
 typedef struct
 {
+    ST_PID_POS_F    PID_PLL;
+    ST_FILTER_F     FL_SRAD;
+    ST_TRIG_F       TG_Triangle;
+    
+    float       _I_F_Ialfa;
+    float       _I_F_Ibeta;
+    
+    Q32U_       _V_Q32U_Ud_cnt;
+    Q32U_       _V_Q32U_Ud_Count;
+    float       _V_F_Ud_Sign;
+    float       _V_F_Ialfa_LPF;
+    float       _V_F_Ibeta_LPF;
+    float       _V_F_Ialfa_HPF;
+    float       _V_F_Ibeta_HPF;
+    float       _V_F_Ialfa_Last;
+    float       _V_F_Ibeta_Last;
+    
+    float       _O_F_Ialfa;
+    float       _O_F_Ibeta;
+    float       _O_F_Ud_HFI;
+    
+    float       _P_F_Freq_Target;
+    float       _P_F_Id_Ref;
+    float       _P_F_Ud_Ref;
+    float       _P_F_PWM_Freq;
+    float       _P_F_Ud_Freq;
+    float       _P_F_Udq_Coeff;
+    float       _P_F_Ts;
+}ST_HFI_CONTROL_T;
+
+typedef struct
+{
     ST_PID_POS_T    PID_PLL;
     ST_FILTER_T     FL_SRAD;
     ST_TRIG_T       TG_Triangle;
@@ -41,6 +73,7 @@ typedef struct
     Q32I_       _P_Q14I_Gamma;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;
+    Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Flux;
     Q32I_       _P_Q14I_Flux2;
 }ST_FLUX_CONTROL_T;
@@ -72,6 +105,7 @@ typedef struct
     Q32I_       _P_Q14I_PLL_Ki;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
+    Q32I_       _P_Q14I_H1;
     Q32I_       _P_Q14I_K1;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
@@ -80,34 +114,6 @@ typedef struct
     Q32I_       _P_Q14I_Rs_Over_Ld;
     Q32I_       _P_Q14I_Ld_Lq_Over_Ld;
 }ST_SMO_CONTROL_T;
-
-typedef struct
-{
-    ST_PID_POS_T    PID_PLL;
-    ST_FILTER_T     FL_SRAD;
-    ST_TRIG_T       TG_Triangle;
-
-    Q32I_       _O_Q28U_Angle_tmp;
-    Q32I_       _I_Q14I_Ualfa;
-    Q32I_       _I_Q14I_Ubeta;
-    Q32I_       _I_Q14I_Ialfa;
-    Q32I_       _I_Q14I_Ibeta;
-    
-    Q32I_       _V_Q14I_Id;
-    Q32I_       _V_Q14I_Iq;
-    Q32I_       _V_Q14I_Ud;
-    Q32I_       _V_Q14I_Uq;
-    Q32I_       _V_Q28I_Id_Est_tmp;
-    Q32I_       _V_Q28I_Iq_Est_tmp;
-    Q32I_       _V_Q14I_Id_Est;
-    Q32I_       _V_Q14I_Iq_Est;
-    
-    Q32I_       _P_Q14I_Ts;
-    Q32I_       _P_Q14I_Ws;
-    Q32I_       _P_Q10I_One_Over_Ls;
-    Q32I_       _P_Q14I_Rs_Over_Ls;
-    Q32I_       _P_Q14I_Flux_Over_Ls;
-}ST_MRAS_CONTROL_T;
 
 /**********************************************************************************************
 Function: Est_Flux_Init_F
@@ -163,27 +169,5 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_Study_T(ST_SMO_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: Est_MRAS_Init_T
-Description: MRAS初始化
-Input: 无
-Output: 无
-Input_Output: MRAS指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_MRAS_Init_T(ST_MRAS_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: Est_MRAS_T
-Description: MRAS计算
-Input: 无
-Output: 无
-Input_Output: MRAS指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_MRAS_T(ST_MRAS_CONTROL_T* pCTRL);
 
 #endif /* MotorEst_H */

@@ -18,16 +18,13 @@
 //启动算法选择
 #define MOTOR_OPENLOOP_PARAID       (00U)
 #define MOTOR_OPENLOOP_IF           (01U)
-#define MOTOR_OPENLOOP_VF           (02U)
-#define MOTOR_OPENLOOP_HFI          (03U)
-#define MOTOR_OPENLOOP_FLUX         (04U)
-#define MOTOR_OPENLOOP_MRAS         (05U)
-#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_HFI
+#define MOTOR_OPENLOOP_HFI          (02U)
+#define MOTOR_OPENLOOP_FLUX         (03U)
+#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_IF
 
 //观测器选择
 #define MOTOR_EST_FLUX              (10U)
 #define MOTOR_EST_SMO               (11U)
-#define MOTOR_EST_MRAS              (12U)
 #define MOTOR_EST_MODE              MOTOR_EST_FLUX
 
 
@@ -73,7 +70,7 @@
 
 
 //电机openloop相关参数 
-#define MOTOR_OPENLOOP_MIN_TIME             (5000U)                             //ms,电机openloop最小时间
+#define MOTOR_OPENLOOP_MIN_TIME             (1000U)                             //ms,电机openloop最小时间
 #define MOTOR_OPENLOOP_SWITCH_FREQ          (FREQ_TO_PU(15.0f))                 //Hz,电机openloop切换closeloop转速阈值
 #define MOTOR_OPENLOOP_SWITCH_TIME          (50U)                               //ms,电机openloop切换closeloop转速检测时间
 
@@ -84,24 +81,14 @@
 //IF
 #define MOTOR_IF_IQRAMP_INIT                (CURRENT_TO_PU(0.0f))               //A,Iq初始值
 #define MOTOR_IF_IQRAMP_TARGET              (CURRENT_TO_PU(5.0f))               //A,Iq目标值
-#define MOTOR_IF_IQRAMP_STEP                (CURRENT_TO_PU(1.0f * MOTOR_LTs))   //A/s,Iq每秒增加步长
+#define MOTOR_IF_IQRAMP_ADDSTEP             ( CURRENT_TO_PU(10.0f * MOTOR_LTs)) //A/s,Iq每秒增加步长
+#define MOTOR_IF_IQRAMP_SUBSTEP             (-CURRENT_TO_PU(0.5f * MOTOR_LTs))  //A/s,Iq每秒增加步长
 
 #define MOTOR_IF_FREQRAMP_INIT              (FREQ_TO_PU(0.0f))                  //Hz,IF速度初始值
 #define MOTOR_IF_FREQRAMP_TARGET            (FREQ_TO_PU(20.0f))                 //Hz,IF速度目标值
 #define MOTOR_IF_FREQRAMP_STEP              (FREQ_TO_PU(5.0f * MOTOR_LTs))      //Hz/s,IF速度每秒增加步长
 
-#define MOTOR_IF_ANGLE_ERROR                (ANGLE_TO_PU(1.5f))                 //rad,IF与观测器角度偏差允许切换值
-
-//VF
-#define MOTOR_VF_VQRAMP_INIT                (VOLTAGE_TO_PU(0.0f))               //V,Vq初始值
-#define MOTOR_VF_VQRAMP_TARGET              (VOLTAGE_TO_PU(2.0f))               //V,Vq目标值
-#define MOTOR_VF_VQRAMP_STEP                (VOLTAGE_TO_PU(1.0f * MOTOR_LTs))   //V/s,Vq每秒增加步长
-
-#define MOTOR_VF_FREQRAMP_INIT              (FREQ_TO_PU(0.0f))                  //Hz,VF速度初始值
-#define MOTOR_VF_FREQRAMP_TARGET            (FREQ_TO_PU(20.0f))                 //Hz,VF速度目标值
-#define MOTOR_VF_FREQRAMP_STEP              (FREQ_TO_PU(5.0f * MOTOR_LTs))      //Hz/s,VF速度每秒增加步长
-
-#define MOTOR_VF_ANGLE_ERROR                (ANGLE_TO_PU(1.5f))                 //rad,VF与观测器角度偏差允许切换值
+#define MOTOR_IF_ANGLE_ERROR                (ANGLE_TO_PU(0.15f))                //rad,IF与观测器角度偏差允许切换值
 
 
 //转速环PID
@@ -152,7 +139,7 @@
 #define MOTOR_FLUX_PLL_MIN                  (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_H1                        (VOLTAGE_PU/CURRENT_PHASE_PU)       //增益系数
+#define MOTOR_SMO_H1                        (VOLTAGE_PU / CURRENT_PHASE_PU)     //增益系数
 #define MOTOR_SMO_K1                        (0.20f)           			        //限幅系数
 
 #define MOTOR_SMO_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD * 2.0f / VOLTAGE_PU / W_BASE)                      //锁相环比例系数
@@ -160,13 +147,6 @@
 #define MOTOR_SMO_PLL_KD                    (0.0f)                    	        //锁相环微分系数
 #define MOTOR_SMO_PLL_MAX                   ( 2.0f * MAX_FREQ_PU)               //锁相环最大输出
 #define MOTOR_SMO_PLL_MIN                   (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出
-
-//MRAS
-#define MOTOR_MRAS_PLL_KP                   (5.0f)                              //锁相环比例系数
-#define MOTOR_MRAS_PLL_KI                   (10.0f * MOTOR_HTs)                 //锁相环积分系数
-#define MOTOR_MRAS_PLL_KD                   (0.0f)                    	        //锁相环微分系数
-#define MOTOR_MRAS_PLL_MAX                  ( 2.0f * MAX_FREQ_PU)               //锁相环最大输出
-#define MOTOR_MRAS_PLL_MIN                  (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出
 
 
 typedef enum{
@@ -189,6 +169,7 @@ typedef union{
     ALL all;
     struct{
         BIT motor_run_flag      :1;//电机运行标志位
+        BIT motor_switch_flag   :1;//电机切换标志位
     }bit;
 }UN_MOTOR_STATE_FLAG;
 
@@ -236,7 +217,6 @@ typedef struct{
     
     ST_LOOP_CONTROL_F           LOOP_CTRL;
     ST_IF_CONTROL_F             IF_CTRL;
-    ST_VF_CONTROL_F             VF_CTRL;
     ST_SVPWM_CONTROL_F          SVPWM_CTRL;
     ST_FREQ_CONTROL_F           FREQ_CTRL;
     ST_CURRENT_CONTROL_F        CURRENT_CTRL;
@@ -244,7 +224,6 @@ typedef struct{
     ST_HFI_CONTROL_F            HFI_CTRL;
     ST_FLUX_CONTROL_F           FLUX_CTRL;
     ST_SMO_CONTROL_F            SMO_CTRL;
-    ST_MRAS_CONTROL_F           MRAS_CTRL;
     
     float                       F_Iphase_Max;
 }ST_MOTOR_TASK;

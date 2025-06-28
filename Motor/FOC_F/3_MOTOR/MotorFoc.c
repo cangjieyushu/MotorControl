@@ -23,6 +23,7 @@ void MotorFoc_IF_Init_F(ST_IF_CONTROL_F* pCTRL)
     pCTRL->_O_F_Angle = 0.0f;
     Ramp_Init_F(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.F_Init);
     Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
+    pCTRL->Ramp_Iq.F_Target = pCTRL->_P_F_Iq_Target;
 }
 
 /**********************************************************************************************
@@ -36,6 +37,10 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_OPEN_F(ST_IF_CONTROL_F* pCTRL)
 {
+    if(pCTRL->Ramp_FREQ.F_Output >= pCTRL->Ramp_FREQ.F_Target)
+    {
+        pCTRL->Ramp_Iq.F_Target = 0.0f;
+    }
     Ramp_Cal_F(&pCTRL->Ramp_Iq);
     Ramp_Cal_F(&pCTRL->Ramp_FREQ);
     pCTRL->_O_F_Iq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Iq.F_Output;
@@ -51,55 +56,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_F(ST_IF_CONTROL_F* pCTRL)
-{
-    pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
-    MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
-}
-
-/**********************************VF控制************************************/
-
-/**********************************************************************************************
-Function: MotorFoc_VF_Init_F
-Description: VF初始化
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_Init_F(ST_VF_CONTROL_F* pCTRL)
-{
-    pCTRL->_O_F_Angle = 0.0f;
-    Ramp_Init_F(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.F_Init);
-    Ramp_Init_F(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.F_Init);
-}
-
-/**********************************************************************************************
-Function: MotorFoc_VF_OPEN_F
-Description: VF开环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_OPEN_F(ST_VF_CONTROL_F* pCTRL)
-{
-    Ramp_Cal_F(&pCTRL->Ramp_Vq);
-    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
-    pCTRL->_O_F_Vq = pCTRL->_I_F_DIR_Target*pCTRL->Ramp_Vq.F_Output;
-}
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CURRENT_F
-Description: VF电流环中断控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CURRENT_F(ST_VF_CONTROL_F* pCTRL)
 {
     pCTRL->_O_F_Angle += pCTRL->_I_F_DIR_Target*pCTRL->_P_F_Ts*pCTRL->Ramp_FREQ.F_Output;
     MATH_ANGLE_MOD_F(pCTRL->_O_F_Angle);
@@ -458,6 +414,7 @@ void MotorFoc_SRAD_Loop_F(ST_FREQ_CONTROL_F* pCTRL)
         pCTRL->_O_F_IdRef = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_P_F_CURRENT_Min) - MATH_SQUARE_F(pCTRL->_O_F_IqRef));
     }
 }
+
 
 /*******************************电流环***************************************/
 

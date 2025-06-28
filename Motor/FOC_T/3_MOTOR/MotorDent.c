@@ -248,7 +248,7 @@ void Est_Para_Id_Current_T(ST_PARA_ID_T* pCTRL)
     
         pCTRL->_V_Q28I_Xalfa_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xalfa_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
         pCTRL->_V_Q28I_Xbeta_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xbeta_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
-    
+    	
         pCTRL->_V_Q14I_Nalfa = Q32I_RHT_14(pCTRL->_V_Q28I_Xalfa_tmp - pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ialfa);
         pCTRL->_V_Q14I_Nbeta = Q32I_RHT_14(pCTRL->_V_Q28I_Xbeta_tmp - pCTRL->_P_Q14I_Ls*pCTRL->_I_Q14I_Ibeta);
         

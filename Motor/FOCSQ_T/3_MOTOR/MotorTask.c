@@ -613,10 +613,10 @@ void MotorTask_Run_Flow_SQ(ST_MOTOR_TASK* pMotor)
                 MotorFoc_SVPWM_Init_T(&pMotor->SVPWM_CTRL);
                 
                 Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out);
-                PID_Pos_Init_T(&pMotor->FREQ_CTRL.PID_FREQ, pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_out);
+                PID_Sat_Init_T(&pMotor->FREQ_CTRL.PID_FREQ, pMotor->MS_CTRL.FL_Iphase.Q16I_Filter_out);
                 
-                PID_Pos_Init_T(&pMotor->CURRENT_CTRL.PID_Id, 0);
-                PID_Pos_Init_T(&pMotor->CURRENT_CTRL.PID_Iq, Q32I_RHT_13(pMotor->MS_CTRL.PWM_CTRL._O_Q12I_duty_set*pMotor->MS_CTRL.Q14I_VBUS_PU));
+                PID_Sat_Init_T(&pMotor->CURRENT_CTRL.PID_Id, 0);
+                PID_Sat_Init_T(&pMotor->CURRENT_CTRL.PID_Iq, Q32I_RHT_13(pMotor->MS_CTRL.PWM_CTRL._O_Q12I_duty_set*pMotor->MS_CTRL.Q14I_VBUS_PU));
                 
                 pMotor->SMO_CTRL._V_Q28I_Abeta_tmp = Q16I_LFT_01(pMotor->MS_CTRL.PWM_CTRL._O_Q12I_duty_set*pMotor->MS_CTRL.Q14I_VBUS_PU);
                 PID_Pos_Init_T(&pMotor->SMO_CTRL.PID_PLL, pMotor->MS_CTRL.FL_Freq.Q16I_Filter_out);

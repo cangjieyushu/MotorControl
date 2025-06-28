@@ -22,25 +22,10 @@ typedef struct
     Q32I_       _O_Q28U_Angle_tmp;
     Q32I_       _O_Q12U_Angle;
 
+    Q32I_       _P_Q14I_Iq_Target;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_AngleERRLimit;
 }ST_IF_CONTROL_T;
-
-typedef struct
-{
-    ST_RAMP_T       Ramp_Vq;
-    ST_RAMP_T       Ramp_FREQ;
-
-    Q32I_       _I_Q00I_DIR_Target;
-    Q32I_       _I_Q14I_AngleEst;
-    
-    Q32I_       _O_Q14U_Vq;
-    Q32I_       _O_Q28U_Angle_tmp;
-    Q32I_       _O_Q12U_Angle;
-    
-    Q32I_       _P_Q14I_Ts;
-    Q32I_       _P_Q14I_AngleERRLimit;
-}ST_VF_CONTROL_T;
 
 typedef struct
 {
@@ -101,8 +86,8 @@ typedef struct
 
 typedef struct
 {
-    ST_PID_POS_T    PID_FREQ;
-    ST_PID_POS_T    PID_WEAK;
+    ST_PID_SAT_T    PID_FREQ;
+    ST_PID_SAT_T    PID_WEAK;
     ST_RAMP_T       Ramp_FREQ;
     ST_TRIG_T       TG_Triangle;
     
@@ -117,14 +102,13 @@ typedef struct
     Q32I_       _O_Q14I_IdRef;
     Q32I_       _O_Q14I_IqRef;
     
-    Q32I_       _P_Q14I_FREQ_Max;
-    Q32I_       _P_Q14I_FREQ_Min;
+    float       _P_Q14I_CURRENT_Min;
 }ST_FREQ_CONTROL_T;
 
 typedef struct
 {
-    ST_PID_POS_T    PID_Id;
-    ST_PID_POS_T    PID_Iq;
+    ST_PID_SAT_T    PID_Id;
+    ST_PID_SAT_T    PID_Iq;
     
     Q32I_       _I_Q14I_Vbus;
     Q32I_       _I_Q14I_IdRef;
@@ -173,39 +157,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_T(ST_IF_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: MotorFoc_VF_Init_T
-Description: VF初始化
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_Init_T(ST_VF_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: MotorFoc_VF_OPEN_T
-Description: VF开环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_OPEN_T(ST_VF_CONTROL_T* pCTRL);
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CURRENT_T
-Description: VF电流环中断控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CURRENT_T(ST_VF_CONTROL_T* pCTRL);
 
 /**********************************************************************************************
 Function: MotorFoc_Clark_T

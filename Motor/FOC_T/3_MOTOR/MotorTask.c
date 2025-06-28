@@ -23,8 +23,6 @@
 #define Motor_EST                       FLUX_CTRL
 #elif(MOTOR_EST_MODE == MOTOR_EST_SMO)
 #define Motor_EST                       SMO_CTRL
-#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
-#define Motor_EST                       MRAS_CTRL
 #endif
 
 void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor);
@@ -74,8 +72,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
         
         MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
-        pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->IF_CTRL._O_Q14U_Iq;
-        pMotor->CURRENT_CTRL._I_Q14I_IqRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0.0f;
+        pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._O_Q14U_Iq;
         
         if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
         {
@@ -102,81 +100,39 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
 	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
     
     MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
-    pMotor->CURRENT_CTRL._I_Q14I_IdRef = pMotor->IF_CTRL._O_Q14U_Iq;
-    pMotor->CURRENT_CTRL._I_Q14I_IqRef = 0;
-    
-    if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
-    {
-        if(pMotor->FREQ_CTRL._I_Q00I_DIR_Target*pMotor->FREQ_CTRL._I_Q14I_FREQ >= pMotor->LOOP_CTRL._P_Q32I_Open_Switch_Freq)
-        {
-            if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
-            {
-                pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
-                pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-                
-                Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
-                
-                pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
-            }
-        }
-        else
-        {
-            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-        }
-    }
-    
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_VF)
-	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
-	
-    MotorFoc_VF_OPEN_T(&pMotor->VF_CTRL);
-    
-    if(++pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Min_Time)
-    {
-        if(pMotor->FREQ_CTRL._I_Q00I_DIR_Target*pMotor->FREQ_CTRL._I_Q14I_FREQ >= pMotor->LOOP_CTRL._P_Q32I_Open_Switch_Freq)
-        {
-            if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
-            {
-                pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
-                pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-                
-                Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
-                
-                pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
-            }
-        }
-        else
-        {
-            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-        }
-    }
-    
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
-    
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
-	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
-    
-    MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
     pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
     pMotor->CURRENT_CTRL._I_Q14I_IqRef = pMotor->IF_CTRL._O_Q14U_Iq;
     
-    if(pMotor->FREQ_CTRL._I_Q00I_DIR_Target*pMotor->FREQ_CTRL._I_Q14I_FREQ >= pMotor->LOOP_CTRL._P_Q32I_Open_Switch_Freq)
+    if(pMotor->Motor_State_Flag.bit.motor_switch_flag == 1U)
     {
-        if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
-        {
-            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-            
-            Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, (2*pMotor->FREQ_CTRL._I_Q14I_FREQ));
-            
-            pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
-        }
+        Ramp_Init_T(&pMotor->FREQ_CTRL.Ramp_FREQ, 2*pMotor->FREQ_CTRL._I_Q14I_FREQ);
+        pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
     }
-    else
-    {
-        pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
-    }
+
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
+    pMotor->FREQ_CTRL._I_F_FREQ_Target = pMotor->HFI_CTRL._P_F_Freq_Target;
+    pMotor->FREQ_CTRL._I_F_FREQ = pMotor->HFI_CTRL.FL_SRAD.F_Filter_out;
     
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_MRAS)
-    pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
+    MotorFoc_HFI_SRAD_Loop_F(&pMotor->FREQ_CTRL);
+    pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->HFI_CTRL._P_F_Id_Ref;
+    pMotor->CURRENT_CTRL._I_F_IqRef = 0.5f*pMotor->FREQ_CTRL._O_F_IqRef;
+    
+//    if(pMotor->FREQ_CTRL._I_F_DIR_Target*pMotor->FREQ_CTRL._I_F_FREQ >= pMotor->LOOP_CTRL._P_F_Open_Switch_Freq)
+//    {
+//        if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
+//        {
+//            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+//            
+//            pMotor->Motor_Loop_Mode = MOTOR_CLOSELOOP;
+//        }
+//    }
+//    else
+//    {
+//        pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+//    }
+    
+#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
+	pMotor->FREQ_CTRL._I_Q14I_FREQ = pMotor->Motor_EST.FL_SRAD.Q16I_Filter_out;
     
     MotorFoc_IF_OPEN_T(&pMotor->IF_CTRL);
     pMotor->CURRENT_CTRL._I_Q14I_IdRef = 0;
@@ -266,7 +222,6 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->LOOP_CTRL._V_Q32U_Close_cnt = 0U;
 		
         MotorFoc_IF_Init_T(&pMotor->IF_CTRL);
-        MotorFoc_VF_Init_T(&pMotor->VF_CTRL);
         
         MotorFoc_SVPWM_Init_T(&pMotor->SVPWM_CTRL);
         MotorFoc_SRAD_Init_T(&pMotor->FREQ_CTRL);
@@ -275,10 +230,9 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
         Est_Para_Id_Init_T(&pMotor->PARA_ID);
         Est_Flux_Init_T(&pMotor->FLUX_CTRL);
         Est_SMO_Init_T(&pMotor->SMO_CTRL);
-        Est_MRAS_Init_T(&pMotor->MRAS_CTRL);
         
         pMotor->Motor_Loop_Mode = MOTOR_OPENLOOP;
-        
+        pMotor->Motor_State_Flag.bit.motor_switch_flag = 0U;
         pMotor->BRAKE_CTRL.Flag.bit.b0_init = 0U;
         
         pMotor->Motor_Flow = MOTOR_STATE_INIT;
@@ -572,30 +526,47 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
     pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
     
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_VF)
-    MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
-    
-    MotorFoc_VF_CURRENT_T(&pMotor->VF_CTRL);
-    pMotor->SVPWM_CTRL.TG_Triangle.Q12U_Angle = pMotor->VF_CTRL._O_Q12U_Angle;
-    Math_SinCos_T(&pMotor->SVPWM_CTRL.TG_Triangle);
-    
-    pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->VF_CTRL._O_Q14U_Vq;
-    pMotor->SVPWM_CTRL._I_Q14I_Uq = 0;
+    if(pMotor->IF_CTRL.Ramp_FREQ.Q14I_Output >= pMotor->IF_CTRL.Ramp_FREQ.Q14I_Target)
+    {
+        if(MATH_ABS_F(pMotor->IF_CTRL._O_Q12U_Angle - pMotor->Motor_EST.TG_Triangle.Q12U_Angle) <= pMotor->IF_CTRL._P_Q14I_AngleERRLimit)
+        {
+            if(++pMotor->LOOP_CTRL._V_Q32U_Open_cnt >= pMotor->LOOP_CTRL._P_Q32U_Open_Switch_Time)
+            {
+                pMotor->LOOP_CTRL._V_Q32U_Open_min_cnt = 0U;
+                pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+                
+                pMotor->Motor_State_Flag.bit.motor_switch_flag = 1U;
+            }
+        }
+        else
+        {
+            pMotor->LOOP_CTRL._V_Q32U_Open_cnt = 0U;
+        }
+    }
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_HFI)
+    pMotor->HFI_CTRL._I_F_Ialfa = pMotor->SVPWM_CTRL._O_F_Ialfa;
+    pMotor->HFI_CTRL._I_F_Ibeta = pMotor->SVPWM_CTRL._O_F_Ibeta;
+    Est_HFI_F(&pMotor->HFI_CTRL);
+    
+    pMotor->SVPWM_CTRL.TG_Triangle = pMotor->HFI_CTRL.TG_Triangle;
+    pMotor->SVPWM_CTRL._O_F_Ialfa = pMotor->HFI_CTRL._O_F_Ialfa;
+    pMotor->SVPWM_CTRL._O_F_Ibeta = pMotor->HFI_CTRL._O_F_Ibeta;
+    
+    MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
+    pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
+    pMotor->CURRENT_CTRL._I_F_Iq = pMotor->SVPWM_CTRL._O_F_Iq;
+    MotorFoc_HFI_Current_Loop_F(&pMotor->CURRENT_CTRL, pMotor->HFI_CTRL._P_F_Udq_Coeff);
+        
+    pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud;
+    pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq;
+    
+    MotorFoc_Ipark_F(&pMotor->SVPWM_CTRL);
+    
+    pMotor->SVPWM_CTRL._I_F_Ud = pMotor->CURRENT_CTRL._O_F_Ud + pMotor->HFI_CTRL._O_F_Ud_HFI;
+    pMotor->SVPWM_CTRL._I_F_Uq = pMotor->CURRENT_CTRL._O_F_Uq;
     
 #elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
-    pMotor->SVPWM_CTRL.TG_Triangle = pMotor->Motor_EST.TG_Triangle;
-    
-    MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
-    pMotor->CURRENT_CTRL._I_Q14I_Id = pMotor->SVPWM_CTRL._O_Q14I_Id;
-    pMotor->CURRENT_CTRL._I_Q14I_Iq = pMotor->SVPWM_CTRL._O_Q14I_Iq;
-    MotorFoc_Current_Loop_T(&pMotor->CURRENT_CTRL);
-    
-    pMotor->SVPWM_CTRL._I_Q14I_Ud = pMotor->CURRENT_CTRL._O_Q14I_Ud;
-    pMotor->SVPWM_CTRL._I_Q14I_Uq = pMotor->CURRENT_CTRL._O_Q14I_Uq;
-     
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_MRAS)
     pMotor->SVPWM_CTRL.TG_Triangle = pMotor->Motor_EST.TG_Triangle;
     
     MotorFoc_Park_T(&pMotor->SVPWM_CTRL);
@@ -671,6 +642,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         }
         
 #if(MOTOR_EST_MODE == MOTOR_EST_FLUX)
+        pMotor->FLUX_CTRL._I_Q14I_IdRef = pMotor->CURRENT_CTRL._I_Q14I_IdRef;
         pMotor->FLUX_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
         pMotor->FLUX_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
         pMotor->FLUX_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
@@ -685,13 +657,6 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         pMotor->SMO_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
         Est_SMO_T(&pMotor->SMO_CTRL);
         Est_SMO_Study_T(&pMotor->SMO_CTRL);
-
-#elif(MOTOR_EST_MODE == MOTOR_EST_MRAS)
-        pMotor->MRAS_CTRL._I_Q14I_Ialfa = pMotor->SVPWM_CTRL._O_Q14I_Ialfa;
-        pMotor->MRAS_CTRL._I_Q14I_Ibeta = pMotor->SVPWM_CTRL._O_Q14I_Ibeta;
-        pMotor->MRAS_CTRL._I_Q14I_Ualfa = pMotor->SVPWM_CTRL._O_Q14I_Ualfa;
-        pMotor->MRAS_CTRL._I_Q14I_Ubeta = pMotor->SVPWM_CTRL._O_Q14I_Ubeta;
-        Est_MRAS_T(&pMotor->MRAS_CTRL);
         
 #endif
         

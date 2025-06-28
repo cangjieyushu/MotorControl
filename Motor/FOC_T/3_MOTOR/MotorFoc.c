@@ -23,6 +23,7 @@ void MotorFoc_IF_Init_T(ST_IF_CONTROL_T* pCTRL)
     pCTRL->_O_Q12U_Angle = 0;
     Ramp_Init_T(&pCTRL->Ramp_Iq, pCTRL->Ramp_Iq.Q14I_Init);
     Ramp_Init_T(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.Q14I_Init);
+    pCTRL->Ramp_Iq.Q14I_Target = pCTRL->_P_Q14I_Iq_Target;
 }
 
 /**********************************************************************************************
@@ -36,6 +37,10 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_OPEN_T(ST_IF_CONTROL_T* pCTRL)
 {
+    if(pCTRL->Ramp_FREQ.Q14I_Output >= pCTRL->_P_Q14I_Iq_Target)
+    {
+        pCTRL->Ramp_Iq.Q14I_Target = 0;
+    }
     Ramp_Cal_T(&pCTRL->Ramp_Iq);
     Ramp_Cal_T(&pCTRL->Ramp_FREQ);
     pCTRL->_O_Q14U_Iq = pCTRL->_I_Q00I_DIR_Target*pCTRL->Ramp_Iq.Q14I_Output;
@@ -51,56 +56,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_CURRENT_T(ST_IF_CONTROL_T* pCTRL)
-{
-    pCTRL->_O_Q28U_Angle_tmp += pCTRL->_I_Q00I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_FREQ.Q14I_Output;
-    MATH_ANGLE_TMP_T(pCTRL->_O_Q28U_Angle_tmp);
-    pCTRL->_O_Q12U_Angle = Q32I_RHT_16(pCTRL->_O_Q28U_Angle_tmp);
-}
-
-/**********************************VF控制************************************/
-
-/**********************************************************************************************
-Function: MotorFoc_VF_Init_T
-Description: VF初始化
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_Init_T(ST_VF_CONTROL_T* pCTRL)
-{
-    pCTRL->_O_Q12U_Angle = 0;
-    Ramp_Init_T(&pCTRL->Ramp_Vq, pCTRL->Ramp_Vq.Q14I_Init);
-    Ramp_Init_T(&pCTRL->Ramp_FREQ, pCTRL->Ramp_FREQ.Q14I_Init);
-}
-
-/**********************************************************************************************
-Function: MotorFoc_VF_OPEN_T
-Description: VF开环控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_OPEN_T(ST_VF_CONTROL_T* pCTRL)
-{
-    Ramp_Cal_T(&pCTRL->Ramp_Vq);
-    Ramp_Cal_T(&pCTRL->Ramp_FREQ);
-    pCTRL->_O_Q14U_Vq = pCTRL->_I_Q00I_DIR_Target*pCTRL->Ramp_Vq.Q14I_Output;
-}
-
-/**********************************************************************************************
-Function: MotorFoc_VF_CURRENT_T
-Description: VF电流环中断控制函数
-Input: 无
-Output: 无
-Input_Output: VF控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void MotorFoc_VF_CURRENT_T(ST_VF_CONTROL_T* pCTRL)
 {
     pCTRL->_O_Q28U_Angle_tmp += pCTRL->_I_Q00I_DIR_Target*pCTRL->_P_Q14I_Ts*pCTRL->Ramp_FREQ.Q14I_Output;
     MATH_ANGLE_TMP_T(pCTRL->_O_Q28U_Angle_tmp);
@@ -421,8 +376,8 @@ void MotorFoc_SRAD_Init_T(ST_FREQ_CONTROL_T* pCTRL)
 {
     pCTRL->_O_Q14I_IdRef = 0;
     pCTRL->_O_Q14I_IqRef = 0;
-    PID_Pos_Init_T(&pCTRL->PID_FREQ, 0);
-    PID_Pos_Init_T(&pCTRL->PID_WEAK, 0);
+    PID_Sat_Init_T(&pCTRL->PID_FREQ, 0);
+    PID_Sat_Init_T(&pCTRL->PID_WEAK, 0);
     Ramp_Init_T(&pCTRL->Ramp_FREQ, 0);
 }
 
@@ -438,16 +393,16 @@ Author: CJYS
 void MotorFoc_SRAD_Loop_T(ST_FREQ_CONTROL_T* pCTRL)
 {
     pCTRL->Ramp_FREQ.Q14I_Target = MATH_SAT_T(pCTRL->_I_Q00I_DIR_Target*pCTRL->_I_Q14I_FREQ_Target,
-                                   pCTRL->_P_Q14I_FREQ_Max, pCTRL->_P_Q14I_FREQ_Min);
+                                   16384, -16384);
     Ramp_Cal_T(&pCTRL->Ramp_FREQ);
     
     pCTRL->PID_FREQ.Q14I_Rf = pCTRL->Ramp_FREQ.Q14I_Output;
     pCTRL->PID_FREQ.Q14I_Fb = pCTRL->_I_Q14I_FREQ;
-    PID_Pos_Cal_T(&pCTRL->PID_FREQ);
+    PID_Sat_Cal_T(&pCTRL->PID_FREQ);
     
     pCTRL->PID_WEAK.Q14I_Rf = MATH_ONE_OVER_SQRT_THREE_T(pCTRL->_I_Q14I_Vbus);
     pCTRL->PID_WEAK.Q14I_Fb = MATH_SQUARE_T(pCTRL->_I_Q14I_Ud) + MATH_SQUARE_T(pCTRL->_I_Q14I_Uq);
-    PID_Pos_Cal_T(&pCTRL->PID_WEAK);
+    PID_Sat_Cal_T(&pCTRL->PID_WEAK);
     
     pCTRL->TG_Triangle.Q12U_Angle = pCTRL->PID_WEAK.Q14I_Output;
     Math_SinCos_T(&pCTRL->TG_Triangle);
@@ -471,8 +426,8 @@ void MotorFoc_Current_Init_T(ST_CURRENT_CONTROL_T* pCTRL)
 {
     pCTRL->_I_Q14I_IdRef = 0;
     pCTRL->_I_Q14I_IqRef = 0;
-    PID_Pos_Init_T(&pCTRL->PID_Id, 0);
-    PID_Pos_Init_T(&pCTRL->PID_Iq, 0);
+    PID_Sat_Init_T(&pCTRL->PID_Id, 0);
+    PID_Sat_Init_T(&pCTRL->PID_Iq, 0);
 }
 
 /**********************************************************************************************
@@ -493,13 +448,65 @@ void MotorFoc_Current_Loop_T(ST_CURRENT_CONTROL_T* pCTRL)
     pCTRL->PID_Id.Q14I_OutMin = -pCTRL->_V_Q14I_Vsd;
     pCTRL->PID_Id.Q14I_Rf = pCTRL->_I_Q14I_IdRef;
     pCTRL->PID_Id.Q14I_Fb = pCTRL->_I_Q14I_Id;
-    PID_Pos_Cal_T(&pCTRL->PID_Id);
+    PID_Sat_Cal_T(&pCTRL->PID_Id);
     pCTRL->_O_Q14I_Ud = pCTRL->PID_Id.Q14I_Output;
     
     pCTRL->PID_Iq.Q14I_OutMax = pCTRL->_V_Q14I_Vsq;
     pCTRL->PID_Iq.Q14I_OutMin = -pCTRL->_V_Q14I_Vsq;
     pCTRL->PID_Iq.Q14I_Rf = pCTRL->_I_Q14I_IqRef;
     pCTRL->PID_Iq.Q14I_Fb = pCTRL->_I_Q14I_Iq;
-    PID_Pos_Cal_T(&pCTRL->PID_Iq);
+    PID_Sat_Cal_T(&pCTRL->PID_Iq);
     pCTRL->_O_Q14I_Uq = pCTRL->PID_Iq.Q14I_Output;
+}
+
+/**********************************************************************************************
+Function: MotorFoc_HFI_SRAD_Loop_T
+Description: 速度环控制
+Input: 无
+Output: 无
+Input_Output: 速度环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_SRAD_Loop_T(ST_FREQ_CONTROL_T* pCTRL)
+{
+//    pCTRL->Ramp_FREQ.F_Target = MATH_SAT_F(pCTRL->_I_F_DIR_Target*pCTRL->_I_F_FREQ_Target, 1.0f, -1.0f);
+//    
+//    Ramp_Cal_F(&pCTRL->Ramp_FREQ);
+//    
+//    pCTRL->PID_FREQ.F_Rf = pCTRL->Ramp_FREQ.F_Output;
+//    pCTRL->PID_FREQ.F_Fb = pCTRL->_I_F_FREQ;
+//    PID_Sat_Cal_F(&pCTRL->PID_FREQ);
+//    
+//    pCTRL->_O_F_IqRef = pCTRL->PID_FREQ.F_Output;
+}
+
+/**********************************************************************************************
+Function: MotorFoc_HFI_Current_Loop_F
+Description: HFI电流环控制
+Input: 无
+Output: 无
+Input_Output: 电流环控制指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MotorFoc_HFI_Current_Loop_T(ST_CURRENT_CONTROL_T* pCTRL, Q32I_ PWM_Coeff)
+{
+//    pCTRL->_V_F_Vsd = pCTRL->_I_F_Vbus*pCTRL->_P_F_VsScale*PWM_Coeff;
+//    
+//    pCTRL->PID_Id.F_OutMax = pCTRL->_V_F_Vsd;
+//    pCTRL->PID_Id.F_OutMin = -pCTRL->_V_F_Vsd;
+//    pCTRL->PID_Id.F_Rf = pCTRL->_I_F_IdRef;
+//    pCTRL->PID_Id.F_Fb = pCTRL->_I_F_Id;
+//    PID_Sat_Cal_F(&pCTRL->PID_Id);
+//    pCTRL->_O_F_Ud = pCTRL->PID_Id.F_Output;
+//    
+//    pCTRL->_V_F_Vsq = Math_Sqrt_F(MATH_SQUARE_F(pCTRL->_V_F_Vsd) - MATH_SQUARE_F(pCTRL->PID_Id.F_Output));
+//    
+//    pCTRL->PID_Iq.F_OutMax = pCTRL->_V_F_Vsq;
+//    pCTRL->PID_Iq.F_OutMin = -pCTRL->_V_F_Vsq;
+//    pCTRL->PID_Iq.F_Rf = pCTRL->_I_F_IqRef;
+//    pCTRL->PID_Iq.F_Fb = pCTRL->_I_F_Iq;
+//    PID_Sat_Cal_F(&pCTRL->PID_Iq);
+//    pCTRL->_O_F_Uq = pCTRL->PID_Iq.F_Output;
 }

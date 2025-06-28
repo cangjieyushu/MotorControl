@@ -147,6 +147,8 @@
 
 
 //转速环PID
+#define MOTOR_FREQ_CURRENT_MIN              ((Q32I_)(0.1f * Q14I_CURRENT_PHASE_PU)) //A,转速环输出q轴电流限幅
+
 #define MOTOR_FREQ_PID_Coeff                (0.35f)                                 //转速环PID增益系数
 #define MOTOR_FREQ_KP_GAIN                  ((Q32I_)(MOTOR_Q14_PU * MOTOR_FREQ_PID_Coeff * MOTOR_CURRENT_PHASE_A / MOTOR_MAX_FREQ * F_BASE / I_BASE))
 #define MOTOR_FREQ_KI_GAIN                  ((Q32I_)(MOTOR_Q14_PU * 0.05f * MOTOR_CURRENT_PHASE_A * MOTOR_LTs * F_BASE / I_BASE))
@@ -179,7 +181,8 @@
 #define MOTOR_FLUX_PLL_MIN                  ((Q32I_)(-2.0f * Q14I_MAX_FREQ_PU)) //锁相环最小输出
 
 //SMO观测器
-#define MOTOR_SMO_K1                        ((Q32I_)(0.20f * MOTOR_Q14_PU))     //增益系数
+#define MOTOR_SMO_H1                        ((Q32I_)(MOTOR_Q14_PU * VOLTAGE_PU / CURRENT_PHASE_PU))       //增益系数
+#define MOTOR_SMO_K1                        ((Q32I_)(0.20f * MOTOR_Q14_PU))     //限幅系数
 
 #define MOTOR_SMO_PLL_KP                    ((Q32I_)(MOTOR_Q28_PU * 2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD * 2.0f / Q14I_VOLTAGE_PU / W_BASE))                             //锁相环比例系数
 #define MOTOR_SMO_PLL_KI                    ((Q32I_)(MOTOR_Q28_PU * MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs * 2.0f / Q14I_VOLTAGE_PU / W_BASE))         //锁相环积分系数

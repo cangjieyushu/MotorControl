@@ -69,8 +69,8 @@ typedef struct
 
 typedef struct
 {
-    ST_PID_POS_T    PID_FREQ;
-    ST_PID_POS_T    PID_WEAK;
+    ST_PID_SAT_T    PID_FREQ;
+    ST_PID_SAT_T    PID_WEAK;
     ST_RAMP_T       Ramp_FREQ;
     ST_TRIG_T       TG_Triangle;
     
@@ -85,14 +85,13 @@ typedef struct
     Q32I_       _O_Q14I_IdRef;
     Q32I_       _O_Q14I_IqRef;
     
-    Q32I_       _P_Q14I_FREQ_Max;
-    Q32I_       _P_Q14I_FREQ_Min;
+    float       _P_Q14I_CURRENT_Min;
 }ST_FREQ_CONTROL_T;
 
 typedef struct
 {
-    ST_PID_POS_T    PID_Id;
-    ST_PID_POS_T    PID_Iq;
+    ST_PID_SAT_T    PID_Id;
+    ST_PID_SAT_T    PID_Iq;
     
     Q32I_       _I_Q14I_Vbus;
     Q32I_       _I_Q14I_IdRef;

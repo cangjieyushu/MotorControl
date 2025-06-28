@@ -322,8 +322,8 @@ void MotorFoc_SRAD_Init_T(ST_FREQ_CONTROL_T* pCTRL)
 {
     pCTRL->_O_Q14I_IdRef = 0;
     pCTRL->_O_Q14I_IqRef = 0;
-    PID_Pos_Init_T(&pCTRL->PID_FREQ, 0);
-    PID_Pos_Init_T(&pCTRL->PID_WEAK, 0);
+    PID_Sat_Init_T(&pCTRL->PID_FREQ, 0);
+    PID_Sat_Init_T(&pCTRL->PID_WEAK, 0);
     Ramp_Init_T(&pCTRL->Ramp_FREQ, 0);
 }
 
@@ -339,16 +339,16 @@ Author: CJYS
 void MotorFoc_SRAD_Loop_T(ST_FREQ_CONTROL_T* pCTRL)
 {
     pCTRL->Ramp_FREQ.Q14I_Target = MATH_SAT_T(pCTRL->_I_Q00I_DIR_Target*pCTRL->_I_Q14I_FREQ_Target,
-                                   pCTRL->_P_Q14I_FREQ_Max, pCTRL->_P_Q14I_FREQ_Min);
+                                   16384, -16384);
     Ramp_Cal_T(&pCTRL->Ramp_FREQ);
     
     pCTRL->PID_FREQ.Q14I_Rf = pCTRL->Ramp_FREQ.Q14I_Output;
     pCTRL->PID_FREQ.Q14I_Fb = pCTRL->_I_Q14I_FREQ;
-    PID_Pos_Cal_T(&pCTRL->PID_FREQ);
+    PID_Sat_Cal_T(&pCTRL->PID_FREQ);
     
     pCTRL->PID_WEAK.Q14I_Rf = MATH_ONE_OVER_SQRT_THREE_T(pCTRL->_I_Q14I_Vbus);
     pCTRL->PID_WEAK.Q14I_Fb = MATH_SQUARE_T(pCTRL->_I_Q14I_Ud) + MATH_SQUARE_T(pCTRL->_I_Q14I_Uq);
-    PID_Pos_Cal_T(&pCTRL->PID_WEAK);
+    PID_Sat_Cal_T(&pCTRL->PID_WEAK);
     
     pCTRL->TG_Triangle.Q12U_Angle = pCTRL->PID_WEAK.Q14I_Output;
     Math_SinCos_T(&pCTRL->TG_Triangle);
@@ -372,8 +372,8 @@ void MotorFoc_Current_Init_T(ST_CURRENT_CONTROL_T* pCTRL)
 {
     pCTRL->_I_Q14I_IdRef = 0;
     pCTRL->_I_Q14I_IqRef = 0;
-    PID_Pos_Init_T(&pCTRL->PID_Id, 0);
-    PID_Pos_Init_T(&pCTRL->PID_Iq, 0);
+    PID_Sat_Init_T(&pCTRL->PID_Id, 0);
+    PID_Sat_Init_T(&pCTRL->PID_Iq, 0);
 }
 
 /**********************************************************************************************
@@ -394,13 +394,13 @@ void MotorFoc_Current_Loop_T(ST_CURRENT_CONTROL_T* pCTRL)
     pCTRL->PID_Id.Q14I_OutMin = -pCTRL->_V_Q14I_Vsd;
     pCTRL->PID_Id.Q14I_Rf = pCTRL->_I_Q14I_IdRef;
     pCTRL->PID_Id.Q14I_Fb = pCTRL->_I_Q14I_Id;
-    PID_Pos_Cal_T(&pCTRL->PID_Id);
+    PID_Sat_Cal_T(&pCTRL->PID_Id);
     pCTRL->_O_Q14I_Ud = pCTRL->PID_Id.Q14I_Output;
     
     pCTRL->PID_Iq.Q14I_OutMax = pCTRL->_V_Q14I_Vsq;
     pCTRL->PID_Iq.Q14I_OutMin = -pCTRL->_V_Q14I_Vsq;
     pCTRL->PID_Iq.Q14I_Rf = pCTRL->_I_Q14I_IqRef;
     pCTRL->PID_Iq.Q14I_Fb = pCTRL->_I_Q14I_Iq;
-    PID_Pos_Cal_T(&pCTRL->PID_Iq);
+    PID_Sat_Cal_T(&pCTRL->PID_Iq);
     pCTRL->_O_Q14I_Uq = pCTRL->PID_Iq.Q14I_Output;
 }

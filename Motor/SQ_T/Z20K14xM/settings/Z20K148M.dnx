@@ -61,8 +61,8 @@
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
     <ArmDriver>
-        <EnableCache>0</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+        <EnableCache>0</EnableCache>
     </ArmDriver>
     <PlDdfRanges>
         <ConfigRanges0>Memory Periph0 1073741824 524288 2</ConfigRanges0>

@@ -5,7 +5,7 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ZhiXin\Z20K148M.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>2311505328</Checksum>
+        <Checksum>4214380155</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>

@@ -182,6 +182,46 @@ void PID_Pos_Cal_T(ST_PID_POS_T* pPID)
     pPID->Q14I_Output = MATH_SAT_T(pPID->Q14I_Output, pPID->Q14I_OutMax, pPID->Q14I_OutMin);
 }
 
+/**********************************************************************************************
+Function: PID_Sat_Init_T
+Description: 抗饱和位置式PID初始化
+Input: 抗饱和积分器初始值
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Init_T(ST_PID_SAT_T* pPID, Q32I_ init)
+{
+    pPID->Q14I_Rf = 0.0f;
+    pPID->Q14I_Fb = 0.0f;
+    pPID->Q14I_Ui = init;
+    pPID->Q28I_Ui_tmp = Q16I_LFT_14(init);
+    pPID->Q14I_Output = init;
+}
+
+/**********************************************************************************************
+Function: PID_Sat_Cal_T
+Description: 抗饱和位置式PID计算
+Input: 无
+Output: 无
+Input_Output: 抗饱和位置式PID指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void PID_Sat_Cal_T(ST_PID_SAT_T* pPID)
+{
+    Q32I_ Q14I_Error = pPID->Q14I_Rf - pPID->Q14I_Fb;
+    
+    pPID->Q28I_Ui_tmp += pPID->Q14I_Ki*Q14I_Error - pPID->Q14I_Kc*pPID->Q14I_USat;
+    pPID->Q28I_Ui_tmp = MATH_SAT_T(pPID->Q28I_Ui_tmp, Q16I_LFT_14(pPID->Q14I_OutMax), Q16I_LFT_14(pPID->Q14I_OutMin));
+    pPID->Q14I_Ui = Q32I_RHT_14(pPID->Q28I_Ui_tmp);
+    
+    pPID->Q14I_Output = Q32I_RHT_14(pPID->Q14I_Kp*Q14I_Error) + pPID->Q14I_Ui;
+    pPID->Q14I_Output = MATH_SAT_F(pPID->Q14I_Output, pPID->Q14I_OutMax, pPID->Q14I_OutMin);
+    pPID->Q14I_USat = pPID->Q14I_Ui - pPID->Q14I_Output;
+}
+
 static const Q16I_ Math_Sin_Table_I16[1024] = {
 0x0000,0x0019,0x0032,0x004B,0x0064,0x007D,0x0096,0x00AF,0x00C9,0x00E2,
 0x00FB,0x0114,0x012D,0x0146,0x015F,0x0178,0x0192,0x01AB,0x01C4,0x01DD,

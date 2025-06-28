@@ -110,33 +110,6 @@ typedef struct
     float       _P_F_Ld_Lq_Over_Ld;
 }ST_SMO_CONTROL_F;
 
-typedef struct
-{
-    ST_PID_POS_F    PID_PLL;
-    ST_FILTER_F     FL_SRAD;
-    ST_TRIG_F       TG_Triangle;
-    
-    float       _I_F_Ualfa;
-    float       _I_F_Ubeta;
-    float       _I_F_Ialfa;
-    float       _I_F_Ibeta;
-    
-    float       _V_F_Id;
-    float       _V_F_Iq;
-    float       _V_F_Ud;
-    float       _V_F_Uq;
-    float       _V_F_Id_tmp;
-    float       _V_F_Iq_tmp;
-    float       _V_F_Id_Est;
-    float       _V_F_Iq_Est;
-    
-    float       _P_F_Ts;
-    float       _P_F_Ws;
-    float       _P_F_One_Over_Ls;
-    float       _P_F_Rs_Over_Ls;
-    float       _P_F_Flux_Over_Ls;
-}ST_MRAS_CONTROL_F;
-
 typedef enum
 {
     EM_HALL_STUDY_INIT,
@@ -296,28 +269,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Est_SMO_Study_F(ST_SMO_CONTROL_F* pCTRL);
-
-/**********************************************************************************************
-Function: Est_MRAS_Init_F
-Description: MRAS初始化
-Input: 无
-Output: 无
-Input_Output: MRAS指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_MRAS_Init_F(ST_MRAS_CONTROL_F* pCTRL);
-
-/**********************************************************************************************
-Function: Est_MRAS_F
-Description: MRAS计算
-Input: 无
-Output: 无
-Input_Output: MRAS指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void Est_MRAS_F(ST_MRAS_CONTROL_F* pCTRL);
 
 float Hallest_Angle_Mean(float* DATA, ST_HALL_CONTROL_F* pCTRL);
 void Hallest_Study_Task_Flow(ST_HALL_CONTROL_F* pCTRL);

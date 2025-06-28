@@ -41,6 +41,7 @@ typedef struct
     Q32I_       _P_Q14I_Gamma;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ls;
+    Q32I_       _P_Q14I_Ld;
     Q32I_       _P_Q14I_Flux;
     Q32I_       _P_Q14I_Flux2;
 }ST_FLUX_CONTROL_T;
@@ -72,6 +73,7 @@ typedef struct
     Q32I_       _P_Q14I_PLL_Ki;
     Q32I_       _P_Q14I_Ts;
     Q32I_       _P_Q14I_Ws;
+    Q32I_       _P_Q14I_H1;
     Q32I_       _P_Q14I_K1;
     Q32I_       _P_Q14I_Rs;
     Q32I_       _P_Q14I_Ld;
