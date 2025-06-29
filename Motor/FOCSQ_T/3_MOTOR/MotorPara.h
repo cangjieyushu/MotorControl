@@ -43,7 +43,7 @@
 
 
 //脉冲定位 
-#define POSITION_DUTY                   (Q12I_DUTY_TO_PU(0.500f))   //1kHz，脉冲定位占空比
+#define POSITION_DUTY                   (Q12I_DUTY_TO_PU(0.300f))   //1kHz，脉冲定位占空比
 #define POSITION_TL_lsb                 (1000U)                     //脉冲定位是否成功判断阈值
 
 

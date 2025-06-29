@@ -53,6 +53,7 @@ typedef struct
     Q32I_       _I_Q14I_Ubeta;
     Q32I_       _I_Q14I_Ialfa;
     Q32I_       _I_Q14I_Ibeta;
+    Q32I_       _I_Q14I_IdRef;
     
     Q32I_       _V_Q14I_Yalfa;
     Q32I_       _V_Q14I_Ybeta;

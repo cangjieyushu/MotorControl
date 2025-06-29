@@ -25,7 +25,7 @@
 //观测器选择
 #define MOTOR_EST_FLUX              (10U)
 #define MOTOR_EST_SMO               (11U)
-#define MOTOR_EST_MODE              MOTOR_EST_FLUX
+#define MOTOR_EST_MODE              MOTOR_EST_SMO
 
 
 //静态参数辨识
