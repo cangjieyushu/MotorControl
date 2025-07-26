@@ -19,6 +19,11 @@ typedef struct
     float       _I_F_Ialfa;
     float       _I_F_Ibeta;
     
+    Q08U_       _V_Q08U_Pole_State;
+    Q32U_       _V_Q32U_Pole_Cnt;
+    float       _V_F_Current_pos;
+    float       _V_F_Current_neg;
+    
     Q32U_       _V_Q32U_Ud_cnt;
     Q32U_       _V_Q32U_Ud_Count;
     float       _V_F_Ud_Sign;
@@ -29,13 +34,19 @@ typedef struct
     float       _V_F_Ialfa_Last;
     float       _V_F_Ibeta_Last;
     
+    float       _I_F_IdRef;
+    float       _I_F_IqRef;
+    
     float       _O_F_Ialfa;
     float       _O_F_Ibeta;
     float       _O_F_Ud_HFI;
     
+    float       _O_F_IdRef;
+    float       _O_F_IqRef;
+    
     float       _P_F_Freq_Target;
-    float       _P_F_Id_Ref;
-    float       _P_F_Ud_Ref;
+    float       _P_F_IdRef;
+    float       _P_F_UdRef;
     float       _P_F_PWM_Freq;
     float       _P_F_Ud_Freq;
     float       _P_F_Udq_Coeff;
@@ -96,6 +107,7 @@ typedef struct
     float       _V_F_Ebeta;
     float       _V_F_K1_alfa_tmp;
     float       _V_F_K1_beta_tmp;
+    float       _V_F_H1;
     
     float       _P_F_PLL_Ki;
     float       _P_F_Ts;

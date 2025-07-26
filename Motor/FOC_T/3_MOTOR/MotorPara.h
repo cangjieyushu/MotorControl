@@ -32,14 +32,14 @@
 #define MOTOR_PARAID_ID_TARGET1         (Q14I_CURRENT_TO_PU(1.0f))              //A,Id目标值
 #define MOTOR_PARAID_ID_TARGET2         (Q14I_CURRENT_TO_PU(2.0f))              //A,Id目标值
 
-#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_MAX_SCALE * Q14I_VOLTAGE_PU / MOTOR_Q14_PU)    //V,HFI高频注入电压幅值
-#define MOTOR_PARAID_UD_PERIOD          (HAL_PWM_SET_FREQ / 2.0f)                   //kHz，注入频率
+#define MOTOR_PARAID_UD_REF             (0.10f * MOTOR_VS_MAX_SCALE * Q14I_VOLTAGE_PU / MOTOR_Q14_PU)      //V,HFI高频注入电压幅值
+#define MOTOR_PARAID_UD_PERIOD          (HAL_PWM_SET_FREQ / 16.0f)                                         //kHz，注入频率
 
-#define MOTOR_PARAID_LPF_COEFF          (13)                                    //0~256，越小滤波越深
+#define MOTOR_PARAID_LPF_COEFF          (5)                                     //0~256，越小滤波越深
 #define MOTOR_PARAID_HPF_COEFF          (250)                                   //0~256，越大滤波越深
 #define MOTOR_PARAID_RS_TIME            (2000U)                                 //ms,电机电阻阶段
 #define MOTOR_PARAID_LS_TIME            (2000U)                                 //ms,电机电感阶段
-#define MOTOR_PARAID_FLUX_TIME          (10000U)                                //ms,电机磁链阶段
+#define MOTOR_PARAID_FLUX_TIME          (20000U)                                //ms,电机磁链阶段
 
 
 //电流采样偏置检测
@@ -88,7 +88,7 @@
 #define MOTOR_IF_FREQRAMP_TARGET            (Q14I_FREQ_TO_PU(20.0f))                //Hz,IF速度目标值
 #define MOTOR_IF_FREQRAMP_STEP              (Q24I_FREQ_TO_PU(5.0f * MOTOR_LTs))     //Hz/s,IF速度每秒增加步长
 
-#define MOTOR_IF_ANGLE_ERROR                (Q12I_ANGLE_TO_PU(1.5f))                //rad,IF与观测器角度偏差允许切换值
+#define MOTOR_IF_ANGLE_ERROR                (Q12I_ANGLE_TO_PU(0.15f))               //rad,IF与观测器角度偏差允许切换值
 
 
 //转速环PID
@@ -117,11 +117,11 @@
 #define MOTOR_MAX_SRAD                      (MOTOR_MAX_FREQ * MATH_2PI_F)
 
 //HFI观测器
-#define MOTOR_HFI_FREQ_TARGET               (FREQ_TO_PU(8.0f))                              //Hz,HFI高频注入电压目标转速
+#define MOTOR_HFI_FREQ_TARGET               (FREQ_TO_PU(20.0f))                             //Hz,HFI高频注入电压目标转速
 #define MOTOR_HFI_ID_REF                    (CURRENT_TO_PU(2.0f))                           //A,d轴注入电流
-#define MOTOR_HFI_UD_REF                    (0.45f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)       //V,HFI高频注入电压幅值
+#define MOTOR_HFI_UD_REF                    (0.10f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)       //V,HFI高频注入电压幅值
 #define MOTOR_HFI_UD_PERIOD                 (HAL_PWM_SET_FREQ / 16.0f)                      //kHz，注入频率
-#define MOTOR_HFI_UDQ_COEFF                 (0.45f)                                         //调制度限制
+#define MOTOR_HFI_UDQ_COEFF                 (0.30f)                                         //调制度限制
 
 #define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.50f * MOTOR_CURRENT_PHASE_A) / W_BASE)                     //锁相环比例系数
 #define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.50f * MOTOR_CURRENT_PHASE_A) / W_BASE) //锁相环积分系数

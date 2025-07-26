@@ -116,8 +116,8 @@ void MotorTask_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->FREQ_CTRL._I_F_FREQ = pMotor->HFI_CTRL.FL_SRAD.F_Filter_out;
     
     MotorFoc_HFI_SRAD_Loop_F(&pMotor->FREQ_CTRL);
-    pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->HFI_CTRL._P_F_Id_Ref;
-    pMotor->CURRENT_CTRL._I_F_IqRef = 0.5f*pMotor->FREQ_CTRL._O_F_IqRef;
+    pMotor->HFI_CTRL._I_F_IdRef = pMotor->HFI_CTRL._P_F_IdRef;
+    pMotor->HFI_CTRL._I_F_IqRef = pMotor->FREQ_CTRL._O_F_IqRef;
     
 //    if(pMotor->FREQ_CTRL._I_F_DIR_Target*pMotor->FREQ_CTRL._I_F_FREQ >= pMotor->LOOP_CTRL._P_F_Open_Switch_Freq)
 //    {
@@ -558,6 +558,8 @@ void MotorTask_Current_OpenLoop_Flow(ST_MOTOR_TASK* pMotor)
     pMotor->SVPWM_CTRL._O_F_Ibeta = pMotor->HFI_CTRL._O_F_Ibeta;
     
     MotorFoc_Park_F(&pMotor->SVPWM_CTRL);
+    pMotor->CURRENT_CTRL._I_F_IdRef = pMotor->HFI_CTRL._O_F_IdRef;
+    pMotor->CURRENT_CTRL._I_F_IqRef = pMotor->HFI_CTRL._O_F_IqRef;
     pMotor->CURRENT_CTRL._I_F_Id = pMotor->SVPWM_CTRL._O_F_Id;
     pMotor->CURRENT_CTRL._I_F_Iq = pMotor->SVPWM_CTRL._O_F_Iq;
     MotorFoc_HFI_Current_Loop_F(&pMotor->CURRENT_CTRL, pMotor->HFI_CTRL._P_F_Udq_Coeff);

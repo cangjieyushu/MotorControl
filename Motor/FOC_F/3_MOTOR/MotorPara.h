@@ -32,14 +32,14 @@
 #define MOTOR_PARAID_ID_TARGET1         (CURRENT_TO_PU(1.0f))    //A,Id目标值
 #define MOTOR_PARAID_ID_TARGET2         (CURRENT_TO_PU(2.0f))    //A,Id目标值
 
-#define MOTOR_PARAID_UD_REF             (0.2f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)    //V,HFI高频注入电压幅值
-#define MOTOR_PARAID_UD_PERIOD          (HAL_PWM_SET_FREQ / 2.0f)                   //kHz，注入频率
+#define MOTOR_PARAID_UD_REF             (0.10f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)    //V,HFI高频注入电压幅值
+#define MOTOR_PARAID_UD_PERIOD          (HAL_PWM_SET_FREQ / 16.0f)                   //kHz，注入频率
 
 #define MOTOR_PARAID_LPF_COEFF          (0.05f)                  //0~1，越小滤波越深
 #define MOTOR_PARAID_HPF_COEFF          (0.995f)                 //0~1，越大滤波越深
 #define MOTOR_PARAID_RS_TIME            (2000U)                  //ms,电机电阻阶段
 #define MOTOR_PARAID_LS_TIME            (2000U)                  //ms,电机电感阶段
-#define MOTOR_PARAID_FLUX_TIME          (10000U)                 //ms,电机磁链阶段
+#define MOTOR_PARAID_FLUX_TIME          (20000U)                 //ms,电机磁链阶段
 
 
 //电流采样偏置检测
@@ -117,14 +117,14 @@
 #define MOTOR_MAX_SRAD                      (MOTOR_MAX_FREQ * MATH_2PI_F)
 
 //HFI观测器
-#define MOTOR_HFI_FREQ_TARGET               (FREQ_TO_PU(8.0f))                              //Hz,HFI高频注入电压目标转速
+#define MOTOR_HFI_FREQ_TARGET               (FREQ_TO_PU(20.0f))                             //Hz,HFI高频注入电压目标转速
 #define MOTOR_HFI_ID_REF                    (CURRENT_TO_PU(2.0f))                           //A,d轴注入电流
-#define MOTOR_HFI_UD_REF                    (0.45f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)       //V,HFI高频注入电压幅值
+#define MOTOR_HFI_UD_REF                    (0.10f * MOTOR_VS_MAX_SCALE * VOLTAGE_PU)       //V,HFI高频注入电压幅值
 #define MOTOR_HFI_UD_PERIOD                 (HAL_PWM_SET_FREQ / 16.0f)                      //kHz，注入频率
-#define MOTOR_HFI_UDQ_COEFF                 (0.45f)                                         //调制度限制
+#define MOTOR_HFI_UDQ_COEFF                 (0.30f)                                         //调制度限制
 
-#define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.50f * MOTOR_CURRENT_PHASE_A) / W_BASE)                     //锁相环比例系数
-#define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.50f * MOTOR_CURRENT_PHASE_A) / W_BASE) //锁相环积分系数
+#define MOTOR_HFI_PLL_KP                    (2.0f * MOTOR_PLL_Coeff * MOTOR_MAX_SRAD / (0.05f * MOTOR_CURRENT_PHASE_A) / W_BASE)                     //锁相环比例系数
+#define MOTOR_HFI_PLL_KI                    (MATH_SQUARE_F(MOTOR_PLL_Coeff * MOTOR_MAX_SRAD) * MOTOR_HTs / (0.05f * MOTOR_CURRENT_PHASE_A) / W_BASE) //锁相环积分系数
 #define MOTOR_HFI_PLL_KD                    (0.0f)                    	        //锁相环微分系数
 #define MOTOR_HFI_PLL_MAX                   ( 2.0f * MAX_FREQ_PU)               //锁相环最大输出
 #define MOTOR_HFI_PLL_MIN                   (-2.0f * MAX_FREQ_PU)  	            //锁相环最小输出

@@ -114,7 +114,7 @@ void Est_Flux_Init_T(ST_FLUX_CONTROL_T* pCTRL)
     pCTRL->TG_Triangle.Q14I_Cos = 16384;
     pCTRL->TG_Triangle.Q14I_Sin = 0;
     pCTRL->TG_Triangle.Q12U_ReAngle = 0;
-	
+    
     pCTRL->_V_Q28I_Xalfa_tmp = Q16I_LFT_14(pCTRL->_P_Q14I_Flux);
 	pCTRL->_V_Q28I_Xbeta_tmp = 0;
 }
@@ -224,14 +224,14 @@ void Est_SMO_T(ST_SMO_CONTROL_T* pCTRL)
     pCTRL->_V_Q14I_Aalfa = Q32I_RHT_14(pCTRL->_V_Q28I_Aalfa_tmp);
     pCTRL->_V_Q14I_Abeta = Q32I_RHT_14(pCTRL->_V_Q28I_Abeta_tmp);
     
+    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
+    if      (Freq_abs < 2048)   {pCTRL->_V_Q14I_H1 = Q32I_RHT_03(pCTRL->_P_Q14I_H1);    pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_03(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 4096)   {pCTRL->_V_Q14I_H1 = Q32I_RHT_02(pCTRL->_P_Q14I_H1);    pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Ki);}
+    else if (Freq_abs < 8192)   {pCTRL->_V_Q14I_H1 = Q32I_RHT_01(pCTRL->_P_Q14I_H1);    pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_01(pCTRL->_P_Q14I_PLL_Ki);}
+    else                        {pCTRL->_V_Q14I_H1 = pCTRL->_P_Q14I_H1;                 pCTRL->PID_PLL.Q14I_Ki = pCTRL->_P_Q14I_PLL_Ki;}
+    
     pCTRL->_V_Q14I_IErralfa = Q32I_RHT_14(pCTRL->_P_Q14I_H1*(pCTRL->_V_Q14I_Aalfa - pCTRL->_I_Q14I_Ialfa));
     pCTRL->_V_Q14I_IErrbeta = Q32I_RHT_14(pCTRL->_P_Q14I_H1*(pCTRL->_V_Q14I_Abeta - pCTRL->_I_Q14I_Ibeta));
-    
-    Q32I_ Freq_abs = MATH_ABS_T(pCTRL->FL_SRAD.Q16I_Filter_out);
-    if      (Freq_abs < 2048)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_03(pCTRL->_P_Q14I_PLL_Ki);}
-    else if (Freq_abs < 4096)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_02(pCTRL->_P_Q14I_PLL_Ki);}
-    else if (Freq_abs < 8192)   {pCTRL->PID_PLL.Q14I_Ki = Q32I_RHT_01(pCTRL->_P_Q14I_PLL_Ki);}
-    else                        {pCTRL->PID_PLL.Q14I_Ki = pCTRL->_P_Q14I_PLL_Ki;}             
     
     if      (pCTRL->_V_Q14I_IErralfa >  pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa =  pCTRL->_P_Q14I_K1;}
     else if (pCTRL->_V_Q14I_IErralfa < -pCTRL->_P_Q14I_K1)  {pCTRL->_V_Q14I_Ealfa = -pCTRL->_P_Q14I_K1;}

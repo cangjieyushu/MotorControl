@@ -102,6 +102,7 @@ typedef struct
     Q32I_       _V_Q14I_Ebeta;
     Q32I_       _V_Q32I_K1_alfa_tmp;
     Q32I_       _V_Q32I_K1_beta_tmp;
+    Q32I_       _V_Q14I_H1;
     
     Q32I_       _P_Q14I_PLL_Ki;
     Q32I_       _P_Q14I_Ts;

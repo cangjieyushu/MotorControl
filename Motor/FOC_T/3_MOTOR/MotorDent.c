@@ -52,10 +52,10 @@ void Est_Para_Id_Init_T(ST_PARA_ID_T* pCTRL)
     pCTRL->_O_Q14I_Ibeta = 0;
     pCTRL->_O_Q14I_Ud_HFI = 0;
     
-    pCTRL->_V_Q24I_Yalfa_Hpf = 0;
-    pCTRL->_V_Q24I_Ybeta_Hpf = 0;
-    pCTRL->_V_Q14I_Yalfa_Last = 0;
-    pCTRL->_V_Q14I_Ybeta_Last = 0;
+    pCTRL->_V_Q28I_Yalfa_Hpf = 0;
+    pCTRL->_V_Q28I_Ybeta_Hpf = 0;
+    pCTRL->_V_Q28I_Yalfa_Last = 0;
+    pCTRL->_V_Q28I_Ybeta_Last = 0;
     pCTRL->_V_Q28I_Xalfa_tmp = 0;
     pCTRL->_V_Q28I_Xbeta_tmp = 0;
 }
@@ -233,18 +233,18 @@ void Est_Para_Id_Current_T(ST_PARA_ID_T* pCTRL)
     }
     else if(pCTRL->_V_Q32U_State == 6U)
     {
-        pCTRL->_V_Q14I_Yalfa_In = pCTRL->_I_Q14I_Ualfa - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ialfa);
-        pCTRL->_V_Q14I_Ybeta_In = pCTRL->_I_Q14I_Ubeta - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ibeta);
+        pCTRL->_V_Q28I_Yalfa_In = Q16I_LFT_14(pCTRL->_I_Q14I_Ualfa) - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ialfa);
+        pCTRL->_V_Q28I_Ybeta_In = Q16I_LFT_14(pCTRL->_I_Q14I_Ubeta) - Q32I_RHT_14(pCTRL->_P_Q14I_Rs*pCTRL->_I_Q14I_Ibeta);
         
-        pCTRL->_V_Q24I_Yalfa_Hpf = Q32I_RHT_08(pCTRL->_P_Q08I_Hpf_Coeff*(pCTRL->_V_Q24I_Yalfa_Hpf
-                                 + Q16I_LFT_08(pCTRL->_V_Q14I_Yalfa_In - pCTRL->_V_Q14I_Yalfa_Last)));
-        pCTRL->_V_Q24I_Ybeta_Hpf = Q32I_RHT_08(pCTRL->_P_Q08I_Hpf_Coeff*(pCTRL->_V_Q24I_Ybeta_Hpf
-                                 + Q16I_LFT_08(pCTRL->_V_Q14I_Ybeta_In - pCTRL->_V_Q14I_Ybeta_Last)));
-        pCTRL->_V_Q14I_Yalfa_Last = pCTRL->_V_Q14I_Yalfa_In;
-        pCTRL->_V_Q14I_Ybeta_Last = pCTRL->_V_Q14I_Ybeta_In;
+        pCTRL->_V_Q28I_Yalfa_Hpf = (pCTRL->_V_Q28I_Yalfa_Hpf
+                                 + pCTRL->_V_Q28I_Yalfa_In - pCTRL->_V_Q28I_Yalfa_Last)/256*pCTRL->_P_Q08I_Hpf_Coeff;
+        pCTRL->_V_Q28I_Ybeta_Hpf = (pCTRL->_V_Q28I_Ybeta_Hpf
+                                 + pCTRL->_V_Q28I_Ybeta_In - pCTRL->_V_Q28I_Ybeta_Last)/256*pCTRL->_P_Q08I_Hpf_Coeff;
+        pCTRL->_V_Q28I_Yalfa_Last = pCTRL->_V_Q28I_Yalfa_In;
+        pCTRL->_V_Q28I_Ybeta_Last = pCTRL->_V_Q28I_Ybeta_In;
         
-        pCTRL->_V_Q28I_Xalfa_tmp += Q32I_RHT_08(pCTRL->_P_Q14I_Ws*pCTRL->_V_Q24I_Yalfa_Hpf);
-        pCTRL->_V_Q28I_Xbeta_tmp += Q32I_RHT_08(pCTRL->_P_Q14I_Ws*pCTRL->_V_Q24I_Ybeta_Hpf);
+        pCTRL->_V_Q28I_Xalfa_tmp += pCTRL->_P_Q14I_Ws*(pCTRL->_V_Q28I_Yalfa_Hpf/16384);
+        pCTRL->_V_Q28I_Xbeta_tmp += pCTRL->_P_Q14I_Ws*(pCTRL->_V_Q28I_Ybeta_Hpf/16384);
     
         pCTRL->_V_Q28I_Xalfa_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xalfa_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);
         pCTRL->_V_Q28I_Xbeta_tmp = MATH_SAT_T(pCTRL->_V_Q28I_Xbeta_tmp, (Q32I_)Q28U_MAX, -(Q32I_)Q28U_MAX);

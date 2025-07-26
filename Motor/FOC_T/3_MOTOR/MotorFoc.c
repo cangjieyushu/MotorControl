@@ -37,7 +37,7 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorFoc_IF_OPEN_T(ST_IF_CONTROL_T* pCTRL)
 {
-    if(pCTRL->Ramp_FREQ.Q14I_Output >= pCTRL->_P_Q14I_Iq_Target)
+    if(pCTRL->Ramp_FREQ.Q14I_Output >= pCTRL->Ramp_FREQ.Q14I_Target)
     {
         pCTRL->Ramp_Iq.Q14I_Target = 0;
     }
@@ -409,6 +409,11 @@ void MotorFoc_SRAD_Loop_T(ST_FREQ_CONTROL_T* pCTRL)
     
     pCTRL->_O_Q14I_IdRef = Q32I_RHT_14(pCTRL->PID_FREQ.Q14I_Output*pCTRL->TG_Triangle.Q14I_Sin);
     pCTRL->_O_Q14I_IqRef = Q32I_RHT_14(pCTRL->PID_FREQ.Q14I_Output*pCTRL->TG_Triangle.Q14I_Cos);
+    
+    if(pCTRL->_O_Q14I_IqRef < MATH_ABS_T(pCTRL->_P_Q14I_CURRENT_Min))
+    {
+        pCTRL->_O_Q14I_IdRef = Math_Sqrt_F(MATH_SQUARE_T(pCTRL->_P_Q14I_CURRENT_Min) - MATH_SQUARE_T(pCTRL->_O_Q14I_IqRef));
+    }
 }
 
 /*******************************µçÁ÷»·***************************************/

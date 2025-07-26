@@ -59,12 +59,12 @@ typedef struct
     Q32I_       _I_Q14I_Ualfa;
     Q32I_       _I_Q14I_Ubeta;
     
-    Q32I_       _V_Q14I_Yalfa_In;
-    Q32I_       _V_Q14I_Ybeta_In;
-    Q32I_       _V_Q24I_Yalfa_Hpf;
-    Q32I_       _V_Q24I_Ybeta_Hpf;
-    Q32I_       _V_Q14I_Yalfa_Last;
-    Q32I_       _V_Q14I_Ybeta_Last;
+    Q32I_       _V_Q28I_Yalfa_In;
+    Q32I_       _V_Q28I_Ybeta_In;
+    Q32I_       _V_Q28I_Yalfa_Hpf;
+    Q32I_       _V_Q28I_Ybeta_Hpf;
+    Q32I_       _V_Q28I_Yalfa_Last;
+    Q32I_       _V_Q28I_Ybeta_Last;
     Q32I_       _V_Q28I_Xalfa_tmp;
     Q32I_       _V_Q28I_Xbeta_tmp;
     Q32I_       _V_Q14I_Nalfa;
