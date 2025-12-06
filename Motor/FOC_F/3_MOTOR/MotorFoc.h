@@ -108,6 +108,8 @@ typedef struct
 {
     ST_PID_SAT_F    PID_Id;
     ST_PID_SAT_F    PID_Iq;
+    ST_PID_SAT_F    PID_Id_HFI;
+    ST_PID_SAT_F    PID_Iq_HFI;
     
     float       _I_F_Vbus;
     float       _I_F_IdRef;

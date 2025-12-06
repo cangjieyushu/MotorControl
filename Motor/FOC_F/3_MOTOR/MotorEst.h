@@ -51,6 +51,7 @@ typedef struct
     float       _P_F_Ud_Freq;
     float       _P_F_Udq_Coeff;
     float       _P_F_Ts;
+    float       _P_F_Angle_Add;
 }ST_HFI_CONTROL_F;
 
 typedef struct

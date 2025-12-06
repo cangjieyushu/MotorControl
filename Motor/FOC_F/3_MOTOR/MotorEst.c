@@ -111,7 +111,7 @@ void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
     }
     else if(pCTRL->_V_Q08U_Pole_State == 1U)
     {
-        if(++pCTRL->_V_Q32U_Pole_Cnt == 160U)
+        if(++pCTRL->_V_Q32U_Pole_Cnt == 1600U)
         {
             pCTRL->_V_Q32U_Pole_Cnt = 0U;
             pCTRL->_V_Q08U_Pole_State = 2U;
@@ -182,15 +182,15 @@ void Est_HFI_F(ST_HFI_CONTROL_F* pCTRL)
         PID_Pos_Cal_F(&pCTRL->PID_PLL);
         
         pCTRL->FL_SRAD.F_Filter_in = pCTRL->PID_PLL.F_Output;
-    
+        
         Filter_Cal_F(&pCTRL->FL_SRAD);
         
         pCTRL->TG_Triangle.F_Angle += pCTRL->_P_F_Ts*pCTRL->FL_SRAD.F_Filter_in;
         MATH_ANGLE_MOD_F(pCTRL->TG_Triangle.F_Angle);
-
+        
         Math_SinCos_F(&pCTRL->TG_Triangle);
         
-        pCTRL->_O_F_IdRef = 0.0f;
+        pCTRL->_O_F_IdRef = pCTRL->_P_F_IdRef;
         pCTRL->_O_F_IqRef = pCTRL->_I_F_IqRef;
     }
 }

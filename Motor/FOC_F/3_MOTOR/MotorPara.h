@@ -20,7 +20,7 @@
 #define MOTOR_OPENLOOP_IF           (01U)
 #define MOTOR_OPENLOOP_HFI          (02U)
 #define MOTOR_OPENLOOP_FLUX         (03U)
-#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_IF
+#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_HFI
 
 //观测器选择
 #define MOTOR_EST_FLUX              (10U)
@@ -103,7 +103,7 @@
 #define MOTOR_FREQ_PID_MIN                  (-1.0f * CURRENT_PHASE_PU)          //A,转速环输出q轴电流限幅
 
 //电流PID
-#define MOTOR_CURRENT_PID_Coeff             (0.05f)                             //电流环P增益系数
+#define MOTOR_CURRENT_PID_Coeff             (0.01f)                             //电流环P增益系数
 #define MOTOR_CURRENT_KP_GAIN               (MOTOR_CURRENT_PID_Coeff * MOTOR_Ls * MATH_2PI_F / MOTOR_HTs * I_BASE / V_BASE)
 #define MOTOR_CURRENT_KI_GAIN               (MOTOR_CURRENT_KP_GAIN * MOTOR_HTs * MOTOR_Rs / MOTOR_Ls * I_BASE / V_BASE)
 #define MOTOR_CURRENT_KD_GAIN               (0.0f)
