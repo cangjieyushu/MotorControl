@@ -1,0 +1,47 @@
+C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\Debug\BrowseInfo\3_MC\310_MCFOC_F\MCFOC_PARA_F.pbi: \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_PARA_F.c \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_PARA_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\3_MC\PMSM_PARA.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\MATH.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\1_HD\1_FOC1S_260101_Z20K14xM\10_HAL\HAL_CFG.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\00_DEVICE\004_SYSTEM\device_regs.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\00_DEVICE\001_INC\Z20K148M.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdint.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\ycheck.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\yvals.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Defaults.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Config_Normal.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Product.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stddef.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\ysizet.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdbool.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\00_DEVICE\004_SYSTEM\platform_cfg.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\adc_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\common_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\clock_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\common_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\dma_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\flash_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\gpio_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\int_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\mcpwm_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\scm_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\stim_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\sysctrl_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\tdg_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\tmu_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\uart_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\0_MCU\0_Z20K14xM\01_STD\010_INC\wdog_drv.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\3_MC\MC_ERR.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\3_MC\PMSM_PARA.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\MATH_CHECK.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\MATH.h \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_EST_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\21_MATH_F\MATH_ANGLE_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\21_MATH_F\MATH_LPF_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\21_MATH_F\MATH_PID_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\21_MATH_F\MATH_TABLE_F.h \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_PMSM_F.h \
+  C:\Users\sq\Desktop\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\..\..\2_COM\21_MATH\21_MATH_F\MATH_RAMP_F.h \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_SVPWM_F.h \
+  C:\Users\sq\Desktop\MC_LIB\3_MC\31_FOC\310_FOC_F\MCFOC_LOOP_F.h
