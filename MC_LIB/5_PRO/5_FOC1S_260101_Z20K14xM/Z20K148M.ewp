@@ -2372,6 +2372,9 @@
         </group>
         <group>
             <name>13_UARTH</name>
+            <file>
+                <name>$PROJ_DIR$\..\..\1_HD\1_FOC1S_260101_Z20K14xM\13_UARTH\UARTH.h</name>
+            </file>
         </group>
         <group>
             <name>14_CANH</name>
@@ -2603,9 +2606,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\4_SYS\BUTTON.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\..\4_SYS\SYS.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\4_SYS\SYS_ERR.c</name>

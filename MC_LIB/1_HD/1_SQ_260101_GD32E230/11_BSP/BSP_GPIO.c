@@ -25,33 +25,33 @@ void BSP_GPIO_Init(void)
     gpio_output_options_set(RLYN_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, RLYN_PIN);
     /* reset RLYN GPIO pin */
     gpio_bit_reset(RLYN_GPIO_PORT, RLYN_PIN);
-    /* configure RLY0 GPIO port */ 
-    gpio_mode_set(RLY0_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RLY0_PIN);
-    gpio_output_options_set(RLY0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, RLY0_PIN);
-    /* reset RLY0 GPIO pin */
-    gpio_bit_reset(RLY0_GPIO_PORT, RLY0_PIN);
-    /* configure RLY1 GPIO port */ 
-    gpio_mode_set(RLY1_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RLY1_PIN);
-    gpio_output_options_set(RLY1_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, RLY1_PIN);
-    /* reset RLY1 GPIO pin */
-    gpio_bit_reset(RLY1_GPIO_PORT, RLY1_PIN);
+//    /* configure RLY0 GPIO port */ 
+//    gpio_mode_set(RLY0_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RLY0_PIN);
+//    gpio_output_options_set(RLY0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, RLY0_PIN);
+//    /* reset RLY0 GPIO pin */
+//    gpio_bit_reset(RLY0_GPIO_PORT, RLY0_PIN);
+//    /* configure RLY1 GPIO port */ 
+//    gpio_mode_set(RLY1_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RLY1_PIN);
+//    gpio_output_options_set(RLY1_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, RLY1_PIN);
+//    /* reset RLY1 GPIO pin */
+//    gpio_bit_reset(RLY1_GPIO_PORT, RLY1_PIN);
     
-    /* configure BTN1 GPIO port */ 
-    gpio_mode_set(BTN1_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN1_PIN);
-//    /* reset BTN1 GPIO pin */
-//    gpio_bit_reset(BTN1_GPIO_PORT, BTN1_PIN);
-    /* configure BTN2 GPIO port */ 
-    gpio_mode_set(BTN2_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN2_PIN);
-//    /* reset BTN2 GPIO pin */
-//    gpio_bit_reset(BTN2_GPIO_PORT, BTN2_PIN);
-    /* configure BTN3 GPIO port */ 
-    gpio_mode_set(BTN3_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN3_PIN);
-//    /* reset BTN3 GPIO pin */
-//    gpio_bit_reset(BTN3_GPIO_PORT, BTN3_PIN);
-    /* configure BTN4 GPIO port */ 
-    gpio_mode_set(BTN4_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN4_PIN);
-//    /* reset BTN4 GPIO pin */
-//    gpio_bit_reset(BTN4_GPIO_PORT, BTN4_PIN);
+//    /* configure BTN1 GPIO port */ 
+//    gpio_mode_set(BTN1_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN1_PIN);
+////    /* reset BTN1 GPIO pin */
+////    gpio_bit_reset(BTN1_GPIO_PORT, BTN1_PIN);
+//    /* configure BTN2 GPIO port */ 
+//    gpio_mode_set(BTN2_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN2_PIN);
+////    /* reset BTN2 GPIO pin */
+////    gpio_bit_reset(BTN2_GPIO_PORT, BTN2_PIN);
+//    /* configure BTN3 GPIO port */ 
+//    gpio_mode_set(BTN3_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN3_PIN);
+////    /* reset BTN3 GPIO pin */
+////    gpio_bit_reset(BTN3_GPIO_PORT, BTN3_PIN);
+//    /* configure BTN4 GPIO port */ 
+//    gpio_mode_set(BTN4_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN4_PIN);
+////    /* reset BTN4 GPIO pin */
+////    gpio_bit_reset(BTN4_GPIO_PORT, BTN4_PIN);
 
 
 
@@ -112,56 +112,56 @@ void BSP_GPIO_Init(void)
     gpio_output_options_set(UART_RX_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, UART_RX_PIN);
     
     
-    /* config port to SPI */
-    gpio_af_set(SPI_SCK_GPIO_PORT, GPIO_AF_0, SPI_SCK_PIN);
-    gpio_mode_set(SPI_SCK_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, SPI_SCK_PIN);
-    gpio_output_options_set(SPI_SCK_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, SPI_SCK_PIN);
-    
-    gpio_af_set(SPI_MOSI_GPIO_PORT, GPIO_AF_0, SPI_MOSI_PIN);
-    gpio_mode_set(SPI_MOSI_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, SPI_MOSI_PIN);
-    gpio_output_options_set(SPI_MOSI_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, SPI_MOSI_PIN);
-    
-    /* configure SPI_CS GPIO port */ 
-    gpio_mode_set(SPI_CS_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_CS_PIN);
-    gpio_output_options_set(SPI_CS_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_CS_PIN);
-    /* reset SPI_CS GPIO pin */
-    gpio_bit_reset(SPI_CS_GPIO_PORT, SPI_CS_PIN);
-    /* configure SPI_RST GPIO port */ 
-    gpio_mode_set(SPI_RST_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_RST_PIN);
-    gpio_output_options_set(SPI_RST_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_RST_PIN);
-    /* reset SPI_RST GPIO pin */
-    gpio_bit_reset(SPI_RST_GPIO_PORT, SPI_RST_PIN);
-    /* configure SPI_A0 GPIO port */ 
-    gpio_mode_set(SPI_A0_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_A0_PIN);
-    gpio_output_options_set(SPI_A0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_A0_PIN);
-    /* reset SPI_A0 GPIO pin */
-    gpio_bit_reset(SPI_A0_GPIO_PORT, RLY0_PIN);
+//    /* config port to SPI */
+//    gpio_af_set(SPI_SCK_GPIO_PORT, GPIO_AF_0, SPI_SCK_PIN);
+//    gpio_mode_set(SPI_SCK_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, SPI_SCK_PIN);
+//    gpio_output_options_set(SPI_SCK_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, SPI_SCK_PIN);
+//    
+//    gpio_af_set(SPI_MOSI_GPIO_PORT, GPIO_AF_0, SPI_MOSI_PIN);
+//    gpio_mode_set(SPI_MOSI_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, SPI_MOSI_PIN);
+//    gpio_output_options_set(SPI_MOSI_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, SPI_MOSI_PIN);
+//    
+//    /* configure SPI_CS GPIO port */ 
+//    gpio_mode_set(SPI_CS_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_CS_PIN);
+//    gpio_output_options_set(SPI_CS_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_CS_PIN);
+//    /* reset SPI_CS GPIO pin */
+//    gpio_bit_reset(SPI_CS_GPIO_PORT, SPI_CS_PIN);
+//    /* configure SPI_RST GPIO port */ 
+//    gpio_mode_set(SPI_RST_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_RST_PIN);
+//    gpio_output_options_set(SPI_RST_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_RST_PIN);
+//    /* reset SPI_RST GPIO pin */
+//    gpio_bit_reset(SPI_RST_GPIO_PORT, SPI_RST_PIN);
+//    /* configure SPI_A0 GPIO port */ 
+//    gpio_mode_set(SPI_A0_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, SPI_A0_PIN);
+//    gpio_output_options_set(SPI_A0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, SPI_A0_PIN);
+//    /* reset SPI_A0 GPIO pin */
+//    gpio_bit_reset(SPI_A0_GPIO_PORT, RLY0_PIN);
     
 }
 
 
 void BSP_GPIO_RLY0(Q32U_ state)
 {
-    if(state == 1U)
-    {
-        gpio_bit_set(RLY0_GPIO_PORT, RLY0_PIN);
-    }
-    else
-    {
-        gpio_bit_reset(RLY0_GPIO_PORT, RLY0_PIN);
-    }
+//    if(state == 1U)
+//    {
+//        gpio_bit_set(RLY0_GPIO_PORT, RLY0_PIN);
+//    }
+//    else
+//    {
+//        gpio_bit_reset(RLY0_GPIO_PORT, RLY0_PIN);
+//    }
 }
 
 void BSP_GPIO_RLY1(Q32U_ state)
 {
-    if(state == 1U)
-    {
-        gpio_bit_set(RLY1_GPIO_PORT, RLY1_PIN);
-    }
-    else
-    {
-        gpio_bit_reset(RLY1_GPIO_PORT, RLY1_PIN);
-    }
+//    if(state == 1U)
+//    {
+//        gpio_bit_set(RLY1_GPIO_PORT, RLY1_PIN);
+//    }
+//    else
+//    {
+//        gpio_bit_reset(RLY1_GPIO_PORT, RLY1_PIN);
+//    }
 }
 
 void BSP_GPIO_RLYN(Q32U_ state)
@@ -177,59 +177,59 @@ void BSP_GPIO_RLYN(Q32U_ state)
 }
 
 
-Q32U_ BSP_GPIO_BTN1(void)
-{
-    return (Q32U_)gpio_input_bit_get(BTN1_GPIO_PORT, BTN1_PIN);
-}
+//Q32U_ BSP_GPIO_BTN1(void)
+//{
+//    return (Q32U_)gpio_input_bit_get(BTN1_GPIO_PORT, BTN1_PIN);
+//}
 
-Q32U_ BSP_GPIO_BTN2(void)
-{
-    return (Q32U_)gpio_input_bit_get(BTN2_GPIO_PORT, BTN2_PIN);
-}
+//Q32U_ BSP_GPIO_BTN2(void)
+//{
+//    return (Q32U_)gpio_input_bit_get(BTN2_GPIO_PORT, BTN2_PIN);
+//}
 
-Q32U_ BSP_GPIO_BTN3(void)
-{
-    return (Q32U_)gpio_input_bit_get(BTN3_GPIO_PORT, BTN3_PIN);
-}
+//Q32U_ BSP_GPIO_BTN3(void)
+//{
+//    return (Q32U_)gpio_input_bit_get(BTN3_GPIO_PORT, BTN3_PIN);
+//}
 
-Q32U_ BSP_GPIO_BTN4(void)
-{
-    return (Q32U_)gpio_input_bit_get(BTN4_GPIO_PORT, BTN4_PIN);
-}
+//Q32U_ BSP_GPIO_BTN4(void)
+//{
+//    return (Q32U_)gpio_input_bit_get(BTN4_GPIO_PORT, BTN4_PIN);
+//}
 
 
 void BSP_SPI_RST(Q32U_ state)
 {
-    if(state == 1U)
-    {
-        gpio_bit_set(SPI_RST_GPIO_PORT, SPI_RST_PIN);
-    }
-    else
-    {
-        gpio_bit_reset(SPI_RST_GPIO_PORT, SPI_RST_PIN);
-    }
+//    if(state == 1U)
+//    {
+//        gpio_bit_set(SPI_RST_GPIO_PORT, SPI_RST_PIN);
+//    }
+//    else
+//    {
+//        gpio_bit_reset(SPI_RST_GPIO_PORT, SPI_RST_PIN);
+//    }
 }
 
 void BSP_SPI_A0(Q32U_ state)
 {
-    if(state == 1U)
-    {
-        gpio_bit_set(SPI_A0_GPIO_PORT, SPI_A0_PIN);
-    }
-    else
-    {
-        gpio_bit_reset(SPI_A0_GPIO_PORT, SPI_A0_PIN);
-    }
+//    if(state == 1U)
+//    {
+//        gpio_bit_set(SPI_A0_GPIO_PORT, SPI_A0_PIN);
+//    }
+//    else
+//    {
+//        gpio_bit_reset(SPI_A0_GPIO_PORT, SPI_A0_PIN);
+//    }
 }
 
 void BSP_SPI_CS(Q32U_ state)
 {
-    if(state == 1U)
-    {
-        gpio_bit_set(SPI_CS_GPIO_PORT, SPI_CS_PIN);
-    }
-    else
-    {
-        gpio_bit_reset(SPI_CS_GPIO_PORT, SPI_CS_PIN);
-    }
+//    if(state == 1U)
+//    {
+//        gpio_bit_set(SPI_CS_GPIO_PORT, SPI_CS_PIN);
+//    }
+//    else
+//    {
+//        gpio_bit_reset(SPI_CS_GPIO_PORT, SPI_CS_PIN);
+//    }
 }

@@ -810,11 +810,6 @@
               <FilePath>..\..\4_SYS\BUTTON.h</FilePath>
             </File>
             <File>
-              <FileName>SYS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\4_SYS\SYS.h</FilePath>
-            </File>
-            <File>
               <FileName>SYS_ERR.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\4_SYS\SYS_ERR.c</FilePath>

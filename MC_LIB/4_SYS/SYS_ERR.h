@@ -5,6 +5,7 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             故障显示头文件
 **************************************************************************************************/
+
 #ifndef SYS_ERR_H
 #define SYS_ERR_H
 
@@ -40,6 +41,6 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Error_Priority_Check(ST_SYSTEM_TASK*  pST);
+Q32U_ Error_Priority_Check(Q32U_ error_all);
     
 #endif /* SYS_ERR_H */

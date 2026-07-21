@@ -1,12 +1,14 @@
 /**************************************************************************************************
 *     File Name :                        HAL_CFG.h
-*     Library/Module Name :              MotorHal
+*     Library/Module Name :              HD
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
 *     Abstract Description :             电机控制硬件参数设置头文件
 **************************************************************************************************/
+
 #ifndef MotorHal_cfg_H
 #define MotorHal_cfg_H
+
 
 //调用所有外设的头文件
 #include "stm32f4xx.h"

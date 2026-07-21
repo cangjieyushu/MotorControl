@@ -127,10 +127,10 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->MCSQ_CTRL.PWM_CTRL._I_Q14U_Duty_Ibus = pMotor->MCSQ_CTRL.PWM_CTRL._P_Q14U_Duty_Max;
         }
         
-//        if(MCSQ_Stall_Check(&pMotor->MCSQ_CTRL.STALL_CTRL, &pMotor->MCSQ_CTRL) == SUCS)
-//        {
-//            pMotor->MC_ERR.Motor_Error_Flag.bit.rotor_stall = 1U;
-//        }
+        if(MCSQ_Stall_Check(&pMotor->MCSQ_CTRL.STALL_CTRL, &pMotor->MCSQ_CTRL) == SUCS)
+        {
+            pMotor->MC_ERR.Motor_Error_Flag.bit.rotor_stall = 1U;
+        }
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
     {
@@ -167,7 +167,6 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
     else
     {
         MH_HPWM_LPWM_Close();
-//        MH_HPWM_LPWM_Open(500);
     }
 }
 
@@ -550,7 +549,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
                 pMotor->MC_ERR._I_Q14U_Iphase_Max_pu = pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Iphase_pu;
             }
 #if(MOTOR_TEST_MODE == 0)
-//            MC_Error_Current_Flow(&pMotor->MC_ERR);
+            MC_Error_Current_Flow(&pMotor->MC_ERR);
 #endif
         }
     }
@@ -604,10 +603,10 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
-//    if(pMotor->MC_ERR.Motor_Error_Flag.all != 0U)
-//    {
-//        pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
-//    }
+    if(pMotor->MC_ERR.Motor_Error_Flag.all != 0U)
+    {
+        pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
+    }
     
     Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
 }

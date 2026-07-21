@@ -1,1483 +1,0 @@
-Dependencies for Project 'GD32E230_SQ', Target 'GD32E230_SQ': (DO NOT MODIFY !)
-CompilerVersion: 6160000::V6.16::ARMCLANG
-F (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)()
-F (..\..\0_MCU\0_GD32E230\00_DEVICE\003_START\startup_gd32e23x.s)(0x698306C8)(--target=arm-arm-none-eabi -mcpu=cortex-m23 -masm=auto -c-gdwarf-3-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 535" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"GD32E23x SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o ./objects/startup_gd32e23x.o)
-F (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.c)(0x69F93C51)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/system_gd32e23x.o -MD)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)()
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_adc.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_adc.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_cmp.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_cmp.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_crc.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_crc.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_dbg.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_dbg.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_dma.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_dma.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_exti.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_exti.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_fmc.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_fmc.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_fwdgt.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_fwdgt.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_gpio.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_gpio.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_i2c.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_i2c.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_misc.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_misc.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_pmu.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_pmu.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_rcu.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_rcu.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_rtc.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_rtc.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_spi.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_spi.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_syscfg.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_syscfg.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_timer.c)(0x69CCE2FE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_timer.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_usart.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_usart.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_wwdgt.c)(0x698306C8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/gd32e23x_wwdgt.o -MD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-F (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.c)(0x69EC7A17)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_adc.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.c)(0x69F94208)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_clk.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.c)(0x69E49165)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_cmp.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.c)(0x69E914BD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_dma.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.c)(0x69F9464E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_gpio.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.c)(0x69D39569)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_isr.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.c)(0x69C8FF24)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_opa.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.c)(0x6A034815)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_pwm.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.c)(0x69CD1343)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_tim.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.c)(0x6A0492FB)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_usart.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.c)(0x69C93099)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/bsp_wdg.o -MD)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)()
-F (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)()
-F (..\..\2_COM\20_RTT\SEGGER_RTT.c)(0x69C5E2E7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/segger_rtt.o -MD)
-I (..\..\2_COM\20_RTT\SEGGER_RTT.h)(0x69C5E2E7)
-I (..\..\2_COM\20_RTT\SEGGER_RTT_Conf.h)(0x69C5E2E7)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x603507D4)
-I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-F (..\..\2_COM\20_RTT\SEGGER_RTT.h)(0x69C5E2E7)()
-F (..\..\2_COM\20_RTT\SEGGER_RTT_Conf.h)(0x69C5E2E7)()
-F (..\..\2_COM\21_MATH\MATH.c)(0x69EC7A85)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math.o -MD)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)()
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_ANGLE_T.c)(0x69CBEDA9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math_angle_t.o -MD)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_ANGLE_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_ANGLE_T.h)(0x69C5E2E7)()
-F (..\..\2_COM\21_MATH\MATH_CHECK.c)(0x69C5E2E7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math_check.o -MD)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)()
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.c)(0x69C5E2E7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math_lpf_t.o -MD)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)()
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.c)(0x69C5E2E7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math_pid_t.o -MD)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)()
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.c)(0x69C5E2E7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/math_ramp_t.o -MD)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-F (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)()
-F (..\..\2_COM\22_UARTS\UARTS.c)(0x69CD0E73)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/uarts.o -MD)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-F (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)()
-F (..\..\3_MC\30_SQ\MCSQ_API.c)(0x6A002AEC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/mcsq_api.o -MD)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-F (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)()
-F (..\..\3_MC\30_SQ\MCSQ_BLDC.c)(0x69CC708A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/mcsq_bldc.o -MD)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-F (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)()
-F (..\..\3_MC\MC_ERR.c)(0x6A034888)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/mc_err.o -MD)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-F (..\..\3_MC\MC_ERR.h)(0x6A033BCB)()
-F (..\..\3_MC\30_SQ\MCSQ_PARA.c)(0x69CC69D4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/mcsq_para.o -MD)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-F (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)()
-F (..\..\3_MC\30_SQ\MCSQ_TASK.c)(0x6A032B1F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/mcsq_task.o -MD)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-F (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)()
-F (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)()
-F (..\..\4_SYS\BUTTON.c)(0x69EBF99A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/button.o -MD)
-I (..\..\4_SYS\BUTTON.h)(0x69C7B70C)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-F (..\..\4_SYS\BUTTON.h)(0x69C7B70C)()
-F (..\..\4_SYS\SYS_ERR.c)(0x69EBF9BF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/sys_err.o -MD)
-I (..\..\4_SYS\SYS_ERR.h)(0x69C5E2E7)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-F (..\..\4_SYS\SYS_ERR.h)(0x69C5E2E7)()
-F (..\..\4_SYS\SYS_LCD.c)(0x6A04926D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/sys_lcd.o -MD)
-I (..\..\4_SYS\SYS_LCD.h)(0x69ECD759)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-F (..\..\4_SYS\SYS_LCD.h)(0x69ECD759)()
-F (..\..\4_SYS\SYS_VOFA.c)(0x69ECC2F8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/sys_vofa.o -MD)
-I (..\..\4_SYS\SYS_VOFA.h)(0x69ECC2E1)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-F (..\..\4_SYS\SYS_VOFA.h)(0x69ECC2E1)()
-F (..\..\4_SYS\SYSTASK.c)(0x6A048C17)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/systask.o -MD)
-I (..\..\4_SYS\BUTTON.h)(0x69C7B70C)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-I (..\..\4_SYS\SYS_ERR.h)(0x69C5E2E7)
-I (..\..\4_SYS\SYS_LCD.h)(0x69ECD759)
-I (..\..\4_SYS\SYS_VOFA.h)(0x69ECC2E1)
-F (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)()
-F (.\5_MAIN\Main.c)(0x6A034A3E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m23 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../../0_MCU/0_GD32E230/00_DEVICE/000_CORE -I ../../0_MCU/0_GD32E230/00_DEVICE/001_INC -I ../../0_MCU/0_GD32E230/00_DEVICE/002_MAKE -I ../../0_MCU/0_GD32E230/00_DEVICE/003_START -I ../../0_MCU/0_GD32E230/00_DEVICE/004_SYSTEM -I ../../0_MCU/0_GD32E230/01_STD/010_INC -I ../../0_MCU/0_GD32E230/01_STD/011_SRC -I ../../1_HD/1_SQ_260101_GD32E230/10_HAL -I ../../1_HD/1_SQ_260101_GD32E230/11_BSP -I ../../1_HD/1_SQ_260101_GD32E230/12_MCH -I ../../1_HD/1_SQ_260101_GD32E230/13_UARTH -I ../../1_HD/1_SQ_260101_GD32E230/14_CANH -I ../../2_COM/20_RTT -I ../../2_COM/21_MATH -I ../../2_COM/21_MATH/21_MATH_F -I ../../2_COM/21_MATH/21_MATH_T -I ../../2_COM/22_UARTS -I ../../2_COM/23_CANS -I ../../3_MC -I ../../3_MC/30_SQ -I ../../4_SYS -I ./5_MAIN-I./RTE/_GD32E230_SQ-IC:/Users/14155/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/14155/AppData/Local/Arm/Packs/GigaDevice/GD32E23x_DFP/2.3.2/Device/Include-D__UVISION_VERSION="535" -D_RTE_ -DGD32E23x -D_RTE_ -DMCSQ_CJYS -DGD32E230-o ./objects/main.o -MD)
-I (5_MAIN\Main.h)(0x69EBFF3C)
-I (..\..\4_SYS\SYSTASK.h)(0x69EC7B86)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\MATH.h)(0x69EC7A92)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP.h)(0x69C92223)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ADC.h)(0x69D2ED6D)
-I (..\..\1_HD\1_SQ_260101_GD32E230\10_HAL\HAL_CFG.h)(0x6A034DD4)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h)(0x69294311)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h)(0x69294311)
-I (C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h)(0x60D3E8E2)
-I (..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h)(0x69645ED3)
-I (C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h)(0x67AB3AE8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h)(0x69CD0FFD)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h)(0x698306C8)
-I (..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h)(0x698306C8)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CLK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_CMP.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_DMA.h)(0x69E49B3F)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_GPIO.h)(0x69EC7030)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_ISR.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_OPA.h)(0x69C8FF23)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_PWM.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_TIM.h)(0x69C93045)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_USART.h)(0x69E49664)
-I (..\..\1_HD\1_SQ_260101_GD32E230\11_BSP\BSP_WDG.h)(0x69C9302E)
-I (..\..\2_COM\22_UARTS\UARTS.h)(0x69ECC911)
-I (..\..\1_HD\1_SQ_260101_GD32E230\13_UARTH\UARTH.h)(0x69ECCECA)
-I (..\..\3_MC\30_SQ\MCSQ_TASK.h)(0x69CC6BF7)
-I (..\..\3_MC\30_SQ\MCSQ_PARA.h)(0x6A034C3A)
-I (..\..\3_MC\30_SQ\MCSQ_BLDC.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h)(0x69C5E2E7)
-I (..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h)(0x69C5E2E7)
-I (..\..\3_MC\MC_ERR.h)(0x6A033BCB)
-I (..\..\3_MC\PMSM_PARA.h)(0x6A032A22)
-I (..\..\2_COM\21_MATH\MATH_CHECK.h)(0x69C5E2E7)
-I (..\..\1_HD\1_SQ_260101_GD32E230\12_MCH\MCH.h)(0x69F93FA2)
-I (..\..\3_MC\30_SQ\MCSQ_API.h)(0x69EBFB7D)
-I (..\..\4_SYS\SYS_LCD.h)(0x69ECD759)
-F (.\5_MAIN\Main.h)(0x69EBFF3C)()

@@ -14,8 +14,8 @@
 #include "UARTH.h"
 
 
-#define RESCEIVE_DATA_LENGTH        (30U)
-#define TRANSMISSION_DATA_LENGTH    (30U)
+#define RESCEIVE_DATA_LENGTH        (20U)
+#define TRANSMISSION_DATA_LENGTH    (20U)
 
 
 typedef enum{

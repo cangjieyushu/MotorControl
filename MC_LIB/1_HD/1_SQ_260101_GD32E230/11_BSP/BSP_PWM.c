@@ -31,8 +31,8 @@ void BSP_PWM_Init(void)
     timer_oc_parameter_struct timer_ocinitpara;
     timer_parameter_struct timer_initpara;
     timer_break_parameter_struct timer_breakpara;
-
-
+    
+    
     timer_deinit(HAL_MOTOR_PWM);
     /* initialize TIMER init parameter struct */
     timer_struct_para_init(&timer_initpara);
@@ -54,11 +54,11 @@ void BSP_PWM_Init(void)
     timer_ocinitpara.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     timer_ocinitpara.ocnidlestate = TIMER_OC_IDLE_STATE_LOW;
-
+    
     timer_channel_output_config(HAL_MOTOR_PWM, UH_PWM_CHANNEL, &timer_ocinitpara);
     timer_channel_output_config(HAL_MOTOR_PWM, VH_PWM_CHANNEL, &timer_ocinitpara);
     timer_channel_output_config(HAL_MOTOR_PWM, WH_PWM_CHANNEL, &timer_ocinitpara);
-
+    
     /* configure TIMER channel 0 */
     timer_channel_output_pulse_value_config(HAL_MOTOR_PWM, UH_PWM_CHANNEL, 0);
     timer_channel_output_mode_config(HAL_MOTOR_PWM, UH_PWM_CHANNEL, TIMER_OC_MODE_PWM0);
@@ -73,7 +73,7 @@ void BSP_PWM_Init(void)
     timer_channel_output_pulse_value_config(HAL_MOTOR_PWM, WH_PWM_CHANNEL, 0);
     timer_channel_output_mode_config(HAL_MOTOR_PWM, WH_PWM_CHANNEL, TIMER_OC_MODE_PWM0);
     timer_channel_output_shadow_config(HAL_MOTOR_PWM, WH_PWM_CHANNEL, TIMER_OC_SHADOW_ENABLE);
-
+    
     /* configure TIMER channel 3 */
     timer_channel_output_pulse_value_config(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL, 0);
     timer_channel_output_mode_config(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL, TIMER_OC_MODE_PWM0);
@@ -81,7 +81,7 @@ void BSP_PWM_Init(void)
     
     TIMER_CHCTL2(HAL_MOTOR_PWM) &= (~(Q32U_)(TIMER_CHCTL2_CH0EN|TIMER_CHCTL2_CH1EN|TIMER_CHCTL2_CH2EN
                                             |TIMER_CHCTL2_CH0NEN|TIMER_CHCTL2_CH1NEN|TIMER_CHCTL2_CH2NEN));
-                                            
+    
     /* initialize TIMER break parameter struct */
     timer_break_struct_para_init(&timer_breakpara);
     /* automatic output enable, break, dead time and lock configuration*/

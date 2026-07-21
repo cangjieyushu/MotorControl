@@ -113,24 +113,21 @@ Input_Output: 系统状态指针
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Error_Priority_Check(ST_SYSTEM_TASK*  pST)
+Q32U_ Error_Priority_Check(Q32U_ error_all)
 {
     ST_ERROR_CONTROL* pEC = &Error_Ctrl;
-    if(pST->System_Error_Flag.ALL != 0U)
+    if(error_all)
     {
         for(Q32I_ i=0;i<32;i++)
         {
-            if(pST->System_Error_Flag.ALL & (1<<i))
+            if(error_all & (1<<i))
             {
-                pEC->error_code = i + 1U;
-                break;
+                return (i + 1U);
             }
         }
     }
-    else
-    {
-        pEC->error_code = 0U;
-    }
     
     Error_LED(pEC);
+    
+    return 0U;
 }

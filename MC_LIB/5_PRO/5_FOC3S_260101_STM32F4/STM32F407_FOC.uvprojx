@@ -496,7 +496,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>12_HD_BSP</GroupName>
+          <GroupName>11_HD_BSP</GroupName>
           <Files>
             <File>
               <FileName>BSP.h</FileName>
@@ -586,7 +586,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>13_HD_MCH</GroupName>
+          <GroupName>12_HD_MCH</GroupName>
           <Files>
             <File>
               <FileName>MCH.h</FileName>
@@ -596,10 +596,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>14_HD_UARTH</GroupName>
+          <GroupName>13_HD_UARTH</GroupName>
+          <Files>
+            <File>
+              <FileName>UARTH.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\13_UARTH\UARTH.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
-          <GroupName>15_HD_CANH</GroupName>
+          <GroupName>14_HD_CANH</GroupName>
         </Group>
         <Group>
           <GroupName>20_COM_RTT</GroupName>
@@ -936,11 +943,6 @@
               <FileName>BUTTON.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\4_SYS\BUTTON.h</FilePath>
-            </File>
-            <File>
-              <FileName>SYS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\4_SYS\SYS.h</FilePath>
             </File>
             <File>
               <FileName>SYS_ERR.c</FileName>

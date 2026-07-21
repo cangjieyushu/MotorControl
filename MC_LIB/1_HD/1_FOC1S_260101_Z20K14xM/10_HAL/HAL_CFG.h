@@ -41,6 +41,7 @@
 
 #define HAL_CURRENT_LOOP_FREQ_PRESCALER         (1.0f)
 
+
 //‘ÿ∆µ—°‘Ò
 #define HAL_PWM_FREQ_1K                         (1.0f)                          //kHz£¨PWM‘ÿ∆µ
 #define HAL_PWM_FREQ_2K                         (2.0f)                          //kHz£¨PWM‘ÿ∆µ

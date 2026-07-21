@@ -30,7 +30,7 @@ static void ST7567_SendDMA(uint8_t *data, uint16_t len, uint8_t is_cmd);
  **********************************************************************************************/
 void ST7567_RequestRefresh(void)
 {
-    if (LCD_Update_Flag == 0U)
+    if(LCD_Update_Flag == 0U)
     {
         current_page = 0U;
         LCD_Update_Flag = 1U;
@@ -64,12 +64,26 @@ void ST7567_Init(void)
             ST7567_WriteCmd(0x2F);           /* 电源全开 */
             ST7567_WriteCmd(0xAF);           /* 开显示 */
 
+//            ST7567_WriteCmd(0xE2);               //initialize interal function  
+//            ST7567_WriteCmd(0x2F);               //power control(VB,VR,VF=1,1,1)     
+//            ST7567_WriteCmd(0x23);               //Regulator resistor select(RR2,RR1,VRR0=0,1,1) 
+//            ST7567_WriteCmd(0xA2);               //set LCD bias=1/9(BS=0)        
+//            ST7567_WriteCmd(0x81);               //set reference voltage        
+//            ST7567_WriteCmd(0x25);               //Set electronic volume (EV) level        
+//            ST7567_WriteCmd(0xC8);               //set SHL COM1 to COM64      
+//            ST7567_WriteCmd(0xA1);               //ADC select SEG1 to SEG132
+//            ST7567_WriteCmd(0x40);               //Initial Display Line        
+//            ST7567_WriteCmd(0xA6);               //set reverse display OFF        
+//            ST7567_WriteCmd(0xA4);               //set all pixels OFF
+//            ST7567_WriteCmd(0xAF);               //turns the display ON
+        
             /* 清空帧缓冲（全白）并请求刷新 */
             memset(framebuffer, 0x00, sizeof(framebuffer));
             ST7567_RequestRefresh();         /* 将在后续 ST7567_Refresh 中完成 */
             Init_Phase = 100;                /* 初始化完成 */
             break;
-        case 100:
+        case 101:
+            ST7567_Refresh();
             Init_Phase = 100;                /* 初始化完成 */
             break;
         default:

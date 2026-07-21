@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "D:\Desktop\项目\软件\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.general.xcl" --backend -f "D:\Desktop\项目\软件\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "D:\Desktop\Project\software\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.general.xcl" --backend -f "D:\Desktop\Project\software\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "D:\Desktop\项目\软件\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Desktop\项目\软件\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "D:\Desktop\Project\software\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Desktop\Project\software\LIB\MotorControl\MC_LIB\5_PRO\5_FOC1S_260101_Z20K14xM\settings\Z20K148M.Debug.driver.xcl" 
 }

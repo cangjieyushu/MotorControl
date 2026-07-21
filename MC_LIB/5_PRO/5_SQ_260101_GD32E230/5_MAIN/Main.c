@@ -131,6 +131,31 @@ void TIMER0_Channel_IRQHandler(void)
 }
 
 /**********************************************************************************************
+Function: USART0_IRQHandler
+Description: 串口收发中断
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void USART0_IRQHandler(void)
+{
+    if(RESET != usart_interrupt_flag_get(HAL_MOTOR_UART, USART_INT_FLAG_RBNE))
+    {
+        /* receive data */
+        usart_interrupt_flag_clear(HAL_MOTOR_UART, USART_INT_FLAG_RBNE);
+        UART_Resceive_Int();
+    }
+    if(RESET != usart_interrupt_flag_get(HAL_MOTOR_UART, USART_INT_FLAG_TC))
+    {
+        /* transmit data */
+        usart_interrupt_flag_clear(HAL_MOTOR_UART, USART_INT_FLAG_TC);
+        UART_Transmission_Int();
+    }
+}
+
+/**********************************************************************************************
 Function: SysTick_Handler
 Description: 速度环中断
 Input: 无

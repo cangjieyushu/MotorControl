@@ -73,74 +73,74 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_DMA_Init_UART(Q08U_* ustxbuffer, Q08U_* usrxbuffer, Q08U_* spitxbuffer)
 {
-    dma_parameter_struct dma_init_struct;
-    
-    /* initialize DMA channel1 */
-    dma_deinit(HAL_USART_TX_DMA_CH);
-    dma_struct_para_init(&dma_init_struct);
-    
-    dma_init_struct.direction = DMA_MEMORY_TO_PERIPHERAL;
-    dma_init_struct.memory_addr = (uint32_t)ustxbuffer;
-    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
-    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
-    dma_init_struct.number = HAL_UART_TX_NUM;
-    dma_init_struct.periph_addr = USART0_TDATA_ADDRESS;
-    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
-    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
-    dma_init_struct.priority = DMA_PRIORITY_MEDIUM;
-    dma_init(HAL_USART_TX_DMA_CH, &dma_init_struct);
-    
-    /* initialize DMA channel2 */
-    dma_deinit(HAL_USART_RX_DMA_CH);
-    dma_init_struct.direction = DMA_PERIPHERAL_TO_MEMORY;
-    dma_init_struct.memory_addr = (uint32_t)usrxbuffer;
-    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
-    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
-    dma_init_struct.number = HAL_UART_RX_NUM;
-    dma_init_struct.periph_addr = USART0_RDATA_ADDRESS;
-    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
-    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
-    dma_init_struct.priority = DMA_PRIORITY_HIGH;
-    dma_init(HAL_USART_RX_DMA_CH, &dma_init_struct);
-        
-    /* configure DMA mode */
-    dma_circulation_disable(HAL_USART_TX_DMA_CH);
-    dma_memory_to_memory_disable(HAL_USART_TX_DMA_CH);
-    dma_circulation_disable(HAL_USART_RX_DMA_CH);
-    dma_memory_to_memory_disable(HAL_USART_RX_DMA_CH);
-    
-    /* USART DMA enable for transmission */
-    usart_dma_transmit_config(HAL_MOTOR_UART, USART_DENT_ENABLE);
-    /* enable DMA channel1 */
-    dma_channel_enable(HAL_USART_TX_DMA_CH);
-    /* USART DMA enable for reception */
-    usart_dma_receive_config(HAL_MOTOR_UART, USART_DENR_ENABLE);
-    /* enable DMA channel2 */
-    dma_channel_enable(HAL_USART_RX_DMA_CH);
-    
-  
-    /* initialize DMA channel3 */
-    dma_deinit(HAL_SPI_TX_DMA_CH);
-    dma_struct_para_init(&dma_init_struct);
-    
-    dma_init_struct.direction = DMA_MEMORY_TO_PERIPHERAL;
-    dma_init_struct.memory_addr = (uint32_t)spitxbuffer;
-    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
-    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
-    dma_init_struct.number = HAL_SPI_TX_NUM;
-    dma_init_struct.periph_addr = SPI0_RDATA_ADDRESS;
-    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
-    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
-    dma_init_struct.priority = DMA_PRIORITY_LOW;
-    dma_init(HAL_SPI_TX_DMA_CH, &dma_init_struct);
-    
-    /* configure DMA mode */
-    dma_circulation_disable(HAL_SPI_TX_DMA_CH);
-    dma_memory_to_memory_disable(HAL_SPI_TX_DMA_CH);
-    
-    /* SPI DMA enable for transmission */
-    spi_dma_enable(HAL_MOTOR_SPI, SPI_DMA_TRANSMIT);
-    /* enable DMA channel2 */
-    dma_channel_enable(HAL_SPI_TX_DMA_CH);
+//    dma_parameter_struct dma_init_struct;
+//    
+//    /* initialize DMA channel1 */
+//    dma_deinit(HAL_USART_TX_DMA_CH);
+//    dma_struct_para_init(&dma_init_struct);
+//    
+//    dma_init_struct.direction = DMA_MEMORY_TO_PERIPHERAL;
+//    dma_init_struct.memory_addr = (uint32_t)ustxbuffer;
+//    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
+//    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
+//    dma_init_struct.number = HAL_UART_TX_NUM;
+//    dma_init_struct.periph_addr = USART0_TDATA_ADDRESS;
+//    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
+//    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
+//    dma_init_struct.priority = DMA_PRIORITY_MEDIUM;
+//    dma_init(HAL_USART_TX_DMA_CH, &dma_init_struct);
+//    
+//    /* initialize DMA channel2 */
+//    dma_deinit(HAL_USART_RX_DMA_CH);
+//    dma_init_struct.direction = DMA_PERIPHERAL_TO_MEMORY;
+//    dma_init_struct.memory_addr = (uint32_t)usrxbuffer;
+//    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
+//    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
+//    dma_init_struct.number = HAL_UART_RX_NUM;
+//    dma_init_struct.periph_addr = USART0_RDATA_ADDRESS;
+//    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
+//    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
+//    dma_init_struct.priority = DMA_PRIORITY_HIGH;
+//    dma_init(HAL_USART_RX_DMA_CH, &dma_init_struct);
+//        
+//    /* configure DMA mode */
+//    dma_circulation_disable(HAL_USART_TX_DMA_CH);
+//    dma_memory_to_memory_disable(HAL_USART_TX_DMA_CH);
+//    dma_circulation_disable(HAL_USART_RX_DMA_CH);
+//    dma_memory_to_memory_disable(HAL_USART_RX_DMA_CH);
+//    
+//    /* USART DMA enable for transmission */
+//    usart_dma_transmit_config(HAL_MOTOR_UART, USART_DENT_ENABLE);
+//    /* enable DMA channel1 */
+//    dma_channel_enable(HAL_USART_TX_DMA_CH);
+//    /* USART DMA enable for reception */
+//    usart_dma_receive_config(HAL_MOTOR_UART, USART_DENR_ENABLE);
+//    /* enable DMA channel2 */
+//    dma_channel_enable(HAL_USART_RX_DMA_CH);
+//    
+//  
+//    /* initialize DMA channel3 */
+//    dma_deinit(HAL_SPI_TX_DMA_CH);
+//    dma_struct_para_init(&dma_init_struct);
+//    
+//    dma_init_struct.direction = DMA_MEMORY_TO_PERIPHERAL;
+//    dma_init_struct.memory_addr = (uint32_t)spitxbuffer;
+//    dma_init_struct.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
+//    dma_init_struct.memory_width = DMA_MEMORY_WIDTH_8BIT;
+//    dma_init_struct.number = HAL_SPI_TX_NUM;
+//    dma_init_struct.periph_addr = SPI0_RDATA_ADDRESS;
+//    dma_init_struct.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
+//    dma_init_struct.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
+//    dma_init_struct.priority = DMA_PRIORITY_LOW;
+//    dma_init(HAL_SPI_TX_DMA_CH, &dma_init_struct);
+//    
+//    /* configure DMA mode */
+//    dma_circulation_disable(HAL_SPI_TX_DMA_CH);
+//    dma_memory_to_memory_disable(HAL_SPI_TX_DMA_CH);
+//    
+//    /* SPI DMA enable for transmission */
+//    spi_dma_enable(HAL_MOTOR_SPI, SPI_DMA_TRANSMIT);
+//    /* enable DMA channel2 */
+//    dma_channel_enable(HAL_SPI_TX_DMA_CH);
     
 }

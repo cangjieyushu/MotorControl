@@ -37,8 +37,6 @@ void System_Task_Init(ST_SYSTEM_TASK* pST)
     Q32U_ adc_tmp = 0U;
     
     adc_tmp = BSP_ADC_DATA_READ_VR;     LPF_Init_T(&pST->FL_VR, (Q32I_)adc_tmp);
-    
-    BSP_GPIO_RLYN(1U);
 }
 
 /**********************************************************************************************
@@ -161,45 +159,18 @@ Author: CJYS
 ***********************************************************************************************/
 void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
 {
-    static Q32U_ speed_tmp = 0;
-    static Q32U_ button_tmp1 = 0;
-    static Q32U_ button_tmp2 = 0;
-    
     if(pST->System_State_Flag.BIT.systick_intflow == 1U)
     {
-        ST7567_Init();
+//        BSP_FeedWatchDog();
         
-        if(BSP_GPIO_BTN1())
-        {
-            speed_tmp = 2500;
-            pST->System_State_Flag.BIT.system_runflag = 1U;
-        }
-        if(BSP_GPIO_BTN2())
-        {
-            speed_tmp = 0;
-            pST->System_State_Flag.BIT.system_runflag = 0U;
-        }
-        if((BSP_GPIO_BTN3() == 0) && (button_tmp1 == 1))
-        {
-            speed_tmp += 500;
-//            pST->System_State_Flag.BIT.system_runflag = 0U;
-        }
-        if((BSP_GPIO_BTN4() == 0) && (button_tmp2 == 1))
-        {
-            speed_tmp = 500;
-            pST->System_State_Flag.BIT.system_runflag = 1U;
-        }
-        button_tmp1 = BSP_GPIO_BTN3();
-        button_tmp2 = BSP_GPIO_BTN4();
-        
-        Motor_Set_Target_Speed(&Motor, speed_tmp);
+        Motor_Set_Target_Speed(&Motor, 0U);
         
 //        Button_Control(&Button_Ctrl, pST);
     
 //        UART_Get_Resceive_Data();
 //        UART_Send_Transmission_Data();
     
-//        Error_Priority_Check(&Systask);
+        Error_Priority_Check(0U);
         pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }

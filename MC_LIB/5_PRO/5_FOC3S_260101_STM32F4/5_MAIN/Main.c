@@ -16,27 +16,6 @@ Q32I_ RTT_DATA[8];
 
 
 /**********************************************************************************************
-Function: System_10msTask_Tick
-Description: 10ms时间片任务调度
-Input: 无
-Output: 无
-Input_Output: ST_SYSTEM_TASK
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
-{
-    if(pST->System_State_Flag.BIT.systick_intflow == 1U)
-    {
-		Button_Control(&Button_Ctrl, pST);
-        
-		BSP_FeedWatchDog();
-
-		pST->System_State_Flag.BIT.systick_intflow = 0U;
-    }
-}
-
-/**********************************************************************************************
 Function: main
 Description: 主函数，执行初始化
 Input: 无
@@ -139,7 +118,6 @@ Author: CJYS
 ***********************************************************************************************/
 void SysTick_Handler(void)
 {
-    System_Tick_Isr(&Systask);
     System_Task_Flow(&Systask);
     MotorTask_Speed_Flow(&Motor);
 }

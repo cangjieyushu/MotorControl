@@ -14,15 +14,15 @@
 
 
 #define ST7567_WIDTH          128
-#define ST7567_HEIGHT         64
 #define ST7567_PAGE_NUM       8
 
 
 extern uint8_t framebuffer[ST7567_PAGE_NUM][ST7567_WIDTH];
 
 
-void ST7567_Init(void);       /* 初始化状态机，需周期性调用 */
-void ST7567_Refresh(void);    /* 分页刷新状态机，需周期性调用（10ms） */
+void ST7567_RequestRefresh(void);    /* 刷新状态机 */
+void ST7567_Init(void);             /* 初始化状态机，需周期性调用 */
+void ST7567_Refresh(void);          /* 分页刷新状态机，需周期性调用（10ms） */
 
 
 /* ==================== 汉字显示 API ==================== */
