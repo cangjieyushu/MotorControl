@@ -117,7 +117,7 @@ typedef struct
   
 #define I2C_OWNADDRESS1_7BIT                0x00004000U                  /*!< Own address 1 is a 7-bit address.   */
 #define I2C_OWNADDRESS1_10BIT            (uint32_t)(I2C_OAR1_ADDMODE | 0x00004000U) /*!< Own address 1 is a 10-bit address.  */
-	
+    
 /*******************  Bit definition for I2C_OAR2 register  *******************/
 #define I2C_OAR2_ENDUAL                     0x00000001                   /*!< Dual addressing mode enable */
 #define I2C_OAR2_ADD2                       0x000000FEU                  /*!< Interface address */
@@ -464,7 +464,7 @@ __STATIC_INLINE uint32_t I2C_Get_PeriphClockFREQ(I2C_TypeDef *I2Cx)
   */
 __STATIC_INLINE void I2C_Enable_IT(I2C_TypeDef *I2Cx, uint32_t IT)
 {
-	SET_BIT( I2Cx->CR2, IT );
+    SET_BIT( I2Cx->CR2, IT );
 }
 
 /**
@@ -482,7 +482,7 @@ __STATIC_INLINE void I2C_Enable_IT(I2C_TypeDef *I2Cx, uint32_t IT)
   */
 __STATIC_INLINE void I2C_Disable_IT(I2C_TypeDef *I2Cx, uint32_t IT)
 {
-	CLEAR_BIT( I2Cx->CR2, IT );
+    CLEAR_BIT( I2Cx->CR2, IT );
 }
 
 
@@ -501,7 +501,7 @@ __STATIC_INLINE void I2C_Disable_IT(I2C_TypeDef *I2Cx, uint32_t IT)
   */
 __STATIC_INLINE uint32_t I2C_Get_IT(I2C_TypeDef *I2Cx, uint32_t IT)
 {
-	return (READ_BIT(I2Cx->CR2, IT) == (IT));
+    return (READ_BIT(I2Cx->CR2, IT) == (IT));
 }
 
 /**
@@ -626,15 +626,15 @@ __STATIC_INLINE void I2C_Transmit_Data8(I2C_TypeDef *I2Cx, uint8_t Data)
   */
 __STATIC_INLINE uint32_t I2C_Get_Flag(I2C_TypeDef *I2Cx,uint32_t FLAG)
 {
-	if((FLAG&0x10000000)==0x10000000)
-	{
-		return (READ_BIT(I2Cx->SR1, (FLAG&0xFFFFFFF)) == (FLAG&0xFFFFFFF));
-	}
-	else if((FLAG&0x20000000)==0x20000000)
-	{
-		return (READ_BIT(I2Cx->SR2, (FLAG&0x1FFFFFFF)) == (FLAG&0x1FFFFFFF));
-	}
-	return 0;
+    if((FLAG&0x10000000)==0x10000000)
+    {
+        return (READ_BIT(I2Cx->SR1, (FLAG&0xFFFFFFF)) == (FLAG&0xFFFFFFF));
+    }
+    else if((FLAG&0x20000000)==0x20000000)
+    {
+        return (READ_BIT(I2Cx->SR2, (FLAG&0x1FFFFFFF)) == (FLAG&0x1FFFFFFF));
+    }
+    return 0;
 }
 
 /**
@@ -652,24 +652,24 @@ __STATIC_INLINE uint32_t I2C_Get_Flag(I2C_TypeDef *I2Cx,uint32_t FLAG)
   */
 __STATIC_INLINE void I2C_Clear_Flag(I2C_TypeDef *I2Cx,uint32_t FLAG)
 {
-	__IO uint32_t tmpreg;
-	if( (FLAG&I2C_FLAG_ADDR) == I2C_FLAG_ADDR )
-	{
-		tmpreg = I2Cx->SR1;
-	    (void) tmpreg;
-	    tmpreg = I2Cx->SR2;
-	    (void) tmpreg;
-	}
-	else if( (FLAG&I2C_FLAG_STOPF) == I2C_FLAG_STOPF)
-	{
-		tmpreg = I2Cx->SR1;
-		(void) tmpreg;
-		SET_BIT(I2Cx->CR1, I2C_CR1_PE);
-	}
-	else if((FLAG&0x10000000)==0x10000000)
-	{
-		CLEAR_BIT(I2Cx->SR1, (FLAG&0xFFFFFFF));
-	}
+    __IO uint32_t tmpreg;
+    if( (FLAG&I2C_FLAG_ADDR) == I2C_FLAG_ADDR )
+    {
+        tmpreg = I2Cx->SR1;
+        (void) tmpreg;
+        tmpreg = I2Cx->SR2;
+        (void) tmpreg;
+    }
+    else if( (FLAG&I2C_FLAG_STOPF) == I2C_FLAG_STOPF)
+    {
+        tmpreg = I2Cx->SR1;
+        (void) tmpreg;
+        SET_BIT(I2Cx->CR1, I2C_CR1_PE);
+    }
+    else if((FLAG&0x10000000)==0x10000000)
+    {
+        CLEAR_BIT(I2Cx->SR1, (FLAG&0xFFFFFFF));
+    }
 }
 
 

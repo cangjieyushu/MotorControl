@@ -64,7 +64,7 @@ int32_t  ME_SDIV(int32_t ARG1, int32_t ARG2)
 uint32_t ME_UDIV(uint32_t ARG1, uint32_t ARG2)
 {
   uint32_t temp;
-  __disable_irq();	
+  __disable_irq();    
   ME->CR = ME_FUN_DIV;
   ME->ARG2 = ARG2;
   ME->ARG1 = ARG1;
@@ -78,13 +78,13 @@ uint32_t ME_UDIV(uint32_t ARG1, uint32_t ARG2)
   __NOP();
   temp = ME->ARG1;
   __enable_irq();
-  return temp;	
+  return temp;    
 }
 
 uint32_t ME_SQRT(uint32_t ARG1)
 {
   uint32_t temp;
-  __disable_irq();	
+  __disable_irq();    
   ME->CR = ME_FUN_SQRT;
   ME->ARG1 = ARG1;
   __NOP();
@@ -97,5 +97,5 @@ uint32_t ME_SQRT(uint32_t ARG1)
   __NOP();
   temp = ME->ARG1;
   __enable_irq();
-  return temp;	
+  return temp;    
 }

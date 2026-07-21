@@ -73,9 +73,9 @@ void BSP_PWM_Init(void)
     TIM_Disable_AOE(HAL_MOTOR_PWM);//AOE=0 
   
     /**********************************/
-	/* Start output signal generation */
-	/**********************************/
-	/* Enable outputs OC1, OC1N, OC2, OC2N, OC3 and OC3N */
+    /* Start output signal generation */
+    /**********************************/
+    /* Enable outputs OC1, OC1N, OC2, OC2N, OC3 and OC3N */
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, ADC_TRIGGER_CHANNEL);
 
     TIM_Enable_MOE(HAL_MOTOR_PWM);

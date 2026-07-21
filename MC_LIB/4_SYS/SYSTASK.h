@@ -12,6 +12,7 @@
 
 #include "MATH_LPF_T.h"
 #include "BSP.h"
+#include "UARTS.h"
 
 #ifdef MCSQ_CJYS
     #include "MCSQ_TASK.h"
@@ -52,6 +53,7 @@
     #endif
 #endif
 
+
 #define SYSTEM_POWERUP_TIME               (1000U)           //ms，上电时间
 
 
@@ -73,10 +75,10 @@ typedef union{
 typedef union{
     ALL ALL;
     struct{
-        BIT motor_error 					:1;
-        BIT systick_overflow				:1;
-        BIT USART_1_error 			        :1;
-        BIT USART_2_error 			        :1;
+        BIT motor_error                     :1;
+        BIT systick_overflow                :1;
+        BIT USART_1_error                     :1;
+        BIT USART_2_error                     :1;
     }BIT;
 }UN_SYSTEM_ERROR_FLAG;
 
@@ -90,13 +92,10 @@ typedef struct{
     ST_LPF_T                    FL_VR;
     ST_LPF_T                    FL_VBG;
     
-    Q32I_                       Q16U_Duty_Target;
-    Q32I_                       Q16U_Motor_Speed_Target;
-    Q32I_                       Q16U_Motor_Speed;
+    Q32U_                       Q16U_Duty_Target;
     
     Q32U_                       _P_Q32U_System_PowerUp_Time;
-    
-    Q32U_                       flow_cnt;
+    Q32U_                       _V_flow_cnt;
 }ST_SYSTEM_TASK;
 
 /**********************************************************************************************
@@ -111,15 +110,15 @@ Author: CJYS
 void System_Task_Flow(ST_SYSTEM_TASK*  pST);
 
 /**********************************************************************************************
-Function: System_Tick_Isr
-Description: 系统负载率防溢出
+Function: System_10msTask_Tick
+Description: 10ms时间片任务调度
 Input: 无
 Output: 无
-Input_Output: 系统状态指针
+Input_Output: ST_SYSTEM_TASK
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void System_Tick_Isr(ST_SYSTEM_TASK*  pST);
+void System_10msTask_Tick(ST_SYSTEM_TASK* pST);
 
 
 extern ST_SYSTEM_TASK  Systask;

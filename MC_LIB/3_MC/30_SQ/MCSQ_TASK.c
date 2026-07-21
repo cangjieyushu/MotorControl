@@ -73,15 +73,17 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
 {
-    pMotor->MC_ERR._I_Q14U_Temp_ADC = ADC_DATA_READ_TEMP;
-    pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q12U_Vbus_ADC = ADC_DATA_READ_VBUS;
+    pMotor->MC_ERR._I_Q14U_Temp_ADC = BSP_ADC_DATA_READ_TEMP;
+    pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q12U_Vbus_ADC = BSP_ADC_DATA_READ_VBUS;
     
     pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Vbus_pu = 4*pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q12U_Vbus_ADC;
     
     pMotor->MC_ERR._I_Q14U_Vbus_pu = pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Vbus_pu;
     pMotor->MC_ERR._I_Q14U_Speed_pu = pMotor->MCSQ_CTRL.MCSQ_BLDC.FL_Freq.Q14I_LPF_Out;
     pMotor->MC_ERR._I_Q14U_Ibus_pu = pMotor->MCSQ_CTRL.MCSQ_BLDC.FL_Ibus.Q14I_LPF_Out;
+#if(MOTOR_TEST_MODE == 0)
     MC_Error_Speed_Flow(&pMotor->MC_ERR, ((pMotor->Motor_Flow >= MOTOR_STATE_BOOT)&&(pMotor->Motor_Flow <= MOTOR_STATE_BRAKE)));
+#endif
     pMotor->MC_ERR._I_Q14U_Iphase_Max_pu = 0U;
     
     if(pMotor->Motor_Flow == MOTOR_STATE_RUN)
@@ -125,10 +127,10 @@ void MotorTask_Speed_Flow(ST_MOTOR_TASK* pMotor)
             pMotor->MCSQ_CTRL.PWM_CTRL._I_Q14U_Duty_Ibus = pMotor->MCSQ_CTRL.PWM_CTRL._P_Q14U_Duty_Max;
         }
         
-        if(MCSQ_Stall_Check(&pMotor->MCSQ_CTRL.STALL_CTRL, &pMotor->MCSQ_CTRL) == SUCS)
-        {
-            pMotor->MC_ERR.Motor_Error_Flag.bit.rotor_stall = 1U;
-        }
+//        if(MCSQ_Stall_Check(&pMotor->MCSQ_CTRL.STALL_CTRL, &pMotor->MCSQ_CTRL) == SUCS)
+//        {
+//            pMotor->MC_ERR.Motor_Error_Flag.bit.rotor_stall = 1U;
+//        }
     }
     else if(pMotor->Motor_Flow == MOTOR_STATE_BRAKE)
     {
@@ -165,6 +167,7 @@ void MotorTask_Pre_Flow(ST_MOTOR_TASK* pMotor)
     else
     {
         MH_HPWM_LPWM_Close();
+//        MH_HPWM_LPWM_Open(500);
     }
 }
 
@@ -198,8 +201,12 @@ void MotorTask_Init_Flow(ST_MOTOR_TASK* pMotor)
             }
             case FAIL:
             {
+#if(MOTOR_TEST_MODE == 0)
                 pMotor->MC_ERR.Motor_Error_Flag.bit.current_offset = 1U;
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
+#else
+                pMotor->Motor_Flow = MOTOR_STATE_IDLE;
+#endif
                 break;
             }
             default:break;
@@ -252,6 +259,7 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
             }
             case SUCS:
             {
+                MH_PWM_Preload_Disable();
                 MCSQ_Flying_Init(&pMotor->MCSQ_CTRL);
                 MH_PWM_Freq_Set(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_High_PWMCount);
                 HPWMLPWM_Set[pMotor->MCSQ_CTRL.MCSQ_BLDC.Sector][pMotor->MCSQ_CTRL.MCSQ_BLDC.DIR_Set](pMotor->MCSQ_CTRL.PWM_CTRL._O_Q32U_Duty_PWMCount);
@@ -262,7 +270,7 @@ void MotorTask_Idle_Flow(ST_MOTOR_TASK* pMotor)
             {
                 MH_PWM_Freq_Set(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Start_PWMCount);
                 MH_ADC_TrigTime_Set(Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BOOT._P_Q14U_Boot_Duty_Set*pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Start_PWMCount));
-                MH_HPWM_LPWM_HOpen(Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BOOT._P_Q14U_Boot_Duty_Set*pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Start_PWMCount));
+                MH_HPWM_LPWM_LOpen(Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BOOT._P_Q14U_Boot_Duty_Set*pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Start_PWMCount));
                 pMotor->Motor_Flow = MOTOR_STATE_BOOT;
                 break;
             }
@@ -306,7 +314,7 @@ void MotorTask_Boot_Flow(ST_MOTOR_TASK* pMotor)
                     pMotor->MCSQ_CTRL.MCSQ_POSITION._V_Q14U_Position_Duty_PWMCount = Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BLDC._P_Q14U_Vbus_Max_pu
                     *pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Start_PWMCount/pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Vbus_pu*pMotor->MCSQ_CTRL.MCSQ_POSITION._P_Q14U_Position_Duty_Set);
                     
-                    MH_ADC_TrigTime_Set(pMotor->MCSQ_CTRL.MCSQ_POSITION._V_Q14U_Position_Duty_PWMCount - pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_ADC_Sample_Value);
+                    MH_ADC_TrigTime_Set(pMotor->MCSQ_CTRL.MCSQ_POSITION._V_Q14U_Position_Duty_PWMCount - 2*pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_ADC_Sample_Value);
                     POSITION_Set[pMotor->MCSQ_CTRL.MCSQ_POSITION._V_Q32U_Position_cnt][pMotor->MCSQ_CTRL.MCSQ_BLDC.DIR_Set](pMotor->MCSQ_CTRL.MCSQ_POSITION._V_Q14U_Position_Duty_PWMCount);
                     pMotor->Motor_Flow = MOTOR_STATE_POSITION;
                     break;
@@ -358,8 +366,15 @@ void MotorTask_Position_Flow(ST_MOTOR_TASK* pMotor)
             }
             case FAIL:
             {
+#if(MOTOR_TEST_MODE == 0)
                 pMotor->MC_ERR.Motor_Error_Flag.bit.position_error = 1U;
                 pMotor->Motor_Flow = MOTOR_STATE_PRE;
+#else
+                MH_ADC_TrigTime_Set(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_ADC_Delay_Value);
+                MH_PWM_Preload_Disable();
+                MH_PWM_Freq_Set(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Low_PWMCount);
+                pMotor->Motor_Flow = MOTOR_STATE_RUN;
+#endif
                 break;
             }
             default:break;
@@ -384,12 +399,27 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Switch_Flux_Flow(ST_MOTOR_TASK* pMotor)
 {
+#if(MOTOR_TEST_MODE == 0)
     MCSQ_FLUX(&pMotor->MCSQ_CTRL.MCSQ_FLUX, &pMotor->MCSQ_CTRL.MCSQ_BLDC);
     if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_CROSS_SUCC)
     {
         MCSQ_Freq_Cal(&pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal, &pMotor->MCSQ_CTRL, MH_HALL_TIM_Count_Read());
         MH_Switch_TIM_Delay(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Tim_Delay_Value);
     }
+#else
+    static Q32U_ cnt_tmp = 0U;
+    cnt_tmp++;
+    if(cnt_tmp == 100U)
+    {
+        cnt_tmp = 0U;
+        pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow = SQUARE_CROSS_SUCC;
+    }
+    if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_CROSS_SUCC)
+    {
+        MCSQ_Freq_Cal(&pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal, &pMotor->MCSQ_CTRL, MH_HALL_TIM_Count_Read());
+        MH_Switch_TIM_Delay(pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_Tim_Delay_Value);
+    }
+#endif
 }
  
 /**********************************************************************************************
@@ -403,12 +433,28 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Switch_Bemf_Flow(ST_MOTOR_TASK* pMotor)
 {
+#if(MOTOR_TEST_MODE == 0)
     MCSQ_BEMF(&pMotor->MCSQ_CTRL.MCSQ_BEMF, &pMotor->MCSQ_CTRL.MCSQ_BLDC);
     if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_CROSS_SUCC)
     {
         MCSQ_Freq_Cal(&pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal, &pMotor->MCSQ_CTRL, MH_HALL_TIM_Count_Read());
         MH_Switch_TIM_Delay(Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BEMF._P_Q14U_Bemf_Delay_Coeff*pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_Filter));
     }
+#else
+    static Q32U_ cnt_tmp = 0U;
+    cnt_tmp++;
+    if(cnt_tmp == 10U)
+    {
+        cnt_tmp = 0U;
+        pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow = SQUARE_CROSS_SUCC;
+    }
+
+    if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_CROSS_SUCC)
+    {
+        MCSQ_Freq_Cal(&pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal, &pMotor->MCSQ_CTRL, MH_HALL_TIM_Count_Read());
+        MH_Switch_TIM_Delay(Q32I_RHT_14(pMotor->MCSQ_CTRL.MCSQ_BEMF._P_Q14U_Bemf_Delay_Coeff*pMotor->MCSQ_CTRL.MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_Filter));
+    }
+#endif
 }
  
 /**********************************************************************************************
@@ -463,7 +509,11 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         
         if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_DIAG_ING)
         {
+#if(MOTOR_TEST_MODE == 0)
             MCSQ_DIAG(&pMotor->MCSQ_CTRL.MCSQ_DIAG, &pMotor->MCSQ_CTRL.MCSQ_BLDC);
+#else
+            pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow = SQUARE_CROSS_ING;
+#endif
         }
         else if(pMotor->MCSQ_CTRL.MCSQ_BLDC.SQ_Flow == SQUARE_CROSS_ING)
         {
@@ -472,6 +522,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
         
         MCSQ_Ibus_Cal(&pMotor->MCSQ_CTRL);
 
+#if(MOTOR_TEST_MODE == 0)
         Q32U_ Q32U_pwm_count_tmp = MH_PWM_Count_Read();
         if((Q32U_pwm_count_tmp + pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_ADC_Sample_Value < pMotor->MCSQ_CTRL.PWM_CTRL._O_Q32U_Duty_PWMCount)
         && (Q32U_pwm_count_tmp + pMotor->MCSQ_CTRL.PWM_CTRL._P_Q32U_ADC_Solve_Value < pMotor->MCSQ_CTRL.PWM_CTRL._O_Q32U_PWMCount_Set))
@@ -479,6 +530,7 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             MH_ADC_Soft_Trigger();
         }
         else
+#endif
         {
             pMotor->MCSQ_CTRL.MCSQ_BLDC.FL_Iphase.Q14I_LPF_In = pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Iphase_pu;
             LPF_Cal_T(&pMotor->MCSQ_CTRL.MCSQ_BLDC.FL_Iphase);
@@ -497,7 +549,9 @@ void MotorTask_Run_Flow(ST_MOTOR_TASK* pMotor)
             {
                 pMotor->MC_ERR._I_Q14U_Iphase_Max_pu = pMotor->MCSQ_CTRL.MCSQ_BLDC._V_Q14U_Iphase_pu;
             }
-            MC_Error_Current_Flow(&pMotor->MC_ERR);
+#if(MOTOR_TEST_MODE == 0)
+//            MC_Error_Current_Flow(&pMotor->MC_ERR);
+#endif
         }
     }
     else
@@ -550,10 +604,10 @@ Author: CJYS
 ***********************************************************************************************/
 void MotorTask_Current_Flow(ST_MOTOR_TASK* pMotor)
 {
-    if(pMotor->MC_ERR.Motor_Error_Flag.all != 0U)
-    {
-        pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
-    }
+//    if(pMotor->MC_ERR.Motor_Error_Flag.all != 0U)
+//    {
+//        pMotor->Motor_State_Flag.bit.motor_run_flag = 0U;
+//    }
     
     Motor_Flow_Function[pMotor->Motor_Flow](pMotor);
 }

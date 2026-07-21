@@ -44,7 +44,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+    
 #include "rx32h6xx.h"
 
 /*******************  Bit definition for TIM_CR1 register  ********************/

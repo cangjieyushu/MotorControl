@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 *@param  RCC_ClkInitStruct: pointer to a RCC_ClkInitTypeDef structure that contains
 *         the configuration information for the specified CMU peripheral.
   * @param  SYSCLKSource:
-	*         @arg RCC_CFGR_SW_HSI
+    *         @arg RCC_CFGR_SW_HSI
   *         @arg RCC_CFGR_SW_PLL
   *         @arg RCC_CFGR_SW_LSI
   * @param  PLLSource:
@@ -58,50 +58,50 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   * @param  PLLMUL:
   *         @arg RCC_CFGR_PLLMUL_10x
   *         @arg RCC_CFGR_PLLMUL_12x
-	*         @arg RCC_CFGR_PLLMUL_14x
-	*         @arg RCC_CFGR_PLLMUL_15x
-	*         @arg RCC_CFGR_PLLMUL_16x
-	*         @arg RCC_CFGR_PLLMUL_17x
-	*         @arg RCC_CFGR_PLLMUL_18x
-	*         @arg RCC_CFGR_PLLMUL_19x
+    *         @arg RCC_CFGR_PLLMUL_14x
+    *         @arg RCC_CFGR_PLLMUL_15x
+    *         @arg RCC_CFGR_PLLMUL_16x
+    *         @arg RCC_CFGR_PLLMUL_17x
+    *         @arg RCC_CFGR_PLLMUL_18x
+    *         @arg RCC_CFGR_PLLMUL_19x
   * @param  LATENCY:
   *         @arg FLASH_Latency_0
-	*         @arg FLASH_Latency_1
-	*         @arg FLASH_Latency_2
+    *         @arg FLASH_Latency_1
+    *         @arg FLASH_Latency_2
   *         @arg FLASH_Latency_3
   * @param  AHBCLKDivider:
-	*         @arg RCC_CFGR_HPRE_DIV1  
-	*         @arg RCC_CFGR_HPRE_DIV2  
-	*         @arg RCC_CFGR_HPRE_DIV4  
-	*         @arg RCC_CFGR_HPRE_DIV8  
-	*         @arg RCC_CFGR_HPRE_DIV16 
-	*         @arg RCC_CFGR_HPRE_DIV64 
-	*         @arg RCC_CFGR_HPRE_DIV128
-	*         @arg RCC_CFGR_HPRE_DIV256
-	*         @arg RCC_CFGR_HPRE_DIV512
-	* @param  APB1CLKDivider:
+    *         @arg RCC_CFGR_HPRE_DIV1  
+    *         @arg RCC_CFGR_HPRE_DIV2  
+    *         @arg RCC_CFGR_HPRE_DIV4  
+    *         @arg RCC_CFGR_HPRE_DIV8  
+    *         @arg RCC_CFGR_HPRE_DIV16 
+    *         @arg RCC_CFGR_HPRE_DIV64 
+    *         @arg RCC_CFGR_HPRE_DIV128
+    *         @arg RCC_CFGR_HPRE_DIV256
+    *         @arg RCC_CFGR_HPRE_DIV512
+    * @param  APB1CLKDivider:
   *         @arg RCC_CFGR_PPRE1_DIV1 
-	*         @arg RCC_CFGR_PPRE1_DIV2 
-	*         @arg RCC_CFGR_PPRE1_DIV4 
-	*         @arg RCC_CFGR_PPRE1_DIV8 
-	*         @arg RCC_CFGR_PPRE1_DIV16
-	* @param  APB2CLKDivider:
+    *         @arg RCC_CFGR_PPRE1_DIV2 
+    *         @arg RCC_CFGR_PPRE1_DIV4 
+    *         @arg RCC_CFGR_PPRE1_DIV8 
+    *         @arg RCC_CFGR_PPRE1_DIV16
+    * @param  APB2CLKDivider:
   *         @arg RCC_CFGR_PPRE2_DIV1 
-	*         @arg RCC_CFGR_PPRE2_DIV2 
-	*         @arg RCC_CFGR_PPRE2_DIV4 
-	*         @arg RCC_CFGR_PPRE2_DIV8 
-	*         @arg RCC_CFGR_PPRE2_DIV16
-	* @param  ADCSource:
-	*         @arg RCC_CFGR_ADCCLK_SEL_SYSCLK
-  *         @arg RCC_CFGR_ADCCLK_SEL_PLL2	
-	* @param  ADCCLKDivider:
-	*         @arg RCC_CFGR_ADCPRE_DIV2
+    *         @arg RCC_CFGR_PPRE2_DIV2 
+    *         @arg RCC_CFGR_PPRE2_DIV4 
+    *         @arg RCC_CFGR_PPRE2_DIV8 
+    *         @arg RCC_CFGR_PPRE2_DIV16
+    * @param  ADCSource:
+    *         @arg RCC_CFGR_ADCCLK_SEL_SYSCLK
+  *         @arg RCC_CFGR_ADCCLK_SEL_PLL2    
+    * @param  ADCCLKDivider:
+    *         @arg RCC_CFGR_ADCPRE_DIV2
   *         @arg RCC_CFGR_ADCPRE_DIV3
-	*         @arg RCC_CFGR_ADCPRE_DIV4
-	*         @arg RCC_CFGR_ADCPRE_DIV5
-	*         @arg RCC_CFGR_ADCPRE_DIV6
-	*         @arg RCC_CFGR_ADCPRE_DIV7
-	*         @arg RCC_CFGR_ADCPRE_DIV8
+    *         @arg RCC_CFGR_ADCPRE_DIV4
+    *         @arg RCC_CFGR_ADCPRE_DIV5
+    *         @arg RCC_CFGR_ADCPRE_DIV6
+    *         @arg RCC_CFGR_ADCPRE_DIV7
+    *         @arg RCC_CFGR_ADCPRE_DIV8
 * @retval None
 ***********************************************************************************
   */
@@ -115,17 +115,17 @@ void RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct)
       RCC_Set_SysClkSource(RCC_CFGR_SW_HSI);
       while(RCC_Get_SysClkSource() != RCC_CFGR_SWS_HSI){};
       break;
-    case RCC_CFGR_SW_LSI:	
+    case RCC_CFGR_SW_LSI:    
       RCC_Enable_LSI();
       while(RCC_Get_LSIRDY() != 1){};
       RCC_Set_SysClkSource(RCC_CFGR_SW_LSI);  
       while(RCC_Get_SysClkSource() != RCC_CFGR_SWS_LSI){};        
       break;
-    case RCC_CFGR_SW_PLL:	
+    case RCC_CFGR_SW_PLL:    
       RCC_Enable_HSI();
       while(RCC_Get_HSIRDY() != 1){};
       FLASH_Set_Latency(RCC_ClkInitStruct->LATENCY);  
-			RCC_Set_PLLMUL(RCC_CFGR_PLLMUL_12x);
+            RCC_Set_PLLMUL(RCC_CFGR_PLLMUL_12x);
       RCC_Enable_PLL();
       while(RCC_Get_PLLRDY() != 1){};
       RCC_Set_SysClkSource(RCC_CFGR_SW_PLL); 
@@ -142,17 +142,17 @@ void RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct)
   RCC_Set_AHBPrescaler(RCC_ClkInitStruct->AHBCLKDivider);
   RCC_Set_APB1Prescaler(RCC_ClkInitStruct->APB1CLKDivider);
   RCC_Set_APB2Prescaler(RCC_ClkInitStruct->APB2CLKDivider);
-	RCC_Set_ADCClkSource(RCC_ClkInitStruct->ADCSource);
+    RCC_Set_ADCClkSource(RCC_ClkInitStruct->ADCSource);
   RCC_Set_ADCPrescaler(RCC_ClkInitStruct->ADCCLKDivider);
-	
+    
 }
 
 /**
 ***********************************************************************************
-	*@Function RCC_Get_PLLClock
-	*@brief    Get  PLLClock .
-	*@param    none.
-	*@retval   PLLClock
+    *@Function RCC_Get_PLLClock
+    *@brief    Get  PLLClock .
+    *@param    none.
+    *@retval   PLLClock
 ***********************************************************************************
   */
 uint32_t RCC_Get_PLLClock(void)
@@ -176,10 +176,10 @@ uint32_t RCC_Get_PLLClock(void)
 
 /**
 ***********************************************************************************
-	*@Function RCC_Get_SystemClock
-	*@brief    Get  SystemClock .
-	*@param    none.
-	*@retval   SystemClock
+    *@Function RCC_Get_SystemClock
+    *@brief    Get  SystemClock .
+    *@param    none.
+    *@retval   SystemClock
 ***********************************************************************************
   */
 uint32_t RCC_Get_SystemClock(void)
@@ -205,10 +205,10 @@ uint32_t RCC_Get_SystemClock(void)
 
 /**
 ***********************************************************************************
-	*@Function RCC_Get_AHBClock
-	*@brief    Get  AHBClock .
-	*@param    none.
-	*@retval   AHBClock
+    *@Function RCC_Get_AHBClock
+    *@brief    Get  AHBClock .
+    *@param    none.
+    *@retval   AHBClock
 ***********************************************************************************
   */
 uint32_t RCC_Get_AHBClock(void)
@@ -218,10 +218,10 @@ uint32_t RCC_Get_AHBClock(void)
 
 /**
 ***********************************************************************************
-	*@Function RCC_Get_APB1Clock
-	*@brief    Get  APB1Clock .
-	*@param    none.
-	*@retval   APB1Clock
+    *@Function RCC_Get_APB1Clock
+    *@brief    Get  APB1Clock .
+    *@param    none.
+    *@retval   APB1Clock
 ***********************************************************************************
   */
 uint32_t RCC_Get_APB1Clock(void)
@@ -231,10 +231,10 @@ uint32_t RCC_Get_APB1Clock(void)
 
 /**
 ***********************************************************************************
-	*@Function RCC_Get_APB2Clock
-	*@brief    Get  APB2Clock .
-	*@param    none.
-	*@retval   APB2Clock
+    *@Function RCC_Get_APB2Clock
+    *@brief    Get  APB2Clock .
+    *@param    none.
+    *@retval   APB2Clock
 ***********************************************************************************
   */
 uint32_t RCC_Get_APB2Clock(void)

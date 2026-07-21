@@ -52,17 +52,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   */
 void ADC_Reg_StructInit(ADC_Reg_InitTypeDef* ADC_Reg_InitStruct)
 {
-	ADC_Reg_InitStruct->TriggerSource 			= ADC_CR2_EXTSEL_INSOURCE;                       
-	ADC_Reg_InitStruct->Continuous 					= ADC_CR2_CONT_SINGLE;                              
-	ADC_Reg_InitStruct->ScanMode 						= ADC_CR1_SCAN_DISABLE;                                                                  
-	ADC_Reg_InitStruct->DataAlignment 			= ADC_CR2_ALIGN_RIGHT;
-	ADC_Reg_InitStruct->AnalogWatchDog 			= ADC_CR1_AWD_DISABLE;
-	ADC_Reg_InitStruct->RegularDiscont			= ADC_CR1_DISCEN_DISABLE;
+    ADC_Reg_InitStruct->TriggerSource             = ADC_CR2_EXTSEL_INSOURCE;                       
+    ADC_Reg_InitStruct->Continuous                     = ADC_CR2_CONT_SINGLE;                              
+    ADC_Reg_InitStruct->ScanMode                         = ADC_CR1_SCAN_DISABLE;                                                                  
+    ADC_Reg_InitStruct->DataAlignment             = ADC_CR2_ALIGN_RIGHT;
+    ADC_Reg_InitStruct->AnalogWatchDog             = ADC_CR1_AWD_DISABLE;
+    ADC_Reg_InitStruct->RegularDiscont            = ADC_CR1_DISCEN_DISABLE;
 }
 
 /**
   * @function  ADC_Reg_Init
-  * @brief  read complete interrupt Flag status of the selected ADC	
+  * @brief  read complete interrupt Flag status of the selected ADC    
   * @param  ADCx :
   *         @arg ADC Instance
   * @param  TriggerSource:
@@ -74,7 +74,7 @@ void ADC_Reg_StructInit(ADC_Reg_InitTypeDef* ADC_Reg_InitStruct)
   *         @arg ADC_CR2_EXTSEL_TIM3_CC2      
   *         @arg ADC_CR2_EXTSEL_TIM3_TRGO      
   *         @arg ADC_CR2_EXTSEL_EXTI3       
-  *         @arg ADC_CR2_EXTSEL_SWSTART     	
+  *         @arg ADC_CR2_EXTSEL_SWSTART         
   * @param  Continuous:
   *         @arg ADC_CR2_CONT_SINGLE
   *         @arg ADC_CR2_CONT_CONTINUOUS
@@ -188,20 +188,20 @@ void ADC_Reg_StructInit(ADC_Reg_InitTypeDef* ADC_Reg_InitStruct)
   *         @arg ADC_CR1_DISCONT_8RANKS  
   * @param  EOCOption:
   *         @ref ADC_EOC_OPT_DISABLE
-  *         @ref ADC_EOC_OPT_ENABLE	  
+  *         @ref ADC_EOC_OPT_ENABLE      
   * @retval None .
   */
 void ADC_Reg_Init(ADC_TypeDef *ADCx,ADC_Reg_InitTypeDef* ADC_Reg_InitStruct)
 {
-	ADC_Set_EXTSEL(ADCx, ADC_Reg_InitStruct->TriggerSource);                           /* Set ADC group regular trigger source */
-	ADC_Set_CONT(ADCx, ADC_Reg_InitStruct->Continuous);                                /* Set ADC group regular continuous mode */
-	ADC_Set_SCAN(ADCx, ADC_Reg_InitStruct->ScanMode);                                  /* Set ADC sacn regular group*/
-	ADC_Set_ALIGN(ADCx, ADC_Reg_InitStruct->DataAlignment);                            /* Set ADC conversion data alignment */
-	ADC_Set_AWD(ADCx, ADC_Reg_InitStruct->AnalogWatchDog);														 /*Set ADC analog watchdog*/
-	ADC_Set_AWDChannels(ADCx,ADC_Reg_InitStruct->AWDChannelGroup);
-	ADC_Set_DISCEN(ADCx, ADC_Reg_InitStruct->RegularDiscont);													 /*Set ADC group regular discont */
-	ADC_Set_DISCNUM(ADCx, ADC_Reg_InitStruct->RegularDiscontNumber);									 /*Set ADC group regular discont ranks */	
-	ADC_Set_EOCOPT(ADCx,ADC_Reg_InitStruct->EOCOption);																	
+    ADC_Set_EXTSEL(ADCx, ADC_Reg_InitStruct->TriggerSource);                           /* Set ADC group regular trigger source */
+    ADC_Set_CONT(ADCx, ADC_Reg_InitStruct->Continuous);                                /* Set ADC group regular continuous mode */
+    ADC_Set_SCAN(ADCx, ADC_Reg_InitStruct->ScanMode);                                  /* Set ADC sacn regular group*/
+    ADC_Set_ALIGN(ADCx, ADC_Reg_InitStruct->DataAlignment);                            /* Set ADC conversion data alignment */
+    ADC_Set_AWD(ADCx, ADC_Reg_InitStruct->AnalogWatchDog);                                                         /*Set ADC analog watchdog*/
+    ADC_Set_AWDChannels(ADCx,ADC_Reg_InitStruct->AWDChannelGroup);
+    ADC_Set_DISCEN(ADCx, ADC_Reg_InitStruct->RegularDiscont);                                                     /*Set ADC group regular discont */
+    ADC_Set_DISCNUM(ADCx, ADC_Reg_InitStruct->RegularDiscontNumber);                                     /*Set ADC group regular discont ranks */    
+    ADC_Set_EOCOPT(ADCx,ADC_Reg_InitStruct->EOCOption);                                                                    
 }
 
 /**
@@ -213,12 +213,12 @@ void ADC_Reg_Init(ADC_TypeDef *ADCx,ADC_Reg_InitTypeDef* ADC_Reg_InitStruct)
   */
 void ADC_Inj_StructInit(ADC_Inj_InitTypeDef* ADC_Inj_InitStruct)
 {
-	ADC_Inj_InitStruct->TriggerSource 				= ADC_CR2_JEXTSEL_INSOURCE;                                  
-	ADC_Inj_InitStruct->ScanMode 							= ADC_CR1_SCAN_DISABLE;                                                                  
-	ADC_Inj_InitStruct->DataAlignment 				= ADC_CR2_ALIGN_RIGHT;                          
-  ADC_Inj_InitStruct->TrigAuto 							= ADC_CR1_JAUTO_INDEPENDENT;
-	ADC_Inj_InitStruct->AnalogWatchDog 				= ADC_CR1_AWD_DISABLE;
-	ADC_Inj_InitStruct->InjectDiscont   			= ADC_CR1_JDISCEN_DISABLE;
+    ADC_Inj_InitStruct->TriggerSource                 = ADC_CR2_JEXTSEL_INSOURCE;                                  
+    ADC_Inj_InitStruct->ScanMode                             = ADC_CR1_SCAN_DISABLE;                                                                  
+    ADC_Inj_InitStruct->DataAlignment                 = ADC_CR2_ALIGN_RIGHT;                          
+  ADC_Inj_InitStruct->TrigAuto                             = ADC_CR1_JAUTO_INDEPENDENT;
+    ADC_Inj_InitStruct->AnalogWatchDog                 = ADC_CR1_AWD_DISABLE;
+    ADC_Inj_InitStruct->InjectDiscont               = ADC_CR1_JDISCEN_DISABLE;
 }
 
 /**
@@ -242,7 +242,7 @@ void ADC_Inj_StructInit(ADC_Inj_InitTypeDef* ADC_Inj_InitStruct)
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC4_CC6  
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC4_CC5
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC6    
-  *         @arg ADC_CR2_JEXTSEL_TIM15_TRGO	
+  *         @arg ADC_CR2_JEXTSEL_TIM15_TRGO    
   * @param  ScanMode:
   *         @arg ADC_CR1_SCAN_DISABLE
   *         @arg ADC_CR1_SCAN_ENABLE
@@ -337,19 +337,19 @@ void ADC_Inj_StructInit(ADC_Inj_InitTypeDef* ADC_Inj_InitStruct)
   *         @arg ADC_CR1_JDISCEN_DISABLE  
   * @param  EOCOption
   *         @ref ADC_EOC_OPT_DISABLE
-  *         @ref ADC_EOC_OPT_ENABLE	  
+  *         @ref ADC_EOC_OPT_ENABLE      
   * @retval None .
   */
 void ADC_Inj_Init(ADC_TypeDef *ADCx,ADC_Inj_InitTypeDef* ADC_Inj_InitStruct)
 {
-	ADC_Set_JEXTSEL(ADCx, ADC_Inj_InitStruct->TriggerSource);                          /* Set ADC group Inj trigger source */
-	ADC_Set_SCAN(ADCx, ADC_Inj_InitStruct->ScanMode);                                  /* Set ADC sacn Inj group*/
-	ADC_Set_ALIGN(ADCx, ADC_Inj_InitStruct->DataAlignment);                            /* Set ADC conversion data alignment */
+    ADC_Set_JEXTSEL(ADCx, ADC_Inj_InitStruct->TriggerSource);                          /* Set ADC group Inj trigger source */
+    ADC_Set_SCAN(ADCx, ADC_Inj_InitStruct->ScanMode);                                  /* Set ADC sacn Inj group*/
+    ADC_Set_ALIGN(ADCx, ADC_Inj_InitStruct->DataAlignment);                            /* Set ADC conversion data alignment */
   ADC_Set_JAUTO(ADCx, ADC_Inj_InitStruct->TrigAuto);                                 /* Set ADC JAUTO mode*/
-	ADC_Set_AWD(ADCx, ADC_Inj_InitStruct->AnalogWatchDog);														 /*Set ADC analog watchdog*/
-	ADC_Set_AWDChannels(ADCx,ADC_Inj_InitStruct->AWDChannelGroup);
-	ADC_Set_JDISCEN(ADCx, ADC_Inj_InitStruct->InjectDiscont);													 /*Set ADC group inject discont */
-	ADC_Set_EOCOPT(ADCx,ADC_Inj_InitStruct->EOCOption);		
+    ADC_Set_AWD(ADCx, ADC_Inj_InitStruct->AnalogWatchDog);                                                         /*Set ADC analog watchdog*/
+    ADC_Set_AWDChannels(ADCx,ADC_Inj_InitStruct->AWDChannelGroup);
+    ADC_Set_JDISCEN(ADCx, ADC_Inj_InitStruct->InjectDiscont);                                                     /*Set ADC group inject discont */
+    ADC_Set_EOCOPT(ADCx,ADC_Inj_InitStruct->EOCOption);        
 }
 
 /**
@@ -415,27 +415,27 @@ void ADC_REG_RankInit(ADC_TypeDef* ADCx,ADC_REG_RankInitTypeDef* ADC_REG_RankIni
 {
   int i,rank;
   rank  = ADC_REG_RankInitStruct->Length >> 20 ;
-	if (ADC_Get_ADON(ADCx) == 0) 
-	{
-		if(ADC_Get_PRGRDY(ADCx))
-		{
-			ADC_Set_SQRL(ADCx, ADC_REG_RankInitStruct->Length);                                                           /* Set ADC reg scan Length */
-			for(i=0; i<=rank; i++)
-			{
-				if( i < 6 )
-				{
-					ADC_Set_SQ(ADCx,(ADC_SQR3_REGOFFSET|(i*5)), ADC_REG_RankInitStruct->Rank[i].Channel);                     /* Set reg sequence rank channel */        
-				}
-				else
-				{		
-					ADC_Set_SQ(ADCx,(ADC_SQR2_REGOFFSET|((i-6)*5)), ADC_REG_RankInitStruct->Rank[i].Channel);                 /* Set reg sequence rank channel */ 
-				}
-				ADC_Set_SMPR(ADCx,ADC_REG_RankInitStruct->Rank[i].Channel, ADC_REG_RankInitStruct->Rank[i].SamplingTime);          /* Set channel sampling time */
-			}
-			ADC_Set_CFGUPD(ADCx);
-			while(ADC_Get_CFGUPD(ADCx) == 1);		
-		}
-	}
+    if (ADC_Get_ADON(ADCx) == 0) 
+    {
+        if(ADC_Get_PRGRDY(ADCx))
+        {
+            ADC_Set_SQRL(ADCx, ADC_REG_RankInitStruct->Length);                                                           /* Set ADC reg scan Length */
+            for(i=0; i<=rank; i++)
+            {
+                if( i < 6 )
+                {
+                    ADC_Set_SQ(ADCx,(ADC_SQR3_REGOFFSET|(i*5)), ADC_REG_RankInitStruct->Rank[i].Channel);                     /* Set reg sequence rank channel */        
+                }
+                else
+                {        
+                    ADC_Set_SQ(ADCx,(ADC_SQR2_REGOFFSET|((i-6)*5)), ADC_REG_RankInitStruct->Rank[i].Channel);                 /* Set reg sequence rank channel */ 
+                }
+                ADC_Set_SMPR(ADCx,ADC_REG_RankInitStruct->Rank[i].Channel, ADC_REG_RankInitStruct->Rank[i].SamplingTime);          /* Set channel sampling time */
+            }
+            ADC_Set_CFGUPD(ADCx);
+            while(ADC_Get_CFGUPD(ADCx) == 1);        
+        }
+    }
 }
 
 /**
@@ -497,35 +497,35 @@ void ADC_INJ_RankInit(ADC_TypeDef* ADCx,ADC_INJ_RankInitTypeDef* ADC_INJ_RankIni
 {
   int i,rank;
   rank  = ADC_INJ_RankInitStruct->Length >> 20 ;
-	if (ADC_Get_ADON(ADCx) == 0) 
-	{
-		if(ADC_Get_PRGRDY(ADCx))
-		{
-			ADC_Set_JSQRL(ADCx, ADC_INJ_RankInitStruct->Length);                                                            /* Set ADC inj scan Length */
-			for(i=0; i<=rank; i++)
-			{
-				switch(i)
-				{
-					case 0:
-						ADC_Set_JSQ(ADCx,ADC_INJ_RANK_1, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
-						break;
-					case 1:
-						ADC_Set_JSQ(ADCx,ADC_INJ_RANK_2, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
-						break;
-					case 2:
-						ADC_Set_JSQ(ADCx,ADC_INJ_RANK_3, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
-						break;
-					case 3:
-						ADC_Set_JSQ(ADCx,ADC_INJ_RANK_4, ADC_INJ_RankInitStruct->Rank[i].Channel);                                  /* Set inj sequence rank channel */
-						break;
-					default:break;
-				}                                           
-				ADC_Set_SMPR(ADCx,ADC_INJ_RankInitStruct->Rank[i].Channel, ADC_INJ_RankInitStruct->Rank[i].SamplingTime);   /* Set channel sampling time */
-			} 	
-			ADC_Set_CFGUPD(ADCx);
-			while(ADC_Get_CFGUPD(ADCx) == 1);
-		}
-	}   
+    if (ADC_Get_ADON(ADCx) == 0) 
+    {
+        if(ADC_Get_PRGRDY(ADCx))
+        {
+            ADC_Set_JSQRL(ADCx, ADC_INJ_RankInitStruct->Length);                                                            /* Set ADC inj scan Length */
+            for(i=0; i<=rank; i++)
+            {
+                switch(i)
+                {
+                    case 0:
+                        ADC_Set_JSQ(ADCx,ADC_INJ_RANK_1, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
+                        break;
+                    case 1:
+                        ADC_Set_JSQ(ADCx,ADC_INJ_RANK_2, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
+                        break;
+                    case 2:
+                        ADC_Set_JSQ(ADCx,ADC_INJ_RANK_3, ADC_INJ_RankInitStruct->Rank[i].Channel);                                 /* Set inj sequence rank channel */
+                        break;
+                    case 3:
+                        ADC_Set_JSQ(ADCx,ADC_INJ_RANK_4, ADC_INJ_RankInitStruct->Rank[i].Channel);                                  /* Set inj sequence rank channel */
+                        break;
+                    default:break;
+                }                                           
+                ADC_Set_SMPR(ADCx,ADC_INJ_RankInitStruct->Rank[i].Channel, ADC_INJ_RankInitStruct->Rank[i].SamplingTime);   /* Set channel sampling time */
+            }     
+            ADC_Set_CFGUPD(ADCx);
+            while(ADC_Get_CFGUPD(ADCx) == 1);
+        }
+    }   
 }
 
 /**
@@ -540,9 +540,9 @@ void ADC_Trig_CAL(ADC_TypeDef *ADCx)
   SET_BIT(ADCx->CR2, ADC_CR2_RSTCAL);
   while (ADC_Get_RSTCAL(ADCx) != 0);
   __asm {
-		nop;
-		nop;
-		nop;
+        nop;
+        nop;
+        nop;
    }
   SET_BIT(ADCx->CR2, ADC_CR2_CAL);
   while (ADC_Get_CAL(ADCx) != 0);

@@ -15,57 +15,60 @@
 
 
 //电压保护
-#define OVER_VOLTAGE_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(28.0f))         //V，过压保护阈值
+#define OVER_VOLTAGE_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(380.0f))         //V，过压保护阈值
 #define OVER_VOLTAGE_PROTECT_LEVEL_TIME         (100U)                              //ms，过压保护时间
-#define OVER_VOLTAGE_CLEAR_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(26.0f))         //V，过压保护恢复阈值
+#define OVER_VOLTAGE_CLEAR_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(360.0f))         //V，过压保护恢复阈值
 #define OVER_VOLTAGE_CLEAR_LEVEL_TIME           (100U)                              //ms，过压保护恢复时间
 
-#define LOW_VOLTAGE_PROTECT_LEVEL_TL            (Q14I_VOLTAGE_TO_PU(10.0f))         //V，低压保护阈值
+#define LOW_VOLTAGE_PROTECT_LEVEL_TL            (Q14I_VOLTAGE_TO_PU(50.0f))         //V，低压保护阈值
 #define LOW_VOLTAGE_PROTECT_LEVEL_TIME          (100U)                              //ms，低压保护时间
 
-#define FAST_OVER_VOLTAGE_PROTECT_LEVEL_TL      (Q14I_VOLTAGE_TO_PU(32.0f))         //V，快速过压保护阈值
+#define FAST_OVER_VOLTAGE_PROTECT_LEVEL_TL      (Q14I_VOLTAGE_TO_PU(400.0f))         //V，快速过压保护阈值
 #define FAST_OVER_VOLTAGE_PROTECT_LEVEL_TIME    (5U)                                //快速过压保护时间
 
 //电流保护
 #define CURRENT_PROTECT_LEVEL                   3                                   //过流保护档位
-#define CURRENT_PROTECT_LEVEL_1_TL              (Q14I_CURRENT_TO_PU(40.0f))         //A，过流保护阈值
+#define CURRENT_PROTECT_LEVEL_1_TL              (Q14I_CURRENT_TO_PU(1.5f))          //A，过流保护阈值
 #define CURRENT_PROTECT_LEVEL_1_TIME            (100U)                              //ms，过流保护时间
 
-#define CURRENT_PROTECT_LEVEL_2_TL              (Q14I_CURRENT_TO_PU(35.0f))         //A，过流保护阈值
+#define CURRENT_PROTECT_LEVEL_2_TL              (Q14I_CURRENT_TO_PU(1.25f))          //A，过流保护阈值
 #define CURRENT_PROTECT_LEVEL_2_TIME            (1000U)                             //ms，过流保护时间
 
-#define CURRENT_PROTECT_LEVEL_3_TL              (Q14I_CURRENT_TO_PU(30.0f))         //A，过流保护阈值
+#define CURRENT_PROTECT_LEVEL_3_TL              (Q14I_CURRENT_TO_PU(1.0f))          //A，过流保护阈值
 #define CURRENT_PROTECT_LEVEL_3_TIME            (10000U)                            //ms，过流保护时间
 
-#define FAST_CURRENT_PROTECT_LEVEL_TL           (Q14I_CURRENT_TO_PU(50.0f))         //A，快速过流保护阈值
+#define FAST_CURRENT_PROTECT_LEVEL_TL           (Q14I_CURRENT_TO_PU(1.75f))         //A，快速过流保护阈值
 #define FAST_CURRENT_PROTECT_LEVEL_TIME         (5U)                                //快速过流保护时间
 
 //温度保护
-#define OVER_TEMP_PROTECT_LEVEL_TL              ((Q32U_)(1000.0f))                  //lsb，过温保护阈值
+//4095/(10+0.86)*0.86，105C
+#define OVER_TEMP_PROTECT_LEVEL_TL              ((Q32U_)(300.0f))                   //lsb，过温保护阈值
 #define OVER_TEMP_PROTECT_LEVEL_TIME            (1000U)                             //ms，过温保护时间
-#define OVER_TEMP_CLEAR_LEVEL_TL                ((Q32U_)(1200.0f))                  //lsb，过温保护恢复阈值
+#define OVER_TEMP_CLEAR_LEVEL_TL                ((Q32U_)(500.0f))                   //lsb，过温保护恢复阈值
 #define OVER_TEMP_CLEAR_LEVEL_TIME              (1000U)                             //ms，过温保护恢复时间
 
-#define LOW_TEMP_PROTECT_LEVEL_TL               ((Q32U_)(2000.0f))                  //lsb，低温保护阈值
+//4095/(10+197)*197，-40C
+#define LOW_TEMP_PROTECT_LEVEL_TL               ((Q32U_)(3900.0f))                  //lsb，低温保护阈值
 #define LOW_TEMP_PROTECT_LEVEL_TIME             (1000U)                             //ms，低温保护时间
-#define LOW_TEMP_CLEAR_LEVEL_TL                 ((Q32U_)(1800.0f))                  //lsb，低温保护恢复阈值
+#define LOW_TEMP_CLEAR_LEVEL_TL                 ((Q32U_)(3700.0f))                  //lsb，低温保护恢复阈值
 #define LOW_TEMP_CLEAR_LEVEL_TIME               (1000U)                             //ms，低温保护恢复时间
 
 //速度保护
-#define OVER_SPEED_PROTECT_LEVEL_TL             (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(25000.0f)))        //rpm，超速保护阈值
+#define OVER_SPEED_PROTECT_LEVEL_TL             (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(6000.0f)))         //rpm，超速保护阈值
 #define OVER_SPEED_PROTECT_LEVEL_TIME           (1000U)                                                 //ms，超速保护时间
 
-#define LOW_SPEED_PROTECT_LEVEL_TL              (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(1.0f)))            //rpm，低速保护阈值
+#define LOW_SPEED_PROTECT_LEVEL_TL              (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(200.0f)))          //rpm，低速保护阈值
 #define LOW_SPEED_PROTECT_LEVEL_TIME            (1000U)                                                 //ms，低速保护时间
 
 //功率保护
-#define OVER_POWER_PROTECT_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(24.0f)*Q14I_CURRENT_TO_PU(15.0f))   //W，过功率保护阈值
+#define OVER_POWER_PROTECT_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(300.0f)*Q14I_CURRENT_TO_PU(1.0f))   //W，过功率保护阈值
 #define OVER_POWER_PROTECT_LEVEL_TIME           (1000U)                                                 //ms，过功率保护时间
-#define OVER_IBUS_PROTECT_LEVEL_TL              (Q14I_CURRENT_TO_PU(30.0f))                             //A，过母线保护阈值
+#define OVER_IBUS_PROTECT_LEVEL_TL              (Q14I_CURRENT_TO_PU(1.0f))                              //A，过母线保护阈值
 #define OVER_IBUS_PROTECT_LEVEL_TIME            (1000U)                                                 //ms，过母线保护时间
 
 //MOS损坏次数
-#define MOS_ERROR_COUNT                         (3U)                                                    //MOS损坏次数
+#define MOS_ERROR_COUNT                         (4U)                                                    //MOS损坏次数
+
 
 
 //缺相保护
@@ -82,6 +85,77 @@
 #define LOSS_STEP_ES_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(25000.0f))                          //V，失步保护阈值
 #define LOSS_STEP_SPEED_PROTECT_LEVEL_TL        (Q14I_VOLTAGE_TO_PU(1.0f))                              //V，失步保护阈值
 #define LOSS_STEP_PROTECT_LEVEL_TIME            (500U)                                                  //ms，失步保护时间
+
+
+////电压保护
+//#define OVER_VOLTAGE_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(28.0f))         //V，过压保护阈值
+//#define OVER_VOLTAGE_PROTECT_LEVEL_TIME         (100U)                              //ms，过压保护时间
+//#define OVER_VOLTAGE_CLEAR_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(26.0f))         //V，过压保护恢复阈值
+//#define OVER_VOLTAGE_CLEAR_LEVEL_TIME           (100U)                              //ms，过压保护恢复时间
+
+//#define LOW_VOLTAGE_PROTECT_LEVEL_TL            (Q14I_VOLTAGE_TO_PU(10.0f))         //V，低压保护阈值
+//#define LOW_VOLTAGE_PROTECT_LEVEL_TIME          (100U)                              //ms，低压保护时间
+
+//#define FAST_OVER_VOLTAGE_PROTECT_LEVEL_TL      (Q14I_VOLTAGE_TO_PU(32.0f))         //V，快速过压保护阈值
+//#define FAST_OVER_VOLTAGE_PROTECT_LEVEL_TIME    (5U)                                //快速过压保护时间
+
+////电流保护
+//#define CURRENT_PROTECT_LEVEL                   3                                   //过流保护档位
+//#define CURRENT_PROTECT_LEVEL_1_TL              (Q14I_CURRENT_TO_PU(40.0f))         //A，过流保护阈值
+//#define CURRENT_PROTECT_LEVEL_1_TIME            (100U)                              //ms，过流保护时间
+
+//#define CURRENT_PROTECT_LEVEL_2_TL              (Q14I_CURRENT_TO_PU(35.0f))         //A，过流保护阈值
+//#define CURRENT_PROTECT_LEVEL_2_TIME            (1000U)                             //ms，过流保护时间
+
+//#define CURRENT_PROTECT_LEVEL_3_TL              (Q14I_CURRENT_TO_PU(30.0f))         //A，过流保护阈值
+//#define CURRENT_PROTECT_LEVEL_3_TIME            (10000U)                            //ms，过流保护时间
+
+//#define FAST_CURRENT_PROTECT_LEVEL_TL           (Q14I_CURRENT_TO_PU(50.0f))         //A，快速过流保护阈值
+//#define FAST_CURRENT_PROTECT_LEVEL_TIME         (5U)                                //快速过流保护时间
+
+////温度保护
+//#define OVER_TEMP_PROTECT_LEVEL_TL              ((Q32U_)(1000.0f))                  //lsb，过温保护阈值
+//#define OVER_TEMP_PROTECT_LEVEL_TIME            (1000U)                             //ms，过温保护时间
+//#define OVER_TEMP_CLEAR_LEVEL_TL                ((Q32U_)(1200.0f))                  //lsb，过温保护恢复阈值
+//#define OVER_TEMP_CLEAR_LEVEL_TIME              (1000U)                             //ms，过温保护恢复时间
+
+//#define LOW_TEMP_PROTECT_LEVEL_TL               ((Q32U_)(2000.0f))                  //lsb，低温保护阈值
+//#define LOW_TEMP_PROTECT_LEVEL_TIME             (1000U)                             //ms，低温保护时间
+//#define LOW_TEMP_CLEAR_LEVEL_TL                 ((Q32U_)(1800.0f))                  //lsb，低温保护恢复阈值
+//#define LOW_TEMP_CLEAR_LEVEL_TIME               (1000U)                             //ms，低温保护恢复时间
+
+////速度保护
+//#define OVER_SPEED_PROTECT_LEVEL_TL             (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(25000.0f)))        //rpm，超速保护阈值
+//#define OVER_SPEED_PROTECT_LEVEL_TIME           (1000U)                                                 //ms，超速保护时间
+
+//#define LOW_SPEED_PROTECT_LEVEL_TL              (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(1.0f)))            //rpm，低速保护阈值
+//#define LOW_SPEED_PROTECT_LEVEL_TIME            (1000U)                                                 //ms，低速保护时间
+
+////功率保护
+//#define OVER_POWER_PROTECT_LEVEL_TL             (Q14I_VOLTAGE_TO_PU(24.0f)*Q14I_CURRENT_TO_PU(15.0f))   //W，过功率保护阈值
+//#define OVER_POWER_PROTECT_LEVEL_TIME           (1000U)                                                 //ms，过功率保护时间
+//#define OVER_IBUS_PROTECT_LEVEL_TL              (Q14I_CURRENT_TO_PU(30.0f))                             //A，过母线保护阈值
+//#define OVER_IBUS_PROTECT_LEVEL_TIME            (1000U)                                                 //ms，过母线保护时间
+
+////MOS损坏次数
+//#define MOS_ERROR_COUNT                         (3U)                                                    //MOS损坏次数
+
+
+
+////缺相保护
+//#define PHASE_LACK_IPHASE_PROTECT_LEVEL_TL      (Q14I_CURRENT_TO_PU(5.0f))                              //A，缺相保护阈值
+//#define PHASE_LACK_ISREF_PROTECT_LEVEL_TL       (Q14I_CURRENT_TO_PU(30.0f))                             //A，缺相保护阈值
+//#define PHASE_LACK_PROTECT_LEVEL_TIME           (500U)                                                  //ms，缺相保护时间
+
+////堵转保护
+//#define ROTOR_LOCK_ISREF_PROTECT_LEVEL_TL       (Q14I_CURRENT_TO_PU(30.0f))                             //A，堵转保护阈值
+//#define ROTOR_LOCK_SPEED_PROTECT_LEVEL_TL       (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(1.0f)))            //rpm，堵转保护阈值
+//#define ROTOR_LOCK_PROTECT_LEVEL_TIME           (500U)                                                  //ms，堵转保护时间
+
+////失步保护
+//#define LOSS_STEP_ES_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(25000.0f))                          //V，失步保护阈值
+//#define LOSS_STEP_SPEED_PROTECT_LEVEL_TL        (Q14I_VOLTAGE_TO_PU(1.0f))                              //V，失步保护阈值
+//#define LOSS_STEP_PROTECT_LEVEL_TIME            (500U)                                                  //ms，失步保护时间
 
 
 typedef union{

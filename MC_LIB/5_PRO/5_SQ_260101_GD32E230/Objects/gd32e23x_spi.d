@@ -1,0 +1,28 @@
+./objects/gd32e23x_spi.o: \
+  ..\..\0_MCU\0_GD32E230\01_STD\011_SRC\gd32e23x_spi.c \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_spi.h \
+  ..\..\0_MCU\0_GD32E230\00_DEVICE\001_INC\gd32e23x.h \
+  ..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\core_cm23.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\..\0_MCU\0_GD32E230\00_DEVICE\000_CORE\cmsis_compiler.h \
+  C:\Users\14155\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h \
+  ..\..\0_MCU\0_GD32E230\00_DEVICE\004_SYSTEM\system_gd32e23x.h \
+  C:\Users\14155\AppData\Local\Arm\Packs\GigaDevice\GD32E23x_DFP\2.3.2\Device\Include\gd32e23x_libopt.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_adc.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_crc.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dbg.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_dma.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_exti.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fmc.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_gpio.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_syscfg.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_i2c.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_fwdgt.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_pmu.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rcu.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_rtc.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_timer.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_usart.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_wwdgt.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_misc.h \
+  ..\..\0_MCU\0_GD32E230\01_STD\010_INC\gd32e23x_cmp.h

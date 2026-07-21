@@ -59,7 +59,7 @@ extern "C" {
 typedef struct
 {
 
-  uint32_t Line;          		  /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 0 to 31
+  uint32_t Line;                    /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 0 to 31
                                      This parameter can be any combination of @ref EXTI_EC_LINE */
 
   FunctionalState LineCommand;  /*!< Specifies the new state of the selected EXTI lines.
@@ -165,21 +165,21 @@ typedef struct
 #define EXTI_PR_PR21                        BIT21                  /*!< Pending bit on line 21 0x00200000*/
 #define EXTI_PR_PR22                        BIT22                  /*!< Pending bit on line 22 0x00400000*/
 
-#define EXTI_LINE_NONE     				         (0x00000000U)  /*!< None Extended line */
-#define EXTI_LINE_0             				    BIT0           /*!< Extended line 0 */
-#define EXTI_LINE_1              				    BIT1           /*!< Extended line 1 */
-#define EXTI_LINE_2              				    BIT2           /*!< Extended line 2 */
+#define EXTI_LINE_NONE                              (0x00000000U)  /*!< None Extended line */
+#define EXTI_LINE_0                                 BIT0           /*!< Extended line 0 */
+#define EXTI_LINE_1                                  BIT1           /*!< Extended line 1 */
+#define EXTI_LINE_2                                  BIT2           /*!< Extended line 2 */
 #define EXTI_LINE_3                         BIT3           /*!< Extended line 3 */
 #define EXTI_LINE_4                         BIT4           /*!< Extended line 4 */
-#define EXTI_LINE_5               				  BIT5           /*!< Extended line 5 */
-#define EXTI_LINE_6                				  BIT6           /*!< Extended line 6 */
-#define EXTI_LINE_7                 				BIT7           /*!< Extended line 7 */
-#define EXTI_LINE_16                				BIT16          /*!< Extended line 16 */
-#define EXTI_LINE_17                				BIT17          /*!< Extended line 17 */
-#define EXTI_LINE_21                				BIT21          /*!< Extended line 21 */
-#define EXTI_LINE_22                				BIT22          /*!< Extended line 22 */
-#define EXTI_LINE_A0_31             			  0x6300FFU    /*!< All Extended line not reserved*/
-#define EXTI_LINE_ALL               			 (0xFFFFFFFFU)  /*!< All Extended line */
+#define EXTI_LINE_5                                 BIT5           /*!< Extended line 5 */
+#define EXTI_LINE_6                                  BIT6           /*!< Extended line 6 */
+#define EXTI_LINE_7                                 BIT7           /*!< Extended line 7 */
+#define EXTI_LINE_16                                BIT16          /*!< Extended line 16 */
+#define EXTI_LINE_17                                BIT17          /*!< Extended line 17 */
+#define EXTI_LINE_21                                BIT21          /*!< Extended line 21 */
+#define EXTI_LINE_22                                BIT22          /*!< Extended line 22 */
+#define EXTI_LINE_A0_31                           0x6300FFU    /*!< All Extended line not reserved*/
+#define EXTI_LINE_ALL                            (0xFFFFFFFFU)  /*!< All Extended line */
 
 #if defined(USE_FUDRIVER)
 #define EXTI_LINE_NONE              (0x00000000U)  /*!< None Extended line */

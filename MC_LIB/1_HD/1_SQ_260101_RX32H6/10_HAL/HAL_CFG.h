@@ -32,8 +32,8 @@
 //频率设置
 #define HAL_SYSTEM_FREQ                         (144000.0f)                     //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_FREQ)               //kHz，PWM时钟频率
-#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)          		//kHz，用过零点计数定时器时钟频率
-#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)          		//kHz，用于换向计数定时器时钟频率
+#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_FREQ)                  //kHz，用过零点计数定时器时钟频率
+#define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_FREQ)                  //kHz，用于换向计数定时器时钟频率
 
 #define HAL_PWM_PRESCALER                       (3.0f-1.0f)
 #define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/(HAL_PWM_PRESCALER+1.0f))               //kHz，PWM计数器频率,48M
@@ -78,6 +78,7 @@
 //TIM设置
 #define HAL_HALL_TIM_PRESCALER                  (144.0f - 1.0f)
 #define HAL_HALL_TIM_PRE_FREQ                   (Q32U_)(1000.0f*HAL_HALL_TIM_CLK_FREQ/(HAL_HALL_TIM_PRESCALER+1.0f))            //Hz，HALL换相时钟频率，1M
+#define HAL_HALL_TIM_MAX_CNT                    (0xFFFFFFFFU)
 
 #define HAL_SWITCH_TIM_PRESCALER                (144.0f - 1.0f)    
 #define HAL_SWITCH_TIM_PRE_FREQ                 (Q32U_)(1000.0f*HAL_SWITCH_TIM_CLK_FREQ/(HAL_SWITCH_TIM_PRESCALER+1.0f))        //Hz，HALL换相时钟频率，1M
@@ -116,7 +117,7 @@
 #define HAL_MOTOR_PWM               TIM8
 #define HAL_MOTOR_HALL_TIM          TIM2
 #define HAL_MOTOR_SWITCH_TIM        TIM3
-
+#define HAL_MOTOR_UART              UART1
 
 //引脚
 //GPIO输入

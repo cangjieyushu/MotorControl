@@ -21,4 +21,6 @@ Author: CJYS
 ***********************************************************************************************/
 void BSP_GPIO_Init(void);
 
+void BSP_GPIO_RLYN(Q32U_ state);
+
 #endif /* BSP_GPIO_H */

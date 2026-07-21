@@ -48,65 +48,65 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 *@param1   COMPx
 *@param2  CMP_InitStruct
 *@param Pol:
-*	        @arg CMP_CxCR_POL_Positive
-*	        @arg CMP_CxCR_POL_Negative
+*            @arg CMP_CxCR_POL_Positive
+*            @arg CMP_CxCR_POL_Negative
 *@param OFLT:
-*	         @arg CMP_CxCR_OFLT_DIV1    
-*	         @arg CMP_CxCR_OFLT_DIV32   
-*	         @arg CMP_CxCR_OFLT_DIV64   
-*	         @arg CMP_CxCR_OFLT_DIV128  
-*	         @arg CMP_CxCR_OFLT_DIV256  
-*	         @arg CMP_CxCR_OFLT_DIV512  
-*	         @arg CMP_CxCR_OFLT_DIV1024 
-*	         @arg CMP_CxCR_OFLT_DIV2048 
+*             @arg CMP_CxCR_OFLT_DIV1    
+*             @arg CMP_CxCR_OFLT_DIV32   
+*             @arg CMP_CxCR_OFLT_DIV64   
+*             @arg CMP_CxCR_OFLT_DIV128  
+*             @arg CMP_CxCR_OFLT_DIV256  
+*             @arg CMP_CxCR_OFLT_DIV512  
+*             @arg CMP_CxCR_OFLT_DIV1024 
+*             @arg CMP_CxCR_OFLT_DIV2048 
 *@param Rhyst:
-*	        @arg CMP_CxCR_RHYST_0mV
-*	        @arg CMP_CxCR_RHYST_20mV
+*            @arg CMP_CxCR_RHYST_0mV
+*            @arg CMP_CxCR_RHYST_20mV
 *         @arg CMP_CxCR_RHYST_40mV
-*	        @arg CMP_CxCR_RHYST_60mV
+*            @arg CMP_CxCR_RHYST_60mV
 *@param Fhyst:
-*	        @arg CMP_CxCR_FHYST_0mV
-*	        @arg CMP_CxCR_FHYST_20mV
-*	        @arg CMP_CxCR_FHYST_40mV
-*	        @arg CMP_CxCR_FHYST_60mV
+*            @arg CMP_CxCR_FHYST_0mV
+*            @arg CMP_CxCR_FHYST_20mV
+*            @arg CMP_CxCR_FHYST_40mV
+*            @arg CMP_CxCR_FHYST_60mV
 *@param INP_Sel:        
-*	        @arg CMP_INP_SEL_P1           
+*            @arg CMP_INP_SEL_P1           
 *         @arg CMP_INP_SEL_P2           
 *         @arg CMP_INP_SEL_P3_CMP1      
-*	        @arg CMP_INP_SEL_OPA2_out_CMP2
-*	        @arg CMP_INP_SEL_OPA1_out_CMP1
+*            @arg CMP_INP_SEL_OPA2_out_CMP2
+*            @arg CMP_INP_SEL_OPA1_out_CMP1
 *         @arg CMP_INP_SEL_OPA3_out_CMP2
 *@param INN_Sel:
-*	        @arg CMP_INM_SEL_N1        
-*	        @arg CMP_INM_SEL_N2        
-*	        @arg CMP_INM_SEL_N3        
-*	        @arg CMP_INM_SEL_SRN_Center
-*	        @arg CMP_INM_SEL_CRV       
+*            @arg CMP_INM_SEL_N1        
+*            @arg CMP_INM_SEL_N2        
+*            @arg CMP_INM_SEL_N3        
+*            @arg CMP_INM_SEL_SRN_Center
+*            @arg CMP_INM_SEL_CRV       
 ***********************************************************************************
   */
 void CMP_Init(COMP_TypeDef *COMPx, CMP_InitTypeDef *CMP_InitStruct)
 { 
-	MODIFY_REG(COMPx->CR, (CMP_CxCR_POL | CMP_CxCR_RHYST | CMP_CxCR_FHYST),\
-							(CMP_InitStruct->Pol | CMP_InitStruct->Rhyst | CMP_InitStruct->Fhyst));
-	
-	MODIFY_REG(COMPx->CR, CMP_CxCR_INM_SEL | CMP_CxCR_INP_SEL,\
-							( CMP_InitStruct->INM_Sel | CMP_InitStruct->INP_Sel ));
-	
-	MODIFY_REG(COMPx->CR, CMP_CxCR_OFLT ,\
-							( CMP_InitStruct->OFLT ));
+    MODIFY_REG(COMPx->CR, (CMP_CxCR_POL | CMP_CxCR_RHYST | CMP_CxCR_FHYST),\
+                            (CMP_InitStruct->Pol | CMP_InitStruct->Rhyst | CMP_InitStruct->Fhyst));
+    
+    MODIFY_REG(COMPx->CR, CMP_CxCR_INM_SEL | CMP_CxCR_INP_SEL,\
+                            ( CMP_InitStruct->INM_Sel | CMP_InitStruct->INP_Sel ));
+    
+    MODIFY_REG(COMPx->CR, CMP_CxCR_OFLT ,\
+                            ( CMP_InitStruct->OFLT ));
   
-  	MODIFY_REG(COMP->CR2, CMP_CR2_CRV_EN | CMP_CR2_CRV_SRC_2p5 ,\
+      MODIFY_REG(COMP->CR2, CMP_CR2_CRV_EN | CMP_CR2_CRV_SRC_2p5 ,\
   ( CMP_InitStruct->CRV_En<<1 | CMP_InitStruct->CRV_Src ));
   
   if(COMPx == COMP1)
   {
-  	MODIFY_REG(COMP->CR2, CMP_CR2_CRV_SEL ,CMP_InitStruct->CRV_SEL);
+      MODIFY_REG(COMP->CR2, CMP_CR2_CRV_SEL ,CMP_InitStruct->CRV_SEL);
   }
   else
   {
-  	MODIFY_REG(COMP->CR2, CMP_CR2_CRV_SEL << 5 ,CMP_InitStruct->CRV_SEL << 5);
+      MODIFY_REG(COMP->CR2, CMP_CR2_CRV_SEL << 5 ,CMP_InitStruct->CRV_SEL << 5);
   }
-  	MODIFY_REG(COMP->CR1, CMP_CR1_SRN_EN ,CMP_InitStruct->CR1_SRN);
+      MODIFY_REG(COMP->CR1, CMP_CR1_SRN_EN ,CMP_InitStruct->CR1_SRN);
 }
 
 

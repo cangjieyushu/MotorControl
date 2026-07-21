@@ -635,16 +635,16 @@ __STATIC_INLINE uint32_t UART_Get_LIN(UART_TypeDef *UARTx)
 ***********************************************************************************
   */
 __STATIC_INLINE uint32_t UART_Get_Flag(UART_TypeDef *UARTx, uint32_t Flag)
-{	
-	if((Flag&0x10000000)==0x10000000)
-	{
-		return (READ_BIT(UARTx->SR, (Flag&0xFFFFFFF) ) == (Flag&0xFFFFFFF));
-	}
-	else if((Flag&0x20000000)==0x20000000)
-	{
-		return (READ_BIT(UARTx->CR1, (Flag&0x1FFFFFFF) ) == (Flag&0x1FFFFFFF));
-	}
-	return 0;
+{    
+    if((Flag&0x10000000)==0x10000000)
+    {
+        return (READ_BIT(UARTx->SR, (Flag&0xFFFFFFF) ) == (Flag&0xFFFFFFF));
+    }
+    else if((Flag&0x20000000)==0x20000000)
+    {
+        return (READ_BIT(UARTx->CR1, (Flag&0x1FFFFFFF) ) == (Flag&0x1FFFFFFF));
+    }
+    return 0;
 }
 
 /**
@@ -667,23 +667,23 @@ __STATIC_INLINE uint32_t UART_Get_Flag(UART_TypeDef *UARTx, uint32_t Flag)
 ***********************************************************************************
   */
 __STATIC_INLINE void UART_Clear_Flag(UART_TypeDef *UARTx, uint32_t Flag)
-{	
-	if((Flag==UART_FLAG_PE)|(Flag==UART_FLAG_FE)|(Flag==UART_FLAG_NE)|(Flag==UART_FLAG_ORE)|(Flag==UART_FLAG_IDLE))
-	{
-		__IO uint32_t tmpreg;
-	  tmpreg = UARTx->SR;
-	  (void) tmpreg;
-	  tmpreg = UARTx->DR;
-	  (void) tmpreg;
-	}
-	else if((Flag&0x10000000)==0x10000000)
-	{
-		WRITE_REG(UARTx->SR, ~(Flag&0xFFFFFFF) );
-	}
-	else if((Flag&0x20000000)==0x20000000)
-	{
-		CLEAR_BIT(UARTx->CR1, (Flag&0x1FFFFFFF) );
-	}
+{    
+    if((Flag==UART_FLAG_PE)|(Flag==UART_FLAG_FE)|(Flag==UART_FLAG_NE)|(Flag==UART_FLAG_ORE)|(Flag==UART_FLAG_IDLE))
+    {
+        __IO uint32_t tmpreg;
+      tmpreg = UARTx->SR;
+      (void) tmpreg;
+      tmpreg = UARTx->DR;
+      (void) tmpreg;
+    }
+    else if((Flag&0x10000000)==0x10000000)
+    {
+        WRITE_REG(UARTx->SR, ~(Flag&0xFFFFFFF) );
+    }
+    else if((Flag&0x20000000)==0x20000000)
+    {
+        CLEAR_BIT(UARTx->CR1, (Flag&0x1FFFFFFF) );
+    }
 }
 
 
@@ -705,18 +705,18 @@ __STATIC_INLINE void UART_Clear_Flag(UART_TypeDef *UARTx, uint32_t Flag)
   */
 __STATIC_INLINE void UART_Enable_IT(UART_TypeDef *UARTx, uint32_t IT)
 {
-	if((IT&0x10000000)==0x10000000)
-	{
-		SET_BIT(UARTx->CR1, (IT&0xFFFFFFF) );
-	}
-	else if((IT&0x20000000)==0x20000000)
-	{
-		SET_BIT(UARTx->CR2, (IT&0x1FFFFFFF) );
-	}
-	else if((IT&0x40000000)==0x40000000)
-	{
-		SET_BIT(UARTx->CR3, (IT&0x3FFFFFFF) );
-	}	
+    if((IT&0x10000000)==0x10000000)
+    {
+        SET_BIT(UARTx->CR1, (IT&0xFFFFFFF) );
+    }
+    else if((IT&0x20000000)==0x20000000)
+    {
+        SET_BIT(UARTx->CR2, (IT&0x1FFFFFFF) );
+    }
+    else if((IT&0x40000000)==0x40000000)
+    {
+        SET_BIT(UARTx->CR3, (IT&0x3FFFFFFF) );
+    }    
 }
 
 /**
@@ -736,19 +736,19 @@ __STATIC_INLINE void UART_Enable_IT(UART_TypeDef *UARTx, uint32_t IT)
 ***********************************************************************************
   */
 __STATIC_INLINE void UART_Disable_IT(UART_TypeDef *UARTx, uint32_t IT)
-{	
-	if((IT&0x10000000)==0x10000000)
-	{
-		CLEAR_BIT(UARTx->CR1, (IT&0xFFFFFFF) );
-	}
-	else if((IT&0x20000000)==0x20000000)
-	{
-		CLEAR_BIT(UARTx->CR2, (IT&0x1FFFFFFF) );
-	}
-	else if((IT&0x40000000)==0x40000000)
-	{
-		CLEAR_BIT(UARTx->CR3, (IT&0x3FFFFFFF) );
-	}	
+{    
+    if((IT&0x10000000)==0x10000000)
+    {
+        CLEAR_BIT(UARTx->CR1, (IT&0xFFFFFFF) );
+    }
+    else if((IT&0x20000000)==0x20000000)
+    {
+        CLEAR_BIT(UARTx->CR2, (IT&0x1FFFFFFF) );
+    }
+    else if((IT&0x40000000)==0x40000000)
+    {
+        CLEAR_BIT(UARTx->CR3, (IT&0x3FFFFFFF) );
+    }    
 }
 
 /**
@@ -768,20 +768,20 @@ __STATIC_INLINE void UART_Disable_IT(UART_TypeDef *UARTx, uint32_t IT)
 ***********************************************************************************
   */
 __STATIC_INLINE uint32_t UART_Get_IT(UART_TypeDef *UARTx, uint32_t IT)
-{	
-	if((IT&0x10000000)==0x10000000)
-	{
-		return (READ_BIT(UARTx->CR1, (IT&0xFFFFFFF) ) == (IT&0xFFFFFFF));
-	}
-	else if((IT&0x20000000)==0x20000000)
-	{
-		return (READ_BIT(UARTx->CR2, (IT&0x1FFFFFFF) ) == (IT&0x1FFFFFFF));
-	}
-	else if((IT&0x40000000)==0x40000000)
-	{
-		return (READ_BIT(UARTx->CR3, (IT&0x3FFFFFFF) ) == (IT&0x3FFFFFFF));
-	}
-	return 0;
+{    
+    if((IT&0x10000000)==0x10000000)
+    {
+        return (READ_BIT(UARTx->CR1, (IT&0xFFFFFFF) ) == (IT&0xFFFFFFF));
+    }
+    else if((IT&0x20000000)==0x20000000)
+    {
+        return (READ_BIT(UARTx->CR2, (IT&0x1FFFFFFF) ) == (IT&0x1FFFFFFF));
+    }
+    else if((IT&0x40000000)==0x40000000)
+    {
+        return (READ_BIT(UARTx->CR3, (IT&0x3FFFFFFF) ) == (IT&0x3FFFFFFF));
+    }
+    return 0;
 }
 
 /**
@@ -855,7 +855,7 @@ __STATIC_INLINE void UART_Request_BreakSending(UART_TypeDef *UARTx)
 }
 
 void     UART_DeInit(UART_TypeDef *UARTx);
-void	   UART_StructInit(UART_InitTypeDef *UART_InitStruct);
+void       UART_StructInit(UART_InitTypeDef *UART_InitStruct);
 void     UART_Init(UART_TypeDef *UARTx, UART_InitTypeDef *UART_InitStruct);
 
 #ifdef __cplusplus

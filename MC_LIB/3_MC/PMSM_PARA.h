@@ -14,6 +14,9 @@
 #include "HAL_CFG.h"
 
 
+//测试模式
+#define MOTOR_TEST_MODE             (0)
+
 //启动算法选择
 #define MOTOR_OPENLOOP_IF           (00U)
 #define MOTOR_OPENLOOP_FLUX         (01U)
@@ -30,21 +33,37 @@
 #define MOTOR_DIR_CCW                       (-1)
 
 
-//电机额定参数，测功机
-#define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
-#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
-#define MOTOR_CURRENT_BUS_A                 (3.0f)              //A，母线电流
-#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
+//电机额定参数，研磨电机
+#define MOTOR_VOLTAGE_V                     (315.0f)            //V，母线电压
+#define MOTOR_CURRENT_PHASE_A               (1.5f)              //A，相电流幅值
+#define MOTOR_CURRENT_BUS_A                 (1.25f)             //A，母线电流
+#define MOTOR_CURRENT_BRAKE_A               (1.0f)              //A，刹车电流
 #define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
 #define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
 #define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
-#define MOTOR_Rs                            (0.562f)                        //Ω，相电阻
-#define MOTOR_Ld                            (0.365f*0.001f)                 //H，d轴电感
-#define MOTOR_Lq                            (0.405f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
+#define MOTOR_Rs                            (15.00f)                        //Ω，相电阻
+#define MOTOR_Ld                            (40.00f*0.001f)                 //H，d轴电感
+#define MOTOR_Lq                            (45.00f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
 #define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
 #define MOTOR_FLUX                          (0.00875f)                      //Wb
-#define MOTOR_MAX_SPEED                     (4000.0f)             //rpm，最高转速
-#define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
+#define MOTOR_MAX_SPEED                     (2500.0f)             //rpm，最高转速
+#define MOTOR_MIN_SPEED                     (500.0f)              //rpm，最低转速
+
+////电机额定参数，测功机
+//#define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
+//#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
+//#define MOTOR_CURRENT_BUS_A                 (3.0f)              //A，母线电流
+//#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
+//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
+//#define MOTOR_LTs                           (HAL_SLOW_TIMER_FREQ/1000.0f)
+//#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
+//#define MOTOR_Rs                            (0.562f)                        //Ω，相电阻
+//#define MOTOR_Ld                            (0.365f*0.001f)                 //H，d轴电感
+//#define MOTOR_Lq                            (0.405f*0.001f)                 //H，q轴电感，q轴电感至少需要比d轴电感大10uH
+//#define MOTOR_Ls                            (0.5f*(MOTOR_Ld + MOTOR_Lq))    //H，相电感
+//#define MOTOR_FLUX                          (0.00875f)                      //Wb
+//#define MOTOR_MAX_SPEED                     (4000.0f)             //rpm，最高转速
+//#define MOTOR_MIN_SPEED                     (100.0f)              //rpm，最低转速
 
 ////电机额定参数，正点原子
 //#define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
@@ -144,7 +163,7 @@
 #define R_BASE                              (V_BASE/I_BASE)                     //Ω，电阻
 #define L_BASE                              (V_BASE/F_BASE/I_BASE)              //H，电感
 #define P_BASE                              (V_BASE/F_BASE)                     //wb，磁链
-#define T_BASE                              (1.0f/F_BASE)     		            //s,时间
+#define T_BASE                              (1.0f/F_BASE)                         //s,时间
 
 #define MOTOR_Q14_PU                        (Q14U_MAX)      //16384
 #define MOTOR_Q28_PU                        (Q28U_MAX)      //268435456

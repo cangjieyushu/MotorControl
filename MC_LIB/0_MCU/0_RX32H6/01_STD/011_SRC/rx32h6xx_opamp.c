@@ -64,7 +64,7 @@ void OPAMP_DeInit(OPAMP_TypeDef *OPAMPx)
   */
 void OPAMP_StructInit(OPAMP_InitTypeDef *OPAMP_InitStruct)
 {
-  OPAMP_InitStruct->FunctionalMode    	= OPAMP_MODE_FOLLOW;
+  OPAMP_InitStruct->FunctionalMode        = OPAMP_MODE_FOLLOW;
   OPAMP_InitStruct->OPAMP_OUTCONNECT    = OPAMP_VM_NO_CONNECT;
   OPAMP_InitStruct->BIASMode            = OPAMP_BIAS_GND;
   OPAMP_InitStruct->PGAGain             = OPAMP_GAIN_4;
@@ -81,9 +81,9 @@ void OPAMP_StructInit(OPAMP_InitTypeDef *OPAMP_InitStruct)
   *         @arg OPAMP3
   * @param  FunctionalMode:
   *         @arg OPAMP_MODE_NO_CONNECT
-  *         @arg OPAMP_MODE_PGA      	
+  *         @arg OPAMP_MODE_PGA          
   *         @arg OPAMP_MODE_FOLLOW    
-  *         @arg OPAMP_MODE_OPA	
+  *         @arg OPAMP_MODE_OPA    
   * @param  OPAMP_OUTCONNECT:
   *         @arg OPAMP_VM_NO_CONNECT 
   *         @arg OPAMP_VM_TO_GND     
@@ -113,28 +113,28 @@ void OPAMP_Init(OPAMP_TypeDef *OPAMPx, OPAMP_InitTypeDef *OPAMP_InitStruct)
   {
     if (OPAMP_InitStruct->FunctionalMode == OPAMP_MODE_PGA)
     { 
-			switch(OPAMP_InitStruct->BIASMode)
-			{
-				case 0:
-					OPAMP_Enable_BIAS_GND(OPAMPx);
-					OPAMP_Disable_BIAS_VOL(OPAMPx);
-					break;
-				case 1:
-					OPAMP_Disable_BIAS_GND(OPAMPx);
-					OPAMP_Enable_BIAS_VOL(OPAMPx);
-					OPAMP_Set_VBGINT(OPAMPx, OPAMP_VBGINT_ENABLE);
-					OPAMP_Set_VOL_SEL(OPAMPx,OPAMP_BIAS_VOL_SEL_VBG);                  
-					break;
-				case 2:
-					OPAMP_Disable_BIAS_GND(OPAMPx);
-					OPAMP_Enable_BIAS_VOL(OPAMPx);
-					OPAMP_Set_VOL_SEL(OPAMPx,OPAMP_BIAS_VOL_SEL_Vref);  
-					break;
-			}
+            switch(OPAMP_InitStruct->BIASMode)
+            {
+                case 0:
+                    OPAMP_Enable_BIAS_GND(OPAMPx);
+                    OPAMP_Disable_BIAS_VOL(OPAMPx);
+                    break;
+                case 1:
+                    OPAMP_Disable_BIAS_GND(OPAMPx);
+                    OPAMP_Enable_BIAS_VOL(OPAMPx);
+                    OPAMP_Set_VBGINT(OPAMPx, OPAMP_VBGINT_ENABLE);
+                    OPAMP_Set_VOL_SEL(OPAMPx,OPAMP_BIAS_VOL_SEL_VBG);                  
+                    break;
+                case 2:
+                    OPAMP_Disable_BIAS_GND(OPAMPx);
+                    OPAMP_Enable_BIAS_VOL(OPAMPx);
+                    OPAMP_Set_VOL_SEL(OPAMPx,OPAMP_BIAS_VOL_SEL_Vref);  
+                    break;
+            }
       MODIFY_REG(OPAMPx->CSR,
                    OPAMP_CSR_GAIN
                    | OPAMP_CSR_VMSEL
-									 | OPAMP_CSR_OUTCONNECT
+                                     | OPAMP_CSR_OUTCONNECT
                    ,
                     OPAMP_InitStruct->PGAGain
                    | OPAMP_InitStruct->FunctionalMode
@@ -147,44 +147,44 @@ void OPAMP_Init(OPAMP_TypeDef *OPAMPx, OPAMP_InitTypeDef *OPAMP_InitStruct)
         OPAMP_Enable_TOINT(OPAMP_InitStruct->TOINT);
       }
     }
-		
-		else if(OPAMP_InitStruct->FunctionalMode == OPAMP_MODE_OPA)
-		{
-			OPAMP_Disable_BIAS_GND(OPAMPx);
-			OPAMP_Disable_BIAS_VOL(OPAMPx);
-			MODIFY_REG(OPAMPx->CSR,
-										OPAMP_CSR_VMSEL
-									 | OPAMP_CSR_OUTCONNECT
-									 ,
-										OPAMP_InitStruct->FunctionalMode
-									 | OPAMP_InitStruct->OPAMP_OUTCONNECT
-									);
-			if(OPAMPx==OPAMP3)
+        
+        else if(OPAMP_InitStruct->FunctionalMode == OPAMP_MODE_OPA)
+        {
+            OPAMP_Disable_BIAS_GND(OPAMPx);
+            OPAMP_Disable_BIAS_VOL(OPAMPx);
+            MODIFY_REG(OPAMPx->CSR,
+                                        OPAMP_CSR_VMSEL
+                                     | OPAMP_CSR_OUTCONNECT
+                                     ,
+                                        OPAMP_InitStruct->FunctionalMode
+                                     | OPAMP_InitStruct->OPAMP_OUTCONNECT
+                                    );
+            if(OPAMPx==OPAMP3)
       {
         OPAMP_Set_VP_SEL(OPAMP_InitStruct->VPSEL);
         OPAMP_Enable_TOEXT(OPAMP_InitStruct->TOEXT);
         OPAMP_Enable_TOINT(OPAMP_InitStruct->TOINT);
       }
-		}
-		
-	
+        }
+        
+    
     else
     {
-			OPAMP_Disable_BIAS_GND(OPAMPx);
-			OPAMP_Disable_BIAS_VOL(OPAMPx);
+            OPAMP_Disable_BIAS_GND(OPAMPx);
+            OPAMP_Disable_BIAS_VOL(OPAMPx);
       MODIFY_REG(OPAMPx->CSR,
                     OPAMP_CSR_VMSEL
-									 | OPAMP_CSR_OUTCONNECT
+                                     | OPAMP_CSR_OUTCONNECT
                    ,
                     OPAMP_InitStruct->FunctionalMode
                    | OPAMP_InitStruct->OPAMP_OUTCONNECT
                   );
-			if(OPAMPx==OPAMP3)
+            if(OPAMPx==OPAMP3)
       {
         OPAMP_Set_VP_SEL(OPAMP_InitStruct->VPSEL);
         OPAMP_Enable_TOEXT(OPAMP_InitStruct->TOEXT);
         OPAMP_Enable_TOINT(OPAMP_InitStruct->TOINT);
       }
-		}
-	}
+        }
+    }
 }

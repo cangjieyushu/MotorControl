@@ -51,7 +51,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   */
 void PWR_Enter_SLEEP_NOW_Mode(void)
 {  
-	LPM_DisableSleepOnExit();
+    LPM_DisableSleepOnExit();
   LPM_EnableSleep();
   __WFI();
 }
@@ -63,7 +63,7 @@ void PWR_Enter_SLEEP_NOW_Mode(void)
   */
 void PWR_Enter_SLEEP_ON_EXIT_Mode(void)
 {  
-	LPM_EnableSleepOnExit();
+    LPM_EnableSleepOnExit();
   LPM_EnableSleep();
   __WFI();
 }
@@ -86,7 +86,7 @@ void PWR_Enter_STOP_Mode(void)
   */
 void PWR_Enter_STOP_LPREGUMode(void)
 {
-	PWR_Set_PowerMode(PWR_MODE_STOP_LPREGU);
+    PWR_Set_PowerMode(PWR_MODE_STOP_LPREGU);
   LPM_EnableDeepSleep();
   __WFI( );
 }
@@ -99,12 +99,12 @@ void PWR_Enter_STOP_LPREGUMode(void)
 void PWR_Enter_STANDBYMode(void)
 {
   /* Request Wait For Interrupt */
-	PWR_Disable_WakeUpPin(PWR_WAKEUP_PIN1);
+    PWR_Disable_WakeUpPin(PWR_WAKEUP_PIN1);
   
   /* Clear all wake up Flag */
   PWR_Clear_Flag(PWR_SCR_CWUF1);
   
-	
+    
   /* Enable wakeup pin */
   PWR_Enable_WakeUpPin(PWR_WAKEUP_PIN1);
    

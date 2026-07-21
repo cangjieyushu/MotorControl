@@ -56,8 +56,8 @@ typedef enum
   ERROR = !SUCCESS
 } ErrorStatus;
 
-#define SET(n,c)		((n)|=(c))
-#define CLR(n,c)		((n)&=~(c))
+#define SET(n,c)        ((n)|=(c))
+#define CLR(n,c)        ((n)&=~(c))
 
 #define SET_BIT(REG, BIT)     ((REG) |= (BIT))
 
@@ -80,38 +80,38 @@ typedef enum
 #define M32(adr)    (*((volatile uint32_t *) (adr)))
 
 
-#define BIT0			((uint32_t)0x00000001)
-#define BIT1			((uint32_t)0x00000002)
-#define BIT2			((uint32_t)0x00000004)
-#define BIT3			((uint32_t)0x00000008)
-#define BIT4			((uint32_t)0x00000010)
-#define BIT5			((uint32_t)0x00000020)
-#define BIT6			((uint32_t)0x00000040)
-#define BIT7			((uint32_t)0x00000080)
-#define BIT8			((uint32_t)0x00000100)
-#define BIT9			((uint32_t)0x00000200)
-#define BIT10			((uint32_t)0x00000400)
-#define BIT11			((uint32_t)0x00000800)
-#define BIT12			((uint32_t)0x00001000)
-#define BIT13			((uint32_t)0x00002000)
-#define BIT14			((uint32_t)0x00004000)
-#define BIT15			((uint32_t)0x00008000)
-#define BIT16			((uint32_t)0x00010000)
-#define BIT17			((uint32_t)0x00020000)
-#define BIT18			((uint32_t)0x00040000)
-#define BIT19			((uint32_t)0x00080000)
-#define BIT20			((uint32_t)0x00100000)
-#define BIT21			((uint32_t)0x00200000)
-#define BIT22			((uint32_t)0x00400000)
-#define BIT23			((uint32_t)0x00800000)
-#define BIT24			((uint32_t)0x01000000)
-#define BIT25			((uint32_t)0x02000000)
-#define BIT26			((uint32_t)0x04000000)
-#define BIT27			((uint32_t)0x08000000)
-#define BIT28			((uint32_t)0x10000000)
-#define BIT29			((uint32_t)0x20000000)
-#define BIT30			((uint32_t)0x40000000)
-#define BIT31			((uint32_t)0x80000000)
+#define BIT0            ((uint32_t)0x00000001)
+#define BIT1            ((uint32_t)0x00000002)
+#define BIT2            ((uint32_t)0x00000004)
+#define BIT3            ((uint32_t)0x00000008)
+#define BIT4            ((uint32_t)0x00000010)
+#define BIT5            ((uint32_t)0x00000020)
+#define BIT6            ((uint32_t)0x00000040)
+#define BIT7            ((uint32_t)0x00000080)
+#define BIT8            ((uint32_t)0x00000100)
+#define BIT9            ((uint32_t)0x00000200)
+#define BIT10            ((uint32_t)0x00000400)
+#define BIT11            ((uint32_t)0x00000800)
+#define BIT12            ((uint32_t)0x00001000)
+#define BIT13            ((uint32_t)0x00002000)
+#define BIT14            ((uint32_t)0x00004000)
+#define BIT15            ((uint32_t)0x00008000)
+#define BIT16            ((uint32_t)0x00010000)
+#define BIT17            ((uint32_t)0x00020000)
+#define BIT18            ((uint32_t)0x00040000)
+#define BIT19            ((uint32_t)0x00080000)
+#define BIT20            ((uint32_t)0x00100000)
+#define BIT21            ((uint32_t)0x00200000)
+#define BIT22            ((uint32_t)0x00400000)
+#define BIT23            ((uint32_t)0x00800000)
+#define BIT24            ((uint32_t)0x01000000)
+#define BIT25            ((uint32_t)0x02000000)
+#define BIT26            ((uint32_t)0x04000000)
+#define BIT27            ((uint32_t)0x08000000)
+#define BIT28            ((uint32_t)0x10000000)
+#define BIT29            ((uint32_t)0x20000000)
+#define BIT30            ((uint32_t)0x40000000)
+#define BIT31            ((uint32_t)0x80000000)
 
 /** @addtogroup Configuration_section_for_CMSIS
   * @{
@@ -139,22 +139,22 @@ typedef enum IRQn
     SysTick_IRQn                = -1,       /*!< 15 Cortex-M0 System Tick Interrupt               */
 
 /***************************** rx32h6 Specific Interrupt Numbers  **************************************/
-    PVD_IRQn                    = 1,	    /*!< PVD Interrupt                                    */
-	RTC_IRQn					= 2, 	    /*!< RTC Interrupt                                    */				
+    PVD_IRQn                    = 1,        /*!< PVD Interrupt                                    */
+    RTC_IRQn                    = 2,         /*!< RTC Interrupt                                    */                
     FLASH_IRQn                  = 3,        /*!< FLASH Interrupt                                  */
     RCC_IRQn                    = 4,        /*!< RCC Interrupt                                    */
     EXTI0_3_IRQn                = 5,        /*!< External Interrupt 0-3 Interrupt                 */
     EXTI4_7_IRQn                = 6,        /*!< External Interrupt 4-7 Interrupt                 */
-    ADC_IRQn					= 12,       /*!< ADC Interrupt                                    */
+    ADC_IRQn                    = 12,       /*!< ADC Interrupt                                    */
     TIM8_BRK_UP_TRG_COM_IRQn    = 13,       /*!< TIM8 break, update, trigger and commutation interrupt*/
     TIM8_CC_IRQn                = 14,       /*!< TIM8 capture compare interrupt                   */
     TIM2_IRQn                   = 15,       /*!< Timer2 Interrupt                                 */
     TIM3_IRQn                   = 16,       /*!< Timer3 Interrupt                                 */
     TIM6_IRQn                   = 17,       /*!< Timer6 Interrupt                                 */
     TIM7_IRQn                   = 18,       /*!< Timer7 Interrupt                                 */
-    TIM15_IRQn					= 20,       /*!< Timer15 Interrupt                                */
-  	CMP1_IRQn					= 21,       /*!< CMP1 Interrupt                                   */
-    CMP2_IRQn                	= 22,       /*!< CMP2 Interrupt                                   */
+    TIM15_IRQn                    = 20,       /*!< Timer15 Interrupt                                */
+      CMP1_IRQn                    = 21,       /*!< CMP1 Interrupt                                   */
+    CMP2_IRQn                    = 22,       /*!< CMP2 Interrupt                                   */
     I2C1_IRQn                   = 23,       /*!< I2C global interrupt                             */
     SPI1_IRQn                   = 25,       /*!< SPI1 global interrupt                            */
     UART1_IRQn                  = 27,       /*!< UART1 global interrupt                           */
@@ -188,44 +188,44 @@ typedef enum IRQn
   */
 typedef struct
 {
-  __IO uint32_t SR;   		 //0x0000
-  __IO uint32_t CR1; 		//0x0004
-  __IO uint32_t CR2;		//0x0008
-  __IO uint32_t SMPR1;	//0x000C
-  __IO uint32_t SMPR2;	//0x0010
-  __IO uint32_t JOFR1;	//0x0014
-  __IO uint32_t JOFR2;	//0x0018
-  __IO uint32_t JOFR3;	//0x001C
-  __IO uint32_t JOFR4;	//0x0020
-  __IO uint32_t HTR;		//0x0024
-  __IO uint32_t LTR;		//0x0028
-  __IO uint32_t SQR1;		//0x002C
-  __IO uint32_t SQR2;		//0x0030
-  __IO uint32_t SQR3;		//0x0034
-  __IO uint32_t JSQR;		//0x0038
-  __IO uint32_t JDR1;		//0x003C
-  __IO uint32_t JDR2;		//0x0040
-  __IO uint32_t JDR3;		//0x0044
-  __IO uint32_t JDR4;		//0x0048
-  __IO uint32_t DR;		//0x004C
+  __IO uint32_t SR;            //0x0000
+  __IO uint32_t CR1;         //0x0004
+  __IO uint32_t CR2;        //0x0008
+  __IO uint32_t SMPR1;    //0x000C
+  __IO uint32_t SMPR2;    //0x0010
+  __IO uint32_t JOFR1;    //0x0014
+  __IO uint32_t JOFR2;    //0x0018
+  __IO uint32_t JOFR3;    //0x001C
+  __IO uint32_t JOFR4;    //0x0020
+  __IO uint32_t HTR;        //0x0024
+  __IO uint32_t LTR;        //0x0028
+  __IO uint32_t SQR1;        //0x002C
+  __IO uint32_t SQR2;        //0x0030
+  __IO uint32_t SQR3;        //0x0034
+  __IO uint32_t JSQR;        //0x0038
+  __IO uint32_t JDR1;        //0x003C
+  __IO uint32_t JDR2;        //0x0040
+  __IO uint32_t JDR3;        //0x0044
+  __IO uint32_t JDR4;        //0x0048
+  __IO uint32_t DR;        //0x004C
   uint32_t RESERVED3;
-  __IO uint32_t CAL;		//0x0054
+  __IO uint32_t CAL;        //0x0054
   uint32_t RESERVED1;
-  __IO uint32_t TPS_TEST;		//0x005C
+  __IO uint32_t TPS_TEST;        //0x005C
   uint32_t RESERVED2;
-  __IO uint32_t TPS;		//0x0064
-  __IO uint32_t SMPR;	//0x0068
-  __IO uint32_t DATA1;	//0x006C
-  __IO uint32_t DATA2;	//0x0070
-  __IO uint32_t DATA3;	//0x0074
-  __IO uint32_t DATA4;	//0x0078
-  __IO uint32_t DATA5;	//0x007C
-  __IO uint32_t DATA6;	//0x0080
-  __IO uint32_t DATA7;	//0x0084
-  __IO uint32_t DATA8;	//0x0088
-	uint32_t RESERVED4;
-	uint32_t RESERVED5;
-	__IO uint32_t CR3;  //0x0094
+  __IO uint32_t TPS;        //0x0064
+  __IO uint32_t SMPR;    //0x0068
+  __IO uint32_t DATA1;    //0x006C
+  __IO uint32_t DATA2;    //0x0070
+  __IO uint32_t DATA3;    //0x0074
+  __IO uint32_t DATA4;    //0x0078
+  __IO uint32_t DATA5;    //0x007C
+  __IO uint32_t DATA6;    //0x0080
+  __IO uint32_t DATA7;    //0x0084
+  __IO uint32_t DATA8;    //0x0088
+    uint32_t RESERVED4;
+    uint32_t RESERVED5;
+    __IO uint32_t CR3;  //0x0094
 } ADC_TypeDef;
   
 /** 
@@ -270,7 +270,7 @@ typedef struct
   __IO uint32_t CR;               /*!< FLASH control register,                   Address offset: 0x14 */
        uint32_t RESERVED1[2];        /*!< Reserved,                              Address offset: 0x18 */
   __IO uint32_t OPTR;             /*!< FLASH option register,                    Address offset: 0x20 */
-	 uint32_t RESERVED4[2];        /*!< Reserved,                                  Address offset: 0x24 */
+     uint32_t RESERVED4[2];        /*!< Reserved,                                  Address offset: 0x24 */
   __IO uint32_t WRP1AR;           /*!< FLASH bank1 WRP area A address register,  Address offset: 0x2C */
   __IO uint32_t WRP1BR;           /*!< FLASH bank1 WRP area B address register,  Address offset: 0x30 */
 } FLASH_TypeDef;
@@ -325,8 +325,8 @@ typedef struct
 {
   uint32_t  RESERVED0[2];//0x00 0x04
   __IO uint32_t EXTICR[4];//0x08 0x0C 0x10 0x14
-	__IO uint32_t SCSR;//0x18
-	__IO uint32_t CFGR2;//0x1C
+    __IO uint32_t SCSR;//0x18
+    __IO uint32_t CFGR2;//0x1C
   __IO uint32_t RESERVED1;//0x20
   __IO uint32_t SKR;//0x24
   __IO uint32_t RESERVED2;//0x28
@@ -337,7 +337,7 @@ typedef struct
 
 typedef struct
 {
-	__IO uint32_t CSR;
+    __IO uint32_t CSR;
   __IO uint32_t CCR;
 } VREFBUF_TypeDef;
 
@@ -379,11 +379,11 @@ typedef struct
 {
   __IO uint32_t CR1;
   __IO uint32_t CR2;
-	__IO uint32_t CR3;
-	__IO uint32_t CR4;
-	__IO uint32_t SR;
-	__IO uint32_t SR2;
-	__IO uint32_t SCR;
+    __IO uint32_t CR3;
+    __IO uint32_t CR4;
+    __IO uint32_t SR;
+    __IO uint32_t SR2;
+    __IO uint32_t SCR;
 } PWR_TypeDef;
 
 /** 
@@ -402,10 +402,10 @@ typedef struct
   __IO uint32_t APB1ENR;
   __IO uint32_t BDCR;
   __IO uint32_t CSR;
-	__IO uint32_t AHBRSTR;
-	uint32_t RESERVED1[29];
-	uint32_t RESERVED2;
-	__IO uint32_t PLLDET;
+    __IO uint32_t AHBRSTR;
+    uint32_t RESERVED1[29];
+    uint32_t RESERVED2;
+    __IO uint32_t PLLDET;
 } RCC_TypeDef;
 
 /** 
@@ -474,10 +474,10 @@ typedef struct
   __IO uint32_t C2CR;             /*!< CMP control register 2,   Address offset: 0x04 */
  uint32_t RESERVED0[14];    
   __IO uint32_t RG1CAL;             /*!< CMP calculation register, Address offset: 0x40 */  
-	__IO uint32_t RG2CAL;             /*!< CMP calculation register, Address offset: 0x44 */  
+    __IO uint32_t RG2CAL;             /*!< CMP calculation register, Address offset: 0x44 */  
  uint32_t RESERVED1[14];
-	__IO uint32_t CR1;  	         /*!< CMP  register, Address offset: 0x80 */
-  __IO uint32_t CR2;          	 /*!< CMP  register, Address offset: 0x84 */
+    __IO uint32_t CR1;               /*!< CMP  register, Address offset: 0x80 */
+  __IO uint32_t CR2;               /*!< CMP  register, Address offset: 0x84 */
 } CMP_TypeDef;
 
 
@@ -492,10 +492,10 @@ typedef struct
   __IO uint32_t CH2VSEL;             /*!< CRV Select 2,                  Address offset: 0x08 */
   __IO uint32_t CH3VSEL;             /*!< CRV Select 3,                  Address offset: 0x0C */
   uint32_t RESERVED1;
-  __IO uint32_t CH5VSEL;             /*!< CRV Select 5,                  Address offset: 0x014 */	
-	__IO uint32_t VREAL;               /*!< CRV Real V,                    Address offset: 0x18 */
+  __IO uint32_t CH5VSEL;             /*!< CRV Select 5,                  Address offset: 0x014 */    
+    __IO uint32_t VREAL;               /*!< CRV Real V,                    Address offset: 0x18 */
   __IO uint32_t TC;                  /*!< CRV Real V,                    Address offset: 0x1C */
-	__IO uint32_t CR1SRN;                 /*!< CRV control register SRN,        Address offset: 0x20 */
+    __IO uint32_t CR1SRN;                 /*!< CRV control register SRN,        Address offset: 0x20 */
 } CRV_TypeDef;
 
 /** 
@@ -505,11 +505,11 @@ typedef struct
 typedef struct
 {
   __IO uint32_t O1CSR;           /*!< OPAMP1 control/status register,        Address offset: 0x00 */
-	__IO uint32_t O2CSR;           /*!< OPAMP2 control/status register,        Address offset: 0x04 */
-	__IO uint32_t O3CSR;           /*!< OPAMP3 control/status register,        Address offset: 0x08 */
+    __IO uint32_t O2CSR;           /*!< OPAMP2 control/status register,        Address offset: 0x04 */
+    __IO uint32_t O3CSR;           /*!< OPAMP3 control/status register,        Address offset: 0x08 */
   __IO uint32_t O1BIAS;          /*!< OPAMP1 BIAS control register,          Address offset: 0x0C */
-	__IO uint32_t O2BIAS;          /*!< OPAMP2 BIAS control register,          Address offset: 0x10 */
-	__IO uint32_t O3BIAS;          /*!< OPAMP3 BIAS control register,          Address offset: 0x14 */
+    __IO uint32_t O2BIAS;          /*!< OPAMP2 BIAS control register,          Address offset: 0x10 */
+    __IO uint32_t O3BIAS;          /*!< OPAMP3 BIAS control register,          Address offset: 0x14 */
 } OPA_TypeDef;
 
 
@@ -584,10 +584,10 @@ typedef struct
 typedef struct
 {
   __IO uint32_t CR;         /*!< Address offset: 0x00 */
-	__IO uint32_t ARG1;         /*!< Address offset: 0x04 */
-	__IO uint32_t ARG2;         /*!< Address offset: 0x08 */
-	__IO uint32_t RSVD[3];
-	__IO uint32_t MCYC;        /*!< Address offset: 0x10 */
+    __IO uint32_t ARG1;         /*!< Address offset: 0x04 */
+    __IO uint32_t ARG2;         /*!< Address offset: 0x08 */
+    __IO uint32_t RSVD[3];
+    __IO uint32_t MCYC;        /*!< Address offset: 0x10 */
 } ME_TypeDef;
 
 /**

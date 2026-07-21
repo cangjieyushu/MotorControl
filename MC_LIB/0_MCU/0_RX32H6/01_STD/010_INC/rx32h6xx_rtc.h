@@ -197,14 +197,14 @@ typedef struct
 
 typedef struct 
 {
-	uint8_t hour;
-	uint8_t min;
-	uint8_t sec;			
-	uint16_t w_year;
-	uint8_t  w_month;
-	uint8_t  w_date;
-	uint8_t  week;		 
-}_calendar_obj;		
+    uint8_t hour;
+    uint8_t min;
+    uint8_t sec;            
+    uint16_t w_year;
+    uint8_t  w_month;
+    uint8_t  w_date;
+    uint8_t  week;         
+}_calendar_obj;        
 extern _calendar_obj calendar;
 
 /**

@@ -15,8 +15,8 @@
 #define ADC_DATA_READ_W_BEMF        ((Q32U_)HAL_MOTOR_ADC->JDR3)
 #define ADC_DATA_READ_CURRENT       ((Q32U_)HAL_MOTOR_ADC->JDR4)
 
-#define ADC_DATA_READ_VBUS          ((Q32U_)HAL_MOTOR_ADC->DATA1)
-#define ADC_DATA_READ_TEMP          ((Q32U_)HAL_MOTOR_ADC->DATA2)
+#define BSP_ADC_DATA_READ_VBUS      ((Q32U_)HAL_MOTOR_ADC->DATA1)
+#define BSP_ADC_DATA_READ_TEMP      ((Q32U_)HAL_MOTOR_ADC->DATA2)
 
 /**********************************************************************************************
 Function: MH_ADC_Soft_Trigger

@@ -159,9 +159,9 @@ extern "C" {
 #define RCC_AHBENR_FLITEN              BIT4
 #define RCC_AHBENR_CRCEN               BIT6
 #define RCC_AHBENR_MEEN                BIT11
-#define RCC_AHBENR_IOPAEN            	 BIT16
-#define RCC_AHBENR_IOPBEN            	 BIT17
-#define RCC_AHBENR_IOPCEN            	 BIT18
+#define RCC_AHBENR_IOPAEN                 BIT16
+#define RCC_AHBENR_IOPBEN                 BIT17
+#define RCC_AHBENR_IOPCEN                 BIT18
 #define RCC_AHBENR_IOPDEN              BIT19
 #define RCC_AHBENR_ADC1EN              BIT24
 
@@ -228,8 +228,8 @@ typedef struct
   uint32_t SYSCLKSource;          /*!< The clock source (SYSCLKS) used as system clock.*/
   
   uint32_t PLLSource;             /*!< PLLSource: PLL entry clock source.*/
-	
-	uint32_t PLLMUL;                /*!< PLLMUL: PLL frequency multiplication.*/
+    
+    uint32_t PLLMUL;                /*!< PLLMUL: PLL frequency multiplication.*/
   
   uint32_t LATENCY;
 
@@ -238,8 +238,8 @@ typedef struct
   uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK).*/
 
   uint32_t APB2CLKDivider;        /*!< The APB2 clock (PCLK2) divider. This clock is derived from the AHB clock (HCLK).*/
-	
-	uint32_t ADCSource;
+    
+    uint32_t ADCSource;
    
   uint32_t ADCCLKDivider;         /*!< The ADC clock (ADCCLK) divider. This clock is derived from the APB2 clock (PCLK).*/
 } RCC_ClkInitTypeDef;
@@ -363,7 +363,7 @@ __STATIC_INLINE uint32_t RCC_Get_PLLRDY(void)
 */
 __STATIC_INLINE void RCC_Set_PLLMUL(uint32_t PLLMUL)
 {
-   MODIFY_REG(RCC->CFGR,RCC_CFGR_PLLMULL,PLLMUL);	
+   MODIFY_REG(RCC->CFGR,RCC_CFGR_PLLMULL,PLLMUL);    
 }
 /**
   * @function  RCC_Set_SysClkSource
@@ -479,7 +479,7 @@ __STATIC_INLINE void RCC_Set_APB2Prescaler(uint32_t Prescaler)
             @arg RCC_CFGR_ADCPRE_DIV3
             @arg RCC_CFGR_ADCPRE_DIV4
             @arg RCC_CFGR_ADCPRE_DIV5
-						@arg RCC_CFGR_ADCPRE_DIV6
+                        @arg RCC_CFGR_ADCPRE_DIV6
             @arg RCC_CFGR_ADCPRE_DIV7
             @arg RCC_CFGR_ADCPRE_DIV8
   * @retval None
@@ -551,7 +551,7 @@ __STATIC_INLINE uint32_t RCC_Get_APB2Prescaler(void)
             @arg RCC_CFGR_ADCPRE_DIV3
             @arg RCC_CFGR_ADCPRE_DIV4
             @arg RCC_CFGR_ADCPRE_DIV5
-						@arg RCC_CFGR_ADCPRE_DIV6
+                        @arg RCC_CFGR_ADCPRE_DIV6
             @arg RCC_CFGR_ADCPRE_DIV7
             @arg RCC_CFGR_ADCPRE_DIV8
 */
@@ -933,7 +933,7 @@ __STATIC_INLINE void RCC_Disable_IT(uint32_t Periphal)
 */
 __STATIC_INLINE void RCC_Set_PLLDET_DELTA(uint32_t Periphal)
 {
-	MODIFY_REG(RCC->PLLDET, RCC_PLLDET_DELTA, Periphal);
+    MODIFY_REG(RCC->PLLDET, RCC_PLLDET_DELTA, Periphal);
 }
 
 /**
@@ -944,13 +944,13 @@ __STATIC_INLINE void RCC_Set_PLLDET_DELTA(uint32_t Periphal)
 */
 __STATIC_INLINE uint32_t RCC_Get_PLLDET_DELTA(void)
 {
-	return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_DELTA));
+    return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_DELTA));
 }
 
 /**
   * @function  RCC_Enable_PLLDET_FAIL
   * @brief  Enable PLLDET FAIL
-	* @param  Periphal:
+    * @param  Periphal:
   *         @arg RCC_PLLDET_FAIL_M0
   *         @arg RCC_PLLDET_FAIL_M1
   *         @arg RCC_PLLDET_FAIL_M2
@@ -964,7 +964,7 @@ __STATIC_INLINE void RCC_Enable_PLLDET_FAIL(uint32_t Periphal)
 /**
   * @function  RCC_Disable_PLLDET_FAIL
   * @brief  Disable PLLDET FAIL
-	* @param  Periphal:
+    * @param  Periphal:
   *         @arg RCC_PLLDET_FAIL_M0
   *         @arg RCC_PLLDET_FAIL_M1
   *         @arg RCC_PLLDET_FAIL_M2
@@ -983,7 +983,7 @@ __STATIC_INLINE void RCC_Disable_PLLDET_FAIL(uint32_t Periphal)
 */
 __STATIC_INLINE uint32_t RCC_Get_PLLDET_TCNT_UPEN(void)
 {
-	return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_TCNT_UPEN)==(RCC_PLLDET_TCNT_UPEN));
+    return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_TCNT_UPEN)==(RCC_PLLDET_TCNT_UPEN));
 }
 
 /**
@@ -1012,7 +1012,7 @@ __STATIC_INLINE void RCC_Set_PLLDET_FCNT_WIDTH(uint32_t Periphal)
 */
 __STATIC_INLINE uint32_t RCC_Get_PLLDET_TOUT(void)
 {
-	return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_TOUT)>>16);
+    return (uint32_t)(READ_BIT(RCC->PLLDET, RCC_PLLDET_TOUT)>>16);
 }
 
 void RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct);

@@ -5,7 +5,9 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             故障显示源文件
 **************************************************************************************************/
+
 #include "SYS_ERR.h"
+
 
 ST_ERROR_CONTROL Error_Ctrl = {
     .error_led_table[0] = 0,
@@ -41,6 +43,7 @@ ST_ERROR_CONTROL Error_Ctrl = {
     .error_led_table[30] = 0,
     .error_led_table[31] = 0,
 };
+
 
 /**********************************************************************************************
 Function: Error_LED

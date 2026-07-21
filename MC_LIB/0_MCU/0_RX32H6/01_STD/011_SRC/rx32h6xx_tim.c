@@ -123,13 +123,13 @@ void TIM_TimeBaseInit(TIM_TypeDef *TIMx, TIM_TimeBaseInitTypeDef *TIM_InitStruct
 
   tmpcr1 = TIMx->CR1;
 
-	/* Select the Counter Mode */
-	tmpcr1 &= (uint32_t)(~((uint32_t)(TIM_CR1_DIR | TIM_CR1_CMS)));
-	tmpcr1 |= (uint32_t)TIM_InitStruct->CounterMode;
+    /* Select the Counter Mode */
+    tmpcr1 &= (uint32_t)(~((uint32_t)(TIM_CR1_DIR | TIM_CR1_CMS)));
+    tmpcr1 |= (uint32_t)TIM_InitStruct->CounterMode;
 
-	/* Set the clock division */
-	tmpcr1 &= (uint32_t)(~((uint32_t)TIM_CR1_CKD));
-	tmpcr1 |= (uint32_t)TIM_InitStruct->ClockDivision;
+    /* Set the clock division */
+    tmpcr1 &= (uint32_t)(~((uint32_t)TIM_CR1_CKD));
+    tmpcr1 |= (uint32_t)TIM_InitStruct->ClockDivision;
 
   TIMx->CR1 = tmpcr1;
 
@@ -313,7 +313,7 @@ void TIM_ENCODER_StructInit(TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
   *         @arg @ref TIM_ICPSC_DIV8
   * @param  IC1Filter£º
   *         @arg @ref TIM_IC_FILTER_FDIV1
-  *         @arg @ref TIM_IC_FILTER_FDIV1_N2	
+  *         @arg @ref TIM_IC_FILTER_FDIV1_N2    
   *         @arg @ref TIM_IC_FILTER_FDIV1_N4
   *         @arg @ref TIM_IC_FILTER_FDIV1_N8
   *         @arg @ref TIM_IC_FILTER_FDIV2_N6
@@ -326,8 +326,8 @@ void TIM_ENCODER_StructInit(TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
   *         @arg @ref TIM_IC_FILTER_FDIV16_N6
   *         @arg @ref TIM_IC_FILTER_FDIV16_N8
   *         @arg @ref TIM_IC_FILTER_FDIV32_N5
-  *         @arg @ref TIM_IC_FILTER_FDIV32_N6	
-  *         @arg @ref TIM_IC_FILTER_FDIV32_N8	
+  *         @arg @ref TIM_IC_FILTER_FDIV32_N6    
+  *         @arg @ref TIM_IC_FILTER_FDIV32_N8    
   * @param  IC2Polarity£º
   *         @arg @ref TIM_IC_POLARITY_RISING
   *         @arg @ref TIM_IC_POLARITY_FALLING
@@ -343,7 +343,7 @@ void TIM_ENCODER_StructInit(TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
   *         @arg @ref TIM_ICPSC_DIV8
   * @param  IC2Filter£º
   *         @arg @ref TIM_IC_FILTER_FDIV1
-  *         @arg @ref TIM_IC_FILTER_FDIV1_N2	
+  *         @arg @ref TIM_IC_FILTER_FDIV1_N2    
   *         @arg @ref TIM_IC_FILTER_FDIV1_N4
   *         @arg @ref TIM_IC_FILTER_FDIV1_N8
   *         @arg @ref TIM_IC_FILTER_FDIV2_N6
@@ -356,8 +356,8 @@ void TIM_ENCODER_StructInit(TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
   *         @arg @ref TIM_IC_FILTER_FDIV16_N6
   *         @arg @ref TIM_IC_FILTER_FDIV16_N8
   *         @arg @ref TIM_IC_FILTER_FDIV32_N5
-  *         @arg @ref TIM_IC_FILTER_FDIV32_N6	
-  *         @arg @ref TIM_IC_FILTER_FDIV32_N8		
+  *         @arg @ref TIM_IC_FILTER_FDIV32_N6    
+  *         @arg @ref TIM_IC_FILTER_FDIV32_N8        
   * @retval None
   * @retval An ErrorStatus enumeration value:
   *          - SUCCESS: TIMx registers are de-initialized

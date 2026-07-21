@@ -622,6 +622,13 @@
         </Group>
         <Group>
           <GroupName>13_HD_UARTH</GroupName>
+          <Files>
+            <File>
+              <FileName>UARTH.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\1_HD\1_SQ_260101_RX32H6\13_UARTH\UARTH.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>14_HD_CANH</GroupName>

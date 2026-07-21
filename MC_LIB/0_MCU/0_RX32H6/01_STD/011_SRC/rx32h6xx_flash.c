@@ -110,7 +110,7 @@ void FLASH_Erase_Page(uint32_t Page_Num)
 
   SET_BIT(FLASH->CR, FLASH_CR_PER);
   SET_BIT(FLASH->CR, FLASH_CR_STRT);
-	
+    
 
   while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
   {
@@ -130,10 +130,10 @@ void FLASH_Erase_AllPages(void)
   FLASH_Clear_Flag(FLASH_SR_WRPRTERR|FLASH_SR_EOP); 
   CLEAR_BIT(FLASH->CR, FLASH_CR_PG);
   CLEAR_BIT(FLASH->CR, FLASH_CR_PER);
-	
-	SET_BIT(FLASH->CR, FLASH_CR_MER);
+    
+    SET_BIT(FLASH->CR, FLASH_CR_MER);
   SET_BIT(FLASH->CR, FLASH_CR_STRT);
-	
+    
   while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
   {
   }; 
@@ -174,11 +174,11 @@ void FLASH_Program_DoubleDoubleWord(uint32_t Address, uint32_t* buf)
   __ISB();
   /* Program four word */
   *(uint32_t *)(Address + 0xCU) =  buf[3];
-	/* Wait for last operation to be completed */
-	while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
+    /* Wait for last operation to be completed */
+    while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
   {
   }; 
-	
+    
   CLEAR_BIT(FLASH->CR, FLASH_CR_PG);
     
   FLASH->ACR = temp;
@@ -206,13 +206,13 @@ void FLASH_Set_ReadOutProtection(FunctionalState NewState)
     MODIFY_REG(FLASH->OPTR, FLASH_OPTR_RDP, 0xAA);   
   }  
     
-	SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
+    SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
   
   while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
   {
   }; 
-	FLASH_Lock();
-	FLASH_OB_Lock();      
+    FLASH_Lock();
+    FLASH_OB_Lock();      
       
 }
 
@@ -229,17 +229,17 @@ void FLASH_Enable_WriteProtection(uint32_t START_Pages,uint32_t END_Pages)
   FLASH_Unlock();
   FLASH_OB_Unlock();
   
-	MODIFY_REG(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_STRT, START_Pages );  
-	MODIFY_REG(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_END, END_Pages << 16 );        
+    MODIFY_REG(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_STRT, START_Pages );  
+    MODIFY_REG(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_END, END_Pages << 16 );        
   
   
-	SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
+    SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
   
   while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
   {
   }; 
-	FLASH_Lock();
-	FLASH_OB_Lock();
+    FLASH_Lock();
+    FLASH_OB_Lock();
 }
 
 /**
@@ -262,19 +262,19 @@ void FLASH_Enable_WriteProtection(uint32_t START_Pages,uint32_t END_Pages)
 void FLASH_Set_UserOptionByte(uint32_t OB_USER)
 {
   if(OB_USER != 0)
-	{
+    {
    FLASH_Unlock();
    FLASH_OB_Unlock();
     
    SET_BIT(FLASH->OPTR,OB_USER);      
 
-	 SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
+     SET_BIT(FLASH->CR,FLASH_CR_OPTSTRT);
    
    while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
    {
    }; 
-	 FLASH_Lock();
-	 FLASH_OB_Lock();    
+     FLASH_Lock();
+     FLASH_OB_Lock();    
   }
 }
 
@@ -298,7 +298,7 @@ void FLASH_Set_UserOptionByte(uint32_t OB_USER)
 void FLASH_Clear_UserOptionByte(uint32_t OB_USER)
 { 
   if(OB_USER != 0)
-	{
+    {
     FLASH_Unlock();
     FLASH_OB_Unlock();
     
@@ -309,8 +309,8 @@ void FLASH_Clear_UserOptionByte(uint32_t OB_USER)
     while((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY)
     {
     }; 
-	  FLASH_Lock();
-	  FLASH_OB_Lock(); 
+      FLASH_Lock();
+      FLASH_OB_Lock(); 
   } 
 }
 

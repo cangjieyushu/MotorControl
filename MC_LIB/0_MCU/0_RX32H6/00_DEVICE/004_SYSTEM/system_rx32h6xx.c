@@ -121,14 +121,14 @@ void SystemInit (void)
 
   /* Disable all interrupts and clear pending bits  */
   RCC->CIR = 0x009F0000;
-	
-	
-	
-	RCC_Enable_AHBClock(RCC_AHBENR_ADC1EN);
-	*(uint32_t *)0x49000050 |= 0x000C0000; 
-	ADC1->CR3 |= BIT1;
-	while((ADC1->CR3 & BIT1) == BIT1);
-	RCC_Disable_AHBClock(RCC_AHBENR_ADC1EN);
+    
+    
+    
+    RCC_Enable_AHBClock(RCC_AHBENR_ADC1EN);
+    *(uint32_t *)0x49000050 |= 0x000C0000; 
+    ADC1->CR3 |= BIT1;
+    while((ADC1->CR3 & BIT1) == BIT1);
+    RCC_Disable_AHBClock(RCC_AHBENR_ADC1EN);
 
 
 

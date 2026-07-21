@@ -711,7 +711,7 @@ void MCSQ_PWM_Freq_Switch(ST_PWM_CONTROL* pPWM_CTRL)
             {
                 pPWM_CTRL->PWM_Freq_Flag = 1U;
                 pPWM_CTRL->_O_Q32U_PWMCount_Set = pPWM_CTRL->_P_Q32U_High_PWMCount;
-            }       
+            }
         }
         else
         {

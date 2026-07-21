@@ -37,13 +37,13 @@
 
 //电机静止检测  
 #define BOOT_CHECK_TL_lsb               (150U)                      //电机静止检测反电动势阈值
-#define BOOT_CHECK_COUNT                (10U)                       //电机静止检测判断次数
+#define BOOT_CHECK_COUNT                (20U)                       //电机静止检测判断次数
 #define BOOT_CHECK_DUTY                 (Q14I_DUTY_TO_PU(0.500f))   //电机静止检测占空比
 
 
 //脉冲定位 
-#define POSITION_DUTY                   (Q14I_DUTY_TO_PU(0.500f))   //1kHz，脉冲定位占空比
-#define POSITION_TL_lsb                 (1000U)                     //脉冲定位是否成功判断阈值
+#define POSITION_DUTY                   (Q14I_DUTY_TO_PU(0.150f))   //1kHz，脉冲定位占空比
+#define POSITION_TL_lsb                 (100U)                     //脉冲定位是否成功判断阈值
 
 
 //滤波器系数
@@ -53,10 +53,10 @@
 
 
 //换向系数
-#define DIAG_CROSS_RISE_TL              (14000U)                    //0~16384
-#define DIAG_CROSS_FALL_TL              (2384U)                     //0~16384
-#define FLUX_CROSS_RISE_TL              (8192U)                     //0~16384
-#define FLUX_CROSS_FALL_TL              (8192U)                     //0~16384
+#define DIAG_CROSS_RISE_TL              (Q32I_)(0.8000f * MOTOR_Q14_PU)     //0~16384
+#define DIAG_CROSS_FALL_TL              (Q32I_)(0.2000f * MOTOR_Q14_PU)     //0~16384
+#define FLUX_CROSS_RISE_TL              (Q32I_)(0.5000f * MOTOR_Q14_PU)     //0~16384
+#define FLUX_CROSS_FALL_TL              (Q32I_)(0.5000f * MOTOR_Q14_PU)     //0~16384
 
 #define DIAG_CROSS_FILTER               (2U)                        //滤波次数
 #define FLUX_CROSS_FILTER               (2U)                        //滤波次数
@@ -77,7 +77,7 @@
 #define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
 #define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
 #define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(30.0f*HAL_PWM_RUN1_FREQ/1000.0f))     //30us
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(50.0f*HAL_PWM_RUN1_FREQ/1000.0f))     //50us
 #define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q14I_DUTY_TO_PU(40.0f*HAL_PWM_RUN2_FREQ/1000.0f))     //40us
 
 
@@ -90,11 +90,11 @@
 
 
 //转速PID
-#define FREQ_RAMP_ADDSTEP               ( Q28I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
-#define FREQ_RAMP_SUBSTEP               (-Q28I_FREQ_TO_PU(0.005f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_ADDSTEP               ( Q28I_FREQ_TO_PU(0.0001f * MOTOR_MAX_FREQ))
+#define FREQ_RAMP_SUBSTEP               (-Q28I_FREQ_TO_PU(0.0001f * MOTOR_MAX_FREQ))
 
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
-#define FREQ_PID_KI                     (Q32I_)(0.0050f * MOTOR_Q14_PU)
+#define FREQ_PID_KI                     (Q32I_)(0.0010f * MOTOR_Q14_PU)
 #define FREQ_PID_KD                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
 #define FREQ_PID_STEPMAX                ( Q28I_DUTY_TO_PU(0.010f))
 #define FREQ_PID_STEPMIN                (-Q28I_DUTY_TO_PU(0.010f))
@@ -133,12 +133,12 @@
 //刹车时间
 #define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
 #define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (200U)              //ms，第3段短接刹车
+#define SHORT_BRAKE_TIME                (0U)                //ms，第3段短接刹车
 
 
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
-#define MOTOR_STALL_ERROR_TIME          (2000U) //ms，堵转时间
+#define MOTOR_STALL_ERROR_TIME          (35U)  //ms，堵转时间
 
 
 typedef enum{
@@ -170,6 +170,8 @@ typedef struct{
 }ST_MOTOR_TASK;
 
 
+typedef void(*pMOTOR_FUN)(ST_MOTOR_TASK*);
+typedef void(*pMOTOR_API)(ST_MOTOR_TASK*, float);
 extern ST_MOTOR_TASK  Motor;
 
 

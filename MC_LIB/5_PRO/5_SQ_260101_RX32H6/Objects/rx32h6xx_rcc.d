@@ -1,0 +1,10 @@
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\01_STD\011_SRC\rx32h6xx_rcc.c
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\001_INC\rx32h6xx.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\000_CORE\core_cm0.h
+.\objects\rx32h6xx_rcc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\000_CORE\cmsis_version.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\000_CORE\cmsis_compiler.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\000_CORE\cmsis_armcc.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\00_DEVICE\004_SYSTEM\system_rx32h6xx.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\01_STD\010_INC\rx32h6xx_rcc.h
+.\objects\rx32h6xx_rcc.o: ..\..\0_MCU\0_RX32H6\01_STD\010_INC\rx32h6xx_flash.h

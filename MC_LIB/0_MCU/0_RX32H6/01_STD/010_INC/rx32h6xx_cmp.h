@@ -92,8 +92,8 @@ extern "C" {
 
 
 #define CMP_CxCR_POL               ((uint32_t)0x00008000)
-#define CMP_CxCR_POL_Positive   	 ((uint32_t)0x00000000) 
-#define CMP_CxCR_POL_Negative    	 ((uint32_t)0x00008000) 
+#define CMP_CxCR_POL_Positive        ((uint32_t)0x00000000) 
+#define CMP_CxCR_POL_Negative         ((uint32_t)0x00008000) 
 
 #define CMP_CxCR_RHYST             ((uint32_t)0x00030000)
 #define CMP_CxCR_RHYST_0mV         ((uint32_t)0x00000000)
@@ -130,12 +130,12 @@ extern "C" {
 #define CMP_CxCR_LIF               ((uint32_t)0x20000000)
 
 #define CMP_CxCR_OUT               ((uint32_t)0x40000000)
-#define CMP_CxCR_OUT_Low        	 ((uint32_t)0x00000000) 
-#define CMP_CxCR_OUT_High       	 ((uint32_t)0x40000000) 
+#define CMP_CxCR_OUT_Low             ((uint32_t)0x00000000) 
+#define CMP_CxCR_OUT_High            ((uint32_t)0x40000000) 
 
 #define CMP_CxCR_LOCK              ((uint32_t)0x80000000)
-#define CMP_CxCR_LOCK_RW         	 ((uint32_t)0x00000000) 
-#define CMP_CxCR_LOCK_R         	 ((uint32_t)0x80000000) 
+#define CMP_CxCR_LOCK_RW              ((uint32_t)0x00000000) 
+#define CMP_CxCR_LOCK_R              ((uint32_t)0x80000000) 
 
 #define CMP_RGxCAL_PADJ                ((uint32_t)0x0000000F)
 #define CMP_RGxCAL_PEN                 ((uint32_t)0x00000010)
@@ -197,36 +197,36 @@ extern "C" {
   */
 typedef struct
 {
-	uint32_t Pol;	    /** @arg CMP_CxCR_POL_Positive
+    uint32_t Pol;        /** @arg CMP_CxCR_POL_Positive
                         @arg CMP_CxCR_POL_Negative ********/
-	uint32_t Rhyst;   /** @arg CMP_CxCR_RHYST_0mV
+    uint32_t Rhyst;   /** @arg CMP_CxCR_RHYST_0mV
                         @arg CMP_CxCR_RHYST_20mV
                         @arg CMP_CxCR_RHYST_40mV
                         @arg CMP_CxCR_RHYST_60mV ********/
-	uint32_t Fhyst;   /** @arg CMP_CxCR_FHYST_0mV
+    uint32_t Fhyst;   /** @arg CMP_CxCR_FHYST_0mV
                         @arg CMP_CxCR_FHYST_20mV
                         @arg CMP_CxCR_FHYST_40mV
                         @arg CMP_CxCR_FHYST_60mV ********/
-	uint32_t INP_Sel; /** @arg CMP_INP_SEL_P1           
-						            @arg CMP_INP_SEL_P2           
-	                      @arg CMP_INP_SEL_P3_CMP1      
-	                      @arg CMP_INP_SEL_OPA2_out_CMP2
-	                      @arg CMP_INP_SEL_OPA1_out_CMP1
-	                      @arg CMP_INP_SEL_OPA3_out_CMP2********/
-	uint32_t INM_Sel; /** @arg CMP_INM_SEL_N1 
-						            @arg CMP_INM_SEL_N2 
-	                      @arg CMP_INM_SEL_N3 
+    uint32_t INP_Sel; /** @arg CMP_INP_SEL_P1           
+                                    @arg CMP_INP_SEL_P2           
+                          @arg CMP_INP_SEL_P3_CMP1      
+                          @arg CMP_INP_SEL_OPA2_out_CMP2
+                          @arg CMP_INP_SEL_OPA1_out_CMP1
+                          @arg CMP_INP_SEL_OPA3_out_CMP2********/
+    uint32_t INM_Sel; /** @arg CMP_INM_SEL_N1 
+                                    @arg CMP_INM_SEL_N2 
+                          @arg CMP_INM_SEL_N3 
                         @arg CMP_INM_SEL_SRN_Center
                         @arg CMP_INM_SEL_CRV********/
-  uint32_t OFLT;		/** @arg CMP_CxCR_OFLT_DIV1    
-						            @arg CMP_CxCR_OFLT_DIV32   
-	                      @arg CMP_CxCR_OFLT_DIV64   
+  uint32_t OFLT;        /** @arg CMP_CxCR_OFLT_DIV1    
+                                    @arg CMP_CxCR_OFLT_DIV32   
+                          @arg CMP_CxCR_OFLT_DIV64   
                         @arg CMP_CxCR_OFLT_DIV128  
-                        @arg CMP_CxCR_OFLT_DIV256  						
+                        @arg CMP_CxCR_OFLT_DIV256                          
                         @arg CMP_CxCR_OFLT_DIV512  
                         @arg CMP_CxCR_OFLT_DIV1024 
                         @arg CMP_CxCR_OFLT_DIV2048 ********/
- 	uint32_t CRV_SEL; /**  @arg CMP_CRV_SEL_1_32 
+     uint32_t CRV_SEL; /**  @arg CMP_CRV_SEL_1_32 
                          @arg CMP_CRV_SEL_2_32 
                          @arg CMP_CRV_SEL_3_32 
                          @arg CMP_CRV_SEL_4_32 
@@ -241,30 +241,30 @@ typedef struct
                          @arg CMP_CRV_SEL_13_32
                          @arg CMP_CRV_SEL_14_32
                          @arg CMP_CRV_SEL_15_32 
-					               @arg CMP_CRV_SEL_16_32
-					               @arg CMP_CRV_SEL_17_32
-					               @arg CMP_CRV_SEL_18_32
-					               @arg CMP_CRV_SEL_19_32
-					               @arg CMP_CRV_SEL_20_32
-					               @arg CMP_CRV_SEL_21_32
-					               @arg CMP_CRV_SEL_22_32
-					               @arg CMP_CRV_SEL_23_32
-					               @arg CMP_CRV_SEL_24_32
-					               @arg CMP_CRV_SEL_25_32
-					               @arg CMP_CRV_SEL_26_32
-					               @arg CMP_CRV_SEL_27_32
-					               @arg CMP_CRV_SEL_28_32
-					               @arg CMP_CRV_SEL_29_32
-					               @arg CMP_CRV_SEL_30_32
-					               @arg CMP_CRV_SEL_31_32
+                                   @arg CMP_CRV_SEL_16_32
+                                   @arg CMP_CRV_SEL_17_32
+                                   @arg CMP_CRV_SEL_18_32
+                                   @arg CMP_CRV_SEL_19_32
+                                   @arg CMP_CRV_SEL_20_32
+                                   @arg CMP_CRV_SEL_21_32
+                                   @arg CMP_CRV_SEL_22_32
+                                   @arg CMP_CRV_SEL_23_32
+                                   @arg CMP_CRV_SEL_24_32
+                                   @arg CMP_CRV_SEL_25_32
+                                   @arg CMP_CRV_SEL_26_32
+                                   @arg CMP_CRV_SEL_27_32
+                                   @arg CMP_CRV_SEL_28_32
+                                   @arg CMP_CRV_SEL_29_32
+                                   @arg CMP_CRV_SEL_30_32
+                                   @arg CMP_CRV_SEL_31_32
                          @arg CMP_CRV_SEL_32_32********/
-	FunctionalState CRV_En;	  /** @arg ENABLE
-								                @arg DISABLE ********/
-	uint32_t CRV_Src;         /** @arg CRV_VREFBUF
-		                            @arg VBG(1V)********/
+    FunctionalState CRV_En;      /** @arg ENABLE
+                                                @arg DISABLE ********/
+    uint32_t CRV_Src;         /** @arg CRV_VREFBUF
+                                    @arg VBG(1V)********/
                         
-	uint32_t CR1_SRN;         /** @arg ENABLE
-								                @arg DISABLE ********/          
+    uint32_t CR1_SRN;         /** @arg ENABLE
+                                                @arg DISABLE ********/          
  }CMP_InitTypeDef;  
 
 /**
@@ -276,7 +276,7 @@ typedef struct
   */
 __STATIC_INLINE void CMP_Enable(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CR,CMP_CxCR_EN);     
+    SET_BIT(COMPx->CR,CMP_CxCR_EN);     
 }
 
 /**
@@ -288,7 +288,7 @@ __STATIC_INLINE void CMP_Enable(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CR,CMP_CxCR_EN);  
+    CLEAR_BIT(COMPx->CR,CMP_CxCR_EN);  
 }
 
 /**
@@ -369,7 +369,7 @@ __STATIC_INLINE void CMP_Enable_CR2Lock(void)
   */
 __STATIC_INLINE void CMP_Enable_IT(COMP_TypeDef *COMPx, uint32_t IT)
 {
-	SET_BIT(COMPx->CR, IT );
+    SET_BIT(COMPx->CR, IT );
 }
 
 /**
@@ -388,7 +388,7 @@ __STATIC_INLINE void CMP_Enable_IT(COMP_TypeDef *COMPx, uint32_t IT)
   */
 __STATIC_INLINE void CMP_Disable_IT(COMP_TypeDef *COMPx, uint32_t IT)
 {
-	CLEAR_BIT(COMPx->CR, IT );
+    CLEAR_BIT(COMPx->CR, IT );
 }
 
 /**
@@ -407,7 +407,7 @@ __STATIC_INLINE void CMP_Disable_IT(COMP_TypeDef *COMPx, uint32_t IT)
   */
 __STATIC_INLINE void CMP_Clear_Flag(COMP_TypeDef *COMPx, uint32_t Flag)
 {
-	CLEAR_BIT(COMPx->CR, Flag);
+    CLEAR_BIT(COMPx->CR, Flag);
 }
 
 /**
@@ -584,7 +584,7 @@ __STATIC_INLINE uint32_t CMP_Get_NADJ_DATA(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_CALP(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CAL,CMP_RGxCAL_PEN);      
+    SET_BIT(COMPx->CAL,CMP_RGxCAL_PEN);      
 }
 
 /**
@@ -596,7 +596,7 @@ __STATIC_INLINE void CMP_Enable_CALP(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable_CALP(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CAL,CMP_RGxCAL_PEN); 
+    CLEAR_BIT(COMPx->CAL,CMP_RGxCAL_PEN); 
 }
 
 /**
@@ -608,7 +608,7 @@ __STATIC_INLINE void CMP_Disable_CALP(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_CALN(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CAL,CMP_RGxCAL_NEN);      
+    SET_BIT(COMPx->CAL,CMP_RGxCAL_NEN);      
 }
 
 /**
@@ -620,7 +620,7 @@ __STATIC_INLINE void CMP_Enable_CALN(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable_CALN(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CAL,CMP_RGxCAL_NEN); 
+    CLEAR_BIT(COMPx->CAL,CMP_RGxCAL_NEN); 
 }
 
 /**
@@ -632,7 +632,7 @@ __STATIC_INLINE void CMP_Disable_CALN(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_CHBLANK(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CR,CMP_CxCR_CH_EN);     
+    SET_BIT(COMPx->CR,CMP_CxCR_CH_EN);     
 }
 
 /**
@@ -644,7 +644,7 @@ __STATIC_INLINE void CMP_Enable_CHBLANK(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable_CHBLANK(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_EN);  
+    CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_EN);  
 }
 
 /**
@@ -659,7 +659,7 @@ __STATIC_INLINE void CMP_Disable_CHBLANK(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_BAS(COMP_TypeDef *COMPx,uint32_t bas_select)
 {
-	SET_BIT(COMPx->CR,bas_select);     
+    SET_BIT(COMPx->CR,bas_select);     
 }
 
 
@@ -671,7 +671,7 @@ __STATIC_INLINE void CMP_Enable_BAS(COMP_TypeDef *COMPx,uint32_t bas_select)
   */
 __STATIC_INLINE void CMP_Enable_SRNBAS(void)
 {
-	SET_BIT(COMP->CR1,CMP_CR1_SRN_BAS_EN);     
+    SET_BIT(COMP->CR1,CMP_CR1_SRN_BAS_EN);     
 }
 
 
@@ -683,7 +683,7 @@ __STATIC_INLINE void CMP_Enable_SRNBAS(void)
   */
 __STATIC_INLINE void CMP_Enable_CRVBAS(void )
 {
-	SET_BIT(COMP->CR2,CMP_CRV_BAS_EN);     
+    SET_BIT(COMP->CR2,CMP_CRV_BAS_EN);     
 }
 
 /**
@@ -698,7 +698,7 @@ __STATIC_INLINE void CMP_Enable_CRVBAS(void )
   */
 __STATIC_INLINE void CMP_Disable_BAS(COMP_TypeDef *COMPx,uint32_t bas_select)
 {
-	CLEAR_BIT(COMPx->CR,bas_select);  
+    CLEAR_BIT(COMPx->CR,bas_select);  
 }
 
 
@@ -710,7 +710,7 @@ __STATIC_INLINE void CMP_Disable_BAS(COMP_TypeDef *COMPx,uint32_t bas_select)
   */
 __STATIC_INLINE void CMP_Disable_SRNBAS(void)
 {
-	CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_BAS_EN);     
+    CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_BAS_EN);     
 }
 
 
@@ -722,7 +722,7 @@ __STATIC_INLINE void CMP_Disable_SRNBAS(void)
   */
 __STATIC_INLINE void CMP_Disable_CRVBAS(void )
 {
-	CLEAR_BIT(COMP->CR2,CMP_CRV_BAS_EN);     
+    CLEAR_BIT(COMP->CR2,CMP_CRV_BAS_EN);     
 }
 
 /**
@@ -734,7 +734,7 @@ __STATIC_INLINE void CMP_Disable_CRVBAS(void )
   */
 __STATIC_INLINE void CMP_Enable_CHDIS(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CR,CMP_CxCR_CH_DIS);     
+    SET_BIT(COMPx->CR,CMP_CxCR_CH_DIS);     
 }
 
 /**
@@ -746,7 +746,7 @@ __STATIC_INLINE void CMP_Enable_CHDIS(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable_CHDIS(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_DIS);  
+    CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_DIS);  
 }
 
 /**
@@ -758,7 +758,7 @@ __STATIC_INLINE void CMP_Disable_CHDIS(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_CHDISBLK(COMP_TypeDef *COMPx)
 {
-	SET_BIT(COMPx->CR,CMP_CxCR_CH_DIS_BLANKING);     
+    SET_BIT(COMPx->CR,CMP_CxCR_CH_DIS_BLANKING);     
 }
 
 /**
@@ -770,7 +770,7 @@ __STATIC_INLINE void CMP_Enable_CHDISBLK(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Disable_CHDISBLK(COMP_TypeDef *COMPx)
 {
-	CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_DIS_BLANKING);  
+    CLEAR_BIT(COMPx->CR,CMP_CxCR_CH_DIS_BLANKING);  
 }
 
 /**
@@ -782,7 +782,7 @@ __STATIC_INLINE void CMP_Disable_CHDISBLK(COMP_TypeDef *COMPx)
   */
 __STATIC_INLINE void CMP_Enable_SRN(void)
 {
-	SET_BIT(COMP->CR1,CMP_CR1_SRN_EN);     
+    SET_BIT(COMP->CR1,CMP_CR1_SRN_EN);     
 }
 
 /**
@@ -794,7 +794,7 @@ __STATIC_INLINE void CMP_Enable_SRN(void)
   */
 __STATIC_INLINE void CMP_Disable_SRN(void)
 {
-	CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_EN);     
+    CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_EN);     
 }
 
 /**
@@ -806,7 +806,7 @@ __STATIC_INLINE void CMP_Disable_SRN(void)
   */
 __STATIC_INLINE void CMP_Enable_SRNdout(void)
 {
-	SET_BIT(COMP->CR1,CMP_CR1_SRN_Dout);     
+    SET_BIT(COMP->CR1,CMP_CR1_SRN_Dout);     
 }
 
 /**
@@ -818,7 +818,7 @@ __STATIC_INLINE void CMP_Enable_SRNdout(void)
   */
 __STATIC_INLINE void CMP_Disable_SRNdout(void)
 {
-	CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_Dout);     
+    CLEAR_BIT(COMP->CR1,CMP_CR1_SRN_Dout);     
 }
 
 /**
@@ -830,7 +830,7 @@ __STATIC_INLINE void CMP_Disable_SRNdout(void)
   */
 __STATIC_INLINE void CMP_Enable_CRV(void)
 {
-	SET_BIT(COMP->CR2,CMP_CR2_CRV_EN);     
+    SET_BIT(COMP->CR2,CMP_CR2_CRV_EN);     
 }
 
 /**
@@ -842,7 +842,7 @@ __STATIC_INLINE void CMP_Enable_CRV(void)
   */
 __STATIC_INLINE void CMP_Disable_CRV(void)
 {
-	CLEAR_BIT(COMP->CR2,CMP_CR2_CRV_EN);     
+    CLEAR_BIT(COMP->CR2,CMP_CR2_CRV_EN);     
 }
 
 /**
@@ -886,7 +886,7 @@ __STATIC_INLINE void CMP_Disable_CRV(void)
   */
 __STATIC_INLINE void CMP_Set_CRV1SEL(uint32_t val)
 {
-	MODIFY_REG(COMP->CR2,  CMP_CR2_CRV_SEL , val );
+    MODIFY_REG(COMP->CR2,  CMP_CR2_CRV_SEL , val );
 }
 
 /**
@@ -930,7 +930,7 @@ __STATIC_INLINE void CMP_Set_CRV1SEL(uint32_t val)
   */
 __STATIC_INLINE void CMP_Set_CRV2SEL(uint32_t val)
 {
-	MODIFY_REG(COMP->CR2,  CMP_CR2_CRV_SEL << 5 , val << 5);
+    MODIFY_REG(COMP->CR2,  CMP_CR2_CRV_SEL << 5 , val << 5);
 }
  
  

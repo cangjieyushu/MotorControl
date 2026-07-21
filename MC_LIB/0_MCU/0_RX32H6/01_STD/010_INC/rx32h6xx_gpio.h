@@ -81,7 +81,7 @@ typedef struct
 #define GPIO_PIN_5                 (BIT5)     /*!< Pin 5 selected    */
 #define GPIO_PIN_6                 (BIT6)     /*!< Pin 6 selected    */
 #define GPIO_PIN_7                 (BIT7)     /*!< Pin 7 selected    */                                   /*!< Select all pins */
-#define GPIO_PIN_ALL               (0xFF) 		/*!< Pin ALL selected   */                                      /*!< Select all pins */
+#define GPIO_PIN_ALL               (0xFF)         /*!< Pin ALL selected   */                                      /*!< Select all pins */
 
 /******************************************************************************/
 /*                                                                            */
@@ -112,15 +112,15 @@ typedef struct
 #define GPIO_OSPEEDR                           0x00000003
 #define GPIO_OSPEEDR_Low                       0x00000000
 #define GPIO_OSPEEDR_Medium                    0x00000001
-#define GPIO_OSPEEDR_High                   	 0x00000002
+#define GPIO_OSPEEDR_High                        0x00000002
 #define GPIO_OSPEEDR_VeryHigh                  0x00000003
 
 /*!<******************  Bit definition for GPIO_PUPDR register  *******************/
 #define GPIO_PUPDR                             0x00000003
-#define GPIO_PUPDR_Floating 			             0x00000000
-#define GPIO_PUPDR_Pullup             			   0x00000001
-#define GPIO_PUPDR_Pulldown          			     0x00000002
-#define GPIO_PUPDR_reserved           			   0x00000003
+#define GPIO_PUPDR_Floating                          0x00000000
+#define GPIO_PUPDR_Pullup                            0x00000001
+#define GPIO_PUPDR_Pulldown                           0x00000002
+#define GPIO_PUPDR_reserved                          0x00000003
 
 /*!<******************  Bit definition for GPIO_IDR register  *******************/
 #define GPIO_IDR                               0x000000FF
@@ -179,35 +179,35 @@ typedef struct
 
 /*!<******************  Bit definition for GPIO_AFRL register  *******************/
 #define GPIO_AFRL                              0x0000000F
-#define GPIO_AF0                        			 0x00000000
-#define GPIO_AF1                       				 0x00000001
-#define GPIO_AF2                        			 0x00000002
-#define GPIO_AF3                          		 0x00000003
-#define GPIO_AF4                        			 0x00000004
-#define GPIO_AF5                         			 0x00000005
-#define GPIO_AF6                      				 0x00000006
-#define GPIO_AF7                       				 0x00000007
+#define GPIO_AF0                                     0x00000000
+#define GPIO_AF1                                        0x00000001
+#define GPIO_AF2                                     0x00000002
+#define GPIO_AF3                                   0x00000003
+#define GPIO_AF4                                     0x00000004
+#define GPIO_AF5                                      0x00000005
+#define GPIO_AF6                                       0x00000006
+#define GPIO_AF7                                        0x00000007
 
 /*!<******************  Bit definition for AFIO register  *******************/
 /** @defgroup GPIO_EC_EXTI_PORT GPIO EXTI PORT
   * @{
   */
-#define GPIO_AF_EXTI_PORTA          					 0U   /*!< EXTI PORT A */
-#define GPIO_AF_EXTI_PORTB           					 1U   /*!< EXTI PORT B */
-#define GPIO_AF_EXTI_PORTC          				   2U   /*!< EXTI PORT C */
-#define GPIO_AF_EXTI_PORTD           				   3U   /*!< EXTI PORT D */
+#define GPIO_AF_EXTI_PORTA                               0U   /*!< EXTI PORT A */
+#define GPIO_AF_EXTI_PORTB                                1U   /*!< EXTI PORT B */
+#define GPIO_AF_EXTI_PORTC                             2U   /*!< EXTI PORT C */
+#define GPIO_AF_EXTI_PORTD                              3U   /*!< EXTI PORT D */
 
 /** @defgroup GPIO_EC_EXTI_LINE GPIO EXTI LINE
   * @{
   */
-#define GPIO_AF_EXTI_LINE0        				    (0x000FU << 16U | 0U)  /*!< EXTI_POSITION_0  | EXTICR[0] */
-#define GPIO_AF_EXTI_LINE1         				    (0x00F0U << 16U | 0U)  /*!< EXTI_POSITION_4  | EXTICR[0] */
-#define GPIO_AF_EXTI_LINE2          				  (0x0F00U << 16U | 0U)  /*!< EXTI_POSITION_8  | EXTICR[0] */
-#define GPIO_AF_EXTI_LINE3          				  (0xF000U << 16U | 0U)  /*!< EXTI_POSITION_12 | EXTICR[0] */
-#define GPIO_AF_EXTI_LINE4          				  (0x000FU << 16U | 1U)  /*!< EXTI_POSITION_0  | EXTICR[1] */
-#define GPIO_AF_EXTI_LINE5           				  (0x00F0U << 16U | 1U)  /*!< EXTI_POSITION_4  | EXTICR[1] */
-#define GPIO_AF_EXTI_LINE6           				  (0x0F00U << 16U | 1U)  /*!< EXTI_POSITION_8  | EXTICR[1] */
-#define GPIO_AF_EXTI_LINE7          				  (0xF000U << 16U | 1U)  /*!< EXTI_POSITION_12 | EXTICR[1] */
+#define GPIO_AF_EXTI_LINE0                            (0x000FU << 16U | 0U)  /*!< EXTI_POSITION_0  | EXTICR[0] */
+#define GPIO_AF_EXTI_LINE1                             (0x00F0U << 16U | 0U)  /*!< EXTI_POSITION_4  | EXTICR[0] */
+#define GPIO_AF_EXTI_LINE2                            (0x0F00U << 16U | 0U)  /*!< EXTI_POSITION_8  | EXTICR[0] */
+#define GPIO_AF_EXTI_LINE3                            (0xF000U << 16U | 0U)  /*!< EXTI_POSITION_12 | EXTICR[0] */
+#define GPIO_AF_EXTI_LINE4                            (0x000FU << 16U | 1U)  /*!< EXTI_POSITION_0  | EXTICR[1] */
+#define GPIO_AF_EXTI_LINE5                             (0x00F0U << 16U | 1U)  /*!< EXTI_POSITION_4  | EXTICR[1] */
+#define GPIO_AF_EXTI_LINE6                             (0x0F00U << 16U | 1U)  /*!< EXTI_POSITION_8  | EXTICR[1] */
+#define GPIO_AF_EXTI_LINE7                            (0xF000U << 16U | 1U)  /*!< EXTI_POSITION_12 | EXTICR[1] */
 
 /**
   * @brief  Configure gpio mode for a dedicated pin on dedicated port.
@@ -215,10 +215,10 @@ typedef struct
   * @note   Warning: only one pin can be passed as parameter.
   * @rmtoll MODER        MODEy         GPIO_Set_PinMode
   * @param  GPIOx GPIO Port
-	*         @arg @ref  GPIOA
-	*         @arg @ref  GPIOB
-	*         @arg @ref  GPIOC
-	*         @arg @ref  GPIOD
+    *         @arg @ref  GPIOA
+    *         @arg @ref  GPIOB
+    *         @arg @ref  GPIOC
+    *         @arg @ref  GPIOD
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref  GPIO_PIN_0
   *         @arg @ref  GPIO_PIN_1
@@ -248,9 +248,9 @@ __STATIC_INLINE void GPIO_Set_PinMode(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_
   * @rmtoll MODER        MODEy         GPIO_Get_PinMode
   * @param  GPIOx GPIO Port
   *         @arg @ref  GPIOA
-	*         @arg @ref  GPIOB
-	*         @arg @ref  GPIOC
-	*         @arg @ref  GPIOD
+    *         @arg @ref  GPIOB
+    *         @arg @ref  GPIOC
+    *         @arg @ref  GPIOD
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref  GPIO_PIN_0
   *         @arg @ref  GPIO_PIN_1
@@ -286,7 +286,7 @@ __STATIC_INLINE uint32_t GPIO_Get_PinMode(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @param  OutputType This parameter can be one of the following values:
   *         @arg @ref GPIO_OTYPER_OUT_Pushpull
   *         @arg @ref GPIO_OTYPER_OUT_Opendrain
@@ -313,7 +313,7 @@ __STATIC_INLINE void GPIO_Set_PinOutputType(GPIO_TypeDef *GPIOx, uint32_t Pin, u
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval Returned value can be one of the following values:
   *         @arg @ref GPIO_OTYPER_OUT_Pushpull
   *         @arg @ref GPIO_OTYPER_OUT_Opendrain
@@ -343,7 +343,7 @@ __STATIC_INLINE uint32_t GPIO_Get_PinOutputType(GPIO_TypeDef *GPIOx, uint32_t Pi
   *         @arg @ref GPIO_OSPEEDR_Low
   *         @arg @ref GPIO_OSPEEDR_Medium
   *         @arg @ref GPIO_OSPEEDR_High  
-  *         @arg @ref GPIO_OSPEEDR_VeryHigh	
+  *         @arg @ref GPIO_OSPEEDR_VeryHigh    
   * @retval None
   */
 __STATIC_INLINE void GPIO_Set_PinOutSpeed(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t  Speed)
@@ -372,7 +372,7 @@ __STATIC_INLINE void GPIO_Set_PinOutSpeed(GPIO_TypeDef *GPIOx, uint32_t Pin, uin
   *         @arg @ref GPIO_OSPEEDR_Low
   *         @arg @ref GPIO_OSPEEDR_Medium
   *         @arg @ref GPIO_OSPEEDR_High
-  *         @arg @ref GPIO_OSPEEDR_VeryHigh		
+  *         @arg @ref GPIO_OSPEEDR_VeryHigh        
   */
 __STATIC_INLINE uint32_t GPIO_Get_PinOutSpeed(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
@@ -396,7 +396,7 @@ __STATIC_INLINE uint32_t GPIO_Get_PinOutSpeed(GPIO_TypeDef *GPIOx, uint32_t Pin)
   * @param  Pull This parameter can be one of the following values:
   *         @arg @ref GPIO_PUPDR_Floating
   *         @arg @ref GPIO_PUPDR_Pullup
-  *         @arg @ref GPIO_PUPDR_Pulldown	
+  *         @arg @ref GPIO_PUPDR_Pulldown    
   * @retval None
   */
 __STATIC_INLINE void GPIO_Set_PinPull(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Pull)
@@ -452,7 +452,7 @@ __STATIC_INLINE uint32_t GPIO_Read_InputPort(GPIO_TypeDef *GPIOx)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t GPIO_Read_PinIDR(GPIO_TypeDef *GPIOx, uint32_t Pin)
@@ -473,7 +473,7 @@ __STATIC_INLINE uint32_t GPIO_Read_PinIDR(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_Write_ODR(GPIO_TypeDef *GPIOx, uint32_t Port)
@@ -525,12 +525,12 @@ __STATIC_INLINE uint32_t GPIO_Read_PinODR(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_Set_OutputPin(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
-#if !defined( BSRR_u8 ) && !defined( BSRR_u16 ) && !defined( BSRR_u32 )	
+#if !defined( BSRR_u8 ) && !defined( BSRR_u16 ) && !defined( BSRR_u32 )    
   WRITE_REG(GPIOx->BSRR, Pin);
 #endif
 }
@@ -547,12 +547,12 @@ __STATIC_INLINE void GPIO_Set_OutputPin(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_Reset_OutputPin(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
-#if !defined( BSRR_u8 ) && !defined( BSRR_u16 ) && !defined( BSRR_u32 )		
+#if !defined( BSRR_u8 ) && !defined( BSRR_u16 ) && !defined( BSRR_u32 )        
   WRITE_REG(GPIOx->BSRR, Pin<<16U);
 #endif
 }
@@ -570,7 +570,7 @@ __STATIC_INLINE void GPIO_Reset_OutputPin(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_Toggle_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin)
@@ -596,7 +596,7 @@ __STATIC_INLINE void GPIO_Toggle_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_Lock_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin)
@@ -628,30 +628,30 @@ __STATIC_INLINE void GPIO_Lock_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin)
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval None
   */
 __STATIC_INLINE void GPIO_ErrorLock_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin,char error_rankx)
 {
   __IO uint32_t temp;
-	if(error_rankx==1) //ERR 1
-	{
-		WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
-		WRITE_REG(GPIOx->LCKR, (uint32_t)0x00000000);//write LCKK=0,LCKy=0
-		WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
-		temp = READ_REG(GPIOx->LCKR);                //read
-		(void) temp;
-	}
-	else if(error_rankx==2) //ERR 2
-	{
-		WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
-		temp = READ_REG(GPIOx->LCKR);                //read
-		WRITE_REG(GPIOx->LCKR, Pin);                 //write LCKK=0,LCKy=1
-		temp = READ_REG(GPIOx->LCKR);                //read
-		WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
-		temp = READ_REG(GPIOx->LCKR);                //read
-		(void) temp;
-	}
+    if(error_rankx==1) //ERR 1
+    {
+        WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
+        WRITE_REG(GPIOx->LCKR, (uint32_t)0x00000000);//write LCKK=0,LCKy=0
+        WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
+        temp = READ_REG(GPIOx->LCKR);                //read
+        (void) temp;
+    }
+    else if(error_rankx==2) //ERR 2
+    {
+        WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
+        temp = READ_REG(GPIOx->LCKR);                //read
+        WRITE_REG(GPIOx->LCKR, Pin);                 //write LCKK=0,LCKy=1
+        temp = READ_REG(GPIOx->LCKR);                //read
+        WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | Pin);//write LCKK=1,LCKy=1
+        temp = READ_REG(GPIOx->LCKR);                //read
+        (void) temp;
+    }
 }
 
 /**
@@ -667,7 +667,7 @@ __STATIC_INLINE void GPIO_ErrorLock_Pin(GPIO_TypeDef *GPIOx, uint32_t Pin,char e
   *         @arg @ref  GPIO_PIN_5
   *         @arg @ref  GPIO_PIN_6
   *         @arg @ref  GPIO_PIN_7
-	*         @arg @ref  GPIO_PIN_ALL
+    *         @arg @ref  GPIO_PIN_ALL
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t GPIO_Get_PinLocked(GPIO_TypeDef *GPIOx, uint32_t Pin)
@@ -714,7 +714,7 @@ __STATIC_INLINE uint32_t GPIO_Get_AnyPinLocked(GPIO_TypeDef *GPIOx)
   */
 __STATIC_INLINE void GPIO_Set_AF(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Alternate)
 {
-		MODIFY_REG(GPIOx->AFRL, (GPIO_AFRL << (POSITION_VAL(Pin) * 4U)),(Alternate << (POSITION_VAL(Pin) * 4U)));
+        MODIFY_REG(GPIOx->AFRL, (GPIO_AFRL << (POSITION_VAL(Pin) * 4U)),(Alternate << (POSITION_VAL(Pin) * 4U)));
 }
 /**
   * @brief  Return gpio alternate function of a dedicated pin from 0 to 15 for a dedicated port.
@@ -741,8 +741,8 @@ __STATIC_INLINE void GPIO_Set_AF(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Alt
   */
 __STATIC_INLINE uint32_t GPIO_Get_AF(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
-	uint32_t temp = 0;
-	temp = (uint32_t)(READ_BIT(GPIOx->AFRL,(GPIO_AFRL << (POSITION_VAL(Pin) * 4U))) >> (POSITION_VAL(Pin) * 4U));
+    uint32_t temp = 0;
+    temp = (uint32_t)(READ_BIT(GPIOx->AFRL,(GPIO_AFRL << (POSITION_VAL(Pin) * 4U))) >> (POSITION_VAL(Pin) * 4U));
   return temp;
 }
 

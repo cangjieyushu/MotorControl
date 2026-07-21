@@ -184,14 +184,14 @@ Author: CJYS
 ***********************************************************************************************/
 void UART1_IRQHandler(void)
 {
-	if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
-	{		
-		UART_Clear_Flag(UART1, UART_FLAG_RXNE);
+    if(UART_Get_Flag(UART1, UART_FLAG_RXNE)==1)
+    {        
+        UART_Clear_Flag(UART1, UART_FLAG_RXNE);
 //        USART_Resceive_Int_1();
-	}
-	else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
-	{
-		UART_Clear_Flag(UART1, UART_IT_TCIE);
+    }
+    else if(UART_Get_Flag(UART1, UART_FLAG_TXE)==1)
+    {
+        UART_Clear_Flag(UART1, UART_IT_TCIE);
 //        USART_Transmission_Int_1();
     }
 }
@@ -207,14 +207,14 @@ Author: CJYS
 ***********************************************************************************************/
 void UART2_IRQHandler()
 {
-	if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
-	{		
-		UART_Clear_Flag(UART2, UART_FLAG_RXNE);
+    if(UART_Get_Flag(UART2, UART_FLAG_RXNE)==1)
+    {        
+        UART_Clear_Flag(UART2, UART_FLAG_RXNE);
 //        USART_Resceive_Int_2();
-	}
-	else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
-	{
-		UART_Clear_Flag(UART2, UART_IT_TCIE);
+    }
+    else if(UART_Get_Flag(UART2, UART_IT_TCIE)==1)
+    {
+        UART_Clear_Flag(UART2, UART_IT_TCIE);
 //        USART_Transmission_Int_2();
     }
 }

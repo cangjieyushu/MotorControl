@@ -5,7 +5,9 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             按键控制源文件
 **************************************************************************************************/
+
 #include "BUTTON.h"
+
 
 ST_BUTTON_CONTROL Button_Ctrl = {
     .Q16U_vr_start_tl = VR_START_TL,
@@ -16,6 +18,7 @@ ST_BUTTON_CONTROL Button_Ctrl = {
     
     .Q16U_vr_duty_max = VR_MAX_DUTY,
 };
+
 
 /**********************************************************************************************
 Function: Button_Control
@@ -75,7 +78,7 @@ void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
     }
     
     pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
-	
+
 #elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
     Q32I_ VRtmp = 0U;
     

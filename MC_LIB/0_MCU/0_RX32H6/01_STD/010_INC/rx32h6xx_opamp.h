@@ -44,7 +44,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+    
 #include "rx32h6xx.h"
 #include "rx32h6xx_rcc.h"
 
@@ -55,7 +55,7 @@ extern "C" {
 */
 
 /**********************  Bit definition for OPAMPx register of OPAMP_TypeDef ***********************/
-#define  OPAMP_CSR                                      ((uint32_t)0xDFFFF9F3)	
+#define  OPAMP_CSR                                      ((uint32_t)0xDFFFF9F3)    
 #define  OPAMP_CSR_OPAEN                                ((uint32_t)0x00000001)
 #define  OPAMP_CSR_FORCEVP                              ((uint32_t)0x00000002)
 
@@ -81,9 +81,9 @@ extern "C" {
 #define  OPAMP_CSR_OUTCONNECT0                          ((uint32_t)0x00020000)
 #define  OPAMP_CSR_OUTCONNECT1                          ((uint32_t)0x00040000)
 
-#define  OPAMP_CSR_TOINT                          			((uint32_t)0x20000000)
-#define  OPAMP_CSR_TOINT_ENABLE	                  			((uint32_t)0x20000000)
-#define  OPAMP_CSR_TOINT_DISABLE	                  		((uint32_t)0x00000000)
+#define  OPAMP_CSR_TOINT                                      ((uint32_t)0x20000000)
+#define  OPAMP_CSR_TOINT_ENABLE                                  ((uint32_t)0x20000000)
+#define  OPAMP_CSR_TOINT_DISABLE                              ((uint32_t)0x00000000)
 
 #define  OPAMP_CSR_LOCK                                 ((uint32_t)0x80000000)
 
@@ -94,35 +94,35 @@ extern "C" {
 #define  OPAMP_BIAS_VOL_SEL_Vref                        ((uint32_t)0x00000004)
 #define  OPAMP_BIAS_VOL_SEL_VBG                         ((uint32_t)0x00000000)
 
-#define  OPAMP_BIAS_VBGINT															((uint32_t)0x00000008)
-#define  OPAMP_VBGINT_ENABLE														((uint32_t)0x00000008)												
-#define  OPAMP_VBGINT_DISABLE														((uint32_t)0x00000000)
+#define  OPAMP_BIAS_VBGINT                                                            ((uint32_t)0x00000008)
+#define  OPAMP_VBGINT_ENABLE                                                        ((uint32_t)0x00000008)                                                
+#define  OPAMP_VBGINT_DISABLE                                                        ((uint32_t)0x00000000)
 
-#define  OPAMP_VMSEL_NO_CONNECT 												((uint32_t)0x00000000)
-#define  OPAMP_VMSEL_VINM															  (                    OPAMP_CSR_VMSEL_0)
-#define  OPAMP_VMSEL_FOLLOW															(OPAMP_CSR_VMSEL_1                    )
-#define  OPAMP_VMSEL_VINN																(OPAMP_CSR_VMSEL_1 | OPAMP_CSR_VMSEL_0)     //only used for OPA3
+#define  OPAMP_VMSEL_NO_CONNECT                                                 ((uint32_t)0x00000000)
+#define  OPAMP_VMSEL_VINM                                                              (                    OPAMP_CSR_VMSEL_0)
+#define  OPAMP_VMSEL_FOLLOW                                                            (OPAMP_CSR_VMSEL_1                    )
+#define  OPAMP_VMSEL_VINN                                                                (OPAMP_CSR_VMSEL_1 | OPAMP_CSR_VMSEL_0)     //only used for OPA3
 
-#define  OPAMP_MODE_NO_CONNECT     											OPAMP_VMSEL_NO_CONNECT 											
-#define  OPAMP_MODE_PGA      														OPAMP_VMSEL_VINM															
-#define  OPAMP_MODE_FOLLOW     													OPAMP_VMSEL_FOLLOW														
-#define  OPAMP_MODE_OPA																	OPAMP_VMSEL_VINN		
+#define  OPAMP_MODE_NO_CONNECT                                                 OPAMP_VMSEL_NO_CONNECT                                             
+#define  OPAMP_MODE_PGA                                                              OPAMP_VMSEL_VINM                                                            
+#define  OPAMP_MODE_FOLLOW                                                         OPAMP_VMSEL_FOLLOW                                                        
+#define  OPAMP_MODE_OPA                                                                    OPAMP_VMSEL_VINN        
 
-#define  OPAMP_BIAS_NONE     														((uint32_t)0x00000000)
-#define  OPAMP_BIAS_GND     														((uint32_t)0x00000000) 											
-#define  OPAMP_BIAS_VBG      														((uint32_t)0x00000001)															
-#define  OPAMP_BIAS_VREF     														((uint32_t)0x00000002)										
+#define  OPAMP_BIAS_NONE                                                             ((uint32_t)0x00000000)
+#define  OPAMP_BIAS_GND                                                             ((uint32_t)0x00000000)                                             
+#define  OPAMP_BIAS_VBG                                                              ((uint32_t)0x00000001)                                                            
+#define  OPAMP_BIAS_VREF                                                             ((uint32_t)0x00000002)                                        
 
-#define  OPAMP_GAIN_NONE                               	(0x00000000UL)						
-#define  OPAMP_GAIN_4                               		(0x00000000UL)                        /*!< OPAMP gain 4  */
-#define  OPAMP_GAIN_8                               		(                   OPAMP_CSR_GAIN_0) /*!< OPAMP gain 8  */
-#define  OPAMP_GAIN_12                              		(OPAMP_CSR_GAIN_1                   ) /*!< OPAMP gain 12 */
-#define  OPAMP_GAIN_16                              		(OPAMP_CSR_GAIN_1 | OPAMP_CSR_GAIN_0) /*!< OPAMP gain 16 */
+#define  OPAMP_GAIN_NONE                                   (0x00000000UL)                        
+#define  OPAMP_GAIN_4                                       (0x00000000UL)                        /*!< OPAMP gain 4  */
+#define  OPAMP_GAIN_8                                       (                   OPAMP_CSR_GAIN_0) /*!< OPAMP gain 8  */
+#define  OPAMP_GAIN_12                                      (OPAMP_CSR_GAIN_1                   ) /*!< OPAMP gain 12 */
+#define  OPAMP_GAIN_16                                      (OPAMP_CSR_GAIN_1 | OPAMP_CSR_GAIN_0) /*!< OPAMP gain 16 */
 
  /*!< OPAMP_CSR_OUTCONNECT  */
-#define  OPAMP_OUTCONNECT_NO_CONNECT                    ((uint32_t)0x00000000)															
+#define  OPAMP_OUTCONNECT_NO_CONNECT                    ((uint32_t)0x00000000)                                                            
 #define  OPAMP_OUTCONNECT_OUT_TO_GND                    (                       OPAMP_CSR_OUTCONNECT0)
-#define  OPAMP_OUTCONNECT_OUT_TO_VIN1                   (OPAMP_CSR_OUTCONNECT1                       )		// used for OPA 1/2/3
+#define  OPAMP_OUTCONNECT_OUT_TO_VIN1                   (OPAMP_CSR_OUTCONNECT1                       )        // used for OPA 1/2/3
 #define  OPAMP_OUTCONNECT_OUT_TO_VIN2                   (OPAMP_CSR_OUTCONNECT1 | OPAMP_CSR_OUTCONNECT0)    // used for OPA 1/2
 
 
@@ -138,8 +138,8 @@ extern "C" {
 /** @defgroup OPAMP_EC_INTERNAL_OUPUT_MODE OPAMP internal output mode
   * @{
   */
-#define OPAMP_INTERNAL_OUPUT_DISABLED       (0x00000000UL)         	/*!< OPAMP internal output to ADC disabled. */
-#define OPAMP_INTERNAL_OUPUT_ENABLED        (0x20000000)    				/*!< OPAMP internal output to ADC enabled.
+#define OPAMP_INTERNAL_OUPUT_DISABLED       (0x00000000UL)             /*!< OPAMP internal output to ADC disabled. */
+#define OPAMP_INTERNAL_OUPUT_ENABLED        (0x20000000)                    /*!< OPAMP internal output to ADC enabled.
                                                                              - OPAMP1 internal output is connected to ADC1/Channel15
                                                                              - OPAMP2 internal output is connected to ADC1/Channel16
                                                                              - OPAMP3 internal output is connected to ADC1/Channel17
@@ -197,43 +197,43 @@ typedef struct
   uint32_t FunctionalMode;              /*!< Set OPAMP functional mode by setting internal connections: OPAMP operation in standalone, follower, ...
                                              This parameter can be a value of @ref OPAMP_EC_FUNCTIONAL_MODE
                                              @note If OPAMP is configured in mode PGA, the gain can be configured using function @ref FunctionalMode.
-																									* OPAMP_MODE_NO_CONNECT
-																									* OPAMP_MODE_PGA      	
-																									* OPAMP_MODE_FOLLOW    
-																									* OPAMP_MODE_OPA				
+                                                                                                    * OPAMP_MODE_NO_CONNECT
+                                                                                                    * OPAMP_MODE_PGA          
+                                                                                                    * OPAMP_MODE_FOLLOW    
+                                                                                                    * OPAMP_MODE_OPA                
                                              This feature can be modified afterwards using unitary function @ref OPAMP1_Set_FunctionalMode(). */
 
   uint32_t OPAMP_OUTCONNECT;              /*!< Set OPAMP inverting input connection.
                                              This parameter can be a value of @ref OPAMP_CSR_OUTCONNECT.
-																									*	OPAMP_VM_NO_CONNECT
-																									*	OPAMP_VM_TO_GND    
-																									*	OPAMP_VM_TO_VIN1   
-																									*	OPAMP_VM_TO_VIN2   
+                                                                                                    *    OPAMP_VM_NO_CONNECT
+                                                                                                    *    OPAMP_VM_TO_GND    
+                                                                                                    *    OPAMP_VM_TO_VIN1   
+                                                                                                    *    OPAMP_VM_TO_VIN2   
                                              @note OPAMP inverting input is used with OPAMP in mode standalone or PGA with external capacitors for filtering circuit. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin), this parameter is discarded.
 
                                              This feature can be modified afterwards using unitary function @ref OPAMP1_Set_InputInverting(). */
-	
-	uint32_t VPSEL;													/*!< Set OPAMP noninverting input connection.
+    
+    uint32_t VPSEL;                                                    /*!< Set OPAMP noninverting input connection.
                                              This parameter can be a value of @ref OPAMP_CSR_VPSEL.
-																									*	OPAMP_CSR_VPSEL_P1 
-																									*	OPAMP_CSR_VPSEL_P2    */
+                                                                                                    *    OPAMP_CSR_VPSEL_P1 
+                                                                                                    *    OPAMP_CSR_VPSEL_P2    */
 
-	uint32_t TOEXT;													/*!< Set OPAMP output to external IO enable.
+    uint32_t TOEXT;                                                    /*!< Set OPAMP output to external IO enable.
                                              This parameter can be a value of @ref OPAMP_CSR_TOEXT_EN.
-																									*	OPAMP_CSR_TOEXT_ENABLE
-																									*	OPAMP_CSR_TOEXT_DISABLE    */		
-																									
-	uint32_t TOINT;													/*!< Set OPAMP output to internal ADC/CMP enable.
+                                                                                                    *    OPAMP_CSR_TOEXT_ENABLE
+                                                                                                    *    OPAMP_CSR_TOEXT_DISABLE    */        
+                                                                                                    
+    uint32_t TOINT;                                                    /*!< Set OPAMP output to internal ADC/CMP enable.
                                              This parameter only used in OPAMP3 .It can be a value of @ref OPAMP_CSR_TOINT.
-																									*	OPAMP_CSR_TOINT_ENABLE
-																									*	OPAMP_CSR_TOINT_DISABLE    */								
+                                                                                                    *    OPAMP_CSR_TOINT_ENABLE
+                                                                                                    *    OPAMP_CSR_TOINT_DISABLE    */                                
 
-	
-	uint32_t BIASMode;											/*!< Set OPAMP BIAS selection. It was used only when "FunctionalMode == OPAMP_MODE_PGA"
+    
+    uint32_t BIASMode;                                            /*!< Set OPAMP BIAS selection. It was used only when "FunctionalMode == OPAMP_MODE_PGA"
                                              This parameter can be a value of @ref .
-																									*	OPAMP_BIAS_VREF
-																									*	OPAMP_BIAS_VBG
-																									*	OPAMP_BIAS_GND							*/									
+                                                                                                    *    OPAMP_BIAS_VREF
+                                                                                                    *    OPAMP_BIAS_VBG
+                                                                                                    *    OPAMP_BIAS_GND                            */                                    
 } OPAMP_InitTypeDef;
 
 /**
@@ -246,9 +246,9 @@ typedef struct
   *         @arg OPAMP3
   * @param  FunctionalMode:
   *         @arg OPAMP_MODE_NO_CONNECT
-  *         @arg OPAMP_MODE_PGA      	
+  *         @arg OPAMP_MODE_PGA          
   *         @arg OPAMP_MODE_FOLLOE    
-  *         @arg OPAMP_MODE_OPA				 
+  *         @arg OPAMP_MODE_OPA                 
   * @retval None
   */
 __STATIC_INLINE void OPAMP_Set_FunctionalMode(OPAMP_TypeDef *OPAMPx, uint32_t FunctionalMode)
@@ -266,9 +266,9 @@ __STATIC_INLINE void OPAMP_Set_FunctionalMode(OPAMP_TypeDef *OPAMPx, uint32_t Fu
   *         @arg OPAMP3
   * @retval Returned value can be one of the following values:
   *         @arg OPAMP_MODE_NO_CONNECT
-  *         @arg OPAMP_MODE_PGA      	
+  *         @arg OPAMP_MODE_PGA          
   *         @arg OPAMP_MODE_FOLLOE    
-  *         @arg OPAMP_MODE_OPA				
+  *         @arg OPAMP_MODE_OPA                
   */
 __STATIC_INLINE uint32_t OPAMP_Get_FunctionalMode(OPAMP_TypeDef *OPAMPx)
 {
@@ -381,16 +381,16 @@ __STATIC_INLINE void OPAMP_Disable_HSM(OPAMP_TypeDef *OPAMPx)
   *         @arg OPAMP1
   *         @arg OPAMP2
   *         @arg OPAMP3
-	*	@param	VM_SEL:
-	*					OPAMP_VMSEL_NO_CONNECT
-	*					OPAMP_VMSEL_VINM
-	*					OPAMP_VMSEL_FOLLOE
-	*					OPAMP_VMSEL_VINN
+    *    @param    VM_SEL:
+    *                    OPAMP_VMSEL_NO_CONNECT
+    *                    OPAMP_VMSEL_VINM
+    *                    OPAMP_VMSEL_FOLLOE
+    *                    OPAMP_VMSEL_VINN
   * @retval None.
   */
 __STATIC_INLINE void OPAMP_Set_VM_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VM_SEL)
 {
-	MODIFY_REG(OPAMPx->CSR, OPAMP_CSR_VMSEL, VM_SEL);
+    MODIFY_REG(OPAMPx->CSR, OPAMP_CSR_VMSEL, VM_SEL);
 }
 
 /**
@@ -400,15 +400,15 @@ __STATIC_INLINE void OPAMP_Set_VM_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VM_SEL)
   *         @arg OPAMP1
   *         @arg OPAMP2
   *         @arg OPAMP3
-	*	@retval	Returned value can be one of the following values:
-	*			    @arg OPAMP_VMSEL_NO_CONNECT
-	*			    @arg OPAMP_VMSEL_VINM
-	*			    @arg OPAMP_VMSEL_FOLLOE
-	*			    @arg OPAMP_VMSEL_VINN
+    *    @retval    Returned value can be one of the following values:
+    *                @arg OPAMP_VMSEL_NO_CONNECT
+    *                @arg OPAMP_VMSEL_VINM
+    *                @arg OPAMP_VMSEL_FOLLOE
+    *                @arg OPAMP_VMSEL_VINN
   */
 __STATIC_INLINE uint32_t OPAMP_Get_VM_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VM_SEL)
 {
-	return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_VMSEL));
+    return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_VMSEL));
 }
 
 /**
@@ -418,16 +418,16 @@ __STATIC_INLINE uint32_t OPAMP_Get_VM_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VM_SEL
   *         @arg OPAMP1
   *         @arg OPAMP2
   *         @arg OPAMP3
-	*	@param	OUT_CONNECT:
-	*					@arg OPAMP_VM_NO_CONNECT
-	*					@arg OPAMP_VM_TO_GND    
-	*					@arg OPAMP_VM_TO_VIN1   
-	*					@arg OPAMP_VM_TO_VIN2   
+    *    @param    OUT_CONNECT:
+    *                    @arg OPAMP_VM_NO_CONNECT
+    *                    @arg OPAMP_VM_TO_GND    
+    *                    @arg OPAMP_VM_TO_VIN1   
+    *                    @arg OPAMP_VM_TO_VIN2   
   * @retval None.
   */
 __STATIC_INLINE void OPAMP_Set_OutConnect(OPAMP_TypeDef *OPAMPx, uint32_t OUT_CONNECT)
 {
-	MODIFY_REG(OPAMPx->CSR, OPAMP_CSR_OUTCONNECT, OUT_CONNECT);
+    MODIFY_REG(OPAMPx->CSR, OPAMP_CSR_OUTCONNECT, OUT_CONNECT);
 }
 
 /**
@@ -437,15 +437,15 @@ __STATIC_INLINE void OPAMP_Set_OutConnect(OPAMP_TypeDef *OPAMPx, uint32_t OUT_CO
   *         @arg OPAMP1
   *         @arg OPAMP2
   *         @arg OPAMP3
-	*	@retval	Returned value can be one of the following values:
-	*			    @arg OPAMP_VM_NO_CONNECT
-	*			    @arg OPAMP_VM_TO_GND    
-	*			    @arg OPAMP_VM_TO_VIN1   
-	*					@arg OPAMP_VM_TO_VIN2   
+    *    @retval    Returned value can be one of the following values:
+    *                @arg OPAMP_VM_NO_CONNECT
+    *                @arg OPAMP_VM_TO_GND    
+    *                @arg OPAMP_VM_TO_VIN1   
+    *                    @arg OPAMP_VM_TO_VIN2   
   */
 __STATIC_INLINE uint32_t OPAMP_Get_OutConnect(OPAMP_TypeDef *OPAMPx)
 {
-	return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_OUTCONNECT));
+    return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_OUTCONNECT));
 }
 
 /**
@@ -458,20 +458,20 @@ __STATIC_INLINE uint32_t OPAMP_Get_OutConnect(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void OPAMP_Enable_TOEXT(uint32_t TOEXT)
 {
-	MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_TOEXT_EN, TOEXT);	
+    MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_TOEXT_EN, TOEXT);    
 }
 
 /**
   * @function  OPAMP_Set_VP_SEL
   * @brief  VP_SEL. This is only used for OPA3
   * @param  VP_SEL:
-	*         @arg OPAMP_CSR_VPSEL_P1
+    *         @arg OPAMP_CSR_VPSEL_P1
   *         @arg OPAMP_CSR_VPSEL_P2
   * @retval None
   */
 __STATIC_INLINE void OPAMP_Set_VP_SEL( uint32_t VP_SEL ) 
 {
-	MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_VPSEL, VP_SEL);	
+    MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_VPSEL, VP_SEL);    
 }
 
 /**
@@ -501,14 +501,14 @@ __STATIC_INLINE void OPAMP_Set_PGAGain(OPAMP_TypeDef *OPAMPx, uint32_t OPAGain)
   *         @arg OPAMP2
   *         @arg OPAMP3
   * @retval Returned value can be one of the following values:
-	*					@arg OPAMP_GAIN_4
-	*					@arg OPAMP_GAIN_8
-	*					@arg OPAMP_GAIN_12
-	*					@arg OPAMP_GAIN_16
+    *                    @arg OPAMP_GAIN_4
+    *                    @arg OPAMP_GAIN_8
+    *                    @arg OPAMP_GAIN_12
+    *                    @arg OPAMP_GAIN_16
   */
 __STATIC_INLINE uint32_t OPAMP_Get_PGAGain(OPAMP_TypeDef *OPAMPx)
 {
-	return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_GAIN));
+    return (uint32_t)(READ_BIT(OPAMPx->CSR, OPAMP_CSR_GAIN));
 }
 
 /**
@@ -521,7 +521,7 @@ __STATIC_INLINE uint32_t OPAMP_Get_PGAGain(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void OPAMP_Enable_TOINT(uint32_t TOINT)
 {
-	MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_TOINT, TOINT);
+    MODIFY_REG(OPAMP3->CSR, OPAMP_CSR_TOINT, TOINT);
 }
 
 /**
@@ -535,7 +535,7 @@ __STATIC_INLINE void OPAMP_Enable_TOINT(uint32_t TOINT)
   */
 __STATIC_INLINE void OPAMP_Enable_BIAS_VOL(OPAMP_TypeDef *OPAMPx)
 {
-	MODIFY_REG(OPAMPx->BIAS, (OPAMP_BIAS_VOL_EN|OPAMP_BIAS_GND_EN), OPAMP_BIAS_VOL_EN); 
+    MODIFY_REG(OPAMPx->BIAS, (OPAMP_BIAS_VOL_EN|OPAMP_BIAS_GND_EN), OPAMP_BIAS_VOL_EN); 
 }
 
 /**
@@ -549,7 +549,7 @@ __STATIC_INLINE void OPAMP_Enable_BIAS_VOL(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void OPAMP_Disable_BIAS_VOL(OPAMP_TypeDef *OPAMPx)
 {
-	CLEAR_BIT(OPAMPx->BIAS, OPAMP_BIAS_VOL_EN); 	
+    CLEAR_BIT(OPAMPx->BIAS, OPAMP_BIAS_VOL_EN);     
 }
 
 /**
@@ -563,7 +563,7 @@ __STATIC_INLINE void OPAMP_Disable_BIAS_VOL(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void OPAMP_Enable_BIAS_GND(OPAMP_TypeDef *OPAMPx)
 {
-	MODIFY_REG(OPAMPx->BIAS, (OPAMP_BIAS_VOL_EN|OPAMP_BIAS_GND_EN), OPAMP_BIAS_GND_EN); 	
+    MODIFY_REG(OPAMPx->BIAS, (OPAMP_BIAS_VOL_EN|OPAMP_BIAS_GND_EN), OPAMP_BIAS_GND_EN);     
 }
 
 /**
@@ -577,7 +577,7 @@ __STATIC_INLINE void OPAMP_Enable_BIAS_GND(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void OPAMP_Disable_BIAS_GND(OPAMP_TypeDef *OPAMPx)
 {
-	CLEAR_BIT(OPAMPx->BIAS, OPAMP_BIAS_GND_EN); 	
+    CLEAR_BIT(OPAMPx->BIAS, OPAMP_BIAS_GND_EN);     
 }
 
 /**
@@ -588,13 +588,13 @@ __STATIC_INLINE void OPAMP_Disable_BIAS_GND(OPAMP_TypeDef *OPAMPx)
   *         @arg OPAMP2
   *         @arg OPAMP3
   * @param  VP_SEL:
-	*         @arg OPAMP_BIAS_VOL_SEL_Vref
+    *         @arg OPAMP_BIAS_VOL_SEL_Vref
   *         @arg OPAMP_BIAS_VOL_SEL_VBG
   * @retval None
   */
 __STATIC_INLINE void OPAMP_Set_VOL_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VOL_SEL)
 {
-	MODIFY_REG(OPAMPx->BIAS, OPAMP_BIAS_VOL_SEL, VOL_SEL);	
+    MODIFY_REG(OPAMPx->BIAS, OPAMP_BIAS_VOL_SEL, VOL_SEL);    
 }
 
 /**
@@ -605,13 +605,13 @@ __STATIC_INLINE void OPAMP_Set_VOL_SEL(OPAMP_TypeDef *OPAMPx, uint32_t VOL_SEL)
   *         @arg OPAMP2
   *         @arg OPAMP3
   * @param  VBGINT:
-	*         @arg OPAMP_VBGINT_ENABLE
+    *         @arg OPAMP_VBGINT_ENABLE
   *         @arg OPAMP_VBGINT_DISABLE
   * @retval None
   */
 __STATIC_INLINE void OPAMP_Set_VBGINT(OPAMP_TypeDef *OPAMPx, uint32_t VBGINT)
 {
-	MODIFY_REG(OPAMPx->BIAS, OPAMP_BIAS_VBGINT, VBGINT);	
+    MODIFY_REG(OPAMPx->BIAS, OPAMP_BIAS_VBGINT, VBGINT);    
 }
 
 void OPAMP_DeInit(OPAMP_TypeDef *OPAMPx);

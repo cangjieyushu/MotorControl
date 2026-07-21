@@ -76,3 +76,41 @@ float Math_Sqrt_F(float A)
     }
     return A;
 }
+
+/**********************************************************************************************
+Function: Math_Delay_us
+Description: 延迟函数
+Input: 延迟时间
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Math_Delay_us(Q32U_ time)
+{
+    for(Q32U_ i = 0U; i < time; i++)
+    {
+        for(Q32U_ j = 0U; j < 1U; j++)
+        {
+        }
+    }
+    
+}
+
+/**********************************************************************************************
+Function: Math_Delay_ms
+Description: 延迟函数
+Input: 延迟时间
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void Math_Delay_ms(Q32U_ time)
+{
+    for(Q32U_ i = 0U; i < time; i++)
+    {
+        Math_Delay_us(1000U);
+    }
+    
+}

@@ -17,7 +17,7 @@ Return: нч
 Author: CJYS
 ***********************************************************************************************/
 void BSP_TIM_Init(void)
-{	
+{    
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct = {0};
     TIM_TimeBaseInitStruct.CounterMode          = TIM_COUNTERMODE_UP;
     TIM_TimeBaseInitStruct.RepetitionCounter    = 0;

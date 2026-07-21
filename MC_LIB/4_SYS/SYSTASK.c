@@ -6,6 +6,10 @@
 *     Abstract Description :             系统状态源文件
 **************************************************************************************************/
 
+#include "BUTTON.h"
+#include "SYS_ERR.h"
+#include "SYS_LCD.h"
+#include "SYS_VOFA.h"
 #include "SYSTASK.h"
 
 
@@ -15,6 +19,8 @@ ST_SYSTEM_TASK  Systask = {
     .FL_VR.Q14I_LPF_Coeff = 2000,
     .FL_VBG.Q14I_LPF_Coeff = 2000,
 };
+
+void System_Tick_Isr(ST_SYSTEM_TASK*  pST);
 
 
 /**********************************************************************************************
@@ -31,6 +37,8 @@ void System_Task_Init(ST_SYSTEM_TASK* pST)
     Q32U_ adc_tmp = 0U;
     
     adc_tmp = BSP_ADC_DATA_READ_VR;     LPF_Init_T(&pST->FL_VR, (Q32I_)adc_tmp);
+    
+    BSP_GPIO_RLYN(1U);
 }
 
 /**********************************************************************************************
@@ -64,12 +72,11 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
 {
     System_ADC_Read(pST);
     
-    pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
-    pST->Q16U_Motor_Speed = Motor_Read_Speed(&Motor);
+//    Motor_Set_Target_Speed(&Motor, pST->Q16U_Duty_Target);
     
-    Motor_Set_Dir(&Motor, MOTOR_DIR_CW);
-    Motor_Set_Target_Speed(&Motor, pST->Q16U_Motor_Speed_Target);
+//    SYS_VOFA_TASK(&Motor, pST, &UART_Ctrl);
     
+        
     if(Motor_Read_Error(&Motor) != 0U)
     {
         pST->System_Error_Flag.BIT.motor_error = 1U;
@@ -79,13 +86,10 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     {
         case SYSTEM_STATE_POWERUP:
         {
-            pST->flow_cnt++;
-            if(pST->flow_cnt >= pST->_P_Q32U_System_PowerUp_Time)
+            pST->_V_flow_cnt++;
+            if(pST->_V_flow_cnt >= pST->_P_Q32U_System_PowerUp_Time)
             {
-                
-                pST->Q16U_Motor_Speed_Target = Q32I_RHT_14(pST->Q16U_Duty_Target*((Q32I_)MOTOR_MAX_SPEED));
-                
-                pST->flow_cnt = 0U;
+                pST->_V_flow_cnt = 0U;
                 System_Task_Init(pST);
                 pST->System_Flow = SYSTEM_STATE_IDLE;
             }
@@ -141,6 +145,62 @@ void System_Task_Flow(ST_SYSTEM_TASK* pST)
     else
     {
         Motor_Stop(&Motor);
+    }
+    
+    System_Tick_Isr(pST);
+}
+
+/**********************************************************************************************
+Function: System_10msTask_Tick
+Description: 10ms时间片任务调度
+Input: 无
+Output: 无
+Input_Output: ST_SYSTEM_TASK
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void System_10msTask_Tick(ST_SYSTEM_TASK* pST)
+{
+    static Q32U_ speed_tmp = 0;
+    static Q32U_ button_tmp1 = 0;
+    static Q32U_ button_tmp2 = 0;
+    
+    if(pST->System_State_Flag.BIT.systick_intflow == 1U)
+    {
+        ST7567_Init();
+        
+        if(BSP_GPIO_BTN1())
+        {
+            speed_tmp = 2500;
+            pST->System_State_Flag.BIT.system_runflag = 1U;
+        }
+        if(BSP_GPIO_BTN2())
+        {
+            speed_tmp = 0;
+            pST->System_State_Flag.BIT.system_runflag = 0U;
+        }
+        if((BSP_GPIO_BTN3() == 0) && (button_tmp1 == 1))
+        {
+            speed_tmp += 500;
+//            pST->System_State_Flag.BIT.system_runflag = 0U;
+        }
+        if((BSP_GPIO_BTN4() == 0) && (button_tmp2 == 1))
+        {
+            speed_tmp = 500;
+            pST->System_State_Flag.BIT.system_runflag = 1U;
+        }
+        button_tmp1 = BSP_GPIO_BTN3();
+        button_tmp2 = BSP_GPIO_BTN4();
+        
+        Motor_Set_Target_Speed(&Motor, speed_tmp);
+        
+//        Button_Control(&Button_Ctrl, pST);
+    
+//        UART_Get_Resceive_Data();
+//        UART_Send_Transmission_Data();
+    
+//        Error_Priority_Check(&Systask);
+        pST->System_State_Flag.BIT.systick_intflow = 0U;
     }
 }
 

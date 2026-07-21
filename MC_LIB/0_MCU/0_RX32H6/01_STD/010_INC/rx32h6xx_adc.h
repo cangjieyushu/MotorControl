@@ -85,11 +85,11 @@ extern "C" {
 #define ADC_CR1_JAWDEN                      ((uint32_t)0x00400000)                     /*!< ADC analog watchdog 1 enable on scope ADC group injected */
 #define ADC_CR1_AWDEN                       ((uint32_t)0x00800000)                     /*!< ADC analog watchdog 1 enable on scope ADC group regular */
 
-#define ADC_CR1_AWDFILT											((uint32_t)0x07000000)										 /*!< ADC analog watchdog 1 filter selection */
-#define ADC_CR1_AWDFILT_0										((uint32_t)0x01000000)
-#define ADC_CR1_AWDFILT_1									  ((uint32_t)0x02000000)
-#define ADC_CR1_AWDFILT_2										((uint32_t)0x04000000)
-	
+#define ADC_CR1_AWDFILT                                            ((uint32_t)0x07000000)                                         /*!< ADC analog watchdog 1 filter selection */
+#define ADC_CR1_AWDFILT_0                                        ((uint32_t)0x01000000)
+#define ADC_CR1_AWDFILT_1                                      ((uint32_t)0x02000000)
+#define ADC_CR1_AWDFILT_2                                        ((uint32_t)0x04000000)
+    
 /*******************  Bit definition for ADC_CR2 register  ********************/
 #define ADC_CR2_ADON                        ((uint32_t)0x00000001)                     /*!< ADC enable */
 #define ADC_CR2_CONT                        ((uint32_t)0x00000002)                     /*!< ADC group regular continuous conversion mode */
@@ -225,12 +225,12 @@ extern "C" {
 #define ADC_JOFR4_JOFFSET4                  ((uint32_t)0x00000FFF)                     /*!< ADC group injected sequencer rank 4 offset value */
 /*******************  Bit definition for ADC_HTR register  ********************/
 #define ADC_HTR_HT                          ((uint32_t)0x00000FFF)                     /*!< ADC analog watchdog 1 threshold high */
-#define ADC_HTR_CH                          ((uint32_t)0x001F0000)										 /*!< ADC analog watchdog 1 threshold high channel select*/
-#define ADC_HTR_EN                          ((uint32_t)0x80000000)										 /*!< ADC analog watchdog 1 threshold high channel select enable*/
+#define ADC_HTR_CH                          ((uint32_t)0x001F0000)                                         /*!< ADC analog watchdog 1 threshold high channel select*/
+#define ADC_HTR_EN                          ((uint32_t)0x80000000)                                         /*!< ADC analog watchdog 1 threshold high channel select enable*/
 /*******************  Bit definition for ADC_LTR register  ********************/
 #define ADC_LTR_LT                          ((uint32_t)0x00000FFF)                     /*!< ADC analog watchdog 1 threshold low */
-#define ADC_LTR_CH                          ((uint32_t)0x001F0000)										 /*!< ADC analog watchdog 1 threshold low channel select*/
-#define ADC_LTR_EN                          ((uint32_t)0x80000000)										 /*!< ADC analog watchdog 1 threshold low channel select enable*/
+#define ADC_LTR_CH                          ((uint32_t)0x001F0000)                                         /*!< ADC analog watchdog 1 threshold low channel select*/
+#define ADC_LTR_EN                          ((uint32_t)0x80000000)                                         /*!< ADC analog watchdog 1 threshold low channel select enable*/
 /*******************  Bit definition for ADC_SQR1 register  *******************/
 #define ADC_SQR1_L                          ((uint32_t)0x00700000)                     /*!< ADC group regular sequencer scan length */
 #define ADC_SQR1_L_0                        ((uint32_t)0x00100000)            
@@ -523,14 +523,14 @@ extern "C" {
 #define ADC_CR1_DISCONT_7RANKS          (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_1                    )
 #define ADC_CR1_DISCONT_8RANKS          (ADC_CR1_DISCNUM_2 | ADC_CR1_DISCNUM_1 | ADC_CR1_DISCNUM_0)
 
-#define ADC_CR1_AWDFILT_DISABLE					((uint32_t)0x00000000)
-#define ADC_CR1_AWDFILT_2LEVEL					(																				 ADC_CR1_AWDFILT_0)
-#define ADC_CR1_AWDFILT_3LEVEL					(										 ADC_CR1_AWDFILT_1										)
-#define ADC_CR1_AWDFILT_4LEVEL					(                    ADC_CR1_AWDFILT_1 | ADC_CR1_AWDFILT_0)
-#define ADC_CR1_AWDFILT_5LEVEL					(ADC_CR1_AWDFILT_2                                        )
-#define ADC_CR1_AWDFILT_6LEVEL					(ADC_CR1_AWDFILT_2 |                     ADC_CR1_AWDFILT_0)
-#define ADC_CR1_AWDFILT_7LEVEL					(ADC_CR1_AWDFILT_2 | ADC_CR1_AWDFILT_1                    )
-#define ADC_CR1_AWDFILT_8LEVEL					(ADC_CR1_AWDFILT_2 | ADC_CR1_AWDFILT_1 | ADC_CR1_AWDFILT_0)
+#define ADC_CR1_AWDFILT_DISABLE                    ((uint32_t)0x00000000)
+#define ADC_CR1_AWDFILT_2LEVEL                    (                                                                                 ADC_CR1_AWDFILT_0)
+#define ADC_CR1_AWDFILT_3LEVEL                    (                                         ADC_CR1_AWDFILT_1                                        )
+#define ADC_CR1_AWDFILT_4LEVEL                    (                    ADC_CR1_AWDFILT_1 | ADC_CR1_AWDFILT_0)
+#define ADC_CR1_AWDFILT_5LEVEL                    (ADC_CR1_AWDFILT_2                                        )
+#define ADC_CR1_AWDFILT_6LEVEL                    (ADC_CR1_AWDFILT_2 |                     ADC_CR1_AWDFILT_0)
+#define ADC_CR1_AWDFILT_7LEVEL                    (ADC_CR1_AWDFILT_2 | ADC_CR1_AWDFILT_1                    )
+#define ADC_CR1_AWDFILT_8LEVEL                    (ADC_CR1_AWDFILT_2 | ADC_CR1_AWDFILT_1 | ADC_CR1_AWDFILT_0)
 
 #define ADC_CR1_DISCEN_ENABLE            ((uint32_t)0x00000800)
 #define ADC_CR1_DISCEN_DISABLE           ((uint32_t)0x00000000)
@@ -559,8 +559,8 @@ extern "C" {
 #define ADC_CR2_JEXTSEL_TIM8_CC4_CC6    (ADC_CR2_JEXTSEL_3 |                      ADC_CR2_JEXTSEL_1 | ADC_CR2_JEXTSEL_0| ADC_CR2_JEXTTRIG) 
 #define ADC_CR2_JEXTSEL_TIM8_CC4_CC5    (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2                                         | ADC_CR2_JEXTTRIG) 
 #define ADC_CR2_JEXTSEL_TIM8_CC6        (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2                      | ADC_CR2_JEXTSEL_0| ADC_CR2_JEXTTRIG) 
-#define	ADC_CR2_JEXTSEL_TIM15_TRGO			(ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 |  ADC_CR2_JEXTSEL_1                    | ADC_CR2_JEXTTRIG)
-	
+#define    ADC_CR2_JEXTSEL_TIM15_TRGO            (ADC_CR2_JEXTSEL_3 | ADC_CR2_JEXTSEL_2 |  ADC_CR2_JEXTSEL_1                    | ADC_CR2_JEXTTRIG)
+    
 #define ADC_CR2_EXTSEL_INSOURCE          ((uint32_t)0x00000000)   
 #define ADC_CR2_EXTSEL_TIM8_TRGO2        (                                                         ADC_CR2_EXTTRIG)         
 #define ADC_CR2_EXTSEL_TIM8_CC4_CC5      (                                      ADC_CR2_EXTSEL_0 | ADC_CR2_EXTTRIG) 
@@ -669,7 +669,7 @@ extern "C" {
 #define ADC_CHANNEL_CMPSRN       (ADC_CHANNEL_19)
 #define ADC_CHANNEL_VBGINT       (ADC_CHANNEL_20)
 #define ADC_CHANNEL_VREFP        (ADC_CHANNEL_21)
-#define ADC_CHANNEL_TPS       	 (ADC_CHANNEL_22)
+#define ADC_CHANNEL_TPS            (ADC_CHANNEL_22)
 #define ADC_CHANNEL_LDO17        (ADC_CHANNEL_23)
 
 #define ADC_AWD_THRESHOLD_HIGH   ((uint32_t)0x00000000)
@@ -768,37 +768,37 @@ extern "C" {
 
 typedef struct
 {
-	uint32_t TriggerSource;
-	uint32_t Continuous;
-	uint32_t ScanMode;
-	uint32_t DataAlignment;
-	uint32_t AnalogWatchDog;
-  uint32_t AWDChannelGroup;	
-	uint32_t RegularDiscont;
-	uint32_t RegularDiscontNumber;
-	uint32_t EOCOption;
+    uint32_t TriggerSource;
+    uint32_t Continuous;
+    uint32_t ScanMode;
+    uint32_t DataAlignment;
+    uint32_t AnalogWatchDog;
+  uint32_t AWDChannelGroup;    
+    uint32_t RegularDiscont;
+    uint32_t RegularDiscontNumber;
+    uint32_t EOCOption;
 } ADC_Reg_InitTypeDef;
 
 typedef struct
 {
-	uint32_t TriggerSource;
-	uint32_t ScanMode;
-	uint32_t DataAlignment;
+    uint32_t TriggerSource;
+    uint32_t ScanMode;
+    uint32_t DataAlignment;
   uint32_t SequencerNbRanks;
   uint32_t TrigAuto;
-	uint32_t AnalogWatchDog;
-	uint32_t AWDChannelGroup;	
-	uint32_t InjectDiscont;
-	uint32_t EOCOption;
+    uint32_t AnalogWatchDog;
+    uint32_t AWDChannelGroup;    
+    uint32_t InjectDiscont;
+    uint32_t EOCOption;
 } ADC_Inj_InitTypeDef;
 
 typedef struct
 {
-	uint32_t REGTriggerSource;
+    uint32_t REGTriggerSource;
   uint32_t INJTriggerSource;
-	uint32_t Continuous;
-	uint32_t ScanMode;
-	uint32_t DataAlignment;
+    uint32_t Continuous;
+    uint32_t ScanMode;
+    uint32_t DataAlignment;
   uint32_t REGSequencerNbRanks;
   uint32_t INJSequencerNbRanks;
   uint32_t TrigAuto;
@@ -807,8 +807,8 @@ typedef struct
 
 typedef struct
 {
-	uint32_t Channel;
-	uint32_t SamplingTime;
+    uint32_t Channel;
+    uint32_t SamplingTime;
 }RankType;
 
 typedef struct
@@ -992,7 +992,7 @@ __STATIC_INLINE void ADC_Set_AWDChannels(ADC_TypeDef *ADCx, uint32_t AWDChannelG
   */
 __STATIC_INLINE void ADC_Enable_IT(ADC_TypeDef *ADCx,uint16_t IT)
 {
-	SET_BIT(ADCx->CR1,IT); 
+    SET_BIT(ADCx->CR1,IT); 
 }
 
 /**
@@ -1008,7 +1008,7 @@ __STATIC_INLINE void ADC_Enable_IT(ADC_TypeDef *ADCx,uint16_t IT)
   */
 __STATIC_INLINE void ADC_Disable_IT(ADC_TypeDef *ADCx,uint16_t IT)
 {
-	CLEAR_BIT(ADCx->CR1,IT); 
+    CLEAR_BIT(ADCx->CR1,IT); 
 }
 
 /**
@@ -1069,7 +1069,7 @@ __STATIC_INLINE void ADC_Set_JAUTO(ADC_TypeDef *ADCx, uint32_t TrigAuto)
   */
 __STATIC_INLINE void ADC_Set_DISCEN(ADC_TypeDef *ADCx, uint32_t discen)
 {
-	MODIFY_REG(ADCx->CR1, ADC_CR1_DISCEN, discen);
+    MODIFY_REG(ADCx->CR1, ADC_CR1_DISCEN, discen);
 }
 
 /**
@@ -1084,7 +1084,7 @@ __STATIC_INLINE void ADC_Set_DISCEN(ADC_TypeDef *ADCx, uint32_t discen)
   */
 __STATIC_INLINE void ADC_Set_JDISCEN(ADC_TypeDef *ADCx, uint32_t jdiscen)
 {
-	MODIFY_REG(ADCx->CR1, ADC_CR1_JDISCEN, jdiscen);
+    MODIFY_REG(ADCx->CR1, ADC_CR1_JDISCEN, jdiscen);
 }
 
 /**
@@ -1244,7 +1244,7 @@ __STATIC_INLINE void ADC_Set_ALIGN(ADC_TypeDef *ADCx, uint32_t DataAlignment)
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC4_CC6  
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC4_CC5
   *         @arg ADC_CR2_JEXTSEL_TIM8_CC6    
-  *         @arg ADC_CR2_JEXTSEL_TIM15_TRGO							 
+  *         @arg ADC_CR2_JEXTSEL_TIM15_TRGO                             
   * @retval None
   */
 __STATIC_INLINE void ADC_Set_JEXTSEL(ADC_TypeDef *ADCx, uint32_t TriggerSource)
@@ -1638,7 +1638,7 @@ __STATIC_INLINE uint32_t ADC_Read_JDR(ADC_TypeDef *ADCx, uint32_t Rank)
   */
 __STATIC_INLINE uint32_t ADC_Read_DRx(ADC_TypeDef *ADCx, uint32_t ADC_DATAx)
 {
-	register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->DATA1, ADC_DATAx);
+    register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->DATA1, ADC_DATAx);
   return (READ_REG(*preg));
 }
 
@@ -1729,12 +1729,12 @@ __STATIC_INLINE uint32_t ADC_Get_CFGUPD(ADC_TypeDef *ADCx)
   *         @ref ADC_CR1_AWDFILT_5LEVEL
   *         @ref ADC_CR1_AWDFILT_6LEVEL
   *         @ref ADC_CR1_AWDFILT_7LEVEL
-  *         @ref ADC_CR1_AWDFILT_8LEVEL				
+  *         @ref ADC_CR1_AWDFILT_8LEVEL                
   * @retval None
   */
 __STATIC_INLINE void ADC_Set_AWDFILT(ADC_TypeDef *ADCx, uint32_t FilterLevel)
 {
-	MODIFY_REG(ADCx->CR1, ADC_CR1_AWDFILT, FilterLevel);
+    MODIFY_REG(ADCx->CR1, ADC_CR1_AWDFILT, FilterLevel);
 }
 
 /**
@@ -1746,12 +1746,12 @@ __STATIC_INLINE void ADC_Set_AWDFILT(ADC_TypeDef *ADCx, uint32_t FilterLevel)
   *         @arg ADC Instance
   * @param  FilterLevel:
   *         @ref ADC_EOC_OPT_DISABLE
-  *         @ref ADC_EOC_OPT_ENABLE			
+  *         @ref ADC_EOC_OPT_ENABLE            
   * @retval None
   */
 __STATIC_INLINE void ADC_Set_EOCOPT(ADC_TypeDef *ADCx, uint32_t EOCOPT)
 {
-	MODIFY_REG(ADCx->TPS_TEST, ADC_EOC_OPT, EOCOPT);
+    MODIFY_REG(ADCx->TPS_TEST, ADC_EOC_OPT, EOCOPT);
 }
 
 /**
@@ -1761,12 +1761,12 @@ __STATIC_INLINE void ADC_Set_EOCOPT(ADC_TypeDef *ADCx, uint32_t EOCOPT)
   *         @arg ADC Instance
   * @param  FilterLevel:
   *         @ref ADC_HTR_Enable
-  *         @ref ADC_HTR_Disable			
+  *         @ref ADC_HTR_Disable            
   * @retval None
   */
 __STATIC_INLINE void ADC_Set_HTREN(ADC_TypeDef *ADCx, uint32_t HTREN)
 {
-	SET_BIT(ADCx->HTR,HTREN);
+    SET_BIT(ADCx->HTR,HTREN);
 }
 
 /**
@@ -1803,7 +1803,7 @@ __STATIC_INLINE void ADC_Set_HTREN(ADC_TypeDef *ADCx, uint32_t HTREN)
   */
 __STATIC_INLINE void ADC_Set_HTRChannel(ADC_TypeDef *ADCx, uint32_t HTRChannel)
 {
-	MODIFY_REG(ADCx->HTR, ADC_HTR_CH, HTRChannel<<16);
+    MODIFY_REG(ADCx->HTR, ADC_HTR_CH, HTRChannel<<16);
 }
 
 /**
@@ -1813,12 +1813,12 @@ __STATIC_INLINE void ADC_Set_HTRChannel(ADC_TypeDef *ADCx, uint32_t HTRChannel)
   *         @arg ADC Instance
   * @param  FilterLevel:
   *         @ref ADC_LTR_Enable
-  *         @ref ADC_LTR_Disable			
+  *         @ref ADC_LTR_Disable            
   * @retval None
   */
 __STATIC_INLINE void ADC_Set_LTREN(ADC_TypeDef *ADCx, uint32_t LTREN)
 {
-	SET_BIT(ADCx->HTR,LTREN);
+    SET_BIT(ADCx->HTR,LTREN);
 }
 
 /**
@@ -1855,7 +1855,7 @@ __STATIC_INLINE void ADC_Set_LTREN(ADC_TypeDef *ADCx, uint32_t LTREN)
   */
 __STATIC_INLINE void ADC_Set_LTRChannel(ADC_TypeDef *ADCx, uint32_t LTRChannel)
 {
-	MODIFY_REG(ADCx->HTR, ADC_HTR_CH, LTRChannel<<16);
+    MODIFY_REG(ADCx->HTR, ADC_HTR_CH, LTRChannel<<16);
 }
 
 

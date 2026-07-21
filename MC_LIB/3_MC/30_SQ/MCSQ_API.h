@@ -93,6 +93,28 @@ Author: CJYS
 Q32U_ Motor_Read_Speed(ST_MOTOR_TASK* pMotor);
 
 /**********************************************************************************************
+Function: Motor_Read_Current
+Description: 读取电机相电流
+Input: 无
+Output: 电机电流（0.01A）
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ Motor_Read_Current(ST_MOTOR_TASK* pMotor);
+
+/**********************************************************************************************
+Function: Motor_Read_Bus
+Description: 读取电机母线电流
+Input: 无
+Output: 电机电流（0.01A）
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+Q32U_ Motor_Read_Bus(ST_MOTOR_TASK* pMotor);
+
+/**********************************************************************************************
 Function: Motor_Read_Error
 Description: 读取电机故障码
 Input: 无
@@ -113,6 +135,9 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Motor_Clear_Error(ST_MOTOR_TASK* pMotor);
+
+
+extern pMOTOR_API Motor_API_Function[256U];
 
 
 #endif /* MCSQ_API_H */

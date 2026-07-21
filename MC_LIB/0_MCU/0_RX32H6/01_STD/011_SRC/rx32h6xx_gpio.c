@@ -51,34 +51,34 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   */
 void GPIO_DeInit(GPIO_TypeDef *GPIOx)
 {
-	if(GPIOx==GPIOA)
-	{
-		RCC_Enable_AHBRST(RCC_AHBRSTR_IOPARST); 
-		RCC_Disable_AHBRST(RCC_AHBRSTR_IOPARST);
-	}
-	else if(GPIOx==GPIOB)
-	{
-		RCC_Enable_AHBRST(RCC_AHBRSTR_IOPBRST); 
-		RCC_Disable_AHBRST(RCC_AHBRSTR_IOPBRST);
-	}
-	else if(GPIOx==GPIOC)
-	{
-		RCC_Enable_AHBRST(RCC_AHBRSTR_IOPCRST); 
-		RCC_Disable_AHBRST(RCC_AHBRSTR_IOPCRST);
-	}
-	else
-	{
-		RCC_Enable_AHBRST(RCC_AHBRSTR_IOPDRST); 
-		RCC_Disable_AHBRST(RCC_AHBRSTR_IOPDRST);
+    if(GPIOx==GPIOA)
+    {
+        RCC_Enable_AHBRST(RCC_AHBRSTR_IOPARST); 
+        RCC_Disable_AHBRST(RCC_AHBRSTR_IOPARST);
+    }
+    else if(GPIOx==GPIOB)
+    {
+        RCC_Enable_AHBRST(RCC_AHBRSTR_IOPBRST); 
+        RCC_Disable_AHBRST(RCC_AHBRSTR_IOPBRST);
+    }
+    else if(GPIOx==GPIOC)
+    {
+        RCC_Enable_AHBRST(RCC_AHBRSTR_IOPCRST); 
+        RCC_Disable_AHBRST(RCC_AHBRSTR_IOPCRST);
+    }
+    else
+    {
+        RCC_Enable_AHBRST(RCC_AHBRSTR_IOPDRST); 
+        RCC_Disable_AHBRST(RCC_AHBRSTR_IOPDRST);
   }
 }
 /**
   * @brief  Initialize the GPIOx peripheral according to the specified parameters in the GPIO_Init.
   * @param  GPIOx:
-	*         @arg @ref  GPIOA
-	*         @arg @ref  GPIOB
-	*         @arg @ref  GPIOC
-	*         @arg @ref  GPIOD	
+    *         @arg @ref  GPIOA
+    *         @arg @ref  GPIOB
+    *         @arg @ref  GPIOC
+    *         @arg @ref  GPIOD    
   * @param  GPIO_Init->Pin:
   *         @arg @ref  GPIO_PIN_0
   *         @arg @ref  GPIO_PIN_1
@@ -112,14 +112,14 @@ void GPIO_DeInit(GPIO_TypeDef *GPIOx)
   *         @arg @ref GPIO_OSPEEDR_Low
   *         @arg @ref GPIO_OSPEEDR_Medium
   *         @arg @ref GPIO_OSPEEDR_High
-  *         @arg @ref GPIO_OSPEEDR_VeryHigh	
+  *         @arg @ref GPIO_OSPEEDR_VeryHigh    
   * @retval None
   */
 void GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 {
-	GPIO_Set_PinMode(GPIOx,GPIO_Init->Pin,(GPIO_Init->Mode)&(~(1<<4)));
+    GPIO_Set_PinMode(GPIOx,GPIO_Init->Pin,(GPIO_Init->Mode)&(~(1<<4)));
   GPIO_Set_PinOutputType(GPIOx,GPIO_Init->Pin,(GPIO_Init->Mode)>>4);
-	GPIO_Set_AF(GPIOx,GPIO_Init->Pin,GPIO_Init->Alternate);
-	GPIO_Set_PinOutSpeed(GPIOx,GPIO_Init->Pin,GPIO_Init->Speed);
-	GPIO_Set_PinPull(GPIOx,GPIO_Init->Pin,GPIO_Init->Pull);
+    GPIO_Set_AF(GPIOx,GPIO_Init->Pin,GPIO_Init->Alternate);
+    GPIO_Set_PinOutSpeed(GPIOx,GPIO_Init->Pin,GPIO_Init->Speed);
+    GPIO_Set_PinPull(GPIOx,GPIO_Init->Pin,GPIO_Init->Pull);
 }

@@ -55,35 +55,35 @@ extern "C" {
 
 /*******************  Bit definition for SPI_CR1 register  ********************/
 #define SPI_CR1_CPHA                        (0x00000001)  /*!< Clock Phase */
-#define SPI_CR1_CPOL                        (0x00000002)	/*!< Clock Polarity */
-#define SPI_CR1_MSTR                        (0x00000004)	/*!< Master Selection */
-#define SPI_CR1_BR                          (0x00000038)	/*!< BR[2:0] bits (Baud Rate Control) */
+#define SPI_CR1_CPOL                        (0x00000002)    /*!< Clock Polarity */
+#define SPI_CR1_MSTR                        (0x00000004)    /*!< Master Selection */
+#define SPI_CR1_BR                          (0x00000038)    /*!< BR[2:0] bits (Baud Rate Control) */
 #define SPI_CR1_BR_0                        (0x00000008)
 #define SPI_CR1_BR_1                        (0x00000010)
 #define SPI_CR1_BR_2                        (0x00000020)
-#define SPI_CR1_SPE                         (0x00000040)	/*!< SPI Enable */
-#define SPI_CR1_LSBFIRST                    (0x00000080)	/*!< Frame Format */
-#define SPI_CR1_SSI                         (0x00000100)	/*!< Internal slave select */
-#define SPI_CR1_SSM                         (0x00000200)	/*!< Software slave management */
-#define SPI_CR1_RXONLY                      (0x00000400)	/*!< Receive only */
-#define SPI_CR1_DFF                         (0x00000800)	/*!< Data Frame Format */
-#define SPI_CR1_BIDIOE                      (0x00004000)	/*!< Output enable in bidirectional mode */
-#define SPI_CR1_BIDIMODE                    (0x00008000)	/*!< Bidirectional data mode enable */
+#define SPI_CR1_SPE                         (0x00000040)    /*!< SPI Enable */
+#define SPI_CR1_LSBFIRST                    (0x00000080)    /*!< Frame Format */
+#define SPI_CR1_SSI                         (0x00000100)    /*!< Internal slave select */
+#define SPI_CR1_SSM                         (0x00000200)    /*!< Software slave management */
+#define SPI_CR1_RXONLY                      (0x00000400)    /*!< Receive only */
+#define SPI_CR1_DFF                         (0x00000800)    /*!< Data Frame Format */
+#define SPI_CR1_BIDIOE                      (0x00004000)    /*!< Output enable in bidirectional mode */
+#define SPI_CR1_BIDIMODE                    (0x00008000)    /*!< Bidirectional data mode enable */
 
 /*******************  Bit definition for SPI_CR2 register  ********************/
-#define SPI_CR2_SSOE                        (0x00000004)	/*!< SS Output Enable */
-#define SPI_CR2_ERRIE                       (0x00000020)	/*!< Error Interrupt Enable */
-#define SPI_CR2_RXNEIE                      (0x00000040)	/*!< RX buffer Not Empty Interrupt Enable */
-#define SPI_CR2_TXEIE                       (0x00000080)	/*!< Tx buffer Empty Interrupt Enable */
+#define SPI_CR2_SSOE                        (0x00000004)    /*!< SS Output Enable */
+#define SPI_CR2_ERRIE                       (0x00000020)    /*!< Error Interrupt Enable */
+#define SPI_CR2_RXNEIE                      (0x00000040)    /*!< RX buffer Not Empty Interrupt Enable */
+#define SPI_CR2_TXEIE                       (0x00000080)    /*!< Tx buffer Empty Interrupt Enable */
 
 /********************  Bit definition for SPI_SR register  ********************/
-#define SPI_SR_RXNE                         (0x00000001)	/*!< Receive buffer Not Empty */
-#define SPI_SR_TXE                          (0x00000002)	/*!< Transmit buffer Empty */
+#define SPI_SR_RXNE                         (0x00000001)    /*!< Receive buffer Not Empty */
+#define SPI_SR_TXE                          (0x00000002)    /*!< Transmit buffer Empty */
 #define SPI_SR_CHSIDE                       (0x00000004)
 #define SPI_SR_UDR                          (0x00000008)  /*!< CRC Error flag */
-#define SPI_SR_MODF                         (0x00000020)	/*!< Mode fault */
-#define SPI_SR_OVR                          (0x00000040)	/*!< Overrun flag */
-#define SPI_SR_BSY                          (0x00000080)	/*!< Busy flag */
+#define SPI_SR_MODF                         (0x00000020)    /*!< Mode fault */
+#define SPI_SR_OVR                          (0x00000040)    /*!< Overrun flag */
+#define SPI_SR_BSY                          (0x00000080)    /*!< Busy flag */
 
 /********************  Bit definition for SPI_DR register  ********************/
 #define SPI_DR_DR                           (0x0000FFFF)  /*!< Data Register */
@@ -96,13 +96,13 @@ extern "C" {
 
 /** @defgroup SPI_EC_PHASE Clock Phase
   */
-#define SPI_PHASE_1EDGE                 		0x00000000U          /*!< First clock transition is the first data capture edge  */
-#define SPI_PHASE_2EDGE                 		(SPI_CR1_CPHA)       /*!< Second clock transition is the first data capture edge */
+#define SPI_PHASE_1EDGE                         0x00000000U          /*!< First clock transition is the first data capture edge  */
+#define SPI_PHASE_2EDGE                         (SPI_CR1_CPHA)       /*!< Second clock transition is the first data capture edge */
 
 /** @defgroup SPI_EC_POLARITY Clock Polarity
-	*/
-#define SPI_POLARITY_LOW               		  0x00000000U          /*!< Clock to 0 when idle */
-#define SPI_POLARITY_HIGH               	 (SPI_CR1_CPOL)        /*!< Clock to 1 when idle */
+    */
+#define SPI_POLARITY_LOW                         0x00000000U          /*!< Clock to 0 when idle */
+#define SPI_POLARITY_HIGH                    (SPI_CR1_CPOL)        /*!< Clock to 1 when idle */
 
 /** @defgroup SPI_EC_BAUDRATEPRESCALER Baud Rate Prescaler
   */
@@ -138,7 +138,7 @@ extern "C" {
   */
 #define SPI_DATAWIDTH_8BIT                  0x00000000U         /*!< Data length for SPI transfer:  8 bits */
 #define SPI_DATAWIDTH_16BIT                 (SPI_CR1_DFF)       /*!< Data length for SPI transfer:  16 bits */
-																															  
+                                                                                                                              
 
 /* SPI registers Masks */
 #define SPI_CR1_CLEAR_MASK                 (SPI_CR1_CPHA    | SPI_CR1_CPOL     | SPI_CR1_MSTR   | \
@@ -548,7 +548,7 @@ __STATIC_INLINE uint32_t SPI_Get_NSSMode(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint32_t SPI_Get_Flag(SPI_TypeDef *SPIx, uint32_t Flag)
 {
-	return (READ_BIT(SPIx->SR, Flag ) == Flag);
+    return (READ_BIT(SPIx->SR, Flag ) == Flag);
 }
 
 /**
@@ -564,22 +564,22 @@ __STATIC_INLINE uint32_t SPI_Get_Flag(SPI_TypeDef *SPIx, uint32_t Flag)
   */
 __STATIC_INLINE void SPI_Clear_Flag(SPI_TypeDef *SPIx, uint32_t Flag)
 {
-	__IO uint32_t tmpreg;
-	switch(Flag)
-	{
-		case SPI_SR_MODF:
-			tmpreg = SPIx->SR;
-			(void) tmpreg;
-			CLEAR_BIT(SPIx->CR1, SPI_CR1_SPE);
-			break;
-		case SPI_SR_OVR:
-			tmpreg = SPIx->DR;
-			(void) tmpreg;
-			tmpreg = SPIx->SR;
-			(void) tmpreg;
-			break;
-		default:;
-	}
+    __IO uint32_t tmpreg;
+    switch(Flag)
+    {
+        case SPI_SR_MODF:
+            tmpreg = SPIx->SR;
+            (void) tmpreg;
+            CLEAR_BIT(SPIx->CR1, SPI_CR1_SPE);
+            break;
+        case SPI_SR_OVR:
+            tmpreg = SPIx->DR;
+            (void) tmpreg;
+            tmpreg = SPIx->SR;
+            (void) tmpreg;
+            break;
+        default:;
+    }
 }
 
 /**
@@ -610,7 +610,7 @@ __STATIC_INLINE void SPI_Clear_FlagFRE(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE void SPI_Enable_IT(SPI_TypeDef *SPIx, uint32_t IT)
 {
-	SET_BIT(SPIx->CR2, IT );
+    SET_BIT(SPIx->CR2, IT );
 }
 
 
@@ -629,7 +629,7 @@ __STATIC_INLINE void SPI_Enable_IT(SPI_TypeDef *SPIx, uint32_t IT)
   */
 __STATIC_INLINE void SPI_Disable_IT(SPI_TypeDef *SPIx, uint32_t IT)
 {
-	CLEAR_BIT(SPIx->CR2, IT);
+    CLEAR_BIT(SPIx->CR2, IT);
 }
 
 /**
@@ -646,7 +646,7 @@ __STATIC_INLINE void SPI_Disable_IT(SPI_TypeDef *SPIx, uint32_t IT)
   */
 __STATIC_INLINE uint32_t SPI_Get_IT(SPI_TypeDef *SPIx, uint32_t IT)
 {
-	return ( READ_BIT(SPIx->CR2, IT) == (IT) );
+    return ( READ_BIT(SPIx->CR2, IT) == (IT) );
 }
 
 /**

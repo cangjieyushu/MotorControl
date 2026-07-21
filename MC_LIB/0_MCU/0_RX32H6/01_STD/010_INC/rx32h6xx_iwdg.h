@@ -247,8 +247,8 @@ __STATIC_INLINE uint32_t IWDG_Get_ReloadCounter(IWDG_TypeDef *IWDGx)
 ***********************************************************************************
   */
 __STATIC_INLINE uint32_t IWDG_Get_Flag(IWDG_TypeDef *IWDGx, uint32_t Flag)
-{	
-	return (READ_BIT(IWDGx->SR, Flag) == (Flag));
+{    
+    return (READ_BIT(IWDGx->SR, Flag) == (Flag));
 }
 
 /**

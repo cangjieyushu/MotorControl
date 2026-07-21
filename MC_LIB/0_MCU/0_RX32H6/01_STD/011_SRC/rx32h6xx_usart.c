@@ -48,12 +48,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 int fputc(int ch, FILE *f)
 {
 #if defined(UART1_PUT)
-	UART1->DR = ch & 0x1FFU;
+    UART1->DR = ch & 0x1FFU;
   while((UART1->SR & UART_SR_TXE) == 0);
 #endif
   
 #if defined(UART2_PUT)
-	UART2->DR = ch & 0x1FFU;
+    UART2->DR = ch & 0x1FFU;
   while((UART2->SR & UART_SR_TXE) == 0);
 #endif
   return ch;
@@ -68,13 +68,13 @@ void UART_DeInit(UART_TypeDef *UARTx)
 {
   if (UARTx == UART1)
   {
-		SET_BIT(RCC->APB2RSTR,RCC_APB2RSTR_UART1RST);
-		CLEAR_BIT(RCC->APB2RSTR,RCC_APB2RSTR_UART1RST);
+        SET_BIT(RCC->APB2RSTR,RCC_APB2RSTR_UART1RST);
+        CLEAR_BIT(RCC->APB2RSTR,RCC_APB2RSTR_UART1RST);
   }
   else if (UARTx == UART2)
   {
-		SET_BIT(RCC->APB1RSTR,RCC_APB1RSTR_UART2RST);
-		CLEAR_BIT(RCC->APB1RSTR,RCC_APB1RSTR_UART2RST);
+        SET_BIT(RCC->APB1RSTR,RCC_APB1RSTR_UART2RST);
+        CLEAR_BIT(RCC->APB1RSTR,RCC_APB1RSTR_UART2RST);
   }
 }
 
@@ -107,18 +107,18 @@ void UART_StructInit(UART_InitTypeDef *UART_InitStruct)
 void UART_Init(UART_TypeDef *UARTx, UART_InitTypeDef *UART_InitStruct)
 {
   uint32_t periphclk = 0U;
-	
+    
   RCC_ClocksTypeDef rcc_clocks = {0};
-	
-	/* Get SYSCLK frequency */
-	rcc_clocks.SYSCLK_Frequency = RCC_Get_SystemClock();  
-	/* HCLK clock frequency */
-	rcc_clocks.HCLK_Frequency   = RCC_Get_AHBClock(); 
-	/* PCLK1 clock frequency */
-	rcc_clocks.PCLK1_Frequency  = RCC_Get_APB1Clock();  
-	/* PCLK2 clock frequency */
-	rcc_clocks.PCLK2_Frequency  = RCC_Get_APB2Clock();  
-	
+    
+    /* Get SYSCLK frequency */
+    rcc_clocks.SYSCLK_Frequency = RCC_Get_SystemClock();  
+    /* HCLK clock frequency */
+    rcc_clocks.HCLK_Frequency   = RCC_Get_AHBClock(); 
+    /* PCLK1 clock frequency */
+    rcc_clocks.PCLK1_Frequency  = RCC_Get_APB1Clock();  
+    /* PCLK2 clock frequency */
+    rcc_clocks.PCLK2_Frequency  = RCC_Get_APB2Clock();  
+    
   if (UART_Is_Enable(UARTx) == 0U)
   {
     MODIFY_REG(UARTx->CR1,
@@ -129,7 +129,7 @@ void UART_Init(UART_TypeDef *UARTx, UART_InitTypeDef *UART_InitStruct)
 
     UART_Set_StopBitsLength(UARTx, UART_InitStruct->StopBits);
 
-    //RCC_GetSystemClocksFreq(&rcc_clocks);		
+    //RCC_GetSystemClocksFreq(&rcc_clocks);        
     if (UARTx == UART1)
     {
       periphclk = rcc_clocks.PCLK2_Frequency;

@@ -1,25 +1,29 @@
 /**************************************************************************************************
-*     File Name :                        USART.h
-*     Library/Module Name :              COMMON
+*     File Name :                        UARTS.h
+*     Library/Module Name :              UARTS
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
 *     Abstract Description :             串口通讯头文件
 **************************************************************************************************/
-#ifndef USART_H
-#define USART_H
+#ifndef UARTS_H
+#define UARTS_H
+
 
 #include "MATH.h"
 #include "BSP.h"
+#include "UARTH.h"
+
 
 #define RESCEIVE_DATA_LENGTH        (30U)
 #define TRANSMISSION_DATA_LENGTH    (30U)
 
+
 typedef enum{
-    USART_STATE_IDLE,
-    USART_STATE_RUN,
-    USART_STATE_END,
-    USART_STATE_ERROR,
-}EM_USART_STATE_FLOW;
+    UART_STATE_IDLE,
+    UART_STATE_RUN,
+    UART_STATE_END,
+    UART_STATE_ERROR,
+}EM_UART_STATE_FLOW;
 
 typedef union{
     ALL ALL;
@@ -27,12 +31,12 @@ typedef union{
         BIT        resceive_enable         :1;
         BIT        transmission_enable     :1;
     }BIT;
-}UN_USART_STATE_FLAG;
+}UN_UART_STATE_FLAG;
 
 typedef struct{
-    EM_USART_STATE_FLOW USART_Resceive_Flow;
-    EM_USART_STATE_FLOW USART_Transmission_Flow;
-    UN_USART_STATE_FLAG USART_State;
+    EM_UART_STATE_FLOW UART_Resceive_Flow;
+    EM_UART_STATE_FLOW UART_Transmission_Flow;
+    UN_UART_STATE_FLAG UART_State;
     
     Q08U_ rxdata[RESCEIVE_DATA_LENGTH];
     Q08U_ txdata[TRANSMISSION_DATA_LENGTH];
@@ -50,10 +54,17 @@ typedef struct{
     Q32U_ txdata_cnt;
     
     Q32U_ error_cnt;
-}ST_USART_CONTROL;
+}ST_UART_CONTROL;
+
+typedef union{
+    float f32p;
+    Q08U_ u08p[4];
+}UN_Q32U_to_F;
+
+extern ST_UART_CONTROL UART_Ctrl;
 
 /**********************************************************************************************
-Function: USART_Get_Resceive_Data_1
+Function: UART_Get_Resceive_Data
 Description: 串口1接收数据
 Input: 无
 Output: 无
@@ -61,10 +72,10 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Get_Resceive_Data_1(void);
+void UART_Get_Resceive_Data(void);
 
 /**********************************************************************************************
-Function: USART_Send_Transmission_Data_1
+Function: UART_Send_Transmission_Data
 Description: 串口1发送数据
 Input: 无
 Output: 无
@@ -72,9 +83,9 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Send_Transmission_Data_1(void);
+void UART_Send_Transmission_Data(void);
 /**********************************************************************************************
-Function: USART_Resceive_Int_1
+Function: UART_Resceive_Int_1
 Description: 串口1接收数据中断
 Input: 无
 Output: 无
@@ -82,10 +93,10 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Resceive_Int_1(void);
+void UART_Resceive_Int(void);
 
 /**********************************************************************************************
-Function: USART_Transmission_Int_1
+Function: UART_Transmission_Int_1
 Description: 串口1发送数据中断
 Input: 无
 Output: 无
@@ -93,50 +104,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void USART_Transmission_Int_1(void);
+void UART_Transmission_Int(void);
 
-/**********************************************************************************************
-Function: USART_Get_Resceive_Data_2
-Description: 串口2接收数据
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void USART_Get_Resceive_Data_2(void);
 
-/**********************************************************************************************
-Function: USART_Send_Transmission_Data_2
-Description: 串口2发送数据
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void USART_Send_Transmission_Data_2(void);
-
-/**********************************************************************************************
-Function: USART_Resceive_Int_2
-Description: 串口2接收数据中断
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void USART_Resceive_Int_2(void);
-
-/**********************************************************************************************
-Function: USART_Transmission_Int_2
-Description: 串口2发送数据中断
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void USART_Transmission_Int_2(void);
-    
-#endif /* USART_H */
+#endif /* UARTS_H */

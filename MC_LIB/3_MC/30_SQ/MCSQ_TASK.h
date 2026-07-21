@@ -14,7 +14,6 @@
 #include "MCH.h"
 
 
-typedef void(*pMOTOR_FUN)(ST_MOTOR_TASK*);
 typedef void(*pFUN_HPWMLPWM_SET)(Q32U_);
 
 
