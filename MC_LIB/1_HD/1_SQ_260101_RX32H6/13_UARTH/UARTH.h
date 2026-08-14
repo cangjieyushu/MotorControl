@@ -11,8 +11,8 @@
 #include "HAL_CFG.h"
 
 
-//#define UART_RESCEIVE_DATA        USART_RDATA(HAL_MOTOR_UART)
-//#define UART_TRANSMISSION_DATA    USART_TDATA(HAL_MOTOR_UART)
+//#define UART_RESCEIVE_DATA        USART_RDATA(HAL_HMI_UART)
+//#define UART_TRANSMISSION_DATA    USART_TDATA(HAL_HMI_UART)
 #define UART_RESCEIVE_DATA        UART1->DR
 #define UART_TRANSMISSION_DATA    UART1->DR
 
@@ -28,7 +28,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Enable_Rx(void)
 {
-//    usart_receive_config(HAL_MOTOR_UART, USART_RECEIVE_ENABLE);
+//    usart_receive_config(HAL_HMI_UART, USART_RECEIVE_ENABLE);
 }
 
 /**********************************************************************************************
@@ -42,7 +42,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Disable_Rx(void)
 {
-//    usart_receive_config(HAL_MOTOR_UART, USART_RECEIVE_DISABLE);
+//    usart_receive_config(HAL_HMI_UART, USART_RECEIVE_DISABLE);
 }
 
 /**********************************************************************************************
@@ -56,7 +56,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Enable_Tx(void)
 {
-//    usart_transmit_config(HAL_MOTOR_UART, USART_TRANSMIT_ENABLE);
+//    usart_transmit_config(HAL_HMI_UART, USART_TRANSMIT_ENABLE);
 }
 
 /**********************************************************************************************
@@ -70,7 +70,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Disable_Tx(void)
 {
-//    usart_transmit_config(HAL_MOTOR_UART, USART_TRANSMIT_DISABLE);
+//    usart_transmit_config(HAL_HMI_UART, USART_TRANSMIT_DISABLE);
 }
 
 /**********************************************************************************************
@@ -85,7 +85,7 @@ Author: CJYS
 static inline Q32U_ UARTH_Tx_Flag(void)
 {
     return 0;
-//    return (Q32U_)usart_flag_get(HAL_MOTOR_UART, USART_FLAG_TC);
+//    return (Q32U_)usart_flag_get(HAL_HMI_UART, USART_FLAG_TC);
 }
 
 /**********************************************************************************************
@@ -99,7 +99,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Tx_Start(void)
 {
-//    usart_flag_clear(HAL_MOTOR_UART, USART_FLAG_TC);
+//    usart_flag_clear(HAL_HMI_UART, USART_FLAG_TC);
 //    dma_channel_enable(DMA_CH1);
 }
 
@@ -114,7 +114,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void UARTH_Rx_Start(void)
 {
-//    usart_flag_clear(HAL_MOTOR_UART, USART_FLAG_TC);
+//    usart_flag_clear(HAL_HMI_UART, USART_FLAG_TC);
 //    dma_channel_enable(DMA_CH1);
 }
 

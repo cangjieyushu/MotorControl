@@ -83,6 +83,7 @@ void MC_Error_Speed_Flow(ST_MOTOR_ERROR* pERR, Q32U_ Q32U_Enable)
     
     pERR->Fast_Over_Voltage.Check_Flag.bit.Enable = 1U;
     pERR->Fast_Over_Current.Check_Flag.bit.Enable = 1U;
+    pERR->_I_Q14U_Iphase_Max_pu = 0U;
 }
 
 /**********************************************************************************************
@@ -159,8 +160,29 @@ Author: CJYS
 ***********************************************************************************************/
 void MC_Error_Short_Flow(ST_MOTOR_ERROR* pERR)
 {
-    pERR->_V_Q32U_MOS_Error_cnt++;
-    pERR->Motor_Error_Flag.bit.current_short = 1U;
+    if(pERR->_V_Q32U_MOS_Error_cnt_Last == pERR->_V_Q32U_MOS_Error_cnt)
+    {
+        pERR->_V_Q32U_MOS_Error_cnt++;
+        pERR->Motor_Error_Flag.bit.current_short = 1U;
+    }
+}
+
+/**********************************************************************************************
+Function: MC_Error_Init_Flow
+Description: 电机故障检测初始化
+Input: 无
+Output: 无
+Input_Output: 电机故障检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MC_Error_Init_Flow(ST_MOTOR_ERROR* pERR)
+{
+    if(pERR->_V_Q32U_MOS_Error_cnt >= pERR->_P_Q32U_MOS_Error_Count)
+    {
+        pERR->Motor_Error_Flag.bit.mos_fault = 1U;
+    }
+    pERR->_V_Q32U_MOS_Error_cnt_Last = pERR->_V_Q32U_MOS_Error_cnt;
 }
 
 /**********************************************************************************************

@@ -14,9 +14,16 @@
 #include "MC_ERR.h"
 
 
+//闭环使能
 #define SPEED_CLOSE_EN                  (1U)        //0：开环，1：转速环
 #define I_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：母线电流环
-#define P_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：功率环，如果同时使能了电流环和功率环，只有电流环起作用
+#define P_BUS_CLOSE_EN                  (1U)        //母线电流限流使能，0：未使能，1：功率环，如果同时使能了母线电流环和功率环，只有母线电流环起作用
+
+
+//滤波器系数
+#define IPHASE_FILTER_COEFF             (500)                       //0~16384
+#define FREQ_FILTER_COEFF               (500)                       //0~16384
+#define IBUS_FILTER_COEFF               (500)                       //0~16384
 
 
 //电流采样偏置检测
@@ -46,10 +53,18 @@
 #define POSITION_TL_lsb                 (100U)                     //脉冲定位是否成功判断阈值
 
 
-//滤波器系数
-#define IPHASE_FILTER_COEFF             (500)                       //0~16384
-#define FREQ_FILTER_COEFF               (500)                       //0~16384
-#define IBUS_FILTER_COEFF               (500)                       //0~16384
+//刹车占空比控制
+#define BRAKE_DUTY_RAMP_ADDSTEP         ( Q28I_DUTY_TO_PU(0.020f))
+#define BRAKE_DUTY_RAMP_SUBSTEP         (-Q28I_DUTY_TO_PU(0.020f))
+
+#define BRAKE_DUTY_CTRL_MAX             (Q14I_DUTY_TO_PU(0.400f))
+#define BRAKE_DUTY_CTRL_MIN             (Q14I_DUTY_TO_PU(0.200f))
+
+
+//刹车时间
+#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
+#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
+#define SHORT_BRAKE_TIME                (0U)                //ms，第3段短接刹车
 
 
 //换向系数
@@ -64,7 +79,6 @@
 
 #define BEMF_CROSS_DELAY_COEFF          (4096U/6U)                  //0~8192，延迟换向比例，8192为理论的30度
 
-
 //换向算法切换
 #define FLUX_TO_BEMF_FREQ               (Q14I_FREQ_TO_PU(0.25f * MOTOR_MAX_FREQ))
 #define FLUX_TO_BEMF_NUM                (20U)
@@ -73,26 +87,27 @@
 #define BEMF_TO_FLUX_NUM                (20U)
 
 
-//载频切换
-#define PWM_FREQ_START                  (HAL_PWM_INIT_SET)
-#define PWM_FREQ_LOW                    (HAL_PWM_RUN1_SET)
-#define PWM_FREQ_HIGH                   (HAL_PWM_RUN2_SET)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(50.0f*HAL_PWM_RUN1_FREQ/1000.0f))     //50us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q14I_DUTY_TO_PU(40.0f*HAL_PWM_RUN2_FREQ/1000.0f))     //40us
-
-
-//最大占空比，最小占空比
+//占空比斜坡，最大占空比，最小占空比
 #define DUTY_RAMP_ADDSTEP               ( Q28I_DUTY_TO_PU(0.020f))
 #define DUTY_RAMP_SUBSTEP               (-Q28I_DUTY_TO_PU(0.020f))
 
 #define DUTY_CTRL_MAX                   (Q14I_DUTY_TO_PU(1.000f))
 #define DUTY_CTRL_MIN                   (Q14I_DUTY_TO_PU(0.100f))
 
+//载频切换
+#define PWM_FREQ_START                  (HAL_PWM_INIT_VALUE)
+#define PWM_FREQ_LOW                    (HAL_PWM_LOW_VALUE)
+#define PWM_FREQ_HIGH                   (HAL_PWM_HIGH_VALUE)
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(50.0f*HAL_PWM_LOW_FREQ/1000.0f))       //50us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q14I_DUTY_TO_PU(40.0f*HAL_PWM_HIGH_FREQ/1000.0f))      //40us
 
-//转速PID
+
+//转速斜坡
 #define FREQ_RAMP_ADDSTEP               ( Q28I_FREQ_TO_PU(0.0001f * MOTOR_MAX_FREQ))
 #define FREQ_RAMP_SUBSTEP               (-Q28I_FREQ_TO_PU(0.0001f * MOTOR_MAX_FREQ))
 
+
+//转速PID
 #define FREQ_PID_KP                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
 #define FREQ_PID_KI                     (Q32I_)(0.0010f * MOTOR_Q14_PU)
 #define FREQ_PID_KD                     (Q32I_)(0.0001f * MOTOR_Q14_PU)
@@ -122,20 +137,6 @@
 #define IPHASE_PID_OUTMIN               (DUTY_CTRL_MIN)
 
 
-//刹车占空比控制
-#define BRAKE_DUTY_RAMP_ADDSTEP         ( Q28I_DUTY_TO_PU(0.020f))
-#define BRAKE_DUTY_RAMP_SUBSTEP         (-Q28I_DUTY_TO_PU(0.020f))
-
-#define BRAKE_DUTY_CTRL_MAX             (Q14I_DUTY_TO_PU(0.400f))
-#define BRAKE_DUTY_CTRL_MIN             (Q14I_DUTY_TO_PU(0.200f))
-
-
-//刹车时间
-#define NO_BRAKE_TIME                   (100U)              //ms，第1段自由滑行
-#define SLOW_BRAKE_TIME                 (0U)                //ms，第2段馈电刹车
-#define SHORT_BRAKE_TIME                (0U)                //ms，第3段短接刹车
-
-
 //堵转保护参数
 #define MOTOR_STALL_SWITCH_COEFF        (31U)   //base64，换相波动堵转判断系数
 #define MOTOR_STALL_ERROR_TIME          (35U)  //ms，堵转时间
@@ -143,8 +144,8 @@
 
 typedef enum{
     MOTOR_STATE_PRE,            //参数复位阶段
-    MOTOR_STATE_INIT,           //硬件初始化阶段
-    MOTOR_STATE_IDLE,           //电机静止检测阶段
+    MOTOR_STATE_OFFSET,         //电流偏置检测阶段
+    MOTOR_STATE_FLYING,         //电机顺风检测阶段
     MOTOR_STATE_BOOT,           //自举电容充电阶段
     MOTOR_STATE_POSITION,       //脉冲定位阶段阶段
     MOTOR_STATE_RUN,            //电机运行阶段

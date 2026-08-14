@@ -18,7 +18,7 @@ Author: CJYS
 ***********************************************************************************************/
 void SysTickConfig(void)
 {
-    if(SysTick_Config(HAL_SLOW_TIMER_COUNT))
+    if(SysTick_Config(HAL_SLOW_TIM_VALUE))
     {
         while(1);
     }

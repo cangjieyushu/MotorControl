@@ -10,7 +10,7 @@
 
 
 EM_CHANNEL_NUM ADC_VAL_Table[6][3] = 
-{
+{// 正端导通相     悬空相          负端导通相
     U_CHANNEL_NUM, W_CHANNEL_NUM, V_CHANNEL_NUM, 
     U_CHANNEL_NUM, V_CHANNEL_NUM, W_CHANNEL_NUM,
     V_CHANNEL_NUM, U_CHANNEL_NUM, W_CHANNEL_NUM, 
@@ -19,6 +19,7 @@ EM_CHANNEL_NUM ADC_VAL_Table[6][3] =
     W_CHANNEL_NUM, U_CHANNEL_NUM, V_CHANNEL_NUM,
 };
 
+//转子定位转换至电压矢量输出             正转      反转
 EM_SECTOR_NUM Position_Sector[6][2] = {sector_3, sector_6,
                                        sector_4, sector_1,
                                        sector_5, sector_2,
@@ -26,6 +27,7 @@ EM_SECTOR_NUM Position_Sector[6][2] = {sector_3, sector_6,
                                        sector_1, sector_4,
                                        sector_2, sector_5};
 
+//扇区步进及回退
 EM_SECTOR_NUM Last_Sector[6] = {sector_6, sector_1, sector_2, sector_3, sector_4, sector_5};
 EM_SECTOR_NUM Next_Sector[6] = {sector_2, sector_3, sector_4, sector_5, sector_6, sector_1};
 
@@ -41,10 +43,12 @@ Author: CJYS
 ***********************************************************************************************/
 void MCSQ_Init(ST_MCSQ_CONTROL* pMS_CTRL)
 {
+    //MCSQ_BLDC初始化
     pMS_CTRL->MCSQ_BLDC.SW_Math = SWITCH_FLUX;
     pMS_CTRL->MCSQ_BLDC.SQ_Flow = SQUARE_CROSS_ING;
     pMS_CTRL->MCSQ_BLDC.DIR_Set = pMS_CTRL->MCSQ_BLDC.DIR_Target;
     
+    pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_last = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[0] = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[1] = 0U;
@@ -52,44 +56,80 @@ void MCSQ_Init(ST_MCSQ_CONTROL* pMS_CTRL)
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[3] = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[4] = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[5] = 0U;
+    pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_Filter = 0U;
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._O_Q32U_Switch_cnt = 0U;
     
     LPF_Init_T(&pMS_CTRL->MCSQ_BLDC.FL_Iphase, 0);
     LPF_Init_T(&pMS_CTRL->MCSQ_BLDC.FL_Freq, 0);
     LPF_Init_T(&pMS_CTRL->MCSQ_BLDC.FL_Ibus, 0);
     
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_ADC_tmp[0] = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_ADC_tmp[1] = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_ADC_tmp[2] = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_ON_ADC = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_ZI_ADC = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Bemf_OF_ADC = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Vbus_ADC = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q12U_Iphase_ADC = 0U;
     pMS_CTRL->MCSQ_BLDC._V_Q12U_Iphase_ADC_Offset = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q14U_Iphase_pu = 0U;
+    pMS_CTRL->MCSQ_BLDC._V_Q14U_Vbus_pu = 0U;
     
+    //MCSQ_OFFSET初始化
     pMS_CTRL->MCSQ_OFFSET._V_Q32U_Offset_Check_cnt = 0U;
     
+    //MCSQ_FLYING初始化
     pMS_CTRL->MCSQ_FLYING._V_Q32U_Flying_Low_Bemf_cnt = 0U;
-    pMS_CTRL->MCSQ_FLYING._P_Q16U_Flying_Check_cnt = 0U;
-    pMS_CTRL->MCSQ_FLYING._P_Q16U_Flying_Phase_cnt = 0U;
+    pMS_CTRL->MCSQ_FLYING._V_Q16U_Flying_Check_cnt = 0U;
+    pMS_CTRL->MCSQ_FLYING._V_Q16U_Flying_Phase_cnt = 0U;
     
+    //MCSQ_BOOT初始化
     pMS_CTRL->MCSQ_BOOT._V_Q32U_Boot_Low_Bemf_cnt = 0U;
     
+    //MCSQ_POSITION初始化
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[0] = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[1] = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[2] = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[3] = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[4] = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q12U_Position_Iphase_ADC_tmp[5] = 0U;
     pMS_CTRL->MCSQ_POSITION._V_Q32U_Position_cnt = 0U;
+    pMS_CTRL->MCSQ_POSITION._V_Q14U_Position_Duty_PWMCount = 0U;
     
+    //MCSQ_BRAKE初始化
+    Ramp_Init_T(&pMS_CTRL->MCSQ_BRAKE.Ramp_Brake_Duty, pMS_CTRL->MCSQ_BRAKE.Ramp_Brake_Duty.Q14I_Init);
     pMS_CTRL->MCSQ_BRAKE._O_Q32U_Brake_Finish_Flag = 0U;
     pMS_CTRL->MCSQ_BRAKE._O_Q14U_Brake_Duty_Set = 0U;
     pMS_CTRL->MCSQ_BRAKE._V_Q32U_Brake_cnt = 0U;
     
+    //换向初始化
     pMS_CTRL->MCSQ_DIAG._V_Q32U_DIAG_cnt = 0U;
     pMS_CTRL->MCSQ_FLUX._V_Q32U_Flux_cnt = 0U;
     pMS_CTRL->MCSQ_FLUX._V_Q32U_Flux_to_Bemf_cnt = 0U;
     pMS_CTRL->MCSQ_BEMF._V_Q32U_Bemf_cnt = 0U;
     pMS_CTRL->MCSQ_BEMF._V_Q32U_Bemf_to_Flux_cnt = 0U;
+    pMS_CTRL->MCSQ_CMP._V_Q32U_temp = 0U;
     
+    //控制初始化
     Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->Ramp_Freq.Q14I_Init);
     PID_Inc_Init_T(&pMS_CTRL->PID_Freq, pMS_CTRL->PWM_CTRL._P_Q14U_Duty_Min);
     PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, pMS_CTRL->PWM_CTRL._P_Q14U_Duty_Max);
     PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, pMS_CTRL->PWM_CTRL._P_Q14U_Duty_Max);
     
+    //PWM_CTRL初始化
     Ramp_Init_T(&pMS_CTRL->PWM_CTRL.Ramp_Duty, pMS_CTRL->PWM_CTRL.Ramp_Duty.Q14I_Init);
     pMS_CTRL->PWM_CTRL.PWM_Freq_Flag = 0U;
+    pMS_CTRL->PWM_CTRL._I_Q14U_Duty_VR = 0U;
+    pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Freq = 0U;
+    pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Ibus = 0U;
+    pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Iphase = 0U;
+    pMS_CTRL->PWM_CTRL._O_Q14U_Duty_Set = 0U;
+    pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount = 0U;
     pMS_CTRL->PWM_CTRL._O_Q32U_PWMCount_Set = pMS_CTRL->PWM_CTRL._P_Q32U_Low_PWMCount;
     
+    //STALL_CTRL初始化
     pMS_CTRL->STALL_CTRL._V_Q32U_Stall_cnt = 0U;
+    pMS_CTRL->STALL_CTRL._V_Q32U_Stall_Switch_cnt = 0U;
 }
 
 /**********************************************************************************************
@@ -105,7 +145,6 @@ void MCSQ_Flying_Init(ST_MCSQ_CONTROL* pMS_CTRL)
 {
     pMS_CTRL->MCSQ_BLDC.SW_Math = SWITCH_BEMF;
     pMS_CTRL->MCSQ_BLDC.SQ_Flow = SQUARE_CROSS_ING;
-    pMS_CTRL->PWM_CTRL.PWM_Freq_Flag = SUCS;
     
     pMS_CTRL->MCSQ_BLDC.FL_Freq.Q14I_LPF_In = Q32I_RHT_14(pMS_CTRL->MCSQ_BLDC._P_Q28U_Freq_Scale*(pMS_CTRL->MCSQ_BLDC.Freq_Cal._P_Q32U_Hall_Time_Freq/(
     pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[0] + pMS_CTRL->MCSQ_BLDC.Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[1]
@@ -116,7 +155,6 @@ void MCSQ_Flying_Init(ST_MCSQ_CONTROL* pMS_CTRL)
     /pMS_CTRL->PWM_CTRL._P_Q14U_Motor_Freq_Max)*pMS_CTRL->MCSQ_BLDC._P_Q14U_Vbus_Max_pu)/pMS_CTRL->MCSQ_BLDC._V_Q14U_Vbus_pu;
     
     Ramp_Init_T(&pMS_CTRL->Ramp_Freq, pMS_CTRL->MCSQ_BLDC.FL_Freq.Q14I_LPF_In);
-    
     PID_Inc_Init_T(&pMS_CTRL->PID_Iphase, pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount);
     PID_Inc_Init_T(&pMS_CTRL->PID_Freq, pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount);
     PID_Inc_Init_T(&pMS_CTRL->PID_Ibus, pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount);
@@ -125,6 +163,7 @@ void MCSQ_Flying_Init(ST_MCSQ_CONTROL* pMS_CTRL)
     
     LPF_Init_T(&pMS_CTRL->MCSQ_BLDC.FL_Freq, pMS_CTRL->MCSQ_BLDC.FL_Freq.Q14I_LPF_In);
     
+    pMS_CTRL->PWM_CTRL.PWM_Freq_Flag = SUCS;
     pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Freq = pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount;
     pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Ibus = pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount;
     pMS_CTRL->PWM_CTRL._I_Q14U_Duty_Iphase = pMS_CTRL->PWM_CTRL._O_Q32U_Duty_PWMCount;
@@ -139,12 +178,14 @@ Function: MCSQ_Freq_Cal
 Description: 频率计算
 Input: 无
 Output: 无
-Input_Output: 频率计算指针，方波控制指针，换相定时器
+Input_Output: BLDC参数指针，换相定时器
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MCSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MCSQ_CONTROL* pMS_CTRL, Q32U_ Q32U_Time_Count)
+void MCSQ_Freq_Cal(ST_MCSQ_BLDC* pMCSQ_BLDC, Q32U_ Q32U_Time_Count)
 {
+    ST_FREQ_CAL* pFREQ_CAL = &pMCSQ_BLDC->Freq_Cal;
+    
     if(Q32U_Time_Count > pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_last)
     {
         pFREQ_CAL->_V_Q32U_60Deg_Time_cnt = Q32U_Time_Count - pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_last;
@@ -167,11 +208,11 @@ void MCSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MCSQ_CONTROL* pMS_CTRL, Q32U_ Q32U
     + pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_tmp[2] + pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_tmp[3]
     + pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_tmp[4] + pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_tmp[5]);
     
-    pMS_CTRL->MCSQ_BLDC.FL_Freq.Q14I_LPF_In = Q32I_RHT_14(pMS_CTRL->MCSQ_BLDC._P_Q28U_Freq_Scale*(pFREQ_CAL->_P_Q32U_Hall_Time_Freq/pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_Filter));
+    pMCSQ_BLDC->FL_Freq.Q14I_LPF_In = Q32I_RHT_14(pMCSQ_BLDC->_P_Q28U_Freq_Scale*(pFREQ_CAL->_P_Q32U_Hall_Time_Freq/pFREQ_CAL->_V_Q32U_60Deg_Time_cnt_Filter));
     
-    LPF_Cal_T(&pMS_CTRL->MCSQ_BLDC.FL_Freq);
+    LPF_Cal_T(&pMCSQ_BLDC->FL_Freq);
     
-    pMS_CTRL->MCSQ_BLDC.Freq_Cal._O_Q32U_Switch_cnt++;
+    pMCSQ_BLDC->Freq_Cal._O_Q32U_Switch_cnt++;
 }
 
 /**********************************************************************************************
@@ -286,11 +327,11 @@ EM_FLAG_STATE MCSQ_Flying_Check(ST_MCSQ_FLYING* pFLYING, ST_MCSQ_BLDC* pBLDC, Q3
         
         if(Next_Sector[pBLDC->Sector_Last] == pBLDC->Sector)
         {
-            pFLYING->_P_Q16U_Flying_Check_cnt++;
-            if(pFLYING->_P_Q16U_Flying_Check_cnt > pFLYING->_P_Q16U_Flying_Check_Filter)
+            pFLYING->_V_Q16U_Flying_Check_cnt++;
+            if(pFLYING->_V_Q16U_Flying_Check_cnt > pFLYING->_P_Q16U_Flying_Check_Filter)
             {
-                pFLYING->_P_Q16U_Flying_Check_cnt = 0;
-                if(pFLYING->_P_Q16U_Flying_Phase_cnt == 0U)
+                pFLYING->_V_Q16U_Flying_Check_cnt = 0;
+                if(pFLYING->_V_Q16U_Flying_Phase_cnt == 0U)
                 { 
                     pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt_last = Q32U_Time_Count;
                 }
@@ -304,14 +345,14 @@ EM_FLAG_STATE MCSQ_Flying_Check(ST_MCSQ_FLYING* pFLYING, ST_MCSQ_BLDC* pBLDC, Q3
                     {
                         pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt = (pBLDC->Freq_Cal._P_Q32U_Hall_Time_Max_count - pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt_last) + Q32U_Time_Count;
                     }
-                    pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[pFLYING->_P_Q16U_Flying_Phase_cnt-1] = pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt;
+                    pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt_tmp[pFLYING->_V_Q16U_Flying_Phase_cnt-1] = pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt;
                     pBLDC->Freq_Cal._V_Q32U_60Deg_Time_cnt_last = Q32U_Time_Count;
                 }
-                if(pFLYING->_P_Q16U_Flying_Phase_cnt == 6U)
+                if(pFLYING->_V_Q16U_Flying_Phase_cnt == 6U)
                 {
                     flag_tmp = SUCS;
                 }
-                pFLYING->_P_Q16U_Flying_Phase_cnt++;
+                pFLYING->_V_Q16U_Flying_Phase_cnt++;
                 pBLDC->Sector_Last = pBLDC->Sector;
             }
         }

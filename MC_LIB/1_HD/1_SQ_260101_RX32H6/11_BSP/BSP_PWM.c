@@ -20,8 +20,8 @@ void BSP_PWM_Init(void)
 {
     //SET CNT BASE
     TIM_Set_CounterMode(HAL_MOTOR_PWM, TIM_COUNTERMODE_UP);
-    TIM_Set_Prescaler(HAL_MOTOR_PWM, (uint32_t)HAL_PWM_PRESCALER);
-    TIM_Set_AutoReload(HAL_MOTOR_PWM, (HAL_PWM_INIT_SET-1));
+    TIM_Set_Prescaler(HAL_MOTOR_PWM, ((uint32_t)HAL_PWM_PRESCALER) - 1U);
+    TIM_Set_AutoReload(HAL_MOTOR_PWM, (HAL_PWM_INIT_VALUE-1U));
     TIM_Set_RepetitionCounter(HAL_MOTOR_PWM, 0U);
 
     //CH1 / CH1N

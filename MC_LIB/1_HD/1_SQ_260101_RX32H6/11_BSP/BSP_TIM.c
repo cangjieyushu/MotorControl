@@ -23,7 +23,7 @@ void BSP_TIM_Init(void)
     TIM_TimeBaseInitStruct.RepetitionCounter    = 0;
     TIM_TimeBaseInitStruct.Period               = 0xFFFFFFFFU;
     TIM_TimeBaseInitStruct.ClockDivision        = TIM_CLOCKDIVISION_DIV1;
-    TIM_TimeBaseInitStruct.Prescaler            = (uint32_t)HAL_HALL_TIM_PRESCALER;
+    TIM_TimeBaseInitStruct.Prescaler            = ((uint32_t)HAL_HALL_TIM_PRESCALER) - 1U;
     TIM_TimeBaseInit(HAL_MOTOR_HALL_TIM, &TIM_TimeBaseInitStruct);
     TIM_Enable_CEN(HAL_MOTOR_HALL_TIM); 
     
@@ -31,7 +31,7 @@ void BSP_TIM_Init(void)
     TIM_TimeBaseInitStruct.RepetitionCounter    = 0;
     TIM_TimeBaseInitStruct.Period               = 0xFFFFU;
     TIM_TimeBaseInitStruct.ClockDivision        = TIM_CLOCKDIVISION_DIV1;
-    TIM_TimeBaseInitStruct.Prescaler            = (uint32_t)HAL_SWITCH_TIM_PRESCALER;
+    TIM_TimeBaseInitStruct.Prescaler            = ((uint32_t)HAL_SWITCH_TIM_PRESCALER) - 1U;
     TIM_TimeBaseInit(HAL_MOTOR_SWITCH_TIM, &TIM_TimeBaseInitStruct);
     
     TIM_Disable_OC_Preload(HAL_MOTOR_SWITCH_TIM, TIM_CHANNEL_CH1);

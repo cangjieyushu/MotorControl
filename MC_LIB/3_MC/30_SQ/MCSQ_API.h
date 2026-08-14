@@ -40,30 +40,30 @@ void Motor_Stop(ST_MOTOR_TASK* pMotor);
 /**********************************************************************************************
 Function: Motor_Set_Dir
 Description: 设置电机运行方向
-Input:  1（正转），-1（反转）
+Input:  1（正转），0（反转）
 Output: 无
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void Motor_Set_Dir(ST_MOTOR_TASK* pMotor, Q32I_ Dir);
+void Motor_Set_Dir(ST_MOTOR_TASK* pMotor, Q32U_ Dir);
 
 /**********************************************************************************************
 Function: Motor_Read_Dir
 Description: 获取电机运行方向
 Input: 无
-Output: 1（正转），-1（反转）
+Output: 1（正转），0（反转）
 Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-Q32I_ Motor_Read_Dir(ST_MOTOR_TASK* pMotor);
+Q32U_ Motor_Read_Dir(ST_MOTOR_TASK* pMotor);
 
 /**********************************************************************************************
 Function: Motor_Get_Run_State
 Description: 获取电机是否为运行状态
 Input: 无
-Output: 1,0
+Output: 1（运行），0（停机）
 Input_Output: 无
 Return: 无
 Author: CJYS
@@ -135,9 +135,6 @@ Return: 无
 Author: CJYS
 ***********************************************************************************************/
 void Motor_Clear_Error(ST_MOTOR_TASK* pMotor);
-
-
-extern pMOTOR_API Motor_API_Function[256U];
 
 
 #endif /* MCSQ_API_H */

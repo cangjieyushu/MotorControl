@@ -5,10 +5,13 @@
 *     Create Date :                      2024/1/1
 *     Abstract Description :             电机控制HAL层头文件
 **************************************************************************************************/
+
 #ifndef MCH_H
 #define MCH_H
 
+
 #include "HAL_CFG.h"
+
 
 #define ADC_DATA_READ_U_BEMF        ((Q32U_)HAL_MOTOR_ADC->JDR1)
 #define ADC_DATA_READ_V_BEMF        ((Q32U_)HAL_MOTOR_ADC->JDR2)
@@ -17,6 +20,7 @@
 
 #define BSP_ADC_DATA_READ_VBUS      ((Q32U_)HAL_MOTOR_ADC->DATA1)
 #define BSP_ADC_DATA_READ_TEMP      ((Q32U_)HAL_MOTOR_ADC->DATA2)
+
 
 /**********************************************************************************************
 Function: MH_ADC_Soft_Trigger
@@ -57,7 +61,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline void MH_PWM_Freq_Set(Q32U_ count)
 {
-    TIM_Set_AutoReload(HAL_MOTOR_PWM, (count-1));
+    TIM_Set_AutoReload(HAL_MOTOR_PWM, (count-1U));
 }
 
 /**********************************************************************************************
@@ -103,51 +107,51 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_POSITION_Up(Q32U_ duty)
+static inline void MH_POSITION_Up(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
 }
-static inline void MH_POSITION_Wn(Q32U_ duty)
+static inline void MH_POSITION_Wn(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
 }
-static inline void MH_POSITION_Vp(Q32U_ duty)
+static inline void MH_POSITION_Vp(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
 }
-static inline void MH_POSITION_Un(Q32U_ duty)
+static inline void MH_POSITION_Un(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
-static inline void MH_POSITION_Wp(Q32U_ duty)
+static inline void MH_POSITION_Wp(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
-static inline void MH_POSITION_Vn(Q32U_ duty)
+static inline void MH_POSITION_Vn(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VH_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
@@ -161,67 +165,67 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_HPWM_LPWM_UpVn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_UpVn(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
     HAL_MOTOR_PWM->CCR2 = 0U;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL|VH_PWM_CHANNEL|VL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, WH_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_UpWn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_UpWn(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
     HAL_MOTOR_PWM->CCR2 = 0U;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL|WH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|VL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_VpWn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_VpWn(Q32U_ ccr_value)
 {
     HAL_MOTOR_PWM->CCR1 = 0U;
-    HAL_MOTOR_PWM->CCR2 = duty;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_VpUn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_VpUn(Q32U_ ccr_value)
 {
     HAL_MOTOR_PWM->CCR1 = 0U;
-    HAL_MOTOR_PWM->CCR2 = duty;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
     HAL_MOTOR_PWM->CCR3 = 0U;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL|VH_PWM_CHANNEL|VL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, WH_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_WpUn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_WpUn(Q32U_ ccr_value)
 {
     HAL_MOTOR_PWM->CCR1 = 0U;
     HAL_MOTOR_PWM->CCR2 = 0U;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL|WH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|VL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_WpVn(Q32U_ duty)
+static inline void MH_HPWM_LPWM_WpVn(Q32U_ ccr_value)
 {
     HAL_MOTOR_PWM->CCR1 = 0U;
     HAL_MOTOR_PWM->CCR2 = 0U;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, VH_PWM_CHANNEL|VL_PWM_CHANNEL|WH_PWM_CHANNEL|WL_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|UL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_HOpen(Q32U_ duty)
+static inline void MH_HPWM_LPWM_HOpen(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
-static inline void MH_HPWM_LPWM_LOpen(Q32U_ duty)
+static inline void MH_HPWM_LPWM_LOpen(Q32U_ ccr_value)
 {
-    HAL_MOTOR_PWM->CCR1 = duty;
-    HAL_MOTOR_PWM->CCR2 = duty;
-    HAL_MOTOR_PWM->CCR3 = duty;
+    HAL_MOTOR_PWM->CCR1 = ccr_value;
+    HAL_MOTOR_PWM->CCR2 = ccr_value;
+    HAL_MOTOR_PWM->CCR3 = ccr_value;
     TIM_Disable_CC_Channel(HAL_MOTOR_PWM, UH_PWM_CHANNEL|VH_PWM_CHANNEL|WH_PWM_CHANNEL);
     TIM_Enable_CC_Channel(HAL_MOTOR_PWM, UL_PWM_CHANNEL|VL_PWM_CHANNEL|WL_PWM_CHANNEL);
 }
@@ -245,7 +249,7 @@ Author: CJYS
 ***********************************************************************************************/
 static inline Q32U_ MH_PWM_Count_Read(void)
 {
-   return HAL_MOTOR_PWM->CNT;
+   return (Q32U_)HAL_MOTOR_PWM->CNT;
 }
 
 /**********************************************************************************************
@@ -259,11 +263,11 @@ Author: CJYS
 ***********************************************************************************************/
 static inline Q32U_ MH_HALL_TIM_Count_Read(void)
 {
-   return HAL_MOTOR_HALL_TIM->CNT;
+   return (Q32U_)HAL_MOTOR_HALL_TIM->CNT;
 }
 
 /**********************************************************************************************
-Function: MH_Switch_TIM_Delay
+Function: MH_SWITCH_TIM_Delay
 Description: 设置延迟换向计数器值，进入中断
 Input: 换向计数器值
 Output: 无
@@ -271,15 +275,15 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_Switch_TIM_Delay(Q32U_ count)
+static inline void MH_SWITCH_TIM_Delay(Q32U_ ccr_value)
 {
     HAL_MOTOR_SWITCH_TIM->CNT = 0U;
-    HAL_MOTOR_SWITCH_TIM->CCR1 = (Q32U_)count;
+    HAL_MOTOR_SWITCH_TIM->CCR1 = (Q32U_)ccr_value;
     SET_BIT(HAL_MOTOR_SWITCH_TIM->CR1, TIM_CR1_CEN);
 }
 
 /**********************************************************************************************
-Function: MH_Switch_TIM_Stop
+Function: MH_SWITCH_TIM_Stop
 Description: 停止延迟换向计数器值，屏蔽中断
 Input: 无
 Output: 无
@@ -287,7 +291,7 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-static inline void MH_Switch_TIM_Stop(void)
+static inline void MH_SWITCH_TIM_Stop(void)
 {
     CLEAR_BIT(HAL_MOTOR_SWITCH_TIM->CR1, TIM_CR1_CEN);
     HAL_MOTOR_SWITCH_TIM->CNT = 0U;

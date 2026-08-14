@@ -67,7 +67,7 @@
 #define OVER_IBUS_PROTECT_LEVEL_TIME            (1000U)                                                 //ms，过母线保护时间
 
 //MOS损坏次数
-#define MOS_ERROR_COUNT                         (4U)                                                    //MOS损坏次数
+#define MOS_ERROR_COUNT                         (5U)                                                    //MOS损坏次数
 
 
 
@@ -162,7 +162,7 @@ typedef union{
     ALL all;
     struct{
         BIT current_short       :1;//短路
-        BIT mos_fault           :1;//mos损坏（单个上电周期内，发生三次短路保护，锁死故障状态）
+        BIT mos_fault           :1;//mos损坏（单个上电周期内，发生数次短路保护，锁死故障状态）
         BIT current_offset      :1;//偏置
         BIT position_error      :1;//电机定位失败、缺相SQ
         BIT rotor_stall         :1;//电机堵转
@@ -226,6 +226,7 @@ typedef struct{
     ST_CHECK                    Fast_Over_Current;
     
     Q32U_                       _V_Q32U_MOS_Error_cnt;
+    Q32U_                       _V_Q32U_MOS_Error_cnt_Last;
     Q32U_                       _P_Q32U_MOS_Error_Count;
 }ST_MOTOR_ERROR;
 
@@ -274,6 +275,17 @@ Author: CJYS
 ***********************************************************************************************/
 void MC_Error_Short_Flow(ST_MOTOR_ERROR* pERR);
 
+/**********************************************************************************************
+Function: MC_Error_Init_Flow
+Description: 电机故障检测初始化
+Input: 无
+Output: 无
+Input_Output: 电机故障检测指针
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void MC_Error_Init_Flow(ST_MOTOR_ERROR* pERR);
+    
 /**********************************************************************************************
 Function: MC_Error_Clear_
 Description: 清除电机故障

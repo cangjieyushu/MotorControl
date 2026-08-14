@@ -20,14 +20,14 @@ typedef enum
 {
     CW,
     CCW,
-}EM_DIRECTION;
+}EM_DIRECTION;      //方向
 
 typedef enum
 {
     U_CHANNEL_NUM,
     V_CHANNEL_NUM,
     W_CHANNEL_NUM,
-}EM_CHANNEL_NUM;
+}EM_CHANNEL_NUM;    //相序
 
 typedef enum
 {
@@ -37,27 +37,27 @@ typedef enum
     sector_4,
     sector_5,
     sector_6,
-}EM_SECTOR_NUM;
+}EM_SECTOR_NUM;     //转子扇区
 
 typedef enum{
-    SWITCH_FLUX,
-    SWITCH_BEMF,
-    SWITCH_CMP,
-}EM_SWITCH_FLOW;
+    SWITCH_FLUX,        //磁链换向
+    SWITCH_BEMF,        //反电动势过零换向
+    SWITCH_CMP,         //比较器过零换向
+}EM_SWITCH_MATH;        //换向算法状态机
 
 typedef enum{
-    SQUARE_DIAG_ING,
-    SQUARE_CROSS_ING,
-    SQUARE_CROSS_SUCC,
-    SQUARE_SWITCH_SUCC,
-}EM_SQUARE_FLOW;
+    SQUARE_DIAG_ING,        //续流检测
+    SQUARE_CROSS_ING,       //过零点检测
+    SQUARE_CROSS_SUCC,      //过零点检测成功，开始换向
+    SQUARE_SWITCH_SUCC,     //换向成功
+}EM_SQUARE_FLOW;            //换向流程状态机
 
 typedef enum
 {
-    ING,
-    SUCS,
-    FAIL,
-}EM_FLAG_STATE;
+    ING,            //未完成
+    SUCS,           //成功
+    FAIL,           //失败
+}EM_FLAG_STATE;     //任务状态机
 
 typedef struct
 {
@@ -71,23 +71,23 @@ typedef struct
     
     Q32U_   _P_Q32U_Hall_Time_Freq;
     Q32U_   _P_Q32U_Hall_Time_Max_count;
-}ST_FREQ_CAL;
+}ST_FREQ_CAL;       //频率计算
 
 typedef struct
 {
+    EM_SWITCH_MATH          SW_Math;
+    EM_SQUARE_FLOW          SQ_Flow;
+    
     EM_DIRECTION            DIR_Set;
     EM_DIRECTION            DIR_Target;
     EM_SECTOR_NUM           Sector;
     EM_SECTOR_NUM           Sector_Last;
     
-    ST_FREQ_CAL             Freq_Cal;
-    
     ST_LPF_T                FL_Freq;
     ST_LPF_T                FL_Ibus;
     ST_LPF_T                FL_Iphase;
     
-    EM_SQUARE_FLOW          SQ_Flow;
-    EM_SWITCH_FLOW          SW_Math;
+    ST_FREQ_CAL             Freq_Cal;
     
     Q32U_                   _V_Q12U_Bemf_ADC_tmp[3];
     Q32U_                   _V_Q12U_Bemf_ON_ADC;
@@ -105,7 +105,7 @@ typedef struct
     Q32U_                   _P_Q14U_Ibus_Max_pu;
     Q32U_                   _P_Q14U_Vbus_Max_pu;
     Q32U_                   _P_Q28U_Freq_Scale;
-}ST_MCSQ_BLDC;
+}ST_MCSQ_BLDC;      //BLDC电参数
 
 typedef struct
 {
@@ -114,18 +114,18 @@ typedef struct
     Q32U_   _P_Q12U_Offset_Max;
     Q32U_   _P_Q12U_Offset_Min;
     Q32U_   _P_Q16U_Offset_Check_Count;
-}ST_MCSQ_OFFSET;
+}ST_MCSQ_OFFSET;    //电流偏置检测
 
 typedef struct
 {
     Q32U_   _V_Q32U_Flying_Low_Bemf_cnt;
-    Q32U_   _P_Q16U_Flying_Check_cnt;
-    Q32U_   _P_Q16U_Flying_Phase_cnt;
+    Q32U_   _V_Q16U_Flying_Check_cnt;
+    Q32U_   _V_Q16U_Flying_Phase_cnt;
     
     Q32U_   _P_Q32U_Flying_Low_Bemf_TL;
     Q32U_   _P_Q16U_Flying_Low_Bemf_Count;
     Q32U_   _P_Q16U_Flying_Check_Filter;
-}ST_MCSQ_FLYING;
+}ST_MCSQ_FLYING;    //顺风检测
 
 typedef struct
 {
@@ -134,7 +134,7 @@ typedef struct
     Q32U_   _P_Q32U_Boot_Low_Bemf_TL;
     Q32U_   _P_Q16U_Boot_Low_Bemf_Count;
     Q32U_   _P_Q14U_Boot_Duty_Set;
-}ST_MCSQ_BOOT;
+}ST_MCSQ_BOOT;      //自举检测
 
 typedef struct
 {
@@ -145,7 +145,7 @@ typedef struct
     
     Q32U_   _P_Q12U_Position_Iphase_TL;
     Q32U_   _P_Q14U_Position_Duty_Set;
-}ST_MCSQ_POSITION;
+}ST_MCSQ_POSITION;  //脉冲定位
 
 typedef struct{
     ST_RAMP_T   Ramp_Brake_Duty;
@@ -158,7 +158,7 @@ typedef struct{
     Q32U_   _P_Q16U_NoBrake_Count;
     Q32U_   _P_Q16U_SlowBrake_Count;
     Q32U_   _P_Q16U_ShortBrake_Count;
-}ST_MCSQ_BRAKE;
+}ST_MCSQ_BRAKE;     //刹车阶段
 
 typedef struct
 {
@@ -228,7 +228,7 @@ typedef struct
     Q32U_   _P_Q32U_ADC_Sample_Value;
     Q32U_   _P_Q32U_ADC_Solve_Value;
     
-    Q32U_   _P_Q32U_Tim_Delay_Value;
+    Q32U_   _P_Q32U_TIM_Delay_Value;
 }ST_PWM_CONTROL;
 
 typedef struct{
@@ -253,12 +253,12 @@ typedef struct{
     ST_MS_BEMF              MCSQ_BEMF;
     ST_MS_CMP               MCSQ_CMP;
     
+    ST_PWM_CONTROL          PWM_CTRL;
+    
     ST_RAMP_T               Ramp_Freq;
     ST_PID_INC_T            PID_Freq;
     ST_PID_INC_T            PID_Ibus;
     ST_PID_INC_T            PID_Iphase;
-    
-    ST_PWM_CONTROL          PWM_CTRL;
     
     ST_STALL_CONTROL        STALL_CTRL;
 }ST_MCSQ_CONTROL;
@@ -296,11 +296,11 @@ Function: MCSQ_Freq_Cal
 Description: 频率计算
 Input: 无
 Output: 无
-Input_Output: 频率计算指针，方波控制指针，换相定时器
+Input_Output: BLDC参数指针，换相定时器
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void MCSQ_Freq_Cal(ST_FREQ_CAL* pFREQ_CAL, ST_MCSQ_CONTROL* pMS_CTRL, Q32U_ Q32U_Time_Count);
+void MCSQ_Freq_Cal(ST_MCSQ_BLDC* pMCSQ_BLDC, Q32U_ Q32U_Time_Count);
 
 /**********************************************************************************************
 Function: MCSQ_Ibus_Cal

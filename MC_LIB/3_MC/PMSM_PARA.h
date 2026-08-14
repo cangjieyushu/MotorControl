@@ -14,9 +14,6 @@
 #include "HAL_CFG.h"
 
 
-//测试模式
-#define MOTOR_TEST_MODE             (0)
-
 //启动算法选择
 #define MOTOR_OPENLOOP_IF           (00U)
 #define MOTOR_OPENLOOP_FLUX         (01U)
@@ -26,11 +23,6 @@
 #define MOTOR_EST_SMO               (10U)
 #define MOTOR_EST_FLUX              (11U)
 #define MOTOR_EST_MODE              MOTOR_EST_FLUX
-
-
-//电机正反转宏定义
-#define MOTOR_DIR_CW                        ( 1)
-#define MOTOR_DIR_CCW                       (-1)
 
 
 //电机额定参数，研磨电机
