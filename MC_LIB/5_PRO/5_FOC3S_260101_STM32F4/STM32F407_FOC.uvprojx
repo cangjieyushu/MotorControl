@@ -337,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>MCFOC_CJYS, MCFOC_CJYS_F, MCFOC_CJYS_3, STM32F40_41xxx, USE_STDPERIPH_DRIVER, __CC_ARM</Define>
+              <Define>STM32F40_41xxx, USE_STDPERIPH_DRIVER, __CC_ARM</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_MCU\0_STM32F4\00_DEVICE\000_CORE;..\..\0_MCU\0_STM32F4\00_DEVICE\001_INC;..\..\0_MCU\0_STM32F4\00_DEVICE\002_MAKE;..\..\0_MCU\0_STM32F4\00_DEVICE\003_START;..\..\0_MCU\0_STM32F4\00_DEVICE\004_SYSTEM;..\..\0_MCU\0_STM32F4\01_STD\010_INC;..\..\0_MCU\0_STM32F4\01_STD\011_SRC;..\..\1_HD\1_FOC3S_260101_STM32F4\10_HAL;..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP;..\..\1_HD\1_FOC3S_260101_STM32F4\12_MCH;..\..\1_HD\1_FOC3S_260101_STM32F4\13_UARTH;..\..\1_HD\1_FOC3S_260101_STM32F4\14_CANH;..\..\2_COM\20_RTT;..\..\2_COM\21_MATH;..\..\2_COM\21_MATH\21_MATH_F;..\..\2_COM\21_MATH\21_MATH_T;..\..\2_COM\22_UARTS;..\..\2_COM\23_CANS;..\..\3_MC;..\..\3_MC\31_FOC\310_FOC_F;..\..\3_MC\31_FOC\311_FOC_T;..\..\4_SYS;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_COM\00_math;..\..\0_COM\00_math\000_math_f;..\..\0_COM\00_math\001_math_t;..\..\0_COM\01_RTT;..\..\1_MCU\1_STM32F4\10_device\100_core;..\..\1_MCU\1_STM32F4\10_device\101_inc;..\..\1_MCU\1_STM32F4\10_device\102_make;..\..\1_MCU\1_STM32F4\10_device\103_start;..\..\1_MCU\1_STM32F4\10_device\104_system;..\..\1_MCU\1_STM32F4\11_std\110_inc;..\..\1_MCU\1_STM32F4\11_std\111_src;..\..\2_HW\2_FOC3S_260101_STM32F4\20_hw;..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp;..\..\2_HW\2_FOC3S_260101_STM32F4\22_hal;..\..\3_MC;..\..\3_MC\30_foc_f;..\..\3_MC\31_foc_t;..\..\4_SYS;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -381,588 +381,632 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>00_SDK_DEVICE</GroupName>
+          <GroupName>00_COM_MATH</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\00_DEVICE\001_INC\stm32f4xx.h</FilePath>
-            </File>
-            <File>
-              <FileName>startup_stm32f40_41xxx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\00_DEVICE\003_START\startup_stm32f40_41xxx.s</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\00_DEVICE\004_SYSTEM\stm32f4xx_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f4xx.c</FileName>
+              <FileName>math_angle_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\00_DEVICE\004_SYSTEM\system_stm32f4xx.c</FilePath>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_angle_f.c</FilePath>
             </File>
             <File>
-              <FileName>system_stm32f4xx.h</FileName>
+              <FileName>math_angle_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\00_DEVICE\004_SYSTEM\system_stm32f4xx.h</FilePath>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_angle_f.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_filter_f.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_filter_f.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_filter_f.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_filter_f.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_pid_f.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_pid_f.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_pid_f.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_pid_f.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_ramp_f.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_ramp_f.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_ramp_f.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_ramp_f.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_table_f.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_table_f.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_table_f.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\000_math_f\math_table_f.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_angle_t.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_angle_t.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_angle_t.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_angle_t.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_filter_t.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_filter_t.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_filter_t.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_filter_t.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_pid_t.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_pid_t.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_pid_t.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_pid_t.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_ramp_t.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_ramp_t.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_ramp_t.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_ramp_t.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_table_t.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_table_t.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_table_t.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\001_math_t\math_table_t.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_check.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\math_check.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_check.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\math_check.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_type.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\0_COM\00_math\math_type.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_type.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\0_COM\00_math\math_type.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>01_SDK_STD</GroupName>
-          <Files>
-            <File>
-              <FileName>misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_dac.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_flash_ramfunc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_flash_ramfunc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_rcc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_syscfg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_syscfg.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_wwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\0_MCU\0_STM32F4\01_STD\011_SRC\stm32f4xx_wwdg.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>10_HD_HAL</GroupName>
-          <Files>
-            <File>
-              <FileName>HAL_CFG.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\10_HAL\HAL_CFG.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>11_HD_BSP</GroupName>
-          <Files>
-            <File>
-              <FileName>BSP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_ADC.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_CLK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_CLK.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_CLK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_CLK.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_GPIO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_GPIO.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_GPIO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_GPIO.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_ISR.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_ISR.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_ISR.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_ISR.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_PWM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_PWM.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_PWM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_PWM.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_TIM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_TIM.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_TIM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_TIM.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_USART.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_USART.h</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_WDG.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_WDG.c</FilePath>
-            </File>
-            <File>
-              <FileName>BSP_WDG.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\11_BSP\BSP_WDG.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>12_HD_MCH</GroupName>
-          <Files>
-            <File>
-              <FileName>MCH.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\12_MCH\MCH.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>13_HD_UARTH</GroupName>
-          <Files>
-            <File>
-              <FileName>UARTH.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\1_HD\1_FOC3S_260101_STM32F4\13_UARTH\UARTH.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>14_HD_CANH</GroupName>
-        </Group>
-        <Group>
-          <GroupName>20_COM_RTT</GroupName>
+          <GroupName>01_COM_RTT</GroupName>
           <Files>
             <File>
               <FileName>SEGGER_RTT.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_COM\20_RTT\SEGGER_RTT.c</FilePath>
+              <FilePath>..\..\0_COM\01_RTT\SEGGER_RTT.c</FilePath>
             </File>
             <File>
               <FileName>SEGGER_RTT.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_COM\20_RTT\SEGGER_RTT.h</FilePath>
+              <FilePath>..\..\0_COM\01_RTT\SEGGER_RTT.h</FilePath>
             </File>
             <File>
               <FileName>SEGGER_RTT_Conf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_COM\20_RTT\SEGGER_RTT_Conf.h</FilePath>
+              <FilePath>..\..\0_COM\01_RTT\SEGGER_RTT_Conf.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>21_COM_MATH</GroupName>
+          <GroupName>10_MCU_DEVICE</GroupName>
           <Files>
             <File>
-              <FileName>MATH.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\MATH.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH.h</FileName>
+              <FileName>stm32f4xx.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\MATH.h</FilePath>
+              <FilePath>..\..\1_MCU\1_STM32F4\10_device\101_inc\stm32f4xx.h</FilePath>
             </File>
             <File>
-              <FileName>MATH_CHECK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\MATH_CHECK.c</FilePath>
+              <FileName>startup_stm32f40_41xxx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\10_device\103_start\startup_stm32f40_41xxx.s</FilePath>
             </File>
             <File>
-              <FileName>MATH_CHECK.h</FileName>
+              <FileName>stm32f4xx_conf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\MATH_CHECK.h</FilePath>
+              <FilePath>..\..\1_MCU\1_STM32F4\10_device\104_system\stm32f4xx_conf.h</FilePath>
             </File>
             <File>
-              <FileName>MATH_ANGLE_F.c</FileName>
+              <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_ANGLE_F.c</FilePath>
+              <FilePath>..\..\1_MCU\1_STM32F4\10_device\104_system\system_stm32f4xx.c</FilePath>
             </File>
             <File>
-              <FileName>MATH_ANGLE_F.h</FileName>
+              <FileName>system_stm32f4xx.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_ANGLE_F.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_LPF_F.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_LPF_F.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_LPF_F.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_LPF_F.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_PID_F.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_PID_F.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_PID_F.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_PID_F.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_RAMP_F.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_RAMP_F.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_RAMP_F.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_RAMP_F.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_TABLE_T.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_TABLE_T.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_TABLE_T.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_TABLE_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_ANGLE_T.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_ANGLE_T.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_ANGLE_T.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_ANGLE_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_LPF_T.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_LPF_T.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_LPF_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_PID_T.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_PID_T.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_PID_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_RAMP_T.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_RAMP_T.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_T\MATH_RAMP_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_TABLE_F.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_TABLE_F.c</FilePath>
-            </File>
-            <File>
-              <FileName>MATH_TABLE_F.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\21_MATH\21_MATH_F\MATH_TABLE_F.h</FilePath>
+              <FilePath>..\..\1_MCU\1_STM32F4\10_device\104_system\system_stm32f4xx.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>22_COM_UARTS</GroupName>
+          <GroupName>11_MCU_STD</GroupName>
           <Files>
             <File>
-              <FileName>UARTS.c</FileName>
+              <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_COM\22_UARTS\UARTS.c</FilePath>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\misc.c</FilePath>
             </File>
             <File>
-              <FileName>UARTS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\2_COM\22_UARTS\UARTS.h</FilePath>
+              <FileName>stm32f4xx_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_can.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_cec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_cec.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_crc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dac.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dbgmcu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dbgmcu.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dcmi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dcmi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dfsdm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dfsdm.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dma2d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dma2d.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dsi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_dsi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_flash_ramfunc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_flash_ramfunc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_iwdg.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_qspi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_qspi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_rng.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_sai.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_sai.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_sdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_spdifrx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_spdifrx.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_syscfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_syscfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_wwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\1_MCU\1_STM32F4\11_std\111_src\stm32f4xx_wwdg.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>23_COM_CANS</GroupName>
+          <GroupName>20_HW_HW</GroupName>
+          <Files>
+            <File>
+              <FileName>hw_clk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\20_hw\hw_clk.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_map.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\20_hw\hw_map.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_para.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\20_hw\hw_para.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>21_HW_BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_clk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_clk.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_clk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_clk.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_isr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_isr.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_isr.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_isr.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_pwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_tim.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\21_bsp\bsp_uart.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>22_HW_HAL</GroupName>
+          <Files>
+            <File>
+              <FileName>hal_mc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F4\22_hal\hal_mc.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>30_MC_FOC</GroupName>
           <Files>
             <File>
-              <FileName>MCFOC_API_F.c</FileName>
+              <FileName>mc_api.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_API_F.c</FilePath>
+              <FilePath>..\..\3_MC\mc_api.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_API_F.h</FileName>
+              <FileName>mc_api.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_API_F.h</FilePath>
+              <FilePath>..\..\3_MC\mc_api.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_EST_F.c</FileName>
+              <FileName>mc_error.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_EST_F.c</FilePath>
+              <FilePath>..\..\3_MC\mc_error.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_EST_F.h</FileName>
+              <FileName>pmsm_para.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_EST_F.h</FilePath>
+              <FilePath>..\..\3_MC\pmsm_para.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_LOOP_F.c</FileName>
+              <FileName>mc_error.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\3_MC\mc_error.h</FilePath>
+            </File>
+            <File>
+              <FileName>mcfoc_est_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_LOOP_F.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_est_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_LOOP_F.h</FileName>
+              <FileName>mcfoc_est_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_LOOP_F.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_est_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PARA_F.c</FileName>
+              <FileName>mcfoc_loop_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_PARA_F.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_loop_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PARA_F.h</FileName>
+              <FileName>mcfoc_loop_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_PARA_F.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_loop_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PMSM_F.c</FileName>
+              <FileName>mcfoc_para_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_PMSM_F.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_para_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PMSM_F.h</FileName>
+              <FileName>mcfoc_para_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_PMSM_F.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_para_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_SVPWM_F.c</FileName>
+              <FileName>mcfoc_pmsm_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_SVPWM_F.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_pmsm_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_SVPWM_F.h</FileName>
+              <FileName>mcfoc_pmsm_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_SVPWM_F.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_pmsm_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_TASK_F.c</FileName>
+              <FileName>mcfoc_svpwm_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_TASK_F.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_svpwm_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_TASK_F.h</FileName>
+              <FileName>mcfoc_svpwm_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\310_FOC_F\MCFOC_TASK_F.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_svpwm_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_API_T.c</FileName>
+              <FileName>mcfoc_task_f.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_API_T.c</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_task_f.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_API_T.h</FileName>
+              <FileName>mcfoc_task_f.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_API_T.h</FilePath>
+              <FilePath>..\..\3_MC\30_foc_f\mcfoc_task_f.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_EST_T.c</FileName>
+              <FileName>mcfoc_est_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_EST_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_est_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_EST_T.h</FileName>
+              <FileName>mcfoc_est_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_EST_T.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_est_t.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_LOOP_T.c</FileName>
+              <FileName>mcfoc_loop_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_LOOP_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_loop_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_LOOP_T.h</FileName>
+              <FileName>mcfoc_loop_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_LOOP_T.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_loop_t.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PARA_T.c</FileName>
+              <FileName>mcfoc_para_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_PARA_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_para_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PARA_T.h</FileName>
+              <FileName>mcfoc_para_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_PARA_T.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_para_t.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PMSM_T.c</FileName>
+              <FileName>mcfoc_pmsm_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_PMSM_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_pmsm_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_PMSM_T.h</FileName>
+              <FileName>mcfoc_pmsm_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_PMSM_T.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_pmsm_t.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_SVPWM_T.c</FileName>
+              <FileName>mcfoc_svpwm_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_SVPWM_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_svpwm_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_SVPWM_T.h</FileName>
+              <FileName>mcfoc_svpwm_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_SVPWM_T.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_svpwm_t.h</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_TASK_T.c</FileName>
+              <FileName>mcfoc_task_t.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_TASK_T.c</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_task_t.c</FilePath>
             </File>
             <File>
-              <FileName>MCFOC_TASK_T.h</FileName>
+              <FileName>mcfoc_task_t.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\3_MC\31_FOC\311_FOC_T\MCFOC_TASK_T.h</FilePath>
-            </File>
-            <File>
-              <FileName>MC_ERR.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\3_MC\MC_ERR.c</FilePath>
-            </File>
-            <File>
-              <FileName>MC_ERR.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\3_MC\MC_ERR.h</FilePath>
-            </File>
-            <File>
-              <FileName>PMSM_PARA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\3_MC\PMSM_PARA.h</FilePath>
+              <FilePath>..\..\3_MC\31_foc_t\mcfoc_task_t.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>4_SYS</GroupName>
+          <GroupName>40_SYS</GroupName>
           <Files>
             <File>
-              <FileName>BUTTON.c</FileName>
+              <FileName>sys_btn.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\4_SYS\BUTTON.c</FilePath>
+              <FilePath>..\..\4_SYS\sys_btn.c</FilePath>
             </File>
             <File>
-              <FileName>BUTTON.h</FileName>
+              <FileName>sys_btn.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\4_SYS\BUTTON.h</FilePath>
+              <FilePath>..\..\4_SYS\sys_btn.h</FilePath>
             </File>
             <File>
-              <FileName>SYS_ERR.c</FileName>
+              <FileName>sys_err.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\4_SYS\SYS_ERR.c</FilePath>
+              <FilePath>..\..\4_SYS\sys_err.c</FilePath>
             </File>
             <File>
-              <FileName>SYS_ERR.h</FileName>
+              <FileName>sys_err.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\4_SYS\SYS_ERR.h</FilePath>
+              <FilePath>..\..\4_SYS\sys_err.h</FilePath>
             </File>
             <File>
-              <FileName>SYSTASK.c</FileName>
+              <FileName>sys_task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\4_SYS\SYSTASK.c</FilePath>
+              <FilePath>..\..\4_SYS\sys_task.c</FilePath>
             </File>
             <File>
-              <FileName>SYSTASK.h</FileName>
+              <FileName>sys_task.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\4_SYS\SYSTASK.h</FilePath>
+              <FilePath>..\..\4_SYS\sys_task.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -970,14 +1014,14 @@
           <GroupName>5_MAIN</GroupName>
           <Files>
             <File>
-              <FileName>Main.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\5_MAIN\Main.c</FilePath>
+              <FilePath>.\5_MAIN\main.c</FilePath>
             </File>
             <File>
-              <FileName>Main.h</FileName>
+              <FileName>main.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\5_MAIN\Main.h</FilePath>
+              <FilePath>.\5_MAIN\main.h</FilePath>
             </File>
           </Files>
         </Group>

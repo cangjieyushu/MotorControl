@@ -1,14 +1,17 @@
-/**************************************************************************************************
-*     File Name :                        SYS_ERR.c
-*     Library/Module Name :              SYS
+/*
+*     File Name :                        sys_err
+*     Library/Module Name :              sys
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             故障显示源文件
-**************************************************************************************************/
-
-#include "SYS_ERR.h"
+*     Abstract Description :             故障显示
+*/
 
 
+/*-------------------------- 1. 对应头文件--------------------------------*/
+#include "sys_err.h"
+
+
+/*-------------------------- 2. 变量 ---------------------------------*/
 ST_ERROR_CONTROL Error_Ctrl = {
     .error_led_table[0] = 0,
     .error_led_table[1] = 0,
@@ -45,15 +48,7 @@ ST_ERROR_CONTROL Error_Ctrl = {
 };
 
 
-/**********************************************************************************************
-Function: Error_LED
-Description: 故障显示控制
-Input: 无
-Output: 无
-Input_Output: 故障控制指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
+/*-------------------------- 3. 公有接口实现 -----------------------------*/
 void Error_LED(ST_ERROR_CONTROL* pEC)
 {
     if(pEC->error_code != 0U)
@@ -104,15 +99,6 @@ void Error_LED(ST_ERROR_CONTROL* pEC)
     }
 }
 
-/**********************************************************************************************
-Function: Error_Priority_Check
-Description: 故障优先级控制
-Input: 无
-Output: 无
-Input_Output: 系统状态指针
-Return: 无
-Author: CJYS
-***********************************************************************************************/
 Q32U_ Error_Priority_Check(Q32U_ error_all)
 {
     ST_ERROR_CONTROL* pEC = &Error_Ctrl;

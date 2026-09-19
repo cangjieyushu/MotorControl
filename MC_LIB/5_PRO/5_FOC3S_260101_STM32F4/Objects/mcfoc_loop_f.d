@@ -1,0 +1,10 @@
+.\objects\mcfoc_loop_f.o: ..\..\3_MC\30_foc_f\mcfoc_loop_f.c
+.\objects\mcfoc_loop_f.o: ..\..\3_MC\30_foc_f\mcfoc_loop_f.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\math_check.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\math_type.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\000_math_f\math_angle_f.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\000_math_f\math_filter_f.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\000_math_f\math_pid_f.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\000_math_f\math_ramp_f.h
+.\objects\mcfoc_loop_f.o: ..\..\3_MC\30_foc_f\mcfoc_pmsm_f.h
+.\objects\mcfoc_loop_f.o: ..\..\0_COM\00_math\000_math_f\math_table_f.h

@@ -1,23 +1,41 @@
-/**************************************************************************************************
-*     File Name :                        Main.h
-*     Library/Module Name :              Main
+/*
+*     File Name :                        main
+*     Library/Module Name :              main
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
 *     Abstract Description :             任务管理
-**************************************************************************************************/
-
-#ifndef Main_H
-#define Main_H
+*/
 
 
-#include "SYSTASK.h"
+#ifndef MAIN_H
+#define MAIN_H
 
-//JSCOPE_RTT模式使能标志位
-#define JSCOPE_RTT_EN                   (0U)
-#define JSCOPE_RTT_Sytle                "JScope_I4I4I4"
-#if(JSCOPE_RTT_EN == 1U)
-#include "SEGGER_RTT.h"
+
+/*-------------------------- 1. 头文件包含 -------------------------------*/
+#include "sys_task.h"
+
+#if(MOTOR_CONTROL_MODE == MOTOR_CONTROL_FOC_F)
+#include "mcfoc_task_f.h"
+
+#elif(MOTOR_CONTROL_MODE == MOTOR_CONTROL_FOC_T)
+#include "mcfoc_task_t.h"
+
+#elif(MOTOR_CONTROL_MODE == MOTOR_CONTROL_SQ)
+#include "mcsq_task.h"
+
 #endif
 
 
-#endif /* Main_H */
+/*-------------------------- 2. 宏定义 -----------------------------------*/
+
+
+/*-------------------------- 3. 枚举/结构体 ------------------------------*/
+
+
+/*-------------------------- 4. 外部全局变量声明 --------------------------*/
+
+
+/*-------------------------- 5. 接口函数声明 ------------------------------*/
+
+
+#endif /* MAIN_H */
