@@ -126,3 +126,16 @@ void MCFOC_PMSM_Iclark_F(ST_PMSM_ELEC_F* pPMSMe)
     pPMSMe->V_F_Ib_Pre = 0.5f*( - F_Ialfa_Pre + MATH_SQRT_THREE_F*F_Ibeta_Pre);
     pPMSMe->V_F_Ic_Pre = 0.5f*( - F_Ialfa_Pre - MATH_SQRT_THREE_F*F_Ibeta_Pre);
 }
+
+void MCFOC_PMSM_PQ_F(ST_PMSM_ELEC_F* pPMSMe)
+{
+    pPMSMe->O_F_Active_Power   = (pPMSMe->V_F_Ualfa*pPMSMe->V_F_Ialfa
+                                + pPMSMe->V_F_Ubeta*pPMSMe->V_F_Ibeta)*1.5f;
+    pPMSMe->O_F_Reactive_Power = (pPMSMe->V_F_Ubeta*pPMSMe->V_F_Ialfa
+                                - pPMSMe->V_F_Ualfa*pPMSMe->V_F_Ibeta)*1.5f;
+    
+//    pPMSMe->O_F_Active_Power   = (pPMSMe->V_F_Ud_Real*pPMSMe->V_F_Id_Real
+//                                + pPMSMe->V_F_Uq_Real*pPMSMe->V_F_Iq_Real)*1.5f;
+//    pPMSMe->O_F_Reactive_Power = (pPMSMe->V_F_Uq_Real*pPMSMe->V_F_Id_Real
+//                                - pPMSMe->V_F_Ud_Real*pPMSMe->V_F_Iq_Real)*1.5f;
+}

@@ -86,6 +86,9 @@ typedef struct
     float       V_F_Ualfa_Pre;
     float       V_F_Ubeta_Pre;
     
+    float       O_F_Active_Power;
+    float       O_F_Reactive_Power;
+    
     float       O_F_Freq;
     float       O_F_Vbus;
     float       O_F_Is;
@@ -201,5 +204,15 @@ Author: CJYS
 */
 void MCFOC_PMSM_Iclark_F(ST_PMSM_ELEC_F* pPMSMe);
 
+/*
+Function: MCFOC_PMSM_PQ_F
+Description: 功率计算函数
+Input: 无
+Output: 无
+Input_Output: PMSM电信号指针
+Return: 无
+Author: CJYS
+*/
+void MCFOC_PMSM_PQ_F(ST_PMSM_ELEC_F* pPMSMe);
 
 #endif /* MCFOC_PMSM_F_H */

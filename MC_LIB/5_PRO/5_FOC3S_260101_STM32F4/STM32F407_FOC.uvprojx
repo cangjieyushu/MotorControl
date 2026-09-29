@@ -844,14 +844,14 @@
               <FilePath>..\..\3_MC\mc_error.c</FilePath>
             </File>
             <File>
-              <FileName>pmsm_para.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\3_MC\pmsm_para.h</FilePath>
-            </File>
-            <File>
               <FileName>mc_error.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\3_MC\mc_error.h</FilePath>
+            </File>
+            <File>
+              <FileName>pmsm_para.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\3_MC\pmsm_para.h</FilePath>
             </File>
             <File>
               <FileName>mcfoc_est_f.c</FileName>

@@ -11,13 +11,13 @@
 #include "bsp_pwm.h"
 
 
-/*-------------------------- 2. 变量 ---------------------------------*//**
- * @brief  根据期望死区时间（us）计算 HAL_MOTOR_PWM/TIM8 BDTR 寄存器 DTG[7:0] 编码
+/**
+ * @brief  根据期望死区时间（us）计算 HAL_MOTOR_PWM/TIM1 BDTR 寄存器 DTG[7:0] 编码
  * @param  dt_us  期望死区时间，单位：微秒 (us)
  * @retval DTG[7:0] 寄存器值，可直接赋给 BDTR.TIM_DeadTime
- * @note   时钟 42 MHz、CKD_DIV=4，tDTS ≈ 95.238 ns
+ * @note   TIM1 时钟 168 MHz、CKD_DIV=4，tDTS = 4 / 168MHz ≈ 23.81 ns
  *         编码向上取整，保证实际死区 ≥ 期望值
- *         期望值超过最大范围（约 96 us）时返回 0xFF
+ *         期望值超过最大范围（约 24 us）时返回 0xFF
  */
 static uint8_t BSP_PWM_CalcDeadTimeReg_us(uint32_t dt_us)
 {
@@ -28,8 +28,8 @@ static uint8_t BSP_PWM_CalcDeadTimeReg_us(uint32_t dt_us)
         return 0U;                 /* 死区为 0 */
     }
 
-    /* n = ceil(dt_us * 10.5) = ceil(dt_us * 21 / 2) = (dt_us * 21 + 1) / 2 */
-    n = (dt_us * 21U + 1U) / 2U;
+    /* n = ceil(dt_us / tDTS) = ceil(dt_us * 42)，42 为整数，直接乘 */
+    n = dt_us * 42U;
 
     if (n <= 127U)
     {
@@ -94,7 +94,7 @@ void BSP_PWM_Init(void)
     TIM_OC2Init(HAL_MOTOR_PWM,&TIM_OCInitStructure);
     TIM_OC3Init(HAL_MOTOR_PWM,&TIM_OCInitStructure);
     
-    TIM_OCInitStructure.TIM_Pulse = (HAL_ADC_DELAY_VALUE - HAL_ADC_SAMPLE_VALUE)/2U + 1U;
+    TIM_OCInitStructure.TIM_Pulse = (HAL_ADC_SAMPLE_VALUE - HAL_ADC_DELAY_VALUE)/2U + 1U;
     TIM_OC4Init(HAL_MOTOR_PWM,&TIM_OCInitStructure);
     TIM_SelectOutputTrigger(HAL_MOTOR_PWM, TIM_TRGOSource_OC4Ref);
     

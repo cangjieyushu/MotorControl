@@ -29,7 +29,6 @@
 #define MOTOR_CONTROL_SQ            (12U)
 #define MOTOR_CONTROL_MODE          MOTOR_CONTROL_SQ
 
-
 //FOC设置
 //采样方式选择
 #define MOTOR_SHUNT_THREE           (20U)
@@ -44,7 +43,7 @@
 //观测器选择
 #define MOTOR_EST_SMO               (40U)
 #define MOTOR_EST_FLUX              (41U)
-#define MOTOR_EST_MODE              MOTOR_EST_SMO
+#define MOTOR_EST_MODE              MOTOR_EST_FLUX
 
 
 /*-------------------------- 3. 枚举/结构体 ------------------------------*/

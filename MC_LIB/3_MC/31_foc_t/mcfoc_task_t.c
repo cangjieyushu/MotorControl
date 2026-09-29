@@ -140,7 +140,7 @@ void MCFOC_Pre_Flow_T(ST_MCFOC_TASK_T* pMotor)
 {
     if(pMotor->Motor_Flag.bit.motor_enable_flag == 1U)
     {
-		MCFOC_Offset_Check_Init_T(&pMotor->MCFOC_Offset);
+        MCFOC_Offset_Check_Init_T(&pMotor->MCFOC_Offset);
         
         MCFOC_PMSM_Para_Init_T(&pMotor->PMSM_Elec);
         MCFOC_ALIGN_Init_T(&pMotor->Align_Ctrl);

@@ -19,12 +19,12 @@
 //时钟配置
 #define HAL_SYSTEM_CLK_FREQ                     (168000.0f)                             //kHz，系统时钟频率
 #define HAL_PWM_CLK_FREQ                        (HAL_SYSTEM_CLK_FREQ)                   //kHz，PWM时钟频率
-#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_CLK_FREQ)                   //kHz，用过零点计数定时器时钟频率
+#define HAL_HALL_TIM_CLK_FREQ                   (HAL_SYSTEM_CLK_FREQ/2.0f)              //kHz，用过零点计数定时器时钟频率
 #define HAL_SWITCH_TIM_CLK_FREQ                 (HAL_SYSTEM_CLK_FREQ)                   //kHz，用于换向计数定时器时钟频率
 
 
 //PWM定时器
-#define HAL_PWM_PRESCALER                       (2.0f)                                  //分频系数
+#define HAL_PWM_PRESCALER                       (1.0f)                                  //分频系数
 #define HAL_PWM_PRE_FREQ                        (HAL_PWM_CLK_FREQ/HAL_PWM_PRESCALER)    //kHz，PWM计数器频率,84M
 
 #define HAL_PWM_FREQ_2K                         (2.0f)                                  //kHz，PWM载频
@@ -44,16 +44,16 @@
 #define HAL_PWM_ALL_VALUE_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_HIGH_FREQ)
 #define HAL_PWM_SET_VALUE_T                     (Q32U_)(HAL_PWM_ALL_VALUE_F/2.0f)
 
-#define HAL_PWM_DEADTIME_TIME                   (Q32U_)(2.0f)                           //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (Q32U_)(0.5f)                           //us，死区时间
 
 #define HAL_CURRENT_LOOP_FREQ_PRESCALER         (1.0f)//电流环分频
 
 //ADC采样时刻设置
-#define HAL_ADC_DELAY_TIME                      (2.0f)                  //us，米勒平台时间
+#define HAL_ADC_DELAY_TIME                      (1.0f)                  //us，米勒平台时间
 #define HAL_ADC_DELAY_DUTY                      (HAL_ADC_DELAY_TIME*HAL_PWM_HIGH_FREQ/1000.0f)
 #define HAL_ADC_DELAY_VALUE                     (Q32U_)(HAL_ADC_DELAY_DUTY*HAL_PWM_ALL_VALUE_F)
 
-#define HAL_ADC_SAMPLE_TIME                     (2.0f)                  //us，ADC采样时间
+#define HAL_ADC_SAMPLE_TIME                     (3.0f)                  //us，ADC采样时间
 #define HAL_ADC_SAMPLE_DUTY                     (HAL_ADC_SAMPLE_TIME*HAL_PWM_HIGH_FREQ/1000.0f)
 #define HAL_ADC_SAMPLE_VALUE                    (Q32U_)(HAL_ADC_SAMPLE_DUTY*HAL_PWM_ALL_VALUE_F)
 

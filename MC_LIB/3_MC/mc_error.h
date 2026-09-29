@@ -82,7 +82,7 @@
 
 //失步保护
 #define LOSS_STEP_ES_PROTECT_LEVEL_TL           (Q14I_VOLTAGE_TO_PU(1.0f))                              //V，失步保护阈值
-#define LOSS_STEP_SPEED_PROTECT_LEVEL_TL        (Q14I_VOLTAGE_TO_PU(1.0f))                              //V，失步保护阈值
+#define LOSS_STEP_SPEED_PROTECT_LEVEL_TL        (Q14I_FREQ_TO_PU(MOTOR_SPEED_TO_FREQ(1000.0f)))         //V，失步保护阈值
 #define LOSS_STEP_PROTECT_LEVEL_TIME            (5000U)                                                 //ms，失步保护时间
 
 

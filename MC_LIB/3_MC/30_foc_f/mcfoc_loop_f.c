@@ -126,9 +126,11 @@ void MCFOC_ALIGN_CurrentLoop_F(ST_ALIGN_CONTROL_F* pALIGN)
 /**********************************IF¿ØÖÆ************************************/
 void MCFOC_IF_Init_F(ST_IF_CONTROL_F* pIF)
 {
+    HPF_Init_F(&pIF->FL_Active_Power, 0.0f);
+    PID_Pos_Init_F(&pIF->PID_Reactive_Power, 0.0f);
+    
     Ramp_Init_F(&pIF->Ramp_IF_Iq, 0.0f);
     Ramp_Init_F(&pIF->Ramp_IF_FREQ, 0.0f);
-    pIF->Ramp_IF_Iq.P_F_Target = pIF->P_F_IF_Iq_Target;
     
     pIF->V_Q32U_IF_Angle_Err_Check_cnt = 0U;
 
@@ -140,28 +142,38 @@ void MCFOC_IF_Init_F(ST_IF_CONTROL_F* pIF)
 
 void MCFOC_IF_SpeedLoop_F(ST_IF_CONTROL_F* pIF, ST_PMSM_ELEC_F* pPMSMe)
 {
-    if(pIF->Ramp_IF_FREQ.O_F_Output >= pIF->Ramp_IF_FREQ.P_F_Target)
+    pIF->PID_Reactive_Power.I_F_Rf = pPMSMe->O_F_Reactive_Power;
+    pIF->PID_Reactive_Power.P_F_OutMax = pIF->Ramp_IF_Iq.O_F_Output;
+    pIF->PID_Reactive_Power.P_F_OutMin = 0.0f;
+    PID_Pos_Cal_F(&pIF->PID_Reactive_Power);
+    
+    if(pIF->Ramp_IF_FREQ.O_F_Output >= pIF->P_F_IF_Freq_TL2)
     {
-        pIF->Ramp_IF_Iq.P_F_Target = pIF->P_F_IF_Iq_Min;
+        pIF->Ramp_IF_FREQ.P_F_ADDStep = pIF->P_F_IF_Freq_Add_Step2;
     }
-    Ramp_Cal_F(&pIF->Ramp_IF_Iq);
-    Ramp_Cal_F(&pIF->Ramp_IF_FREQ);
-    if(pIF->Ramp_IF_Iq.O_F_Output <= pIF->P_F_IF_Is_Min)
+    else if(pIF->Ramp_IF_FREQ.O_F_Output >= pIF->P_F_IF_Freq_TL1)
     {
-        pIF->O_F_IF_IdRef = pIF->P_F_IF_Is_Min;
+        pIF->Ramp_IF_FREQ.P_F_ADDStep = pIF->P_F_IF_Freq_Add_Step1;
     }
     else
     {
-        pIF->O_F_IF_IdRef = 0.0f;
+        pIF->Ramp_IF_FREQ.P_F_ADDStep = pIF->P_F_IF_Freq_Add_Step0;
     }
-    pIF->O_F_IF_IqRef = pPMSMe->I_F_DIR_Target*pIF->Ramp_IF_Iq.O_F_Output;
+    
+    Ramp_Cal_F(&pIF->Ramp_IF_Iq);
+    Ramp_Cal_F(&pIF->Ramp_IF_FREQ);
+    pIF->O_F_IF_IqRef = pPMSMe->I_F_DIR_Target*(pIF->Ramp_IF_Iq.O_F_Output - pIF->PID_Reactive_Power.O_F_Output);
 }
 
 void MCFOC_IF_CurrentLoop_F(ST_IF_CONTROL_F* pIF, ST_PMSM_ELEC_F* pPMSMe, ST_PMSM_PARA_F* pPMSMa)
 {
     float F_Angle_Err_tmp = 0.0f;
     
-    pIF->O_F_IF_Angle += pPMSMe->I_F_DIR_Target*pPMSMa->O_F_Ts*pIF->Ramp_IF_FREQ.O_F_Output;
+    pIF->FL_Active_Power.I_F_HPF_In = pPMSMe->O_F_Active_Power;
+    HPF_Cal_F(&pIF->FL_Active_Power);
+    pIF->V_F_We_Comp_tmp = MATH_SAT_F(pIF->FL_Active_Power.O_F_HPF_Out*pIF->P_F_IF_Q_Coeff, pIF->Ramp_IF_FREQ.O_F_Output, -pIF->Ramp_IF_FREQ.O_F_Output);
+    
+    pIF->O_F_IF_Angle += pPMSMe->I_F_DIR_Target*pPMSMa->O_F_Ts*(pIF->Ramp_IF_FREQ.O_F_Output - pIF->V_F_We_Comp_tmp);
     MATH_ANGLE_MOD_F(pIF->O_F_IF_Angle);
     
     F_Angle_Err_tmp = pIF->O_F_IF_Angle - pIF->I_F_IF_Est_Angle;
@@ -188,11 +200,6 @@ void MCFOC_IF_CurrentLoop_F(ST_IF_CONTROL_F* pIF, ST_PMSM_ELEC_F* pPMSMe, ST_PMS
         else
         {
             pIF->V_Q32U_IF_Angle_Err_Check_cnt = 0U;
-        }
-        
-        if(pIF->Ramp_IF_Iq.O_F_Output <= pIF->P_F_IF_Iq_Min)
-        {
-            pIF->O_Q32U_Switch_Flag = 1U;
         }
     }
 }

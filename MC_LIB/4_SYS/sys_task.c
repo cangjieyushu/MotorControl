@@ -132,16 +132,16 @@ void System_1msTask_Flow(void)
     }
     
     //正点原子开发板复位
-//    if(BSP_GPIO_Read_SW2_State() == 0U)
-//    {
-//        MC_API_Motor_StartStop(MOTOR_NUMBER_N0, 0U);
-//        pST->System_State_Flag.bit.system_runflag = 0U;
-//        BSP_GPIO_Recover_Clear_State();
-//    }
-//    else
-//    {
-//        BSP_GPIO_Recover_Set_State();
-//    }
+    if(BSP_GPIO_Read_SW2_State() == 0U)
+    {
+        MC_API_Motor_StartStop(MOTOR_NUMBER_N0, 0U);
+        pST->System_State_Flag.bit.system_runflag = 0U;
+        BSP_GPIO_Recover_Clear_State();
+    }
+    else
+    {
+        BSP_GPIO_Recover_Set_State();
+    }
     
     System_Tick_Isr();
 }

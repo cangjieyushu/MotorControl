@@ -66,11 +66,15 @@ typedef struct
 
 typedef struct
 {
+    ST_HPF_F        FL_Active_Power;
+    ST_PID_POS_F    PID_Reactive_Power;
+    
     ST_RAMP_F   Ramp_IF_Iq;
     ST_RAMP_F   Ramp_IF_FREQ;
     
     float       I_F_IF_Est_Angle;
     
+    float       V_F_We_Comp_tmp;
     Q32U_       V_Q32U_IF_Angle_Err_Check_cnt;
     
     Q32U_       O_Q32U_Switch_Flag;
@@ -78,10 +82,14 @@ typedef struct
     float       O_F_IF_IqRef;
     float       O_F_IF_Angle;
     
-    float       P_F_IF_Iq_Target;
-    float       P_F_IF_Is_Min;
-    float       P_F_IF_Iq_Min;
+    float       P_F_IF_Freq_Add_Step0;
+    float       P_F_IF_Freq_Add_Step1;
+    float       P_F_IF_Freq_Add_Step2;
+    float       P_F_IF_Freq_TL1;
+    float       P_F_IF_Freq_TL2;
+    
     float       P_F_IF_Angle_Err_Limit;
+    float       P_F_IF_Q_Coeff;
     Q32U_       P_Q32U_IF_Angle_Err_Check_Count;
 }ST_IF_CONTROL_F;
 

@@ -25,6 +25,18 @@ void LPF_Cal_F(ST_LPF_F* pLPF)
     pLPF->O_F_LPF_Out += pLPF->P_F_LPF_Coeff*(pLPF->I_F_LPF_In - pLPF->O_F_LPF_Out);
 }
 
+void HPF_Init_F(ST_HPF_F* pHPF, float init)
+{
+    pHPF->O_F_HPF_Out = init;
+    pHPF->V_F_HPF_In_Last = init;
+}
+
+void HPF_Cal_F(ST_HPF_F* pHPF)
+{
+    pHPF->O_F_HPF_Out = pHPF->P_F_HPF_Coeff*(pHPF->I_F_HPF_In + pHPF->O_F_HPF_Out - pHPF->V_F_HPF_In_Last);
+    pHPF->V_F_HPF_In_Last = pHPF->I_F_HPF_In;
+}
+
 void MEAN_Init_F(ST_MEAN_F* pMEAN)
 {
     pMEAN->O_F_MEAN_Out = 0.0f;

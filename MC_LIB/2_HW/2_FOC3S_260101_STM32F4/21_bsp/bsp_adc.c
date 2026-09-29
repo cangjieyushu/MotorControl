@@ -27,7 +27,7 @@ void BSP_ADC_Init(void)
     /*通用控制寄存器的配置*/
     ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_1;                    /*DMA能*/
     ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;                            /*独立模式*/
-    ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;                         /*APB2的2分频*/
+    ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;                         /*APB2的4分频*/
     ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;        /*两个采样阶段的延时5个时钟*/
     ADC_CommonInit(&ADC_CommonInitStructure);
     

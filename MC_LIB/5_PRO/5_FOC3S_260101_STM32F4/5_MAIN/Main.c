@@ -41,7 +41,7 @@ void ADC_IRQHandler(void)
     if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
     {
         ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
-        MCFOC_Current_Flow(MOTOR_NUMBER_N0);
+        MCFOC_Current_Flow(MOTOR_NUMBER_N0);     //168M,18us,72M,42us
     }
 }
 
@@ -49,4 +49,13 @@ void SysTick_Handler(void)
 {
     System_1msTask_Flow();
     MCFOC_Speed_Flow(MOTOR_NUMBER_N0);
+}
+
+void USART1_IRQHandler(void)
+{
+//    /* ---------- Ω” ’÷–∂œ ---------- */
+//    if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) != RESET)
+//    {
+//        UART_Resceive_Int();
+//    }
 }

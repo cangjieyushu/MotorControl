@@ -1,9 +1,0 @@
-.\objects\mcfoc_svpwm_f.o: ..\..\3_MC\30_foc_f\mcfoc_svpwm_f.c
-.\objects\mcfoc_svpwm_f.o: ..\..\3_MC\30_foc_f\mcfoc_svpwm_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\000_math_f\math_ramp_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\math_type.h
-.\objects\mcfoc_svpwm_f.o: ..\..\3_MC\30_foc_f\mcfoc_pmsm_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\000_math_f\math_angle_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\000_math_f\math_filter_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\000_math_f\math_table_f.h
-.\objects\mcfoc_svpwm_f.o: ..\..\0_COM\00_math\math_check.h

@@ -130,7 +130,7 @@ Author: CJYS
 */
 static inline void HM_PWM_Duty_Set_Three(Q32U_ PWM_Count, Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
 {
-    HAL_MOTOR_PWM->ARR = PWM_Count;
+    HAL_MOTOR_PWM->ARR = PWM_Count - 1U;
     HAL_MOTOR_PWM->CCR1 = Ta;
     HAL_MOTOR_PWM->CCR2 = Tb;
     HAL_MOTOR_PWM->CCR3 = Tc;

@@ -45,13 +45,10 @@
 
 
 //IF
-#define MOTOR_IF_IQ_TARGET                  (CURRENT_TO_PU(5.0f))               //A，Iq目标值
-#define MOTOR_IF_IS_MIN                     (CURRENT_TO_PU(2.0f))               //A，Is最小值
-#define MOTOR_IF_IQ_MIN                     (CURRENT_TO_PU(0.5f))               //A，Iq最小值，切闭环
-#define MOTOR_IF_IQRAMP_ADDSTEP             ( CURRENT_TO_PU(10.0f * MOTOR_LTs)) //A/s，Iq每秒增加步长
-#define MOTOR_IF_IQRAMP_SUBSTEP             (-CURRENT_TO_PU(0.5f * MOTOR_LTs))  //A/s，Iq每秒减小步长
+#define MOTOR_IF_IQRAMP_TARGET              (CURRENT_TO_PU(5.0f))               //A，Iq目标值
+#define MOTOR_IF_IQRAMP_ADDSTEP             (CURRENT_TO_PU(50.0f * MOTOR_LTs))  //A/s，Iq每秒增加步长
 
-#define MOTOR_IF_FREQRAMP_TARGET            (FREQ_TO_PU(20.0f))                 //Hz，IF速度目标值
+#define MOTOR_IF_FREQRAMP_TARGET            (FREQ_TO_PU(10.0f))                 //Hz，IF速度目标值
 #define MOTOR_IF_FREQRAMP_ADDSTEP           (FREQ_TO_PU(5.0f * MOTOR_LTs))      //Hz/s，IF速度每秒增加步长
 
 #define MOTOR_IF_ANGLE_ERROR                (ANGLE_TO_PU(0.35f))                //rad，IF与观测器角度偏差允许切换值

@@ -34,8 +34,8 @@ ST_MCFOC_TASK_T MCFOC_Task_T =
 {
     .Motor_API.Max_Speed_rpm = (Q32U_)MOTOR_MAX_SPEED,
     .Motor_API.Min_Speed_rpm = (Q32U_)MOTOR_MIN_SPEED,
-    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
-    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
+    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)I_BASE,
+    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)I_BASE,
 
     .PMSM_Filter.Mean_Freq.P_Q32U_MEAN_Num = 16U,
     .PMSM_Filter.Mean_Vbus.P_Q32U_MEAN_Num = 16U,

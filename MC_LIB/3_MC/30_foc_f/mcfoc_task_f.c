@@ -258,6 +258,8 @@ void MCFOC_Run_Flow_F(ST_MCFOC_TASK_F* pMotor)
         MCFOC_EST_EMF_Cal_F(&pMotor->EMF_Ctrl, &pMotor->PMSM_Elec);
         MCFOC_EST_FUNCTION;
         
+        MCFOC_PMSM_PQ_F(&pMotor->PMSM_Elec);
+        
         if(pMotor->Motor_Loop_Mode == MOTOR_LOOP_ALIGN)
         {
             MCFOC_ALIGN_CurrentLoop_F(&pMotor->Align_Ctrl);
@@ -333,7 +335,7 @@ void MCFOC_Speed_Flow_F(Q32U_ motor_num)
     pMotor->Motor_Error.I_Q14U_Iphase_Max_pu = MATH_MAX_T(pMotor->Motor_Error.I_Q14U_Iphase_A_Max_pu, 
     MATH_MAX_T(pMotor->Motor_Error.I_Q14U_Iphase_B_Max_pu, pMotor->Motor_Error.I_Q14U_Iphase_C_Max_pu));
     pMotor->Motor_Error.I_Q14U_Temp_ADC = 1500;
-    pMotor->Motor_Error.I_Q14U_Speed_pu = (Q32I_)(Q14U_MAX_F*pMotor->PMSM_Elec.O_F_Freq);
+    pMotor->Motor_Error.I_Q14U_Speed_pu = (Q32I_)(Q14U_MAX_F*MATH_ABS_F(pMotor->PMSM_Elec.O_F_Freq));
     pMotor->Motor_Error.I_Q14U_Ibus_pu = (Q32I_)(Q14U_MAX_F*pMotor->PMSM_Elec.O_F_Ibus_10ms);
     MC_Error_Speed_Flow(&pMotor->Motor_Error, ((pMotor->Motor_Flow >= MOTOR_STATE_BOOT)&&(pMotor->Motor_Flow <= MOTOR_STATE_BRAKE)));
     MC_Error_Speed_Flow_FOC(&pMotor->Motor_Error, ((pMotor->Motor_Flow >= MOTOR_STATE_BOOT)&&(pMotor->Motor_Flow <= MOTOR_STATE_BRAKE)));

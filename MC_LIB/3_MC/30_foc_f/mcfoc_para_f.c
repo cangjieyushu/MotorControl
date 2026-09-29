@@ -34,8 +34,8 @@ ST_MCFOC_TASK_F MCFOC_Task_F =
 {
     .Motor_API.Max_Speed_rpm = (Q32U_)MOTOR_MAX_SPEED,
     .Motor_API.Min_Speed_rpm = (Q32U_)MOTOR_MIN_SPEED,
-    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
-    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
+    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)I_BASE,
+    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)I_BASE,
 
     .PMSM_Filter.Mean_Freq.P_Q32U_MEAN_Num = 16U,
     .PMSM_Filter.Mean_Vbus.P_Q32U_MEAN_Num = 16U,
@@ -93,19 +93,25 @@ ST_MCFOC_TASK_F MCFOC_Task_F =
     .Align_Ctrl.Ramp_Align_Angle.P_F_ADDStep = MOTOR_ALIGN_ANGLERAMP_ADDSTEP,
     .Align_Ctrl.P_Q32U_Align_Check_Count = MOTOR_ALIGN_COUNT,
 
-
+    .IF_Ctrl.FL_Active_Power.P_F_HPF_Coeff = 0.9f,
+    .IF_Ctrl.PID_Reactive_Power.P_F_Kp = 0.001f,
+    .IF_Ctrl.PID_Reactive_Power.P_F_Ki = 0.001f,
+    .IF_Ctrl.PID_Reactive_Power.P_F_Kd = 0.00f,
+    .IF_Ctrl.Ramp_IF_Iq.P_F_Target = MOTOR_IF_IQRAMP_TARGET,
     .IF_Ctrl.Ramp_IF_Iq.P_F_ADDStep = MOTOR_IF_IQRAMP_ADDSTEP,
-    .IF_Ctrl.Ramp_IF_Iq.P_F_SUBStep = MOTOR_IF_IQRAMP_SUBSTEP,
     .IF_Ctrl.Ramp_IF_FREQ.P_F_Target = MOTOR_IF_FREQRAMP_TARGET,
     .IF_Ctrl.Ramp_IF_FREQ.P_F_ADDStep = MOTOR_IF_FREQRAMP_ADDSTEP,
+    
+    .IF_Ctrl.P_F_IF_Freq_Add_Step0 = MOTOR_IF_FREQRAMP_ADDSTEP,
+    .IF_Ctrl.P_F_IF_Freq_Add_Step1 = 2.0f*MOTOR_IF_FREQRAMP_ADDSTEP,
+    .IF_Ctrl.P_F_IF_Freq_Add_Step2 = 3.0f*MOTOR_IF_FREQRAMP_ADDSTEP,
+    .IF_Ctrl.P_F_IF_Freq_TL1 = 0.2f*MOTOR_IF_FREQRAMP_TARGET,
+    .IF_Ctrl.P_F_IF_Freq_TL2 = 0.6f*MOTOR_IF_FREQRAMP_TARGET,
 
-    .IF_Ctrl.P_F_IF_Iq_Target = MOTOR_IF_IQ_TARGET,
-    .IF_Ctrl.P_F_IF_Is_Min = MOTOR_IF_IS_MIN,
-    .IF_Ctrl.P_F_IF_Iq_Min = MOTOR_IF_IQ_MIN,
     .IF_Ctrl.P_F_IF_Angle_Err_Limit = MOTOR_IF_ANGLE_ERROR,
+    .IF_Ctrl.P_F_IF_Q_Coeff = 0.1f,
     .IF_Ctrl.P_Q32U_IF_Angle_Err_Check_Count = MOTOR_IF_SWITCH_COUNT,
     
-
     .Freq_Ctrl.PID_POWER.P_F_Kp = 0.00f,
     .Freq_Ctrl.PID_POWER.P_F_Ki = 0.00f,
     .Freq_Ctrl.PID_POWER.P_F_Kd = 0.0f,

@@ -1,8 +1,0 @@
-.\objects\mcfoc_pmsm_t.o: ..\..\3_MC\31_foc_t\mcfoc_pmsm_t.c
-.\objects\mcfoc_pmsm_t.o: ..\..\3_MC\31_foc_t\mcfoc_pmsm_t.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\001_math_t\math_angle_t.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\math_type.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\001_math_t\math_filter_t.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\001_math_t\math_ramp_t.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\001_math_t\math_table_t.h
-.\objects\mcfoc_pmsm_t.o: ..\..\0_COM\00_math\math_check.h

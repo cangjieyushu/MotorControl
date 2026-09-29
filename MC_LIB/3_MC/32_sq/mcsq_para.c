@@ -20,8 +20,8 @@ ST_MCSQ_TASK MCSQ_Task =
     
     .Motor_API.Max_Speed_rpm = (Q32U_)MOTOR_MAX_SPEED,
     .Motor_API.Min_Speed_rpm = (Q32U_)MOTOR_MIN_SPEED,
-    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
-    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)MOTOR_CURRENT_PHASE_A,
+    .Motor_API.Max_Iphase_0p01A = 100*(Q32U_)I_BASE,
+    .Motor_API.Max_IBus_0p01A = 100*(Q32U_)I_BASE,
     
     .MCSQ_CTRL.MCSQ_BLDC.FL_Iphase.P_Q14I_LPF_Coeff = IPHASE_FILTER_COEFF,
     .MCSQ_CTRL.MCSQ_BLDC.FL_Freq.P_Q14I_LPF_Coeff = FREQ_FILTER_COEFF,

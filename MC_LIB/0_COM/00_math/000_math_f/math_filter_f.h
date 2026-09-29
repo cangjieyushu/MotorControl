@@ -29,6 +29,16 @@ typedef struct
 
 typedef struct
 {
+    float I_F_HPF_In;
+    float O_F_HPF_Out;
+    
+    float V_F_HPF_In_Last;
+    
+    float P_F_HPF_Coeff;
+}ST_HPF_F;
+
+typedef struct
+{
     float I_F_MEAN_In;
     float O_F_MEAN_Out;
 
@@ -75,6 +85,28 @@ Return: 无
 Author: CJYS
 */
 void LPF_Cal_F(ST_LPF_F* pLPF);
+
+/*
+Function: HPF_Init_F
+Description: 浮点高通滤波初始化
+Input: 浮点高通滤波初始值
+Output: 无
+Input_Output: 浮点高通滤波指针
+Return: 无
+Author: CJYS
+*/
+void HPF_Init_F(ST_HPF_F* pHPF, float init);
+
+/*
+Function: HPF_Cal_F
+Description: 浮点高通滤波计算
+Input: 无
+Output: 无
+Input_Output: 浮点高通滤波指针
+Return: 无
+Author: CJYS
+*/
+void HPF_Cal_F(ST_HPF_F* pHPF);
 
 /*
 Function: MEAN_Init_F
