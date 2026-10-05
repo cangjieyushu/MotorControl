@@ -143,6 +143,7 @@ void MCFOC_EST_FLUX_Adapt_F(ST_FLUX_CONTROL_F* pFLUX, ST_PMSM_ELEC_F* pPMSMe, ST
     MATH_ANGLE_MOD_F(pFLUX->TG_FLUX_Triangle_Comp.F_Angle);
     Math_SinCos_F(&pFLUX->TG_FLUX_Triangle_Comp);
     
+    pFLUX->D_F_FLUX_Rs = pPMSMa->O_F_Rs;
     pFLUX->D_F_FLUX_Ts = pPMSMa->O_F_Ts;
     pFLUX->D_F_FLUX_Ld = pPMSMa->O_F_Ld;
     pFLUX->D_F_FLUX_Lq = pPMSMa->O_F_Lq;
@@ -167,9 +168,9 @@ void MCFOC_EST_FLUX_Cal_F(ST_FLUX_CONTROL_F* pFLUX, ST_PMSM_ELEC_F* pPMSMe)
     F_Fluxbeta = F_Id*pFLUX->TG_FLUX_Triangle.F_Sin
                + F_Iq*pFLUX->TG_FLUX_Triangle.F_Cos;
     
-    pFLUX->V_F_FLUX_Xalfa += pFLUX->D_F_FLUX_Ts*(pPMSMe->V_F_Ualfa
+    pFLUX->V_F_FLUX_Xalfa += pFLUX->D_F_FLUX_Ts*(pPMSMe->V_F_Ualfa - pPMSMe->V_F_Ialfa*pFLUX->D_F_FLUX_Rs
                             + pFLUX->D_F_FLUX_Gamma_Set*(F_Fluxalfa - pFLUX->V_F_FLUX_Xalfa));
-    pFLUX->V_F_FLUX_Xbeta += pFLUX->D_F_FLUX_Ts*(pPMSMe->V_F_Ubeta
+    pFLUX->V_F_FLUX_Xbeta += pFLUX->D_F_FLUX_Ts*(pPMSMe->V_F_Ubeta - pPMSMe->V_F_Ibeta*pFLUX->D_F_FLUX_Rs
                             + pFLUX->D_F_FLUX_Gamma_Set*(F_Fluxbeta - pFLUX->V_F_FLUX_Xbeta));
     
     pFLUX->PID_FLUX_PLL.I_F_Rf = (pFLUX->V_F_FLUX_Xbeta - pFLUX->D_F_FLUX_Lq*pPMSMe->V_F_Ibeta)

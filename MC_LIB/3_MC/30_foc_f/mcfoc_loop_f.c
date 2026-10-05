@@ -142,10 +142,13 @@ void MCFOC_IF_Init_F(ST_IF_CONTROL_F* pIF)
 
 void MCFOC_IF_SpeedLoop_F(ST_IF_CONTROL_F* pIF, ST_PMSM_ELEC_F* pPMSMe)
 {
-    pIF->PID_Reactive_Power.I_F_Rf = pPMSMe->O_F_Reactive_Power;
-    pIF->PID_Reactive_Power.P_F_OutMax = pIF->Ramp_IF_Iq.O_F_Output;
-    pIF->PID_Reactive_Power.P_F_OutMin = 0.0f;
-    PID_Pos_Cal_F(&pIF->PID_Reactive_Power);
+    if(pIF->Ramp_IF_FREQ.O_F_Output >= pIF->Ramp_IF_FREQ.P_F_Target)
+    {
+        pIF->PID_Reactive_Power.I_F_Rf = pPMSMe->O_F_Reactive_Power;
+        pIF->PID_Reactive_Power.P_F_OutMax = pIF->Ramp_IF_Iq.O_F_Output;
+        pIF->PID_Reactive_Power.P_F_OutMin = 0.0f;
+        PID_Pos_Cal_F(&pIF->PID_Reactive_Power);
+    }
     
     if(pIF->Ramp_IF_FREQ.O_F_Output >= pIF->P_F_IF_Freq_TL2)
     {

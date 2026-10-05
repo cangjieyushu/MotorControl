@@ -44,7 +44,7 @@
 #define HAL_PWM_ALL_VALUE_F                     (HAL_PWM_PRE_FREQ/HAL_PWM_HIGH_FREQ)
 #define HAL_PWM_SET_VALUE_T                     (Q32U_)(HAL_PWM_ALL_VALUE_F/2.0f)
 
-#define HAL_PWM_DEADTIME_TIME                   (Q32U_)(0.5f)                           //us，死区时间
+#define HAL_PWM_DEADTIME_TIME                   (Q32U_)(1.0f)                           //us，死区时间
 
 #define HAL_CURRENT_LOOP_FREQ_PRESCALER         (1.0f)//电流环分频
 

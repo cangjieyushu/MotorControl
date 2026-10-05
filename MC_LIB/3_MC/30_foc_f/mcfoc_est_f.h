@@ -77,6 +77,7 @@ typedef struct
 
     float       D_F_FLUX_Gamma_Set;
     float       D_F_FLUX_Ts;
+    float       D_F_FLUX_Rs;
     float       D_F_FLUX_Ld;
     float       D_F_FLUX_Lq;
     float       D_F_FLUX_Flux;
