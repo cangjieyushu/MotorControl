@@ -23,6 +23,9 @@ void BSP_ADC_Init(void)
     /* ADC data alignment config */
     adc_data_alignment_config(ADC_DATAALIGN_RIGHT);
     
+    // 使能连续转换模式 (CTN = 1)
+    adc_special_function_config(ADC_CONTINUOUS_MODE, ENABLE);
+    
     /* ADC channel length config */
     adc_channel_length_config(ADC_REGULAR_CHANNEL, 3U);
     /* ADC regular channel config */
@@ -59,18 +62,6 @@ void BSP_ADC_Init(void)
     /* ADC calibration and reset calibration */
     adc_calibration_enable();
     
-}
-
-/**********************************************************************************************
-Function: BSP_ADC_S_Enable
-Description: 系统ADC使能
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-***********************************************************************************************/
-void BSP_ADC_S_Enable(Q32U_* adcbuffer)
-{
     adc_software_trigger_enable(ADC_REGULAR_CHANNEL);
+    
 }

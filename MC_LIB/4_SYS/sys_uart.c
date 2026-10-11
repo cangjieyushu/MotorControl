@@ -8,6 +8,8 @@
 
 #include "sys_task.h"
 #include "sys_uart.h"
+#include <stdint.h>
+#include <string.h>        // ← 添加这一行
 
 
 ST_UART_CONTROL UART_Ctrl = {
@@ -23,30 +25,30 @@ static Q08U_ HAL_UART_RX_HEAD = 0U;
 static Q08U_ HAL_UART_TX_HEAD = 0U;
 void UART_NUM_Init(void)
 {
-    if((BSP_GPIO_BTN1() == 1U) && (BSP_GPIO_BTN0() == 1U))
-    {
-        HAL_ACCM_NUM = 1U;
-        HAL_UART_RX_HEAD = 0xAAU; 
-        HAL_UART_TX_HEAD = 0xFAU;
-    }
-    else if((BSP_GPIO_BTN1() == 1U) && (BSP_GPIO_BTN0() == 0U))
-    {
-        HAL_ACCM_NUM = 2U;
-        HAL_UART_RX_HEAD = 0xAAU; 
-        HAL_UART_TX_HEAD = 0xFBU;
-    }
-    else if((BSP_GPIO_BTN1() == 0U) && (BSP_GPIO_BTN0() == 1U))
-    {
-        HAL_ACCM_NUM = 3U;
-        HAL_UART_RX_HEAD = 0xAAU; 
-        HAL_UART_TX_HEAD = 0xFCU;
-    }
-    else if((BSP_GPIO_BTN1() == 0U) && (BSP_GPIO_BTN0() == 0U))
-    {
-        HAL_ACCM_NUM = 4U;
-        HAL_UART_RX_HEAD = 0xAAU; 
-        HAL_UART_TX_HEAD = 0xFDU;
-    }
+//    if((BSP_GPIO_BTN1() == 1U) && (BSP_GPIO_BTN0() == 1U))
+//    {
+//        HAL_ACCM_NUM = 1U;
+//        HAL_UART_RX_HEAD = 0xAAU; 
+//        HAL_UART_TX_HEAD = 0xFAU;
+//    }
+//    else if((BSP_GPIO_BTN1() == 1U) && (BSP_GPIO_BTN0() == 0U))
+//    {
+//        HAL_ACCM_NUM = 2U;
+//        HAL_UART_RX_HEAD = 0xAAU; 
+//        HAL_UART_TX_HEAD = 0xFBU;
+//    }
+//    else if((BSP_GPIO_BTN1() == 0U) && (BSP_GPIO_BTN0() == 1U))
+//    {
+//        HAL_ACCM_NUM = 3U;
+//        HAL_UART_RX_HEAD = 0xAAU; 
+//        HAL_UART_TX_HEAD = 0xFCU;
+//    }
+//    else if((BSP_GPIO_BTN1() == 0U) && (BSP_GPIO_BTN0() == 0U))
+//    {
+//        HAL_ACCM_NUM = 4U;
+//        HAL_UART_RX_HEAD = 0xAAU; 
+//        HAL_UART_TX_HEAD = 0xFDU;
+//    }
 }
 
 /**********************************************************************************************
@@ -301,4 +303,118 @@ void UART_Transmission_Int(void)
     {
         UARTH_Disable_Tx();
     }
+}
+
+/*-----------------------------------------------------------
+ * 函数：uart_send_data
+ * 功能：通过 DMA 发送指定长度的数据
+ *----------------------------------------------------------*/
+void uart_send_data(uint8_t *data, uint16_t len)
+{
+    if (len == 0 || data == NULL) {
+        return;
+    }
+    
+    /* 清除残留标志 */
+    dma_flag_clear(HAL_USART_TX_DMA_CH, DMA_FLAG_G);
+    
+    /* 重新配置发送 DMA */
+    dma_channel_disable(HAL_USART_TX_DMA_CH);
+    dma_memory_address_config(HAL_USART_TX_DMA_CH, (uint32_t)data);
+    dma_transfer_number_config(HAL_USART_TX_DMA_CH, len);
+    dma_channel_enable(HAL_USART_TX_DMA_CH);
+    
+    /* 使能 USART0 的 DMA 发送请求（DENT 位） */
+    usart_dma_transmit_config(HAL_MOTOR_UART, USART_DENT_ENABLE);
+}
+
+/*-----------------------------------------------------------
+ * 函数：uart_send_string
+ * 功能：发送以 '\0' 结尾的字符串
+ *----------------------------------------------------------*/
+void uart_send_string(const char *str)
+{
+    uart_send_data((uint8_t *)str, (uint16_t)strlen(str));
+}
+
+static volatile uint8_t  ring_buf[HAL_HMI_DMA_RX_BUF_SIZE];
+static volatile uint16_t write_index = 0;
+static volatile uint16_t read_index  = 0;
+/* 上一次 DMA 已搬运的位置（用于计算新数据长度） */
+static volatile uint16_t dma_last_pos = 0;
+
+void ring_buffer_init(void)
+{
+    write_index = 0;
+    read_index  = 0;
+}
+
+/* 返回缓冲区中可读字节数 */
+uint16_t ring_buffer_available(void)
+{
+    return (uint16_t)((write_index + HAL_HMI_DMA_RX_BUF_SIZE - read_index) % HAL_HMI_DMA_RX_BUF_SIZE);
+}
+
+/* 从缓冲区读取一个字节，返回 -1 表示空 */
+int ring_buffer_get(void)
+{
+    if (read_index == write_index) {
+        return -1;                          // 缓冲区为空
+    }
+    uint8_t data = ring_buf[read_index];
+    read_index = (read_index + 1) % HAL_HMI_DMA_RX_BUF_SIZE;
+    return (int)data;
+}
+
+/* 向缓冲区写入一个字节，返回 false 表示缓冲区已满 */
+Q08U_ ring_buffer_put(uint8_t data)
+{
+    uint16_t next = (write_index + 1) % HAL_HMI_DMA_RX_BUF_SIZE;
+    if (next == read_index) {
+        return 0U;                       // 缓冲区满，丢弃数据
+    }
+    ring_buf[write_index] = data;
+    write_index = next;
+    return 1U;
+}
+
+void ring_buffer_clear(void)
+{
+    write_index = 0;
+    read_index  = 0;
+}
+
+/**********************************************************************************************
+Function: UART_DMA_Rx_Int
+Description: UART的DMA接收
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void UART_DMA_Rx_Int(void)
+{
+    /* 获取 DMA 当前剩余传输数量 */
+    uint16_t remain = dma_transfer_number_get(HAL_USART_RX_DMA_CH);
+    /* DMA 已写入的绝对位置 */
+    uint16_t curr_pos = HAL_HMI_DMA_RX_BUF_SIZE - remain;
+    
+    /* 计算本次新接收的数据长度 */
+    uint16_t new_len;
+    if (curr_pos >= dma_last_pos) {
+        new_len = curr_pos - dma_last_pos;
+    } else {
+        /* DMA 缓冲区发生了回绕 */
+        new_len = (HAL_HMI_DMA_RX_BUF_SIZE - dma_last_pos) + curr_pos;
+    }
+    
+    /* 将新数据从 DMA 线性缓冲区搬运到环形缓冲区 */
+    for (uint16_t i = 0; i < new_len; i++) {
+        uint16_t idx = (dma_last_pos + i) % HAL_HMI_DMA_RX_BUF_SIZE;
+        ring_buffer_put(dma_uart_rx_buf[idx]);   // 缓冲区满时自动丢弃
+    }
+    
+    /* 更新上次搬运位置 */
+    dma_last_pos = curr_pos;
 }

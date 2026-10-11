@@ -12,6 +12,16 @@
 #include "hw_map.h"
 #include "hw_para.h"
 
+
+/* øÿ÷∆∫Í */
+#define LCD_CS_LOW()    gpio_bit_reset(SPI_CS_GPIO_PORT, SPI_CS_PIN)
+#define LCD_CS_HIGH()   gpio_bit_set(SPI_CS_GPIO_PORT, SPI_CS_PIN)
+#define LCD_DC_CMD()    gpio_bit_reset(SPI_DC_GPIO_PORT, SPI_DC_PIN)
+#define LCD_DC_DATA()   gpio_bit_set(SPI_DC_GPIO_PORT, SPI_DC_PIN)
+#define LCD_RST_LOW()   gpio_bit_reset(SPI_RST_GPIO_PORT, SPI_RST_PIN)
+#define LCD_RST_HIGH()  gpio_bit_set(SPI_RST_GPIO_PORT, SPI_RST_PIN)
+
+
 /**********************************************************************************************
 Function: BSP_USART_Init
 Description: USART≥ı ºªØ

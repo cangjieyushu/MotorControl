@@ -984,6 +984,26 @@
               <FilePath>..\..\4_SYS\sys_err.h</FilePath>
             </File>
             <File>
+              <FileName>sys_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\4_SYS\sys_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\4_SYS\sys_lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys_menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\4_SYS\sys_menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_menu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\4_SYS\sys_menu.h</FilePath>
+            </File>
+            <File>
               <FileName>sys_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\4_SYS\sys_task.c</FilePath>

@@ -11,6 +11,7 @@
 #include "hw_clk.h"
 #include "hw_map.h"
 #include "hw_para.h"
+#include "bsp_dma.h"
 #include "bsp_gpio.h"
 
 

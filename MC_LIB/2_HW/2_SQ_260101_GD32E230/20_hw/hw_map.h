@@ -42,25 +42,26 @@
 #define HAL_MOTOR_SWITCH_TIM        TIMER2
 #define HAL_MOTOR_UART              USART0
 #define HAL_MOTOR_SPI               SPI0
+
+#define HAL_ADC_DMA_CH              DMA_CH0
 #define HAL_USART_TX_DMA_CH         DMA_CH3
 #define HAL_USART_RX_DMA_CH         DMA_CH4
 #define HAL_SPI_TX_DMA_CH           DMA_CH2
-#define HAL_ADC_DMA_CH              DMA_CH0
 
 
 //全局引脚定义
 //GPIO输入
 #define BTN0_GPIO_PORT              GPIOB
-#define BTN0_PIN                    GPIO_PIN_4
+#define BTN0_PIN                    GPIO_PIN_1
 
 #define BTN1_GPIO_PORT              GPIOB
-#define BTN1_PIN                    GPIO_PIN_3
+#define BTN1_PIN                    GPIO_PIN_2
 
-//#define BTN3_GPIO_PORT              GPIOB
-//#define BTN3_PIN                    GPIO_PIN_10
+#define BTN3_GPIO_PORT              GPIOB
+#define BTN3_PIN                    GPIO_PIN_10
 
-//#define BTN4_GPIO_PORT              GPIOB
-//#define BTN4_PIN                    GPIO_PIN_11
+#define BTN4_GPIO_PORT              GPIOB
+#define BTN4_PIN                    GPIO_PIN_11
 
 //GPIO输出
 //#define RLYN_GPIO_PORT              GPIOA
@@ -143,24 +144,24 @@
 #define UART_TX_PIN                 GPIO_PIN_6
 
 #define UART_TXEN_GPIO_PORT         GPIOB
-#define UART_TXEN_PIN               GPIO_PIN_5
+#define UART_TXEN_PIN               GPIO_PIN_4
 
 
 //SPI
-//#define SPI_SCK_GPIO_PORT           GPIOB
-//#define SPI_SCK_PIN                 GPIO_PIN_3
+#define SPI_SCK_GPIO_PORT           GPIOB
+#define SPI_SCK_PIN                 GPIO_PIN_3
 
-//#define SPI_MOSI_GPIO_PORT          GPIOB
-//#define SPI_MOSI_PIN                GPIO_PIN_5
+#define SPI_MOSI_GPIO_PORT          GPIOB
+#define SPI_MOSI_PIN                GPIO_PIN_5
 
-//#define SPI_RST_GPIO_PORT           GPIOB
-//#define SPI_RST_PIN                 GPIO_PIN_8
+#define SPI_RST_GPIO_PORT           GPIOA
+#define SPI_RST_PIN                 GPIO_PIN_0
 
-//#define SPI_A0_GPIO_PORT            GPIOB
-//#define SPI_A0_PIN                  GPIO_PIN_9
+#define SPI_DC_GPIO_PORT            GPIOA
+#define SPI_DC_PIN                  GPIO_PIN_3
 
-//#define SPI_CS_GPIO_PORT            GPIOA
-//#define SPI_CS_PIN                  GPIO_PIN_15
+#define SPI_CS_GPIO_PORT            GPIOA
+#define SPI_CS_PIN                  GPIO_PIN_4
 
 
 #endif /* HW_MAP_H */

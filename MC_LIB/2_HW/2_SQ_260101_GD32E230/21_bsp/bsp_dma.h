@@ -17,6 +17,7 @@
 #define BSP_ADC_DATA_READ_TPFC      (Hal_AdcLoopData_S[2] & 0x00000FFFU)
 #define BSP_ADC_DATA_READ_VR        0U
 
+
 /**********************************************************************************************
 Function: BSP_DMA_Init
 Description: 电机控制用DMA初始化
@@ -48,10 +49,11 @@ Input_Output: 无
 Return: 无
 Author: CJYS
 ***********************************************************************************************/
-void BSP_DMA_Init_UART(Q08U_* ustxbuffer, Q08U_* usrxbuffer, Q08U_* spitxbuffer);
+void BSP_DMA_Init_UART(void);
 
 
 extern uint32_t Hal_AdcLoopData_S[8];
+extern uint8_t dma_uart_rx_buf[HAL_HMI_DMA_RX_BUF_SIZE];
 
 
 #endif /* BSP_DMA_H */

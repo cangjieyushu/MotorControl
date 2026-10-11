@@ -42,22 +42,22 @@ void BSP_GPIO_Init(void)
     /* reset UART_TXEN GPIO pin */
     gpio_bit_reset(UART_TXEN_GPIO_PORT, UART_TXEN_PIN);
     
-    /* configure BTN1 GPIO port */ 
-    gpio_mode_set(BTN1_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN1_PIN);
+//    /* configure BTN1 GPIO port */ 
+//    gpio_mode_set(BTN1_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN1_PIN);
 //    /* reset BTN1 GPIO pin */
-    gpio_bit_reset(BTN1_GPIO_PORT, BTN1_PIN);
-    /* configure BTN2 GPIO port */ 
-    gpio_mode_set(BTN0_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN0_PIN);
-////    /* reset BTN2 GPIO pin */
-    gpio_bit_reset(BTN0_GPIO_PORT, BTN0_PIN);
+//    gpio_bit_reset(BTN1_GPIO_PORT, BTN1_PIN);
+//    /* configure BTN2 GPIO port */ 
+//    gpio_mode_set(BTN0_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN0_PIN);
+//    /* reset BTN2 GPIO pin */
+//    gpio_bit_reset(BTN0_GPIO_PORT, BTN0_PIN);
 //    /* configure BTN3 GPIO port */ 
 //    gpio_mode_set(BTN3_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN3_PIN);
-////    /* reset BTN3 GPIO pin */
-////    gpio_bit_reset(BTN3_GPIO_PORT, BTN3_PIN);
+//    /* reset BTN3 GPIO pin */
+//    gpio_bit_reset(BTN3_GPIO_PORT, BTN3_PIN);
 //    /* configure BTN4 GPIO port */ 
 //    gpio_mode_set(BTN4_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BTN4_PIN);
-////    /* reset BTN4 GPIO pin */
-////    gpio_bit_reset(BTN4_GPIO_PORT, BTN4_PIN);
+//    /* reset BTN4 GPIO pin */
+//    gpio_bit_reset(BTN4_GPIO_PORT, BTN4_PIN);
 
 
 
@@ -192,16 +192,15 @@ Q32U_ BSP_GPIO_BTN0(void)
 {
     return (Q32U_)gpio_input_bit_get(BTN0_GPIO_PORT, BTN0_PIN);
 }
+Q32U_ BSP_GPIO_BTN3(void)
+{
+    return (Q32U_)gpio_input_bit_get(BTN3_GPIO_PORT, BTN3_PIN);
+}
 
-//Q32U_ BSP_GPIO_BTN3(void)
-//{
-//    return (Q32U_)gpio_input_bit_get(BTN3_GPIO_PORT, BTN3_PIN);
-//}
-
-//Q32U_ BSP_GPIO_BTN4(void)
-//{
-//    return (Q32U_)gpio_input_bit_get(BTN4_GPIO_PORT, BTN4_PIN);
-//}
+Q32U_ BSP_GPIO_BTN4(void)
+{
+    return (Q32U_)gpio_input_bit_get(BTN4_GPIO_PORT, BTN4_PIN);
+}
 
 void BSP_GPIO_TXEN(Q32U_ state)
 {

@@ -24,4 +24,5 @@ void BSP_ISR_Init(void)
     nvic_irq_enable(TIMER0_Channel_IRQn, 1);            //使能 触发 中断
     nvic_irq_enable(SysTick_IRQn, 5);                   //使能 SYS 中断
     nvic_irq_enable(USART0_IRQn, 3);                    //使能 串口 中断
+    nvic_irq_enable(DMA_Channel1_2_IRQn, 1);
 }

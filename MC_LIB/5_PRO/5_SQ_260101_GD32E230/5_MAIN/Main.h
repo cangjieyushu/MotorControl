@@ -14,6 +14,8 @@
 /*-------------------------- 1. 头文件包含 -------------------------------*/
 #include "sys_task.h"
 #include "sys_uart.h"
+#include "sys_lcd.h"
+
 
 #if(MOTOR_CONTROL_MODE == MOTOR_CONTROL_FOC_F)
 #include "mcfoc_task_f.h"

@@ -11,6 +11,9 @@
 #include "sys_task.h"
 #include "sys_btn.h"
 #include "sys_err.h"
+//#include "sys_uart.h"
+#include "sys_lcd.h"
+#include "sys_menu.h"
 
 
 /*-------------------------- 2. ±äÁ¿ ---------------------------------*/
@@ -29,6 +32,8 @@ static void System_Task_Init(ST_SYSTEM_TASK* pST)
     Q32U_ adc_tmp = 0U;
     
     adc_tmp = BSP_ADC_DATA_READ_VR;     LPF_Init_T(&pST->FL_VR, (Q32I_)adc_tmp);
+    
+    //System_Init();
 }
 
 static void System_ADC_Read(ST_SYSTEM_TASK* pST)
@@ -150,6 +155,9 @@ void System_10msTask_Flow(void)
 {
     if(pST->System_State_Flag.bit.systick_intflow == 1U)
     {
+        //scroll_task_10ms();
+        //System_Loop_10ms();
+        
         Button_Control(&Button_Ctrl, pST);
         
         MC_API_Motor_Set_Dir(MOTOR_NUMBER_N0, 1U);
@@ -158,7 +166,7 @@ void System_10msTask_Flow(void)
         pST->Iphase_0p01A = MC_API_Motor_Read_Iphase(MOTOR_NUMBER_N0);
         pST->IBus_0p01A = MC_API_Motor_Read_Ibus(MOTOR_NUMBER_N0);
         
-        Error_Priority_Check(0U);
+        pST->V_Q32U_Error_Code = Error_Priority_Check(MC_API_Motor_Read_Err(1U));
         pST->System_State_Flag.bit.systick_intflow = 0U;
     }
 }

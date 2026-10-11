@@ -32,8 +32,10 @@ typedef enum{
 typedef union{
     SC_ALL all;
     struct{
-        SC_BIT        systick_intflow         :1;
-        SC_BIT        system_runflag          :1;
+        SC_BIT        systick_intflow           :1;
+        SC_BIT        system_runflag            :1;
+        SC_BIT        motor_enable              :1;
+        SC_BIT        value_enable              :1;
     }bit;
 }UN_SYSTEM_STATE_FLAG;
 
@@ -61,6 +63,8 @@ typedef struct{
     Q32I_                       Speed_rpm;
     Q32I_                       Iphase_0p01A;
     Q32I_                       IBus_0p01A;
+    
+    Q32U_                       V_Q32U_Error_Code;
     
     Q32U_                       P_Q32U_System_PowerUp_Time;
     Q32U_                       V_flow_cnt;

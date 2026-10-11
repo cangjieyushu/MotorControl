@@ -106,5 +106,25 @@ Author: CJYS
 ***********************************************************************************************/
 void UART_Transmission_Int(void);
 
+void uart_send_data(uint8_t *data, uint16_t len);
+void uart_send_string(const char *str);
+
+void     ring_buffer_init(void);
+uint16_t ring_buffer_available(void);
+int      ring_buffer_get(void);
+Q08U_    ring_buffer_put(uint8_t data);
+void     ring_buffer_clear(void);
+
+/**********************************************************************************************
+Function: UART_DMA_Rx_Int
+Description: UART的DMA接收
+Input: 无
+Output: 无
+Input_Output: 无
+Return: 无
+Author: CJYS
+***********************************************************************************************/
+void UART_DMA_Rx_Int(void);
+
 
 #endif /* UARTS_H */
