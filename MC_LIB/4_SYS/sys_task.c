@@ -11,7 +11,7 @@
 #include "sys_task.h"
 #include "sys_btn.h"
 #include "sys_err.h"
-//#include "sys_uart.h"
+#include "sys_uart.h"
 #include "sys_lcd.h"
 #include "sys_menu.h"
 
@@ -159,6 +159,8 @@ void System_10msTask_Flow(void)
         //System_Loop_10ms();
         
         Button_Control(&Button_Ctrl, pST);
+        UART_Get_Resceive_Data();
+        UART_Send_Transmission_Data();
         
         MC_API_Motor_Set_Dir(MOTOR_NUMBER_N0, 1U);
         MC_API_Motor_Set_Speed(MOTOR_NUMBER_N0, pST->Q16U_Duty_Target*90000/16384);

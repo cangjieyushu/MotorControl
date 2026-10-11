@@ -49,77 +49,63 @@ void UART_NUM_Init(void)
 //        HAL_UART_RX_HEAD = 0xAAU; 
 //        HAL_UART_TX_HEAD = 0xFDU;
 //    }
+    /* 根据按键分配协议头（保留原注释逻辑）*/
 }
+
 
 /**********************************************************************************************
 Function: Cal_CRC8
-Description: CRC8校验
-Input: 数据
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: CRC8 校验
 ***********************************************************************************************/
 Q08U_ Cal_CRC8(const Q08U_ data)
 {
     Q08U_ i, crc;
     crc = data;
-    /* 数据往左移了8位，需要计算8次 */
     for (i = 8; i > 0; i--) {
-        /* 判断最高位是否为1 */
-        if(crc & 0x80)
-        {
-        /* 最高位为1，不需要异或，往左移一位，然后与0x2f异或 */
-        /* 0x12f(多项式：x8 + x5 + x3 + x2 + x + 1,  100101111)，最高位不需要异或，直接去掉 */
+        if (crc & 0x80) {
             crc = (crc << 1) ^ 0x2f;
-        } 
-        else
-        {
-            /* 最高位为0时，不需要异或，整体数据往左移一位 */
+        } else {
             crc = (crc << 1);
         }
     }
     return crc;
 }
 
+
 /**********************************************************************************************
 Function: UART_Get_Resceive_Data
-Description: 串口1接收数据
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: 串口1 接收数据状态机
 ***********************************************************************************************/
 void UART_Get_Resceive_Data(void)
 {
     ST_UART_CONTROL* pUC = &UART_Ctrl;
-    
-    switch(pUC->UART_Resceive_Flow)
+
+    switch (pUC->UART_Resceive_Flow)
     {
         case UART_STATE_IDLE:
         {
-            if(pUC->UART_State.BIT.resceive_enable == 1U)
+            if (pUC->UART_State.BIT.resceive_enable == 1U)
             {
-                if(++pUC->rxdata_cnt >= 80U - 10U*HAL_ACCM_NUM)
+                if (++pUC->rxdata_cnt >= 80U - 10U * HAL_ACCM_NUM)
                 {
                     pUC->rxdata_cnt = 0U;
                     UARTH_Enable_Rx();
                     pUC->UART_Resceive_Flow = UART_STATE_RUN;
                 }
             }
-        }break;
+        } break;
+
         case UART_STATE_RUN:
         {
-            if(pUC->rxdata_length_tmp >= pUC->rxdata_maxlength)
+            if (pUC->rxdata_length_tmp >= pUC->rxdata_maxlength)
             {
                 UARTH_Disable_Rx();
                 pUC->UART_Resceive_Flow = UART_STATE_ERROR;
             }
-            if((pUC->rxdata_length_tmp == pUC->rxdata_length_last)
-            && (pUC->rxdata_length_tmp != 0U))
+            if ((pUC->rxdata_length_tmp == pUC->rxdata_length_last)
+                && (pUC->rxdata_length_tmp != 0U))
             {
-                if(++pUC->rxdata_cnt >= 2U)
+                if (++pUC->rxdata_cnt >= 2U)
                 {
                     pUC->rxdata_cnt = 0U;
                     UARTH_Disable_Rx();
@@ -127,15 +113,23 @@ void UART_Get_Resceive_Data(void)
                 }
             }
             pUC->rxdata_length_last = pUC->rxdata_length_tmp;
-        }break;
+        } break;
+
         case UART_STATE_END:
         {
             pUC->rx_num = 0U;
-            while((pUC->rx_num < 5U) && (pUC->rxdata[pUC->rx_num] != HAL_UART_RX_HEAD)) pUC->rx_num++;
-            
-            Q08U_ rxdata_tmp = Cal_CRC8(pUC->rxdata[pUC->rx_num + 1] + pUC->rxdata[pUC->rx_num + 2] + pUC->rxdata[pUC->rx_num + 3]
-             + pUC->rxdata[pUC->rx_num + 4] + pUC->rxdata[pUC->rx_num + 5] + pUC->rxdata[pUC->rx_num + 6] + pUC->rxdata[pUC->rx_num + 7]);
-            if((pUC->rxdata[pUC->rx_num] == HAL_UART_RX_HEAD) && (rxdata_tmp == pUC->rxdata[pUC->rx_num + 8]))
+            while ((pUC->rx_num < 5U) && (pUC->rxdata[pUC->rx_num] != HAL_UART_RX_HEAD))
+            {
+                pUC->rx_num++;
+            }
+
+            Q08U_ rxdata_tmp = Cal_CRC8(pUC->rxdata[pUC->rx_num + 1] + pUC->rxdata[pUC->rx_num + 2]
+                                        + pUC->rxdata[pUC->rx_num + 3] + pUC->rxdata[pUC->rx_num + 4]
+                                        + pUC->rxdata[pUC->rx_num + 5] + pUC->rxdata[pUC->rx_num + 6]
+                                        + pUC->rxdata[pUC->rx_num + 7]);
+
+            if ((pUC->rxdata[pUC->rx_num] == HAL_UART_RX_HEAD)
+                && (rxdata_tmp == pUC->rxdata[pUC->rx_num + 8]))
             {
                 pUC->UART_State.BIT.transmission_enable = 1U;
                 pUC->rxdata_cnt = 0U;
@@ -145,138 +139,131 @@ void UART_Get_Resceive_Data(void)
                 pUC->UART_State.BIT.resceive_enable = 1U;
                 pUC->rxdata_cnt = 10000U;
             }
-            
+
             pUC->error_cnt = 0U;
-            
+
             pUC->rxdata_length_last = 0U;
-            pUC->rxdata_length_tmp = 0U;
-            
-            pUC->txdata_cnt = 0U;
-            pUC->txdata_length_tmp = 0U;
+            pUC->rxdata_length_tmp  = 0U;
+
+            pUC->txdata_cnt         = 0U;
+            pUC->txdata_length_tmp  = 0U;
             pUC->txdata_length_last = 0U;
-            
+
             pUC->UART_Resceive_Flow = UART_STATE_IDLE;
-        }break;
+        } break;
+
         case UART_STATE_ERROR:
         {
             pUC->error_cnt = 0U;
-            
+
             pUC->rxdata_length_last = 0U;
-            pUC->rxdata_length_tmp = 0U;
-            pUC->rxdata_cnt = 0U;
-            
-            pUC->txdata_cnt = 0U;
-            pUC->txdata_length_tmp = 0U;
+            pUC->rxdata_length_tmp  = 0U;
+            pUC->rxdata_cnt         = 0U;
+
+            pUC->txdata_cnt         = 0U;
+            pUC->txdata_length_tmp  = 0U;
             pUC->txdata_length_last = 0U;
-            
+
             pUC->UART_State.BIT.transmission_enable = 0U;
-            pUC->UART_State.BIT.resceive_enable = 1U;
+            pUC->UART_State.BIT.resceive_enable     = 1U;
             pUC->UART_Resceive_Flow = UART_STATE_IDLE;
-        }break;
+        } break;
+
         default:
             break;
     }
 }
 
+
 /**********************************************************************************************
 Function: UART_Send_Transmission_Data
-Description: 串口1发送数据
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: 串口1 发送数据状态机
 ***********************************************************************************************/
 void UART_Send_Transmission_Data(void)
 {
     ST_UART_CONTROL* pUC = &UART_Ctrl;
-    
-    switch(pUC->UART_Transmission_Flow)
+
+    switch (pUC->UART_Transmission_Flow)
     {
         case UART_STATE_IDLE:
         {
-            if(pUC->UART_State.BIT.transmission_enable == 1U)
+            if (pUC->UART_State.BIT.transmission_enable == 1U)
             {
-                if(++pUC->txdata_cnt >= 2U + 10U*HAL_ACCM_NUM)
+                if (++pUC->txdata_cnt >= 2U + 10U * HAL_ACCM_NUM)
                 {
-                    pUC->txdata_cnt = 0U;
-                    pUC->txdata_length_tmp = 0U;
+                    pUC->txdata_cnt         = 0U;
+                    pUC->txdata_length_tmp  = 0U;
                     pUC->txdata_length_last = 0U;
-                    
+
+                    pUC->txdata[pUC->txdata_length_tmp++] = 0xFFU;
+                    pUC->txdata[pUC->txdata_length_tmp++] = HAL_UART_TX_HEAD;
                     pUC->txdata[pUC->txdata_length_tmp++] = 0xFFU;
                     pUC->txdata[pUC->txdata_length_tmp++] = 0xFFU;
-                    pUC->txdata[pUC->txdata_length_tmp++] = 0xFFU;
-                    pUC->txdata[pUC->txdata_length_tmp++] = 0xFFU;
-                    
+
                     UART_TRANSMISSION_DATA = pUC->txdata[0];
                     UARTH_Enable_Tx();
-                    
+
                     pUC->UART_Transmission_Flow = UART_STATE_RUN;
                 }
             }
-//            if(++pUC->error_cnt >= 1000U)
-//            {
-//                pUC->error_cnt = 0U;
-//                pUC->UART_Transmission_Flow = UART_STATE_ERROR;
-//            }
-        }break;
+        } break;
+
         case UART_STATE_RUN:
         {
-            if(pUC->txdata_length_last >= pUC->txdata_length_tmp)
+            if (pUC->txdata_length_last >= pUC->txdata_length_tmp)
             {
                 pUC->UART_Transmission_Flow = UART_STATE_END;
             }
-        }break;
+        } break;
+
         case UART_STATE_END:
         {
             pUC->error_cnt = 0U;
-            
+
             pUC->rxdata_length_last = 0U;
-            pUC->rxdata_length_tmp = 0U;
-            pUC->rxdata_cnt = 0U;
-            
-            pUC->txdata_cnt = 0U;
-            pUC->txdata_length_tmp = 0U;
+            pUC->rxdata_length_tmp  = 0U;
+            pUC->rxdata_cnt         = 0U;
+
+            pUC->txdata_cnt         = 0U;
+            pUC->txdata_length_tmp  = 0U;
             pUC->txdata_length_last = 0U;
-            
+
             pUC->UART_State.BIT.transmission_enable = 0U;
-            pUC->UART_State.BIT.resceive_enable = 1U;
+            pUC->UART_State.BIT.resceive_enable     = 1U;
             pUC->UART_Transmission_Flow = UART_STATE_IDLE;
-        }break;
+        } break;
+
         case UART_STATE_ERROR:
         {
             pUC->error_cnt = 0U;
-            
+
             pUC->rxdata_length_last = 0U;
-            pUC->rxdata_length_tmp = 0U;
-            pUC->rxdata_cnt = 0U;
-            
-            pUC->txdata_cnt = 0U;
-            pUC->txdata_length_tmp = 0U;
+            pUC->rxdata_length_tmp  = 0U;
+            pUC->rxdata_cnt         = 0U;
+
+            pUC->txdata_cnt         = 0U;
+            pUC->txdata_length_tmp  = 0U;
             pUC->txdata_length_last = 0U;
-            
+
             pUC->UART_State.BIT.transmission_enable = 0U;
-            pUC->UART_State.BIT.resceive_enable = 1U;
+            pUC->UART_State.BIT.resceive_enable     = 1U;
             pUC->UART_Transmission_Flow = UART_STATE_IDLE;
-        }break;
+        } break;
+
         default:
             break;
     }
 }
 
+
 /**********************************************************************************************
 Function: UART_Resceive_Int
-Description: 串口1接收数据中断
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: 串口1 接收数据中断（DMA 方案下未使用，保留兼容）
 ***********************************************************************************************/
 void UART_Resceive_Int(void)
 {
     ST_UART_CONTROL* pUC = &UART_Ctrl;
-    if(pUC->rxdata_length_tmp < pUC->rxdata_maxlength)
+    if (pUC->rxdata_length_tmp < pUC->rxdata_maxlength)
     {
         pUC->rxdata[pUC->rxdata_length_tmp++] = UART_RESCEIVE_DATA;
     }
@@ -286,24 +273,21 @@ void UART_Resceive_Int(void)
     }
 }
 
+
 /**********************************************************************************************
 Function: UART_Transmission_Int
-Description: 串口1发送数据中断
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: 串口1 发送数据中断（DMA 方案下未使用，保留兼容）
 ***********************************************************************************************/
 void UART_Transmission_Int(void)
 {
     ST_UART_CONTROL* pUC = &UART_Ctrl;
     UART_TRANSMISSION_DATA = pUC->txdata[pUC->txdata_length_last++];
-    if(pUC->txdata_length_last == pUC->txdata_length_tmp)
+    if (pUC->txdata_length_last == pUC->txdata_length_tmp)
     {
         UARTH_Disable_Tx();
     }
 }
+
 
 /*-----------------------------------------------------------
  * 函数：uart_send_data
@@ -311,22 +295,28 @@ void UART_Transmission_Int(void)
  *----------------------------------------------------------*/
 void uart_send_data(uint8_t *data, uint16_t len)
 {
-    if (len == 0 || data == NULL) {
+    if (len == 0 || data == NULL)
+    {
         return;
     }
-    
-    /* 清除残留标志 */
-    dma_flag_clear(HAL_USART_TX_DMA_CH, DMA_FLAG_G);
-    
-    /* 重新配置发送 DMA */
-    dma_channel_disable(HAL_USART_TX_DMA_CH);
-    dma_memory_address_config(HAL_USART_TX_DMA_CH, (uint32_t)data);
-    dma_transfer_number_config(HAL_USART_TX_DMA_CH, len);
-    dma_channel_enable(HAL_USART_TX_DMA_CH);
-    
-    /* 使能 USART0 的 DMA 发送请求（DENT 位） */
-    usart_dma_transmit_config(HAL_MOTOR_UART, USART_DENT_ENABLE);
+
+    /* 1. 关闭 TX DMA 通道 */
+    DMA_Cmd(HAL_HMI_USART_TX_DMA_CH, DISABLE);
+
+    /* 2. 清所有标志（GL/TC/HT/TE）*/
+    DMA_ClearFlag(HAL_HMI_USART_TX_DMA_GL_FLAG);
+
+    /* 3. 重新配置内存地址和数据长度 */
+    HAL_HMI_USART_TX_DMA_CH->CMAR  = (Q32U_)data;
+    HAL_HMI_USART_TX_DMA_CH->CNDTR = (Q16U_)len;
+
+    /* 4. 使能 DMA 通道 */
+    DMA_Cmd(HAL_HMI_USART_TX_DMA_CH, ENABLE);
+
+    /* 5. 使能 USART1 的 DMA 发送请求 */
+    USART_DMACmd(HAL_HMI_UART, USART_DMAReq_Tx, ENABLE);
 }
+
 
 /*-----------------------------------------------------------
  * 函数：uart_send_string
@@ -337,46 +327,56 @@ void uart_send_string(const char *str)
     uart_send_data((uint8_t *)str, (uint16_t)strlen(str));
 }
 
-static volatile uint8_t  ring_buf[HAL_HMI_DMA_RX_BUF_SIZE];
+
+/*-------------------------- 4. 环形缓冲区 ------------------------------*/
+static volatile uint8_t  ring_buf[UART1_RX_BUF_SIZE];
 static volatile uint16_t write_index = 0;
 static volatile uint16_t read_index  = 0;
 /* 上一次 DMA 已搬运的位置（用于计算新数据长度） */
 static volatile uint16_t dma_last_pos = 0;
 
+
 void ring_buffer_init(void)
 {
     write_index = 0;
     read_index  = 0;
+    dma_last_pos = 0;
 }
+
 
 /* 返回缓冲区中可读字节数 */
 uint16_t ring_buffer_available(void)
 {
-    return (uint16_t)((write_index + HAL_HMI_DMA_RX_BUF_SIZE - read_index) % HAL_HMI_DMA_RX_BUF_SIZE);
+    return (uint16_t)((write_index + UART1_RX_BUF_SIZE - read_index) % UART1_RX_BUF_SIZE);
 }
+
 
 /* 从缓冲区读取一个字节，返回 -1 表示空 */
 int ring_buffer_get(void)
 {
-    if (read_index == write_index) {
-        return -1;                          // 缓冲区为空
+    if (read_index == write_index)
+    {
+        return -1;                              /* 缓冲区为空 */
     }
     uint8_t data = ring_buf[read_index];
-    read_index = (read_index + 1) % HAL_HMI_DMA_RX_BUF_SIZE;
+    read_index = (read_index + 1) % UART1_RX_BUF_SIZE;
     return (int)data;
 }
 
-/* 向缓冲区写入一个字节，返回 false 表示缓冲区已满 */
+
+/* 向缓冲区写入一个字节，返回 0 表示缓冲区已满 */
 Q08U_ ring_buffer_put(uint8_t data)
 {
-    uint16_t next = (write_index + 1) % HAL_HMI_DMA_RX_BUF_SIZE;
-    if (next == read_index) {
-        return 0U;                       // 缓冲区满，丢弃数据
+    uint16_t next = (write_index + 1) % UART1_RX_BUF_SIZE;
+    if (next == read_index)
+    {
+        return 0U;                              /* 缓冲区满，丢弃数据 */
     }
     ring_buf[write_index] = data;
     write_index = next;
     return 1U;
 }
+
 
 void ring_buffer_clear(void)
 {
@@ -384,37 +384,38 @@ void ring_buffer_clear(void)
     read_index  = 0;
 }
 
+
 /**********************************************************************************************
 Function: UART_DMA_Rx_Int
-Description: UART的DMA接收
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
+Description: UART 的 DMA 接收处理（在 USART1 IDLE 中断里调用）
 ***********************************************************************************************/
 void UART_DMA_Rx_Int(void)
 {
     /* 获取 DMA 当前剩余传输数量 */
-    uint16_t remain = dma_transfer_number_get(HAL_USART_RX_DMA_CH);
+    uint16_t remain = (uint16_t)DMA_GetCurrDataCounter(HAL_HMI_USART_RX_DMA_CH);
+
     /* DMA 已写入的绝对位置 */
-    uint16_t curr_pos = HAL_HMI_DMA_RX_BUF_SIZE - remain;
-    
+    uint16_t curr_pos = UART1_RX_BUF_SIZE - remain;
+
     /* 计算本次新接收的数据长度 */
     uint16_t new_len;
-    if (curr_pos >= dma_last_pos) {
+    if (curr_pos >= dma_last_pos)
+    {
         new_len = curr_pos - dma_last_pos;
-    } else {
+    }
+    else
+    {
         /* DMA 缓冲区发生了回绕 */
-        new_len = (HAL_HMI_DMA_RX_BUF_SIZE - dma_last_pos) + curr_pos;
+        new_len = (UART1_RX_BUF_SIZE - dma_last_pos) + curr_pos;
     }
-    
+
     /* 将新数据从 DMA 线性缓冲区搬运到环形缓冲区 */
-    for (uint16_t i = 0; i < new_len; i++) {
-        uint16_t idx = (dma_last_pos + i) % HAL_HMI_DMA_RX_BUF_SIZE;
-        ring_buffer_put(dma_uart_rx_buf[idx]);   // 缓冲区满时自动丢弃
+    for (uint16_t i = 0; i < new_len; i++)
+    {
+        uint16_t idx = (dma_last_pos + i) % UART1_RX_BUF_SIZE;
+        ring_buffer_put(g_uart_rx_buf[idx]);    /* 缓冲区满时自动丢弃 */
     }
-    
+
     /* 更新上次搬运位置 */
     dma_last_pos = curr_pos;
 }

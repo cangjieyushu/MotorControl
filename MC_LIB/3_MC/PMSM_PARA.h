@@ -27,7 +27,7 @@
 #define MOTOR_CONTROL_FOC_F         (10U)
 #define MOTOR_CONTROL_FOC_T         (11U)
 #define MOTOR_CONTROL_SQ            (12U)
-#define MOTOR_CONTROL_MODE          MOTOR_CONTROL_SQ
+#define MOTOR_CONTROL_MODE          MOTOR_CONTROL_FOC_F
 
 //FOC设置
 //采样方式选择
