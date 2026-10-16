@@ -1,9 +1,10 @@
 /*
 *     File Name :                        hal_mc
-*     Library/Module Name :              bsp
+*     Library/Module Name :              hal
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             电机控制HAL
+*     Abstract Description :             电机控制 HAL 层
+*                                        提供 ADC / PWM 的寄存器级操作接口
 */
 
 
@@ -12,13 +13,20 @@
 
 
 /*-------------------------- 1. 头文件包含 -------------------------------*/
-#include "hw_clk.h"
 #include "hw_map.h"
 #include "hw_para.h"
-#include "bsp_adc.h"
+#include "bsp_mc_adc.h"
 
 
 /*-------------------------- 2. 宏定义 -----------------------------------*/
+/*
+ * TIM8 CCER 输出使能掩码
+ *   bit0  = CC1E   bit2  = CC1NE
+ *   bit4  = CC2E   bit6  = CC2NE
+ *   bit8  = CC3E   bit10 = CC3NE
+ *   CH4 只做内部触发，CC4E 保持关闭，避免占用 PC9
+ */
+#define HW_MC_PWM_CCER_EN_MASK      ((Q16U_)0x0555U)
 
 
 /*-------------------------- 3. 枚举/结构体 ------------------------------*/
@@ -27,169 +35,182 @@
 /*-------------------------- 4. 外部全局变量声明 --------------------------*/
 
 
-/*-------------------------- 5. 接口函数声明 ------------------------------*/
+/*-------------------------- 5. ADC 数据读取 -----------------------------*/
 /*
-Function: HM_ADC_Data_Read_Vbus
-Description: 获取电压采样值
+Function: HAL_MC_ADC_Read_Vbus
+Description: 获取母线电压采样值（ADC1 规则组 DMA 搬运）
 Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
+Output: vbus - 母线电压原始 ADC 值（12 位）
 Author: CJYS
 */
-static inline void HM_ADC_Data_Read_Vbus(Q32U_* vbus)
+static inline void HAL_MC_ADC_Read_Vbus(Q32U_* vbus)
 {
-    (*vbus) = (Q32U_)HAL_MOTOR_ADC->JDR4;
+    /* 规则组 Rank2 = 母线电压 */
+    (*vbus) = (Q32U_)HW_MC_ADC->JDR4;
 }
 
 /*
-Function: HM_ADC_Data_Read_Temp
-Description: 获取温度采样值
+Function: HAL_MC_ADC_Read_Temp
+Description: 获取外部温度采样值（ADC1 规则组 DMA 搬运）
 Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
+Output: temp - 温度原始 ADC 值（12 位）
 Author: CJYS
 */
-static inline void HM_ADC_Data_Read_Temp(Q32U_* temp)
+static inline void HAL_MC_ADC_Read_Temp(Q32U_* temp)
 {
+    /* 规则组 Rank1 = 外部温度 */
     (*temp) = BSP_ADC_SYSTEM_BUFFER[0];
 }
 
 /*
-Function: HM_ADC_Data_Read_Three
-Description: 三电阻读取ADC采样数据
+Function: HAL_MC_ADC_Read_Three
+Description: 三电阻读取 ADC 三相电流采样值
+             （三 ADC 同步：U=ADC1, V=ADC2, W=ADC3）
 Input: 无
-Output: 无
-Input_Output: ADC数据指针
-Return: 无
+Output: pADC_Ia / pADC_Ib / pADC_Ic - 三相电流原始 ADC 值（12 位）
 Author: CJYS
 */
-static inline void HM_ADC_Data_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib ,Q32U_* pADC_Ic)
+static inline void HAL_MC_ADC_Read_Three(Q32U_* pADC_Ia, Q32U_* pADC_Ib, Q32U_* pADC_Ic)
 {
-    (*pADC_Ia) = (Q32U_)HAL_MOTOR_ADC->JDR1;
-    (*pADC_Ib) = (Q32U_)HAL_MOTOR_ADC->JDR2;
-    (*pADC_Ic) = (Q32U_)HAL_MOTOR_ADC->JDR3;
+    /* ★ 直接读取三个 ADC 的注入数据寄存器 JDR1
+     *   三 ADC 由同一个 TIM8_TRGO 触发，通常已同步完成
+     */
+    (*pADC_Ia) = (Q32U_)HW_MC_ADC->JDR1;
+    (*pADC_Ib) = (Q32U_)HW_MC_ADC->JDR2;
+    (*pADC_Ic) = (Q32U_)HW_MC_ADC->JDR3;
 }
 
 /*
-Function: HM_ADC_Data_Read_One
-Description: 单电阻读取ADC采样数据
+Function: HAL_MC_ADC_Read_One
+Description: 单电阻读取 ADC 采样数据（保留接口，待实现）
 Input: 无
-Output: 无
-Input_Output: ADC数据指针
-Return: 无
+Output: pADC_I1 / pADC_I2
 Author: CJYS
 */
-static inline void HM_ADC_Data_Read_One(Q32U_* pADC_I1, Q32U_* pADC_I2)
+static inline void HAL_MC_ADC_Read_One(Q32U_* pADC_I1, Q32U_* pADC_I2)
+{
+    /* TODO: 单电阻方案需两次触发 ADC，在 PWM 周期内不同时刻采样 */
+    (*pADC_I1) = 0U;
+    (*pADC_I2) = 0U;
+}
+
+
+/*-------------------------- 6. PWM 输出控制 ----------------------------*/
+/*
+Function: HAL_MC_PWM_Output_Enable
+Description: PWM 输出通道开通（上桥+下桥共 6 路）
+Input: 无
+Output: 无
+Author: CJYS
+*/
+static inline void HAL_MC_PWM_Output_Enable(void)
+{
+    /* 使能 CH1/CH1N/CH2/CH2N/CH3/CH3N（不使能 CH4，避免占用 PC9）*/
+    HW_MC_PWM->CCER |= HW_MC_PWM_CCER_EN_MASK;
+
+    /* 使能主输出 MOE */
+    HW_MC_PWM->BDTR |= (Q16U_)TIM_BDTR_MOE;
+}
+
+/*
+Function: HAL_MC_PWM_Output_Disable
+Description: PWM 输出通道关闭（先关占空比，再关 CCER，最后关 MOE）
+Input: 无
+Output: 无
+Author: CJYS
+*/
+static inline void HAL_MC_PWM_Output_Disable(void)
+{
+    /* 先清零占空比，避免关断瞬间产生毛刺 */
+    HW_MC_PWM->CCR1 = 0U;
+    HW_MC_PWM->CCR2 = 0U;
+    HW_MC_PWM->CCR3 = 0U;
+
+    /* 关闭 CH1/CH1N/CH2/CH2N/CH3/CH3N 输出使能 */
+    HW_MC_PWM->CCER &= (Q16U_)~HW_MC_PWM_CCER_EN_MASK;
+
+    /* 关闭主输出 MOE（硬件级封锁六路 PWM）*/
+    HW_MC_PWM->BDTR &= (Q16U_)~TIM_BDTR_MOE;
+}
+
+/*
+Function: HAL_MC_PWM_Duty_Set_Three
+Description: 设置三相 PWM 占空比（三电阻方案）
+Input: PWM_Count - 周期值（ARR + 1）
+       Ta / Tb / Tc - 三相切换时间点（0~PWM_Count/2，中心对齐模式）
+Author: CJYS
+*/
+static inline void HAL_MC_PWM_Duty_Set_Three(Q32U_ PWM_Count, Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
+{
+    HW_MC_PWM->ARR  = PWM_Count - 1U;
+    HW_MC_PWM->CCR1 = Ta;
+    HW_MC_PWM->CCR2 = Tb;
+    HW_MC_PWM->CCR3 = Tc;
+}
+
+/*
+Function: HAL_MC_PWM_Duty_Set_One
+Description: 单电阻方案的 PWM 占空比（带移相，保留接口，待实现）
+Input: 上升/下降段三相的切换时间点
+Author: CJYS
+*/
+static inline void HAL_MC_PWM_Duty_Set_One(Q32U_ Ta1, Q32U_ Ta2,
+                                           Q32U_ Tb1, Q32U_ Tb2,
+                                           Q32U_ Tc1, Q32U_ Tc2)
+{
+    /* TODO: 单电阻方案需要在上升/下降段使用不同的比较值 */
+    (void)Ta1; (void)Ta2;
+    (void)Tb1; (void)Tb2;
+    (void)Tc1; (void)Tc2;
+}
+
+
+/*-------------------------- 7. ADC 触发时刻调整 ------------------------*/
+/*
+Function: HAL_MC_ADC_TrigTime_Set_Three
+Description: 三电阻运行时调整 ADC 触发时刻（修改 TIM8_CH4 的 CCR4）
+Input: trig_time - CNT 上升段触发 ADC 的时刻
+Author: CJYS
+*/
+static inline void HAL_MC_ADC_TrigTime_Set_Three(Q32U_ trig_time)
+{
+    /* TIM8 的 OC4REF 作为 TRGO 触发 ADC 注入组 */
+    HW_MC_PWM->CCR4 = trig_time;
+}
+
+/*
+Function: HAL_MC_ADC_TrigTime_Set_One
+Description: 单点组运行时调整 ADC 触发时刻（修改 TIM8_CH4 的 CCR4）
+Input: trig_time - CNT 上升段触发 ADC 的时刻
+Author: CJYS
+*/
+static inline void HAL_MC_ADC_TrigTime_Set_One(Q32U_ trig_time1, Q32U_ trig_time2)
 {
     
 }
 
+/*-------------------------- 8. 刹车标志管理 ----------------------------*/
 /*
-Function: HM_PWM_Output_Enable
-Description: PWM输出通道开通
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
+Function: HAL_MC_PWM_Brake_Read
+Description: 读取刹车标志位（TIM8 BKIN 触发后置位）
+Return: 0 - 未触发；1 - 已触发
 Author: CJYS
 */
-static inline void HM_PWM_Output_Enable(void) 
+static inline Q32U_ HAL_MC_PWM_Brake_Read(void)
 {
-    HAL_MOTOR_PWM->CCER |= 0x5555;
-    HAL_MOTOR_PWM->BDTR |= TIM_BDTR_MOE;
+    return (TIM_GetFlagStatus(HW_MC_PWM, TIM_FLAG_Break) != RESET) ? 1U : 0U;
 }
 
 /*
-Function: HM_PWM_Output_Disable
-Description: PWM输出通道关闭
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-*/
-static inline void HM_PWM_Output_Disable(void)
-{
-    HAL_MOTOR_PWM->CCR1 = 0;
-    HAL_MOTOR_PWM->CCR2 = 0;
-    HAL_MOTOR_PWM->CCR3 = 0;
-    HAL_MOTOR_PWM->CCER &= 0xAAAA;
-    HAL_MOTOR_PWM->BDTR &= (Q16U_)~TIM_BDTR_MOE;
-}
-
-/*
-Function: HM_PWM_Duty_Set_Three
-Description: PWM输出三相占空比输出
-Input: ABC三相切换时间点，0~0.5对应开始到对称中心
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-*/
-static inline void HM_PWM_Duty_Set_Three(Q32U_ PWM_Count, Q32U_ Ta, Q32U_ Tb, Q32U_ Tc)
-{
-    HAL_MOTOR_PWM->ARR = PWM_Count - 1U;
-    HAL_MOTOR_PWM->CCR1 = Ta;
-    HAL_MOTOR_PWM->CCR2 = Tb;
-    HAL_MOTOR_PWM->CCR3 = Tc;
-}
-
-/*
-Function: HM_PWM_Duty_Set_One
-Description: PWM输出三相占空比输出，带移相
-Input: ABC三相占空比，0~0.5对应开始到对称中心，Ta1是上升计数过程中的切换时间点，Ta2是下降计数过程中的切换时间点，
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-*/
-static inline void HM_PWM_Duty_Set_One(Q32U_ Ta1, Q32U_ Ta2, Q32U_ Tb1, Q32U_ Tb2, Q32U_ Tc1, Q32U_ Tc2)
-{
-    
-}
-
-/*
-Function: HM_ADC_TrigTime_Set
-Description: 移相情况下，ADC的采样时刻设置
-Input: 0~0.5对应开始到对称中心，ch1是第一次采样时刻，Ch2是第二次采样时刻，
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-*/
-static inline void HM_ADC_TrigTime_Set(Q32U_ Ch1, Q32U_ Ch2)
-{
-
-}
-
-/*
-Function: HM_Read_PWM_Brake_Flag
-Description: 读取刹车标志位
-Input: 无
-Output: 无
-Input_Output: 无
-Return: 无
-Author: CJYS
-*/
-static inline Q32U_ HM_Read_PWM_Brake_Flag(void)
-{
-    return (TIM_GetFlagStatus(HAL_MOTOR_PWM, TIM_FLAG_Break) != RESET) ? 1U : 0U;
-}
-
-/*
-Function: HM_Clear_PWM_Brake_Flag
+Function: HAL_MC_PWM_Brake_Clear
 Description: 清除刹车标志位
 Input: 无
 Output: 无
-Input_Output: 无
-Return: 无
 Author: CJYS
 */
-static inline void HM_Clear_PWM_Brake_Flag(void)
+static inline void HAL_MC_PWM_Brake_Clear(void)
 {
-    TIM_ClearFlag(HAL_MOTOR_PWM, TIM_FLAG_Break);
+    TIM_ClearFlag(HW_MC_PWM, TIM_FLAG_Break);
 }
 
 

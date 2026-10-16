@@ -18,68 +18,49 @@
 int main(void)
 {
     __disable_irq();
-    
-    BSP_CLK_Init();
-    BSP_GPIO_Init();
-    BSP_ISR_Init();
 
-    BSP_DAC_Init();      /* ★ 1. 先建立阈值电压 */
-    BSP_OPAMP_Init();    /* ★ 2. 再使能 OPA 输出到 P 端 */
-    BSP_CMP_Init();      /* ★ 3. 最后配置比较器，此时输入输出都已就绪 */
-    BSP_PWM_Init();      /* TIM8 互补 PWM，BKIN 由 CMP 触发 */
-    BSP_ADC_Init();
-    BSP_DMA_Init();
-    BSP_UART_DMA_Init();
-    BSP_UART_Init();
-    
+    Systask_Init_Flow();
+
     __enable_irq();
     
-    for(;;)
+    Systask_Init_Flow_Finish();
+    
+    for (;;)
     {
-        System_10msTask_Flow();
+        Systask_10ms_Flow();
     }
 }
 
+#if (SYS_CFG_MC_ENABLE != 0U)
 void ADC1_2_IRQHandler(void)
 {
-    if(ADC_GetFlagStatus(ADC1, ADC_FLAG_JEOC))
+    if (ADC_GetITStatus(ADC1, ADC_IT_JEOC) != RESET)
     {
-        ADC_ClearFlag(ADC1, ADC_FLAG_JEOC);
-        MCFOC_Current_Flow(MOTOR_NUMBER_N0);     //168M,18us,72M,42us
+        ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
+        MCFOC_Current_Flow(HW_MC_MOTOR_NUMBER_N0);
     }
 }
+#endif
 
 void SysTick_Handler(void)
 {
-    System_1msTask_Flow();
-    MCFOC_Speed_Flow(MOTOR_NUMBER_N0);
+    Systask_1ms_Flow();
+#if (SYS_CFG_MC_ENABLE != 0U)
+    MCFOC_Speed_Flow(HW_MC_MOTOR_NUMBER_N0);
+#endif
 }
 
+#if (SYS_CFG_UART_ENABLE != 0U)
 void USART1_IRQHandler(void)
 {
-    /* ---- IDLE 中断：一帧接收完成 ---- */
-    if (USART_GetITStatus(HAL_HMI_UART, USART_IT_IDLE) != RESET)
+    if (USART_GetITStatus(HW_SYS_UART, USART_IT_IDLE) != RESET)
     {
-        USART_ClearITPendingBit(HAL_HMI_UART, USART_IT_IDLE);
-        
+        /* 清 IDLE 标志（先读 ISR 再读 RDR）*/
+        (void)HW_SYS_UART->ISR;
+        (void)HW_SYS_UART->RDR;
+
+        /* 从 DMA 线性缓冲区搬到环形缓冲区 */
         UART_DMA_Rx_Int();
-    }
-}
-
-void DMA1_Channel5_IRQHandler(void)
-{
-    /* 传输完成中断（实际上 DMA 循环模式下会持续触发，每圈一次）*/
-    if (DMA_GetITStatus(DMA1_IT_TC5) != RESET)
-    {
-        /* 缓冲区写满一圈，如果协议层还没处理完，说明数据过载 */
-        DMA_ClearITPendingBit(DMA1_IT_TC5);
-    }
-
-    /* 半完成中断 */
-    if (DMA_GetITStatus(DMA1_IT_HT5) != RESET)
-    {
-        /* 可用于双缓冲切换 */
-        DMA_ClearITPendingBit(DMA1_IT_HT5);
     }
 }
 
@@ -89,16 +70,23 @@ void DMA1_Channel4_IRQHandler(void)
     {
         DMA_ClearITPendingBit(DMA1_IT_TC4);
 
-        /* 关闭 DMA 通道 */
-        DMA_Cmd(DMA1_Channel4, DISABLE);
+        /* 关 TX DMA + 等 TC + 切回 RS485 接收方向（都在 HAL 里）*/
+        UARTH_Tx_DMA_Stop();
+        UARTH_Disable_Tx();
 
-        /* 等待 USART1 的最后一个字节移位完成 */
-        while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET) { }
-
-        /* 切回 RS485 接收方向 */
-        GPIO_ResetBits(UART_EN_PORT, UART_EN_Pin);
-
-        /* 通知上层发送完成 */
-//        g_uart_tx_busy = 0;
+        g_uart_tx_busy = 0U;        /* ★ 关键：不清这一位，第二帧永远发不出去 */
     }
 }
+
+#endif
+
+#if (SYS_CFG_LCD_ENABLE != 0U)
+void DMA1_Channel2_IRQHandler(void)
+{
+    if (DMA_GetITStatus(DMA1_IT_TC2) != RESET)
+    {
+        DMA_ClearITPendingBit(DMA1_IT_TC2);
+        lcd_dma_done = 1U;      /* 标记 DMA 空闲 */
+    }
+}
+#endif

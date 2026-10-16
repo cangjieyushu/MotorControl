@@ -3,115 +3,151 @@
 *     Library/Module Name :              sys
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             按键控制
+*     Abstract Description :             按键 / VR 控制
 */
 
 
 /*-------------------------- 1. 对应头文件--------------------------------*/
 #include "sys_btn.h"
+#include "sys_task.h"
 
 
 /*-------------------------- 2. 变量 ---------------------------------*/
 ST_BUTTON_CONTROL Button_Ctrl = {
-    .Q16U_vr_start_tl = VR_START_TL,
-    .Q16U_vr_stop_tl = VR_STOP_TL,
-    
-    .Q16U_vr_max_limit = VR_MAX_LIMIT,
-    .Q16U_vr_min_limit = VR_MIN_LIMIT,
-    
-    .Q16U_vr_duty_max = VR_MAX_DUTY,
+    .vr_start_tl   = VR_START_TL,
+    .vr_stop_tl    = VR_STOP_TL,
+
+    .vr_max_limit  = VR_MAX_LIMIT,
+    .vr_min_limit  = VR_MIN_LIMIT,
+
+    .vr_duty_max   = VR_MAX_DUTY,
 };
 
 
-/*-------------------------- 3. 公有接口实现 -----------------------------*/
-void Button_Control(ST_BUTTON_CONTROL* pButton, ST_SYSTEM_TASK*  pST)
+/*-------------------------- 3. 内部辅助函数 ----------------------------*/
+#if ((BUTTON_MODE == BUTTON_MODE_BUTTON) || (BUTTON_MODE == BUTTON_MODE_BUTTON_VR))
+/*
+Function: Button_UpdateState
+Description: 按键边沿检测（下降沿 = 按下），更新 Systask 的启停标志
+Input: pButton - 按键控制结构体指针
+Return: 无
+Author: CJYS
+*/
+static void Button_UpdateState(ST_BUTTON_CONTROL* pButton)
 {
-#if(BUTTON_MODE == BUTTON_MODE_BUTTON)
-    Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
-    Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
-    
-    if(pST->System_State_Flag.bit.system_runflag == 0U)
-    {
-        if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
-        {
-            pST->System_State_Flag.bit.system_runflag = 1U;
-        }
-    }
-    else if(pST->System_State_Flag.bit.system_runflag == 1U)
-    {
-        if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
-        {
-            pST->System_State_Flag.bit.system_runflag = 0U;
-        }
-    }
-    
-    pButton->Button0_State_Last = pButton->Button0_State;
-    pButton->Button1_State_Last = pButton->Button1_State;
-    
-    pST->Q16U_Duty_Target = pButton->Q16U_vr_duty_max;
-    
-#elif(BUTTON_MODE == BUTTON_MODE_VR)
-    Q32I_ VRtmp = 0U;
-    
-    VRtmp = (Q32I_)pST->FL_VR.O_Q14I_LPF_Out;
-    if(VRtmp > pButton->Q16U_vr_start_tl)
-    {
-        pST->System_State_Flag.bit.system_runflag = 1U;
-    }
-    else if(VRtmp < pButton->Q16U_vr_stop_tl)
-    {
-        pST->System_State_Flag.bit.system_runflag = 0U;
-    }
-    
-    if(VRtmp > pButton->Q16U_vr_max_limit)
-    {
-        VRtmp = pButton->Q16U_vr_max_limit;
-    }
-    else if(VRtmp < pButton->Q16U_vr_min_limit)
-    {
-        VRtmp = pButton->Q16U_vr_min_limit;
-    }
-    
-    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
+    /* ---- 读取按键电平 ---- */
+    pButton->button0_state = BSP_SYS_GPIO_Read_START_State();   /* 启动键 */
+    pButton->button1_state = BSP_SYS_GPIO_Read_STOP_State();    /* 停止键 */
 
-#elif(BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
-    Q32I_ VRtmp = 0U;
-    
-    Button_Ctrl.Button0_State = BSP_GPIO_Read_SW0_State();
-    Button_Ctrl.Button1_State = BSP_GPIO_Read_SW1_State();
-    
-    VRtmp = (Q32I_)pST->FL_VR.Q14I_LPF_Out;
-    
-    if(pST->System_State_Flag.BIT.system_runflag == 0U)
+    /* ---- 停止状态：检测"启动"按下（下降沿）---- */
+    if (Systask.System_State_Flag.bit.system_runflag == 0U)
     {
-        if((pButton->Button0_State == 0U) && (pButton->Button0_State_Last == 1U))
+        if (pButton->button0_state == 0U && pButton->button0_state_last == 1U)
         {
-            pST->System_State_Flag.BIT.system_runflag = 1U;
+            Systask.System_State_Flag.bit.system_runflag = 1U;
         }
     }
-    else if(pST->System_State_Flag.BIT.system_runflag == 1U)
+    /* ---- 运行状态：检测"停止"按下（下降沿）---- */
+    else
     {
-        if((pButton->Button1_State == 0U) && (pButton->Button1_State_Last == 1U))
+        if (pButton->button1_state == 0U && pButton->button1_state_last == 1U)
         {
-            pST->System_State_Flag.BIT.system_runflag = 0U;
+            Systask.System_State_Flag.bit.system_runflag = 0U;
         }
     }
-    
-    pButton->Button0_State_Last = pButton->Button0_State;
-    pButton->Button1_State_Last = pButton->Button1_State;
-    
-    if(VRtmp > pButton->Q16U_vr_max_limit)
+
+    /* ---- 保存本次电平，供下次比较 ---- */
+    pButton->button0_state_last = pButton->button0_state;
+    pButton->button1_state_last = pButton->button1_state;
+}
+#endif
+
+#if ((BUTTON_MODE == BUTTON_MODE_VR) || (BUTTON_MODE == BUTTON_MODE_BUTTON_VR))
+/*
+Function: Button_VrToDuty
+Description: VR 采样值 → 目标占空比（线性映射 + 上下限钳位）
+Input: pButton - 按键控制结构体指针；vr_val - VR 采样值（Q14）
+Return: 目标占空比
+Author: CJYS
+*/
+static Q32U_ Button_VrToDuty(const ST_BUTTON_CONTROL* pButton, Q32U_ vr_val)
+{
+    Q32U_ range;
+
+    /* ---- 1. 上下限钳位 ---- */
+    if (vr_val > pButton->vr_max_limit)
     {
-        VRtmp = pButton->Q16U_vr_max_limit;
+        vr_val = pButton->vr_max_limit;
     }
-    else if(VRtmp < pButton->Q16U_vr_min_limit)
+    else if (vr_val < pButton->vr_min_limit)
     {
-        VRtmp = pButton->Q16U_vr_min_limit;
+        vr_val = pButton->vr_min_limit;
     }
-    
-    pST->Q16U_Duty_Target = (pButton->Q16U_vr_duty_max*(VRtmp - pButton->Q16U_vr_min_limit))/(pButton->Q16U_vr_max_limit - pButton->Q16U_vr_min_limit);
-    
+
+    /* ---- 2. 线性映射，保护除零 ---- */
+    range = pButton->vr_max_limit - pButton->vr_min_limit;
+    if (range == 0U)
+    {
+        return 0U;      /* 阈值范围非法，返回 0 */
+    }
+
+    return (Q32U_)((pButton->vr_duty_max * (vr_val - pButton->vr_min_limit)) / range);
+}
+#endif
+
+
+/*-------------------------- 4. 公有接口实现 -----------------------------*/
+/*
+Function: Button_Control
+Description: 按键/VR 逻辑控制
+Input: pButton - 按键控制结构体指针
+Output: 无
+Return: 无
+Author: CJYS
+*/
+void Button_Control(ST_BUTTON_CONTROL* pButton)
+{
+#if (BUTTON_MODE == BUTTON_MODE_BUTTON)
+
+    /* ========== 纯按键模式：启停 + 占空比固定为最大值 ========== */
+    Button_UpdateState(pButton);
+    Systask.Q16U_Duty_Target = pButton->vr_duty_max;
+
+#elif (BUTTON_MODE == BUTTON_MODE_VR)
+
+    /* ========== 纯 VR 模式：VR 控制启停 + 调速 ========== */
+    {
+        Q32U_ vr_val = (Q32U_)Systask.FL_VR.O_Q14I_LPF_Out;
+
+        /* ---- 启停判断（VR 阈值）---- */
+        if (vr_val > pButton->vr_start_tl)
+        {
+            Systask.System_State_Flag.bit.system_runflag = 1U;
+        }
+        else if (vr_val < pButton->vr_stop_tl)
+        {
+            Systask.System_State_Flag.bit.system_runflag = 0U;
+        }
+
+        /* ---- 占空比映射 ---- */
+        Systask.Q16U_Duty_Target = Button_VrToDuty(pButton, vr_val);
+    }
+
+#elif (BUTTON_MODE == BUTTON_MODE_BUTTON_VR)
+
+    /* ========== 组合模式：按键启停 + VR 调速 ========== */
+    {
+        Q32U_ vr_val;
+
+        Button_UpdateState(pButton);
+
+        vr_val = (Q32U_)Systask.FL_VR.Q14I_LPF_Out;
+        Systask.Q16U_Duty_Target = Button_VrToDuty(pButton, vr_val);
+    }
+
 #else
-    
+    /* 无有效模式：不做任何处理 */
+    (void)pButton;
+
 #endif
 }

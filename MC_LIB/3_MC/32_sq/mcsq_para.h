@@ -33,10 +33,10 @@
 
 
 //电流采样偏置检测
-#define CURRENT_OFFSET_VOLTAGE_V        (HAL_ADC_CURRENT_OFFSET)                                                        //V，电流采样偏置电压
-#define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)       //lsb，电流采样偏置
+#define CURRENT_OFFSET_VOLTAGE_V        (HW_ADC_CURRENT_OFFSET)                                                         //V，电流采样偏置电压
+#define CURRENT_OFFSET_lsb              (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HW_ADC_SCALE/HW_ADC_REF_VOLTAGE)               //lsb，电流采样偏置
 #define CURRENT_OFFSET_TL_V             (0.2f)                                                                          //V，电流采样偏置偏差阈值
-#define CURRENT_OFFSET_TL_lsb           (Q32U_)(CURRENT_OFFSET_TL_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)            //lsb，电流采样偏置偏差阈值
+#define CURRENT_OFFSET_TL_lsb           (Q32U_)(CURRENT_OFFSET_TL_V*HW_ADC_SCALE/HW_ADC_REF_VOLTAGE)                    //lsb，电流采样偏置偏差阈值
 #define CURRENT_OFFSET_MAX_lsb          (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)                                    //lsb，电流采样偏置上限
 #define CURRENT_OFFSET_MIN_lsb          (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)                                    //lsb，电流采样偏置下限
 #define CURRENT_OFFSET_COUNT            (20U)                                                                           //电流采样偏置检测次数
@@ -57,7 +57,7 @@
 
 
 //脉冲定位 
-#define POSITION_DUTY                   (Q14I_DUTY_TO_PU(0.150f))   //1kHz，脉冲定位占空比
+#define POSITION_DUTY                   (Q14I_DUTY_TO_PU(0.850f))   //1kHz，脉冲定位占空比
 #define POSITION_TL_lsb                 (800U)                     //脉冲定位是否成功判断阈值
 
 
@@ -103,11 +103,11 @@
 #define DUTY_CTRL_MIN                   (Q14I_DUTY_TO_PU(0.050f))
 
 //载频切换
-#define PWM_FREQ_START                  (HAL_PWM_INIT_VALUE)
-#define PWM_FREQ_LOW                    (HAL_PWM_LOW_VALUE)
-#define PWM_FREQ_HIGH                   (HAL_PWM_HIGH_VALUE)
-#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(50.0f*HAL_PWM_LOW_FREQ/1000.0f))       //50us
-#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q14I_DUTY_TO_PU(40.0f*HAL_PWM_HIGH_FREQ/1000.0f))      //40us
+#define PWM_FREQ_START                  (HW_PWM_INIT_VALUE)
+#define PWM_FREQ_LOW                    (HW_PWM_LOW_VALUE)
+#define PWM_FREQ_HIGH                   (HW_PWM_HIGH_VALUE)
+#define PWM_FREQ_LOW_TO_HIGH_DUTY       (Q14I_DUTY_TO_PU(50.0f*HW_PWM_LOW_FREQ/1000.0f))       //50us
+#define PWM_FREQ_HIGH_TO_LOW_DUTY       (Q14I_DUTY_TO_PU(40.0f*HW_PWM_HIGH_FREQ/1000.0f))      //40us
 
 
 //转速斜坡

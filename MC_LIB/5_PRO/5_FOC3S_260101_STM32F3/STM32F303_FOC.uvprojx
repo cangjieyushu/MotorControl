@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>STM32F407_FOC</OutputName>
+          <OutputName>STM32F303_FOC</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -337,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F40_41xxx, USE_STDPERIPH_DRIVER, __CC_ARM</Define>
+              <Define>STM32F303xC, USE_STDPERIPH_DRIVER, __CC_ARM</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\0_COM\00_math;..\..\0_COM\00_math\000_math_f;..\..\0_COM\00_math\001_math_t;..\..\0_COM\01_RTT;..\..\1_MCU\1_STM32F3\10_device\100_core;..\..\1_MCU\1_STM32F3\10_device\101_inc;..\..\1_MCU\1_STM32F3\10_device\102_make;..\..\1_MCU\1_STM32F3\10_device\103_start;..\..\1_MCU\1_STM32F3\10_device\104_system;..\..\1_MCU\1_STM32F3\11_std\110_inc;..\..\1_MCU\1_STM32F3\11_std\111_src;..\..\2_HW\2_FOC3S_260101_STM32F3\20_hw;..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp;..\..\2_HW\2_FOC3S_260101_STM32F3\22_hal;..\..\3_MC;..\..\3_MC\30_foc_f;..\..\3_MC\31_foc_t;..\..\4_SYS;.\5_MAIN</IncludePath>
+              <IncludePath>..\..\0_COM\00_math;..\..\0_COM\00_math\000_math_f;..\..\0_COM\00_math\001_math_t;..\..\0_COM\01_RTT;..\..\1_MCU\1_STM32F3\10_device\100_core;..\..\1_MCU\1_STM32F3\10_device\101_inc;..\..\1_MCU\1_STM32F3\10_device\102_make;..\..\1_MCU\1_STM32F3\10_device\103_start;..\..\1_MCU\1_STM32F3\10_device\104_system;..\..\1_MCU\1_STM32F3\11_std\110_inc;..\..\1_MCU\1_STM32F3\11_std\111_src;..\..\2_HW\2_FOC3S_260101_STM32F3\20_hw;..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp;..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys;..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc;..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd;..\..\2_HW\2_FOC3S_260101_STM32F3\22_hal;..\..\3_MC;..\..\3_MC\30_foc_f;..\..\3_MC\31_foc_t;..\..\4_SYS;.\5_MAIN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -804,9 +804,14 @@
           <GroupName>20_HW_HW</GroupName>
           <Files>
             <File>
-              <FileName>hw_clk.h</FileName>
+              <FileName>hw_fun.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\20_hw\hw_clk.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\20_hw\hw_fun.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\20_hw\hw_lcd.h</FilePath>
             </File>
             <File>
               <FileName>hw_map.h</FileName>
@@ -821,7 +826,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>21_HW_BSP</GroupName>
+          <GroupName>210_BSP_SYS</GroupName>
           <Files>
             <File>
               <FileName>bsp.h</FileName>
@@ -829,80 +834,215 @@
               <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
+              <FileName>bsp_sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_adc.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.h</FileName>
+              <FileName>bsp_sys.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_adc.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_clk.c</FileName>
+              <FileName>bsp_sys_clk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_clk.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_clk.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_clk.h</FileName>
+              <FileName>bsp_sys_clk.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_clk.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_clk.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_gpio.c</FileName>
+              <FileName>bsp_sys_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_gpio.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_dma.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_gpio.h</FileName>
+              <FileName>bsp_sys_dma.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_gpio.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_dma.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_isr.c</FileName>
+              <FileName>bsp_sys_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_isr.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_isr.h</FileName>
+              <FileName>bsp_sys_gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_isr.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_pwm.c</FileName>
+              <FileName>bsp_sys_isr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_pwm.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_isr.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_pwm.h</FileName>
+              <FileName>bsp_sys_isr.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_pwm.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_isr.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_tim.c</FileName>
+              <FileName>bsp_sys_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_tim.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_uart.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_tim.h</FileName>
+              <FileName>bsp_sys_uart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_tim.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\210_bsp_sys\bsp_sys_uart.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>211_BSP_MC</GroupName>
+          <Files>
             <File>
-              <FileName>bsp_uart.c</FileName>
+              <FileName>bsp_mc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_uart.c</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.h</FileName>
+              <FileName>bsp_mc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\bsp_uart.h</FilePath>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_cmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_cmp.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_cmp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_cmp.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_dac.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_dac.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_dac.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_dma.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_dma.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_opamp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_opamp.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_opamp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_opamp.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_pwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_mc_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\211_bsp_mc\bsp_mc_tim.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>212_BSP_LCD</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_dma.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_dma.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\21_bsp\212_bsp_lcd\bsp_lcd_spi.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>22_HW_HAL</GroupName>
           <Files>
+            <File>
+              <FileName>hal_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\2_HW\2_FOC3S_260101_STM32F3\22_hal\hal_lcd.h</FilePath>
+            </File>
             <File>
               <FileName>hal_mc.h</FileName>
               <FileType>5</FileType>
@@ -916,7 +1056,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>30_MC_FOC</GroupName>
+          <GroupName>3_MC</GroupName>
           <Files>
             <File>
               <FileName>mc_api.c</FileName>
@@ -943,6 +1083,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\3_MC\pmsm_para.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>30_MC_FOC_F</GroupName>
+          <Files>
             <File>
               <FileName>mcfoc_est_f.c</FileName>
               <FileType>1</FileType>
@@ -1003,6 +1148,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\3_MC\30_foc_f\mcfoc_task_f.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>31_MC_FOC_T</GroupName>
+          <Files>
             <File>
               <FileName>mcfoc_est_t.c</FileName>
               <FileType>1</FileType>
@@ -1087,6 +1237,36 @@
               <FileName>sys_err.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\4_SYS\sys_err.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys_font.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\4_SYS\sys_font.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\4_SYS\sys_font.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\4_SYS\sys_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\4_SYS\sys_lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>sys_menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\4_SYS\sys_menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_menu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\4_SYS\sys_menu.h</FilePath>
             </File>
             <File>
               <FileName>sys_task.c</FileName>

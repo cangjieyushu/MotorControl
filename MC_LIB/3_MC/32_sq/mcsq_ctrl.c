@@ -113,7 +113,7 @@ void MCSQ_Init(ST_MCSQ_CONTROL* pMS_CTRL)
     //PWM_CTRL³õÊ¼»¯
     Ramp_Init_T(&pMS_CTRL->PWM_CTRL.Ramp_Duty, pMS_CTRL->PWM_CTRL.Ramp_Duty.P_Q14I_Init);
     pMS_CTRL->PWM_CTRL.PWM_Freq_Flag = 0U;
-    pMS_CTRL->PWM_CTRL.I_Q14U_Duty_VR = 0U;
+//    pMS_CTRL->PWM_CTRL.I_Q14U_Duty_VR = 0U;
     pMS_CTRL->PWM_CTRL.I_Q14U_Duty_Freq = 0U;
     pMS_CTRL->PWM_CTRL.I_Q14U_Duty_Ibus = 0U;
     pMS_CTRL->PWM_CTRL.I_Q14U_Duty_Iphase = 0U;

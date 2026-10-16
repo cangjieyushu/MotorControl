@@ -226,7 +226,7 @@ typedef struct
     
     Q32U_   P_Q14U_Low_to_High_Duty;
     Q32U_   P_Q14U_High_to_Low_Duty;
-    Q32U_   P_Q32U_Start_PWMCount;
+    Q32U_   P_Q32U_Init_PWMCount;
     Q32U_   P_Q32U_Low_PWMCount;
     Q32U_   P_Q32U_High_PWMCount;
     

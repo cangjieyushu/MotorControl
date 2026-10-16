@@ -18,54 +18,57 @@
 int main(void)
 {
     __disable_irq();
-    
-    BSP_CLK_Init();
-    BSP_GPIO_Init();
-    BSP_ADC_Init();
-    BSP_PWM_Init();
-    BSP_OPA_Init();
-    BSP_CMP_Init();
-    BSP_TIM_Init();
-    BSP_ISR_Init();
-    BSP_USART_Init();
-    
+
+    Systask_Init_Flow();
+
     __enable_irq();
     
-    for(;;)
+    Systask_Init_Flow_Finish();
+    
+    for (;;)
     {
-        System_10msTask_Flow();
+        Systask_10ms_Flow();
     }
 }
 
+#if (SYS_CFG_MC_ENABLE != 0U)
 void ADC_IRQHandler(void)
 {
-    if(ADC_Get_SR(HAL_MOTOR_ADC, ADC_SR_JEOC))
+    if(ADC_Get_SR(HW_MC_ADC, ADC_SR_JEOC))
     {
-        ADC_Clear_SR(HAL_MOTOR_ADC, ADC_SR_JEOC);
-        MCSQ_Current_Flow(MOTOR_NUMBER_N0);
+        ADC_Clear_SR(HW_MC_ADC, ADC_SR_JEOC);
+        MCSQ_Current_Flow(HW_MC_MOTOR_NUMBER_N0);
     }
 }
+#endif
 
 void SysTick_Handler(void)
 {
-    System_1msTask_Flow();
-    MCSQ_Speed_Flow(MOTOR_NUMBER_N0);
+    Systask_1ms_Flow();
+#if (SYS_CFG_MC_ENABLE != 0U)
+    MCSQ_Speed_Flow(HW_MC_MOTOR_NUMBER_N0);
+#endif
 }
 
+#if (SYS_CFG_MC_ENABLE != 0U)
 void TIM3_IRQHandler(void)
 {
-    if(TIM_Get_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_CC1IF))
+    if(TIM_Get_Flag(HW_MC_STIM, TIM_SR_CC1IF))
     {
-        TIM_Clear_Flag(HAL_MOTOR_SWITCH_TIM, TIM_SR_CC1IF);
-        MCSQ_Switch_Flow(MOTOR_NUMBER_N0);
+        TIM_Clear_Flag(HW_MC_STIM, TIM_SR_CC1IF);
+        MCSQ_Switch_Flow(HW_MC_MOTOR_NUMBER_N0);
     }
 }
+#endif
 
+#if (SYS_CFG_MC_ENABLE != 0U)
 void TIM8_CC_IRQHandler(void)
 {
-    if(TIM_Get_Flag(HAL_MOTOR_PWM, TIM_SR_CC4IF))
+    if(TIM_Get_Flag(HW_MC_PWM, TIM_SR_CC4IF))
     {
-        TIM_Clear_Flag(HAL_MOTOR_PWM, TIM_SR_CC4IF);
-        MCSQ_ADC_Trig_Flow(MOTOR_NUMBER_N0);
+        TIM_Clear_Flag(HW_MC_PWM, TIM_SR_CC4IF);
+        MCSQ_ADC_Trig_Flow(HW_MC_MOTOR_NUMBER_N0);
     }
 }
+#endif
+

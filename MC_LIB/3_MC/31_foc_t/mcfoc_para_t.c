@@ -167,11 +167,11 @@ ST_MCFOC_TASK_T MCFOC_Task_T =
     .Current_Ctrl.PID_Iq.P_Q14I_Kc = (Q32I_)(0.01f*16384.0f),
     
 
-    .SVPWM_Ctrl.P_Q14U_MaxDuty = (Q32I_)(HAL_MAX_DUTY*16384.0f),
-    .SVPWM_Ctrl.P_Q14U_MidDuty = (Q32I_)(HAL_MID_DUTY*16384.0f),
-    .SVPWM_Ctrl.P_Q14U_MinDuty = (Q32I_)(HAL_MIN_DUTY*16384.0f),
-    .SVPWM_Ctrl.P_Q14U_ADCSampleDuty = (Q32I_)(HAL_ADC_SAMPLE_DUTY*16384.0f),
-    .SVPWM_Ctrl.P_Q32U_PWM_All_Count = (Q32I_)HAL_PWM_ALL_VALUE_F,
+    .SVPWM_Ctrl.P_Q14U_MaxDuty = (Q32I_)(HW_MAX_DUTY*16384.0f),
+    .SVPWM_Ctrl.P_Q14U_MidDuty = (Q32I_)(HW_MID_DUTY*16384.0f),
+    .SVPWM_Ctrl.P_Q14U_MinDuty = (Q32I_)(HW_MIN_DUTY*16384.0f),
+    .SVPWM_Ctrl.P_Q14U_ADCSampleDuty = (Q32I_)(HW_ADC_SAMPLE_DUTY*16384.0f),
+    .SVPWM_Ctrl.P_Q32U_PWM_All_Count = (Q32I_)HW_PWM_ALL_VALUE,
     .SVPWM_Ctrl.P_Q14U_DeadTimeDuty = (Q32I_)(0.0f*16384.0f),
     .SVPWM_Ctrl.P_Q14I_DT_Current_TL = (Q32I_)(0.0f*16384.0f),
     

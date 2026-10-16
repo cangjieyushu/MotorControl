@@ -12,38 +12,12 @@
 
 
 /*-------------------------- 1. 头文件包含 -------------------------------*/
-#include "hw_clk.h"
 #include "hw_map.h"
+#include "hw_fun.h"
 #include "hw_para.h"
 
 
 /*-------------------------- 2. 宏定义 -----------------------------------*/
-//电机编号
-#define MOTOR_NUMBER_N0             (00U)
-#define MOTOR_NUMBER_N1             (01U)
-#define MOTOR_NUMBER_N2             (02U)
-
-//控制算法选择
-#define MOTOR_CONTROL_FOC_F         (10U)
-#define MOTOR_CONTROL_FOC_T         (11U)
-#define MOTOR_CONTROL_SQ            (12U)
-#define MOTOR_CONTROL_MODE          MOTOR_CONTROL_FOC_F
-
-//FOC设置
-//采样方式选择
-#define MOTOR_SHUNT_THREE           (20U)
-#define MOTOR_SHUNT_ONE             (21U)
-#define MOTOR_SHUNT_MODE            MOTOR_SHUNT_THREE
-
-//启动算法选择
-#define MOTOR_OPENLOOP_IF           (30U)
-#define MOTOR_OPENLOOP_FLUX         (31U)
-#define MOTOR_OPENLOOP_MODE         MOTOR_OPENLOOP_IF
-
-//观测器选择
-#define MOTOR_EST_SMO               (40U)
-#define MOTOR_EST_FLUX              (41U)
-#define MOTOR_EST_MODE              MOTOR_EST_FLUX
 
 
 /*-------------------------- 3. 枚举/结构体 ------------------------------*/
@@ -100,8 +74,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (1.5f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (1.25f)             //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (1.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
 //#define MOTOR_Rs                            (15.00f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (40.00f*0.001f)                 //H，d轴电感
@@ -116,8 +90,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (3.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.562f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (0.365f*0.001f)                 //H，d轴电感
@@ -129,11 +103,11 @@ typedef struct{
 
 //电机额定参数，正点原子
 #define MOTOR_VOLTAGE_V                     (24.0f)             //V，母线电压
-#define MOTOR_CURRENT_PHASE_A               (12.0f)              //A，相电流幅值
+#define MOTOR_CURRENT_PHASE_A               (12.0f)             //A，相电流幅值
 #define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
 #define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 #define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 #define MOTOR_Rs                            (0.233f)                        //Ω，相电阻
 #define MOTOR_Ld                            (0.381f*0.001f)                 //H，d轴电感
@@ -148,8 +122,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (8.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.175f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (0.0379f*0.001f)                //H，d轴电感
@@ -164,8 +138,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (8.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (6.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ)
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ)
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f*((float)HW_CURRENT_LOOP_PRESCALER))
 //#define MOTOR_POLE_PAIR                     (4.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.365f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (0.251f*0.001f)                 //H，d轴电感
@@ -180,8 +154,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (12.0f)             //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (5.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (1.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.0756f)                       //Ω，相电阻
 //#define MOTOR_Ld                            (0.0188f*0.001f)                //H，d轴电感
@@ -196,8 +170,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (3.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (2.0f)              //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (2.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (2.0f)                          //转子极对数
 //#define MOTOR_Rs                            (8.39f)                         //Ω，相电阻
 //#define MOTOR_Ld                            (2.38f*0.001f)                  //H，d轴电感
@@ -213,8 +187,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (12.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (6.0f)             //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (3.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (1.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.325f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (140.00f*0.001f*0.001f)                 //H，d轴电感
@@ -229,8 +203,8 @@ typedef struct{
 //#define MOTOR_CURRENT_PHASE_A               (12.0f)              //A，相电流幅值
 //#define MOTOR_CURRENT_BUS_A                 (8.0f)             //A，母线电流
 //#define MOTOR_CURRENT_BRAKE_A               (3.0f)              //A，刹车电流
-//#define MOTOR_HTs                           (1.0f/1000.0f/HAL_PWM_HIGH_FREQ*((float)HAL_CURRENT_LOOP_FREQ_PRESCALER))
-//#define MOTOR_LTs                           (HAL_SLOW_TIM_FREQ/1000.0f)
+//#define MOTOR_HTs                           (1.0f/1000.0f/HW_PWM_HIGH_FREQ*((float)HW_CURRENT_LOOP_PRESCALER))
+//#define MOTOR_LTs                           (HW_STICK_FREQ/1000.0f)
 //#define MOTOR_POLE_PAIR                     (1.0f)                          //转子极对数
 //#define MOTOR_Rs                            (0.072f)                        //Ω，相电阻
 //#define MOTOR_Ld                            (30.00f*0.001f*0.001f)                 //H，d轴电感
@@ -248,8 +222,8 @@ typedef struct{
 
 
 //标幺化
-#define V_BASE                              (HAL_ADC_VOLTAGE_MAX)               //V，电压
-#define I_BASE                              (HAL_ADC_CURRENT_MAX)               //A，电流
+#define V_BASE                              (HW_ADC_VOLTAGE_MAX)               //V，电压
+#define I_BASE                              (HW_ADC_CURRENT_MAX)               //A，电流
 #define F_BASE                              (MOTOR_MAX_FREQ)                    //Hz，频率
 #define R_BASE                              (V_BASE/I_BASE)                     //Ω，电阻
 #define L_BASE                              (V_BASE/F_BASE/I_BASE)              //H，电感

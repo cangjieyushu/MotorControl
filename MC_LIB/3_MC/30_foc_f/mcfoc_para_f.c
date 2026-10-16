@@ -163,11 +163,11 @@ ST_MCFOC_TASK_F MCFOC_Task_F =
     .Current_Ctrl.PID_Iq.P_F_Kc = 0.01f,
     
 
-    .SVPWM_Ctrl.P_F_MaxDuty = HAL_MAX_DUTY,
-    .SVPWM_Ctrl.P_F_MidDuty = HAL_MID_DUTY,
-    .SVPWM_Ctrl.P_F_MinDuty = HAL_MIN_DUTY,
-    .SVPWM_Ctrl.P_F_ADCSampleDuty = HAL_ADC_SAMPLE_DUTY,
-    .SVPWM_Ctrl.P_F_PWM_All_Count = HAL_PWM_ALL_VALUE_F,
+    .SVPWM_Ctrl.P_F_MaxDuty = HW_MAX_DUTY,
+    .SVPWM_Ctrl.P_F_MidDuty = HW_MID_DUTY,
+    .SVPWM_Ctrl.P_F_MinDuty = HW_MIN_DUTY,
+    .SVPWM_Ctrl.P_F_ADCSampleDuty = HW_ADC_SAMPLE_DUTY,
+    .SVPWM_Ctrl.P_F_PWM_All_Count = HW_PWM_ALL_VALUE,
     .SVPWM_Ctrl.P_F_DeadTimeDuty = 0.0f,
     .SVPWM_Ctrl.P_F_DT_Current_TL = 0.0f,
     

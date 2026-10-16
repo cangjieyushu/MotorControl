@@ -3,7 +3,7 @@
 *     Library/Module Name :              sys
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             系统状态
+*     Abstract Description :             系统状态与任务调度
 */
 
 
@@ -13,8 +13,32 @@
 
 /*-------------------------- 1. 头文件包含 -------------------------------*/
 #include "math_filter_t.h"
-#include "bsp.h"
-#include "mc_api.h"
+#include "hw_fun.h"
+
+#if (SYS_CFG_UART_ENABLE != 0U)
+#include "hal_uart.h"
+#endif
+
+#if (SYS_CFG_LCD_ENABLE != 0U)
+#include "hal_lcd.h"
+#endif
+
+#if (SYS_CFG_MC_ENABLE != 0U)
+#if(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_FOC_F)
+#include "mcfoc_task_f.h"
+#define MCFOC_Current_Flow      MCFOC_Current_Flow_F
+#define MCFOC_Speed_Flow        MCFOC_Speed_Flow_F
+
+#elif(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_FOC_T)
+#include "mcfoc_task_t.h"
+#define MCFOC_Current_Flow      MCFOC_Current_Flow_T
+#define MCFOC_Speed_Flow        MCFOC_Speed_Flow_T
+
+#elif(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_SQ)
+#include "mcsq_task.h"
+
+#endif
+#endif
 
 
 /*-------------------------- 2. 宏定义 -----------------------------------*/
@@ -51,21 +75,21 @@ typedef union{
 
 typedef struct{
     Q08U_                       systick_10ms_count;
-    
+
     EM_SYSTEM_STATE_FLOW        System_Flow;
     UN_SYSTEM_STATE_FLAG        System_State_Flag;
     UN_SYSTEM_ERROR_FLAG        System_Error_Flag;
-    
+
     ST_LPF_T                    FL_VR;
     ST_LPF_T                    FL_VBG;
-    
+
     Q32U_                       Q16U_Duty_Target;
     Q32I_                       Speed_rpm;
     Q32I_                       Iphase_0p01A;
     Q32I_                       IBus_0p01A;
-    
+
     Q32U_                       V_Q32U_Error_Code;
-    
+
     Q32U_                       P_Q32U_System_PowerUp_Time;
     Q32U_                       V_flow_cnt;
 }ST_SYSTEM_TASK;
@@ -77,26 +101,44 @@ extern ST_SYSTEM_TASK  Systask;
 
 /*-------------------------- 5. 接口函数声明 ------------------------------*/
 /*
-Function: System_1msTask_Tick
-Description: 1ms时间片任务调度
+Function: Systask_Init_Flow
+Description: 系统初始化（上电时调用一次）
 Input: 无
 Output: 无
-Input_Output: 无
 Return: 无
 Author: CJYS
 */
-void System_1msTask_Flow(void);
+void Systask_Init_Flow(void);
 
 /*
-Function: System_10msTask_Tick
-Description: 10ms时间片任务调度
+Function: Systask_Init_Flow_Finish
+Description: 系统初始化（上电时调用一次）
 Input: 无
 Output: 无
-Input_Output: 无
 Return: 无
 Author: CJYS
 */
-void System_10msTask_Flow(void);
+void Systask_Init_Flow_Finish(void);
+
+/*
+Function: Systask_1ms_Flow
+Description: 1ms 时间片任务调度（SysTick 中断中调用）
+Input: 无
+Output: 无
+Return: 无
+Author: CJYS
+*/
+void Systask_1ms_Flow(void);
+
+/*
+Function: Systask_10ms_Flow
+Description: 10ms 时间片任务调度（主循环中轮询）
+Input: 无
+Output: 无
+Return: 无
+Author: CJYS
+*/
+void Systask_10ms_Flow(void);
 
 
 #endif /* SYSTASK_H */

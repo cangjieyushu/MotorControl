@@ -9,6 +9,7 @@
 
 /*-------------------------- 1. 对应头文件--------------------------------*/
 #include "mcfoc_task_t.h"
+#include "mcfoc_para_t.h"
 
 
 /*-------------------------- 2. 变量 ---------------------------------*/
@@ -43,12 +44,12 @@ pMOTOR_FUN Motor_Flow_Function_T[MOTOR_STATE_BRAKE+1] =
 
 
 /*-------------------------- 3. 公有接口实现 -----------------------------*/
-#if (MOTOR_SHUNT_MODE == MOTOR_SHUNT_THREE)
+#if (HW_MC_MOTOR_SHUNT_MODE == HW_MC_MOTOR_SHUNT_THREE)
 static inline void MCFOC_Init_Flow_ADC_Read_Three_T(ST_MCFOC_OFFSET_T* pOFFSET)
 {
     Q32U_ adc_data1,adc_data2,adc_data3 = 0;
     
-    HM_ADC_Data_Read_Three(&adc_data1, &adc_data2, &adc_data3);
+    HAL_MC_ADC_Read_Three(&adc_data1, &adc_data2, &adc_data3);
     
     pOFFSET->I_Q12I_Ia_Data = adc_data1;
     pOFFSET->I_Q12I_Ib_Data = adc_data2;
@@ -59,7 +60,7 @@ static inline void MCFOC_Run_Flow_ADC_Read_Three_T(ST_SVPWM_CONTROL_T* pSVPWM, S
 {
     Q32U_ adc_data1,adc_data2,adc_data3 = 0;
     
-    HM_ADC_Data_Read_Three(&adc_data1, &adc_data2, &adc_data3);
+    HAL_MC_ADC_Read_Three(&adc_data1, &adc_data2, &adc_data3);
     
     pPMSMe->I_Q12I_Ia_Data = adc_data1;
     pPMSMe->I_Q12I_Ib_Data = adc_data2;
@@ -80,19 +81,19 @@ static inline void MCFOC_Run_Flow_PWM_Set_Three_T(ST_SVPWM_CONTROL_T* pSVPWM, ST
     MCFOC_PMSM_Iclark_T(pPMSMe);
     MCFOC_SVPWM_DeadTime_Compensate_T(pSVPWM, pPMSMe);
     
-    HM_PWM_Duty_Set_Three(Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*pPMSMa->O_Q14I_PWM_Period_Coeff),
-                          Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutya)),
-                          Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutyb)),
-                          Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutyc)));
+    HAL_MC_PWM_Duty_Set_Three(Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*pPMSMa->O_Q14I_PWM_Period_Coeff),
+                              Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutya)),
+                              Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutyb)),
+                              Q32I_RHT_15(pSVPWM->P_Q32U_PWM_All_Count*(16384 - pSVPWM->O_Q14U_Dutyc)));
 }
 #endif
 
-#if (MOTOR_SHUNT_MODE == MOTOR_SHUNT_ONE)
+#if (HW_MC_MOTOR_SHUNT_MODE == HW_MC_MOTOR_SHUNT_ONE)
 static inline void MCFOC_Init_Flow_ADC_Read_One_T(ST_MCFOC_OFFSET_T* pOFFSET)
 {
     Q32U_ adc_data1,adc_data2 = 0;
     
-    HM_ADC_Data_Read_One(&adc_data1, &adc_data2);
+    HAL_MC_ADC_Read_One(&adc_data1, &adc_data2);
 
     pOFFSET->I_Q12I_Ishunt_Data = (Q32I_)adc_data1;
 }
@@ -101,7 +102,7 @@ static inline void MCFOC_Run_Flow_ADC_Read_One_T(ST_SVPWM_CONTROL_T* pSVPWM, ST_
 {
     Q32U_ adc_data1,adc_data2 = 0;
     
-    HM_ADC_Data_Read_One(&adc_data1, &adc_data2);
+    HAL_MC_ADC_Read_One(&adc_data1, &adc_data2);
     pPMSMe->I_Q12I_Ishunt_1_Data = (Q32I_)adc_data1;
     pPMSMe->I_Q12I_Ishunt_2_Data = (Q32I_)adc_data2;
     
@@ -130,8 +131,8 @@ static inline void MCFOC_Run_Flow_PWM_Set_One_T(ST_SVPWM_CONTROL_T* pSVPWM, ST_P
     adc_tmp1 = Q32I_RHT_14(pSVPWM->P_Q32U_PWM_All_Count*pSVPWM->O_Q14U_ADCTrigTime1);
     adc_tmp2 = Q32I_RHT_14(pSVPWM->P_Q32U_PWM_All_Count*pSVPWM->O_Q14U_ADCTrigTime2);
     
-    HM_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3,(Q32U_)pwm_tmp4,(Q32U_)pwm_tmp5,(Q32U_)pwm_tmp6);
-    HM_ADC_TrigTime_Set((Q32U_)adc_tmp1,(Q32U_)adc_tmp2);
+    HAL_MC_PWM_Duty_Set_One((Q32U_)pwm_tmp1,(Q32U_)pwm_tmp2,(Q32U_)pwm_tmp3,(Q32U_)pwm_tmp4,(Q32U_)pwm_tmp5,(Q32U_)pwm_tmp6);
+    HAL_MC_ADC_TrigTime_Set_One((Q32U_)adc_tmp1,(Q32U_)adc_tmp2);
 }
 #endif
 
@@ -153,9 +154,9 @@ void MCFOC_Pre_Flow_T(ST_MCFOC_TASK_T* pMotor)
         MCFOC_EST_SMO_Init_T(&pMotor->SMO_Ctrl);
         MCFOC_EST_FLUX_Init_T(&pMotor->FLUX_Ctrl);
         
-#if(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_IF)
+#if(HW_MC_MOTOR_OPENLOOP_MODE == HW_MC_MOTOR_OPENLOOP_IF)
         pMotor->Motor_Loop_Mode = MOTOR_LOOP_ALIGN;
-#elif(MOTOR_OPENLOOP_MODE == MOTOR_OPENLOOP_FLUX)
+#elif(HW_MC_MOTOR_OPENLOOP_MODE == HW_MC_MOTOR_OPENLOOP_FLUX)
         pMotor->Motor_Loop_Mode = MOTOR_LOOP_CLOSE;
 #endif
 
@@ -172,7 +173,7 @@ void MCFOC_Pre_Flow_T(ST_MCFOC_TASK_T* pMotor)
         pMotor->EMF_Ctrl.O_Q14I_EMF_Ealfa = 0;
         pMotor->EMF_Ctrl.O_Q14I_EMF_Ebeta = 0;
         
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
     }
 }
 
@@ -204,7 +205,7 @@ void MCFOC_Init_Flow_T(ST_MCFOC_TASK_T* pMotor)
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -217,7 +218,7 @@ void MCFOC_Idle_Flow_T(ST_MCFOC_TASK_T* pMotor)
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -230,7 +231,7 @@ void MCFOC_Boot_Flow_T(ST_MCFOC_TASK_T* pMotor)
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -243,7 +244,7 @@ void MCFOC_Position_Flow_T(ST_MCFOC_TASK_T* pMotor)
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -286,12 +287,12 @@ void MCFOC_Run_Flow_T(ST_MCFOC_TASK_T* pMotor)
         
         MCFOC_Run_Flow_PWM_Set(&pMotor->SVPWM_Ctrl, &pMotor->PMSM_Elec, &pMotor->PMSM_Para);
 
-        HM_PWM_Output_Enable();
+        HAL_MC_PWM_Output_Enable();
         
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_BRAKE;
     }
 }
@@ -300,12 +301,12 @@ void MCFOC_Brake_Flow_T(ST_MCFOC_TASK_T* pMotor)
 {
     if(pMotor->Motor_Flag.bit.motor_enable_flag == 1U)
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
     else
     {
-        HM_PWM_Output_Disable();
+        HAL_MC_PWM_Output_Disable();
         pMotor->Motor_Flow = MOTOR_STATE_PRE;
     }
 }
@@ -383,7 +384,7 @@ void MCFOC_Current_Flow_T(Q32U_ motor_num)
     ST_MCFOC_TASK_T* pMotor = pMCFOC_Task_T[motor_num];
     
     Q32U_ vbus_tmp = 0U;
-    HM_ADC_Data_Read_Vbus(&vbus_tmp);
+    HAL_MC_ADC_Read_Vbus(&vbus_tmp);
     
     if(pMotor->Motor_Error.Motor_Error_Flag.all != 0U)
     {

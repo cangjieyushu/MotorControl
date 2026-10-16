@@ -22,15 +22,15 @@
 
 /*-------------------------- 2. 宏定义 -----------------------------------*/
 //载频切换转速
-#define MOTOR_PWM_FREQ_LOW                  ((Q32I_)(HAL_PWM_HIGH_FREQ*1000.0f))     //Hz，低载频
-#define MOTOR_PWM_FREQ_HIGH                 ((Q32I_)(HAL_PWM_HIGH_FREQ*1000.0f))     //Hz，高载频
+#define MOTOR_PWM_FREQ_LOW                  ((Q32I_)(HW_PWM_HIGH_FREQ*1000.0f))     //Hz，低载频
+#define MOTOR_PWM_FREQ_HIGH                 ((Q32I_)(HW_PWM_HIGH_FREQ*1000.0f))     //Hz，高载频
 #define MOTOR_PWM_FREQ_TL                   (Q14I_FREQ_TO_PU(30.0f))                 //Hz，从高载频切换至低载频
 #define MOTOR_PWM_FREQ_CLR                  (Q14I_FREQ_TO_PU(40.0f))                 //Hz，从低载频切换至高载频
 
 
 //电流采样偏置检测
-#define CURRENT_OFFSET_VOLTAGE_V            (HAL_ADC_CURRENT_OFFSET)                            //V，电流采样偏置电压
-#define CURRENT_OFFSET_lsb                  (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HAL_ADC_SCALE_BIT/HAL_ADC_REF_VOLTAGE_V)    //lsb，电流采样偏置
+#define CURRENT_OFFSET_VOLTAGE_V            (HW_ADC_CURRENT_OFFSET)                            //V，电流采样偏置电压
+#define CURRENT_OFFSET_lsb                  (Q32U_)(CURRENT_OFFSET_VOLTAGE_V*HW_ADC_SCALE/HW_ADC_REF_VOLTAGE)    //lsb，电流采样偏置
 #define CURRENT_OFFSET_TL_lsb               (200U)                                              //lsb，电流采样偏置偏差阈值
 #define CURRENT_OFFSET_MAX_lsb              (CURRENT_OFFSET_lsb + CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置上限
 #define CURRENT_OFFSET_MIN_lsb              (CURRENT_OFFSET_lsb - CURRENT_OFFSET_TL_lsb)        //lsb，电流采样偏置下限

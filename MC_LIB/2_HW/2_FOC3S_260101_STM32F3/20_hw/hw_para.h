@@ -3,7 +3,7 @@
 *     Library/Module Name :              hw
 *     Author :                           CJYS
 *     Create Date :                      2024/1/1
-*     Abstract Description :             硬件电路参数
+*     Abstract Description :             硬件参数
 */
 
 
@@ -16,26 +16,79 @@
 
 
 /*-------------------------- 2. 宏定义 -----------------------------------*/
-//ADC硬件参数设置
-#define HAL_ADC_REF_VOLTAGE_V                   (3.3f)                  //V，ADC参考电平
-#define HAL_ADC_SCALE_BIT                       (4095.0f)               //lsb，ADC精度
+
+/*****时钟配置*****/
+//系统时钟
+#define HW_CLK_CORE_FREQ                        (72000.0f)                              //kHz，系统时钟频率
+#define HW_CLK_PWM_FREQ                         (HW_CLK_CORE_FREQ)                      //kHz，PWM时钟频率
+#define HW_CLK_HTIM_FREQ                        (HW_CLK_CORE_FREQ)                      //kHz，用过零点计数定时器时钟频率
+
+
+//PWM定时器
+#define HW_PWM_PRESCALER                        (1.0f)                                  //分频系数
+#define HW_PWM_PRE_FREQ                         (HW_CLK_PWM_FREQ/HW_PWM_PRESCALER)      //kHz，PWM计数器频率,36M
+
+#define HW_PWM_FREQ_2K                          (2.0f)                                  //kHz，PWM载频
+#define HW_PWM_FREQ_4K                          (4.0f)                                  //kHz，PWM载频
+#define HW_PWM_FREQ_8K                          (8.0f)                                  //kHz，PWM载频
+#define HW_PWM_FREQ_10K                         (10.0f)                                 //kHz，PWM载频
+#define HW_PWM_FREQ_12K                         (12.0f)                                 //kHz，PWM载频
+#define HW_PWM_FREQ_16K                         (16.0f)                                 //kHz，PWM载频
+#define HW_PWM_FREQ_20K                         (20.0f)                                 //kHz，PWM载频
+
+#define HW_PWM_LOW_FREQ                         (HW_PWM_FREQ_12K)
+#define HW_PWM_HIGH_FREQ                        (HW_PWM_FREQ_12K)
+#define HW_PWM_ALL_VALUE                        (HW_PWM_PRE_FREQ/HW_PWM_HIGH_FREQ)
+#define HW_PWM_SET_VALUE                        (Q32U_)(HW_PWM_ALL_VALUE/2.0f)
+
+#define HW_PWM_DEADTIME_TIME                    (1.0f)                                  //us，死区时间
+
+#define HW_CURRENT_LOOP_PRESCALER               (1.0f)//电流环分频
+
+
+//ADC采样时刻设置
+#define HW_ADC_DELAY_TIME                       (1.0f)                  //us，开关延迟时间 + 运放稳定时间
+#define HW_ADC_DELAY_DUTY                       (HW_ADC_DELAY_TIME*HW_PWM_HIGH_FREQ/1000.0f)
+#define HW_ADC_DELAY_VALUE                      (Q32U_)(HW_ADC_DELAY_DUTY*HW_PWM_ALL_VALUE)
+
+#define HW_ADC_SAMPLE_TIME                      (1.0f)                  //us，ADC采样时间
+#define HW_ADC_SAMPLE_DUTY                      (HW_ADC_SAMPLE_TIME*HW_PWM_HIGH_FREQ/1000.0f)
+#define HW_ADC_SAMPLE_VALUE                     (Q32U_)(HW_ADC_SAMPLE_DUTY*HW_PWM_ALL_VALUE)
+
+#define HW_MAX_DUTY                             (1.0f)
+#define HW_MIN_DUTY                             (HW_ADC_DELAY_DUTY + HW_ADC_SAMPLE_DUTY)
+#define HW_MID_DUTY                             (1.0f - HW_MIN_DUTY)
+
+
+//TIM设置
+#define HW_HTIM_PRESCALER                       (72.0f)                                                             //分频系数
+#define HW_HTIM_FREQ                            (Q32U_)(1000.0f*HW_CLK_HTIM_FREQ/(HW_HTIM_PRESCALER))               //Hz，HALL换相时钟频率，1M
+#define HW_HTIM_SET_VALUE                       (0x0000FFFFU)
+
+#define HW_STICK_FREQ                           (1.0f)                                                              //kHz，慢速控制频率
+#define HW_STICK_SET_VALUE                      (Q32U_)(HW_CLK_CORE_FREQ/HW_STICK_FREQ)                            //kHz，慢速控制计数值
+
+
+
+/*****硬件配置*****/
+//ADC参数
+#define HW_ADC_REF_VOLTAGE                      (3.3f)                  //V，ADC参考电平
+#define HW_ADC_SCALE                            (4095.0f)               //lsb，ADC精度
 
 
 //母线电压采样
-#define HAL_ADC_VOLTAGE_RESISTOR_UP             (22.0f)                 //母线电压采样上分压电阻
-#define HAL_ADC_VOLTAGE_RESISTOR_DOWN           (1.00f)                 //母线电压采样下分压电阻
-#define HAL_ADC_VOLTAGE_COEFF                   ((HAL_ADC_VOLTAGE_RESISTOR_UP+HAL_ADC_VOLTAGE_RESISTOR_DOWN)/HAL_ADC_VOLTAGE_RESISTOR_DOWN)
-#define HAL_ADC_VOLTAGE_MAX                     (HAL_ADC_REF_VOLTAGE_V*HAL_ADC_VOLTAGE_COEFF)   //V，最大采样电压
-#define HAL_ADC_VOLTAGE_SCALE                   (HAL_ADC_VOLTAGE_MAX/HAL_ADC_SCALE_BIT)         //V/lsb，电压刻度
+#define HW_ADC_VOLTAGE_RESISTOR_UP              (22.0f)                 //母线电压采样上分压电阻
+#define HW_ADC_VOLTAGE_RESISTOR_DOWN            (1.00f)                 //母线电压采样下分压电阻
+#define HW_ADC_VOLTAGE_COEFF                    ((HW_ADC_VOLTAGE_RESISTOR_UP+HW_ADC_VOLTAGE_RESISTOR_DOWN)/HW_ADC_VOLTAGE_RESISTOR_DOWN)
+#define HW_ADC_VOLTAGE_MAX                      (HW_ADC_REF_VOLTAGE*HW_ADC_VOLTAGE_COEFF)    //V，最大采样电压
 
 
 //相电流采样
-#define HAL_ADC_CURRENT_OFFSET                  (1.65f)                 //V，电流采样偏置电压
-#define HAL_ADC_CURRENT_GAIN                    (8.0f)                  //相电流采样放大倍数
-#define HAL_ADC_CURRENT_RESISTOR                (0.010f)                //Ω，相电流采样电阻
-#define HAL_ADC_CURRENT_COEFF                   (1.0f/(HAL_ADC_CURRENT_RESISTOR*HAL_ADC_CURRENT_GAIN))
-#define HAL_ADC_CURRENT_MAX                     (HAL_ADC_REF_VOLTAGE_V*HAL_ADC_CURRENT_COEFF)   //A，最大采样电流
-#define HAL_ADC_CURRENT_SCALE                   (HAL_ADC_CURRENT_MAX/HAL_ADC_SCALE_BIT)         //A/lsb，电流刻度
+#define HW_ADC_CURRENT_OFFSET                   (1.65f)                 //V，电流采样偏置电压
+#define HW_ADC_CURRENT_GAIN                     (8.0f)                  //相电流采样放大倍数
+#define HW_ADC_CURRENT_RESISTOR                 (0.010f)                //Ω，相电流采样电阻
+#define HW_ADC_CURRENT_COEFF                    (1.0f/(HW_ADC_CURRENT_RESISTOR*HW_ADC_CURRENT_GAIN))
+#define HW_ADC_CURRENT_MAX                      (HW_ADC_REF_VOLTAGE*HW_ADC_CURRENT_COEFF)   //A，最大采样电流
 
 
 #endif /* HW_PARA_H */

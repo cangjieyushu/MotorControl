@@ -1099,14 +1099,26 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\20_hw\hw_clk.h</PathWithFileName>
-      <FilenameWithoutPath>hw_clk.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\20_hw\hw_fun.h</PathWithFileName>
+      <FilenameWithoutPath>hw_fun.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
       <FileNumber>71</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\20_hw\hw_lcd.h</PathWithFileName>
+      <FilenameWithoutPath>hw_lcd.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>72</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1118,7 +1130,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>72</FileNumber>
+      <FileNumber>73</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1131,23 +1143,11 @@
   </Group>
 
   <Group>
-    <GroupName>21_HW_BSP</GroupName>
+    <GroupName>210_BSP_SYS</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>73</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp.h</PathWithFileName>
-      <FilenameWithoutPath>bsp.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>74</FileNumber>
@@ -1155,8 +1155,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_adc.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_adc.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1167,8 +1167,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_adc.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_adc.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1179,8 +1179,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_clk.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_clk.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_clk.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_clk.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1191,8 +1191,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_clk.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_clk.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_clk.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_clk.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1203,8 +1203,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_cmp.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_cmp.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_dma.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_dma.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1215,8 +1215,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_cmp.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_cmp.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_dma.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_dma.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1227,8 +1227,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_dma.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_dma.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_gpio.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_gpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1239,8 +1239,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_dma.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_dma.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_gpio.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_gpio.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1251,8 +1251,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_gpio.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_gpio.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_isr.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_isr.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1263,8 +1263,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_gpio.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_gpio.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_isr.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_isr.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1275,8 +1275,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_isr.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_isr.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_uart.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1287,128 +1287,336 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_isr.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_isr.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\210_bsp_sys\bsp_sys_uart.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_sys_uart.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>211_BSP_MC</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>86</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_opa.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_opa.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>87</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_opa.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_opa.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>88</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_pwm.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_pwm.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_adc.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_adc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>89</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_pwm.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_pwm.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_adc.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_adc.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>90</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_tim.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_tim.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_cmp.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_cmp.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>91</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_tim.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_tim.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_cmp.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_cmp.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>92</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_usart.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_usart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_dac.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_dac.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>93</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_usart.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_usart.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_dac.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_dac.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>94</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_wdg.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_wdg.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_dma.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_dma.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>95</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\bsp_wdg.h</PathWithFileName>
-      <FilenameWithoutPath>bsp_wdg.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_dma.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_dma.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>96</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_gpio.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_gpio.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>97</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_gpio.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_gpio.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>98</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_opamp.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_opamp.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>99</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_opamp.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_opamp.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>100</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_pwm.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_pwm.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>101</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_pwm.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_pwm.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>102</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_tim.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_tim.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>103</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\211_bsp_mc\bsp_mc_tim.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_mc_tim.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>212_BSP_LCD</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>104</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>105</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>106</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_dma.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_dma.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>107</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_dma.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_dma.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>108</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_gpio.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_gpio.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>109</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_gpio.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_gpio.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>110</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_spi.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_spi.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>111</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\21_bsp\212_bsp_lcd\bsp_lcd_spi.h</PathWithFileName>
+      <FilenameWithoutPath>bsp_lcd_spi.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1421,8 +1629,20 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>96</FileNumber>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>112</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\2_HW\2_SQ_260101_GD32E230\22_hal\hal_lcd.h</PathWithFileName>
+      <FilenameWithoutPath>hal_lcd.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>113</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1433,8 +1653,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>97</FileNumber>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>114</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1453,8 +1673,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>98</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>115</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1465,8 +1685,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>99</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>116</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1477,8 +1697,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>100</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>117</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1489,8 +1709,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>101</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>118</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1501,8 +1721,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>102</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>119</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1513,8 +1733,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>103</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>120</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1525,8 +1745,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>104</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>121</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1537,8 +1757,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>105</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>122</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1549,8 +1769,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>106</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>123</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1561,8 +1781,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>107</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>124</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1573,8 +1793,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>108</FileNumber>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>125</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1593,8 +1813,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>109</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>126</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1605,8 +1825,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>110</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>127</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1617,8 +1837,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>111</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>128</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1629,8 +1849,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>112</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>129</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1641,8 +1861,32 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>113</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>130</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\4_SYS\sys_font.c</PathWithFileName>
+      <FilenameWithoutPath>sys_font.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>131</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\4_SYS\sys_font.h</PathWithFileName>
+      <FilenameWithoutPath>sys_font.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>132</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1653,8 +1897,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>114</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>133</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1665,8 +1909,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>115</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>134</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1677,8 +1921,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>116</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>135</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1689,8 +1933,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>117</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>136</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1701,8 +1945,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>118</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>137</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1713,8 +1957,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>119</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>138</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1725,8 +1969,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>120</FileNumber>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>139</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1740,31 +1984,31 @@
 
   <Group>
     <GroupName>5_MAIN</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>121</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>140</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\5_MAIN\Main.c</PathWithFileName>
-      <FilenameWithoutPath>Main.c</FilenameWithoutPath>
+      <PathWithFileName>.\5_MAIN\main.c</PathWithFileName>
+      <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>122</FileNumber>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>141</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\5_MAIN\Main.h</PathWithFileName>
-      <FilenameWithoutPath>Main.h</FilenameWithoutPath>
+      <PathWithFileName>.\5_MAIN\main.h</PathWithFileName>
+      <FilenameWithoutPath>main.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -1,0 +1,45 @@
+/*
+*     File Name :                        bsp_mc_adc
+*     Library/Module Name :              bsp
+*     Author :                           CJYS
+*     Create Date :                      2024/1/1
+*     Abstract Description :             ADC初始化
+*                                        三 ADC 同步采样三相电流 + ADC1 规则组 DMA 搬运电压/温度
+*/
+
+
+#ifndef BSP_MC_ADC_H
+#define BSP_MC_ADC_H
+
+
+/*-------------------------- 1. 头文件包含 -------------------------------*/
+#include "hw_map.h"
+#include "hw_para.h"
+
+
+/*-------------------------- 2. 宏定义 -----------------------------------*/
+#define BSP_MC_ADC_DATA_READ_VR     ((Q32U_)HW_MC_ADC->DATA3)
+#define BSP_MC_ADC_DATA_READ_VBG    ((Q32U_)HW_MC_ADC->DATA4)
+
+
+/*-------------------------- 3. 枚举/结构体 ------------------------------*/
+
+
+/*-------------------------- 4. 外部全局变量声明 --------------------------*/
+/* 规则组 DMA 缓冲区：[0] = 外部温度   [1] = 母线电压 */
+extern Q32U_ BSP_ADC_SYSTEM_BUFFER[10];
+
+
+/*-------------------------- 5. 接口函数声明 ------------------------------*/
+/*
+Function: BSP_MC_ADC_Init
+Description: 电机控制用ADC初始化（三 ADC 注入组配置 + 规则组）
+Input: 无
+Output: 无
+Return: 无
+Author: CJYS
+*/
+void BSP_MC_ADC_Init(void);
+
+
+#endif /* BSP_MC_ADC_H */

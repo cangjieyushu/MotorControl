@@ -12,7 +12,7 @@
 
 
 /*-------------------------- 2. ±‰¡ø ---------------------------------*/
-#if(MOTOR_CONTROL_MODE == MOTOR_CONTROL_FOC_F)
+#if(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_FOC_F)
 #include "mcfoc_para_f.h"
 static ST_MCFOC_TASK_F* pMC_API[3] = 
 {
@@ -21,7 +21,7 @@ static ST_MCFOC_TASK_F* pMC_API[3] =
     &MCFOC_Task_F
 };
 
-#elif(MOTOR_CONTROL_MODE == MOTOR_CONTROL_FOC_T)
+#elif(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_FOC_T)
 #include "mcfoc_para_t.h"
 static ST_MCFOC_TASK_T* pMC_API[3] = 
 {
@@ -30,7 +30,7 @@ static ST_MCFOC_TASK_T* pMC_API[3] =
     &MCFOC_Task_T
 };
 
-#elif(MOTOR_CONTROL_MODE == MOTOR_CONTROL_SQ)
+#elif(HW_MC_MOTOR_CONTROL_MODE == HW_MC_MOTOR_CONTROL_SQ)
 #include "mcsq_para.h"
 static ST_MCSQ_TASK* pMC_API[3] = 
 {
