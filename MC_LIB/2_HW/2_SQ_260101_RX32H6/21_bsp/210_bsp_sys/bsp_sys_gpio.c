@@ -1,0 +1,225 @@
+/**
+ * @file    bsp_sys_gpio.c
+ * @brief   系统 GPIO 初始化
+ * @author  CJYS
+ * @date    2024/1/1
+ */
+
+/* ======================== 1. Header ======================= */
+#include "bsp_sys_gpio.h"
+
+/* ======================== 2. Defines ====================== */
+
+/* ======================== 3. Typedefs ===================== */
+
+/* ======================== 4. Globals ====================== */
+
+/* ======================== 5. Function Prototypes ========== */
+
+/* ======================== 6. Functions ==================== */
+
+/**
+ * @brief  输出引脚初始化（LED / 测试点 / RS485 EN）
+ */
+static void BSP_SYS_GPIO_InitOutput(void)
+{
+    /* 在此添加 LED、测试点、RS485_EN 的 GPIO 初始化 */
+}
+
+/**
+ * @brief  输入引脚初始化（按键）
+ */
+static void BSP_SYS_GPIO_InitInput(void)
+{
+    /* 在此添加按键的 GPIO 初始化 */
+}
+
+/**
+ * @brief  系统 GPIO 初始化入口
+ */
+void BSP_SYS_GPIO_Init(void)
+{
+    BSP_SYS_GPIO_InitOutput();
+    BSP_SYS_GPIO_InitInput();
+}
+
+/**
+ * @brief  读取启动键状态（RX 方波板无独立 START，恒返回 1）
+ * @return 1 = 松开
+ */
+Q08U_ BSP_SYS_GPIO_Read_START_State(void)
+{
+    return 1U;
+}
+
+/**
+ * @brief  读取停止键状态（RX 方波板无独立 STOP，恒返回 1）
+ * @return 1 = 松开
+ */
+Q08U_ BSP_SYS_GPIO_Read_STOP_State(void)
+{
+    return 1U;
+}
+
+/**
+ * @brief  读取按键 UP（预留，恒返回 1）
+ * @return 1
+ */
+Q08U_ BSP_SYS_GPIO_Read_Key_UP(void)
+{
+    return 1U;
+}
+
+/**
+ * @brief  读取按键 DOWN（预留，恒返回 1）
+ * @return 1
+ */
+Q08U_ BSP_SYS_GPIO_Read_Key_DOWN(void)
+{
+    return 1U;
+}
+
+/**
+ * @brief  读取按键 MENU（预留，恒返回 1）
+ * @return 1
+ */
+Q08U_ BSP_SYS_GPIO_Read_Key_MENU(void)
+{
+    return 1U;
+}
+
+/**
+ * @brief  读取按键 OK（预留，恒返回 1）
+ * @return 1
+ */
+Q08U_ BSP_SYS_GPIO_Read_Key_OK(void)
+{
+    return 1U;
+}
+
+/* ======================== LED 控制接口 ==================== */
+
+/**
+ * @brief  LED1 亮（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_LED1_Set(void)
+{
+
+}
+
+/**
+ * @brief  LED1 灭（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_LED1_Clr(void)
+{
+
+}
+
+/**
+ * @brief  LED2 亮（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_LED2_Set(void)
+{
+
+}
+
+/**
+ * @brief  LED2 灭（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_LED2_Clr(void)
+{
+
+}
+
+/**
+ * @brief  红色 LED 亮（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_RED_Set(void)
+{
+
+}
+
+/**
+ * @brief  红色 LED 灭（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_RED_Clr(void)
+{
+
+}
+
+/**
+ * @brief  黄色 LED 亮（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_YEW_Set(void)
+{
+
+}
+
+/**
+ * @brief  黄色 LED 灭（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_YEW_Clr(void)
+{
+
+}
+
+/**
+ * @brief  绿色 LED 亮（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_GRE_Set(void)
+{
+
+}
+
+/**
+ * @brief  绿色 LED 灭（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_GRE_Clr(void)
+{
+
+}
+
+/* ======================== 测试点接口 ====================== */
+
+/**
+ * @brief  测试点 1 置高（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_TEST1_Set(void)
+{
+
+}
+
+/**
+ * @brief  测试点 1 置低（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_TEST1_Clr(void)
+{
+
+}
+
+/**
+ * @brief  测试点 2 置高（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_TEST2_Set(void)
+{
+
+}
+
+/**
+ * @brief  测试点 2 置低（预留，RX 方波板无对应引脚）
+ */
+void BSP_SYS_GPIO_TEST2_Clr(void)
+{
+
+}
+
+/* ======================== RS485 方向控制 ================== */
+
+/**
+ * @brief  RS485 方向控制（RX 方波板无方向脚，空实现）
+ * @param  state  1 = 发送方向，0 = 接收方向
+ */
+void BSP_SYS_GPIO_TXEN(Q32U_ state)
+{
+    (void)state;
+}

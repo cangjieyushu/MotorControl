@@ -1,0 +1,92 @@
+/**
+ * @file    bsp_mc_cmp.c
+ * @brief   CMP 窗口比较器初始化
+ *          - 三组主比较器（COMP1/3/5）
+ *          - 从比较器（COMP2/4/6）窗口模式当前未启用
+ * @author  CJYS
+ * @date    2024/1/1
+ */
+
+/* ======================== 1. Header ======================= */
+#include "bsp_mc_cmp.h"
+
+/* ======================== 2. Defines ====================== */
+
+/* ======================== 3. Typedefs ===================== */
+
+/* ======================== 4. Globals ====================== */
+
+/* ======================== 5. Function Prototypes ========== */
+
+/* ======================== 6. Functions ==================== */
+
+/**
+ * @brief  配置主比较器
+ * @param  compSel     比较器选择
+ * @param  invert      反相输入端配置
+ * @param  nonInvert   同相输入端配置
+ * @param  output      输出目标
+ * @param  outputPol   输出极性
+ */
+static void BSP_MC_CMP_ConfigMaster(uint32_t compSel,
+                                    uint32_t invert,
+                                    uint32_t nonInvert,
+                                    uint32_t output,
+                                    uint32_t outputPol)
+{
+    COMP_InitTypeDef COMP_InitStructure;
+
+    COMP_InitStructure.COMP_InvertingInput    = invert;
+    COMP_InitStructure.COMP_NonInvertingInput = nonInvert;
+    COMP_InitStructure.COMP_Output            = output;
+    COMP_InitStructure.COMP_BlankingSrce      = COMP_BlankingSrce_None;
+    COMP_InitStructure.COMP_OutputPol         = outputPol;
+    COMP_InitStructure.COMP_Hysteresis        = COMP_Hysteresis_Low;
+    COMP_InitStructure.COMP_Mode              = COMP_Mode_HighSpeed;
+
+    COMP_Init(compSel, &COMP_InitStructure);
+    COMP_Cmd(compSel, ENABLE);
+}
+
+//static void BSP_MC_CMP_ConfigSlave(uint32_t compSel,
+//                                   uint32_t invert,
+//                                   uint32_t output,
+//                                   uint32_t outputPol)
+//{
+//    COMP_InitTypeDef COMP_InitStructure;
+//
+//    COMP_InitStructure.COMP_InvertingInput    = invert;
+//    COMP_InitStructure.COMP_NonInvertingInput = COMP_NonInvertingInput_IO1;   /* 窗口模式下此字段被忽略 */
+//    COMP_InitStructure.COMP_Output            = output;
+//    COMP_InitStructure.COMP_BlankingSrce      = COMP_BlankingSrce_None;
+//    COMP_InitStructure.COMP_OutputPol         = outputPol;
+//    COMP_InitStructure.COMP_Hysteresis        = COMP_Hysteresis_Low;
+//    COMP_InitStructure.COMP_Mode              = COMP_Mode_HighSpeed;
+//
+//    COMP_Init(compSel, &COMP_InitStructure);
+//
+//    /* 使能窗口模式 */
+//    COMP_WindowCmd(compSel, ENABLE);
+//
+//    COMP_Cmd(compSel, ENABLE);
+//}
+
+/**
+ * @brief  CMP 窗口比较器初始化（三组主比较器）
+ */
+void BSP_MC_CMP_Init(void)
+{
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+
+    /* 组 1：COMP1(主) + COMP2(从) */
+    BSP_MC_CMP_ConfigMaster(HW_MC_OCP_COMP1, HW_MC_OCP_COMP1_INVERT, HW_MC_OCP_COMP1_NONINVERT, HW_MC_OCP_COMP1_OUTPUT, HW_MC_OCP_COMP1_OUTPUTPOL);
+//    BSP_MC_CMP_ConfigSlave(HW_MC_OCP_COMP2, HW_MC_OCP_COMP2_INVERT, HW_MC_OCP_COMP2_OUTPUT, HW_MC_OCP_COMP2_OUTPUTPOL);
+
+    /* 组 2：COMP3(主) + COMP4(从) */
+    BSP_MC_CMP_ConfigMaster(HW_MC_OCP_COMP3, HW_MC_OCP_COMP3_INVERT, HW_MC_OCP_COMP3_NONINVERT, HW_MC_OCP_COMP3_OUTPUT, HW_MC_OCP_COMP3_OUTPUTPOL);
+//    BSP_MC_CMP_ConfigSlave(HW_MC_OCP_COMP4, HW_MC_OCP_COMP4_INVERT, HW_MC_OCP_COMP4_OUTPUT, HW_MC_OCP_COMP4_OUTPUTPOL);
+
+    /* 组 3：COMP5(主) + COMP6(从) */
+    BSP_MC_CMP_ConfigMaster(HW_MC_OCP_COMP5, HW_MC_OCP_COMP5_INVERT, HW_MC_OCP_COMP5_NONINVERT, HW_MC_OCP_COMP5_OUTPUT, HW_MC_OCP_COMP5_OUTPUTPOL);
+//    BSP_MC_CMP_ConfigSlave(HW_MC_OCP_COMP6, HW_MC_OCP_COMP6_INVERT, HW_MC_OCP_COMP6_OUTPUT, HW_MC_OCP_COMP6_OUTPUTPOL);
+}
